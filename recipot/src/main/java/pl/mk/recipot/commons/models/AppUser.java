@@ -26,8 +26,9 @@ public class AppUser {
 	private String email;
 	private String login;
 	private String password;
-	private String role;
 	private Boolean verified;
+	private String avatarImageSrc;
+	private String selfDescription;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(
