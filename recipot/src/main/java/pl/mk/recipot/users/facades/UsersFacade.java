@@ -3,6 +3,7 @@ package pl.mk.recipot.users.facades;
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.commons.models.AppUser;
+import pl.mk.recipot.commons.models.Role;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.users.services.IUsersService;
 
@@ -27,6 +28,11 @@ public class UsersFacade implements IUsersFacade {
 	@Override
 	public AppUser getUserByLogin(String login) {
 		return usersService.getUserByLogin(login);
+	}
+
+	@Override
+	public Role getRoleByName(String name) {
+		return usersService.getRoleByName(name);
 	}
 
 }
