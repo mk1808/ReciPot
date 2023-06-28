@@ -3,10 +3,11 @@ package pl.mk.recipot.users.services;
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.commons.models.AppUser;
+import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.users.repositories.IUsersRepository;
 
 @Service
-public class UsersService implements IUsersService {
+public class UsersService implements IUsersService, ICrudService<AppUser> {
 
 	private IUsersRepository usersRepository;
 	
@@ -21,24 +22,24 @@ public class UsersService implements IUsersService {
 	}
 
 	@Override
-	public <AppUser> AppUser save(AppUser appUser) {
+	public AppUser save(AppUser appUser) {
 		return usersRepository.save(appUser);
 	}
 
 	@Override
-	public <T> T update(T obj, Long id) {
+	public AppUser update(AppUser obj, Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <T> T get(Long id) {
+	public AppUser get(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <T> void delete(Long id) {
+	public void delete(Long id) {
 		// TODO Auto-generated method stub
 		
 	}
