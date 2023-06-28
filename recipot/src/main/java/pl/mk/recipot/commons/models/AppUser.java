@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 import jakarta.validation.constraints.Email;
+import lombok.Builder;
 import lombok.Data;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -16,6 +17,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.JoinColumn;
 
+@Builder
 @Data
 @Entity
 public class AppUser {
@@ -28,7 +30,7 @@ public class AppUser {
 	private String email;
 	private String login;
 	private String password;
-	private Boolean verified;
+	private Boolean verified = false;
 	private String avatarImageSrc;
 	private String selfDescription;
 

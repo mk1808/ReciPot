@@ -1,8 +1,11 @@
 package pl.mk.recipot.users.services;
 
+import org.springframework.stereotype.Service;
+
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.users.repositories.IUsersRepository;
 
+@Service
 public class UsersService implements IUsersService {
 
 	private IUsersRepository usersRepository;
