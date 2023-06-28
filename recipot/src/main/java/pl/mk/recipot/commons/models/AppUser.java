@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 import jakarta.validation.constraints.Email;
+import lombok.Data;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,6 +17,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.JoinColumn;
 
 @Entity
+@Data
 public class AppUser {
 	@Id
 	@GeneratedValue

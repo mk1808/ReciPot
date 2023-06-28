@@ -11,12 +11,9 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Role {
-    @Id
-    @GeneratedValue
-    @UuidGenerator
-    private UUID id;
-    
-    private String name;
-
+public class SharedRecipe {
+	@Id
+	@GeneratedValue
+	@UuidGenerator
+	private UUID id;
 }

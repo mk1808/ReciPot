@@ -11,12 +11,9 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Role {
+public class RecipeHashTag {
     @Id
     @GeneratedValue
     @UuidGenerator
     private UUID id;
-    
-    private String name;
-
 }

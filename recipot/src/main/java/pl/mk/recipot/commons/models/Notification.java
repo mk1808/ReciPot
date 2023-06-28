@@ -11,12 +11,9 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Role {
+public class Notification {
     @Id
     @GeneratedValue
     @UuidGenerator
     private UUID id;
-    
-    private String name;
-
 }
