@@ -12,8 +12,10 @@ import lombok.Data;
 @Entity
 @Data
 public class HashTag {
-    @Id
-    @GeneratedValue
-    @UuidGenerator
-    private UUID id;
+	@Id
+	@GeneratedValue
+	@UuidGenerator
+	private UUID id;
+
+	private String name;
 }

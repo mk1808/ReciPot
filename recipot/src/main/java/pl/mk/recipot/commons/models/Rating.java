@@ -18,16 +18,16 @@ import lombok.Data;
 @Entity
 @Data
 public class Rating {
-    @Id
-    @GeneratedValue
-    @UuidGenerator
-    private UUID id;
-    
+	@Id
+	@GeneratedValue
+	@UuidGenerator
+	private UUID id;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "recipe_id")
 	private Recipe recipe;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "author_id")
 	private AppUser author;
 

@@ -28,7 +28,7 @@ public class Comment {
 	@JoinColumn(name = "recipe_id")
 	private Recipe recipe;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "author_id")
 	private AppUser author;
 

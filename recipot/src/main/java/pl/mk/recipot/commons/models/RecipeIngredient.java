@@ -15,19 +15,19 @@ import lombok.Data;
 @Entity
 @Data
 public class RecipeIngredient {
-    @Id
-    @GeneratedValue
-    @UuidGenerator
-    private UUID id;
-    
+	@Id
+	@GeneratedValue
+	@UuidGenerator
+	private UUID id;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ingredient_id")
 	private Ingredient ingredient;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "recipe_id")
 	private Recipe recipe;
-    
-    private double amount;
-    private String unit;
+
+	private double amount;
+	private String unit;
 }
