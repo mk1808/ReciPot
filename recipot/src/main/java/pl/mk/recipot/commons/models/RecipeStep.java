@@ -25,6 +25,7 @@ public class RecipeStep {
 	@JoinColumn(name = "recipe_id")
 	private Recipe recipe;
 
+	@Column(name = "step_order")
 	private int order;
 	@Column(length = 1000)
 	private String description;
