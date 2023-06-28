@@ -10,7 +10,7 @@ import pl.mk.recipot.auth.services.IAuthService;
 import pl.mk.recipot.commons.dtos.UserRegisterDto;
 import pl.mk.recipot.commons.models.AppUser;
 
-
+@RestController
 public class AuthController implements IAuthController {
 	
 	private IAuthService authService;

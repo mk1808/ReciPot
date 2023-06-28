@@ -6,8 +6,10 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 import jakarta.validation.constraints.Email;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -20,6 +22,8 @@ import jakarta.persistence.JoinColumn;
 @Builder
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class AppUser {
 	@Id
 	@GeneratedValue

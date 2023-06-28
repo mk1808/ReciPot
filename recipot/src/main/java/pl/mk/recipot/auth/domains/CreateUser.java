@@ -1,21 +1,18 @@
 package pl.mk.recipot.auth.domains;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import pl.mk.recipot.commons.dtos.UserRegisterDto;
 import pl.mk.recipot.commons.models.AppUser;
 
 public class CreateUser {
-	public AppUser execute(UserRegisterDto dto, String password) {
+	public AppUser execute(UserRegisterDto dto, PasswordEncoder passwordEncoder) {
 		return AppUser.builder()
 		.email(dto.email)
 		.login(dto.login)
-		.password(password)
+		.password(passwordEncoder.encode(dto.password))
+		.verified(false)
 		.build();
-		
-	}
-	
-	private String getPass(String password) {
-		return password;
-		//passwordEncoder.encode(userModel.getPassword())
 	}
 
 }

@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import pl.mk.recipot.commons.dtos.UserRegisterDto;
 import pl.mk.recipot.commons.models.AppUser;
 
-@RestController
+
 @RequestMapping("/api/auth")
 public interface IAuthController {
 	
