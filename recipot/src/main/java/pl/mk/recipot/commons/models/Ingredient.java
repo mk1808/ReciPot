@@ -11,12 +11,11 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Role {
+public class Ingredient {
 	@Id
 	@GeneratedValue
 	@UuidGenerator
 	private UUID id;
 
 	private String name;
-
 }
