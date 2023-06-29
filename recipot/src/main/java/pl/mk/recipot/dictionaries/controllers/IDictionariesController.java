@@ -1,13 +1,14 @@
 package pl.mk.recipot.dictionaries.controllers;
 
-import org.springframework.data.domain.Page;
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.mk.recipot.commons.models.Category;
-import pl.mk.recipot.dictionaries.dtos.CategoriesFilterDto;
+import pl.mk.recipot.dictionaries.dtos.CategoryDto;
 
 @RequestMapping("/api/dictionaries")
 public interface IDictionariesController {
@@ -16,5 +17,5 @@ public interface IDictionariesController {
 	Category createCategory(@RequestBody Category category);
 
 	@GetMapping("/categories")
-	Page<Category> getAllCategories(CategoriesFilterDto filterDto);
+	List<CategoryDto> getAllCategories();
 }

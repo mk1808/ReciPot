@@ -1,24 +1,24 @@
 package pl.mk.recipot.dictionaries.controllers;
 
-import org.springframework.data.domain.Page;
+import java.util.List;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import pl.mk.recipot.commons.models.Category;
 import pl.mk.recipot.commons.services.ICrudService;
-import pl.mk.recipot.commons.services.IFilterService;
-import pl.mk.recipot.dictionaries.dtos.CategoriesFilterDto;
+import pl.mk.recipot.dictionaries.dtos.CategoryDto;
+import pl.mk.recipot.dictionaries.services.IDictionariesService;
 
 @RestController
 public class DictionariesController implements IDictionariesController {
 
 	private ICrudService<Category> categoryCrudService;
-	private IFilterService<Category, CategoriesFilterDto> categoriesFilterService;
+	private IDictionariesService dictionaryService;
 
-	public DictionariesController(ICrudService<Category> categoryCrudService,
-			IFilterService<Category, CategoriesFilterDto> categoriesFilterService) {
+	public DictionariesController(ICrudService<Category> categoryCrudService, IDictionariesService dictionaryService) {
 		super();
 		this.categoryCrudService = categoryCrudService;
-		this.categoriesFilterService = categoriesFilterService;
+		this.dictionaryService = dictionaryService;
 	}
 
 	@Override
@@ -27,8 +27,8 @@ public class DictionariesController implements IDictionariesController {
 	}
 
 	@Override
-	public Page<Category> getAllCategories(CategoriesFilterDto filterDto) {
-		return categoriesFilterService.filter(filterDto);
+	public List<CategoryDto> getAllCategories() {
+		return dictionaryService.getHierarchicalCategoriesList();
 	}
 
 }
