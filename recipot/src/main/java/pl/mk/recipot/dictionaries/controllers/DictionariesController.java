@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import pl.mk.recipot.commons.enums.RecipeRequiredEffort;
 import pl.mk.recipot.commons.models.Category;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.dictionaries.dtos.CategoryDto;
@@ -29,6 +30,11 @@ public class DictionariesController implements IDictionariesController {
 	@Override
 	public List<CategoryDto> getAllCategories() {
 		return dictionaryService.getHierarchicalCategoriesList();
+	}
+
+	@Override
+	public List<RecipeRequiredEffort> getAllRequiredEfforts() {
+		return dictionaryService.getAllRequiredEfforts();
 	}
 
 }
