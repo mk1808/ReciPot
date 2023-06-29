@@ -1,5 +1,7 @@
 package pl.mk.recipot.commons.services;
 
-public interface IFilterService {
+import org.springframework.data.domain.Page;
 
+public interface IFilterService<T, V> {
+	Page<T> filter(V filterObject);
 }
