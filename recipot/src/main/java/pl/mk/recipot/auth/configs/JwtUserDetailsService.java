@@ -13,19 +13,22 @@ import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.users.services.UsersService;
 
 @Service
-public class JwtUserDetailsService implements UserDetailsService { 
-	@Autowired
+public class JwtUserDetailsService implements UserDetailsService {
+	
 	private UsersService usersService;
-   @Override 
-   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-      if ("randomuser123".equals(username)) { 
-    	  AppUser appUser = usersService.getUserByLogin(username);
-    	  User user = new User(appUser.getLogin(), 
-    			  appUser.getPassword(), 
-            new ArrayList<>()); 
-         return user;
-      } else { 
-         throw new UsernameNotFoundException("User not found with username: " + username); 
-      } 
-   } 
+	
+	public JwtUserDetailsService(UsersService usersService) {
+		super();
+		this.usersService = usersService;
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		AppUser appUser = usersService.getUserByLogin(username);
+		if (appUser != null) {
+			return new User(appUser.getLogin(), appUser.getPassword(), new ArrayList<>());
+		} else {
+			throw new UsernameNotFoundException("User not found with username: " + username);
+		}
+	}
 }
