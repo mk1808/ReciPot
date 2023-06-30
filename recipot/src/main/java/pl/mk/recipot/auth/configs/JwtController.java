@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.jsonwebtoken.Jwts;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import pl.mk.recipot.commons.dtos.JWTDto;
 import pl.mk.recipot.commons.dtos.UserLoginDto;
 
@@ -30,7 +33,7 @@ public class JwtController {
 	private PasswordEncoder passwordEncoder;
 
    @PostMapping("/login3")
-   public ResponseEntity createToken(@RequestBody UserLoginDto request) throws Exception {
+   public ResponseEntity createToken(@RequestBody UserLoginDto request, HttpServletResponse response) throws Exception {
 	  System.out.print("test");
       try {
          authenticationManager.authenticate(
@@ -45,6 +48,12 @@ public class JwtController {
       }
       final JwtUserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
       final String jwtToken = tokenManager.generateJwtToken(userDetails);
+   
+      Cookie jwtCookie = new Cookie("token", jwtToken);
+      jwtCookie.setMaxAge(600000);
+      response.addCookie(jwtCookie);
+      
       return ResponseEntity.ok(new JWTDto(jwtToken));
+      
    }
 }
