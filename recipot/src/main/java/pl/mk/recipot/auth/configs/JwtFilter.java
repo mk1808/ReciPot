@@ -36,6 +36,9 @@ public class JwtFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		String header = request.getHeader(AUTH_HEADER);
 		String token = getToken(request.getHeader(AUTH_HEADER));
+		if (token == null) {
+			token = new JwtSecurityUtils().getToken(request);
+		}
 		String username = getUsernameFromToken(token);
 		
 		authenticate(username, request, token);
