@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import pl.mk.recipot.commons.dtos.JWTDto;
+import pl.mk.recipot.commons.dtos.UserLoginDto;
+
 @RestController
 @CrossOrigin
 public class JwtController {
@@ -25,7 +28,7 @@ public class JwtController {
    @Autowired
 	private PasswordEncoder passwordEncoder;
    @PostMapping("/login3")
-   public ResponseEntity createToken(@RequestBody JwtRequestModel request) throws Exception {
+   public ResponseEntity createToken(@RequestBody UserLoginDto request) throws Exception {
 	  System.out.print("test");
       try {
          authenticationManager.authenticate(
@@ -40,6 +43,6 @@ public class JwtController {
       }
       final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
       final String jwtToken = tokenManager.generateJwtToken(userDetails);
-      return ResponseEntity.ok(new JwtResponseModel(jwtToken));
+      return ResponseEntity.ok(new JWTDto(jwtToken));
    }
 }
