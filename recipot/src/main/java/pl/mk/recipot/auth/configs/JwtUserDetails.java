@@ -1,0 +1,76 @@
+package pl.mk.recipot.auth.configs;
+
+import java.util.*;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import pl.mk.recipot.commons.models.AppUser;
+import pl.mk.recipot.commons.models.Role;
+ 
+public class JwtUserDetails implements UserDetails {
+ 
+    private AppUser user;
+    private User user1;
+    
+    
+     
+    public JwtUserDetails(AppUser user) {
+		super();
+		this.user = user;
+	}
+
+
+
+	public JwtUserDetails(User user1) {
+		super();
+		this.user1 = user1;
+	}
+
+
+
+	@Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<Role> roles = user.getRoles();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+         
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+         
+        return authorities;
+    }
+ 
+    @Override
+    public String getPassword() {
+        return user.getPassword();
+    }
+ 
+    @Override
+    public String getUsername() {
+        return user.getLogin();
+    }
+ 
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+ 
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+ 
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+ 
+    @Override
+    public boolean isEnabled() {
+        return true;// user.getVerified();
+    }
+ 
+}

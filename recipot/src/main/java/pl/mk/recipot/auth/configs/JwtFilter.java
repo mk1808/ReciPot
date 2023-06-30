@@ -34,7 +34,7 @@ public class JwtFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-
+		String header = request.getHeader(AUTH_HEADER);
 		String token = getToken(request.getHeader(AUTH_HEADER));
 		String username = getUsernameFromToken(token);
 		
@@ -47,7 +47,8 @@ public class JwtFilter extends OncePerRequestFilter {
 			return true;
 		}
 		System.out.println("Bearer String not found in token");
-		throw new RuntimeException();
+		//throw new RuntimeException();
+		return false;
 	}
 	
 	private String getToken(String tokenHeader) {
@@ -69,7 +70,7 @@ public class JwtFilter extends OncePerRequestFilter {
 	
 	private void authenticate(String username, HttpServletRequest request, String token) {
 		if (null != username && SecurityContextHolder.getContext().getAuthentication() == null) {
-			UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+			JwtUserDetails userDetails = userDetailsService.loadUserByUsername(username);
 			if (tokenManager.validateJwtToken(token, userDetails)) {
 				UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
 						userDetails, null, userDetails.getAuthorities());

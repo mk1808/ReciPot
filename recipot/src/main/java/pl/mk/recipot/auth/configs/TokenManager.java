@@ -23,7 +23,7 @@ public class TokenManager {
    @Value("${secret}") 
    private String jwtSecret; 
    
-   public String generateJwtToken(UserDetails userDetails) { 
+   public String generateJwtToken(JwtUserDetails userDetails) { 
       Map<String, Object> claims = new HashMap<>(); 
       
       return Jwts.builder().setClaims(claims).setSubject(userDetails.getUsername()) 
@@ -32,7 +32,7 @@ public class TokenManager {
     	         .signWith(SignatureAlgorithm.HS512, jwtSecret).compact(); 
    } 
    
-   public Boolean validateJwtToken(String token, UserDetails userDetails) { 
+   public Boolean validateJwtToken(String token, JwtUserDetails userDetails) { 
       String username = getUsernameFromToken(token); 
       Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
       Boolean isTokenExpired = claims.getExpiration().before(new Date()); 
