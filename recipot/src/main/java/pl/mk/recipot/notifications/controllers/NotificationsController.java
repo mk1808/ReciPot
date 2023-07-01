@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import pl.mk.recipot.commons.dtos.Response;
+import pl.mk.recipot.commons.factories.OkResponseFactory;
 import pl.mk.recipot.commons.models.Notification;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.notifications.dtos.NotificationDto;
@@ -26,13 +27,13 @@ public class NotificationsController implements INotificationsController {
 	}
 
 	@Override
-	public List<NotificationDto> getLastNotifications(Date dateSince) {
-		return notificationsService.getLastNotifications(dateSince);
+	public ResponseEntity<Response<List<NotificationDto>>> getLastNotifications(Date dateSince) {
+		return new OkResponseFactory().createResponse(notificationsService.getLastNotifications(dateSince));
 	}
 
 	@Override
-	public Notification createNotification(Notification notification) {
-		return notificationsCrudService.save(notification);
+	public ResponseEntity<Response<Notification>> createNotification(Notification notification) {
+		return new OkResponseFactory().createResponse(notificationsCrudService.save(notification));
 	}
 
 	@Override
