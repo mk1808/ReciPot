@@ -3,10 +3,13 @@ package pl.mk.recipot.dictionaries.controllers;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import pl.mk.recipot.commons.dtos.Response;
 import pl.mk.recipot.commons.enums.RecipeDifficulty;
 import pl.mk.recipot.commons.enums.RecipeRequiredEffort;
+import pl.mk.recipot.commons.factories.OkResponseFactory;
 import pl.mk.recipot.commons.models.Category;
 import pl.mk.recipot.commons.models.HashTag;
 import pl.mk.recipot.commons.models.Ingredient;
@@ -63,8 +66,8 @@ public class DictionariesController implements IDictionariesController {
 	}
 
 	@Override
-	public List<RecipeRequiredEffort> getAllRequiredEfforts() {
-		return dictionaryService.getAllRequiredEfforts();
+	public ResponseEntity<Response<List<RecipeRequiredEffort>>> getAllRequiredEfforts() {
+		return new OkResponseFactory().createResponse(dictionaryService.getAllRequiredEfforts());
 	}
 
 	@Override
