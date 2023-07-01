@@ -1,12 +1,16 @@
 package pl.mk.recipot.auth.configs;
 
 import jakarta.servlet.http.Cookie;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.servlet.http.HttpServletResponse;
+import pl.mk.recipot.commons.dtos.Response;
+import pl.mk.recipot.commons.factories.UnauthorizedResponseFactory;
 
 @RestController
 public class HelloController {
@@ -22,11 +26,15 @@ public class HelloController {
 	public String helloAdmin() {
 		return "helloAdmin";
 	}
-	
 
 	@GetMapping("/hello")
 	public String hello() {
 		return "hello";
+	}
+	
+	@GetMapping("/hello3")
+	public ResponseEntity<Response<Void>> hello3() {
+		return new UnauthorizedResponseFactory().createResponse("unauth", "u dont have access");
 	}
 	
 	@GetMapping("/logout2")
