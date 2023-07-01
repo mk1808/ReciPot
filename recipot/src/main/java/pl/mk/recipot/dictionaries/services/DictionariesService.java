@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.commons.enums.RecipeRequiredEffort;
+import pl.mk.recipot.commons.enums.RecipeDifficulty;
 import pl.mk.recipot.commons.models.Category;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.commons.services.IFilterService;
@@ -61,6 +62,11 @@ public class DictionariesService
 	@Override
 	public List<RecipeRequiredEffort> getAllRequiredEfforts() {
 		return Arrays.asList(RecipeRequiredEffort.values());
+  }
+  
+  @Override
+  public List<RecipeDifficulty> getAllDifficulties() {
+		return Arrays.asList(RecipeDifficulty.values());
 	}
 
 }
