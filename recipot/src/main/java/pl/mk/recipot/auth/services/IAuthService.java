@@ -7,5 +7,5 @@ import pl.mk.recipot.commons.models.AppUser;
 public interface IAuthService {
 	
 	AppUser register(UserRegisterDto userRegisterDto);
-
+	AppUser getCurrentUser();
 }
