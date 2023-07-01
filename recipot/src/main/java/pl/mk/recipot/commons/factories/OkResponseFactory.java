@@ -17,35 +17,5 @@ public class OkResponseFactory implements IValueResponseFactory  {
 		return new ResponseEntity<Response<T>>(response, HttpStatus.OK);
 
 	}
-	/*
-	@Override
-	public ResponseEntity<Response<Void>> createResponse(String message, String details) {
-		Response response = Response
-				.builder()
-				.message(message)
-				.details(details)
-				.build();
-		
-		return new ResponseEntity<Response<Void>>(response, HttpStatus.OK);
-
-	}
-		
-	@Override
-	public ResponseEntity<Response<Void>> createMessageResponse(String message) {
-		Response response = Response
-				.builder()
-				.message(message)
-				.build();
-		
-		return new ResponseEntity<Response<Void>>(response, HttpStatus.OK);
-
-	}
-
-
-@Override
-public <T> ResponseEntity<Response<T>> createResponse(Object... args) {
-	// TODO Auto-generated method stub
-	return null;
-}*/
 
 }
