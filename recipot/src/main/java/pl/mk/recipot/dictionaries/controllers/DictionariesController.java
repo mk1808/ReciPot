@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RestController;
 
+import pl.mk.recipot.commons.enums.RecipeRequiredEffort;
+import pl.mk.recipot.commons.enums.RecipeDifficulty;
 import pl.mk.recipot.commons.models.Category;
 import pl.mk.recipot.commons.models.HashTag;
 import pl.mk.recipot.commons.services.ICrudService;
@@ -49,6 +51,16 @@ public class DictionariesController implements IDictionariesController {
 	@Override
 	public Page<HashTag> getAllHashTags(String name, Integer page, Integer size) {
 		return hashTagFilterService.filter(new HashTagFilterDto().setName(name).setPage(page).setSize(size));
+  }
+  
+  @Override
+  public List<RecipeRequiredEffort> getAllRequiredEfforts() {
+		return dictionaryService.getAllRequiredEfforts();
+  }
+  
+  @Override
+	public List<RecipeDifficulty> getAllDifficulties() {
+		return dictionaryService.getAllDifficulties();
 	}
 
 }

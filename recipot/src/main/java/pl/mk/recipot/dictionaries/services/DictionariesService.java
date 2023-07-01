@@ -1,10 +1,13 @@
 package pl.mk.recipot.dictionaries.services;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import pl.mk.recipot.commons.enums.RecipeRequiredEffort;
+import pl.mk.recipot.commons.enums.RecipeDifficulty;
 import pl.mk.recipot.commons.models.Category;
 import pl.mk.recipot.commons.services.IFilterService;
 import pl.mk.recipot.dictionaries.domains.CreateHierarchicalCategoriesList;
@@ -25,6 +28,16 @@ public class DictionariesService implements IDictionariesService {
 	public List<CategoryDto> getHierarchicalCategoriesList() {
 		return new CreateHierarchicalCategoriesList()
 				.execute(categoryFilterService.filter(new CategoriesFilterDto()).getContent());
+	}
+
+	@Override
+	public List<RecipeRequiredEffort> getAllRequiredEfforts() {
+		return Arrays.asList(RecipeRequiredEffort.values());
+  }
+  
+  @Override
+  public List<RecipeDifficulty> getAllDifficulties() {
+		return Arrays.asList(RecipeDifficulty.values());
 	}
 
 }
