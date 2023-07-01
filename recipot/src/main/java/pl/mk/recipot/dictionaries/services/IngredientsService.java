@@ -1,5 +1,7 @@
 package pl.mk.recipot.dictionaries.services;
 
+import java.util.UUID;
+
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -24,17 +26,17 @@ public class IngredientsService implements IFilterService<Ingredient, Ingredient
 	}
 
 	@Override
-	public Ingredient update(Ingredient obj, Long id) {
+	public Ingredient update(Ingredient obj, UUID id) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public Ingredient get(Long id) {
+	public Ingredient get(UUID id) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public void delete(Long id) {
+	public void delete(UUID id) {
 		throw new UnsupportedOperationException();
 	}
 
