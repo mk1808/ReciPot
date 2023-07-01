@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import pl.mk.recipot.commons.models.Ingredient;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.commons.services.IFilterService;
+import pl.mk.recipot.dictionaries.domains.CheckIngreientDontExists;
 import pl.mk.recipot.dictionaries.dtos.IngredientsFilterDto;
 import pl.mk.recipot.dictionaries.repositories.IIngredientsRepository;
 
@@ -22,6 +23,7 @@ public class IngredientsService implements IFilterService<Ingredient, Ingredient
 
 	@Override
 	public Ingredient save(Ingredient Ingredient) {
+		new CheckIngreientDontExists().execute(ingredientsRepository.findByName(Ingredient.getName()));
 		return ingredientsRepository.save(Ingredient);
 	}
 
