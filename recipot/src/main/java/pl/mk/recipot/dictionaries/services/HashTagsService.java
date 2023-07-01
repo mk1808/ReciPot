@@ -1,5 +1,7 @@
 package pl.mk.recipot.dictionaries.services;
 
+import java.util.UUID;
+
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -24,17 +26,17 @@ public class HashTagsService implements IFilterService<HashTag, HashTagFilterDto
 	}
 
 	@Override
-	public HashTag update(HashTag obj, Long id) {
+	public HashTag update(HashTag obj, UUID id) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public HashTag get(Long id) {
+	public HashTag get(UUID id) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public void delete(Long id) {
+	public void delete(UUID id) {
 		throw new UnsupportedOperationException();
 	}
 
