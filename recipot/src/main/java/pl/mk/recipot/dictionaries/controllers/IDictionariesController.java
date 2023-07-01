@@ -13,6 +13,7 @@ import pl.mk.recipot.commons.enums.RecipeRequiredEffort;
 import pl.mk.recipot.commons.enums.RecipeDifficulty;
 import pl.mk.recipot.commons.models.Category;
 import pl.mk.recipot.commons.models.HashTag;
+import pl.mk.recipot.commons.models.Ingredient;
 import pl.mk.recipot.dictionaries.dtos.CategoryDto;
 
 @RequestMapping("/api/dictionaries")
@@ -36,5 +37,12 @@ public interface IDictionariesController {
 
   @GetMapping("/difficulties")
 	List<RecipeDifficulty> getAllDifficulties();
+
+	@PostMapping("/ingredients")
+	Ingredient createIngredient(@RequestBody Ingredient ingredient);
+
+	@GetMapping("/ingredients")
+	Page<Ingredient> getAllIngredients(@PathParam(value = "name") String name, @PathParam(value = "page") Integer page,
+			@PathParam(value = "size") Integer size);
 
 }
