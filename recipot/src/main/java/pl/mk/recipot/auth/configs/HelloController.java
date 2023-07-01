@@ -28,7 +28,6 @@ public class HelloController {
 	public String helloAdmin() {
 		return "helloAdmin";
 	}
-	
 
 	@GetMapping("/hello")
 	public String hello() {
@@ -40,9 +39,12 @@ public class HelloController {
 		throw new UnauthorizedException();
 	//	return "hello";
 	}
-	
+  
+	@GetMapping("/hello3")
+	public ResponseEntity<Response<Void>> hello3() {
+		return new UnauthorizedResponseFactory().createResponse("unauth", "u dont have access");
+	}	
 
-	
 	@GetMapping("/logout2")
 	public String logout(HttpServletResponse response) {
 		response.addCookie(new Cookie("token", null));
