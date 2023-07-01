@@ -4,22 +4,31 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
+import pl.mk.recipot.auth.facades.IAuthFacade;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Role;
 import pl.mk.recipot.commons.services.ICrudService;
+import pl.mk.recipot.users.domains.CheckIfCurrentUser;
+import pl.mk.recipot.users.domains.CheckUserExistsForEdit;
+import pl.mk.recipot.users.domains.DeleteSensitiveDataFromUser;
+import pl.mk.recipot.users.domains.UpdateUser;
 import pl.mk.recipot.users.repositories.IRolesRepository;
 import pl.mk.recipot.users.repositories.IUsersRepository;
 
 @Service
+@Slf4j
 public class UsersService implements IUsersService, ICrudService<AppUser> {
 
 	private IUsersRepository usersRepository;
 	private IRolesRepository rolesRepository;
+	private IAuthFacade authFacade;
 	
-	public UsersService(IUsersRepository usersRepository, IRolesRepository rolesRepository) {
+	public UsersService(IUsersRepository usersRepository, IRolesRepository rolesRepository, IAuthFacade authFacade) {
 		super();
 		this.usersRepository = usersRepository;
 		this.rolesRepository = rolesRepository;
+		this.authFacade = authFacade;
 	}
 
 	@Override
@@ -33,15 +42,19 @@ public class UsersService implements IUsersService, ICrudService<AppUser> {
 	}
 
 	@Override
-	public AppUser update(AppUser obj, UUID id) {
-		// TODO Auto-generated method stub
+	public AppUser update(AppUser appUser, UUID id) {
+		AppUser oldUser = usersRepository.findById(id).orElse(null);
+		Boolean userExists = new CheckUserExistsForEdit().execute(oldUser);
+		if (userExists) {
+			return updateAndSaveUser(oldUser, appUser);
+		}
+		
 		return null;
 	}
 
 	@Override
 	public AppUser get(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+		return usersRepository.findById(id).get();
 	}
 
 	@Override
@@ -53,6 +66,16 @@ public class UsersService implements IUsersService, ICrudService<AppUser> {
 	@Override
 	public Role getRoleByName(String name) {
 		return rolesRepository.getByName(name);
+	}
+	
+	private AppUser updateAndSaveUser(AppUser oldUser, AppUser appUser) {
+		Boolean isCurrentUser = new CheckIfCurrentUser().execute(authFacade.getCurrentUser(), oldUser);
+		if (isCurrentUser) {
+			AppUser updatedUser = new UpdateUser().execute(oldUser, appUser);
+			AppUser userAfterSave = usersRepository.save(updatedUser);
+			return new DeleteSensitiveDataFromUser().execute(userAfterSave);
+		}
+		return null;
 	}
 
 }
