@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import pl.mk.recipot.auth.facades.IAuthFacade;
 import pl.mk.recipot.commons.models.Notification;
 import pl.mk.recipot.commons.services.ICrudService;
+import pl.mk.recipot.notifications.domains.CheckIfUserIsOwner;
 import pl.mk.recipot.notifications.domains.FillNotificationCreationDate;
 import pl.mk.recipot.notifications.dtos.NotificationDto;
 import pl.mk.recipot.notifications.repositories.INotificationsRepository;
@@ -37,11 +38,12 @@ public class NotificationsService implements INotificationsService, ICrudService
 
 	@Override
 	public Notification get(UUID id) {
-		throw new UnsupportedOperationException();
+		return notificationRepository.findById(id).orElseThrow();
 	}
 
 	@Override
 	public void delete(UUID id) {
+		new CheckIfUserIsOwner().execute(authFacade.getCurrentUser(), get(id));
 		notificationRepository.deleteById(id);
 	}
 
