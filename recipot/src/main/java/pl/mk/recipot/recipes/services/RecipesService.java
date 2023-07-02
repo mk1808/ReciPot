@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import pl.mk.recipot.auth.facades.IAuthFacade;
 import pl.mk.recipot.commons.models.Category;
 import pl.mk.recipot.commons.models.HashTag;
 import pl.mk.recipot.commons.models.Recipe;
@@ -15,6 +16,8 @@ import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.commons.services.IFilterService;
 import pl.mk.recipot.dictionaries.facades.IDictionariesFacade;
 import pl.mk.recipot.dictionaries.repositories.IHashTagRepository;
+import pl.mk.recipot.notifications.domains.CheckIfUserIsOwner;
+import pl.mk.recipot.recipes.UpdateUserInRecipe;
 import pl.mk.recipot.recipes.domains.UpdateListsInRecipe;
 import pl.mk.recipot.recipes.dtos.RecipeFilterDto;
 import pl.mk.recipot.recipes.repositories.IRecipesRepository;
@@ -24,13 +27,15 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	
 	private IRecipesRepository recipesRepository;
 	private IDictionariesFacade dictionariesFacade;
+	private IAuthFacade authFacade;
 	
 	
 
-	public RecipesService(IRecipesRepository recipesRepository, IDictionariesFacade dictionariesFacade) {
+	public RecipesService(IRecipesRepository recipesRepository, IDictionariesFacade dictionariesFacade, IAuthFacade authFacade) {
 		super();
 		this.recipesRepository = recipesRepository;
 		this.dictionariesFacade = dictionariesFacade;
+		this.authFacade = authFacade;
 	}
 
 	@Override
@@ -41,6 +46,8 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 
 	@Override
 	public Recipe save(Recipe recipe) {
+		new UpdateUserInRecipe().execute(recipe, authFacade.getCurrentUser());
+		
 		Set<HashTag> tags = dictionariesFacade.saveManyHashTags(recipe.getHashTags());
 		Set<Category> categories = dictionariesFacade.getCategories(recipe.getCategories());
 		
