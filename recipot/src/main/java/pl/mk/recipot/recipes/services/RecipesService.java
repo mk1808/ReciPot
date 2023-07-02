@@ -20,10 +20,8 @@ import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.commons.services.IFilterService;
 import pl.mk.recipot.dictionaries.facades.IDictionariesFacade;
 
-import pl.mk.recipot.recipes.UpdateUserInRecipe;
 import pl.mk.recipot.recipes.domains.CheckIfUserIsOwner;
 import pl.mk.recipot.dictionaries.repositories.IHashTagRepository;
-import pl.mk.recipot.notifications.domains.CheckIfUserIsOwner;
 import pl.mk.recipot.recipes.domains.UpdateRecipeIngredientsForRecipe;
 import pl.mk.recipot.recipes.domains.UpdateRecipeStepsForRecipe;
 import pl.mk.recipot.recipes.domains.UpdateUserInRecipe;
