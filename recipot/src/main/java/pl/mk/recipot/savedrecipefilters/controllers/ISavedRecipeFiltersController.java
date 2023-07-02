@@ -12,5 +12,5 @@ import pl.mk.recipot.commons.models.RecipeFilter;
 public interface ISavedRecipeFiltersController {
 
 	@PostMapping()
-	ResponseEntity<Response<Void>> createCategory(@RequestBody RecipeFilter recipeFilter);
+	ResponseEntity<Response<Void>> createRecipeFilter(@RequestBody RecipeFilter recipeFilter);
 }
