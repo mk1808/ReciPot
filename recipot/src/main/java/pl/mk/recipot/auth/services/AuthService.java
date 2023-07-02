@@ -32,7 +32,7 @@ public class AuthService implements IAuthService {
 
 	@Override
 	public AppUser register(UserRegisterDto userRegisterDto) {
-		new CheckIfPasswordsMatch().execute(userRegisterDto, null);
+		new CheckIfPasswordsMatch().execute(userRegisterDto);
 
 		AppUser existingUser = usersFacade.getUserByLogin(userRegisterDto.login);
 		new CheckIfUserExistsForRegistration().execute(existingUser);
@@ -49,7 +49,7 @@ public class AuthService implements IAuthService {
 
 	@Override
 	public void changePassword(ChangePasswordDto changePasswordDto) {
-		new CheckIfPasswordsMatch().execute(null, changePasswordDto);
+		new CheckIfPasswordsMatch().execute(changePasswordDto);
 		
 		AppUser existingUser = usersFacade.getUserById(changePasswordDto.userId);
 		new CheckIfUserExists().execute(existingUser);
