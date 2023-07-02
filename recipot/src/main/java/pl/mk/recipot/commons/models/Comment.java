@@ -32,7 +32,7 @@ public class Comment {
 	@JoinColumn(name = "author_id")
 	private AppUser author;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
 
 	@Column(length = 1000)
