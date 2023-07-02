@@ -17,4 +17,5 @@ public interface ICommentsRepository extends JpaRepository<Comment, UUID> {
 
 	@Query("SELECT c FROM Comment c join fetch c.author WHERE c.recipe.id = :recipeId")
 	List<Comment> findByRecipeId(UUID recipeId);
+
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.mk.recipot.commons.dtos.Response;
 import pl.mk.recipot.commons.factories.CreatedResponseFactory;
 import pl.mk.recipot.commons.factories.OkResponseFactory;
+
 import pl.mk.recipot.commons.models.Comment;
 import pl.mk.recipot.commons.models.Rating;
 import pl.mk.recipot.commons.services.ICrudService;
@@ -19,6 +20,7 @@ import pl.mk.recipot.opinions.services.IOpinionsService;
 public class OpinionsController implements IOpinionsController {
 	private ICrudService<Rating> ratingsCrudService;
 	private ICrudService<Comment> commentCrudService;
+
 	private IOpinionsService opinionService;
 
 	public OpinionsController(ICrudService<Rating> ratingsCrudService, ICrudService<Comment> commentCrudService,
