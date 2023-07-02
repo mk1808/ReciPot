@@ -1,5 +1,7 @@
 package pl.mk.recipot.users.facades;
 
+import java.util.UUID;
+
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +36,11 @@ public class UsersFacade implements IUsersFacade {
 	@Override
 	public Role getRoleByName(String name) {
 		return usersService.getRoleByName(name);
+	}
+
+	@Override
+	public AppUser getUserById(UUID id) {
+		return usersCrudService.get(id);
 	}
 
 }

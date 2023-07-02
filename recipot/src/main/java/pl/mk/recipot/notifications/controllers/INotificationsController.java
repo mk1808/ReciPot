@@ -22,11 +22,11 @@ import pl.mk.recipot.notifications.dtos.NotificationDto;
 public interface INotificationsController {
 
 	@GetMapping()
-	List<NotificationDto> getLastNotifications(
+	ResponseEntity<Response<List<NotificationDto>>> getLastNotifications(
 			@RequestParam(value = "dateSince") @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss") Date dateSince);
 
 	@PostMapping()
-	Notification createNotification(@RequestBody Notification notification);
+	ResponseEntity<Response<Notification>> createNotification(@RequestBody Notification notification);
 
 	@DeleteMapping("/{notificationId}")
 	ResponseEntity<Response<Void>> deleteNotification(@PathVariable UUID notificationId);
