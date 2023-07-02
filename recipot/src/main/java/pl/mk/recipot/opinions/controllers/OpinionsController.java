@@ -38,7 +38,7 @@ public class OpinionsController implements IOpinionsController {
 
 	@Override
 	public ResponseEntity<Response<Comment>> createComment(Comment comment) {
-		return new OkResponseFactory().createResponse(commentCrudService.save(comment));
+		return new CreatedResponseFactory().createResponse(commentCrudService.save(comment));
 	}
 
 	@Override
