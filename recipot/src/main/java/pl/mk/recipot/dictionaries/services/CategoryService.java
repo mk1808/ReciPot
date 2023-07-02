@@ -1,6 +1,8 @@
 package pl.mk.recipot.dictionaries.services;
 
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -9,11 +11,12 @@ import pl.mk.recipot.commons.models.Category;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.commons.services.IFilterService;
 import pl.mk.recipot.dictionaries.domains.CategoryDontExists;
+import pl.mk.recipot.dictionaries.domains.CheckIfCategoryExists;
 import pl.mk.recipot.dictionaries.dtos.CategoriesFilterDto;
 import pl.mk.recipot.dictionaries.repositories.ICategoryRepository;
 
 @Service
-public class CategoryService implements IFilterService<Category, CategoriesFilterDto>, ICrudService<Category> {
+public class CategoryService implements IFilterService<Category, CategoriesFilterDto>, ICrudService<Category>, ICategoryService {
 	private ICategoryRepository categoryRepository;
 
 	public CategoryService(ICategoryRepository categoryRepository) {
@@ -39,12 +42,19 @@ public class CategoryService implements IFilterService<Category, CategoriesFilte
 
 	@Override
 	public Category get(UUID id) {
-		throw new UnsupportedOperationException();
+		Category existingCategory = categoryRepository.findById(id).orElse(null);
+		new CheckIfCategoryExists().execute(existingCategory);
+		return existingCategory;
 	}
 
 	@Override
 	public void delete(UUID id) {
 		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Set<Category> getCategories(Set<Category> categories) {
+		return categories.stream().map(Category::getId).map(this::get).collect(Collectors.toSet());
 	}
 
 }
