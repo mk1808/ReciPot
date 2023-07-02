@@ -31,7 +31,7 @@ public class Rating {
 	@JoinColumn(name = "author_id")
 	private AppUser author;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
 
 	private double value;
