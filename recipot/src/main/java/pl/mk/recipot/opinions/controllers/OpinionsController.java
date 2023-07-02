@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import pl.mk.recipot.commons.dtos.Response;
 import pl.mk.recipot.commons.factories.CreatedResponseFactory;
-import pl.mk.recipot.commons.factories.OkResponseFactory;
 import pl.mk.recipot.commons.models.Comment;
 import pl.mk.recipot.commons.models.Rating;
 import pl.mk.recipot.commons.services.ICrudService;
@@ -28,7 +27,7 @@ public class OpinionsController implements IOpinionsController {
 
 	@Override
 	public ResponseEntity<Response<Comment>> createComment(Comment comment) {
-		return new OkResponseFactory().createResponse(commentCrudService.save(comment));
+		return new CreatedResponseFactory().createResponse(commentCrudService.save(comment));
 	}
 
 }

@@ -30,12 +30,11 @@ public class CommentsService implements ICrudService<Comment> {
 	public Comment save(Comment comment) {
 		AppUser currentUser = authFacade.getCurrentUser();
 		List<Comment> existingRating = commentRepository.findByUserAndRecipe(currentUser, comment.getRecipe());
-		if (existingRating.isEmpty()) {
-			return new ClearCommentFilds().execute(
-					commentRepository.save(new FillCommentAuthorAndCreationDate().execute(comment, currentUser)));
-		}
-		return new ClearCommentFilds()
-				.execute(commentRepository.save(new UpdateComment().execute(existingRating.get(0), comment)));
+		return new ClearCommentFilds().execute(
+			commentRepository.save(
+				existingRating.isEmpty() 
+					? new FillCommentAuthorAndCreationDate().execute(comment, currentUser)
+					: new UpdateComment().execute(existingRating.get(0), comment)));
 	}
 
 	@Override
