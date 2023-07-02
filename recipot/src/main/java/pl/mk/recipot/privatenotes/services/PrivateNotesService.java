@@ -58,4 +58,9 @@ public class PrivateNotesService implements IPrivateNotesService, ICrudService<P
 		privateNotesRepository.delete(privateNote);
 	}
 
+	@Override
+	public PrivateNote getByRecipe(UUID recipeId) {
+		return new ClearRecipeFields().execute(privateNotesRepository.findByUserAndRecipeId(authFacade.getCurrentUser(), recipeId));
+	}
+
 }

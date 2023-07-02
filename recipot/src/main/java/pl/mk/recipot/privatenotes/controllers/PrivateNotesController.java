@@ -8,17 +8,22 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.mk.recipot.commons.dtos.Response;
 import pl.mk.recipot.commons.factories.CreatedResponseFactory;
 import pl.mk.recipot.commons.factories.OkMessageResponseFactory;
+import pl.mk.recipot.commons.factories.OkResponseFactory;
 import pl.mk.recipot.commons.models.PrivateNote;
 import pl.mk.recipot.commons.services.ICrudService;
+import pl.mk.recipot.privatenotes.services.IPrivateNotesService;
 
 @RestController
 public class PrivateNotesController implements IPrivateNotesController {
 
 	private ICrudService<PrivateNote> privateNoteCrudService;
+	private IPrivateNotesService privateNoteService;
 
-	public PrivateNotesController(ICrudService<PrivateNote> privateNoteCrudService) {
+	public PrivateNotesController(ICrudService<PrivateNote> privateNoteCrudService,
+			IPrivateNotesService privateNoteService) {
 		super();
 		this.privateNoteCrudService = privateNoteCrudService;
+		this.privateNoteService = privateNoteService;
 	}
 
 	@Override
@@ -30,6 +35,11 @@ public class PrivateNotesController implements IPrivateNotesController {
 	public ResponseEntity<Response<Void>> deletePrivateNote(UUID privateNoteId) {
 		privateNoteCrudService.delete(privateNoteId);
 		return new OkMessageResponseFactory().createResponse("Recipe private note deleted");
+	}
+
+	@Override
+	public ResponseEntity<Response<PrivateNote>> getPrivateNoteByRecipeId(UUID recipeId) {
+		return new OkResponseFactory().createResponse(privateNoteService.getByRecipe(recipeId));
 	}
 
 }
