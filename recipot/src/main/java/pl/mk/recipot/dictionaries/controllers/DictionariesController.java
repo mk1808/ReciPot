@@ -3,10 +3,13 @@ package pl.mk.recipot.dictionaries.controllers;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import pl.mk.recipot.commons.dtos.Response;
 import pl.mk.recipot.commons.enums.RecipeDifficulty;
 import pl.mk.recipot.commons.enums.RecipeRequiredEffort;
+import pl.mk.recipot.commons.factories.OkResponseFactory;
 import pl.mk.recipot.commons.models.Category;
 import pl.mk.recipot.commons.models.HashTag;
 import pl.mk.recipot.commons.models.Ingredient;
@@ -43,13 +46,13 @@ public class DictionariesController implements IDictionariesController {
 	}
 
 	@Override
-	public Category createCategory(Category category) {
-		return categoryCrudService.save(category);
+	public ResponseEntity<Response<Category>> createCategory(Category category) {
+		return new OkResponseFactory().createResponse(categoryCrudService.save(category));
 	}
 
 	@Override
-	public List<CategoryDto> getAllCategories() {
-		return dictionaryService.getHierarchicalCategoriesList();
+	public ResponseEntity<Response<List<CategoryDto>>> getAllCategories() {
+		return new OkResponseFactory().createResponse(dictionaryService.getHierarchicalCategoriesList());
 	}
 
 	@Override
