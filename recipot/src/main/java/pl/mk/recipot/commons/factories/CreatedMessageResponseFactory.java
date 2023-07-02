@@ -5,18 +5,17 @@ import org.springframework.http.ResponseEntity;
 
 import pl.mk.recipot.commons.dtos.Response;
 
-public class CreatedResponseFactory implements IValueResponseFactory {
-
+public class CreatedMessageResponseFactory implements IMessageResponseFactory {
+	
 	@Override
-	public <T> ResponseEntity<Response<T>> createResponse(T value) {
+	public ResponseEntity<Response<Void>> createResponse(String message) {
 		Response response = Response
 				.builder()
-				.value(value)
+				.message(message)
 				.build();
 		
-		return new ResponseEntity<Response<T>>(response, HttpStatus.CREATED);
+		return new ResponseEntity<Response<Void>>(response, HttpStatus.CREATED);
 
 	}
-	
 
 }
