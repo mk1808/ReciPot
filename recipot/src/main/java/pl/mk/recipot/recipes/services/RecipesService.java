@@ -25,6 +25,7 @@ import pl.mk.recipot.notifications.domains.CheckIfUserIsOwner;
 import pl.mk.recipot.recipes.domains.UpdateRecipeIngredientsForRecipe;
 import pl.mk.recipot.recipes.domains.UpdateRecipeStepsForRecipe;
 import pl.mk.recipot.recipes.domains.UpdateUserInRecipe;
+import pl.mk.recipot.recipes.domains.CheckIfRecipeExists;
 import pl.mk.recipot.recipes.domains.CleanRecipe;
 import pl.mk.recipot.recipes.domains.GetIngredientsFromRecipe;
 import pl.mk.recipot.recipes.domains.UpdateListsInRecipe;
@@ -90,8 +91,9 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 
 	@Override
 	public Recipe get(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+		Recipe recipe = recipesRepository.getRecipeWithOwner(id);
+		new CheckIfRecipeExists().execute(recipe);
+		return recipe;
 	}
 
 	@Override
