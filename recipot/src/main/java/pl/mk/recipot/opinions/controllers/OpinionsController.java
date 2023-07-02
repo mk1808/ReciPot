@@ -18,7 +18,7 @@ public class OpinionsController implements IOpinionsController {
 	}
 
 	@Override
-	public ResponseEntity<Response<Rating>> createNotification(Rating rating) {
+	public ResponseEntity<Response<Rating>> createRating(Rating rating) {
 		return new OkResponseFactory().createResponse(ratingsCrudService.save(rating));
 	}
 

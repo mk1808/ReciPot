@@ -30,12 +30,11 @@ public class RatingService implements ICrudService<Rating> {
 	public Rating save(Rating rating) {
 		AppUser currentUser = authFacade.getCurrentUser();
 		List<Rating> existingRating = ratingsRepository.findByUserAndRecipe(currentUser, rating.getRecipe());
-		if (existingRating.isEmpty()) {
-			return new ClearRatingFilds().execute(
-					ratingsRepository.save(new FillRatingAuthorAndCreationDate().execute(rating, currentUser)));
-		}
-		return new ClearRatingFilds()
-				.execute(ratingsRepository.save(new UpdateRating().execute(existingRating.get(0), rating)));
+		return new ClearRatingFilds().execute(
+			ratingsRepository.save(
+				existingRating.isEmpty() 
+					? new FillRatingAuthorAndCreationDate().execute(rating, currentUser)
+					: new UpdateRating().execute(existingRating.get(0), rating)));
 	}
 
 	@Override

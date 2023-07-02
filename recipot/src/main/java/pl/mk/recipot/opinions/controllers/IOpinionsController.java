@@ -12,6 +12,6 @@ import pl.mk.recipot.commons.models.Rating;
 public interface IOpinionsController {
 
 	@PostMapping("/ratings")
-	ResponseEntity<Response<Rating>> createNotification(@RequestBody Rating rating);
+	ResponseEntity<Response<Rating>> createRating(@RequestBody Rating rating);
 
 }
