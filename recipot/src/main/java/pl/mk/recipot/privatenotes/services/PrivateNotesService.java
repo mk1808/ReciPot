@@ -9,8 +9,10 @@ import pl.mk.recipot.auth.facades.IAuthFacade;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.PrivateNote;
 import pl.mk.recipot.commons.services.ICrudService;
+import pl.mk.recipot.privatenotes.domains.CheckIfUserIsAuthor;
 import pl.mk.recipot.privatenotes.domains.ClearRecipeFields;
 import pl.mk.recipot.privatenotes.domains.FillPrivateNoteAuthorAndCreationDate;
+import pl.mk.recipot.privatenotes.domains.GetPrivateNoteIfExists;
 import pl.mk.recipot.privatenotes.domains.UpdatePrivateNote;
 import pl.mk.recipot.privatenotes.repositories.IPrivateNotesRepository;
 
@@ -51,7 +53,9 @@ public class PrivateNotesService implements IPrivateNotesService, ICrudService<P
 
 	@Override
 	public void delete(UUID id) {
-		throw new UnsupportedOperationException();
+		PrivateNote privateNote = new GetPrivateNoteIfExists().execute(privateNotesRepository.findById(id));
+		new CheckIfUserIsAuthor().execute(authFacade.getCurrentUser(), privateNote);
+		privateNotesRepository.delete(privateNote);
 	}
 
 }
