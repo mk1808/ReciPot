@@ -38,7 +38,7 @@ public interface IDictionariesController {
 	ResponseEntity<Response<List<RecipeRequiredEffort>>> getAllRequiredEfforts();
 
 	@GetMapping("/difficulties")
-	List<RecipeDifficulty> getAllDifficulties();
+	ResponseEntity<Response<List<RecipeDifficulty>>> getAllDifficulties();
 
 	@PostMapping("/ingredients")
 	Ingredient createIngredient(@RequestBody Ingredient ingredient);

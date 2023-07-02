@@ -71,8 +71,8 @@ public class DictionariesController implements IDictionariesController {
 	}
 
 	@Override
-	public List<RecipeDifficulty> getAllDifficulties() {
-		return dictionaryService.getAllDifficulties();
+	public ResponseEntity<Response<List<RecipeDifficulty>>> getAllDifficulties() {
+		return new OkResponseFactory().createResponse(dictionaryService.getAllDifficulties());
 	}
 
 	@Override
