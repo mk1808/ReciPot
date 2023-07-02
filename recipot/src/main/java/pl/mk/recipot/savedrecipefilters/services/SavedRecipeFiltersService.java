@@ -12,6 +12,7 @@ import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.savedrecipefilters.domains.CheckIfRecipeFilterExists;
 import pl.mk.recipot.savedrecipefilters.domains.CheckIfUserIsOwner;
 import pl.mk.recipot.savedrecipefilters.domains.FillRecipeFilterOwnerAndCreationDate;
+import pl.mk.recipot.savedrecipefilters.domains.GetRecipeFilterIfExists;
 import pl.mk.recipot.savedrecipefilters.dtos.RecipeFilterDto;
 import pl.mk.recipot.savedrecipefilters.repositories.ISavedRecipeFiltersRepository;
 
@@ -49,8 +50,8 @@ public class SavedRecipeFiltersService implements ISavedRecipeFiltersService, IC
 
 	@Override
 	public void delete(UUID id) {
-		new CheckIfUserIsOwner().execute(authFacade.getCurrentUser(),
-				savedRecipeFiltersRepository.findById(id).orElseThrow());
+		RecipeFilter recipeFilter = new GetRecipeFilterIfExists().execute(savedRecipeFiltersRepository.findById(id));
+		new CheckIfUserIsOwner().execute(authFacade.getCurrentUser(), recipeFilter);
 		savedRecipeFiltersRepository.deleteById(id);
 	}
 
