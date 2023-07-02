@@ -19,22 +19,16 @@ import pl.mk.recipot.commons.models.RecipeStep;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.commons.services.IFilterService;
 import pl.mk.recipot.dictionaries.facades.IDictionariesFacade;
-
-import pl.mk.recipot.recipes.UpdateUserInRecipe;
-import pl.mk.recipot.recipes.domains.CheckIfUserIsOwner;
-import pl.mk.recipot.dictionaries.repositories.IHashTagRepository;
-import pl.mk.recipot.notifications.domains.CheckIfUserIsOwner;
-import pl.mk.recipot.recipes.domains.UpdateRecipeIngredientsForRecipe;
-import pl.mk.recipot.recipes.domains.UpdateRecipeStepsForRecipe;
-import pl.mk.recipot.recipes.domains.UpdateUserInRecipe;
 import pl.mk.recipot.recipes.domains.CheckIfRecipeExists;
+import pl.mk.recipot.recipes.domains.CheckIfUserIsOwner;
 import pl.mk.recipot.recipes.domains.CleanRecipe;
+import pl.mk.recipot.recipes.domains.GetIngredientsDifference;
 import pl.mk.recipot.recipes.domains.GetIngredientsFromRecipe;
-import pl.mk.recipot.recipes.domains.GetRecipeIfExists;
 import pl.mk.recipot.recipes.domains.ToggleRecipeVisibility;
 import pl.mk.recipot.recipes.domains.UpdateListsInRecipe;
 import pl.mk.recipot.recipes.domains.UpdateRecipeIngredientsForRecipe;
 import pl.mk.recipot.recipes.domains.UpdateRecipeStepsForRecipe;
+import pl.mk.recipot.recipes.domains.UpdateUserInRecipe;
 import pl.mk.recipot.recipes.dtos.RecipeFilterDto;
 import pl.mk.recipot.recipes.repositories.IRecipeIngredientsRepository;
 import pl.mk.recipot.recipes.repositories.IRecipeStepsRepository;
@@ -91,8 +85,12 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	}
 
 	@Override
-	public Recipe update(Recipe obj, UUID id) {
-		// TODO Auto-generated method stub
+	public Recipe update(Recipe recipe, UUID id) {
+		Recipe existingRecipe = recipesRepository.getRecipeWithOwner(id);
+		new CheckIfRecipeExists().execute(existingRecipe);
+		new CheckIfUserIsOwner().execute(authFacade.getCurrentUser(), existingRecipe);
+		
+		new GetIngredientsDifference().execute(existingRecipe,recipe);
 		return null;
 	}
 
