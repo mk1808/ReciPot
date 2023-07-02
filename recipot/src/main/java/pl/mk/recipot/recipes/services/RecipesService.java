@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import pl.mk.recipot.commons.models.Category;
 import pl.mk.recipot.commons.models.HashTag;
 import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.services.ICrudService;
@@ -40,8 +41,10 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 
 	@Override
 	public Recipe save(Recipe recipe) {
-		Set<HashTag> tags = dictionariesFacade.saveMany(recipe.getHashTags());
-		Recipe updatedRecipe = new UpdateListsInRecipe().execute(recipe, tags);
+		Set<HashTag> tags = dictionariesFacade.saveManyHashTags(recipe.getHashTags());
+		Set<Category> categories = dictionariesFacade.getCategories(recipe.getCategories());
+		
+		Recipe updatedRecipe = new UpdateListsInRecipe().execute(recipe, tags, categories);
 		return recipesRepository.save(updatedRecipe);
 	}
 
