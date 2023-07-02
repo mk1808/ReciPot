@@ -22,10 +22,10 @@ import pl.mk.recipot.dictionaries.dtos.CategoryDto;
 public interface IDictionariesController {
 
 	@PostMapping("/categories")
-	Category createCategory(@RequestBody Category category);
+	ResponseEntity<Response<Category>> createCategory(@RequestBody Category category);
 
 	@GetMapping("/categories")
-	List<CategoryDto> getAllCategories();
+	ResponseEntity<Response<List<CategoryDto>>> getAllCategories();
 
 	@PostMapping("/hashTags")
 	HashTag createHashTag(@RequestBody HashTag hashTag);
