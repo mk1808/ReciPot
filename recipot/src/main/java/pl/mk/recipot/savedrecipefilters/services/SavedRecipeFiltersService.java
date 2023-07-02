@@ -1,5 +1,6 @@
 package pl.mk.recipot.savedrecipefilters.services;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import pl.mk.recipot.commons.models.RecipeFilter;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.savedrecipefilters.domains.CheckIfRecipeFilterExists;
 import pl.mk.recipot.savedrecipefilters.domains.FillRecipeFilterOwnerAndCreationDate;
+import pl.mk.recipot.savedrecipefilters.dtos.RecipeFilterDto;
 import pl.mk.recipot.savedrecipefilters.repositories.ISavedRecipeFiltersRepository;
 
 @Service
@@ -47,6 +49,11 @@ public class SavedRecipeFiltersService implements ISavedRecipeFiltersService, IC
 	@Override
 	public void delete(UUID id) {
 		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public List<RecipeFilterDto> getUserFilters() {
+		return savedRecipeFiltersRepository.findByUser(authFacade.getCurrentUser());
 	}
 
 }
