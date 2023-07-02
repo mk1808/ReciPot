@@ -22,10 +22,10 @@ import pl.mk.recipot.dictionaries.dtos.CategoryDto;
 public interface IDictionariesController {
 
 	@PostMapping("/categories")
-	Category createCategory(@RequestBody Category category);
+	ResponseEntity<Response<Category>> createCategory(@RequestBody Category category);
 
 	@GetMapping("/categories")
-	List<CategoryDto> getAllCategories();
+	ResponseEntity<Response<List<CategoryDto>>> getAllCategories();
 
 	@PostMapping("/hashTags")
 	HashTag createHashTag(@RequestBody HashTag hashTag);
@@ -35,7 +35,7 @@ public interface IDictionariesController {
 			@PathParam(value = "size") Integer size);
 
 	@GetMapping("/requiredEfforts")
-	List<RecipeRequiredEffort> getAllRequiredEfforts();
+	ResponseEntity<Response<List<RecipeRequiredEffort>>> getAllRequiredEfforts();
 
 	@GetMapping("/difficulties")
 	ResponseEntity<Response<List<RecipeDifficulty>>> getAllDifficulties();

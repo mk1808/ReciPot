@@ -46,13 +46,13 @@ public class DictionariesController implements IDictionariesController {
 	}
 
 	@Override
-	public Category createCategory(Category category) {
-		return categoryCrudService.save(category);
+	public ResponseEntity<Response<Category>> createCategory(Category category) {
+		return new OkResponseFactory().createResponse(categoryCrudService.save(category));
 	}
 
 	@Override
-	public List<CategoryDto> getAllCategories() {
-		return dictionaryService.getHierarchicalCategoriesList();
+	public ResponseEntity<Response<List<CategoryDto>>> getAllCategories() {
+		return new OkResponseFactory().createResponse(dictionaryService.getHierarchicalCategoriesList());
 	}
 
 	@Override
@@ -66,8 +66,8 @@ public class DictionariesController implements IDictionariesController {
 	}
 
 	@Override
-	public List<RecipeRequiredEffort> getAllRequiredEfforts() {
-		return dictionaryService.getAllRequiredEfforts();
+	public ResponseEntity<Response<List<RecipeRequiredEffort>>> getAllRequiredEfforts() {
+		return new OkResponseFactory().createResponse(dictionaryService.getAllRequiredEfforts());
 	}
 
 	@Override
