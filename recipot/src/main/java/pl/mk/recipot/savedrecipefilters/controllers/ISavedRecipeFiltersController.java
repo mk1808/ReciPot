@@ -19,7 +19,7 @@ import pl.mk.recipot.savedrecipefilters.dtos.RecipeFilterDto;
 public interface ISavedRecipeFiltersController {
 
 	@PostMapping()
-	ResponseEntity<Response<Void>> createRecipeFilter(@RequestBody RecipeFilter recipeFilter);
+	ResponseEntity<Response<RecipeFilter>> createRecipeFilter(@RequestBody RecipeFilter recipeFilter);
 
 	@GetMapping()
 	ResponseEntity<Response<List<RecipeFilterDto>>> getRecipeFilters();

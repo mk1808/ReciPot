@@ -1,19 +1,24 @@
 package pl.mk.recipot.dictionaries.services;
 
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import pl.mk.recipot.commons.models.HashTag;
 import pl.mk.recipot.commons.models.Ingredient;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.commons.services.IFilterService;
 import pl.mk.recipot.dictionaries.domains.CheckIngreientDontExists;
+import pl.mk.recipot.dictionaries.domains.GetHashTagIfExists;
+import pl.mk.recipot.dictionaries.domains.GetIngredientIfExists;
 import pl.mk.recipot.dictionaries.dtos.IngredientsFilterDto;
 import pl.mk.recipot.dictionaries.repositories.IIngredientsRepository;
 
 @Service
-public class IngredientsService implements IFilterService<Ingredient, IngredientsFilterDto>, ICrudService<Ingredient> {
+public class IngredientsService implements IFilterService<Ingredient, IngredientsFilterDto>, ICrudService<Ingredient>, IIngredientsService {
 	private IIngredientsRepository ingredientsRepository;
 
 	public IngredientsService(IIngredientsRepository ingredientRepository) {
@@ -45,6 +50,16 @@ public class IngredientsService implements IFilterService<Ingredient, Ingredient
 	@Override
 	public Page<Ingredient> filter(IngredientsFilterDto filterObject) {
 		return ingredientsRepository.findByFilter(filterObject, filterObject.getPageable());
+	}
+	
+	@Override
+	public Set<Ingredient> saveMany(Set<Ingredient> ingredients) {
+		return ingredients.stream().map(this::saveIfNotExists).collect(Collectors.toSet());
+	}
+	
+	private Ingredient saveIfNotExists(Ingredient ingredient) {
+		Ingredient exisitingTag = new GetIngredientIfExists().execute(ingredientsRepository.findByName(ingredient.getName()));
+		return exisitingTag != null? exisitingTag : ingredientsRepository.save(ingredient);
 	}
 
 }

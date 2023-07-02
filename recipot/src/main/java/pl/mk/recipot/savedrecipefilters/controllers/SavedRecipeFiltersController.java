@@ -28,9 +28,8 @@ public class SavedRecipeFiltersController implements ISavedRecipeFiltersControll
 	}
 
 	@Override
-	public ResponseEntity<Response<Void>> createRecipeFilter(RecipeFilter recipeFilter) {
-		recipeFiltersCrudService.save(recipeFilter);
-		return new CreatedResponseFactory().createResponse("Recipe filter saved");
+	public ResponseEntity<Response<RecipeFilter>> createRecipeFilter(RecipeFilter recipeFilter) {
+		return new CreatedResponseFactory().createResponse(recipeFiltersCrudService.save(recipeFilter));
 	}
 
 	@Override

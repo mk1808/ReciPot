@@ -2,6 +2,7 @@ package pl.mk.recipot.commons.models;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -19,6 +20,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.persistence.Transient;
 import lombok.Data;
 import pl.mk.recipot.commons.enums.RecipeAccessType;
 import pl.mk.recipot.commons.enums.RecipeAmountOfDishes;
@@ -63,4 +65,38 @@ public class Recipe {
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "recipe_categories", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
+	
+	@Transient
+	private Set<RecipeStep> recipeSteps = new HashSet<>();
+	
+	@Transient
+	private Set<RecipeIngredient> recipeIngredients = new HashSet<>();
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Recipe other = (Recipe) obj;
+		return accessType == other.accessType
+				&& Double.doubleToLongBits(averageRating) == Double.doubleToLongBits(other.averageRating)
+				&& Objects.equals(categories, other.categories) && Objects.equals(created, other.created)
+				&& Objects.equals(deleted, other.deleted) && Objects.equals(description, other.description)
+				&& difficulty == other.difficulty && Objects.equals(hashTags, other.hashTags)
+				&& Objects.equals(id, other.id) && Objects.equals(image, other.image)
+				&& Objects.equals(name, other.name) && numberOfDishes == other.numberOfDishes
+				&& Objects.equals(owner, other.owner) && ratingsCount == other.ratingsCount
+				&& requiredEffort == other.requiredEffort && Objects.equals(timeAmount, other.timeAmount)
+				&& Objects.equals(url, other.url);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(accessType, averageRating, categories, created, deleted, description, difficulty, hashTags,
+				id, image, name, numberOfDishes, owner, ratingsCount, requiredEffort, timeAmount, url);
+	}
+
 }
