@@ -1,6 +1,7 @@
 package pl.mk.recipot.recipes.services;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -11,31 +12,38 @@ import org.springframework.stereotype.Service;
 import pl.mk.recipot.auth.facades.IAuthFacade;
 import pl.mk.recipot.commons.models.Category;
 import pl.mk.recipot.commons.models.HashTag;
+import pl.mk.recipot.commons.models.Ingredient;
 import pl.mk.recipot.commons.models.Recipe;
+import pl.mk.recipot.commons.models.RecipeIngredient;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.commons.services.IFilterService;
 import pl.mk.recipot.dictionaries.facades.IDictionariesFacade;
 import pl.mk.recipot.dictionaries.repositories.IHashTagRepository;
 import pl.mk.recipot.notifications.domains.CheckIfUserIsOwner;
 import pl.mk.recipot.recipes.UpdateUserInRecipe;
+import pl.mk.recipot.recipes.domains.UpdateRecipeIngredientsForRecipe;
+import pl.mk.recipot.recipes.domains.GetIngredientsFromRecipe;
 import pl.mk.recipot.recipes.domains.UpdateListsInRecipe;
 import pl.mk.recipot.recipes.dtos.RecipeFilterDto;
+import pl.mk.recipot.recipes.repositories.IRecipeIngredientsRepository;
 import pl.mk.recipot.recipes.repositories.IRecipesRepository;
 
 @Service
 public class RecipesService implements IRecipesService, ICrudService<Recipe>, IFilterService<Recipe, RecipeFilterDto>{
 	
 	private IRecipesRepository recipesRepository;
+	private IRecipeIngredientsRepository recipeIngredientsRepository;
 	private IDictionariesFacade dictionariesFacade;
 	private IAuthFacade authFacade;
 	
 	
 
-	public RecipesService(IRecipesRepository recipesRepository, IDictionariesFacade dictionariesFacade, IAuthFacade authFacade) {
+	public RecipesService(IRecipesRepository recipesRepository, IDictionariesFacade dictionariesFacade, IAuthFacade authFacade,  IRecipeIngredientsRepository recipeIngredientsRepository) {
 		super();
 		this.recipesRepository = recipesRepository;
 		this.dictionariesFacade = dictionariesFacade;
 		this.authFacade = authFacade;
+		this.recipeIngredientsRepository = recipeIngredientsRepository;
 	}
 
 	@Override
@@ -46,13 +54,20 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 
 	@Override
 	public Recipe save(Recipe recipe) {
-		new UpdateUserInRecipe().execute(recipe, authFacade.getCurrentUser());
+		recipe = new UpdateUserInRecipe().execute(recipe, authFacade.getCurrentUser());
 		
 		Set<HashTag> tags = dictionariesFacade.saveManyHashTags(recipe.getHashTags());
 		Set<Category> categories = dictionariesFacade.getCategories(recipe.getCategories());
-		
 		Recipe updatedRecipe = new UpdateListsInRecipe().execute(recipe, tags, categories);
-		return recipesRepository.save(updatedRecipe);
+		Recipe savedRecipe = recipesRepository.save(updatedRecipe);
+		
+		Set<Ingredient> ingredients = new GetIngredientsFromRecipe().execute(recipe);
+		Set<Ingredient> allIngredientsCreated = dictionariesFacade.saveManyIngredients(ingredients);
+		Set<RecipeIngredient> recipeIngredients = new UpdateRecipeIngredientsForRecipe().execute(savedRecipe, allIngredientsCreated);
+		List<RecipeIngredient> savedRecipeIngredients = recipeIngredientsRepository.saveAll(recipeIngredients);
+
+		savedRecipe.setRecipeIngredients(new HashSet<RecipeIngredient>(savedRecipeIngredients));
+		return savedRecipe;
 	}
 
 	@Override
