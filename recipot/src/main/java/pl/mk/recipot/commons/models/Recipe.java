@@ -21,7 +21,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pl.mk.recipot.commons.enums.RecipeAccessType;
 import pl.mk.recipot.commons.enums.RecipeAmountOfDishes;
 import pl.mk.recipot.commons.enums.RecipeDifficulty;
@@ -29,6 +31,8 @@ import pl.mk.recipot.commons.enums.RecipeRequiredEffort;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Recipe {
 	@Id
 	@GeneratedValue
