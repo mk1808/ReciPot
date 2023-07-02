@@ -66,8 +66,8 @@ public class DictionariesController implements IDictionariesController {
 	}
 
 	@Override
-	public List<RecipeRequiredEffort> getAllRequiredEfforts() {
-		return dictionaryService.getAllRequiredEfforts();
+	public ResponseEntity<Response<List<RecipeRequiredEffort>>> getAllRequiredEfforts() {
+		return new OkResponseFactory().createResponse(dictionaryService.getAllRequiredEfforts());
 	}
 
 	@Override

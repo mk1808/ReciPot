@@ -35,7 +35,7 @@ public interface IDictionariesController {
 			@PathParam(value = "size") Integer size);
 
 	@GetMapping("/requiredEfforts")
-	List<RecipeRequiredEffort> getAllRequiredEfforts();
+	ResponseEntity<Response<List<RecipeRequiredEffort>>> getAllRequiredEfforts();
 
 	@GetMapping("/difficulties")
 	List<RecipeDifficulty> getAllDifficulties();
