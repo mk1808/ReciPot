@@ -28,10 +28,10 @@ public interface IDictionariesController {
 	ResponseEntity<Response<List<CategoryDto>>> getAllCategories();
 
 	@PostMapping("/hashTags")
-	HashTag createHashTag(@RequestBody HashTag hashTag);
+	ResponseEntity<Response<HashTag>> createHashTag(@RequestBody HashTag hashTag);
 
 	@GetMapping("/hashTags")
-	Page<HashTag> getAllHashTags(@PathParam(value = "name") String name, @PathParam(value = "page") Integer page,
+	ResponseEntity<Response<Page<HashTag>>> getAllHashTags(@PathParam(value = "name") String name, @PathParam(value = "page") Integer page,
 			@PathParam(value = "size") Integer size);
 
 	@GetMapping("/requiredEfforts")

@@ -1,5 +1,6 @@
 package pl.mk.recipot.dictionaries.repositories;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -15,4 +16,7 @@ import pl.mk.recipot.dictionaries.dtos.HashTagFilterDto;
 public interface IHashTagRepository extends JpaRepository<HashTag, UUID> {
 	@Query("SELECT ht FROM HashTag ht WHERE ht.name LIKE %:#{#filterObject.name}%")
 	Page<HashTag> findByFilter(HashTagFilterDto filterObject, Pageable pageable);
+
+	@Query("SELECT ht FROM HashTag ht WHERE ht.name = :name")
+	List<HashTag> findByName(String name);
 }

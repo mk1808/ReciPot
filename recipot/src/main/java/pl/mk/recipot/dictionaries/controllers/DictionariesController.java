@@ -56,13 +56,14 @@ public class DictionariesController implements IDictionariesController {
 	}
 
 	@Override
-	public HashTag createHashTag(HashTag hashTag) {
-		return hashTagCrudService.save(hashTag);
+	public ResponseEntity<Response<HashTag>> createHashTag(HashTag hashTag) {
+		return new OkResponseFactory().createResponse(hashTagCrudService.save(hashTag));
 	}
 
 	@Override
-	public Page<HashTag> getAllHashTags(String name, Integer page, Integer size) {
-		return hashTagFilterService.filter(new HashTagFilterDto().setName(name).setPage(page).setSize(size));
+	public ResponseEntity<Response<Page<HashTag>>> getAllHashTags(String name, Integer page, Integer size) {
+		return new OkResponseFactory().createResponse(
+				hashTagFilterService.filter(new HashTagFilterDto().setName(name).setPage(page).setSize(size)));
 	}
 
 	@Override
