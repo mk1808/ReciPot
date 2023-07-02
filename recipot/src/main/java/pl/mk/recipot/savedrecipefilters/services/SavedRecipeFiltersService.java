@@ -10,6 +10,7 @@ import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.RecipeFilter;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.savedrecipefilters.domains.CheckIfRecipeFilterExists;
+import pl.mk.recipot.savedrecipefilters.domains.CheckIfUserIsOwner;
 import pl.mk.recipot.savedrecipefilters.domains.FillRecipeFilterOwnerAndCreationDate;
 import pl.mk.recipot.savedrecipefilters.dtos.RecipeFilterDto;
 import pl.mk.recipot.savedrecipefilters.repositories.ISavedRecipeFiltersRepository;
@@ -48,7 +49,9 @@ public class SavedRecipeFiltersService implements ISavedRecipeFiltersService, IC
 
 	@Override
 	public void delete(UUID id) {
-		throw new UnsupportedOperationException();
+		new CheckIfUserIsOwner().execute(authFacade.getCurrentUser(),
+				savedRecipeFiltersRepository.findById(id).orElseThrow());
+		savedRecipeFiltersRepository.deleteById(id);
 	}
 
 	@Override
