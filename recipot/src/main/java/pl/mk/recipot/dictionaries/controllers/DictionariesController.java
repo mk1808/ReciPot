@@ -77,13 +77,14 @@ public class DictionariesController implements IDictionariesController {
 	}
 
 	@Override
-	public Ingredient createIngredient(Ingredient ingredient) {
-		return ingredientsCrudService.save(ingredient);
+	public ResponseEntity<Response<Ingredient>> createIngredient(Ingredient ingredient) {
+		return new OkResponseFactory().createResponse(ingredientsCrudService.save(ingredient));
 	}
 
 	@Override
-	public Page<Ingredient> getAllIngredients(String name, Integer page, Integer size) {
-		return ingredientsFilterService.filter(new IngredientsFilterDto().setName(name).setPage(page).setSize(size));
+	public ResponseEntity<Response<Page<Ingredient>>> getAllIngredients(String name, Integer page, Integer size) {
+		return new OkResponseFactory().createResponse(
+				ingredientsFilterService.filter(new IngredientsFilterDto().setName(name).setPage(page).setSize(size)));
 	}
 
 }

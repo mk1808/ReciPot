@@ -1,5 +1,6 @@
 package pl.mk.recipot.dictionaries.repositories;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -13,4 +14,7 @@ import pl.mk.recipot.dictionaries.dtos.IngredientsFilterDto;
 public interface IIngredientsRepository extends JpaRepository<Ingredient, UUID> {
 	@Query("SELECT i FROM Ingredient i WHERE i.name LIKE %:#{#filterObject.name}%")
 	Page<Ingredient> findByFilter(IngredientsFilterDto filterObject, Pageable pageable);
+
+	@Query("SELECT i FROM Ingredient i WHERE i.name = :name")
+	List<Ingredient> findByName(String name);
 }

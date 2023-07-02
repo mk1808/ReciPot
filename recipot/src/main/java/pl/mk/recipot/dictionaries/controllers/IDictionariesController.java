@@ -41,10 +41,10 @@ public interface IDictionariesController {
 	ResponseEntity<Response<List<RecipeDifficulty>>> getAllDifficulties();
 
 	@PostMapping("/ingredients")
-	Ingredient createIngredient(@RequestBody Ingredient ingredient);
+	ResponseEntity<Response<Ingredient>> createIngredient(@RequestBody Ingredient ingredient);
 
 	@GetMapping("/ingredients")
-	Page<Ingredient> getAllIngredients(@PathParam(value = "name") String name, @PathParam(value = "page") Integer page,
+	ResponseEntity<Response<Page<Ingredient>>> getAllIngredients(@PathParam(value = "name") String name, @PathParam(value = "page") Integer page,
 			@PathParam(value = "size") Integer size);
 
 }
