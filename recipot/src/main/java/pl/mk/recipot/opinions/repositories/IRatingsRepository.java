@@ -11,7 +11,10 @@ import pl.mk.recipot.commons.models.Rating;
 import pl.mk.recipot.commons.models.Recipe;
 
 public interface IRatingsRepository extends JpaRepository<Rating, UUID> {
-	
+
 	@Query("SELECT r FROM Rating r WHERE r.author = :user and r.recipe = :recipe")
 	List<Rating> findByUserAndRecipe(AppUser user, Recipe recipe);
+
+	@Query("SELECT r FROM Rating r join fetch r.author WHERE r.recipe.id = :recipeId")
+	List<Rating> findByRecipeId(UUID recipeId);
 }
