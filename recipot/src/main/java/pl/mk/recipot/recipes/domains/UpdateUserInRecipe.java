@@ -1,4 +1,4 @@
-package pl.mk.recipot.recipes;
+package pl.mk.recipot.recipes.domains;
 
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Recipe;

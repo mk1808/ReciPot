@@ -19,8 +19,15 @@ import pl.mk.recipot.commons.models.RecipeStep;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.commons.services.IFilterService;
 import pl.mk.recipot.dictionaries.facades.IDictionariesFacade;
+
 import pl.mk.recipot.recipes.UpdateUserInRecipe;
 import pl.mk.recipot.recipes.domains.CheckIfUserIsOwner;
+import pl.mk.recipot.dictionaries.repositories.IHashTagRepository;
+import pl.mk.recipot.notifications.domains.CheckIfUserIsOwner;
+import pl.mk.recipot.recipes.domains.UpdateRecipeIngredientsForRecipe;
+import pl.mk.recipot.recipes.domains.UpdateRecipeStepsForRecipe;
+import pl.mk.recipot.recipes.domains.UpdateUserInRecipe;
+import pl.mk.recipot.recipes.domains.CheckIfRecipeExists;
 import pl.mk.recipot.recipes.domains.CleanRecipe;
 import pl.mk.recipot.recipes.domains.GetIngredientsFromRecipe;
 import pl.mk.recipot.recipes.domains.GetRecipeIfExists;
@@ -91,7 +98,9 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 
 	@Override
 	public Recipe get(UUID id) {
-		return new GetRecipeIfExists().execute(recipesRepository.findById(id));
+		Recipe recipe = recipesRepository.getRecipeWithOwner(id);
+		new CheckIfRecipeExists().execute(recipe);
+		return recipe;
 	}
 
 	@Override

@@ -1,12 +1,14 @@
 package pl.mk.recipot.savedrecipefilters.controllers;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import pl.mk.recipot.commons.dtos.Response;
 import pl.mk.recipot.commons.factories.CreatedResponseFactory;
+import pl.mk.recipot.commons.factories.OkMessageResponseFactory;
 import pl.mk.recipot.commons.factories.OkResponseFactory;
 import pl.mk.recipot.commons.models.RecipeFilter;
 import pl.mk.recipot.commons.services.ICrudService;
@@ -33,6 +35,12 @@ public class SavedRecipeFiltersController implements ISavedRecipeFiltersControll
 	@Override
 	public ResponseEntity<Response<List<RecipeFilterDto>>> getRecipeFilters() {
 		return new OkResponseFactory().createResponse(savedRecipeFiltersService.getUserFilters());
+	}
+
+	@Override
+	public ResponseEntity<Response<Void>> deleteRecipeFilter(UUID recipeFilterId) {
+		recipeFiltersCrudService.delete(recipeFilterId);
+		return new OkMessageResponseFactory().createResponse("Recipe filter deleted");
 	}
 
 }
