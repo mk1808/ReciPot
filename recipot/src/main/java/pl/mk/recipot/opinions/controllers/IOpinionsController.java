@@ -18,4 +18,5 @@ public interface IOpinionsController {
 	@PostMapping("/comments")
 	ResponseEntity<Response<Comment>> createComment(@RequestBody Comment comment);
 
+
 }
