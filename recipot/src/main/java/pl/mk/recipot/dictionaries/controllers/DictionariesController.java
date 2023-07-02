@@ -46,33 +46,34 @@ public class DictionariesController implements IDictionariesController {
 	}
 
 	@Override
-	public Category createCategory(Category category) {
-		return categoryCrudService.save(category);
+	public ResponseEntity<Response<Category>> createCategory(Category category) {
+		return new OkResponseFactory().createResponse(categoryCrudService.save(category));
 	}
 
 	@Override
-	public List<CategoryDto> getAllCategories() {
-		return dictionaryService.getHierarchicalCategoriesList();
+	public ResponseEntity<Response<List<CategoryDto>>> getAllCategories() {
+		return new OkResponseFactory().createResponse(dictionaryService.getHierarchicalCategoriesList());
 	}
 
 	@Override
-	public HashTag createHashTag(HashTag hashTag) {
-		return hashTagCrudService.save(hashTag);
+	public ResponseEntity<Response<HashTag>> createHashTag(HashTag hashTag) {
+		return new OkResponseFactory().createResponse(hashTagCrudService.save(hashTag));
 	}
 
 	@Override
-	public Page<HashTag> getAllHashTags(String name, Integer page, Integer size) {
-		return hashTagFilterService.filter(new HashTagFilterDto().setName(name).setPage(page).setSize(size));
+	public ResponseEntity<Response<Page<HashTag>>> getAllHashTags(String name, Integer page, Integer size) {
+		return new OkResponseFactory().createResponse(
+				hashTagFilterService.filter(new HashTagFilterDto().setName(name).setPage(page).setSize(size)));
 	}
 
 	@Override
-	public List<RecipeRequiredEffort> getAllRequiredEfforts() {
-		return dictionaryService.getAllRequiredEfforts();
+	public ResponseEntity<Response<List<RecipeRequiredEffort>>> getAllRequiredEfforts() {
+		return new OkResponseFactory().createResponse(dictionaryService.getAllRequiredEfforts());
 	}
 
 	@Override
-	public List<RecipeDifficulty> getAllDifficulties() {
-		return dictionaryService.getAllDifficulties();
+	public ResponseEntity<Response<List<RecipeDifficulty>>> getAllDifficulties() {
+		return new OkResponseFactory().createResponse(dictionaryService.getAllDifficulties());
 	}
 
 	@Override
