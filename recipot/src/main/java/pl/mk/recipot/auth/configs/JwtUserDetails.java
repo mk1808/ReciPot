@@ -67,5 +67,9 @@ public class JwtUserDetails implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
+	
+	public AppUser getUser() {
+		return user;
+	}
  
 }

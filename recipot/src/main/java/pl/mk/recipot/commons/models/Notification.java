@@ -33,6 +33,6 @@ public class Notification {
 
 	@Column(length = 2000)
 	private String value;
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
 }
