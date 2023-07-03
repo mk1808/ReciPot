@@ -18,6 +18,7 @@ import pl.mk.recipot.recipecollections.domains.CheckIfCollectionNotNull;
 import pl.mk.recipot.recipecollections.domains.CheckIfCollectionPresent;
 import pl.mk.recipot.recipecollections.domains.CheckIfItemInCollection;
 import pl.mk.recipot.recipecollections.domains.CheckIfUserIsOwner;
+import pl.mk.recipot.recipecollections.domains.CleanRecipeCollections;
 import pl.mk.recipot.recipecollections.domains.CleanRecipeCollectionItem;
 import pl.mk.recipot.recipecollections.domains.CleanRecipeCollectionItems;
 import pl.mk.recipot.recipecollections.domains.CreateDefaultRecipeCollections;
@@ -27,16 +28,16 @@ import pl.mk.recipot.recipecollections.repositories.IRecipeCollectionsItemReposi
 import pl.mk.recipot.recipecollections.repositories.IRecipeCollectionsRepository;
 import pl.mk.recipot.recipes.facades.IRecipesFacade;
 
-
 @Service
 public class RecipeCollectionsService implements IRecipeCollectionsService, ICrudService<RecipeCollection> {
-	
+
 	private IRecipeCollectionsRepository recipeCollectionsRepository;
 	private IRecipeCollectionsItemRepository recipeCollectionsItemRepository;
 	private IAuthFacade authFacade;
 	private IRecipesFacade recipesFacade;
-	
-	public RecipeCollectionsService(IRecipeCollectionsRepository recipeCollectionsRepository, IAuthFacade authFacade, IRecipesFacade recipesFacade,
+
+	public RecipeCollectionsService(IRecipeCollectionsRepository recipeCollectionsRepository, IAuthFacade authFacade,
+			IRecipesFacade recipesFacade,
 			IRecipeCollectionsItemRepository recipeCollectionsItemRepository) {
 		super();
 		this.recipeCollectionsRepository = recipeCollectionsRepository;
@@ -48,8 +49,9 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 
 	@Override
 	public RecipeCollection save(RecipeCollection recipeCollection) {
-		AppUser user = authFacade.getCurrentUser(); 
-		RecipeCollection existingRecipeCollection = recipeCollectionsRepository.getOwnByNameAndUser(recipeCollection.getName(), user.getId());
+		AppUser user = authFacade.getCurrentUser();
+		RecipeCollection existingRecipeCollection = recipeCollectionsRepository
+				.getOwnByNameAndUser(recipeCollection.getName(), user.getId());
 		new CheckIfCollectionExists().execute(existingRecipeCollection);
 		recipeCollection = new UpdateUserInRecipeCollection().execute(recipeCollection, user);
 		return recipeCollectionsRepository.save(recipeCollection);
@@ -63,7 +65,7 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 
 	@Override
 	public RecipeCollection get(UUID id) {
-		AppUser user = authFacade.getCurrentUser(); 
+		AppUser user = authFacade.getCurrentUser();
 		RecipeCollection recipeCollection = recipeCollectionsRepository.getOwnById(id);
 		new CheckIfCollectionNotNull().execute(recipeCollection);
 		new CheckIfUserIsOwner().execute(recipeCollection, user);
@@ -75,21 +77,22 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 	@Override
 	public void delete(UUID id) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public RecipeCollectionItem addItem(UUID collectionId, RecipeCollectionItem recipeCollectionItem) {
-		AppUser user = authFacade.getCurrentUser(); 
+		AppUser user = authFacade.getCurrentUser();
 		RecipeCollection existingRecipeCollection = recipeCollectionsRepository.getById(collectionId);
 		new CheckIfCollectionPresent().execute(existingRecipeCollection);
 		new CheckIfUserIsOwner().execute(existingRecipeCollection, user);
 		Recipe recipe = recipesFacade.get(recipeCollectionItem.getRecipe().getId());
-		RecipeCollectionItem existingItem = recipeCollectionsItemRepository.getByRecipeAndCollection(existingRecipeCollection.getId(), recipe.getId());
+		RecipeCollectionItem existingItem = recipeCollectionsItemRepository
+				.getByRecipeAndCollection(existingRecipeCollection.getId(), recipe.getId());
 		new CheckIfItemInCollection().execute(existingItem);
-		
-		
-		RecipeCollectionItem newItem = new FillRecipeCollectionItem().execute(recipeCollectionItem, recipe, existingRecipeCollection);
+
+		RecipeCollectionItem newItem = new FillRecipeCollectionItem().execute(recipeCollectionItem, recipe,
+				existingRecipeCollection);
 		RecipeCollectionItem saved = recipeCollectionsItemRepository.save(newItem);
 		return new CleanRecipeCollectionItem().execute(saved);
 
@@ -98,6 +101,12 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 	@Override
 	public void initUserDefaultCollections(AppUser user) {
 		recipeCollectionsRepository.saveAll(new CreateDefaultRecipeCollections().execute(user));
+	}
+
+	public List<RecipeCollection> getForUser() {
+
+		List<RecipeCollection> recipeCollections = recipeCollectionsRepository.getByOwner(authFacade.getCurrentUser());
+		return new CleanRecipeCollections().execute(recipeCollections);
 	}
 
 }
