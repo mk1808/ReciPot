@@ -27,5 +27,6 @@ public interface IRecipeCollectionsRepository extends JpaRepository<RecipeCollec
 
 	List<RecipeCollection> getByOwner(AppUser currentUser);
 
-
+	@Query("SELECT count(rv) FROM RecipeCollection rv")
+	int getAllRecipeCollectionsCount();
 }

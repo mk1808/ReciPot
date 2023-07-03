@@ -43,4 +43,9 @@ public class UsersFacade implements IUsersFacade {
 		return usersCrudService.get(id);
 	}
 
+	@Override
+	public int getAllUsersCount() {
+		return usersService.getAllUsersCount();
+	}
+
 }

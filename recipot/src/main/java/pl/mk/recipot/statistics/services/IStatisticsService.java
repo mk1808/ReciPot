@@ -1,5 +1,7 @@
 package pl.mk.recipot.statistics.services;
 
-public interface IStatisticsService {
+import pl.mk.recipot.statistics.dtos.GeneralStatisticsDto;
 
+public interface IStatisticsService {
+	GeneralStatisticsDto getGeneralStatistics();
 }

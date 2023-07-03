@@ -119,4 +119,9 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		recipesRepository.save(savedRecipe);
 	}
 
+	@Override
+	public int getAllRecipesCount() {
+		return recipesRepository.getAllRecipesCount();
+	}
+
 }

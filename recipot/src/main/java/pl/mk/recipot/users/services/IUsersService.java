@@ -6,5 +6,5 @@ import pl.mk.recipot.commons.models.Role;
 public interface IUsersService {
 	AppUser getUserByLogin(String username);
 	Role getRoleByName(String name);
-
+	int getAllUsersCount();
 }
