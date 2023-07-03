@@ -1,5 +1,6 @@
 package pl.mk.recipot.recipecollections.controllers;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,11 @@ public class RecipeCollectionsController implements IRecipeCollectionsController
 	public ResponseEntity<Response<RecipeCollection>> get(UUID id) {
 		return new OkResponseFactory().createResponse(recipeCollectionCrudService.get(id));
 
+	}
+
+	@Override
+	public ResponseEntity<Response<List<RecipeCollection>>> getForUser() {
+		return new OkResponseFactory().createResponse(recipeCollectionsService.getForUser());
 	}
 	
 	
