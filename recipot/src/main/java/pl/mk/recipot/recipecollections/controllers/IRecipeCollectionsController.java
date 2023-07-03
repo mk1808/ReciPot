@@ -35,5 +35,8 @@ public interface IRecipeCollectionsController {
 	@DeleteMapping("/{collectionId}/recipe/{recipeId}")
 	ResponseEntity<Response<Void>> deleteFromCollection(@PathVariable UUID collectionId, @PathVariable UUID recipeId);
 	
+	@DeleteMapping("/{collectionId}")
+	ResponseEntity<Response<Void>> delete(@PathVariable UUID collectionId);
+	
 
 }
