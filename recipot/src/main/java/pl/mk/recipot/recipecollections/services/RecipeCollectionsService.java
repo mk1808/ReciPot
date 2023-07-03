@@ -143,4 +143,9 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 		recipeCollectionsItemRepository.save(newItem);
 	}
 
+	@Override
+	public int getAllRecipeCollectionsCount() {
+		return recipeCollectionsRepository.getAllRecipeCollectionsCount();
+	}
+
 }

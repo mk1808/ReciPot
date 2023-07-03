@@ -8,4 +8,6 @@ public interface IRecipeCollectionsFacade {
 	void initUserDefaultCollections(AppUser user);
 
 	void addRecipeToUserDefaultCollection(AppUser user, DefaultRecipeCollections recipeCollection, Recipe recipe);
+	
+	int getAllRecipeCollectionsCount();
 }

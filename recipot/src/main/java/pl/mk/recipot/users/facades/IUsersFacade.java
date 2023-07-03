@@ -10,4 +10,5 @@ public interface IUsersFacade {
 	AppUser getUserByLogin(String login);
 	AppUser getUserById(UUID id);
 	Role getRoleByName(String name);
+	int getAllUsersCount();
 }

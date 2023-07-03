@@ -88,4 +88,9 @@ public class UsersService implements IUsersService, ICrudService<AppUser> {
 		return null;
 	}
 
+	@Override
+	public int getAllUsersCount() {
+		return usersRepository.getAllUsersCount();
+	}
+
 }

@@ -27,4 +27,9 @@ public class RecipeCollectionsFacade implements IRecipeCollectionsFacade {
 		recipeCollectionsService.addRecipeToUserDefaultCollection(user, recipeCollection, recipe);
 	}
 
+	@Override
+	public int getAllRecipeCollectionsCount() {
+		return recipeCollectionsService.getAllRecipeCollectionsCount();
+	}
+
 }

@@ -6,5 +6,5 @@ import pl.mk.recipot.commons.models.Recipe;
 
 public interface IRecipesFacade {
 	public Recipe get(UUID id);
-
+	public int getAllRecipesCount();
 }
