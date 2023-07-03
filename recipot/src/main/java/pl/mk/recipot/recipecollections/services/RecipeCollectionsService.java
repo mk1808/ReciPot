@@ -20,6 +20,7 @@ import pl.mk.recipot.recipecollections.domains.CheckIfItemInCollection;
 import pl.mk.recipot.recipecollections.domains.CheckIfUserIsOwner;
 import pl.mk.recipot.recipecollections.domains.CleanRecipeCollectionItem;
 import pl.mk.recipot.recipecollections.domains.CleanRecipeCollectionItems;
+import pl.mk.recipot.recipecollections.domains.CreateDefaultRecipeCollections;
 import pl.mk.recipot.recipecollections.domains.FillRecipeCollectionItem;
 import pl.mk.recipot.recipecollections.domains.UpdateUserInRecipeCollection;
 import pl.mk.recipot.recipecollections.repositories.IRecipeCollectionsItemRepository;
@@ -92,6 +93,11 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 		RecipeCollectionItem saved = recipeCollectionsItemRepository.save(newItem);
 		return new CleanRecipeCollectionItem().execute(saved);
 
+	}
+
+	@Override
+	public void initUserDefaultCollections(AppUser user) {
+		recipeCollectionsRepository.saveAll(new CreateDefaultRecipeCollections().execute(user));
 	}
 
 }

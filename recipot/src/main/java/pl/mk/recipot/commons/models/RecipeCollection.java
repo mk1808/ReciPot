@@ -14,10 +14,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Transient;
+import lombok.Builder;
 import lombok.Data;
 
 @Entity
 @Data
+@Builder
 public class RecipeCollection {
 	@Id
 	@GeneratedValue
@@ -29,7 +31,7 @@ public class RecipeCollection {
 	private AppUser owner;
 
 	private String name;
-	private boolean canDelete;
+	private boolean canDelete = true;
 	
 	@Transient
 	private List<RecipeCollectionItem> recipeCollectionItems = new ArrayList<>();

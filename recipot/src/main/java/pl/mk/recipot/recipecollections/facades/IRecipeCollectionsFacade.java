@@ -1,5 +1,7 @@
 package pl.mk.recipot.recipecollections.facades;
 
-public interface IRecipeCollectionsFacade {
+import pl.mk.recipot.commons.models.AppUser;
 
+public interface IRecipeCollectionsFacade {
+	void initUserDefaultCollections(AppUser user);
 }
