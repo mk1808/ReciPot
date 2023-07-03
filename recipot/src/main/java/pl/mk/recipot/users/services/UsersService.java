@@ -9,9 +9,11 @@ import pl.mk.recipot.auth.facades.IAuthFacade;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Role;
 import pl.mk.recipot.commons.services.ICrudService;
+import pl.mk.recipot.recipecollections.facades.IRecipeCollectionsFacade;
 import pl.mk.recipot.users.domains.CheckIfCurrentUser;
 import pl.mk.recipot.users.domains.CheckUserExistsForEdit;
 import pl.mk.recipot.users.domains.DeleteSensitiveDataFromUser;
+import pl.mk.recipot.users.domains.IsNewUser;
 import pl.mk.recipot.users.domains.UpdateUser;
 import pl.mk.recipot.users.repositories.IRolesRepository;
 import pl.mk.recipot.users.repositories.IUsersRepository;
@@ -22,13 +24,16 @@ public class UsersService implements IUsersService, ICrudService<AppUser> {
 
 	private IUsersRepository usersRepository;
 	private IRolesRepository rolesRepository;
+	private IRecipeCollectionsFacade recipeCollectionsFacade;
 	private IAuthFacade authFacade;
-	
-	public UsersService(IUsersRepository usersRepository, IRolesRepository rolesRepository, IAuthFacade authFacade) {
+
+	public UsersService(IUsersRepository usersRepository, IRolesRepository rolesRepository, IAuthFacade authFacade,
+			IRecipeCollectionsFacade recipeCollectionsFacade) {
 		super();
 		this.usersRepository = usersRepository;
 		this.rolesRepository = rolesRepository;
 		this.authFacade = authFacade;
+		this.recipeCollectionsFacade = recipeCollectionsFacade;
 	}
 
 	@Override
@@ -38,7 +43,12 @@ public class UsersService implements IUsersService, ICrudService<AppUser> {
 
 	@Override
 	public AppUser save(AppUser appUser) {
-		return usersRepository.save(appUser);
+		boolean isNewUser = new IsNewUser().execute(appUser);
+		usersRepository.save(appUser);
+		if (isNewUser) {
+			recipeCollectionsFacade.initUserDefaultCollections(appUser);
+		}
+		return appUser;
 	}
 
 	@Override
@@ -48,7 +58,7 @@ public class UsersService implements IUsersService, ICrudService<AppUser> {
 		if (userExists) {
 			return updateAndSaveUser(oldUser, appUser);
 		}
-		
+
 		return null;
 	}
 
@@ -60,14 +70,14 @@ public class UsersService implements IUsersService, ICrudService<AppUser> {
 	@Override
 	public void delete(UUID id) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public Role getRoleByName(String name) {
 		return rolesRepository.getByName(name);
 	}
-	
+
 	private AppUser updateAndSaveUser(AppUser oldUser, AppUser appUser) {
 		Boolean isCurrentUser = new CheckIfCurrentUser().execute(authFacade.getCurrentUser(), oldUser);
 		if (isCurrentUser) {
