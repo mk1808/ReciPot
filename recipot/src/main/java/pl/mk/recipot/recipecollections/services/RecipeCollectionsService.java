@@ -18,6 +18,7 @@ import pl.mk.recipot.recipecollections.domains.CheckIfCollectionExists;
 import pl.mk.recipot.recipecollections.domains.CheckIfCollectionNotNull;
 import pl.mk.recipot.recipecollections.domains.CheckIfCollectionPresent;
 import pl.mk.recipot.recipecollections.domains.CheckIfItemInCollection;
+import pl.mk.recipot.recipecollections.domains.CheckIfItemPresent;
 import pl.mk.recipot.recipecollections.domains.CheckIfUserIsOwner;
 import pl.mk.recipot.recipecollections.domains.CleanRecipeCollections;
 import pl.mk.recipot.recipecollections.domains.CleanRecipeCollectionItem;
@@ -104,6 +105,21 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 
 		List<RecipeCollection> recipeCollections = recipeCollectionsRepository.getByOwner(authFacade.getCurrentUser());
 		return new CleanRecipeCollections().execute(recipeCollections);
+	}
+
+	@Override
+	public void deleteRecipeFromCollection(UUID collectionId, UUID recipeId) {
+		AppUser user = authFacade.getCurrentUser();
+		RecipeCollection existingRecipeCollection = recipeCollectionsRepository.getById(collectionId);
+		new CheckIfCollectionPresent().execute(existingRecipeCollection);
+		new CheckIfUserIsOwner().execute(existingRecipeCollection, user);
+
+		RecipeCollectionItem existingItem = recipeCollectionsItemRepository.getByRecipeAndCollection(collectionId,
+				recipeId);
+		new CheckIfItemPresent().execute(existingItem);
+
+		recipeCollectionsItemRepository.delete(existingItem);
+
 	}
 
 	@Override

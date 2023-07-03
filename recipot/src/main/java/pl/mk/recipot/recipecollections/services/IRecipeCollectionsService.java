@@ -15,6 +15,8 @@ public interface IRecipeCollectionsService {
 
 	List<RecipeCollection> getForUser();
 
+	void deleteRecipeFromCollection(UUID collectionId, UUID recipeId);
+
 	void initUserDefaultCollections(AppUser user);
 
 	void addRecipeToUserDefaultCollection(AppUser user, DefaultRecipeCollections recipeCollection, Recipe recipe);
