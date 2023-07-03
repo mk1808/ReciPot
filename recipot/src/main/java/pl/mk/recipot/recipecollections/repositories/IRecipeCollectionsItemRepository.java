@@ -1,5 +1,6 @@
 package pl.mk.recipot.recipecollections.repositories;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,5 +17,7 @@ public interface  IRecipeCollectionsItemRepository extends JpaRepository<RecipeC
 			+ "where rc.collection.id = :collectionId and rc.recipe.id = :recipeId")
 	RecipeCollectionItem getByRecipeAndCollection(UUID collectionId, UUID recipeId);
 
-
+	@Query("SELECT rci FROM RecipeCollectionItem rci LEFT JOIN FETCH rci.collection "
+			+ "where rci.collection.id = :id")
+	List<RecipeCollectionItem> getByCollection(UUID id);
 }
