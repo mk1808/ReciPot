@@ -14,6 +14,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
@@ -24,6 +26,7 @@ public class PrivateNote {
 	@UuidGenerator
 	private UUID id;
 
+	@NotNull()
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "recipe_id")
 	private Recipe recipe;
@@ -32,9 +35,10 @@ public class PrivateNote {
 	@JoinColumn(name = "author_id")
 	private AppUser author;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
 
+	@NotBlank
 	@Column(length = 1000)
 	private String content;
 }

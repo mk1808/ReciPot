@@ -17,6 +17,7 @@ import jakarta.validation.Valid;
 import pl.mk.recipot.commons.dtos.Response;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Recipe;
+import pl.mk.recipot.commons.models.SharedRecipe;
 
 @RequestMapping("/api/recipes")
 public interface IRecipesController {
@@ -33,4 +34,6 @@ public interface IRecipesController {
 	@PatchMapping("/visibility/{recipeId}")
 	ResponseEntity<Response<Void>> changeVisibility(@PathVariable UUID recipeId);
 
+	@PostMapping("/sharing")
+	ResponseEntity<Response<SharedRecipe>> shareWithUser(@RequestBody @Valid SharedRecipe sharedRecipe);
 }

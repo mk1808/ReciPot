@@ -1,5 +1,8 @@
 package pl.mk.recipot.commons.models;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
@@ -10,10 +13,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Transient;
+import lombok.Builder;
 import lombok.Data;
 
 @Entity
 @Data
+@Builder
 public class RecipeCollection {
 	@Id
 	@GeneratedValue
@@ -25,5 +31,26 @@ public class RecipeCollection {
 	private AppUser owner;
 
 	private String name;
-	private boolean canDelete;
+	private boolean canDelete = true;
+	
+	@Transient
+	private List<RecipeCollectionItem> recipeCollectionItems = new ArrayList<>();
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RecipeCollection other = (RecipeCollection) obj;
+		return canDelete == other.canDelete && Objects.equals(id, other.id) && Objects.equals(name, other.name)
+				&& Objects.equals(owner, other.owner);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(canDelete, id, name, owner);
+	}
 }

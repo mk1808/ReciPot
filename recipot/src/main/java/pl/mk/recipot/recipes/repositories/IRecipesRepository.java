@@ -13,5 +13,7 @@ public interface IRecipesRepository extends JpaRepository<Recipe, UUID> {
 	
 	@Query("SELECT r FROM Recipe r LEFT JOIN FETCH r.owner where r.id = :id")
 	Recipe getRecipeWithOwner(UUID id);
-
+	
+	@Query("SELECT count(r) FROM Recipe r")
+	int getAllRecipesCount();
 }

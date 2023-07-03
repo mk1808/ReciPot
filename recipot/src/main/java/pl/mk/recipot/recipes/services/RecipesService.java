@@ -19,6 +19,12 @@ import pl.mk.recipot.commons.models.RecipeStep;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.commons.services.IFilterService;
 import pl.mk.recipot.dictionaries.facades.IDictionariesFacade;
+
+import pl.mk.recipot.recipes.domains.CheckIfUserIsOwner;
+import pl.mk.recipot.dictionaries.repositories.IHashTagRepository;
+import pl.mk.recipot.recipes.domains.UpdateRecipeIngredientsForRecipe;
+import pl.mk.recipot.recipes.domains.UpdateRecipeStepsForRecipe;
+import pl.mk.recipot.recipes.domains.UpdateUserInRecipe;
 import pl.mk.recipot.recipes.domains.CheckIfRecipeExists;
 import pl.mk.recipot.recipes.domains.CheckIfUserIsOwner;
 import pl.mk.recipot.recipes.domains.CleanRecipe;
@@ -117,6 +123,11 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		new CheckIfUserIsOwner().execute(authFacade.getCurrentUser(), savedRecipe);
 		new ToggleRecipeVisibility().execute(savedRecipe);
 		recipesRepository.save(savedRecipe);
+	}
+
+	@Override
+	public int getAllRecipesCount() {
+		return recipesRepository.getAllRecipesCount();
 	}
 
 }

@@ -5,4 +5,6 @@ import java.util.UUID;
 public interface IRecipesService {
 
 	public void changeVisibility(UUID recipeId);
+
+	public int getAllRecipesCount();
 }
