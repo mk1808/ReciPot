@@ -6,7 +6,6 @@ import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.validation.Valid;
 import pl.mk.recipot.commons.dtos.Response;
 import pl.mk.recipot.commons.factories.CreatedResponseFactory;
 import pl.mk.recipot.commons.factories.OkMessageResponseFactory;
@@ -54,6 +53,12 @@ public class RecipeCollectionsController implements IRecipeCollectionsController
 	public ResponseEntity<Response<Void>> deleteFromCollection(UUID collectionId, UUID recipeId) {
 		recipeCollectionsService.deleteRecipeFromCollection(collectionId, recipeId);
 		return new OkMessageResponseFactory().createResponse("Deleted from collection");
+	}
+
+	@Override
+	public ResponseEntity<Response<Void>> delete(UUID collectionId) {
+		recipeCollectionCrudService.delete(collectionId);
+		return new OkMessageResponseFactory().createResponse("Collection deleted successfully");
 	}
 	
 	
