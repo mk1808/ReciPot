@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
+import pl.mk.recipot.commons.enums.DefaultRecipeCollections;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.models.RecipeCollection;
@@ -99,14 +100,25 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 	}
 
 	@Override
-	public void initUserDefaultCollections(AppUser user) {
-		recipeCollectionsRepository.saveAll(new CreateDefaultRecipeCollections().execute(user));
-	}
-
 	public List<RecipeCollection> getForUser() {
 
 		List<RecipeCollection> recipeCollections = recipeCollectionsRepository.getByOwner(authFacade.getCurrentUser());
 		return new CleanRecipeCollections().execute(recipeCollections);
+	}
+
+	@Override
+	public void initUserDefaultCollections(AppUser user) {
+		recipeCollectionsRepository.saveAll(new CreateDefaultRecipeCollections().execute(user));
+	}
+
+	@Override
+	public void addRecipeToUserDefaultCollection(AppUser user, DefaultRecipeCollections recipeCollection,
+			Recipe recipe) {
+		RecipeCollection existingRecipeCollection = recipeCollectionsRepository
+				.getOwnByNameAndUser(recipeCollection.getName(), user.getId());
+		RecipeCollectionItem newItem = new FillRecipeCollectionItem().execute(new RecipeCollectionItem(), recipe,
+				existingRecipeCollection);
+		recipeCollectionsItemRepository.save(newItem);
 	}
 
 }
