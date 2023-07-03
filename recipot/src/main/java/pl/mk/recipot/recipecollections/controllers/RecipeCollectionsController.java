@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 import pl.mk.recipot.commons.dtos.Response;
 import pl.mk.recipot.commons.factories.CreatedResponseFactory;
+import pl.mk.recipot.commons.factories.OkMessageResponseFactory;
 import pl.mk.recipot.commons.factories.OkResponseFactory;
 import pl.mk.recipot.commons.models.RecipeCollection;
 import pl.mk.recipot.commons.models.RecipeCollectionItem;
@@ -47,6 +48,12 @@ public class RecipeCollectionsController implements IRecipeCollectionsController
 	@Override
 	public ResponseEntity<Response<List<RecipeCollection>>> getForUser() {
 		return new OkResponseFactory().createResponse(recipeCollectionsService.getForUser());
+	}
+
+	@Override
+	public ResponseEntity<Response<Void>> deleteFromCollection(UUID collectionId, UUID recipeId) {
+		recipeCollectionsService.deleteRecipeFromCollection(collectionId, recipeId);
+		return new OkMessageResponseFactory().createResponse("Deleted from collection");
 	}
 	
 	

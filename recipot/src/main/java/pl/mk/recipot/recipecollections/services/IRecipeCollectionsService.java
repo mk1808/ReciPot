@@ -12,4 +12,6 @@ public interface IRecipeCollectionsService {
 
 	List<RecipeCollection> getForUser();
 
+	void deleteRecipeFromCollection(UUID collectionId, UUID recipeId);
+
 }
