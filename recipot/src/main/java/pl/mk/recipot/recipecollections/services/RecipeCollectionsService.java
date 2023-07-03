@@ -75,8 +75,14 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 
 	@Override
 	public void delete(UUID id) {
-		// TODO Auto-generated method stub
+		AppUser user = authFacade.getCurrentUser(); 
+		RecipeCollection recipeCollection = recipeCollectionsRepository.getById(id);
+		new CheckIfCollectionPresent().execute(recipeCollection);
+		new CheckIfUserIsOwner().execute(recipeCollection, user);
 		
+		List<RecipeCollectionItem> items = recipeCollectionsItemRepository.getByCollection(id);
+		items.forEach(item->recipeCollectionsItemRepository.delete(item));
+		recipeCollectionsRepository.delete(recipeCollection);
 	}
 
 	@Override
