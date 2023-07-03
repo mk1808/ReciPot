@@ -32,4 +32,14 @@ public class RecipeCollectionsFacade implements IRecipeCollectionsFacade {
 		return recipeCollectionsService.getAllRecipeCollectionsCount();
 	}
 
+	@Override
+	public int getUserRecipeCollectionsCount(AppUser user) {
+		return recipeCollectionsService.getUserRecipeCollectionsCount(user);
+	}
+
+	@Override
+	public int getRecipesInUserRecipeCollectionsCount(AppUser user) {
+		return recipeCollectionsService.getRecipesInUserRecipeCollectionsCount(user);
+	}
+
 }

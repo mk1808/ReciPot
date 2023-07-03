@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.recipes.services.IRecipesService;
@@ -29,6 +30,11 @@ public class RecipesFacade implements IRecipesFacade {
 	@Override
 	public int getAllRecipesCount() {
 		return recipesService.getAllRecipesCount();
+	}
+
+	@Override
+	public int getUserRecipesCount(AppUser user) {
+		return recipesService.getUserRecipesCount(user);
 	}
 
 }

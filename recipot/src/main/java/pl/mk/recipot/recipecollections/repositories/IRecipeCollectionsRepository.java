@@ -29,4 +29,7 @@ public interface IRecipeCollectionsRepository extends JpaRepository<RecipeCollec
 
 	@Query("SELECT count(rv) FROM RecipeCollection rv")
 	int getAllRecipeCollectionsCount();
+	
+	@Query("SELECT count(rv) FROM RecipeCollection rv where rv.owner = :user")
+	int getUserRecipeCollectionsCount(AppUser user);
 }

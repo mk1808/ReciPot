@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Comment;
 import pl.mk.recipot.commons.models.Rating;
 import pl.mk.recipot.opinions.domains.CreateRecipeOpinions;
@@ -28,6 +29,16 @@ public class OpinionsService implements IOpinionsService {
 		List<Comment> comments = commentRepository.findByRecipeId(recipeId);
 		List<Rating> ratings = ratingsRepository.findByRecipeId(recipeId);
 		return new CreateRecipeOpinions().execute(comments, ratings);
+	}
+
+	@Override
+	public int getUserRatedRecipesCount(AppUser user) {
+		return ratingsRepository.getUserRatedRecipesCount(user);
+	}
+
+	@Override
+	public int getUserCommentedRecipesCount(AppUser user) {
+		return commentRepository.getUserCommentedRecipesCount(user);
 	}
 
 }

@@ -22,5 +22,8 @@ public interface IRecipeCollectionsService {
 	void addRecipeToUserDefaultCollection(AppUser user, DefaultRecipeCollections recipeCollection, Recipe recipe);
 	
 	int getAllRecipeCollectionsCount();
+	
+	int getUserRecipeCollectionsCount(AppUser user);
 
+	int getRecipesInUserRecipeCollectionsCount(AppUser user);
 }
