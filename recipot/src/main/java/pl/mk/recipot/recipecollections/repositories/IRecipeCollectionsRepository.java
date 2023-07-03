@@ -1,5 +1,6 @@
 package pl.mk.recipot.recipecollections.repositories;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,6 +24,8 @@ public interface IRecipeCollectionsRepository extends JpaRepository<RecipeCollec
 	@Query("SELECT rc FROM RecipeCollection rc LEFT JOIN FETCH rc.owner "
 			+ "where rc.id = :id")
 	RecipeCollection getOwnById(UUID id);
+
+	List<RecipeCollection> getByOwner(AppUser currentUser);
 
 
 }

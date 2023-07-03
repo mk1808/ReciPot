@@ -1,5 +1,6 @@
 package pl.mk.recipot.recipecollections.controllers;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
@@ -22,13 +23,13 @@ public interface IRecipeCollectionsController {
 	@PostMapping
 	ResponseEntity<Response<RecipeCollection>> create(@RequestBody @Valid RecipeCollection recipeCollection);
 	
-
-	
 	@PostMapping("/{collectionId}/recipe")
 	ResponseEntity<Response<RecipeCollectionItem>> addItem(@PathVariable UUID collectionId, @RequestBody @Valid RecipeCollectionItem recipeCollectionItem);
 
 	@GetMapping("/{id}")
 	ResponseEntity<Response<RecipeCollection>> get(@PathVariable UUID id);
 	
+	@GetMapping
+	ResponseEntity<Response<List<RecipeCollection>>> getForUser();
 
 }
