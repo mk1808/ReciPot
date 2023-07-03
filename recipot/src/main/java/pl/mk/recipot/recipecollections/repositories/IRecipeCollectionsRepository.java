@@ -15,10 +15,14 @@ public interface IRecipeCollectionsRepository extends JpaRepository<RecipeCollec
 	@Query("SELECT rc FROM RecipeCollection rc LEFT JOIN FETCH rc.owner "
 			+ "where rc.name = :name and rc.owner.id = :userId")
 	RecipeCollection getOwnByNameAndUser(String name, UUID userId);
-	
 
 	@Query("SELECT rc FROM RecipeCollection rc LEFT JOIN FETCH rc.owner "
 			+ "where rc.id = :id")
 	RecipeCollection getById(UUID id);
+
+	@Query("SELECT rc FROM RecipeCollection rc LEFT JOIN FETCH rc.owner "
+			+ "where rc.id = :id")
+	RecipeCollection getOwnById(UUID id);
+
 
 }

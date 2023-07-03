@@ -35,6 +35,12 @@ public class RecipeCollectionsController implements IRecipeCollectionsController
 	public ResponseEntity<Response<RecipeCollectionItem>> addItem(UUID collectionId,
 			RecipeCollectionItem recipeCollectionItem) {
 		return new CreatedResponseFactory().createResponse(recipeCollectionsService.addItem(collectionId, recipeCollectionItem));
+  }
+  
+	@Override
+	public ResponseEntity<Response<RecipeCollection>> get(UUID id) {
+		return new OkResponseFactory().createResponse(recipeCollectionCrudService.get(id));
+
 	}
 	
 	

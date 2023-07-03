@@ -1,5 +1,7 @@
 package pl.mk.recipot.recipecollections.services;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -10,6 +12,7 @@ import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.models.RecipeCollection;
 import pl.mk.recipot.commons.models.RecipeCollectionItem;
 import pl.mk.recipot.commons.services.ICrudService;
+import pl.mk.recipot.recipecollections.domains.AddItemsToRecipeCollection;
 import pl.mk.recipot.recipecollections.domains.CheckIfCollectionExists;
 import pl.mk.recipot.recipecollections.domains.CheckIfCollectionPresent;
 import pl.mk.recipot.recipecollections.domains.CheckIfItemInCollection;
@@ -20,6 +23,7 @@ import pl.mk.recipot.recipecollections.domains.UpdateUserInRecipeCollection;
 import pl.mk.recipot.recipecollections.repositories.IRecipeCollectionsItemRepository;
 import pl.mk.recipot.recipecollections.repositories.IRecipeCollectionsRepository;
 import pl.mk.recipot.recipes.facades.IRecipesFacade;
+
 
 @Service
 public class RecipeCollectionsService implements IRecipeCollectionsService, ICrudService<RecipeCollection> {
@@ -36,6 +40,7 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 		this.authFacade = authFacade;
 		this.recipesFacade = recipesFacade;
 		this.recipeCollectionsItemRepository = recipeCollectionsItemRepository;
+
 	}
 
 	@Override
@@ -55,8 +60,13 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 
 	@Override
 	public RecipeCollection get(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+		AppUser user = authFacade.getCurrentUser(); 
+		RecipeCollection recipeCollection = recipeCollectionsRepository.getOwnById(id);
+		new CheckIfCollectionNotNull().execute(recipeCollection);
+		new CheckIfUserIsOwner().execute(recipeCollection, user);
+		List<RecipeCollectionItem> items = recipeCollectionItemRepository.getByCollection(id);
+		List<RecipeCollectionItem> cleanedItems = new CleanRecipeCollectionItems().execute(items);
+		return new AddItemsToRecipeCollection().execute(cleanedItems, recipeCollection);
 	}
 
 	@Override
