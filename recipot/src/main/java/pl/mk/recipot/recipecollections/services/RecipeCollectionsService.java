@@ -8,31 +8,39 @@ import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
 import pl.mk.recipot.commons.models.AppUser;
+import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.models.RecipeCollection;
 import pl.mk.recipot.commons.models.RecipeCollectionItem;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.recipecollections.domains.AddItemsToRecipeCollection;
 import pl.mk.recipot.recipecollections.domains.CheckIfCollectionExists;
-import pl.mk.recipot.recipecollections.domains.CheckIfCollectionNotNull;
+import pl.mk.recipot.recipecollections.domains.CheckIfCollectionPresent;
+import pl.mk.recipot.recipecollections.domains.CheckIfItemInCollection;
 import pl.mk.recipot.recipecollections.domains.CheckIfUserIsOwner;
-import pl.mk.recipot.recipecollections.domains.CleanRecipeCollectionItems;
+import pl.mk.recipot.recipecollections.domains.CleanRecipeCollectionItem;
+import pl.mk.recipot.recipecollections.domains.FillRecipeCollectionItem;
 import pl.mk.recipot.recipecollections.domains.UpdateUserInRecipeCollection;
-import pl.mk.recipot.recipecollections.repositories.IRecipeCollectionItemRepository;
+import pl.mk.recipot.recipecollections.repositories.IRecipeCollectionsItemRepository;
 import pl.mk.recipot.recipecollections.repositories.IRecipeCollectionsRepository;
+import pl.mk.recipot.recipes.facades.IRecipesFacade;
+
 
 @Service
 public class RecipeCollectionsService implements IRecipeCollectionsService, ICrudService<RecipeCollection> {
 	
 	private IRecipeCollectionsRepository recipeCollectionsRepository;
+	private IRecipeCollectionsItemRepository recipeCollectionsItemRepository;
 	private IAuthFacade authFacade;
-	private IRecipeCollectionItemRepository recipeCollectionItemRepository;
+	private IRecipesFacade recipesFacade;
 	
-	public RecipeCollectionsService(IRecipeCollectionsRepository recipeCollectionsRepository, IAuthFacade authFacade,
-			IRecipeCollectionItemRepository recipeCollectionItemRepository) {
+	public RecipeCollectionsService(IRecipeCollectionsRepository recipeCollectionsRepository, IAuthFacade authFacade, IRecipesFacade recipesFacade,
+			IRecipeCollectionsItemRepository recipeCollectionsItemRepository) {
 		super();
 		this.recipeCollectionsRepository = recipeCollectionsRepository;
 		this.authFacade = authFacade;
-		this.recipeCollectionItemRepository = recipeCollectionItemRepository;
+		this.recipesFacade = recipesFacade;
+		this.recipeCollectionsItemRepository = recipeCollectionsItemRepository;
+
 	}
 
 	@Override
@@ -65,6 +73,23 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 	public void delete(UUID id) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public RecipeCollectionItem addItem(UUID collectionId, RecipeCollectionItem recipeCollectionItem) {
+		AppUser user = authFacade.getCurrentUser(); 
+		RecipeCollection existingRecipeCollection = recipeCollectionsRepository.getById(collectionId);
+		new CheckIfCollectionPresent().execute(existingRecipeCollection);
+		new CheckIfUserIsOwner().execute(existingRecipeCollection, user);
+		Recipe recipe = recipesFacade.get(recipeCollectionItem.getRecipe().getId());
+		RecipeCollectionItem existingItem = recipeCollectionsItemRepository.getByRecipeAndCollection(existingRecipeCollection.getId(), recipe.getId());
+		new CheckIfItemInCollection().execute(existingItem);
+		
+		
+		RecipeCollectionItem newItem = new FillRecipeCollectionItem().execute(recipeCollectionItem, recipe, existingRecipeCollection);
+		RecipeCollectionItem saved = recipeCollectionsItemRepository.save(newItem);
+		return new CleanRecipeCollectionItem().execute(saved);
+
 	}
 
 }
