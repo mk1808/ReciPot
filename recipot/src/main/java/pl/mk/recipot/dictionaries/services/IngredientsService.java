@@ -1,5 +1,6 @@
 package pl.mk.recipot.dictionaries.services;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -53,13 +54,22 @@ public class IngredientsService implements IFilterService<Ingredient, Ingredient
 	}
 	
 	@Override
-	public Set<Ingredient> saveMany(Set<Ingredient> ingredients) {
-		return ingredients.stream().map(this::saveIfNotExists).collect(Collectors.toSet());
+	public List<Ingredient> saveMany(List<Ingredient> ingredients) {
+		return ingredients.stream().map(this::saveIfNotExists).collect(Collectors.toList());
 	}
 	
 	private Ingredient saveIfNotExists(Ingredient ingredient) {
-		Ingredient exisitingTag = new GetIngredientIfExists().execute(ingredientsRepository.findByName(ingredient.getName()));
+		Ingredient exisitingTag = getIngredientByName(ingredient);
 		return exisitingTag != null? exisitingTag : ingredientsRepository.save(ingredient);
+	}
+
+	@Override
+	public List<Ingredient> getMany(List<Ingredient> ingredients) {
+		return ingredients.stream().map(this::getIngredientByName).collect(Collectors.toList());
+	}
+
+	private Ingredient getIngredientByName(Ingredient ingredient) {
+		return new GetIngredientIfExists().execute(ingredientsRepository.findByName(ingredient.getName()));
 	}
 
 }

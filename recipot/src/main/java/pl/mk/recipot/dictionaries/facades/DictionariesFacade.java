@@ -1,5 +1,6 @@
 package pl.mk.recipot.dictionaries.facades;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
@@ -40,11 +41,12 @@ public class DictionariesFacade implements IDictionariesFacade {
 	}
 
 	@Override
-	public Set<Ingredient> saveManyIngredients(Set<Ingredient> ingredients) {
+	public List<Ingredient> saveManyIngredients(List<Ingredient> ingredients) {
 		return ingredientsService.saveMany(ingredients);
 	}
-	
-	
-	
 
+	@Override
+	public List<Ingredient> getIngredients(List<Ingredient> ingredients) {
+		return ingredientsService.getMany(ingredients);
+	}
 }

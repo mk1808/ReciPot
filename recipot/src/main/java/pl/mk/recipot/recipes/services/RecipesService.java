@@ -1,7 +1,9 @@
 package pl.mk.recipot.recipes.services;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -28,9 +30,12 @@ import pl.mk.recipot.recipes.domains.UpdateUserInRecipe;
 import pl.mk.recipot.recipes.domains.CheckIfRecipeExists;
 import pl.mk.recipot.recipes.domains.CheckIfUserIsOwner;
 import pl.mk.recipot.recipes.domains.CleanRecipe;
+import pl.mk.recipot.recipes.domains.FillRecipeWithIngredients;
 import pl.mk.recipot.recipes.domains.GetIngredientsDifference;
 import pl.mk.recipot.recipes.domains.GetIngredientsFromRecipe;
+import pl.mk.recipot.recipes.domains.GetRecipeIngredientNameList;
 import pl.mk.recipot.recipes.domains.ToggleRecipeVisibility;
+import pl.mk.recipot.recipes.domains.UpdateExistingIngredients;
 import pl.mk.recipot.recipes.domains.UpdateListsInRecipe;
 import pl.mk.recipot.recipes.domains.UpdateRecipeIngredientsForRecipe;
 import pl.mk.recipot.recipes.domains.UpdateRecipeStepsForRecipe;
@@ -75,13 +80,10 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		Recipe updatedRecipe = new UpdateListsInRecipe().execute(recipe, tags, categories);
 		Recipe savedRecipe = recipesRepository.save(updatedRecipe);
 
-		Set<Ingredient> ingredients = new GetIngredientsFromRecipe().execute(recipe);
-		Set<Ingredient> allIngredientsCreated = dictionariesFacade.saveManyIngredients(ingredients);
-		Set<RecipeIngredient> recipeIngredients = new UpdateRecipeIngredientsForRecipe().execute(savedRecipe,
-				allIngredientsCreated);
-		List<RecipeIngredient> savedRecipeIngredients = recipeIngredientsRepository.saveAll(recipeIngredients);
+		List<Ingredient> ingredients = new GetIngredientsFromRecipe().execute(recipe);
+		List<RecipeIngredient> savedRecipeIngredients = saveIngredients(savedRecipe, recipe, ingredients);
 		savedRecipe.setRecipeIngredients(
-				new CleanRecipe().executeIngredients(new HashSet<RecipeIngredient>(savedRecipeIngredients)));
+				new CleanRecipe().executeIngredients(savedRecipeIngredients));
 
 		Set<RecipeStep> updatedSteps = new UpdateRecipeStepsForRecipe().execute(savedRecipe, recipe.getRecipeSteps());
 		Set<RecipeStep> allStepsCreated = saveRecipeSteps(updatedSteps);
@@ -90,14 +92,41 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		return savedRecipe;
 	}
 
+	private List<RecipeIngredient> saveIngredients(Recipe savedRecipe,Recipe newRecipe, List<Ingredient> ingredients) {
+		List<Ingredient> allIngredientsCreated = dictionariesFacade.saveManyIngredients(ingredients);
+		List<RecipeIngredient> recipeIngredients = new UpdateRecipeIngredientsForRecipe().execute(savedRecipe,newRecipe,
+				allIngredientsCreated);
+		List<RecipeIngredient> savedRecipeIngredients = recipeIngredientsRepository.saveAll(recipeIngredients);
+		return savedRecipeIngredients;
+	}
+
 	@Override
 	public Recipe update(Recipe recipe, UUID id) {
 		Recipe existingRecipe = recipesRepository.getRecipeWithOwner(id);
 		new CheckIfRecipeExists().execute(existingRecipe);
 		new CheckIfUserIsOwner().execute(authFacade.getCurrentUser(), existingRecipe);
 		
-		new GetIngredientsDifference().execute(existingRecipe,recipe);
-		return null;
+		Map<String, List<Ingredient>> ingredientsDifference = new GetIngredientsDifference().execute(existingRecipe,recipe);
+		List<RecipeIngredient> savedRecipeIngredients = 
+				saveIngredients(existingRecipe,recipe, ingredientsDifference.get("ADDED"));
+		
+		List<String> namesList = new GetRecipeIngredientNameList().execute(ingredientsDifference.get("UPDATED"));
+		List<RecipeIngredient> recipeIngredientsToUpdate = recipeIngredientsRepository.getByRecipeAndIngredients(id, namesList);
+		List<RecipeIngredient> recipeIngredientsUpdated = new UpdateExistingIngredients().execute(recipeIngredientsToUpdate,
+				new ArrayList<>(recipe.getRecipeIngredients()), recipe);
+		List<RecipeIngredient> savedUpdatedRecipeIngredients = recipeIngredientsRepository.saveAll(recipeIngredientsUpdated);
+
+		List<String> namesListDeleted = new GetRecipeIngredientNameList().execute(ingredientsDifference.get("DELETED"));
+		List<RecipeIngredient> recipeIngredientsToDelete = recipeIngredientsRepository.getByRecipeAndIngredients(id, namesListDeleted);
+		recipeIngredientsRepository.deleteAll(recipeIngredientsToDelete);
+		
+		
+		
+		
+		Recipe filled = new FillRecipeWithIngredients().execute(existingRecipe, savedRecipeIngredients,
+				savedUpdatedRecipeIngredients);
+		
+		return filled;
 	}
 
 	@Override
