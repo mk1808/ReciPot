@@ -85,10 +85,16 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		savedRecipe.setRecipeIngredients(
 				new CleanRecipe().executeIngredients(savedRecipeIngredients));
 
+		
+		savedRecipe = createStepsAndAddToRecipe(recipe, savedRecipe);
+
+		return savedRecipe;
+	}
+
+	private Recipe createStepsAndAddToRecipe(Recipe recipe, Recipe savedRecipe) {
 		List<RecipeStep> updatedSteps = new UpdateRecipeStepsForRecipe().execute(savedRecipe, recipe.getRecipeSteps());
 		List<RecipeStep> allStepsCreated = saveRecipeSteps(updatedSteps);
 		savedRecipe.setRecipeSteps(new CleanRecipe().executeSteps(allStepsCreated));
-
 		return savedRecipe;
 	}
 
@@ -120,8 +126,8 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		List<RecipeIngredient> recipeIngredientsToDelete = recipeIngredientsRepository.getByRecipeAndIngredients(id, namesListDeleted);
 		recipeIngredientsRepository.deleteAll(recipeIngredientsToDelete);
 		
-		
-		
+		deleteRecipeSteps(recipeStepsRepository.getByRecipe(existingRecipe));
+		existingRecipe = createStepsAndAddToRecipe(recipe, existingRecipe);
 		
 		Recipe filled = new FillRecipeWithIngredients().execute(existingRecipe, savedRecipeIngredients,
 				savedUpdatedRecipeIngredients);
@@ -145,6 +151,12 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	private List<RecipeStep> saveRecipeSteps(List<RecipeStep> steps) {
 		return steps.stream().map(step -> recipeStepsRepository.save(step)).collect(Collectors.toList());
 	}
+	
+	private void deleteRecipeSteps(List<RecipeStep> steps) {
+		steps.stream().forEach(step -> recipeStepsRepository.delete(step));
+	}
+	
+	
 
 	@Override
 	public void changeVisibility(UUID recipeId) {
