@@ -30,6 +30,7 @@ import pl.mk.recipot.recipes.domains.UpdateUserInRecipe;
 import pl.mk.recipot.recipes.domains.CheckIfRecipeExists;
 import pl.mk.recipot.recipes.domains.CheckIfUserIsOwner;
 import pl.mk.recipot.recipes.domains.CleanRecipe;
+import pl.mk.recipot.recipes.domains.FillOtherRecipeFields;
 import pl.mk.recipot.recipes.domains.FillRecipeWithIngredients;
 import pl.mk.recipot.recipes.domains.GetIngredientsDifference;
 import pl.mk.recipot.recipes.domains.GetIngredientsFromRecipe;
@@ -86,16 +87,14 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 				new CleanRecipe().executeIngredients(savedRecipeIngredients));
 
 		
-		savedRecipe = createStepsAndAddToRecipe(recipe, savedRecipe);
-
+		List<RecipeStep> allStepsCreated = createSteps(recipe, savedRecipe);
+		savedRecipe.setRecipeSteps(new CleanRecipe().executeSteps(allStepsCreated));
 		return savedRecipe;
 	}
 
-	private Recipe createStepsAndAddToRecipe(Recipe recipe, Recipe savedRecipe) {
+	private List<RecipeStep> createSteps(Recipe recipe, Recipe savedRecipe) {
 		List<RecipeStep> updatedSteps = new UpdateRecipeStepsForRecipe().execute(savedRecipe, recipe.getRecipeSteps());
-		List<RecipeStep> allStepsCreated = saveRecipeSteps(updatedSteps);
-		savedRecipe.setRecipeSteps(new CleanRecipe().executeSteps(allStepsCreated));
-		return savedRecipe;
+		return saveRecipeSteps(updatedSteps);
 	}
 
 	private List<RecipeIngredient> saveIngredients(Recipe savedRecipe,Recipe newRecipe, List<Ingredient> ingredients) {
@@ -111,7 +110,8 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		Recipe existingRecipe = recipesRepository.getRecipeWithOwner(id);
 		new CheckIfRecipeExists().execute(existingRecipe);
 		new CheckIfUserIsOwner().execute(authFacade.getCurrentUser(), existingRecipe);
-		
+		Recipe createdRecipe = recipesRepository.save(new FillOtherRecipeFields().execute(existingRecipe, recipe));
+				
 		Map<String, List<Ingredient>> ingredientsDifference = new GetIngredientsDifference().execute(existingRecipe,recipe);
 		List<RecipeIngredient> savedRecipeIngredients = 
 				saveIngredients(existingRecipe,recipe, ingredientsDifference.get("ADDED"));
@@ -127,12 +127,15 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		recipeIngredientsRepository.deleteAll(recipeIngredientsToDelete);
 		
 		deleteRecipeSteps(recipeStepsRepository.getByRecipe(existingRecipe));
-		existingRecipe = createStepsAndAddToRecipe(recipe, existingRecipe);
+		List<RecipeStep> allStepsCreated = createSteps(recipe, existingRecipe);
 		
-		Recipe filled = new FillRecipeWithIngredients().execute(existingRecipe, savedRecipeIngredients,
+		createdRecipe.setRecipeSteps(new CleanRecipe().executeSteps(allStepsCreated));
+		createdRecipe = new FillRecipeWithIngredients().execute(createdRecipe, savedRecipeIngredients,
 				savedUpdatedRecipeIngredients);
 		
-		return filled;
+		
+		
+		return createdRecipe;
 	}
 
 	@Override
