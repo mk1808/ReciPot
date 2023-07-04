@@ -13,7 +13,7 @@ public class CleanRecipe {
 		return ingredients;
 	}
 	
-	public Set<RecipeStep> executeSteps(Set<RecipeStep> steps) {
+	public List<RecipeStep> executeSteps(List<RecipeStep> steps) {
 		steps.forEach(step->step.setRecipe(null));
 		return steps;
 	}

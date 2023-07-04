@@ -69,7 +69,7 @@ public class Recipe {
 	private Set<Category> categories = new HashSet<>();
 	
 	@Transient
-	private Set<RecipeStep> recipeSteps = new HashSet<>();
+	private List<RecipeStep> recipeSteps =  new ArrayList();
 	
 	@Transient
 	private List<RecipeIngredient> recipeIngredients = new ArrayList();

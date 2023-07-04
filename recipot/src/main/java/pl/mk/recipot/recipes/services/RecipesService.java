@@ -85,8 +85,8 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		savedRecipe.setRecipeIngredients(
 				new CleanRecipe().executeIngredients(savedRecipeIngredients));
 
-		Set<RecipeStep> updatedSteps = new UpdateRecipeStepsForRecipe().execute(savedRecipe, recipe.getRecipeSteps());
-		Set<RecipeStep> allStepsCreated = saveRecipeSteps(updatedSteps);
+		List<RecipeStep> updatedSteps = new UpdateRecipeStepsForRecipe().execute(savedRecipe, recipe.getRecipeSteps());
+		List<RecipeStep> allStepsCreated = saveRecipeSteps(updatedSteps);
 		savedRecipe.setRecipeSteps(new CleanRecipe().executeSteps(allStepsCreated));
 
 		return savedRecipe;
@@ -142,8 +142,8 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 
 	}
 
-	private Set<RecipeStep> saveRecipeSteps(Set<RecipeStep> steps) {
-		return steps.stream().map(step -> recipeStepsRepository.save(step)).collect(Collectors.toSet());
+	private List<RecipeStep> saveRecipeSteps(List<RecipeStep> steps) {
+		return steps.stream().map(step -> recipeStepsRepository.save(step)).collect(Collectors.toList());
 	}
 
 	@Override
