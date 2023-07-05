@@ -61,8 +61,7 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 
 	@Override
 	public RecipeCollection update(RecipeCollection obj, UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override

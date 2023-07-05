@@ -70,8 +70,7 @@ public class UsersService implements IUsersService, ICrudService<AppUser> {
 
 	@Override
 	public void delete(UUID id) {
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
