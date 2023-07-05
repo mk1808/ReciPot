@@ -63,13 +63,9 @@ public class IngredientsService implements IFilterService<Ingredient, Ingredient
 		return exisitingTag != null? exisitingTag : ingredientsRepository.save(ingredient);
 	}
 
-	@Override
-	public List<Ingredient> getMany(List<Ingredient> ingredients) {
-		return ingredients.stream().map(this::getIngredientByName).collect(Collectors.toList());
-	}
-
 	private Ingredient getIngredientByName(Ingredient ingredient) {
 		return new GetIngredientIfExists().execute(ingredientsRepository.findByName(ingredient.getName()));
+	
 	}
 
 }

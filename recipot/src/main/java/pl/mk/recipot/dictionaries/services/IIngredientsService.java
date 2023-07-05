@@ -9,6 +9,4 @@ public interface IIngredientsService {
 
 	List<Ingredient> saveMany(List<Ingredient> ingredients);
 
-	List<Ingredient> getMany(List<Ingredient> ingredients);
-
 }

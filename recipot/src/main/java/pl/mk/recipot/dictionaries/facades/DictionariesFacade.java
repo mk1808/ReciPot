@@ -45,8 +45,4 @@ public class DictionariesFacade implements IDictionariesFacade {
 		return ingredientsService.saveMany(ingredients);
 	}
 
-	@Override
-	public List<Ingredient> getIngredients(List<Ingredient> ingredients) {
-		return ingredientsService.getMany(ingredients);
-	}
 }

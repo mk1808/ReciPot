@@ -12,8 +12,6 @@ public interface IDictionariesFacade {
 	Set<HashTag> saveManyHashTags(Set<HashTag> tags);
 	
 	List<Ingredient> saveManyIngredients(List<Ingredient> ingredients);
-	
-	List<Ingredient> getIngredients(List<Ingredient> ingredients);
 
 	Set<Category> getCategories(Set<Category> categories);
 
