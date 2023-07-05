@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
+import pl.mk.recipot.commons.enums.ChangeType;
 import pl.mk.recipot.commons.models.Category;
 import pl.mk.recipot.commons.models.HashTag;
 import pl.mk.recipot.commons.models.Ingredient;
@@ -112,17 +113,17 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		new CheckIfUserIsOwner().execute(authFacade.getCurrentUser(), existingRecipe);
 		Recipe createdRecipe = recipesRepository.save(new FillOtherRecipeFields().execute(existingRecipe, recipe));
 				
-		Map<String, List<Ingredient>> ingredientsDifference = new GetIngredientsDifference().execute(existingRecipe,recipe);
+		Map<ChangeType, List<Ingredient>> ingredientsDifference = new GetIngredientsDifference().execute(existingRecipe,recipe);
 		List<RecipeIngredient> savedRecipeIngredients = 
-				saveIngredients(existingRecipe,recipe, ingredientsDifference.get("ADDED"));
+				saveIngredients(existingRecipe,recipe, ingredientsDifference.get(ChangeType.ADDED));
 		
-		List<String> namesList = new GetRecipeIngredientNameList().execute(ingredientsDifference.get("UPDATED"));
+		List<String> namesList = new GetRecipeIngredientNameList().execute(ingredientsDifference.get(ChangeType.UPDATED));
 		List<RecipeIngredient> recipeIngredientsToUpdate = recipeIngredientsRepository.getByRecipeAndIngredients(id, namesList);
 		List<RecipeIngredient> recipeIngredientsUpdated = new UpdateExistingIngredients().execute(recipeIngredientsToUpdate,
 				new ArrayList<>(recipe.getRecipeIngredients()), recipe);
 		List<RecipeIngredient> savedUpdatedRecipeIngredients = recipeIngredientsRepository.saveAll(recipeIngredientsUpdated);
 
-		List<String> namesListDeleted = new GetRecipeIngredientNameList().execute(ingredientsDifference.get("DELETED"));
+		List<String> namesListDeleted = new GetRecipeIngredientNameList().execute(ingredientsDifference.get(ChangeType.DELETED));
 		List<RecipeIngredient> recipeIngredientsToDelete = recipeIngredientsRepository.getByRecipeAndIngredients(id, namesListDeleted);
 		recipeIngredientsRepository.deleteAll(recipeIngredientsToDelete);
 		

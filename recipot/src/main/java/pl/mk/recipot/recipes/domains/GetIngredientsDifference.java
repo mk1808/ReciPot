@@ -8,13 +8,14 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import pl.mk.recipot.commons.enums.ChangeType;
 import pl.mk.recipot.commons.models.Ingredient;
 import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.models.RecipeIngredient;
 
 public class GetIngredientsDifference {
-	public Map<String, List<Ingredient>> execute(Recipe oldRecipe, Recipe newRecipe) {
-		Map<String, List<Ingredient>> map = getMap();
+	public Map<ChangeType, List<Ingredient>> execute(Recipe oldRecipe, Recipe newRecipe) {
+		Map<ChangeType, List<Ingredient>> map = getMap();
 		
 		List<Ingredient> oldIngredients = new ArrayList<Ingredient>(new GetIngredientsFromRecipe().execute(oldRecipe));
 		List<Ingredient> newIngredients = new ArrayList<Ingredient>(new GetIngredientsFromRecipe().execute(newRecipe));
@@ -24,9 +25,9 @@ public class GetIngredientsDifference {
 		List<String> oldIngredientsIds = getNameList(oldRecipe);
 		List<String> newIngredientsIds = getNameList(newRecipe);
 		
-		map.get("ADDED").addAll(getDifference(newIngredientsIds, oldIngredientsIds, ingredeintsMap));
-		map.get("DELETED").addAll(getDifference(oldIngredientsIds, newIngredientsIds, ingredeintsMap));
-		map.get("UPDATED").addAll(getCommon(oldIngredientsIds, newIngredientsIds, ingredeintsMap));
+		map.get(ChangeType.ADDED).addAll(getDifference(newIngredientsIds, oldIngredientsIds, ingredeintsMap));
+		map.get(ChangeType.DELETED).addAll(getDifference(oldIngredientsIds, newIngredientsIds, ingredeintsMap));
+		map.get(ChangeType.UPDATED).addAll(getCommon(oldIngredientsIds, newIngredientsIds, ingredeintsMap));
 		
 
 		return map;
@@ -34,11 +35,11 @@ public class GetIngredientsDifference {
 		
 	}
 
-	private Map<String, List<Ingredient>> getMap() {
-		Map<String, List<Ingredient>> map = new HashMap<>();
-		map.put("ADDED", new ArrayList<Ingredient>());
-		map.put("DELETED", new ArrayList<Ingredient>());
-		map.put("UPDATED", new ArrayList<Ingredient>());
+	private Map<ChangeType, List<Ingredient>> getMap() {
+		Map<ChangeType, List<Ingredient>> map = new HashMap<>();
+		map.put(ChangeType.ADDED, new ArrayList<Ingredient>());
+		map.put(ChangeType.DELETED, new ArrayList<Ingredient>());
+		map.put(ChangeType.UPDATED, new ArrayList<Ingredient>());
 		return map;
 	}
 	
