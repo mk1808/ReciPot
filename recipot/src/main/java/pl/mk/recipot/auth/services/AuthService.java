@@ -12,6 +12,7 @@ import pl.mk.recipot.auth.domains.CreateUser;
 import pl.mk.recipot.auth.domains.UpdateUserPassword;
 import pl.mk.recipot.commons.dtos.ChangePasswordDto;
 import pl.mk.recipot.commons.dtos.UserRegisterDto;
+import pl.mk.recipot.commons.enums.RoleType;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Role;
 import pl.mk.recipot.users.domains.CheckIfCurrentUser;
@@ -37,7 +38,7 @@ public class AuthService implements IAuthService {
 		AppUser existingUser = usersFacade.getUserByLogin(userRegisterDto.login);
 		new CheckIfUserExistsForRegistration().execute(existingUser);
 
-		Role role = usersFacade.getRoleByName("USER");
+		Role role = usersFacade.getRoleByName(RoleType.USER);
 		AppUser newUser = new CreateUser().execute(userRegisterDto, role, passwordEncoder);
 		return usersFacade.save(newUser);
 	}

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import pl.mk.recipot.auth.facades.IAuthFacade;
+import pl.mk.recipot.commons.enums.RoleType;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Role;
 import pl.mk.recipot.commons.services.ICrudService;
@@ -74,7 +75,7 @@ public class UsersService implements IUsersService, ICrudService<AppUser> {
 	}
 
 	@Override
-	public Role getRoleByName(String name) {
+	public Role getRoleByName(RoleType name) {
 		return rolesRepository.getByName(name);
 	}
 
