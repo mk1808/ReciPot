@@ -26,7 +26,7 @@ public class Comment {
 	@UuidGenerator
 	private UUID id;
 
-	@NotNull(message = "Comment recipe not provided")
+	@NotNull(message = "models.Comment.errors.recipeNull")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "recipe_id")
 	private Recipe recipe;
@@ -38,7 +38,7 @@ public class Comment {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
 
-	@NotBlank(message = "Comment content is required")
+	@NotBlank(message = "models.Comment.errors.contentBlank")
 	@Column(length = 1000)
 	private String content;
 }

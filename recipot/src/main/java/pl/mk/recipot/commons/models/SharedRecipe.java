@@ -23,7 +23,7 @@ public class SharedRecipe {
 	@UuidGenerator
 	private UUID id;
 
-	@NotNull(message = "Shared recipe is required")
+	@NotNull(message = "models.SharedRecipe.errors.recipeNull")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "recipe_id")
 	private Recipe recipe;
@@ -32,12 +32,12 @@ public class SharedRecipe {
 	@JoinColumn(name = "sender_user_id")
 	private AppUser senderUser;
 
-	@NotNull(message = "Shared recipe receiver user is required")
+	@NotNull(message = "models.SharedRecipe.errors.receiverUserNull")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "receiver_user_id")
 	private AppUser receiverUser;
 
-	@NotBlank(message = "Shared recipe comment is required")
+	@NotBlank(message = "models.SharedRecipe.errors.commentBlank")
 	@Column(length = 1000)
 	private String comment;
 }

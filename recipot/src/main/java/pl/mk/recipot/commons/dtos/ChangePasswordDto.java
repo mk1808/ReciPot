@@ -7,12 +7,12 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 public class ChangePasswordDto {
-	@NotBlank(message = "User password is required")
-	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30}$", message = "Password to weak")
+	@NotBlank(message = "dtos.ChangePasswordDto.errors.passwordBlank")
+	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30}$", message = "dtos.ChangePasswordDto.errors.passwordWeak")
 	public String password;
-	@NotBlank(message = "User matchingPassword is required")
+	@NotBlank(message = "dtos.ChangePasswordDto.errors.matchingPasswordBlank")
 	public String matchingPassword;
-	@NotNull(message = "User id is required")
+	@NotNull(message = "dtos.ChangePasswordDto.errors.userIdNull")
 	public UUID userId;
 
 }

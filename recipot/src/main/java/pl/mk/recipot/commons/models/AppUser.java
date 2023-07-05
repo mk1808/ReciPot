@@ -32,9 +32,9 @@ public class AppUser {
 	@UuidGenerator
 	private UUID id;
 
-	@Email(message = "User email is not valid")
+	@Email(message = "models.AppUser.errors.emailInvalid")
 	private String email;
-	@NotBlank(message = "User login is required")
+	@NotBlank(message = "models.AppUser.errors.loginBlank")
 	private String login;
 	private String password;
 	private Boolean verified = false;

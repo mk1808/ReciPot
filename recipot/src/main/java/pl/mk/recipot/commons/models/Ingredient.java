@@ -18,6 +18,6 @@ public class Ingredient {
 	@UuidGenerator
 	private UUID id;
 
-	@NotBlank(message = "Ingredient name is required")
+	@NotBlank(message = "models.Ingredient.errors.nameBlank")
 	private String name;
 }

@@ -24,7 +24,7 @@ public class Rating {
 	@UuidGenerator
 	private UUID id;
 
-	@NotNull(message = "Rating connected recipe is required")
+	@NotNull(message = "models.Rating.errors.recipeNull")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "recipe_id")
 	private Recipe recipe;
@@ -36,6 +36,6 @@ public class Rating {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
 
-	@NotNull(message = "Rating value is required")
+	@NotNull(message = "models.Rating.errors.valueNull")
 	private Double value;
 }

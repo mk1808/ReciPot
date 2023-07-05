@@ -21,7 +21,7 @@ public class Category {
 	@UuidGenerator
 	private UUID id;
 
-	@NotBlank(message = "Category name is required")
+	@NotBlank(message = "models.Category.errors.nameBlank")
 	private String name;
 	private String image;
 

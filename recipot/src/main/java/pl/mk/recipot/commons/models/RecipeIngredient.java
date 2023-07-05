@@ -28,7 +28,7 @@ public class RecipeIngredient {
 	@UuidGenerator
 	private UUID id;
 
-	@NotNull(message = "Recipe ingredient is required")
+	@NotNull(message = "models.RecipeIngredient.errors.ingredientNull")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ingredient_id")
 	private Ingredient ingredient;
@@ -37,8 +37,8 @@ public class RecipeIngredient {
 	@JoinColumn(name = "recipe_id")
 	private Recipe recipe;
 
-	@NotNull(message = "Recipe ingredient amount is required")
+	@NotNull(message = "models.RecipeIngredient.errors.amountNull")
 	private Double amount;
-	@NotBlank(message = "Recipe ingredient unit is required")
+	@NotBlank(message = "models.RecipeIngredient.errors.unitBlank")
 	private String unit;
 }

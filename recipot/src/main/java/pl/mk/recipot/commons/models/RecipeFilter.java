@@ -29,11 +29,11 @@ public class RecipeFilter {
 	@JoinColumn(name = "owner_id")
 	private AppUser owner;
 
-	@NotBlank(message = "Recipe filter name is required")
+	@NotBlank(message = "models.RecipeFilter.errors.nameBlank")
 	private String name;
 
 	@Column(length = 2000)
-	@NotBlank(message = "Recipe filter value is required")
+	@NotBlank(message = "models.RecipeFilter.errors.valueBlank")
 	private String value;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;

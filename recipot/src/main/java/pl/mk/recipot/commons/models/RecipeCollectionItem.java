@@ -30,7 +30,7 @@ public class RecipeCollectionItem {
 	@UuidGenerator
 	private UUID id;
 
-	@NotNull(message = "Recipe is required")
+	@NotNull(message = "models.RecipeCollectionItem.errors.recipeNull")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "recipe_id")
 	private Recipe recipe;

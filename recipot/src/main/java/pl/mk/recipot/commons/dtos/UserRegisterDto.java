@@ -5,13 +5,14 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 public class UserRegisterDto {
-	@Email(message = "User email is not valid")
+	@NotBlank(message = "dtos.UserRegisterDto.errors.emailBlank")
+	@Email(message = "dtos.UserRegisterDto.errors.emailInvalid")
 	public String email;
-	@NotBlank(message = "User login is required")
+	@NotBlank(message = "dtos.UserRegisterDto.errors.loginBlank")
 	public String login;
-	@NotBlank(message = "User password is required")
-	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30}$", message = "Password to weak")
+	@NotBlank(message = "dtos.UserRegisterDto.errors.passwordBlank")
+	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,30}$", message = "dtos.UserRegisterDto.errors.passwordWeak")
 	public String password;
-	@NotBlank(message = "User matchingPassword is required")
+	@NotBlank(message = "dtos.UserRegisterDto.errors.matchingPasswordBlank")
 	public String matchingPassword;
 }

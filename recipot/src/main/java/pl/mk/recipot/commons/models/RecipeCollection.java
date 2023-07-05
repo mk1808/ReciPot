@@ -35,7 +35,7 @@ public class RecipeCollection {
 	@JoinColumn(name = "owner_id")
 	private AppUser owner;
 
-	@NotBlank(message = "Recipe collection name is required")
+	@NotBlank(message = "models.RecipeCollection.errors.nameBlank")
 	private String name;
 	private boolean canDelete = true;
 

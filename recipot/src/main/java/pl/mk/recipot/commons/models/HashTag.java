@@ -18,6 +18,6 @@ public class HashTag {
 	@UuidGenerator
 	private UUID id;
 
-	@NotBlank(message = "HashTag name is required")
+	@NotBlank(message = "models.HashTag.errors.nameBlank")
 	private String name;
 }

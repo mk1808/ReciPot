@@ -27,10 +27,10 @@ public class RecipeStep {
 	@JoinColumn(name = "recipe_id")
 	private Recipe recipe;
 
-	@NotNull(message = "Recipe step order is required")
+	@NotNull(message = "models.RecipeStep.errors.orderNul")
 	@Column(name = "step_order")
 	private Integer order;
-	@NotBlank(message = "Recipe step description is required")
+	@NotBlank(message = "models.RecipeStep.errors.descriptionBlank")
 	@Column(length = 1000)
 	private String description;
 }

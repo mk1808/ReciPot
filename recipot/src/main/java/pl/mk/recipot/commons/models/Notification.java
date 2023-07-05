@@ -27,16 +27,16 @@ public class Notification {
 	@UuidGenerator
 	private UUID id;
 
-	@NotNull(message = "Notification owner is required")
+	@NotNull(message = "models.Notification.errors.ownerNull")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "owner_id")
 	private AppUser owner;
 
-	@NotNull(message = "Notification type is required")
+	@NotNull(message = "models.Notification.errors.typeNull")
 	private NotificationType type;
 
 	@Column(length = 2000)
-	@NotBlank(message = "Notification value is required")
+	@NotBlank(message = "models.Notification.errors.valueBlank")
 	private String value;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;

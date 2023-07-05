@@ -47,7 +47,7 @@ public class Recipe {
 	@Temporal(TemporalType.DATE)
 	private Date deleted;
 
-	@NotBlank(message = "Recipe name is required")
+	@NotBlank(message = "models.Recipe.errors.nameBlank")
 	private String name;
 	@Column(length = 1000)
 	private String description;
