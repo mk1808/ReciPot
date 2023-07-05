@@ -26,7 +26,7 @@ public class PrivateNote {
 	@UuidGenerator
 	private UUID id;
 
-	@NotNull()
+	@NotNull(message = "models.PrivateNote.errors.recipeNull")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "recipe_id")
 	private Recipe recipe;
@@ -38,7 +38,7 @@ public class PrivateNote {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
 
-	@NotBlank
+	@NotBlank(message = "models.PrivateNote.errors.contentBlank")
 	@Column(length = 1000)
 	private String content;
 }

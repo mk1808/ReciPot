@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Entity
@@ -20,6 +21,7 @@ public class Category {
 	@UuidGenerator
 	private UUID id;
 
+	@NotBlank(message = "models.Category.errors.nameBlank")
 	private String name;
 	private String image;
 

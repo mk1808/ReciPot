@@ -23,6 +23,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import pl.mk.recipot.commons.enums.RecipeAccessType;
 import pl.mk.recipot.commons.enums.RecipeAmountOfDishes;
@@ -46,6 +47,7 @@ public class Recipe {
 	@Temporal(TemporalType.DATE)
 	private Date deleted;
 
+	@NotBlank(message = "models.Recipe.errors.nameBlank")
 	private String name;
 	@Column(length = 1000)
 	private String description;
@@ -67,10 +69,10 @@ public class Recipe {
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "recipe_categories", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
-	
+
 	@Transient
-	private List<RecipeStep> recipeSteps =  new ArrayList();
-	
+	private List<RecipeStep> recipeSteps = new ArrayList();
+
 	@Transient
 	private List<RecipeIngredient> recipeIngredients = new ArrayList();
 

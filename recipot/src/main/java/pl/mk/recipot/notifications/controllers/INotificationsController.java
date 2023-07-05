@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.validation.Valid;
 import pl.mk.recipot.commons.dtos.Response;
 import pl.mk.recipot.commons.models.Notification;
 import pl.mk.recipot.notifications.dtos.NotificationDto;
@@ -26,7 +27,7 @@ public interface INotificationsController {
 			@RequestParam(value = "dateSince") @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss") Date dateSince);
 
 	@PostMapping()
-	ResponseEntity<Response<Notification>> createNotification(@RequestBody Notification notification);
+	ResponseEntity<Response<Notification>> createNotification(@RequestBody @Valid Notification notification);
 
 	@DeleteMapping("/{notificationId}")
 	ResponseEntity<Response<Void>> deleteNotification(@PathVariable UUID notificationId);

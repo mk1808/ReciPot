@@ -14,6 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Entity
@@ -28,9 +29,11 @@ public class RecipeFilter {
 	@JoinColumn(name = "owner_id")
 	private AppUser owner;
 
+	@NotBlank(message = "models.RecipeFilter.errors.nameBlank")
 	private String name;
 
 	@Column(length = 2000)
+	@NotBlank(message = "models.RecipeFilter.errors.valueBlank")
 	private String value;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;

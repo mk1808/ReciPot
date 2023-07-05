@@ -11,6 +11,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
@@ -25,8 +27,10 @@ public class RecipeStep {
 	@JoinColumn(name = "recipe_id")
 	private Recipe recipe;
 
+	@NotNull(message = "models.RecipeStep.errors.orderNul")
 	@Column(name = "step_order")
-	private int order;
+	private Integer order;
+	@NotBlank(message = "models.RecipeStep.errors.descriptionBlank")
 	@Column(length = 1000)
 	private String description;
 }

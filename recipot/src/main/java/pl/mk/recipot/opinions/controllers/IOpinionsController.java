@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.validation.Valid;
 import pl.mk.recipot.commons.dtos.Response;
 import pl.mk.recipot.commons.models.Comment;
 import pl.mk.recipot.commons.models.Rating;
@@ -19,10 +20,10 @@ import pl.mk.recipot.opinions.dtos.OpinionDto;
 public interface IOpinionsController {
 
 	@PostMapping("/ratings")
-	ResponseEntity<Response<Rating>> createRating(@RequestBody Rating rating);
+	ResponseEntity<Response<Rating>> createRating(@RequestBody @Valid Rating rating);
 
 	@PostMapping("/comments")
-	ResponseEntity<Response<Comment>> createComment(@RequestBody Comment comment);
+	ResponseEntity<Response<Comment>> createComment(@RequestBody @Valid Comment comment);
 	
 	@GetMapping("/{recipeId}")
 	ResponseEntity<Response<List<OpinionDto>>> getRecipeOpinions(@PathVariable UUID recipeId);

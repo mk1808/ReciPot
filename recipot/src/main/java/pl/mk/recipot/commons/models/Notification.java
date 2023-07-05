@@ -14,6 +14,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import pl.mk.recipot.commons.enums.NotificationType;
 
@@ -25,13 +27,16 @@ public class Notification {
 	@UuidGenerator
 	private UUID id;
 
+	@NotNull(message = "models.Notification.errors.ownerNull")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "owner_id")
 	private AppUser owner;
 
+	@NotNull(message = "models.Notification.errors.typeNull")
 	private NotificationType type;
 
 	@Column(length = 2000)
+	@NotBlank(message = "models.Notification.errors.valueBlank")
 	private String value;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;

@@ -14,6 +14,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
@@ -24,6 +26,7 @@ public class Comment {
 	@UuidGenerator
 	private UUID id;
 
+	@NotNull(message = "models.Comment.errors.recipeNull")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "recipe_id")
 	private Recipe recipe;
@@ -35,6 +38,7 @@ public class Comment {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
 
+	@NotBlank(message = "models.Comment.errors.contentBlank")
 	@Column(length = 1000)
 	private String content;
 }
