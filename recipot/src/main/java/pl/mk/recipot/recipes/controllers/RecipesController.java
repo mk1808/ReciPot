@@ -40,14 +40,19 @@ public class RecipesController implements IRecipesController {
 	public ResponseEntity<Response<Void>> changeVisibility(UUID recipeId) {
 		recipesService.changeVisibility(recipeId);
 		return new OkMessageResponseFactory().createResponse("Recipe visibility changed");
-  }
+	}
   
-  @Override
+	@Override
 	public ResponseEntity<Response<Recipe>> get(UUID id) {
 		return new OkResponseFactory().createResponse(recipeCrudService.get(id));
 	}
 
 	@Override
+	public ResponseEntity<Response<Recipe>> update(UUID id, Recipe recipe) {
+		return new OkResponseFactory().createResponse(recipeCrudService.update(recipe, id));
+	}
+	
+	@Override	
 	public ResponseEntity<Response<SharedRecipe>> shareWithUser(@Valid SharedRecipe sharedRecipe) {
 		return new OkResponseFactory().createResponse(shareRecipeService.shareWithUser(sharedRecipe));
 	}
