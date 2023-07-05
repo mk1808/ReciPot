@@ -14,12 +14,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Transient;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class RecipeCollection {
 	@Id
 	@GeneratedValue
@@ -30,9 +35,10 @@ public class RecipeCollection {
 	@JoinColumn(name = "owner_id")
 	private AppUser owner;
 
+	@NotBlank(message = "Recipe collection name is required")
 	private String name;
 	private boolean canDelete = true;
-	
+
 	@Transient
 	private List<RecipeCollectionItem> recipeCollectionItems = new ArrayList<>();
 

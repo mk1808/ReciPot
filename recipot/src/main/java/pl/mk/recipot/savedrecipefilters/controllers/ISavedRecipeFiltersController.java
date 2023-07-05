@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.validation.Valid;
 import pl.mk.recipot.commons.dtos.Response;
 import pl.mk.recipot.commons.models.RecipeFilter;
 import pl.mk.recipot.savedrecipefilters.dtos.RecipeFilterDto;
@@ -19,7 +20,7 @@ import pl.mk.recipot.savedrecipefilters.dtos.RecipeFilterDto;
 public interface ISavedRecipeFiltersController {
 
 	@PostMapping()
-	ResponseEntity<Response<RecipeFilter>> createRecipeFilter(@RequestBody RecipeFilter recipeFilter);
+	ResponseEntity<Response<RecipeFilter>> createRecipeFilter(@RequestBody @Valid RecipeFilter recipeFilter);
 
 	@GetMapping()
 	ResponseEntity<Response<List<RecipeFilterDto>>> getRecipeFilters();

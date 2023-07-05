@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
@@ -23,6 +24,7 @@ public class Rating {
 	@UuidGenerator
 	private UUID id;
 
+	@NotNull(message = "Rating connected recipe is required")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "recipe_id")
 	private Recipe recipe;
@@ -34,5 +36,6 @@ public class Rating {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
 
-	private double value;
+	@NotNull(message = "Rating value is required")
+	private Double value;
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import pl.mk.recipot.commons.dtos.Response;
 import pl.mk.recipot.commons.enums.RecipeDifficulty;
@@ -22,13 +23,13 @@ import pl.mk.recipot.dictionaries.dtos.CategoryDto;
 public interface IDictionariesController {
 
 	@PostMapping("/categories")
-	ResponseEntity<Response<Category>> createCategory(@RequestBody Category category);
+	ResponseEntity<Response<Category>> createCategory(@RequestBody @Valid Category category);
 
 	@GetMapping("/categories")
 	ResponseEntity<Response<List<CategoryDto>>> getAllCategories();
 
 	@PostMapping("/hashTags")
-	ResponseEntity<Response<HashTag>> createHashTag(@RequestBody HashTag hashTag);
+	ResponseEntity<Response<HashTag>> createHashTag(@RequestBody @Valid HashTag hashTag);
 
 	@GetMapping("/hashTags")
 	ResponseEntity<Response<Page<HashTag>>> getAllHashTags(@PathParam(value = "name") String name, @PathParam(value = "page") Integer page,
@@ -41,7 +42,7 @@ public interface IDictionariesController {
 	ResponseEntity<Response<List<RecipeDifficulty>>> getAllDifficulties();
 
 	@PostMapping("/ingredients")
-	ResponseEntity<Response<Ingredient>> createIngredient(@RequestBody Ingredient ingredient);
+	ResponseEntity<Response<Ingredient>> createIngredient(@RequestBody @Valid Ingredient ingredient);
 
 	@GetMapping("/ingredients")
 	ResponseEntity<Response<Page<Ingredient>>> getAllIngredients(@PathParam(value = "name") String name, @PathParam(value = "page") Integer page,

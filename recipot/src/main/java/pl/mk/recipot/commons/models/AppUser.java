@@ -15,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,8 +32,9 @@ public class AppUser {
 	@UuidGenerator
 	private UUID id;
 
-	@Email
+	@Email(message = "User email is not valid")
 	private String email;
+	@NotBlank(message = "User login is required")
 	private String login;
 	private String password;
 	private Boolean verified = false;
@@ -42,6 +44,5 @@ public class AppUser {
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "app_users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
-	
-	
+
 }

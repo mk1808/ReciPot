@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,6 +30,7 @@ public class RecipeCollectionItem {
 	@UuidGenerator
 	private UUID id;
 
+	@NotNull(message = "Recipe is required")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "recipe_id")
 	private Recipe recipe;

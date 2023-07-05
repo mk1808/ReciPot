@@ -1,11 +1,19 @@
 package pl.mk.recipot.commons.exceptions.handlers;
 
+import java.util.stream.Collectors;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import pl.mk.recipot.commons.dtos.Response;
 
 import pl.mk.recipot.commons.exceptions.BadRequestException;
@@ -61,11 +69,36 @@ public class RestControllerExceptionHandler extends ResponseEntityExceptionHandl
     protected ResponseEntity<Response<Void>> handleNotImplemented(RuntimeException ex, WebRequest request) {
     	return getResponse(ex,  "not Implemented",  new NotImplementedResponseFactory());
     }
-    
-   
-    
+
+	@ExceptionHandler(value = { ConstraintViolationException.class })
+	protected ResponseEntity<Object> handleNotImplemented(ConstraintViolationException ex, WebRequest request) {
+		String fieldsConstraintVoildations = ex.getConstraintViolations()
+				.stream()
+				.map(ConstraintViolation::getMessage)
+				.collect(Collectors.joining("\",\"", "[\"", "\"]"));
+		return getResponse("Validation failed", fieldsConstraintVoildations, HttpStatus.BAD_REQUEST);
+	}
+
+	@Override
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+			org.springframework.http.HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+		String fieldsConstraintVoildations = ex.getBindingResult()
+				.getFieldErrors().stream()
+				.map(FieldError::getDefaultMessage)
+				.collect(Collectors.joining("\",\"", "[\"", "\"]"));
+		return getResponse("Validation failed", fieldsConstraintVoildations, HttpStatus.BAD_REQUEST);
+	}
+
     private ResponseEntity<Response<Void>> getResponse(RuntimeException ex, String details, IErrorResponseFactory exception) {
     	return exception.createResponse(ex.getMessage(), details);
     }
     
+	private ResponseEntity<Object> getResponse(String message, String details, HttpStatus status) {
+		Response response = Response.builder()
+				.message(message)
+				.details(details)
+				.build();
+		return new ResponseEntity<>(response, status);
+	}
+
 }
