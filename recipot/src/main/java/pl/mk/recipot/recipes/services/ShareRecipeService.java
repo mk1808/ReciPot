@@ -9,7 +9,7 @@ import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.models.SharedRecipe;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.recipecollections.facades.IRecipeCollectionsFacade;
-import pl.mk.recipot.recipes.domains.CheckIfRecipeWasNotSharedWithUser;
+import pl.mk.recipot.recipes.domains.CheckIfRecipeWasSharedWithUser;
 import pl.mk.recipot.recipes.domains.CheckIfUserIsSharedRecipeOwner;
 import pl.mk.recipot.recipes.domains.GetRecipeIsPublic;
 import pl.mk.recipot.recipes.domains.GetRecipeWasSharedWithSenderUser;
@@ -67,7 +67,7 @@ public class ShareRecipeService implements IShareRecipeService {
 
 	private void checkReceiverUserCanReceiveSharing(SharedRecipe sharedRecipe) {
 		new CheckIfUserIsSharedRecipeOwner().execute(sharedRecipe.getReceiverUser(), sharedRecipe);
-		new CheckIfRecipeWasNotSharedWithUser().execute(sharedRecipesRepository
+		new CheckIfRecipeWasSharedWithUser().execute(sharedRecipesRepository
 				.findRecipesSharedWithUser(sharedRecipe.getRecipe(), sharedRecipe.getReceiverUser()));
 	}
 }

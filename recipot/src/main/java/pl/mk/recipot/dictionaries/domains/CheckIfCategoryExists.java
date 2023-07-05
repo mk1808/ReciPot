@@ -6,10 +6,9 @@ import pl.mk.recipot.commons.exceptions.ConflictException;
 import pl.mk.recipot.commons.models.Category;
 
 public class CheckIfCategoryExists {
-	public void execute(Category category) {
-		if (category == null) {
-			throw new ConflictException("dictionaries.error.categoryNotFound");
+	public void execute(List<Category> category) {
+		if (!category.isEmpty()) {
+			throw new ConflictException("dictionaries.error.categoryExists");
 		}
 	}
-
 }

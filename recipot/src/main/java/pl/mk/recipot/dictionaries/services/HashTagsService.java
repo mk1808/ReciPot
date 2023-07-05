@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import pl.mk.recipot.commons.models.HashTag;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.commons.services.IFilterService;
-import pl.mk.recipot.dictionaries.domains.CheckHashTagDontExists;
+import pl.mk.recipot.dictionaries.domains.CheckIfHashTagExists;
 import pl.mk.recipot.dictionaries.domains.GetHashTagIfExists;
 import pl.mk.recipot.dictionaries.dtos.HashTagFilterDto;
 import pl.mk.recipot.dictionaries.repositories.IHashTagRepository;
@@ -28,7 +28,7 @@ public class HashTagsService implements IFilterService<HashTag, HashTagFilterDto
 
 	@Override
 	public HashTag save(HashTag hashTag) {
-		new CheckHashTagDontExists().execute(hashTagRepository.findByName(hashTag.getName()));
+		new CheckIfHashTagExists().execute(hashTagRepository.findByName(hashTag.getName()));
 		return hashTagRepository.save(hashTag);
 	}
 
