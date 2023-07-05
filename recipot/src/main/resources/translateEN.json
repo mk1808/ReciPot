@@ -1,0 +1,106 @@
+{
+	"auth": {
+		"success": {
+			"passwordChanged": "Password successfully changed"
+		},
+		"error": {
+			"passwordsNotEqual": "Passwords are not equal"
+		}
+	},
+	"dictionaries": {
+		"success": {},
+		"error": {
+			"categoryExists": "This category already exists",
+			"categoryNotFound": "Category not found",
+			"hashTagExists": "This hashtag already exists",
+			"ingredientExists": "This ingredient already exists"
+		}
+	},
+	"privateNotes": {
+		"success": {
+			"noteDeleted": "Recipe private note successfully deleted"
+		},
+		"error": {
+			"noteNotFound": "Private note not found for recipe"
+		}
+	},
+	"recipeCollections": {
+		"success": {
+			"collectionDeleted": "Collection successfully deleted",
+			"recipeDeletedFromCollection": "Recipe successfully deleted from collection"
+		},
+		"error": {
+			"collectionForUserExists": "Collection already exists for user",
+			"collectionNotFound": "Collection not found",
+			"recipeExistsInCollection": "Recipe already added to collection",
+			"recipeNotFoundInCollection": "Recipe not found in collection",
+			"userNotOwnerOfCollection": "User is not the owner of this collection"
+		}
+	},
+	"recipes": {
+		"success": {
+			"visibilityChanged": "Recipe visibility successfully changed"
+		},
+		"error": {
+			"recipeNotFound": "Recipe not found",
+			"recipeAlreadyShared": "Recipe already shared with user",
+			"userNotOwnerOfRecipe": "User is not the owner of this recipe",
+			"canNotShareRecipeWithOneself": "User cannot share recipe with oneself"
+		}
+	},
+	"savedRecipeFilters": {
+		"success": {
+			"savedRecipeFilterDeleted": "Saved recipe filter successfully deleted"
+		},
+		"error": {
+			"savedRecipeFilterExists": "User filter with that name already exists",
+			"savedRecipeFilterNotFound": "User filter not found",
+			"userNotOwnerOfRecipeFilter": "User is not the owner of this recipe filter"
+		}
+	},
+	"users": {
+		"success": {
+			"passwordChanged": "Password successfully changed"
+		},
+		"error": {
+			"noAccessToUser": "User does not have access to this user",
+			"userNotFound": "User not found"
+		}
+	},
+	"enums": {
+		"ChangeType": {
+			"ADDED": "Added",
+			"UPDATED": "Updated",
+			"DELETED": "Deleted"
+		},
+		"DefaultRecipeCollections": {
+			"NOTED": "Noted",
+			"COMMENTED": "Commented",
+			"SHARED_WITH_USER": "Shared with user",
+			"FAVOURITE": "Favourite"
+		},
+		"NotificationType": {
+			"SHARED_RECIPE": "Shared recipe",
+			"RECIPE_COMMENTED": "Recipe commented"
+		},
+		"RecipeAccessType": {
+			"PRIVATE": "Private",
+			"PUBLIC": "Public"
+		},
+		"RecipeAmountOfDishes": {
+			"SMALL": "Small",
+			"MEDIUM": "Medium",
+			"LARGE": "Large"
+		},
+		"RecipeDifficulty": {
+			"EASY": "Easy",
+			"MEDIUM": "Medium",
+			"ADVANCED": "Advanced"
+		},
+		"RecipeRequiredEffort": {
+			"SMALL": "Small",
+			"MEDIUM": "Medium",
+			"LARGE": "Large"
+		}
+	}
+}

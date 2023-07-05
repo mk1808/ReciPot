@@ -8,7 +8,7 @@ import pl.mk.recipot.commons.models.Category;
 public class CheckIfCategoryExists {
 	public void execute(Category category) {
 		if (category == null) {
-			throw new ConflictException("Used category does not exist");
+			throw new ConflictException("dictionaries.error.categoryNotFound");
 		}
 	}
 

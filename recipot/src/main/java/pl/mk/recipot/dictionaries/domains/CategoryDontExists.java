@@ -8,7 +8,7 @@ import pl.mk.recipot.commons.models.Category;
 public class CategoryDontExists {
 	public void execute(List<Category> category) {
 		if (!category.isEmpty()) {
-			throw new ConflictException("Created category exists");
+			throw new ConflictException("dictionaries.error.categoryExists");
 		}
 	}
 }

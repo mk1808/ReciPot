@@ -7,7 +7,7 @@ import pl.mk.recipot.commons.models.RecipeCollection;
 public class CheckIfCollectionExists {
 	public void execute(RecipeCollection recipeCollection) {
 		if(recipeCollection!=null) {
-			throw new ConflictException("User already has collection with this name");
+			throw new ConflictException("recipeCollections.error.collectionForUserExists");
 		}
 	}
 }

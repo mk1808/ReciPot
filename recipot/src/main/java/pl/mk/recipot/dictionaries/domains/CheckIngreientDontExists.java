@@ -8,7 +8,7 @@ import pl.mk.recipot.commons.models.Ingredient;
 public class CheckIngreientDontExists {
 	public void execute(List<Ingredient> ingredient) {
 		if (!ingredient.isEmpty()) {
-			throw new ConflictException("Created ingredient exists");
+			throw new ConflictException("dictionaries.error.ingredientExists");
 		}
 	}
 }

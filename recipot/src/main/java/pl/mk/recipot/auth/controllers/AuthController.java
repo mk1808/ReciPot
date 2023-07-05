@@ -33,7 +33,7 @@ public class AuthController implements IAuthController {
 	@Override
 	public ResponseEntity<Response<Void>> changePassword(@RequestBody @Valid ChangePasswordDto changePasswordDto) {
 		authService.changePassword(changePasswordDto);
-		return new OkMessageResponseFactory().createResponse("Password successfully changed");
+		return new OkMessageResponseFactory().createResponse("auth.success.passwordChanged");
 	}
 
 }

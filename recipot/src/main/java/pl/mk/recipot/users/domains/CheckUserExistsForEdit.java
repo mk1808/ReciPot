@@ -7,7 +7,7 @@ public class CheckUserExistsForEdit {
 	
 	public Boolean execute(AppUser user) {
 		if (user == null) {
-			throw new ForbiddenException("User does not exist");
+			throw new ForbiddenException("users.error.userNotFound");
 		}
 		return true;
 	}

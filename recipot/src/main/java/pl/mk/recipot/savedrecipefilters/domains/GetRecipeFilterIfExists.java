@@ -8,7 +8,7 @@ import pl.mk.recipot.commons.models.RecipeFilter;
 public class GetRecipeFilterIfExists {
 	public RecipeFilter execute(Optional<RecipeFilter> recipeFilter) {
 		if (recipeFilter.isEmpty()) {
-			throw new NotFoundException();
+			throw new NotFoundException("savedRecipeFilters.error.savedRecipeFilterNotFound");
 		}
 		return recipeFilter.get();
 	}

@@ -8,7 +8,7 @@ public class CheckIfItemPresent {
 	public void execute(RecipeCollectionItem item ) {
 		
 		if(item==null) {
-			throw new ConflictException("This collection does not contain this recipe");
+			throw new ConflictException("recipeCollections.error.recipeNotFoundInCollection");
 		}
 	}
 }
