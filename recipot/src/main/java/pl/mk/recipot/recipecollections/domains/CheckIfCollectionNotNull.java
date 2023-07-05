@@ -7,7 +7,7 @@ import pl.mk.recipot.commons.models.RecipeCollection;
 public class CheckIfCollectionNotNull {
 	public void execute(RecipeCollection recipeCollection) {
 		if(recipeCollection==null) {
-			throw new NotFoundException("Recipe does not exist");
+			throw new NotFoundException("recipeCollections.error.collectionNotFound");
 		}
 	}
 }

@@ -18,13 +18,13 @@ public class CheckIfPasswordsMatch {
 
 	private void checkForRegister(UserRegisterDto userRegisterDto) {
 		if (!userRegisterDto.password.equals(userRegisterDto.matchingPassword)) {
-			throw new BadRequestException("Passwords are not equal");
+			throw new BadRequestException("auth.error.passwordsNotEqual");
 		}
 	}
 
 	private void checkForChange(ChangePasswordDto changePasswordDto) {
 		if (!changePasswordDto.password.equals(changePasswordDto.matchingPassword)) {
-			throw new BadRequestException("Passwords are not equal");
+			throw new BadRequestException("auth.error.passwordsNotEqual");
 		}
 	}
 

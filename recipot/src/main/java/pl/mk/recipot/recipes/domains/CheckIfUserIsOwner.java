@@ -8,7 +8,7 @@ public class CheckIfUserIsOwner {
 
 	public void execute(AppUser user, Recipe recipe) {
 		if (!user.getId().equals(recipe.getOwner().getId())) {
-			throw new ForbiddenException();
+			throw new ForbiddenException("recipes.error.userNotOwnerOfRecipe");
 		}
 	}
 }

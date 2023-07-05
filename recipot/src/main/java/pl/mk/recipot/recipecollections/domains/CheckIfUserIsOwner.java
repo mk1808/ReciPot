@@ -13,7 +13,7 @@ public class CheckIfUserIsOwner {
 
 	public void execute(RecipeCollection recipeCollection, AppUser user) {
 		if(!recipeCollection.getOwner().getId().equals(user.getId())) {
-			throw new ForbiddenException("User cant access this collection");
+			throw new ForbiddenException("recipeCollections.error.userNotOwnerOfCollection");
 		}
 	}
 }

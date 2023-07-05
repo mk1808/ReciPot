@@ -39,7 +39,7 @@ public class RecipesController implements IRecipesController {
 	@Override
 	public ResponseEntity<Response<Void>> changeVisibility(UUID recipeId) {
 		recipesService.changeVisibility(recipeId);
-		return new OkMessageResponseFactory().createResponse("Recipe visibility changed");
+		return new OkMessageResponseFactory().createResponse("recipes.success.visibilityChanged");
 	}
   
 	@Override

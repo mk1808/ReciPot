@@ -8,7 +8,7 @@ import pl.mk.recipot.commons.models.RecipeFilter;
 public class CheckIfRecipeFilterExists {
 	public void execute(List<RecipeFilter> filters) {
 		if (!filters.isEmpty()) {
-			throw new ConflictException("User filter with that name already exists");
+			throw new ConflictException("savedRecipeFilters.error.savedRecipeFilterExists");
 		}
 	}
 }

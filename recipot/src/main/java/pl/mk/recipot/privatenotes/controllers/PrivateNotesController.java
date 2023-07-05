@@ -35,7 +35,7 @@ public class PrivateNotesController implements IPrivateNotesController {
 	@Override
 	public ResponseEntity<Response<Void>> deletePrivateNote(UUID privateNoteId) {
 		privateNoteCrudService.delete(privateNoteId);
-		return new OkMessageResponseFactory().createResponse("Recipe private note deleted");
+		return new OkMessageResponseFactory().createResponse("privateNotes.success.noteDeleted");
 	}
 
 	@Override

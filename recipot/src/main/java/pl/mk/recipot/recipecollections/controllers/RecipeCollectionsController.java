@@ -52,13 +52,13 @@ public class RecipeCollectionsController implements IRecipeCollectionsController
 	@Override
 	public ResponseEntity<Response<Void>> deleteFromCollection(UUID collectionId, UUID recipeId) {
 		recipeCollectionsService.deleteRecipeFromCollection(collectionId, recipeId);
-		return new OkMessageResponseFactory().createResponse("Deleted from collection");
+		return new OkMessageResponseFactory().createResponse("recipeCollections.success.recipeDeletedFromCollection");
 	}
 
 	@Override
 	public ResponseEntity<Response<Void>> delete(UUID collectionId) {
 		recipeCollectionCrudService.delete(collectionId);
-		return new OkMessageResponseFactory().createResponse("Collection deleted successfully");
+		return new OkMessageResponseFactory().createResponse("recipeCollections.success.collectionDeleted");
 	}
 	
 	

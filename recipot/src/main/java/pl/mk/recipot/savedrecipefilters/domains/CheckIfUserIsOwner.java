@@ -7,7 +7,7 @@ import pl.mk.recipot.commons.models.RecipeFilter;
 public class CheckIfUserIsOwner {
 	public void execute(AppUser user, RecipeFilter recipeFilter) {
 		if (!user.getId().equals(recipeFilter.getOwner().getId())) {
-			throw new ForbiddenException();
+			throw new ForbiddenException("savedRecipeFilters.error.userNotOwnerOfRecipeFilter");
 		}
 	}
 }
