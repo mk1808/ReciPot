@@ -71,7 +71,7 @@ public class RestControllerExceptionHandler extends ResponseEntityExceptionHandl
     }
 
 	@ExceptionHandler(value = { ConstraintViolationException.class })
-	protected ResponseEntity<Object> handleNotImplemented(ConstraintViolationException ex, WebRequest request) {
+	protected ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException ex, WebRequest request) {
 		String fieldsConstraintVoildations = ex.getConstraintViolations()
 				.stream()
 				.map(ConstraintViolation::getMessage)
