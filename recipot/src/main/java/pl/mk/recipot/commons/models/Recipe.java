@@ -1,7 +1,9 @@
 package pl.mk.recipot.commons.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -67,10 +69,10 @@ public class Recipe {
 	private Set<Category> categories = new HashSet<>();
 	
 	@Transient
-	private Set<RecipeStep> recipeSteps = new HashSet<>();
+	private List<RecipeStep> recipeSteps =  new ArrayList();
 	
 	@Transient
-	private Set<RecipeIngredient> recipeIngredients = new HashSet<>();
+	private List<RecipeIngredient> recipeIngredients = new ArrayList();
 
 	@Override
 	public boolean equals(Object obj) {

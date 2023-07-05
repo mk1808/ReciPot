@@ -1,5 +1,6 @@
 package pl.mk.recipot.recipes.domains;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -9,17 +10,17 @@ import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.models.RecipeIngredient;
 
 public class UpdateRecipeIngredientsForRecipe {
-	public Set<RecipeIngredient> execute(Recipe recipe, Set<Ingredient> ingredients){
-		Set<RecipeIngredient> recipeIngredients = recipe.getRecipeIngredients();
+	public List<RecipeIngredient> execute(Recipe savedRecipe,Recipe newRecipe, List<Ingredient> ingredients){
+		List<RecipeIngredient> recipeIngredients = newRecipe.getRecipeIngredients();
 		
 		
 		recipeIngredients = updateIngredients(ingredients, recipeIngredients);
-		recipeIngredients.forEach(ri->ri.setRecipe(recipe));
+		recipeIngredients.forEach(ri->ri.setRecipe(savedRecipe));
 		
 		return recipeIngredients;
 	}
 
-	private Set<RecipeIngredient> updateIngredients(Set<Ingredient> ingredients, Set<RecipeIngredient> recipeIngredients) {
+	private List<RecipeIngredient> updateIngredients(List<Ingredient> ingredients, List<RecipeIngredient> recipeIngredients) {
 		Map<String, Ingredient> map = createMap(ingredients);
 		
 		for (RecipeIngredient recipeIngredient:recipeIngredients) {
@@ -28,7 +29,7 @@ public class UpdateRecipeIngredientsForRecipe {
 		return recipeIngredients;
 	}
 	
-	private Map<String, Ingredient> createMap(Set<Ingredient> ingredients){
+	private Map<String, Ingredient> createMap(List<Ingredient> ingredients){
 		return ingredients.stream().collect(Collectors.toMap(Ingredient::getName, ingredient->ingredient));
 	}
 }
