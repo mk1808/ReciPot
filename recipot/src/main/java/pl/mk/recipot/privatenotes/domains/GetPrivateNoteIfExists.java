@@ -8,7 +8,7 @@ import pl.mk.recipot.commons.models.PrivateNote;
 public class GetPrivateNoteIfExists {
 	public PrivateNote execute(Optional<PrivateNote> privateNote) {
 		if (privateNote.isEmpty()) {
-			throw new NotFoundException("Private note not found");
+			throw new NotFoundException("privateNotes.error.noteNotFound");
 		}
 		return privateNote.get();
 	}

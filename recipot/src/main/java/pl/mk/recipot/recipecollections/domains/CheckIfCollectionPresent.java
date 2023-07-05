@@ -6,7 +6,7 @@ import pl.mk.recipot.commons.models.RecipeCollection;
 public class CheckIfCollectionPresent {
 	public void execute(RecipeCollection recipeCollection) {
 		if(recipeCollection==null) {
-			throw new ConflictException("Collection doesnt exist");
+			throw new ConflictException("recipeCollections.error.collectionNotFound");
 		}
 	}
 

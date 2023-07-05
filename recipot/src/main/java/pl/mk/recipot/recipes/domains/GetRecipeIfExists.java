@@ -8,7 +8,7 @@ import pl.mk.recipot.commons.models.Recipe;
 public class GetRecipeIfExists {
 	public Recipe execute(Optional<Recipe> recipe) {
 		if(recipe.isEmpty()) {
-			throw new NotFoundException("Recipe does not exists");
+			throw new NotFoundException("recipes.error.recipeNotFound");
 		}
 		return recipe.get();
 	}

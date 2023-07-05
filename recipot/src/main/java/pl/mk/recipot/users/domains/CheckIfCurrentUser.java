@@ -9,7 +9,7 @@ public class CheckIfCurrentUser {
 		Boolean present = currentUser != null && currentUser.getId() !=null && 
 				executingUser != null && executingUser.getId() != null;
 		if (!(present && currentUser.getId().equals(executingUser.getId()))) {
-			throw new ForbiddenException("You dont have access to edited user");
+			throw new ForbiddenException("users.error.noAccessToUser");
 		}
 		
 		return true;

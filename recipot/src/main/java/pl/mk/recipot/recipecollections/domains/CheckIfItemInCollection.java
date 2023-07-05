@@ -8,7 +8,7 @@ public class CheckIfItemInCollection {
 	public void execute(RecipeCollectionItem existingItem ) {
 		
 		if(existingItem!=null) {
-			throw new ConflictException("This recipe Already added to this collection");
+			throw new ConflictException("recipeCollections.error.recipeExistsInCollection");
 		}
 	}
 }

@@ -40,7 +40,7 @@ public class SavedRecipeFiltersController implements ISavedRecipeFiltersControll
 	@Override
 	public ResponseEntity<Response<Void>> deleteRecipeFilter(UUID recipeFilterId) {
 		recipeFiltersCrudService.delete(recipeFilterId);
-		return new OkMessageResponseFactory().createResponse("Recipe filter deleted");
+		return new OkMessageResponseFactory().createResponse("savedRecipeFilters.success.savedRecipeFilterDeleted");
 	}
 
 }

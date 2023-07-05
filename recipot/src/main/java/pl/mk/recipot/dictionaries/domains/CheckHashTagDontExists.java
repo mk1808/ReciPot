@@ -8,7 +8,7 @@ import pl.mk.recipot.commons.models.HashTag;
 public class CheckHashTagDontExists {
 	public void execute(List<HashTag> hashTags) {
 		if(!hashTags.isEmpty()) {
-			throw new ConflictException("Created hashTag exists");
+			throw new ConflictException("dictionaries.error.hashTagExists");
 		}
 	}
 }
