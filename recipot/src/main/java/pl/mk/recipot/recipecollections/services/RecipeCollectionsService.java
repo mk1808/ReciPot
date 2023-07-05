@@ -148,4 +148,14 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 		return recipeCollectionsRepository.getAllRecipeCollectionsCount();
 	}
 
+	@Override
+	public int getUserRecipeCollectionsCount(AppUser user) {
+		return recipeCollectionsRepository.getUserRecipeCollectionsCount(user);
+	}
+
+	@Override
+	public int getRecipesInUserRecipeCollectionsCount(AppUser user) {
+		return recipeCollectionsItemRepository.getRecipesInUserRecipeCollectionsCount(user);
+	}
+
 }

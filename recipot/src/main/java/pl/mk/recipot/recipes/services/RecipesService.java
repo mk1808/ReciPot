@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
+import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.enums.ChangeType;
 import pl.mk.recipot.commons.models.Category;
 import pl.mk.recipot.commons.models.HashTag;
@@ -164,6 +165,11 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	@Override
 	public int getAllRecipesCount() {
 		return recipesRepository.getAllRecipesCount();
+	}
+
+	@Override
+	public int getUserRecipesCount(AppUser user) {
+		return recipesRepository.getUserRecipesCount(user);
 	}
 
 }

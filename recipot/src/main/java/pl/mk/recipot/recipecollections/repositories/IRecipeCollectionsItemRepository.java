@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.RecipeCollection;
 import pl.mk.recipot.commons.models.RecipeCollectionItem;
 
@@ -20,4 +21,7 @@ public interface  IRecipeCollectionsItemRepository extends JpaRepository<RecipeC
 	@Query("SELECT rci FROM RecipeCollectionItem rci LEFT JOIN FETCH rci.collection "
 			+ "where rci.collection.id = :id")
 	List<RecipeCollectionItem> getByCollection(UUID id);
+	
+	@Query("SELECT count(rci) FROM RecipeCollectionItem rci where rci.collection.owner = :user")
+	int getRecipesInUserRecipeCollectionsCount(AppUser user);
 }

@@ -18,4 +18,6 @@ public interface ICommentsRepository extends JpaRepository<Comment, UUID> {
 	@Query("SELECT c FROM Comment c join fetch c.author WHERE c.recipe.id = :recipeId")
 	List<Comment> findByRecipeId(UUID recipeId);
 
+	@Query("SELECT count(c) FROM Comment c where c.author = :user ")
+	int getUserCommentedRecipesCount(AppUser user);
 }
