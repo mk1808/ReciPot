@@ -1,6 +1,7 @@
 package pl.mk.recipot.privatenotes.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -9,10 +10,11 @@ import pl.mk.recipot.auth.facades.IAuthFacade;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.PrivateNote;
 import pl.mk.recipot.commons.services.ICrudService;
-import pl.mk.recipot.privatenotes.domains.CheckIfUserIsAuthor;
+import pl.mk.recipot.privatenotes.domains.CheckIfPrivateNoteDoesNotExists;
+import pl.mk.recipot.privatenotes.domains.CheckIfUserIsNotAuthor;
 import pl.mk.recipot.privatenotes.domains.ClearRecipeFields;
 import pl.mk.recipot.privatenotes.domains.FillPrivateNoteAuthorAndCreationDate;
-import pl.mk.recipot.privatenotes.domains.GetPrivateNoteIfExists;
+import pl.mk.recipot.privatenotes.domains.GetPrivateNote;
 import pl.mk.recipot.privatenotes.domains.UpdatePrivateNote;
 import pl.mk.recipot.privatenotes.repositories.IPrivateNotesRepository;
 
@@ -53,14 +55,17 @@ public class PrivateNotesService implements IPrivateNotesService, ICrudService<P
 
 	@Override
 	public void delete(UUID id) {
-		PrivateNote privateNote = new GetPrivateNoteIfExists().execute(privateNotesRepository.findById(id));
-		new CheckIfUserIsAuthor().execute(authFacade.getCurrentUser(), privateNote);
+		Optional<PrivateNote> optionalPrivateNote = privateNotesRepository.findById(id);
+		new CheckIfPrivateNoteDoesNotExists().execute(optionalPrivateNote);
+		PrivateNote privateNote = new GetPrivateNote().execute(optionalPrivateNote);
+		new CheckIfUserIsNotAuthor().execute(authFacade.getCurrentUser(), privateNote);
 		privateNotesRepository.delete(privateNote);
 	}
 
 	@Override
 	public PrivateNote getByRecipe(UUID recipeId) {
-		return new ClearRecipeFields().execute(privateNotesRepository.findByUserAndRecipeId(authFacade.getCurrentUser(), recipeId));
+		return new ClearRecipeFields()
+				.execute(privateNotesRepository.findByUserAndRecipeId(authFacade.getCurrentUser(), recipeId));
 	}
 
 }

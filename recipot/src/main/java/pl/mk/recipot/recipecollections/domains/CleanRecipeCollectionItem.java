@@ -1,6 +1,5 @@
 package pl.mk.recipot.recipecollections.domains;
 
-import pl.mk.recipot.commons.models.RecipeCollection;
 import pl.mk.recipot.commons.models.RecipeCollectionItem;
 
 public class CleanRecipeCollectionItem {
@@ -8,7 +7,7 @@ public class CleanRecipeCollectionItem {
 		item.getCollection().setOwner(null);
 		item.getRecipe().setOwner(null);
 		return item;
-		
+
 	}
 
 }

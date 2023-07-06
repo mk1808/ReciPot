@@ -4,25 +4,15 @@ import pl.mk.recipot.commons.dtos.ChangePasswordDto;
 import pl.mk.recipot.commons.dtos.UserRegisterDto;
 import pl.mk.recipot.commons.exceptions.BadRequestException;
 
-public class CheckIfPasswordsMatch {
+public class CheckIfPasswordsDoNotMatch {
 
-	public Boolean execute(UserRegisterDto userRegisterDto) {
-		checkForRegister(userRegisterDto);
-		return true;
-	}
-	
-	public Boolean execute(ChangePasswordDto changePasswordDto) {
-		checkForChange(changePasswordDto);
-		return true;
-	}
-
-	private void checkForRegister(UserRegisterDto userRegisterDto) {
+	public void execute(UserRegisterDto userRegisterDto) {
 		if (!userRegisterDto.password.equals(userRegisterDto.matchingPassword)) {
 			throw new BadRequestException("auth.error.passwordsNotEqual");
 		}
 	}
-
-	private void checkForChange(ChangePasswordDto changePasswordDto) {
+	
+	public void execute(ChangePasswordDto changePasswordDto) {
 		if (!changePasswordDto.password.equals(changePasswordDto.matchingPassword)) {
 			throw new BadRequestException("auth.error.passwordsNotEqual");
 		}

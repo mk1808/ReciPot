@@ -12,7 +12,7 @@ import pl.mk.recipot.commons.models.HashTag;
 import pl.mk.recipot.commons.models.Ingredient;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.commons.services.IFilterService;
-import pl.mk.recipot.dictionaries.domains.CheckIngreientDontExists;
+import pl.mk.recipot.dictionaries.domains.CheckIfIngredientExists;
 import pl.mk.recipot.dictionaries.domains.GetHashTagIfExists;
 import pl.mk.recipot.dictionaries.domains.GetIngredientIfExists;
 import pl.mk.recipot.dictionaries.dtos.IngredientsFilterDto;
@@ -29,7 +29,7 @@ public class IngredientsService implements IFilterService<Ingredient, Ingredient
 
 	@Override
 	public Ingredient save(Ingredient Ingredient) {
-		new CheckIngreientDontExists().execute(ingredientsRepository.findByName(Ingredient.getName()));
+		new CheckIfIngredientExists().execute(ingredientsRepository.findByName(Ingredient.getName()));
 		return ingredientsRepository.save(Ingredient);
 	}
 
