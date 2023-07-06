@@ -17,13 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.validation.Valid;
 import pl.mk.recipot.commons.dtos.Response;
 import pl.mk.recipot.commons.models.Notification;
-import pl.mk.recipot.notifications.dtos.NotificationDto;
 
 @RequestMapping("/api/notifications")
 public interface INotificationsController {
 
 	@GetMapping()
-	ResponseEntity<Response<List<NotificationDto>>> getLastNotifications(
+	ResponseEntity<Response<List<Notification>>> getLastNotifications(
 			@RequestParam(value = "dateSince") @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss") Date dateSince);
 
 	@PostMapping()

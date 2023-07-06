@@ -12,7 +12,6 @@ import pl.mk.recipot.commons.factories.OkMessageResponseFactory;
 import pl.mk.recipot.commons.factories.OkResponseFactory;
 import pl.mk.recipot.commons.models.RecipeFilter;
 import pl.mk.recipot.commons.services.ICrudService;
-import pl.mk.recipot.savedrecipefilters.dtos.RecipeFilterDto;
 import pl.mk.recipot.savedrecipefilters.services.ISavedRecipeFiltersService;
 
 @RestController
@@ -33,7 +32,7 @@ public class SavedRecipeFiltersController implements ISavedRecipeFiltersControll
 	}
 
 	@Override
-	public ResponseEntity<Response<List<RecipeFilterDto>>> getRecipeFilters() {
+	public ResponseEntity<Response<List<RecipeFilter>>> getRecipeFilters() {
 		return new OkResponseFactory().createResponse(savedRecipeFiltersService.getUserFilters());
 	}
 

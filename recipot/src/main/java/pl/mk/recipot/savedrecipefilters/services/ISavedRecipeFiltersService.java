@@ -2,9 +2,9 @@ package pl.mk.recipot.savedrecipefilters.services;
 
 import java.util.List;
 
-import pl.mk.recipot.savedrecipefilters.dtos.RecipeFilterDto;
+import pl.mk.recipot.commons.models.RecipeFilter;
 
 public interface ISavedRecipeFiltersService {
 
-	List<RecipeFilterDto> getUserFilters();
+	List<RecipeFilter> getUserFilters();
 }
