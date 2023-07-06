@@ -12,13 +12,10 @@ import pl.mk.recipot.commons.models.RecipeFilter;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.savedrecipefilters.domains.CheckIfRecipeFilterDoesNotExists;
 import pl.mk.recipot.savedrecipefilters.domains.CheckIfRecipeFilterExists;
-import pl.mk.recipot.savedrecipefilters.domains.CheckIfUserIsOwner;
 import pl.mk.recipot.savedrecipefilters.domains.CleanRecipeFilterFields;
 import pl.mk.recipot.savedrecipefilters.domains.FillRecipeFilterOwnerAndCreationDate;
-import pl.mk.recipot.savedrecipefilters.domains.GetRecipeFilterIfExists;
 import pl.mk.recipot.savedrecipefilters.domains.CheckIfUserIsNotOwner;
 import pl.mk.recipot.savedrecipefilters.domains.GetRecipeFilter;
-import pl.mk.recipot.savedrecipefilters.dtos.RecipeFilterDto;
 import pl.mk.recipot.savedrecipefilters.repositories.ISavedRecipeFiltersRepository;
 
 @Service
