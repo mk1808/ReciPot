@@ -4,16 +4,23 @@
 			"passwordChanged": "Password successfully changed"
 		},
 		"error": {
-			"passwordsNotEqual": "Passwords are not equal"
+			"passwordsNotEqual": "Passwords are not equal",
+			"userNotExists": "User does not exists",
+			"userExists": "User already exists"
 		}
 	},
 	"dictionaries": {
 		"success": {},
 		"error": {
 			"categoryExists": "This category already exists",
-			"categoryNotFound": "Category not found",
+			"categoryNotExists": "Category not found",
 			"hashTagExists": "This hashtag already exists",
 			"ingredientExists": "This ingredient already exists"
+		}
+	},
+	"notifications": {
+		"error": {
+			"userNotExists": "Provided user is not owner"
 		}
 	},
 	"privateNotes": {
@@ -21,7 +28,8 @@
 			"noteDeleted": "Recipe private note successfully deleted"
 		},
 		"error": {
-			"noteNotFound": "Private note not found for recipe"
+			"noteNotFound": "Private note not found for recipe",
+			"userNotAuthor": "User is not author"
 		}
 	},
 	"recipeCollections": {
@@ -31,7 +39,7 @@
 		},
 		"error": {
 			"collectionForUserExists": "Collection already exists for user",
-			"collectionNotFound": "Collection not found",
+			"collectionNotExists": "Collection not found",
 			"recipeExistsInCollection": "Recipe already added to collection",
 			"recipeNotFoundInCollection": "Recipe not found in collection",
 			"userNotOwnerOfCollection": "User is not the owner of this collection"

@@ -4,10 +4,11 @@ import pl.mk.recipot.commons.exceptions.ForbiddenException;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Recipe;
 
-public class CheckIfUserIsOwner {
+public class CheckIfUserIsNotOwner {
 
 	public void execute(AppUser user, Recipe recipe) {
-		if (!user.getId().equals(recipe.getOwner().getId())) {
+		boolean userIsOwner = user.getId().equals(recipe.getOwner().getId());
+		if (!userIsOwner) {
 			throw new ForbiddenException("recipes.error.userNotOwnerOfRecipe");
 		}
 	}

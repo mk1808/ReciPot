@@ -11,8 +11,8 @@ import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Role;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.recipecollections.facades.IRecipeCollectionsFacade;
-import pl.mk.recipot.users.domains.CheckIfCurrentUser;
-import pl.mk.recipot.users.domains.CheckUserExistsForEdit;
+import pl.mk.recipot.users.domains.CheckIfUserDoesNotExists;
+import pl.mk.recipot.users.domains.CheckIfUsersNotTheSame;
 import pl.mk.recipot.users.domains.DeleteSensitiveDataFromUser;
 import pl.mk.recipot.users.domains.IsNewUser;
 import pl.mk.recipot.users.domains.UpdateUser;
@@ -55,12 +55,8 @@ public class UsersService implements IUsersService, ICrudService<AppUser> {
 	@Override
 	public AppUser update(AppUser appUser, UUID id) {
 		AppUser oldUser = usersRepository.findById(id).orElse(null);
-		Boolean userExists = new CheckUserExistsForEdit().execute(oldUser);
-		if (userExists) {
-			return updateAndSaveUser(oldUser, appUser);
-		}
-
-		return null;
+		new CheckIfUserDoesNotExists().execute(oldUser);
+		return updateAndSaveUser(oldUser, appUser);
 	}
 
 	@Override
@@ -79,13 +75,10 @@ public class UsersService implements IUsersService, ICrudService<AppUser> {
 	}
 
 	private AppUser updateAndSaveUser(AppUser oldUser, AppUser appUser) {
-		Boolean isCurrentUser = new CheckIfCurrentUser().execute(authFacade.getCurrentUser(), oldUser);
-		if (isCurrentUser) {
-			AppUser updatedUser = new UpdateUser().execute(oldUser, appUser);
-			AppUser userAfterSave = usersRepository.save(updatedUser);
-			return new DeleteSensitiveDataFromUser().execute(userAfterSave);
-		}
-		return null;
+		new CheckIfUsersNotTheSame().execute(authFacade.getCurrentUser(), oldUser);
+		AppUser updatedUser = new UpdateUser().execute(oldUser, appUser);
+		AppUser userAfterSave = usersRepository.save(updatedUser);
+		return new DeleteSensitiveDataFromUser().execute(userAfterSave);
 	}
 
 	@Override

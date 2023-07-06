@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import pl.mk.recipot.commons.enums.ChangeType;
 import pl.mk.recipot.commons.models.Ingredient;
 import pl.mk.recipot.commons.models.Recipe;
-import pl.mk.recipot.commons.models.RecipeIngredient;
 
 public class GetIngredientsDifference {
 	public Map<ChangeType, List<Ingredient>> execute(Recipe oldRecipe, Recipe newRecipe) {

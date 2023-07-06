@@ -13,6 +13,7 @@ import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.notifications.domains.CheckIfOwnerExists;
 import pl.mk.recipot.notifications.domains.CheckIfUserIsOwner;
 import pl.mk.recipot.notifications.domains.CleanNotificationFields;
+import pl.mk.recipot.notifications.domains.CheckIfUserIsNotOwner;
 import pl.mk.recipot.notifications.domains.FillNotificationCreationDate;
 import pl.mk.recipot.notifications.repositories.INotificationsRepository;
 import pl.mk.recipot.users.facades.IUsersFacade;
@@ -34,7 +35,7 @@ public class NotificationsService implements INotificationsService, ICrudService
 	@Override
 	public Notification save(Notification notification) {
 		AppUser notificationOwner = usersFacade.getUserById(notification.getOwner().getId());
-		new CheckIfOwnerExists().execute(notificationOwner, notification);
+		new CheckIfUserIsNotOwner().execute(notificationOwner, notification);
 		new FillNotificationCreationDate().execute(notification);
 		return notificationRepository.save(notification);
 	}
@@ -51,7 +52,7 @@ public class NotificationsService implements INotificationsService, ICrudService
 
 	@Override
 	public void delete(UUID id) {
-		new CheckIfUserIsOwner().execute(authFacade.getCurrentUser(), get(id));
+		new CheckIfUserIsNotOwner().execute(authFacade.getCurrentUser(), get(id));
 		notificationRepository.deleteById(id);
 	}
 
