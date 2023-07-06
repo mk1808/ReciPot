@@ -10,9 +10,9 @@ import pl.mk.recipot.auth.facades.IAuthFacade;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Notification;
 import pl.mk.recipot.commons.services.ICrudService;
+import pl.mk.recipot.notifications.domains.CleanNotificationFields;
 import pl.mk.recipot.notifications.domains.CheckIfUserIsNotOwner;
 import pl.mk.recipot.notifications.domains.FillNotificationCreationDate;
-import pl.mk.recipot.notifications.dtos.NotificationDto;
 import pl.mk.recipot.notifications.repositories.INotificationsRepository;
 import pl.mk.recipot.users.facades.IUsersFacade;
 
@@ -55,8 +55,11 @@ public class NotificationsService implements INotificationsService, ICrudService
 	}
 
 	@Override
-	public List<NotificationDto> getLastNotifications(Date dateSince) {
-		return notificationRepository.getLastNotifications(authFacade.getCurrentUser(), dateSince);
+	public List<Notification> getLastNotifications(Date dateSince) {
+		List<Notification> notifications = notificationRepository.getLastNotifications(authFacade.getCurrentUser(), dateSince);
+		CleanNotificationFields cleaner = new CleanNotificationFields();
+		notifications.forEach(cleaner::executte);
+		return notifications;
 	}
 
 }

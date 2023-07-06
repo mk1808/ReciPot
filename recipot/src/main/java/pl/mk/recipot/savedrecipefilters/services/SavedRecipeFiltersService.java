@@ -12,10 +12,10 @@ import pl.mk.recipot.commons.models.RecipeFilter;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.savedrecipefilters.domains.CheckIfRecipeFilterDoesNotExists;
 import pl.mk.recipot.savedrecipefilters.domains.CheckIfRecipeFilterExists;
-import pl.mk.recipot.savedrecipefilters.domains.CheckIfUserIsNotOwner;
+import pl.mk.recipot.savedrecipefilters.domains.CleanRecipeFilterFields;
 import pl.mk.recipot.savedrecipefilters.domains.FillRecipeFilterOwnerAndCreationDate;
+import pl.mk.recipot.savedrecipefilters.domains.CheckIfUserIsNotOwner;
 import pl.mk.recipot.savedrecipefilters.domains.GetRecipeFilter;
-import pl.mk.recipot.savedrecipefilters.dtos.RecipeFilterDto;
 import pl.mk.recipot.savedrecipefilters.repositories.ISavedRecipeFiltersRepository;
 
 @Service
@@ -37,7 +37,8 @@ public class SavedRecipeFiltersService implements ISavedRecipeFiltersService, IC
 		new CheckIfRecipeFilterExists()
 				.execute(savedRecipeFiltersRepository.findByUserAndName(currentUser, recipeFilter.getName()));
 		new FillRecipeFilterOwnerAndCreationDate().execute(recipeFilter, currentUser);
-		return savedRecipeFiltersRepository.save(recipeFilter);
+		savedRecipeFiltersRepository.save(recipeFilter);
+		return new CleanRecipeFilterFields().executte(recipeFilter);
 	}
 
 	@Override
@@ -60,8 +61,11 @@ public class SavedRecipeFiltersService implements ISavedRecipeFiltersService, IC
 	}
 
 	@Override
-	public List<RecipeFilterDto> getUserFilters() {
-		return savedRecipeFiltersRepository.findByUser(authFacade.getCurrentUser());
+	public List<RecipeFilter> getUserFilters() {
+		List<RecipeFilter> filters = savedRecipeFiltersRepository.findByUser(authFacade.getCurrentUser());
+		CleanRecipeFilterFields cleaner = new CleanRecipeFilterFields();
+		filters.forEach(cleaner::executte);
+		return filters;
 	}
 
 }

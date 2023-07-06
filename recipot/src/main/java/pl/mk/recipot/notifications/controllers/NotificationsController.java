@@ -11,7 +11,6 @@ import pl.mk.recipot.commons.dtos.Response;
 import pl.mk.recipot.commons.factories.OkResponseFactory;
 import pl.mk.recipot.commons.models.Notification;
 import pl.mk.recipot.commons.services.ICrudService;
-import pl.mk.recipot.notifications.dtos.NotificationDto;
 import pl.mk.recipot.notifications.services.INotificationsService;
 
 @RestController
@@ -27,7 +26,7 @@ public class NotificationsController implements INotificationsController {
 	}
 
 	@Override
-	public ResponseEntity<Response<List<NotificationDto>>> getLastNotifications(Date dateSince) {
+	public ResponseEntity<Response<List<Notification>>> getLastNotifications(Date dateSince) {
 		return new OkResponseFactory().createResponse(notificationsService.getLastNotifications(dateSince));
 	}
 

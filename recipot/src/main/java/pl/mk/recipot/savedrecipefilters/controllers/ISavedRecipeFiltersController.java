@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.validation.Valid;
 import pl.mk.recipot.commons.dtos.Response;
 import pl.mk.recipot.commons.models.RecipeFilter;
-import pl.mk.recipot.savedrecipefilters.dtos.RecipeFilterDto;
 
 @RequestMapping("/api/savedRecipeFilters")
 public interface ISavedRecipeFiltersController {
@@ -23,7 +22,7 @@ public interface ISavedRecipeFiltersController {
 	ResponseEntity<Response<RecipeFilter>> createRecipeFilter(@RequestBody @Valid RecipeFilter recipeFilter);
 
 	@GetMapping()
-	ResponseEntity<Response<List<RecipeFilterDto>>> getRecipeFilters();
+	ResponseEntity<Response<List<RecipeFilter>>> getRecipeFilters();
 
 	@DeleteMapping("/{recipeFilterId}")
 	ResponseEntity<Response<Void>> deleteRecipeFilter(@PathVariable UUID recipeFilterId);
