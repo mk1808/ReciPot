@@ -39,6 +39,7 @@ import pl.mk.recipot.recipes.domains.GetRecipeIngredientNameList;
 import pl.mk.recipot.recipes.domains.ToggleRecipeVisibility;
 import pl.mk.recipot.recipes.domains.UpdateExistingIngredients;
 import pl.mk.recipot.recipes.domains.UpdateListsInRecipe;
+import pl.mk.recipot.recipes.domains.UpdateRecipe;
 import pl.mk.recipot.recipes.domains.UpdateRecipeIngredientsForRecipe;
 import pl.mk.recipot.recipes.domains.UpdateRecipeStepsForRecipe;
 import pl.mk.recipot.recipes.domains.UpdateUserInRecipe;
@@ -74,6 +75,7 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 
 	@Override
 	public Recipe save(Recipe recipe) {
+		recipe = new UpdateRecipe().execute(recipe);
 		recipe = new UpdateUserInRecipe().execute(recipe, authFacade.getCurrentUser());
 
 		Set<HashTag> tags = dictionariesFacade.saveManyHashTags(recipe.getHashTags());
@@ -83,12 +85,12 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 
 		List<Ingredient> ingredients = new GetIngredientsFromRecipe().execute(recipe);
 		List<RecipeIngredient> savedRecipeIngredients = saveIngredients(savedRecipe, recipe, ingredients);
-		savedRecipe.setRecipeIngredients(
-			new CleanRecipe().executeIngredients(savedRecipeIngredients));
-
-		
 		List<RecipeStep> allStepsCreated = createSteps(recipe, savedRecipe);
+	
+		savedRecipe.setRecipeIngredients(
+				new CleanRecipe().executeIngredients(savedRecipeIngredients));
 		savedRecipe.setRecipeSteps(new CleanRecipe().executeSteps(allStepsCreated));
+		
 		return savedRecipe;
 	}
 
