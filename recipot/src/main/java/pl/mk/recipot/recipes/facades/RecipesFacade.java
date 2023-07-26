@@ -37,4 +37,9 @@ public class RecipesFacade implements IRecipesFacade {
 		return recipesService.getUserRecipesCount(user);
 	}
 
+	@Override
+	public Recipe updateRecipeAverageRating(Recipe recipe) {
+		return recipesService.updateRecipeAverageRating(recipe);
+	}
+
 }

@@ -10,31 +10,43 @@ import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Rating;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.opinions.domains.ClearRatingFilds;
-import pl.mk.recipot.opinions.domains.FillRatingAuthorAndCreationDate;
-import pl.mk.recipot.opinions.domains.UpdateRating;
+import pl.mk.recipot.opinions.domains.UpdateOrCreateNewRating;
+import pl.mk.recipot.opinions.domains.UpdateRecipeAverageRating;
+import pl.mk.recipot.opinions.dtos.RecipeAverageRating;
 import pl.mk.recipot.opinions.repositories.IRatingsRepository;
+import pl.mk.recipot.recipes.facades.IRecipesFacade;
 
 @Service
 public class RatingService implements ICrudService<Rating> {
 
 	private IRatingsRepository ratingsRepository;
 	private IAuthFacade authFacade;
+	private IRecipesFacade recipeFacade;
 
-	public RatingService(IRatingsRepository ratingsRepository, IAuthFacade authFacade) {
+	public RatingService(IRatingsRepository ratingsRepository, IAuthFacade authFacade, IRecipesFacade recipeFacade) {
 		super();
 		this.ratingsRepository = ratingsRepository;
 		this.authFacade = authFacade;
+		this.recipeFacade = recipeFacade;
 	}
 
 	@Override
 	public Rating save(Rating rating) {
+		Rating savedRating = updateOrCreateNew(rating);
+		updateRecipeAverageRating(savedRating);
+		return new ClearRatingFilds().execute(savedRating);
+	}
+
+	private Rating updateOrCreateNew(Rating rating) {
 		AppUser currentUser = authFacade.getCurrentUser();
 		List<Rating> existingRating = ratingsRepository.findByUserAndRecipe(currentUser, rating.getRecipe());
-		return new ClearRatingFilds().execute(
-			ratingsRepository.save(
-				existingRating.isEmpty() 
-					? new FillRatingAuthorAndCreationDate().execute(rating, currentUser)
-					: new UpdateRating().execute(existingRating.get(0), rating)));
+		return ratingsRepository.save(new UpdateOrCreateNewRating().execute(currentUser, existingRating, rating));
+	}
+
+	private void updateRecipeAverageRating(Rating rating) {
+		RecipeAverageRating recipeRatingCount = ratingsRepository.getRecipeAverageRating(rating.getRecipe());
+		recipeFacade.updateRecipeAverageRating(
+				new UpdateRecipeAverageRating().execute(rating.getRecipe(), recipeRatingCount));
 	}
 
 	@Override

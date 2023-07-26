@@ -39,6 +39,7 @@ import pl.mk.recipot.recipes.domains.GetRecipeIngredientNameList;
 import pl.mk.recipot.recipes.domains.ToggleRecipeVisibility;
 import pl.mk.recipot.recipes.domains.UpdateExistingIngredients;
 import pl.mk.recipot.recipes.domains.UpdateListsInRecipe;
+import pl.mk.recipot.recipes.domains.UpdateRecipeAverageRating;
 import pl.mk.recipot.recipes.domains.UpdateRecipeIngredientsForRecipe;
 import pl.mk.recipot.recipes.domains.UpdateRecipeStepsForRecipe;
 import pl.mk.recipot.recipes.domains.UpdateUserInRecipe;
@@ -167,6 +168,12 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	@Override
 	public int getUserRecipesCount(AppUser user) {
 		return recipesRepository.getUserRecipesCount(user);
+	}
+
+	@Override
+	public Recipe updateRecipeAverageRating(Recipe updatedRecipe) {
+		Recipe existingRecipe = get(updatedRecipe.getId());
+		return recipesRepository.save(new UpdateRecipeAverageRating().execute(existingRecipe, updatedRecipe));
 	}
 
 }
