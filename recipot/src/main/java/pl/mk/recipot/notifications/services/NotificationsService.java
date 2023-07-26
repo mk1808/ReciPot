@@ -8,9 +8,13 @@ import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
 import pl.mk.recipot.commons.models.AppUser;
+import pl.mk.recipot.commons.models.Comment;
 import pl.mk.recipot.commons.models.Notification;
+import pl.mk.recipot.commons.models.Rating;
+import pl.mk.recipot.commons.models.SharedRecipe;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.notifications.domains.CleanNotificationFields;
+import pl.mk.recipot.notifications.domains.CreateSharedRecipeNotification;
 import pl.mk.recipot.notifications.domains.CheckIfUserIsNotOwner;
 import pl.mk.recipot.notifications.domains.FillNotificationCreationDate;
 import pl.mk.recipot.notifications.repositories.INotificationsRepository;
@@ -60,6 +64,23 @@ public class NotificationsService implements INotificationsService, ICrudService
 		CleanNotificationFields cleaner = new CleanNotificationFields();
 		notifications.forEach(cleaner::executte);
 		return notifications;
+	}
+
+	@Override
+	public void notifySharedRecipe(SharedRecipe sharedRecipe) {
+		save(new CreateSharedRecipeNotification().execute(sharedRecipe));
+	}
+
+	@Override
+	public void notifyNewRecipeRating(Rating rating) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyNewRecipeComment(Comment comment) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
