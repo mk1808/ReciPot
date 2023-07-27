@@ -18,6 +18,7 @@ import pl.mk.recipot.notifications.domains.CreateCommentedRecipeNotification;
 import pl.mk.recipot.notifications.domains.CreateRatedRecipeNotification;
 import pl.mk.recipot.notifications.domains.CreateSharedRecipeNotification;
 import pl.mk.recipot.notifications.domains.FillNotificationCreationDate;
+import pl.mk.recipot.notifications.domains.ShouldCreateNotificationForUser;
 import pl.mk.recipot.notifications.repositories.INotificationsRepository;
 
 @Service
@@ -33,8 +34,11 @@ public class NotificationsService implements INotificationsService, ICrudService
 
 	@Override
 	public Notification save(Notification notification) {
-		new FillNotificationCreationDate().execute(notification);
-		return notificationRepository.save(notification);
+		if (new ShouldCreateNotificationForUser().execute(authFacade.getCurrentUser(), notification)) {
+			new FillNotificationCreationDate().execute(notification);
+			notificationRepository.save(notification);
+		}
+		return notification;
 	}
 
 	@Override
@@ -70,13 +74,11 @@ public class NotificationsService implements INotificationsService, ICrudService
 	@Override
 	public void notifyNewRecipeRating(Rating rating) {
 		save(new CreateRatedRecipeNotification().execute(rating));
-
 	}
 
 	@Override
 	public void notifyNewRecipeComment(Comment comment) {
 		save(new CreateCommentedRecipeNotification().execute(comment));
-
 	}
 
 }
