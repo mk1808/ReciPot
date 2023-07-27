@@ -22,22 +22,24 @@ public class RatingService implements ICrudService<Rating> {
 
 	private IRatingsRepository ratingsRepository;
 	private IAuthFacade authFacade;
-	private IRecipesFacade recipeFacade;
+	private IRecipesFacade recipesFacade;
 	private INotificationsFacade notificationFacade;
 
-	public RatingService(IRatingsRepository ratingsRepository, IAuthFacade authFacade, IRecipesFacade recipeFacade, INotificationsFacade notificationFacade) {
+	public RatingService(IRatingsRepository ratingsRepository, IAuthFacade authFacade, IRecipesFacade recipesFacade,
+			INotificationsFacade notificationFacade) {
 		super();
 		this.ratingsRepository = ratingsRepository;
 		this.authFacade = authFacade;
-		this.recipeFacade = recipeFacade;
+		this.recipesFacade = recipesFacade;
 		this.notificationFacade = notificationFacade;
 	}
 
 	@Override
 	public Rating save(Rating rating) {
+		rating.setRecipe(recipesFacade.get(rating.getRecipe().getId()));
 		Rating savedRating = updateOrCreateNew(rating);
 		updateRecipeAverageRating(savedRating);
-		notificationFacade.notifyNewRecipeRating(get(savedRating.getId()));
+		notificationFacade.notifyNewRecipeRating(savedRating);
 		return new ClearRatingFilds().execute(savedRating);
 	}
 
@@ -49,7 +51,7 @@ public class RatingService implements ICrudService<Rating> {
 
 	private void updateRecipeAverageRating(Rating rating) {
 		RecipeAverageRating recipeRatingCount = ratingsRepository.getRecipeAverageRating(rating.getRecipe());
-		recipeFacade.updateRecipeAverageRating(
+		recipesFacade.updateRecipeAverageRating(
 				new UpdateRecipeAverageRating().execute(rating.getRecipe(), recipeRatingCount));
 	}
 
