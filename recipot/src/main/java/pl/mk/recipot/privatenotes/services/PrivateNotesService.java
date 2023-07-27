@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
+import pl.mk.recipot.commons.enums.DefaultRecipeCollections;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.PrivateNote;
 import pl.mk.recipot.commons.services.ICrudService;
@@ -17,17 +18,20 @@ import pl.mk.recipot.privatenotes.domains.FillPrivateNoteAuthorAndCreationDate;
 import pl.mk.recipot.privatenotes.domains.GetPrivateNote;
 import pl.mk.recipot.privatenotes.domains.UpdatePrivateNote;
 import pl.mk.recipot.privatenotes.repositories.IPrivateNotesRepository;
+import pl.mk.recipot.recipecollections.facades.IRecipeCollectionsFacade;
 
 @Service
 public class PrivateNotesService implements IPrivateNotesService, ICrudService<PrivateNote> {
 
 	private IPrivateNotesRepository privateNotesRepository;
 	private IAuthFacade authFacade;
+	private IRecipeCollectionsFacade recipeCollectionsFacade;
 
-	public PrivateNotesService(IPrivateNotesRepository privateNotesRepository, IAuthFacade authFacade) {
+	public PrivateNotesService(IPrivateNotesRepository privateNotesRepository, IAuthFacade authFacade, IRecipeCollectionsFacade recipeCollectionsFacade) {
 		super();
 		this.privateNotesRepository = privateNotesRepository;
 		this.authFacade = authFacade;
+		this.recipeCollectionsFacade = recipeCollectionsFacade;
 	}
 
 	@Override
@@ -39,6 +43,9 @@ public class PrivateNotesService implements IPrivateNotesService, ICrudService<P
 			return new ClearRecipeFields().execute(privateNotesRepository
 					.save(new FillPrivateNoteAuthorAndCreationDate().execute(privateNote, currentUser)));
 		}
+		
+		recipeCollectionsFacade.addRecipeToUserDefaultCollection(currentUser, DefaultRecipeCollections.NOTED, privateNote.getRecipe());
+		
 		return new ClearRecipeFields().execute(
 				privateNotesRepository.save(new UpdatePrivateNote().execute(existingRecipe.get(0), privateNote)));
 	}

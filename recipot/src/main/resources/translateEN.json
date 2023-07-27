@@ -85,7 +85,8 @@
 			"NOTED": "Noted",
 			"COMMENTED": "Commented",
 			"SHARED_WITH_USER": "Shared with user",
-			"FAVOURITE": "Favourite"
+			"FAVOURITE": "Favourite",
+			"CREATED": "Created"
 		},
 		"NotificationType": {
 			"SHARED_RECIPE": "Shared recipe",
