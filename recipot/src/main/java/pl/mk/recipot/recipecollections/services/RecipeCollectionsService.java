@@ -1,5 +1,6 @@
 package pl.mk.recipot.recipecollections.services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -137,9 +138,14 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 			Recipe recipe) {
 		RecipeCollection existingRecipeCollection = recipeCollectionsRepository
 				.getOwnByNameAndUser(recipeCollection.getName(), user.getId());
-		RecipeCollectionItem newItem = new FillRecipeCollectionItem().execute(new RecipeCollectionItem(), recipe,
-				existingRecipeCollection);
-		recipeCollectionsItemRepository.save(newItem);
+		RecipeCollectionItem existingItem = recipeCollectionsItemRepository
+				.getByRecipeAndCollection(existingRecipeCollection.getId(), recipe.getId());
+		if (existingItem == null) {
+			RecipeCollectionItem newItem = new FillRecipeCollectionItem().execute(new RecipeCollectionItem(), recipe,
+					existingRecipeCollection);
+			recipeCollectionsItemRepository.save(newItem);
+		}
+
 	}
 
 	@Override

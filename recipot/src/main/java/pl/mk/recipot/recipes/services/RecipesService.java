@@ -1,19 +1,19 @@
 package pl.mk.recipot.recipes.services;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.enums.ChangeType;
+import pl.mk.recipot.commons.enums.DefaultRecipeCollections;
 import pl.mk.recipot.commons.models.Category;
 import pl.mk.recipot.commons.models.HashTag;
 import pl.mk.recipot.commons.models.Ingredient;
@@ -25,7 +25,7 @@ import pl.mk.recipot.commons.services.IFilterService;
 import pl.mk.recipot.dictionaries.facades.IDictionariesFacade;
 
 import pl.mk.recipot.recipes.domains.CheckIfUserIsNotOwner;
-import pl.mk.recipot.dictionaries.repositories.IHashTagRepository;
+import pl.mk.recipot.recipecollections.facades.IRecipeCollectionsFacade;
 import pl.mk.recipot.recipes.domains.UpdateRecipeIngredientsForRecipe;
 import pl.mk.recipot.recipes.domains.UpdateRecipeStepsForRecipe;
 import pl.mk.recipot.recipes.domains.UpdateUserInRecipe;
@@ -41,9 +41,6 @@ import pl.mk.recipot.recipes.domains.UpdateExistingIngredients;
 import pl.mk.recipot.recipes.domains.UpdateListsInRecipe;
 import pl.mk.recipot.recipes.domains.UpdateRecipeAverageRating;
 import pl.mk.recipot.recipes.domains.UpdateRecipe;
-import pl.mk.recipot.recipes.domains.UpdateRecipeIngredientsForRecipe;
-import pl.mk.recipot.recipes.domains.UpdateRecipeStepsForRecipe;
-import pl.mk.recipot.recipes.domains.UpdateUserInRecipe;
 import pl.mk.recipot.recipes.dtos.RecipeFilterDto;
 import pl.mk.recipot.recipes.repositories.IRecipeIngredientsRepository;
 import pl.mk.recipot.recipes.repositories.IRecipeStepsRepository;
@@ -57,16 +54,18 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	private IDictionariesFacade dictionariesFacade;
 	private IAuthFacade authFacade;
 	private IRecipeStepsRepository recipeStepsRepository;
+	private IRecipeCollectionsFacade recipeCollectionsFacade;
 
 	public RecipesService(IRecipesRepository recipesRepository, IDictionariesFacade dictionariesFacade,
 			IAuthFacade authFacade, IRecipeIngredientsRepository recipeIngredientsRepository,
-			IRecipeStepsRepository recipeStepsRepository) {
+			IRecipeStepsRepository recipeStepsRepository, @Lazy IRecipeCollectionsFacade recipeCollectionsFacade) {
 		super();
 		this.recipesRepository = recipesRepository;
 		this.dictionariesFacade = dictionariesFacade;
 		this.authFacade = authFacade;
 		this.recipeIngredientsRepository = recipeIngredientsRepository;
 		this.recipeStepsRepository = recipeStepsRepository;
+		this.recipeCollectionsFacade = recipeCollectionsFacade;
 	}
 
 	@Override
@@ -91,6 +90,9 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		savedRecipe.setRecipeIngredients(
 				new CleanRecipe().executeIngredients(savedRecipeIngredients));
 		savedRecipe.setRecipeSteps(new CleanRecipe().executeSteps(allStepsCreated));
+
+		recipeCollectionsFacade.addRecipeToUserDefaultCollection(authFacade.getCurrentUser(),
+				DefaultRecipeCollections.CREATED, savedRecipe);
 
 		return savedRecipe;
 	}

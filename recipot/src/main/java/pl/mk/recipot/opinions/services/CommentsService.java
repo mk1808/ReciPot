@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
+import pl.mk.recipot.commons.enums.DefaultRecipeCollections;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Comment;
 import pl.mk.recipot.commons.services.ICrudService;
@@ -14,6 +15,7 @@ import pl.mk.recipot.opinions.domains.ClearCommentFilds;
 import pl.mk.recipot.opinions.domains.UpdateOrCreateNewComment;
 import pl.mk.recipot.opinions.repositories.ICommentsRepository;
 import pl.mk.recipot.recipes.facades.IRecipesFacade;
+import pl.mk.recipot.recipecollections.facades.IRecipeCollectionsFacade;
 
 @Service
 public class CommentsService implements ICrudService<Comment> {
@@ -22,14 +24,17 @@ public class CommentsService implements ICrudService<Comment> {
 	private IAuthFacade authFacade;
 	private INotificationsFacade notificationFacade;
 	private IRecipesFacade recipesFacade;
+	private IRecipeCollectionsFacade recipeCollectionsFacade;
 
 	public CommentsService(ICommentsRepository commentRepository, IAuthFacade authFacade,
-			INotificationsFacade notificationFacade, IRecipesFacade recipesFacade) {
+			INotificationsFacade notificationFacade, IRecipesFacade recipesFacade,
+			IRecipeCollectionsFacade recipeCollectionsFacade) {
 		super();
 		this.commentRepository = commentRepository;
 		this.authFacade = authFacade;
 		this.notificationFacade = notificationFacade;
 		this.recipesFacade = recipesFacade;
+		this.recipeCollectionsFacade = recipeCollectionsFacade;
 	}
 
 	@Override
@@ -43,7 +48,17 @@ public class CommentsService implements ICrudService<Comment> {
 	public Comment updateOrCreateNew(Comment comment) {
 		AppUser currentUser = authFacade.getCurrentUser();
 		List<Comment> existingRating = commentRepository.findByUserAndRecipe(currentUser, comment.getRecipe());
-		return commentRepository.save(new UpdateOrCreateNewComment().execute(currentUser, existingRating, comment));
+		Comment newComment = commentRepository
+				.save(new UpdateOrCreateNewComment().execute(currentUser, existingRating, comment));
+		updateCollection(existingRating.isEmpty(), currentUser, newComment);
+		return newComment;
+	}
+
+	private void updateCollection(Boolean isEmpty, AppUser currentUser, Comment comment) {
+		if (isEmpty) {
+			recipeCollectionsFacade.addRecipeToUserDefaultCollection(currentUser, DefaultRecipeCollections.COMMENTED,
+					comment.getRecipe());
+		}
 	}
 
 	@Override
