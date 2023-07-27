@@ -8,6 +8,7 @@ import pl.mk.recipot.commons.exceptions.ForbiddenException;
 import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.models.SharedRecipe;
 import pl.mk.recipot.commons.services.ICrudService;
+import pl.mk.recipot.notifications.facades.INotificationsFacade;
 import pl.mk.recipot.recipecollections.facades.IRecipeCollectionsFacade;
 import pl.mk.recipot.recipes.domains.CheckIfRecipeWasSharedWithUser;
 import pl.mk.recipot.recipes.domains.CheckIfUserIsSharedRecipeOwner;
@@ -26,16 +27,18 @@ public class ShareRecipeService implements IShareRecipeService {
 	private IRecipeCollectionsFacade recipeCollectionsFacade;
 	private ISharedRecipesRepository sharedRecipesRepository;
 	private ICrudService<Recipe> recipeCrudService;
+	private INotificationsFacade notificationFacade;
 
 	public ShareRecipeService(IAuthFacade authFacade, IUsersFacade userFacade,
 			IRecipeCollectionsFacade recipeCollectionsFacade,
-			ISharedRecipesRepository sharedRecipesRepository, ICrudService<Recipe> recipeCrudService) {
+			ISharedRecipesRepository sharedRecipesRepository, ICrudService<Recipe> recipeCrudService, INotificationsFacade notificationFacade) {
 		super();
 		this.authFacade = authFacade;
 		this.userFacade = userFacade;
 		this.recipeCollectionsFacade = recipeCollectionsFacade;
 		this.sharedRecipesRepository = sharedRecipesRepository;
 		this.recipeCrudService = recipeCrudService;
+		this.notificationFacade = notificationFacade;
 	}
 
 	@Override
@@ -46,6 +49,7 @@ public class ShareRecipeService implements IShareRecipeService {
 		SharedRecipe savedSharedRecipe = sharedRecipesRepository.save(sharedRecipe);
 		recipeCollectionsFacade.addRecipeToUserDefaultCollection(sharedRecipe.getReceiverUser(),
 				DefaultRecipeCollections.SHARED_WITH_USER, sharedRecipe.getRecipe());
+		notificationFacade.notifySharedRecipe(savedSharedRecipe);
 		return savedSharedRecipe;
 	}
 

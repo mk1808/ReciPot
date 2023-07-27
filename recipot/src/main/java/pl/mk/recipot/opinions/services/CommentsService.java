@@ -10,10 +10,11 @@ import pl.mk.recipot.commons.enums.DefaultRecipeCollections;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Comment;
 import pl.mk.recipot.commons.services.ICrudService;
+import pl.mk.recipot.notifications.facades.INotificationsFacade;
 import pl.mk.recipot.opinions.domains.ClearCommentFilds;
-import pl.mk.recipot.opinions.domains.FillCommentAuthorAndCreationDate;
-import pl.mk.recipot.opinions.domains.UpdateComment;
+import pl.mk.recipot.opinions.domains.UpdateOrCreateNewComment;
 import pl.mk.recipot.opinions.repositories.ICommentsRepository;
+import pl.mk.recipot.recipes.facades.IRecipesFacade;
 import pl.mk.recipot.recipecollections.facades.IRecipeCollectionsFacade;
 
 @Service
@@ -21,30 +22,42 @@ public class CommentsService implements ICrudService<Comment> {
 
 	private ICommentsRepository commentRepository;
 	private IAuthFacade authFacade;
+	private INotificationsFacade notificationFacade;
+	private IRecipesFacade recipesFacade;
 	private IRecipeCollectionsFacade recipeCollectionsFacade;
 
-	public CommentsService(ICommentsRepository commentRepository, IAuthFacade authFacade, IRecipeCollectionsFacade recipeCollectionsFacade) {
+	public CommentsService(ICommentsRepository commentRepository, IAuthFacade authFacade,
+			INotificationsFacade notificationFacade, IRecipesFacade recipesFacade,
+			IRecipeCollectionsFacade recipeCollectionsFacade) {
 		super();
 		this.commentRepository = commentRepository;
 		this.authFacade = authFacade;
+		this.notificationFacade = notificationFacade;
+		this.recipesFacade = recipesFacade;
 		this.recipeCollectionsFacade = recipeCollectionsFacade;
 	}
 
 	@Override
 	public Comment save(Comment comment) {
+		comment.setRecipe(recipesFacade.get(comment.getRecipe().getId()));
+		Comment savedComment = updateOrCreateNew(comment);
+		notificationFacade.notifyNewRecipeComment(savedComment);
+		return new ClearCommentFilds().execute(savedComment);
+	}
+
+	public Comment updateOrCreateNew(Comment comment) {
 		AppUser currentUser = authFacade.getCurrentUser();
 		List<Comment> existingRating = commentRepository.findByUserAndRecipe(currentUser, comment.getRecipe());
-		Comment newComment = existingRating.isEmpty() 
-				? new FillCommentAuthorAndCreationDate().execute(comment, currentUser)
-				: new UpdateComment().execute(existingRating.get(0), comment);
-		updateCollection(existingRating.isEmpty(), currentUser, comment);
-		
-		return new ClearCommentFilds().execute(commentRepository.save(newComment));
+		Comment newComment = commentRepository
+				.save(new UpdateOrCreateNewComment().execute(currentUser, existingRating, comment));
+		updateCollection(existingRating.isEmpty(), currentUser, newComment);
+		return newComment;
 	}
-	
+
 	private void updateCollection(Boolean isEmpty, AppUser currentUser, Comment comment) {
-		if(isEmpty) {
-			recipeCollectionsFacade.addRecipeToUserDefaultCollection(currentUser, DefaultRecipeCollections.COMMENTED, comment.getRecipe());
+		if (isEmpty) {
+			recipeCollectionsFacade.addRecipeToUserDefaultCollection(currentUser, DefaultRecipeCollections.COMMENTED,
+					comment.getRecipe());
 		}
 	}
 
@@ -55,7 +68,7 @@ public class CommentsService implements ICrudService<Comment> {
 
 	@Override
 	public Comment get(UUID id) {
-		throw new UnsupportedOperationException();
+		return commentRepository.findById(id).orElse(null);
 	}
 
 	@Override

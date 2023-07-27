@@ -10,6 +10,7 @@ import pl.mk.recipot.commons.enums.DefaultRecipeCollections;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Rating;
 import pl.mk.recipot.commons.services.ICrudService;
+import pl.mk.recipot.notifications.facades.INotificationsFacade;
 import pl.mk.recipot.opinions.domains.ClearRatingFilds;
 import pl.mk.recipot.opinions.domains.UpdateOrCreateNewRating;
 import pl.mk.recipot.opinions.domains.UpdateRecipeAverageRating;
@@ -23,22 +24,27 @@ public class RatingService implements ICrudService<Rating> {
 
 	private IRatingsRepository ratingsRepository;
 	private IAuthFacade authFacade;
-	private IRecipesFacade recipeFacade;
+	private IRecipesFacade recipesFacade;
+	private INotificationsFacade notificationFacade;
 	private IRecipeCollectionsFacade recipeCollectionsFacade;
 
-	public RatingService(IRatingsRepository ratingsRepository, IAuthFacade authFacade, IRecipesFacade recipeFacade,
+	public RatingService(IRatingsRepository ratingsRepository, IAuthFacade authFacade, IRecipesFacade recipesFacade,
+			INotificationsFacade notificationFacade,
 			IRecipeCollectionsFacade recipeCollectionsFacade) {
 		super();
 		this.ratingsRepository = ratingsRepository;
 		this.authFacade = authFacade;
-		this.recipeFacade = recipeFacade;
+		this.recipesFacade = recipesFacade;
+		this.notificationFacade = notificationFacade;
 		this.recipeCollectionsFacade = recipeCollectionsFacade;
 	}
 
 	@Override
 	public Rating save(Rating rating) {
+		rating.setRecipe(recipesFacade.get(rating.getRecipe().getId()));
 		Rating savedRating = updateOrCreateNew(rating);
 		updateRecipeAverageRating(savedRating);
+		notificationFacade.notifyNewRecipeRating(savedRating);
 		return new ClearRatingFilds().execute(savedRating);
 	}
 
@@ -50,7 +56,7 @@ public class RatingService implements ICrudService<Rating> {
 				.save(new UpdateOrCreateNewRating().execute(currentUser, existingRating, rating));
 		updateCollection(existingRating.isEmpty(), currentUser, newRating);
 
-		return new ClearRatingFilds().execute(newRating);
+		return newRating;
 	}
 
 	private void updateCollection(Boolean isEmpty, AppUser currentUser, Rating rating) {
@@ -62,7 +68,7 @@ public class RatingService implements ICrudService<Rating> {
 
 	private void updateRecipeAverageRating(Rating rating) {
 		RecipeAverageRating recipeRatingCount = ratingsRepository.getRecipeAverageRating(rating.getRecipe());
-		recipeFacade.updateRecipeAverageRating(
+		recipesFacade.updateRecipeAverageRating(
 				new UpdateRecipeAverageRating().execute(rating.getRecipe(), recipeRatingCount));
 	}
 
@@ -73,7 +79,7 @@ public class RatingService implements ICrudService<Rating> {
 
 	@Override
 	public Rating get(UUID id) {
-		throw new UnsupportedOperationException();
+		return ratingsRepository.findById(id).orElse(null);
 	}
 
 	@Override

@@ -90,6 +90,7 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		savedRecipe.setRecipeIngredients(
 				new CleanRecipe().executeIngredients(savedRecipeIngredients));
 		savedRecipe.setRecipeSteps(new CleanRecipe().executeSteps(allStepsCreated));
+
 		recipeCollectionsFacade.addRecipeToUserDefaultCollection(authFacade.getCurrentUser(),
 				DefaultRecipeCollections.CREATED, savedRecipe);
 
