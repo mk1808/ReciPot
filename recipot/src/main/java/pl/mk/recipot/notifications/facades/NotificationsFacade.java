@@ -24,14 +24,12 @@ public class NotificationsFacade implements INotificationsFacade {
 
 	@Override
 	public void notifyNewRecipeRating(Rating rating) {
-		// TODO Auto-generated method stub
-		
+		notificationService.notifyNewRecipeRating(rating);
 	}
 
 	@Override
 	public void notifyNewRecipeComment(Comment comment) {
-		// TODO Auto-generated method stub
-		
+		notificationService.notifyNewRecipeComment(comment);
 	}
 
 }

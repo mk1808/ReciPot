@@ -14,6 +14,8 @@ import pl.mk.recipot.commons.models.Rating;
 import pl.mk.recipot.commons.models.SharedRecipe;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.notifications.domains.CleanNotificationFields;
+import pl.mk.recipot.notifications.domains.CreateCommentedRecipeNotification;
+import pl.mk.recipot.notifications.domains.CreateRatedRecipeNotification;
 import pl.mk.recipot.notifications.domains.CreateSharedRecipeNotification;
 import pl.mk.recipot.notifications.domains.CheckIfUserIsNotOwner;
 import pl.mk.recipot.notifications.domains.FillNotificationCreationDate;
@@ -73,13 +75,13 @@ public class NotificationsService implements INotificationsService, ICrudService
 
 	@Override
 	public void notifyNewRecipeRating(Rating rating) {
-		// TODO Auto-generated method stub
+		save(new CreateRatedRecipeNotification().execute(rating));
 		
 	}
 
 	@Override
 	public void notifyNewRecipeComment(Comment comment) {
-		// TODO Auto-generated method stub
+		save(new CreateCommentedRecipeNotification().execute(comment));
 		
 	}
 
