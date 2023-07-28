@@ -58,7 +58,8 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 				.getOwnByNameAndUser(recipeCollection.getName(), user.getId());
 		new CheckIfCollectionExists().execute(existingRecipeCollection);
 		recipeCollection = new UpdateUserInRecipeCollection().execute(recipeCollection, user);
-		return recipeCollectionsRepository.save(recipeCollection);
+		
+		return new CleanRecipeCollections().execute(Arrays.asList(recipeCollectionsRepository.save(recipeCollection))).get(0);
 	}
 
 	@Override
