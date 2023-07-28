@@ -26,8 +26,8 @@ public class NotificationsController implements INotificationsController {
 	}
 
 	@Override
-	public ResponseEntity<Response<List<Notification>>> getLastNotifications(Date dateSince) {
-		return new OkResponseFactory().createResponse(notificationsService.getLastNotifications(dateSince));
+	public ResponseEntity<Response<List<Notification>>> getLastNotifications(Long timeFrom) {
+		return new OkResponseFactory().createResponse(notificationsService.getLastNotifications(new Date(timeFrom)));
 	}
 
 	@Override
