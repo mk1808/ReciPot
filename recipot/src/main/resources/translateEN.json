@@ -42,7 +42,8 @@
 			"collectionNotExists": "Collection not found",
 			"recipeExistsInCollection": "Recipe already added to collection",
 			"recipeNotFoundInCollection": "Recipe not found in collection",
-			"userNotOwnerOfCollection": "User is not the owner of this collection"
+			"userNotOwnerOfCollection": "User is not the owner of this collection",
+			"defaultCollectionCannotBeDeleted":"User cannot delete default collection"
 		}
 	},
 	"recipes": {

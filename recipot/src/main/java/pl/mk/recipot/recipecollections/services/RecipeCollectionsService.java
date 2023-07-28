@@ -16,6 +16,7 @@ import pl.mk.recipot.commons.models.RecipeCollectionItem;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.recipecollections.domains.AddItemsToRecipeCollection;
 import pl.mk.recipot.recipecollections.domains.CheckIfCollectionExists;
+import pl.mk.recipot.recipecollections.domains.CheckIfDeleteIsPossible;
 import pl.mk.recipot.recipecollections.domains.CheckIfCollectionDoesNotExists;
 import pl.mk.recipot.recipecollections.domains.CheckIfCollectionDoesNotFound;
 import pl.mk.recipot.recipecollections.domains.CheckIfItemAlreadyInCollection;
@@ -82,6 +83,7 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 		RecipeCollection recipeCollection = recipeCollectionsRepository.getById(id);
 		new CheckIfCollectionDoesNotFound().execute(recipeCollection);
 		new CheckIfUserIsNotOwner().execute(recipeCollection, user);
+		new CheckIfDeleteIsPossible().execute(recipeCollection);
 
 		List<RecipeCollectionItem> items = recipeCollectionsItemRepository.getByCollection(id);
 		items.forEach(item -> recipeCollectionsItemRepository.delete(item));
@@ -119,6 +121,7 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 		RecipeCollection existingRecipeCollection = recipeCollectionsRepository.getById(collectionId);
 		new CheckIfCollectionDoesNotFound().execute(existingRecipeCollection);
 		new CheckIfUserIsNotOwner().execute(existingRecipeCollection, user);
+		new CheckIfDeleteIsPossible().execute(existingRecipeCollection);
 
 		RecipeCollectionItem existingItem = recipeCollectionsItemRepository.getByRecipeAndCollection(collectionId,
 				recipeId);
