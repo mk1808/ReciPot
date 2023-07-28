@@ -37,17 +37,17 @@ public class PrivateNotesService implements IPrivateNotesService, ICrudService<P
 	@Override
 	public PrivateNote save(PrivateNote privateNote) {
 		AppUser currentUser = authFacade.getCurrentUser();
-		List<PrivateNote> existingRecipe = privateNotesRepository.findByUserAndRecipe(currentUser,
+		List<PrivateNote> existingNote = privateNotesRepository.findByUserAndRecipe(currentUser,
 				privateNote.getRecipe());
-		if (existingRecipe.isEmpty()) {
+		
+		if (existingNote.isEmpty()) {
+			recipeCollectionsFacade.addRecipeToUserDefaultCollection(currentUser, DefaultRecipeCollections.NOTED, privateNote.getRecipe());
 			return new ClearRecipeFields().execute(privateNotesRepository
 					.save(new FillPrivateNoteAuthorAndCreationDate().execute(privateNote, currentUser)));
 		}
 		
-		recipeCollectionsFacade.addRecipeToUserDefaultCollection(currentUser, DefaultRecipeCollections.NOTED, privateNote.getRecipe());
-		
 		return new ClearRecipeFields().execute(
-				privateNotesRepository.save(new UpdatePrivateNote().execute(existingRecipe.get(0), privateNote)));
+				privateNotesRepository.save(new UpdatePrivateNote().execute(existingNote.get(0), privateNote)));
 	}
 
 	@Override
