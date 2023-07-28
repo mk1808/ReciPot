@@ -6,7 +6,7 @@ import pl.mk.recipot.commons.models.RecipeCollectionItem;
 
 public class CleanRecipeCollectionItems {
 	public List<RecipeCollectionItem> execute(List<RecipeCollectionItem> items) {
-		items.forEach(item -> item.setRecipe(null));
+		items.forEach(item->item.setCollection(null));
 		return items;
 	}
 }
