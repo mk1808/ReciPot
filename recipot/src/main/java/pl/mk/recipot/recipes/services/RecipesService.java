@@ -33,6 +33,7 @@ import pl.mk.recipot.recipes.domains.CheckIfRecipeDoesNotExists;
 import pl.mk.recipot.recipes.domains.CleanRecipe;
 import pl.mk.recipot.recipes.domains.FillOtherRecipeFields;
 import pl.mk.recipot.recipes.domains.FillRecipeWithIngredients;
+import pl.mk.recipot.recipes.domains.FillStepsAndIngredientsInRecipe;
 import pl.mk.recipot.recipes.domains.GetIngredientsDifference;
 import pl.mk.recipot.recipes.domains.GetIngredientsFromRecipe;
 import pl.mk.recipot.recipes.domains.GetRecipeIngredientNameList;
@@ -86,13 +87,13 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		List<Ingredient> ingredients = new GetIngredientsFromRecipe().execute(recipe);
 		List<RecipeIngredient> savedRecipeIngredients = saveIngredients(savedRecipe, recipe, ingredients);
 		List<RecipeStep> allStepsCreated = createSteps(recipe, savedRecipe);
-
+		recipeCollectionsFacade.addRecipeToUserDefaultCollection(authFacade.getCurrentUser(),
+				DefaultRecipeCollections.CREATED, savedRecipe);
 		savedRecipe.setRecipeIngredients(
 				new CleanRecipe().executeIngredients(savedRecipeIngredients));
 		savedRecipe.setRecipeSteps(new CleanRecipe().executeSteps(allStepsCreated));
 
-		recipeCollectionsFacade.addRecipeToUserDefaultCollection(authFacade.getCurrentUser(),
-				DefaultRecipeCollections.CREATED, savedRecipe);
+		
 
 		return savedRecipe;
 	}
@@ -151,7 +152,11 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	public Recipe get(UUID id) {
 		Recipe recipe = recipesRepository.getRecipeWithOwner(id);
 		new CheckIfRecipeDoesNotExists().execute(recipe);
-		return recipe;
+		return new FillStepsAndIngredientsInRecipe().execute(
+				recipe, 
+				new CleanRecipe().executeIngredients(recipeIngredientsRepository.getByRecipeId(recipe.getId())), 
+				new CleanRecipe().executeSteps(recipeStepsRepository.getByRecipe(recipe))
+			);
 	}
 
 	@Override
