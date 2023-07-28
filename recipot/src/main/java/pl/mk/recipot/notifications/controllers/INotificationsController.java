@@ -1,10 +1,8 @@
 package pl.mk.recipot.notifications.controllers;
 
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +21,7 @@ public interface INotificationsController {
 
 	@GetMapping()
 	ResponseEntity<Response<List<Notification>>> getLastNotifications(
-			@RequestParam(value = "dateSince") @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss") Date dateSince);
+			@RequestParam(value = "timeFrom", defaultValue = "0") Long timeFrom);
 
 	@PostMapping()
 	ResponseEntity<Response<Notification>> createNotification(@RequestBody @Valid Notification notification);
