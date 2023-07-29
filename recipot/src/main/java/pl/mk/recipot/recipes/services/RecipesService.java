@@ -29,6 +29,7 @@ import pl.mk.recipot.recipecollections.facades.IRecipeCollectionsFacade;
 import pl.mk.recipot.recipes.domains.UpdateRecipeIngredientsForRecipe;
 import pl.mk.recipot.recipes.domains.UpdateRecipeStepsForRecipe;
 import pl.mk.recipot.recipes.domains.UpdateUserInRecipe;
+import pl.mk.recipot.recipes.domains.CheckIfIngredientsUnique;
 import pl.mk.recipot.recipes.domains.CheckIfRecipeDoesNotExists;
 import pl.mk.recipot.recipes.domains.CleanRecipe;
 import pl.mk.recipot.recipes.domains.FillOtherRecipeFields;
@@ -89,13 +90,7 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		List<RecipeStep> allStepsCreated = createSteps(recipe, savedRecipe);
 		recipeCollectionsFacade.addRecipeToUserDefaultCollection(authFacade.getCurrentUser(),
 				DefaultRecipeCollections.CREATED, savedRecipe);
-		savedRecipe.setRecipeIngredients(
-				new CleanRecipe().executeIngredients(savedRecipeIngredients));
-		savedRecipe.setRecipeSteps(new CleanRecipe().executeSteps(allStepsCreated));
-
-		
-
-		return savedRecipe;
+		return cleanRecipe(savedRecipe, savedRecipeIngredients, allStepsCreated);
 	}
 
 	private List<RecipeStep> createSteps(Recipe recipe, Recipe savedRecipe) {
@@ -104,10 +99,21 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	}
 
 	private List<RecipeIngredient> saveIngredients(Recipe savedRecipe, Recipe newRecipe, List<Ingredient> ingredients) {
+		new CheckIfIngredientsUnique().execute(ingredients);
 		List<Ingredient> allIngredientsCreated = dictionariesFacade.saveManyIngredients(ingredients);
 		List<RecipeIngredient> recipeIngredients = new UpdateRecipeIngredientsForRecipe().execute(savedRecipe,
 				newRecipe, allIngredientsCreated);
 		return recipeIngredientsRepository.saveAll(recipeIngredients);
+	}
+	
+	private Recipe cleanRecipe(Recipe savedRecipe, List<RecipeIngredient> savedRecipeIngredients,List<RecipeStep> allStepsCreated) {
+		CleanRecipe clean = new CleanRecipe();
+				
+		savedRecipe.setRecipeIngredients(
+				clean.executeIngredients(savedRecipeIngredients));
+		savedRecipe.setRecipeSteps(clean.executeSteps(allStepsCreated));
+		clean.executeUser(savedRecipe);
+		return savedRecipe;
 	}
 
 	@Override
