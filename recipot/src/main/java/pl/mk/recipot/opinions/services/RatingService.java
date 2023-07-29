@@ -6,19 +6,19 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
+import pl.mk.recipot.commons.domains.SetRecipeNull;
 import pl.mk.recipot.commons.domains.SetUserNull;
 import pl.mk.recipot.commons.enums.DefaultRecipeCollections;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Rating;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.notifications.facades.INotificationsFacade;
-import pl.mk.recipot.opinions.domains.ClearRatingFilds;
 import pl.mk.recipot.opinions.domains.UpdateOrCreateNewRating;
 import pl.mk.recipot.opinions.domains.UpdateRecipeAverageRating;
 import pl.mk.recipot.opinions.dtos.RecipeAverageRating;
 import pl.mk.recipot.opinions.repositories.IRatingsRepository;
-import pl.mk.recipot.recipes.facades.IRecipesFacade;
 import pl.mk.recipot.recipecollections.facades.IRecipeCollectionsFacade;
+import pl.mk.recipot.recipes.facades.IRecipesFacade;
 
 @Service
 public class RatingService implements ICrudService<Rating> {
@@ -47,7 +47,8 @@ public class RatingService implements ICrudService<Rating> {
 		updateRecipeAverageRating(savedRating);
 		notificationFacade.notifyNewRecipeRating(savedRating);
 		new SetUserNull().execute(savedRating);
-		return new ClearRatingFilds().execute(savedRating);
+		new SetRecipeNull().execute(savedRating);
+		return savedRating;
 	}
 
 	private Rating updateOrCreateNew(Rating rating) {

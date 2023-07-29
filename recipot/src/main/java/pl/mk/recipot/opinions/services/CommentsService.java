@@ -6,17 +6,17 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
+import pl.mk.recipot.commons.domains.SetRecipeNull;
 import pl.mk.recipot.commons.domains.SetUserNull;
 import pl.mk.recipot.commons.enums.DefaultRecipeCollections;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Comment;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.notifications.facades.INotificationsFacade;
-import pl.mk.recipot.opinions.domains.ClearCommentFilds;
 import pl.mk.recipot.opinions.domains.UpdateOrCreateNewComment;
 import pl.mk.recipot.opinions.repositories.ICommentsRepository;
-import pl.mk.recipot.recipes.facades.IRecipesFacade;
 import pl.mk.recipot.recipecollections.facades.IRecipeCollectionsFacade;
+import pl.mk.recipot.recipes.facades.IRecipesFacade;
 
 @Service
 public class CommentsService implements ICrudService<Comment> {
@@ -44,7 +44,8 @@ public class CommentsService implements ICrudService<Comment> {
 		Comment savedComment = updateOrCreateNew(comment);
 		notificationFacade.notifyNewRecipeComment(savedComment);
 		new SetUserNull().execute(savedComment);
-		return new ClearCommentFilds().execute(savedComment);
+		new SetRecipeNull().execute(savedComment);
+		return savedComment;
 	}
 
 	public Comment updateOrCreateNew(Comment comment) {
