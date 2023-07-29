@@ -17,11 +17,12 @@ import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import pl.mk.recipot.commons.models.interfaces.IRecipeRelated;
 import pl.mk.recipot.commons.models.interfaces.IUserRelated;
 
 @Entity
 @Data
-public class PrivateNote implements IUserRelated {
+public class PrivateNote implements IUserRelated, IRecipeRelated {
 	@Id
 	@GeneratedValue
 	@UuidGenerator

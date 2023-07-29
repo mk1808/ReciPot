@@ -15,11 +15,12 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import pl.mk.recipot.commons.models.interfaces.IRecipeRelated;
 import pl.mk.recipot.commons.models.interfaces.IUserRelated;
 
 @Entity
 @Data
-public class Rating implements IUserRelated {
+public class Rating implements IUserRelated, IRecipeRelated {
 	@Id
 	@GeneratedValue
 	@UuidGenerator

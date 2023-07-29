@@ -18,13 +18,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.mk.recipot.commons.models.interfaces.IRecipeRelated;
 
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RecipeCollectionItem {
+public class RecipeCollectionItem implements IRecipeRelated {
 	@Id
 	@GeneratedValue
 	@UuidGenerator

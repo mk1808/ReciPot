@@ -14,11 +14,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import pl.mk.recipot.commons.models.interfaces.IRecipeRelated;
 import pl.mk.recipot.commons.models.interfaces.IUserRelated;
 
 @Entity
 @Data
-public class SharedRecipe implements IUserRelated {
+public class SharedRecipe implements IUserRelated, IRecipeRelated {
 	@Id
 	@GeneratedValue
 	@UuidGenerator
