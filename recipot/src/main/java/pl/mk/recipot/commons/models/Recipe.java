@@ -32,13 +32,14 @@ import pl.mk.recipot.commons.enums.RecipeAccessType;
 import pl.mk.recipot.commons.enums.RecipeAmountOfDishes;
 import pl.mk.recipot.commons.enums.RecipeDifficulty;
 import pl.mk.recipot.commons.enums.RecipeRequiredEffort;
+import pl.mk.recipot.commons.models.interfaces.IUserRelated;
 
 @Builder
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Recipe {
+public class Recipe implements IUserRelated {
 	@Id
 	@GeneratedValue
 	@UuidGenerator
@@ -107,6 +108,11 @@ public class Recipe {
 	public int hashCode() {
 		return Objects.hash(accessType, averageRating, categories, created, deleted, description, difficulty, hashTags,
 				id, image, name, numberOfDishes, owner, ratingsCount, requiredEffort, timeAmount, url);
+	}
+	
+	@Override
+	public AppUser getUser() {
+		return owner;
 	}
 
 }

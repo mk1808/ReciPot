@@ -14,10 +14,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import pl.mk.recipot.commons.models.interfaces.IUserRelated;
 
 @Entity
 @Data
-public class SharedRecipe {
+public class SharedRecipe implements IUserRelated {
 	@Id
 	@GeneratedValue
 	@UuidGenerator
@@ -40,4 +41,9 @@ public class SharedRecipe {
 	@NotBlank(message = "models.SharedRecipe.errors.commentBlank")
 	@Column(length = 1000)
 	private String comment;
+	
+	@Override
+	public AppUser getUser() {
+		return senderUser;
+	}
 }

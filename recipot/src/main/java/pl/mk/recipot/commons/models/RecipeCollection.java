@@ -19,13 +19,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.mk.recipot.commons.models.interfaces.IUserRelated;
 
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RecipeCollection {
+public class RecipeCollection implements IUserRelated {
 	@Id
 	@GeneratedValue
 	@UuidGenerator
@@ -58,5 +59,10 @@ public class RecipeCollection {
 	@Override
 	public int hashCode() {
 		return Objects.hash(canDelete, id, name, owner);
+	}
+	
+	@Override
+	public AppUser getUser() {
+		return owner;
 	}
 }
