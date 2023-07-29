@@ -47,4 +47,9 @@ public class PrivateNote implements IUserRelated {
 	public AppUser getUser() {
 		return author;
 	}
+
+	@Override
+	public void setUser(AppUser user) {
+		setAuthor(user);
+	}
 }

@@ -115,4 +115,9 @@ public class Recipe implements IUserRelated {
 		return owner;
 	}
 
+	@Override
+	public void setUser(AppUser user) {
+		setOwner(user);
+	}
+
 }

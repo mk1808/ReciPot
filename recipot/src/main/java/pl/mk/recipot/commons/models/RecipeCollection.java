@@ -65,4 +65,9 @@ public class RecipeCollection implements IUserRelated {
 	public AppUser getUser() {
 		return owner;
 	}
+
+	@Override
+	public void setUser(AppUser user) {
+		setOwner(user);
+	}
 }
