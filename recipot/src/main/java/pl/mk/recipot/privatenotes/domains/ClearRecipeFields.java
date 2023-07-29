@@ -8,7 +8,6 @@ public class ClearRecipeFields {
 			return null;
 		}
 		privateNote.setRecipe(null);
-		privateNote.setAuthor(null);
 		return privateNote;
 	}
 }

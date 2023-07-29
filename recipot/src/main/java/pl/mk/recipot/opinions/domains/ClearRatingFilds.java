@@ -8,7 +8,6 @@ public class ClearRatingFilds {
 			return null;
 		}
 		rating.setRecipe(null);
-		rating.setAuthor(null);
 		return rating;
 	}
 }

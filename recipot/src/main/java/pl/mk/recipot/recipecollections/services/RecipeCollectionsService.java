@@ -1,14 +1,13 @@
 package pl.mk.recipot.recipecollections.services;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
 import pl.mk.recipot.commons.domains.CheckIfUserIsNotOwner;
+import pl.mk.recipot.commons.domains.SetUserNull;
 import pl.mk.recipot.commons.enums.DefaultRecipeCollections;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Recipe;
@@ -16,13 +15,12 @@ import pl.mk.recipot.commons.models.RecipeCollection;
 import pl.mk.recipot.commons.models.RecipeCollectionItem;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.recipecollections.domains.AddItemsToRecipeCollection;
-import pl.mk.recipot.recipecollections.domains.CheckIfCollectionExists;
-import pl.mk.recipot.recipecollections.domains.CheckIfDeleteIsPossible;
 import pl.mk.recipot.recipecollections.domains.CheckIfCollectionDoesNotExists;
 import pl.mk.recipot.recipecollections.domains.CheckIfCollectionDoesNotFound;
+import pl.mk.recipot.recipecollections.domains.CheckIfCollectionExists;
+import pl.mk.recipot.recipecollections.domains.CheckIfDeleteIsPossible;
 import pl.mk.recipot.recipecollections.domains.CheckIfItemAlreadyInCollection;
 import pl.mk.recipot.recipecollections.domains.CheckIfItemDoesNotExists;
-import pl.mk.recipot.recipecollections.domains.CleanRecipeCollections;
 import pl.mk.recipot.recipecollections.domains.CleanRecipeCollectionItem;
 import pl.mk.recipot.recipecollections.domains.CleanRecipeCollectionItems;
 import pl.mk.recipot.recipecollections.domains.CreateDefaultRecipeCollections;
@@ -58,8 +56,7 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 				.getOwnByNameAndUser(recipeCollection.getName(), user.getId());
 		new CheckIfCollectionExists().execute(existingRecipeCollection);
 		recipeCollection = new UpdateUserInRecipeCollection().execute(recipeCollection, user);
-		
-		return new CleanRecipeCollections().execute(Arrays.asList(recipeCollectionsRepository.save(recipeCollection))).get(0);
+		return new SetUserNull().execute(recipeCollectionsRepository.save(recipeCollection));
 	}
 
 	@Override
@@ -111,9 +108,9 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 
 	@Override
 	public List<RecipeCollection> getForUser() {
-
 		List<RecipeCollection> recipeCollections = recipeCollectionsRepository.getByOwner(authFacade.getCurrentUser());
-		return new CleanRecipeCollections().execute(recipeCollections);
+		recipeCollections.forEach(new SetUserNull()::execute);
+		return recipeCollections;
 	}
 
 	@Override

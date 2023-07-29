@@ -46,4 +46,9 @@ public class SharedRecipe implements IUserRelated {
 	public AppUser getUser() {
 		return senderUser;
 	}
+
+	@Override
+	public void setUser(AppUser user) {
+		setSenderUser(user);
+	}
 }
