@@ -121,8 +121,13 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		Recipe existingRecipe = recipesRepository.getRecipeWithOwner(id);
 		new CheckIfRecipeDoesNotExists().execute(existingRecipe);
 		new CheckIfUserIsNotOwner().execute(authFacade.getCurrentUser(), existingRecipe);
+		
+		Set<HashTag> tags = dictionariesFacade.saveManyHashTags(recipe.getHashTags());
+		Set<Category> categories = dictionariesFacade.getCategories(recipe.getCategories());
+		existingRecipe = new UpdateListsInRecipe().execute(existingRecipe, tags, categories);
 		Recipe createdRecipe = recipesRepository.save(new FillOtherRecipeFields().execute(existingRecipe, recipe));
-
+		
+		
 		Map<ChangeType, List<Ingredient>> ingredientsDifference = new GetIngredientsDifference().execute(existingRecipe,
 				recipe);
 		List<RecipeIngredient> savedRecipeIngredients = saveIngredients(existingRecipe, recipe,
