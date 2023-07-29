@@ -24,14 +24,20 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pl.mk.recipot.commons.enums.RecipeAccessType;
 import pl.mk.recipot.commons.enums.RecipeAmountOfDishes;
 import pl.mk.recipot.commons.enums.RecipeDifficulty;
 import pl.mk.recipot.commons.enums.RecipeRequiredEffort;
 
+@Builder
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Recipe {
 	@Id
 	@GeneratedValue
@@ -42,9 +48,9 @@ public class Recipe {
 	@JoinColumn(name = "owner_id")
 	private AppUser owner;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date deleted;
 
 	@NotBlank(message = "models.Recipe.errors.nameBlank")
