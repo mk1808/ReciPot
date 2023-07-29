@@ -93,7 +93,7 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		savedRecipe.setRecipeIngredients(
 				new CleanRecipe().executeIngredients(savedRecipeIngredients));
 		savedRecipe.setRecipeSteps(new CleanRecipe().executeSteps(allStepsCreated));
-		
+		new CleanRecipe().executeUser(recipe);
 
 		return savedRecipe;
 	}
