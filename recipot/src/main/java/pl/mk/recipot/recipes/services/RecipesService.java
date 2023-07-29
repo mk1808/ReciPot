@@ -29,6 +29,7 @@ import pl.mk.recipot.recipecollections.facades.IRecipeCollectionsFacade;
 import pl.mk.recipot.recipes.domains.UpdateRecipeIngredientsForRecipe;
 import pl.mk.recipot.recipes.domains.UpdateRecipeStepsForRecipe;
 import pl.mk.recipot.recipes.domains.UpdateUserInRecipe;
+import pl.mk.recipot.recipes.domains.CheckIfIngredientsUnique;
 import pl.mk.recipot.recipes.domains.CheckIfRecipeDoesNotExists;
 import pl.mk.recipot.recipes.domains.CleanRecipe;
 import pl.mk.recipot.recipes.domains.FillOtherRecipeFields;
@@ -92,7 +93,6 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		savedRecipe.setRecipeIngredients(
 				new CleanRecipe().executeIngredients(savedRecipeIngredients));
 		savedRecipe.setRecipeSteps(new CleanRecipe().executeSteps(allStepsCreated));
-
 		
 
 		return savedRecipe;
@@ -104,6 +104,7 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	}
 
 	private List<RecipeIngredient> saveIngredients(Recipe savedRecipe, Recipe newRecipe, List<Ingredient> ingredients) {
+		new CheckIfIngredientsUnique().execute(ingredients);
 		List<Ingredient> allIngredientsCreated = dictionariesFacade.saveManyIngredients(ingredients);
 		List<RecipeIngredient> recipeIngredients = new UpdateRecipeIngredientsForRecipe().execute(savedRecipe,
 				newRecipe, allIngredientsCreated);

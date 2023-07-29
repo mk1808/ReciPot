@@ -54,7 +54,8 @@
 			"recipeNotFound": "Recipe not found",
 			"recipeAlreadyShared": "Recipe already shared with user",
 			"userNotOwnerOfRecipe": "User is not the owner of this recipe",
-			"canNotShareRecipeWithOneself": "User cannot share recipe with oneself"
+			"canNotShareRecipeWithOneself": "User cannot share recipe with oneself",
+			"ingredientsNotUnique": "Ingredients in recipe are not unique"
 		}
 	},
 	"savedRecipeFilters": {
