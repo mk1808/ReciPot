@@ -1,5 +1,7 @@
 package pl.mk.recipot.dictionaries.services;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -11,6 +13,7 @@ import pl.mk.recipot.commons.models.Category;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.commons.services.IFilterService;
 import pl.mk.recipot.dictionaries.domains.CheckIfCategoryExists;
+import pl.mk.recipot.dictionaries.domains.CheckIfAllCategoriesExist;
 import pl.mk.recipot.dictionaries.domains.CheckIfCategoryDoesNotExists;
 import pl.mk.recipot.dictionaries.dtos.CategoriesFilterDto;
 import pl.mk.recipot.dictionaries.repositories.ICategoryRepository;
@@ -54,7 +57,11 @@ public class CategoryService implements IFilterService<Category, CategoriesFilte
 
 	@Override
 	public Set<Category> getCategories(Set<Category> categories) {
-		return categories.stream().map(Category::getId).map(this::get).collect(Collectors.toSet());
+		List<UUID> ids = categories.stream().map(Category::getId).toList();
+		List<Category> existingCategories = categoryRepository.findAllById(ids);		
+		new CheckIfAllCategoriesExist().execute(existingCategories, categories);
+				
+		return new HashSet<Category>(existingCategories);
 	}
 
 }

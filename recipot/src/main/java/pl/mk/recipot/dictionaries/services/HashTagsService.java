@@ -59,7 +59,12 @@ public class HashTagsService implements IFilterService<HashTag, HashTagFilterDto
 	
 	private HashTag saveIfNotExists(HashTag hashTag) {
 		HashTag exisitingTag = new GetHashTagIfExists().execute(hashTagRepository.findByName(hashTag.getName()));
-		return exisitingTag != null? exisitingTag : hashTagRepository.save(hashTag);
+		if (exisitingTag != null) {
+			return exisitingTag;
+		}
+		
+		hashTag.setId(null);
+		return hashTagRepository.save(hashTag);
 	}
 
 }

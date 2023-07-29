@@ -59,8 +59,12 @@ public class IngredientsService implements IFilterService<Ingredient, Ingredient
 	}
 	
 	private Ingredient saveIfNotExists(Ingredient ingredient) {
-		Ingredient exisitingTag = getIngredientByName(ingredient);
-		return exisitingTag != null? exisitingTag : ingredientsRepository.save(ingredient);
+		Ingredient exisitingIngredient = getIngredientByName(ingredient);
+		if (exisitingIngredient != null) {
+			return exisitingIngredient;
+		}
+		ingredient.setId(null);
+		return ingredientsRepository.save(ingredient);
 	}
 
 	private Ingredient getIngredientByName(Ingredient ingredient) {
