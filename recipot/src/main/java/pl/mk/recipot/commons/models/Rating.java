@@ -15,10 +15,11 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import pl.mk.recipot.commons.models.interfaces.IUserRelated;
 
 @Entity
 @Data
-public class Rating {
+public class Rating implements IUserRelated {
 	@Id
 	@GeneratedValue
 	@UuidGenerator
@@ -38,4 +39,9 @@ public class Rating {
 
 	@NotNull(message = "models.Rating.errors.valueNull")
 	private Double value;
+	
+	@Override
+	public AppUser getUser() {
+		return author;
+	}
 }
