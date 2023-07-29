@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
+import pl.mk.recipot.commons.domains.SetUserNull;
 import pl.mk.recipot.commons.enums.DefaultRecipeCollections;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Comment;
@@ -42,6 +43,7 @@ public class CommentsService implements ICrudService<Comment> {
 		comment.setRecipe(recipesFacade.get(comment.getRecipe().getId()));
 		Comment savedComment = updateOrCreateNew(comment);
 		notificationFacade.notifyNewRecipeComment(savedComment);
+		new SetUserNull().execute(savedComment);
 		return new ClearCommentFilds().execute(savedComment);
 	}
 

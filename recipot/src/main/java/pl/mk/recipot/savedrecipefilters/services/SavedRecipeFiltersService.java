@@ -8,14 +8,13 @@ import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
 import pl.mk.recipot.commons.domains.CheckIfUserIsNotOwner;
+import pl.mk.recipot.commons.domains.SetUserNull;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.RecipeFilter;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.savedrecipefilters.domains.CheckIfRecipeFilterDoesNotExists;
 import pl.mk.recipot.savedrecipefilters.domains.CheckIfRecipeFilterExists;
-import pl.mk.recipot.savedrecipefilters.domains.CleanRecipeFilterFields;
 import pl.mk.recipot.savedrecipefilters.domains.FillRecipeFilterOwnerAndCreationDate;
-
 import pl.mk.recipot.savedrecipefilters.domains.GetRecipeFilter;
 import pl.mk.recipot.savedrecipefilters.repositories.ISavedRecipeFiltersRepository;
 
@@ -39,7 +38,7 @@ public class SavedRecipeFiltersService implements ISavedRecipeFiltersService, IC
 				.execute(savedRecipeFiltersRepository.findByUserAndName(currentUser, recipeFilter.getName()));
 		new FillRecipeFilterOwnerAndCreationDate().execute(recipeFilter, currentUser);
 		savedRecipeFiltersRepository.save(recipeFilter);
-		return new CleanRecipeFilterFields().executte(recipeFilter);
+		return new SetUserNull().execute(recipeFilter);
 	}
 
 	@Override
@@ -64,8 +63,7 @@ public class SavedRecipeFiltersService implements ISavedRecipeFiltersService, IC
 	@Override
 	public List<RecipeFilter> getUserFilters() {
 		List<RecipeFilter> filters = savedRecipeFiltersRepository.findByUser(authFacade.getCurrentUser());
-		CleanRecipeFilterFields cleaner = new CleanRecipeFilterFields();
-		filters.forEach(cleaner::executte);
+		filters.forEach(new SetUserNull()::execute);
 		return filters;
 	}
 

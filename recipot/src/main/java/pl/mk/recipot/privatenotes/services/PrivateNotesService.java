@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
 import pl.mk.recipot.commons.domains.CheckIfUserIsNotOwner;
+import pl.mk.recipot.commons.domains.SetUserNull;
 import pl.mk.recipot.commons.enums.DefaultRecipeCollections;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.PrivateNote;
@@ -42,8 +43,10 @@ public class PrivateNotesService implements IPrivateNotesService, ICrudService<P
 		
 		if (existingNote.isEmpty()) {
 			recipeCollectionsFacade.addRecipeToUserDefaultCollection(currentUser, DefaultRecipeCollections.NOTED, privateNote.getRecipe());
-			return new ClearRecipeFields().execute(privateNotesRepository
-					.save(new FillPrivateNoteAuthorAndCreationDate().execute(privateNote, currentUser)));
+			PrivateNote note = privateNotesRepository.save(new FillPrivateNoteAuthorAndCreationDate().execute(privateNote, currentUser));
+			new SetUserNull().execute(note);
+			new ClearRecipeFields().execute(note);
+			return note; 
 		}
 		
 		return new ClearRecipeFields().execute(
@@ -71,8 +74,10 @@ public class PrivateNotesService implements IPrivateNotesService, ICrudService<P
 
 	@Override
 	public PrivateNote getByRecipe(UUID recipeId) {
-		return new ClearRecipeFields()
-				.execute(privateNotesRepository.findByUserAndRecipeId(authFacade.getCurrentUser(), recipeId));
+		PrivateNote note = privateNotesRepository.findByUserAndRecipeId(authFacade.getCurrentUser(), recipeId);
+		new SetUserNull().execute(note);
+		new ClearRecipeFields().execute(note);
+		return note;
 	}
 
 }

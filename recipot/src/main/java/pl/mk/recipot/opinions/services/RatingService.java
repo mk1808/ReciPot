@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
+import pl.mk.recipot.commons.domains.SetUserNull;
 import pl.mk.recipot.commons.enums.DefaultRecipeCollections;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Rating;
@@ -45,6 +46,7 @@ public class RatingService implements ICrudService<Rating> {
 		Rating savedRating = updateOrCreateNew(rating);
 		updateRecipeAverageRating(savedRating);
 		notificationFacade.notifyNewRecipeRating(savedRating);
+		new SetUserNull().execute(savedRating);
 		return new ClearRatingFilds().execute(savedRating);
 	}
 

@@ -8,7 +8,6 @@ public class ClearCommentFilds {
 			return null;
 		}
 		comment.setRecipe(null);
-		comment.setAuthor(null);
 		return comment;
 	}
 }
