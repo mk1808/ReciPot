@@ -90,12 +90,7 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		List<RecipeStep> allStepsCreated = createSteps(recipe, savedRecipe);
 		recipeCollectionsFacade.addRecipeToUserDefaultCollection(authFacade.getCurrentUser(),
 				DefaultRecipeCollections.CREATED, savedRecipe);
-		savedRecipe.setRecipeIngredients(
-				new CleanRecipe().executeIngredients(savedRecipeIngredients));
-		savedRecipe.setRecipeSteps(new CleanRecipe().executeSteps(allStepsCreated));
-		new CleanRecipe().executeUser(recipe);
-
-		return savedRecipe;
+		return cleanRecipe(savedRecipe, savedRecipeIngredients, allStepsCreated);
 	}
 
 	private List<RecipeStep> createSteps(Recipe recipe, Recipe savedRecipe) {
@@ -109,6 +104,16 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		List<RecipeIngredient> recipeIngredients = new UpdateRecipeIngredientsForRecipe().execute(savedRecipe,
 				newRecipe, allIngredientsCreated);
 		return recipeIngredientsRepository.saveAll(recipeIngredients);
+	}
+	
+	private Recipe cleanRecipe(Recipe savedRecipe, List<RecipeIngredient> savedRecipeIngredients,List<RecipeStep> allStepsCreated) {
+		CleanRecipe clean = new CleanRecipe();
+				
+		savedRecipe.setRecipeIngredients(
+				clean.executeIngredients(savedRecipeIngredients));
+		savedRecipe.setRecipeSteps(clean.executeSteps(allStepsCreated));
+		clean.executeUser(savedRecipe);
+		return savedRecipe;
 	}
 
 	@Override
