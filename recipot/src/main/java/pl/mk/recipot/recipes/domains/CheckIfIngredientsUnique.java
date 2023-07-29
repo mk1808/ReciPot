@@ -9,7 +9,7 @@ public class CheckIfIngredientsUnique {
 	public void execute(List<Ingredient> ingredients) {
 		List<String> uniqueNames = ingredients.stream().map(Ingredient::getName).distinct().toList();
 		if (uniqueNames.size() != ingredients.size()) {
-			throw new BadRequestException("recipes.error.ingredientsNotUniqueO");
+			throw new BadRequestException("recipes.error.ingredientsNotUnique");
 		}
 	}
 }
