@@ -1,4 +1,10 @@
 {
+	"commons": {
+		"error": {
+			"userNotOwner": "User has no rights to object",
+			"userIsOwner":"User is owner"
+		}
+	},
 	"auth": {
 		"success": {
 			"passwordChanged": "Password successfully changed"
@@ -43,7 +49,7 @@
 			"recipeExistsInCollection": "Recipe already added to collection",
 			"recipeNotFoundInCollection": "Recipe not found in collection",
 			"userNotOwnerOfCollection": "User is not the owner of this collection",
-			"defaultCollectionCannotBeDeleted":"User cannot delete default collection"
+			"defaultCollectionCannotBeDeleted": "User cannot delete default collection"
 		}
 	},
 	"recipes": {

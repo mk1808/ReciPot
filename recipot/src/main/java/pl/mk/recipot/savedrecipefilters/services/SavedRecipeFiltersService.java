@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
+import pl.mk.recipot.commons.domains.CheckIfUserIsNotOwner;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.RecipeFilter;
 import pl.mk.recipot.commons.services.ICrudService;
@@ -14,7 +15,7 @@ import pl.mk.recipot.savedrecipefilters.domains.CheckIfRecipeFilterDoesNotExists
 import pl.mk.recipot.savedrecipefilters.domains.CheckIfRecipeFilterExists;
 import pl.mk.recipot.savedrecipefilters.domains.CleanRecipeFilterFields;
 import pl.mk.recipot.savedrecipefilters.domains.FillRecipeFilterOwnerAndCreationDate;
-import pl.mk.recipot.savedrecipefilters.domains.CheckIfUserIsNotOwner;
+
 import pl.mk.recipot.savedrecipefilters.domains.GetRecipeFilter;
 import pl.mk.recipot.savedrecipefilters.repositories.ISavedRecipeFiltersRepository;
 

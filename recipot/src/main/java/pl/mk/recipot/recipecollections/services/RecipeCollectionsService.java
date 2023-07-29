@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
+import pl.mk.recipot.commons.domains.CheckIfUserIsNotOwner;
 import pl.mk.recipot.commons.enums.DefaultRecipeCollections;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Recipe;
@@ -21,7 +22,6 @@ import pl.mk.recipot.recipecollections.domains.CheckIfCollectionDoesNotExists;
 import pl.mk.recipot.recipecollections.domains.CheckIfCollectionDoesNotFound;
 import pl.mk.recipot.recipecollections.domains.CheckIfItemAlreadyInCollection;
 import pl.mk.recipot.recipecollections.domains.CheckIfItemDoesNotExists;
-import pl.mk.recipot.recipecollections.domains.CheckIfUserIsNotOwner;
 import pl.mk.recipot.recipecollections.domains.CleanRecipeCollections;
 import pl.mk.recipot.recipecollections.domains.CleanRecipeCollectionItem;
 import pl.mk.recipot.recipecollections.domains.CleanRecipeCollectionItems;
@@ -72,7 +72,7 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 		AppUser user = authFacade.getCurrentUser();
 		RecipeCollection recipeCollection = recipeCollectionsRepository.getOwnById(id);
 		new CheckIfCollectionDoesNotExists().execute(recipeCollection);
-		new CheckIfUserIsNotOwner().execute(recipeCollection, user);
+		new CheckIfUserIsNotOwner().execute(user, recipeCollection);
 		List<RecipeCollectionItem> items = recipeCollectionsItemRepository.getByCollection(id);
 		List<RecipeCollectionItem> cleanedItems = new CleanRecipeCollectionItems().execute(items);
 		return new AddItemsToRecipeCollection().execute(cleanedItems, recipeCollection);
@@ -83,7 +83,7 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 		AppUser user = authFacade.getCurrentUser();
 		RecipeCollection recipeCollection = recipeCollectionsRepository.getById(id);
 		new CheckIfCollectionDoesNotFound().execute(recipeCollection);
-		new CheckIfUserIsNotOwner().execute(recipeCollection, user);
+		new CheckIfUserIsNotOwner().execute(user, recipeCollection);
 		new CheckIfDeleteIsPossible().execute(recipeCollection);
 
 		List<RecipeCollectionItem> items = recipeCollectionsItemRepository.getByCollection(id);
@@ -96,7 +96,7 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 		AppUser user = authFacade.getCurrentUser();
 		RecipeCollection existingRecipeCollection = recipeCollectionsRepository.getById(collectionId);
 		new CheckIfCollectionDoesNotFound().execute(existingRecipeCollection);
-		new CheckIfUserIsNotOwner().execute(existingRecipeCollection, user);
+		new CheckIfUserIsNotOwner().execute(user, existingRecipeCollection);
 		Recipe recipe = recipesFacade.get(recipeCollectionItem.getRecipe().getId());
 		RecipeCollectionItem existingItem = recipeCollectionsItemRepository
 				.getByRecipeAndCollection(existingRecipeCollection.getId(), recipe.getId());
@@ -121,7 +121,7 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 		AppUser user = authFacade.getCurrentUser();
 		RecipeCollection existingRecipeCollection = recipeCollectionsRepository.getById(collectionId);
 		new CheckIfCollectionDoesNotFound().execute(existingRecipeCollection);
-		new CheckIfUserIsNotOwner().execute(existingRecipeCollection, user);
+		new CheckIfUserIsNotOwner().execute(user, existingRecipeCollection);
 		new CheckIfDeleteIsPossible().execute(existingRecipeCollection);
 
 		RecipeCollectionItem existingItem = recipeCollectionsItemRepository.getByRecipeAndCollection(collectionId,

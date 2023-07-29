@@ -7,12 +7,12 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
+import pl.mk.recipot.commons.domains.CheckIfUserIsNotOwner;
 import pl.mk.recipot.commons.enums.DefaultRecipeCollections;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.PrivateNote;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.privatenotes.domains.CheckIfPrivateNoteDoesNotExists;
-import pl.mk.recipot.privatenotes.domains.CheckIfUserIsNotAuthor;
 import pl.mk.recipot.privatenotes.domains.ClearRecipeFields;
 import pl.mk.recipot.privatenotes.domains.FillPrivateNoteAuthorAndCreationDate;
 import pl.mk.recipot.privatenotes.domains.GetPrivateNote;
@@ -65,7 +65,7 @@ public class PrivateNotesService implements IPrivateNotesService, ICrudService<P
 		Optional<PrivateNote> optionalPrivateNote = privateNotesRepository.findById(id);
 		new CheckIfPrivateNoteDoesNotExists().execute(optionalPrivateNote);
 		PrivateNote privateNote = new GetPrivateNote().execute(optionalPrivateNote);
-		new CheckIfUserIsNotAuthor().execute(authFacade.getCurrentUser(), privateNote);
+		new CheckIfUserIsNotOwner().execute(authFacade.getCurrentUser(), privateNote);
 		privateNotesRepository.delete(privateNote);
 	}
 
