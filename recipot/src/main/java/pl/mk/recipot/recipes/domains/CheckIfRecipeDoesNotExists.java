@@ -5,9 +5,8 @@ import pl.mk.recipot.commons.models.Recipe;
 
 public class CheckIfRecipeDoesNotExists {
 	public void execute(Recipe recipe) {
-		if(recipe == null) {
+		if (recipe == null) {
 			throw new NotFoundException("recipes.error.recipeNotFound");
 		}
 	}
-
 }

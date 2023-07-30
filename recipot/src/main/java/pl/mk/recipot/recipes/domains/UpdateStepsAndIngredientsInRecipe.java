@@ -11,6 +11,5 @@ public class UpdateStepsAndIngredientsInRecipe {
 		recipe.setRecipeSteps(steps);
 		recipe.setRecipeIngredients(ingredients);
 		return recipe;
-
 	}
 }

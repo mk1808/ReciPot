@@ -5,7 +5,7 @@ import java.util.List;
 import pl.mk.recipot.commons.models.Ingredient;
 
 public class GetRecipeIngredientsNames {
-	public List<String> execute(List<Ingredient>ingredients) {
+	public List<String> execute(List<Ingredient> ingredients) {
 		return ingredients.stream().map(Ingredient::getName).toList();
 	}
 }

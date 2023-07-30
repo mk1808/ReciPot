@@ -17,16 +17,17 @@ import pl.mk.recipot.recipecollections.services.IRecipeCollectionsService;
 
 @RestController
 public class RecipeCollectionsController implements IRecipeCollectionsController {
-	
+
 	private ICrudService<RecipeCollection> recipeCollectionCrudService;
 	private IRecipeCollectionsService recipeCollectionsService;
+
 	public RecipeCollectionsController(ICrudService<RecipeCollection> recipeCollectionCrudService,
 			IRecipeCollectionsService recipeCollectionsService) {
 		super();
 		this.recipeCollectionCrudService = recipeCollectionCrudService;
 		this.recipeCollectionsService = recipeCollectionsService;
 	}
-	
+
 	@Override
 	public ResponseEntity<Response<RecipeCollection>> create(RecipeCollection recipeCollection) {
 		return new CreatedResponseFactory().createResponse(recipeCollectionCrudService.save(recipeCollection));
@@ -35,9 +36,10 @@ public class RecipeCollectionsController implements IRecipeCollectionsController
 	@Override
 	public ResponseEntity<Response<RecipeCollectionItem>> addItem(UUID collectionId,
 			RecipeCollectionItem recipeCollectionItem) {
-		return new CreatedResponseFactory().createResponse(recipeCollectionsService.addItem(collectionId, recipeCollectionItem));
-  }
-  
+		return new CreatedResponseFactory()
+				.createResponse(recipeCollectionsService.addItem(collectionId, recipeCollectionItem));
+	}
+
 	@Override
 	public ResponseEntity<Response<RecipeCollection>> get(UUID id) {
 		return new OkResponseFactory().createResponse(recipeCollectionCrudService.get(id));
@@ -60,7 +62,5 @@ public class RecipeCollectionsController implements IRecipeCollectionsController
 		recipeCollectionCrudService.delete(collectionId);
 		return new OkMessageResponseFactory().createResponse("recipeCollections.success.collectionDeleted");
 	}
-	
-	
 
 }

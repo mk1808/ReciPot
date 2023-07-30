@@ -9,5 +9,4 @@ public class CheckIfCollectionNotFound {
 			throw new ConflictException("recipeCollections.error.collectionNotFound");
 		}
 	}
-
 }

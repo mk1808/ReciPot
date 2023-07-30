@@ -9,7 +9,5 @@ public class CleanRecipeCollectionItem {
 		cleaner.execute(item.getCollection());
 		cleaner.execute(item.getRecipe());
 		return item;
-
 	}
-
 }

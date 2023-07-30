@@ -10,5 +10,4 @@ public class GetRecipeWasSharedWithSenderUser {
 		return !sharedRecipes.isEmpty()
 				&& sharedRecipes.get(0).getRecipe().getId().equals(sharedRecipe.getRecipe().getId());
 	}
-
 }
