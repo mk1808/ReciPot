@@ -1,14 +1,12 @@
 package pl.mk.recipot.dictionaries.domains;
 
-import java.util.List;
-
+import pl.mk.recipot.commons.domains.CheckIfCollectionNotEmpty;
 import pl.mk.recipot.commons.exceptions.ConflictException;
-import pl.mk.recipot.commons.models.Category;
 
-public class CheckIfCategoryExists {
-	public void execute(List<Category> category) {
-		if (!category.isEmpty()) {
-			throw new ConflictException("dictionaries.error.categoryExists");
-		}
+public class CheckIfCategoryExists extends CheckIfCollectionNotEmpty {
+
+	@Override
+	protected RuntimeException getException() {
+		return new ConflictException("dictionaries.error.categoryExists");
 	}
 }

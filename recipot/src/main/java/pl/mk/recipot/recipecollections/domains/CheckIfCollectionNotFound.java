@@ -1,12 +1,12 @@
 package pl.mk.recipot.recipecollections.domains;
 
+import pl.mk.recipot.commons.domains.CheckIfNull;
 import pl.mk.recipot.commons.exceptions.ConflictException;
-import pl.mk.recipot.commons.models.RecipeCollection;
 
-public class CheckIfCollectionNotFound {
-	public void execute(RecipeCollection recipeCollection) {
-		if (recipeCollection == null) {
-			throw new ConflictException("recipeCollections.error.collectionNotFound");
-		}
+public class CheckIfCollectionNotFound extends CheckIfNull {
+
+	@Override
+	protected RuntimeException getException() {
+		return new ConflictException("recipeCollections.error.collectionNotFound");
 	}
 }

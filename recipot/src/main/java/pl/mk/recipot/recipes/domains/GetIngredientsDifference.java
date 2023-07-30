@@ -35,10 +35,9 @@ public class GetIngredientsDifference {
 		map.put(ChangeType.UPDATED, new ArrayList<Ingredient>());
 		return map;
 	}
-	
+
 	private Map<String, Ingredient> getNameIngredientMap(List<Ingredient> oldIngredients,
 			List<Ingredient> newIngredients) {
-		Map<String, Ingredient> map = new HashMap<>();
 		oldIngredients.addAll(newIngredients);
 		return oldIngredients.stream().collect(Collectors.toMap(Ingredient::getName, ingredient -> ingredient));
 	}
@@ -47,23 +46,21 @@ public class GetIngredientsDifference {
 		List<Ingredient> ingredients = new GetIngredientsFromRecipe().execute(recipe);
 		return new GetRecipeIngredientsNames().execute(ingredients);
 	}
-	
+
 	private List<Ingredient> getDifference(List<String> listOne, List<String> listTwo,
 			Map<String, Ingredient> ingredeintsMap) {
 		return listOne.stream()
 				.filter(element -> !listTwo.contains(element))
-				.map(element -> ingredeintsMap.get(element))
+				.map(ingredeintsMap::get)
 				.toList();
 	}
 
 	private List<Ingredient> getCommon(List<String> listOne, List<String> listTwo,
 			Map<String, Ingredient> ingredeintsMap) {
 		return listOne.stream()
-				.filter(element -> listTwo.contains(element))
-				.map(element -> ingredeintsMap.get(element))
+				.filter(listTwo::contains)
+				.map(ingredeintsMap::get)
 				.toList();
 	}
-	
-	
 
 }
