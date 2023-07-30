@@ -48,8 +48,7 @@ public class GetIngredientsDifference {
 	
 	private List<String> getNameList(Recipe recipe){
 		List<Ingredient> ingredients = new GetIngredientsFromRecipe().execute(recipe);
-
-		return ingredients.stream().map(Ingredient::getName).toList();
+		return new GetRecipeIngredientsNames().execute(ingredients);
 	}
 	
 	private List<Ingredient> getDifference(List<String> listOne, List<String> listTwo, Map<String, Ingredient> ingredeintsMap	){

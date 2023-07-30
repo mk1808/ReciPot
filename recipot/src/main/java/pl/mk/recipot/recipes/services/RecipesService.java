@@ -11,10 +11,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
-import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.domains.CheckIfUserIsNotOwner;
 import pl.mk.recipot.commons.enums.ChangeType;
 import pl.mk.recipot.commons.enums.DefaultRecipeCollections;
+import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Category;
 import pl.mk.recipot.commons.models.HashTag;
 import pl.mk.recipot.commons.models.Ingredient;
@@ -24,11 +24,7 @@ import pl.mk.recipot.commons.models.RecipeStep;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.commons.services.IFilterService;
 import pl.mk.recipot.dictionaries.facades.IDictionariesFacade;
-
 import pl.mk.recipot.recipecollections.facades.IRecipeCollectionsFacade;
-import pl.mk.recipot.recipes.domains.UpdateRecipeIngredientsForRecipe;
-import pl.mk.recipot.recipes.domains.UpdateRecipeStepsForRecipe;
-import pl.mk.recipot.recipes.domains.UpdateUserInRecipe;
 import pl.mk.recipot.recipes.domains.CheckIfIngredientsUnique;
 import pl.mk.recipot.recipes.domains.CheckIfRecipeDoesNotExists;
 import pl.mk.recipot.recipes.domains.CleanRecipe;
@@ -37,12 +33,15 @@ import pl.mk.recipot.recipes.domains.FillRecipeWithIngredients;
 import pl.mk.recipot.recipes.domains.FillStepsAndIngredientsInRecipe;
 import pl.mk.recipot.recipes.domains.GetIngredientsDifference;
 import pl.mk.recipot.recipes.domains.GetIngredientsFromRecipe;
-import pl.mk.recipot.recipes.domains.GetRecipeIngredientNameList;
+import pl.mk.recipot.recipes.domains.GetRecipeIngredientsNames;
 import pl.mk.recipot.recipes.domains.ToggleRecipeVisibility;
 import pl.mk.recipot.recipes.domains.UpdateExistingIngredients;
 import pl.mk.recipot.recipes.domains.UpdateListsInRecipe;
-import pl.mk.recipot.recipes.domains.UpdateRecipeAverageRating;
 import pl.mk.recipot.recipes.domains.UpdateRecipe;
+import pl.mk.recipot.recipes.domains.UpdateRecipeAverageRating;
+import pl.mk.recipot.recipes.domains.UpdateRecipeIngredientsForRecipe;
+import pl.mk.recipot.recipes.domains.UpdateRecipeStepsForRecipe;
+import pl.mk.recipot.recipes.domains.UpdateUserInRecipe;
 import pl.mk.recipot.recipes.dtos.RecipeFilterDto;
 import pl.mk.recipot.recipes.repositories.IRecipeIngredientsRepository;
 import pl.mk.recipot.recipes.repositories.IRecipeStepsRepository;
@@ -133,7 +132,7 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		List<RecipeIngredient> savedRecipeIngredients = saveIngredients(existingRecipe, recipe,
 				ingredientsDifference.get(ChangeType.ADDED));
 
-		List<String> namesList = new GetRecipeIngredientNameList()
+		List<String> namesList = new GetRecipeIngredientsNames()
 				.execute(ingredientsDifference.get(ChangeType.UPDATED));
 		List<RecipeIngredient> recipeIngredientsToUpdate = recipeIngredientsRepository.getByRecipeAndIngredients(id,
 				namesList);
@@ -143,7 +142,7 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		List<RecipeIngredient> savedUpdatedRecipeIngredients = recipeIngredientsRepository
 				.saveAll(recipeIngredientsUpdated);
 
-		List<String> namesListDeleted = new GetRecipeIngredientNameList()
+		List<String> namesListDeleted = new GetRecipeIngredientsNames()
 				.execute(ingredientsDifference.get(ChangeType.DELETED));
 		List<RecipeIngredient> recipeIngredientsToDelete = recipeIngredientsRepository.getByRecipeAndIngredients(id,
 				namesListDeleted);
