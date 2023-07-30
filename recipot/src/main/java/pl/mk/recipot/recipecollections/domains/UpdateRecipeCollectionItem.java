@@ -6,7 +6,7 @@ import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.models.RecipeCollection;
 import pl.mk.recipot.commons.models.RecipeCollectionItem;
 
-public class FillRecipeCollectionItem {
+public class UpdateRecipeCollectionItem {
 	public RecipeCollectionItem execute(RecipeCollectionItem recipeCollectionItem, Recipe recipe, RecipeCollection recipeCollection) {
 		return RecipeCollectionItem.builder()
 		.collection(recipeCollection)

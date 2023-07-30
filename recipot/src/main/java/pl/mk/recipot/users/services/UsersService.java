@@ -13,8 +13,8 @@ import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.recipecollections.facades.IRecipeCollectionsFacade;
 import pl.mk.recipot.users.domains.CheckIfUserDoesNotExists;
 import pl.mk.recipot.users.domains.CheckIfUsersNotTheSame;
-import pl.mk.recipot.users.domains.DeleteSensitiveDataFromUser;
-import pl.mk.recipot.users.domains.IsNewUser;
+import pl.mk.recipot.users.domains.CleanSensitiveDataInUser;
+import pl.mk.recipot.users.domains.GetIsNewUser;
 import pl.mk.recipot.users.domains.UpdateUser;
 import pl.mk.recipot.users.repositories.IRolesRepository;
 import pl.mk.recipot.users.repositories.IUsersRepository;
@@ -44,7 +44,7 @@ public class UsersService implements IUsersService, ICrudService<AppUser> {
 
 	@Override
 	public AppUser save(AppUser appUser) {
-		boolean isNewUser = new IsNewUser().execute(appUser);
+		boolean isNewUser = new GetIsNewUser().execute(appUser);
 		usersRepository.save(appUser);
 		if (isNewUser) {
 			recipeCollectionsFacade.initUserDefaultCollections(appUser);
@@ -78,7 +78,7 @@ public class UsersService implements IUsersService, ICrudService<AppUser> {
 		new CheckIfUsersNotTheSame().execute(authFacade.getCurrentUser(), oldUser);
 		AppUser updatedUser = new UpdateUser().execute(oldUser, appUser);
 		AppUser userAfterSave = usersRepository.save(updatedUser);
-		return new DeleteSensitiveDataFromUser().execute(userAfterSave);
+		return new CleanSensitiveDataInUser().execute(userAfterSave);
 	}
 
 	@Override

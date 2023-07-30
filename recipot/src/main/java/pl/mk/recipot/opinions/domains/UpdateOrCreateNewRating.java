@@ -14,7 +14,7 @@ public class UpdateOrCreateNewRating {
 	}
 
 	private Rating getNew(AppUser currentUser, Rating updatedRating) {
-		return new FillRatingAuthorAndCreationDate().execute(updatedRating, currentUser);
+		return new UpdateAuthorAndCreationDateInRating().execute(updatedRating, currentUser);
 	}
 
 	private Rating update(AppUser currentUser, List<Rating> existingRating, Rating updatedRating) {

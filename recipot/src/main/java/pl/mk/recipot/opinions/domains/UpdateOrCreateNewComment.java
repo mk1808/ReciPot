@@ -14,7 +14,7 @@ public class UpdateOrCreateNewComment {
 	}
 
 	private Comment getNew(AppUser currentUser, Comment updatedComment) {
-		return new FillCommentAuthorAndCreationDate().execute(updatedComment, currentUser);
+		return new UpdateAuthorAndCreationDateInComment().execute(updatedComment, currentUser);
 	}
 
 	private Comment update(AppUser currentUser, List<Comment> existingComment, Comment updatedComment) {

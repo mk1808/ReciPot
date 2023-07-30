@@ -14,7 +14,7 @@ import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.PrivateNote;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.privatenotes.domains.CheckIfPrivateNoteDoesNotExists;
-import pl.mk.recipot.privatenotes.domains.FillPrivateNoteAuthorAndCreationDate;
+import pl.mk.recipot.privatenotes.domains.UpdateAuthorAndCreationDateInPrivateNote;
 import pl.mk.recipot.privatenotes.domains.UpdatePrivateNote;
 import pl.mk.recipot.privatenotes.repositories.IPrivateNotesRepository;
 import pl.mk.recipot.recipecollections.facades.IRecipeCollectionsFacade;
@@ -44,7 +44,7 @@ public class PrivateNotesService implements IPrivateNotesService, ICrudService<P
 			recipeCollectionsFacade.addRecipeToUserDefaultCollection(currentUser, DefaultRecipeCollections.NOTED,
 					privateNote.getRecipe());
 			note = privateNotesRepository
-					.save(new FillPrivateNoteAuthorAndCreationDate().execute(privateNote, currentUser));
+					.save(new UpdateAuthorAndCreationDateInPrivateNote().execute(privateNote, currentUser));
 		} else {
 			note = privateNotesRepository.save(new UpdatePrivateNote().execute(existingNote.get(0), privateNote));
 		}

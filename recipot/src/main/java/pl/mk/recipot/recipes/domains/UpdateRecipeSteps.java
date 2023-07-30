@@ -7,7 +7,7 @@ import java.util.stream.IntStream;
 import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.models.RecipeStep;
 
-public class UpdateRecipeStepsForRecipe {
+public class UpdateRecipeSteps {
 	public List<RecipeStep> execute(Recipe recipe, List<RecipeStep> steps){
 		steps.forEach(step->step.setRecipe(recipe));
 		
