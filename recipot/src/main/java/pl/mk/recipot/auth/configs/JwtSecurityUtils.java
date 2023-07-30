@@ -1,7 +1,5 @@
 package pl.mk.recipot.auth.configs;
 
-import java.util.Optional;
-
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 

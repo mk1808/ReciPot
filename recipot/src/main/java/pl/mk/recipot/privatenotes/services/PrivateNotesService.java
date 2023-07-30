@@ -1,7 +1,6 @@
 package pl.mk.recipot.privatenotes.services;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -16,7 +15,6 @@ import pl.mk.recipot.commons.models.PrivateNote;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.privatenotes.domains.CheckIfPrivateNoteDoesNotExists;
 import pl.mk.recipot.privatenotes.domains.FillPrivateNoteAuthorAndCreationDate;
-import pl.mk.recipot.privatenotes.domains.GetPrivateNote;
 import pl.mk.recipot.privatenotes.domains.UpdatePrivateNote;
 import pl.mk.recipot.privatenotes.repositories.IPrivateNotesRepository;
 import pl.mk.recipot.recipecollections.facades.IRecipeCollectionsFacade;
@@ -68,11 +66,10 @@ public class PrivateNotesService implements IPrivateNotesService, ICrudService<P
 
 	@Override
 	public void delete(UUID id) {
-		Optional<PrivateNote> optionalPrivateNote = privateNotesRepository.findById(id);
-		new CheckIfPrivateNoteDoesNotExists().execute(optionalPrivateNote);
-		PrivateNote privateNote = new GetPrivateNote().execute(optionalPrivateNote);
-		new CheckIfUserIsNotOwner().execute(authFacade.getCurrentUser(), privateNote);
-		privateNotesRepository.delete(privateNote);
+		PrivateNote existingPrivateNote = privateNotesRepository.findById(id).orElse(null);
+		new CheckIfPrivateNoteDoesNotExists().execute(existingPrivateNote);
+		new CheckIfUserIsNotOwner().execute(authFacade.getCurrentUser(), existingPrivateNote);
+		privateNotesRepository.delete(existingPrivateNote);
 	}
 
 	@Override
