@@ -109,7 +109,7 @@ public class Recipe implements IUserRelated {
 		return Objects.hash(accessType, averageRating, categories, created, deleted, description, difficulty, hashTags,
 				id, image, name, numberOfDishes, owner, ratingsCount, requiredEffort, timeAmount, url);
 	}
-	
+
 	@Override
 	public AppUser getUser() {
 		return owner;

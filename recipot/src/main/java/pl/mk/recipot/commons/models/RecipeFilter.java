@@ -38,7 +38,7 @@ public class RecipeFilter implements IUserRelated {
 	private String value;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
-	
+
 	@Override
 	public AppUser getUser() {
 		return owner;

@@ -19,5 +19,4 @@ public class AuthFacade implements IAuthFacade {
 	public AppUser getCurrentUser() {
 		return authService.getCurrentUser();
 	}
-
 }

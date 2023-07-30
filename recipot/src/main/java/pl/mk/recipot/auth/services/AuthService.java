@@ -28,7 +28,6 @@ public class AuthService implements IAuthService {
 		super();
 		this.usersFacade = usersFacade;
 		this.passwordEncoder = passwordEncoder;
-
 	}
 
 	@Override
@@ -51,13 +50,11 @@ public class AuthService implements IAuthService {
 	@Override
 	public void changePassword(ChangePasswordDto changePasswordDto) {
 		new CheckIfPasswordsDoNotMatch().execute(changePasswordDto);
-		
+
 		AppUser existingUser = usersFacade.getUserById(changePasswordDto.userId);
 		new CheckIfUserDoesNotExists().execute(existingUser);
 		new CheckIfUsersNotTheSame().execute(getCurrentUser(), existingUser);
 		AppUser updatedUser = new UpdateUserPassword().execute(existingUser, changePasswordDto, passwordEncoder);
 		usersFacade.save(updatedUser);
-		
 	}
-
 }

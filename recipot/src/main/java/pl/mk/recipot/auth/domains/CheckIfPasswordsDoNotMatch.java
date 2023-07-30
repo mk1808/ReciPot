@@ -11,7 +11,7 @@ public class CheckIfPasswordsDoNotMatch {
 			throw new BadRequestException("auth.error.passwordsNotEqual");
 		}
 	}
-	
+
 	public void execute(ChangePasswordDto changePasswordDto) {
 		if (!changePasswordDto.password.equals(changePasswordDto.matchingPassword)) {
 			throw new BadRequestException("auth.error.passwordsNotEqual");

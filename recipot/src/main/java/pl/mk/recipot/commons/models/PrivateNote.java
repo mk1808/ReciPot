@@ -43,7 +43,7 @@ public class PrivateNote implements IUserRelated, IRecipeRelated {
 	@NotBlank(message = "models.PrivateNote.errors.contentBlank")
 	@Column(length = 1000)
 	private String content;
-	
+
 	@Override
 	public AppUser getUser() {
 		return author;

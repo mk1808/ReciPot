@@ -16,6 +16,5 @@ public class GoneResponseFactory implements IErrorResponseFactory {
 				.build();
 		
 		return new ResponseEntity<Response<Void>>(response, HttpStatus.GONE);
-
 	}
 }

@@ -60,7 +60,7 @@ public class RecipeCollection implements IUserRelated {
 	public int hashCode() {
 		return Objects.hash(canDelete, id, name, owner);
 	}
-	
+
 	@Override
 	public AppUser getUser() {
 		return owner;
