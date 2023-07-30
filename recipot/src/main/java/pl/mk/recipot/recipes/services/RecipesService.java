@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
 import pl.mk.recipot.commons.domains.CheckIfUserIsNotOwner;
+import pl.mk.recipot.commons.domains.SetDateNow;
+import pl.mk.recipot.commons.domains.SetDateNowAndUserValue;
 import pl.mk.recipot.commons.enums.ChangeType;
 import pl.mk.recipot.commons.enums.DefaultRecipeCollections;
 import pl.mk.recipot.commons.models.AppUser;
@@ -32,7 +34,6 @@ import pl.mk.recipot.recipes.domains.GetIngredientsDifference;
 import pl.mk.recipot.recipes.domains.GetIngredientsFromRecipe;
 import pl.mk.recipot.recipes.domains.GetRecipeIngredientsNames;
 import pl.mk.recipot.recipes.domains.UpdateAverageRatingInRecipe;
-import pl.mk.recipot.recipes.domains.UpdateCreationDateInRecipe;
 import pl.mk.recipot.recipes.domains.UpdateExistingIngredients;
 import pl.mk.recipot.recipes.domains.UpdateIngredientsInRecipe;
 import pl.mk.recipot.recipes.domains.UpdateListsInRecipe;
@@ -40,7 +41,6 @@ import pl.mk.recipot.recipes.domains.UpdateOtherFieldsInRecipe;
 import pl.mk.recipot.recipes.domains.UpdateRecipeIngredientsInRecipe;
 import pl.mk.recipot.recipes.domains.UpdateRecipeSteps;
 import pl.mk.recipot.recipes.domains.UpdateStepsAndIngredientsInRecipe;
-import pl.mk.recipot.recipes.domains.UpdateUserInRecipe;
 import pl.mk.recipot.recipes.domains.UpdateVisibilityInRecipe;
 import pl.mk.recipot.recipes.dtos.RecipeFilterDto;
 import pl.mk.recipot.recipes.repositories.IRecipeIngredientsRepository;
@@ -76,8 +76,7 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 
 	@Override
 	public Recipe save(Recipe recipe) {
-		recipe = new UpdateCreationDateInRecipe().execute(recipe);
-		recipe = new UpdateUserInRecipe().execute(recipe, authFacade.getCurrentUser());
+		recipe = new SetDateNowAndUserValue().execute(recipe, authFacade.getCurrentUser());
 
 		Set<HashTag> tags = dictionariesFacade.saveManyHashTags(recipe.getHashTags());
 		Set<Category> categories = dictionariesFacade.getCategories(recipe.getCategories());

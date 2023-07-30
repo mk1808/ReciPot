@@ -33,13 +33,14 @@ import pl.mk.recipot.commons.enums.RecipeAmountOfDishes;
 import pl.mk.recipot.commons.enums.RecipeDifficulty;
 import pl.mk.recipot.commons.enums.RecipeRequiredEffort;
 import pl.mk.recipot.commons.models.interfaces.IUserRelated;
+import pl.mk.recipot.commons.models.interfaces.IWithDate;
 
 @Builder
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Recipe implements IUserRelated {
+public class Recipe implements IUserRelated, IWithDate {
 	@Id
 	@GeneratedValue
 	@UuidGenerator
@@ -120,4 +121,8 @@ public class Recipe implements IUserRelated {
 		setOwner(user);
 	}
 
+	@Override
+	public void setDate(Date date) {
+		setCreated(date);
+	}
 }

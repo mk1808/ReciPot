@@ -22,13 +22,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.mk.recipot.commons.enums.NotificationType;
 import pl.mk.recipot.commons.models.interfaces.IUserRelated;
+import pl.mk.recipot.commons.models.interfaces.IWithDate;
 
 @Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Notification implements IUserRelated {
+public class Notification implements IUserRelated, IWithDate {
 	@Id
 	@GeneratedValue
 	@UuidGenerator
@@ -56,5 +57,10 @@ public class Notification implements IUserRelated {
 	@Override
 	public void setUser(AppUser user) {
 		setOwner(user);
+	}
+
+	@Override
+	public void setDate(Date date) {
+		setCreated(date);
 	}
 }

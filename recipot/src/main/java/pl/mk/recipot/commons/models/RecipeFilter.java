@@ -17,10 +17,11 @@ import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import pl.mk.recipot.commons.models.interfaces.IUserRelated;
+import pl.mk.recipot.commons.models.interfaces.IWithDate;
 
 @Entity
 @Data
-public class RecipeFilter implements IUserRelated {
+public class RecipeFilter implements IUserRelated, IWithDate {
 	@Id
 	@GeneratedValue
 	@UuidGenerator
@@ -47,5 +48,10 @@ public class RecipeFilter implements IUserRelated {
 	@Override
 	public void setUser(AppUser user) {
 		setOwner(user);
+	}
+
+	@Override
+	public void setDate(Date date) {
+		setCreated(date);
 	}
 }
