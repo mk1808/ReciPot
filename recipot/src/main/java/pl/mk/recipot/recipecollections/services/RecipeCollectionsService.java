@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import pl.mk.recipot.auth.facades.IAuthFacade;
 import pl.mk.recipot.commons.domains.CheckIfUserIsNotOwner;
 import pl.mk.recipot.commons.domains.SetUserNull;
+import pl.mk.recipot.commons.domains.SetUserValue;
 import pl.mk.recipot.commons.enums.DefaultRecipeCollections;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Recipe;
@@ -54,7 +55,7 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 		RecipeCollection existingRecipeCollection = recipeCollectionsRepository
 				.getOwnByNameAndUser(recipeCollection.getName(), user.getId());
 		new CheckIfCollectionExists().execute(existingRecipeCollection);
-		recipeCollection = new UpdateUserInRecipeCollection().execute(recipeCollection, user);
+		recipeCollection = new SetUserValue().execute(recipeCollection, user);
 		return new SetUserNull().execute(recipeCollectionsRepository.save(recipeCollection));
 	}
 

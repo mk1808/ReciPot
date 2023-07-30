@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
 import pl.mk.recipot.commons.domains.CheckIfUserIsNotOwner;
+import pl.mk.recipot.commons.domains.SetDateNowAndUserValue;
 import pl.mk.recipot.commons.domains.SetRecipeNull;
 import pl.mk.recipot.commons.domains.SetUserNull;
 import pl.mk.recipot.commons.enums.DefaultRecipeCollections;
@@ -14,7 +15,6 @@ import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.PrivateNote;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.privatenotes.domains.CheckIfPrivateNoteDoesNotExists;
-import pl.mk.recipot.privatenotes.domains.UpdateAuthorAndCreationDateInPrivateNote;
 import pl.mk.recipot.privatenotes.domains.UpdatePrivateNote;
 import pl.mk.recipot.privatenotes.repositories.IPrivateNotesRepository;
 import pl.mk.recipot.recipecollections.facades.IRecipeCollectionsFacade;
@@ -44,7 +44,7 @@ public class PrivateNotesService implements IPrivateNotesService, ICrudService<P
 			recipeCollectionsFacade.addRecipeToUserDefaultCollection(currentUser, DefaultRecipeCollections.NOTED,
 					privateNote.getRecipe());
 			note = privateNotesRepository
-					.save(new UpdateAuthorAndCreationDateInPrivateNote().execute(privateNote, currentUser));
+					.save(new SetDateNowAndUserValue().execute(privateNote, currentUser));
 		} else {
 			note = privateNotesRepository.save(new UpdatePrivateNote().execute(existingNote.get(0), privateNote));
 		}

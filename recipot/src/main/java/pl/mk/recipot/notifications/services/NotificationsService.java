@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import pl.mk.recipot.auth.facades.IAuthFacade;
 import pl.mk.recipot.commons.domains.CheckIfUserIsNotOwner;
 import pl.mk.recipot.commons.domains.GetIsUserOwner;
+import pl.mk.recipot.commons.domains.SetDateNow;
 import pl.mk.recipot.commons.domains.SetUserNull;
 import pl.mk.recipot.commons.models.Comment;
 import pl.mk.recipot.commons.models.Notification;
@@ -18,7 +19,6 @@ import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.notifications.domains.CreateCommentedRecipeNotification;
 import pl.mk.recipot.notifications.domains.CreateRatedRecipeNotification;
 import pl.mk.recipot.notifications.domains.CreateSharedRecipeNotification;
-import pl.mk.recipot.notifications.domains.UpdateCreationDateInNotification;
 import pl.mk.recipot.notifications.repositories.INotificationsRepository;
 
 @Service
@@ -35,7 +35,7 @@ public class NotificationsService implements INotificationsService, ICrudService
 	@Override
 	public Notification save(Notification notification) {
 		if (!new GetIsUserOwner().execute(authFacade.getCurrentUser(), notification)) {
-			new UpdateCreationDateInNotification().execute(notification);
+			new SetDateNow().execute(notification);
 			notificationRepository.save(notification);
 		}
 		return notification;

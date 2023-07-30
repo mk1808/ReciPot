@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
 import pl.mk.recipot.commons.domains.CheckIfUserIsNotOwner;
+import pl.mk.recipot.commons.domains.SetDateNowAndUserValue;
 import pl.mk.recipot.commons.domains.SetUserNull;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.RecipeFilter;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.savedrecipefilters.domains.CheckIfRecipeFilterDoesNotExists;
 import pl.mk.recipot.savedrecipefilters.domains.CheckIfRecipeFilterExists;
-import pl.mk.recipot.savedrecipefilters.domains.UpdateOwnerAndCreationDateInRecipeFilter;
 import pl.mk.recipot.savedrecipefilters.repositories.ISavedRecipeFiltersRepository;
 
 @Service
@@ -34,7 +34,7 @@ public class SavedRecipeFiltersService implements ISavedRecipeFiltersService, IC
 		AppUser currentUser = authFacade.getCurrentUser();
 		new CheckIfRecipeFilterExists()
 				.execute(savedRecipeFiltersRepository.findByUserAndName(currentUser, recipeFilter.getName()));
-		new UpdateOwnerAndCreationDateInRecipeFilter().execute(recipeFilter, currentUser);
+		new SetDateNowAndUserValue().execute(recipeFilter, currentUser);
 		savedRecipeFiltersRepository.save(recipeFilter);
 		return new SetUserNull().execute(recipeFilter);
 	}
