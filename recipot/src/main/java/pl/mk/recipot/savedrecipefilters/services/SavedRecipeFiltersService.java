@@ -1,7 +1,6 @@
 package pl.mk.recipot.savedrecipefilters.services;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -15,7 +14,6 @@ import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.savedrecipefilters.domains.CheckIfRecipeFilterDoesNotExists;
 import pl.mk.recipot.savedrecipefilters.domains.CheckIfRecipeFilterExists;
 import pl.mk.recipot.savedrecipefilters.domains.FillRecipeFilterOwnerAndCreationDate;
-import pl.mk.recipot.savedrecipefilters.domains.GetRecipeFilter;
 import pl.mk.recipot.savedrecipefilters.repositories.ISavedRecipeFiltersRepository;
 
 @Service
@@ -53,10 +51,9 @@ public class SavedRecipeFiltersService implements ISavedRecipeFiltersService, IC
 
 	@Override
 	public void delete(UUID id) {
-		Optional<RecipeFilter> optionalRecipeFilter = savedRecipeFiltersRepository.findById(id);
-		new CheckIfRecipeFilterDoesNotExists().execute(optionalRecipeFilter);
-		RecipeFilter recipeFilter = new GetRecipeFilter().execute(optionalRecipeFilter);
-		new CheckIfUserIsNotOwner().execute(authFacade.getCurrentUser(), recipeFilter);
+		RecipeFilter existingRecipeFilter = savedRecipeFiltersRepository.findById(id).orElse(null);
+		new CheckIfRecipeFilterDoesNotExists().execute(existingRecipeFilter);
+		new CheckIfUserIsNotOwner().execute(authFacade.getCurrentUser(), existingRecipeFilter);
 		savedRecipeFiltersRepository.deleteById(id);
 	}
 
