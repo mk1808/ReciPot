@@ -13,7 +13,7 @@ public interface IStatisticsController {
 
 	@GetMapping("/general")
 	ResponseEntity<Response<GeneralStatisticsDto>> getGeneralStatistics();
-	
+
 	@GetMapping("/user")
 	ResponseEntity<Response<UserStatisticsDto>> getUserStatistics();
 

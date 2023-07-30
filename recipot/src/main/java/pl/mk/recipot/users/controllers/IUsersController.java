@@ -13,7 +13,7 @@ import pl.mk.recipot.commons.models.AppUser;
 
 @RequestMapping("/api/users")
 public interface IUsersController {
-	
+
 	@PutMapping("/{id}")
 	ResponseEntity<Response<AppUser>> update(@PathVariable("id") UUID id, @RequestBody AppUser user);
 

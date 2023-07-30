@@ -7,5 +7,4 @@ public class CleanSensitiveDataInUser {
 		user.setPassword(null);
 		return user;
 	}
-
 }
