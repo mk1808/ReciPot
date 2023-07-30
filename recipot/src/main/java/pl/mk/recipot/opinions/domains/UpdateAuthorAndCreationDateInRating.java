@@ -5,7 +5,7 @@ import java.util.Date;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Rating;
 
-public class FillRatingAuthorAndCreationDate {
+public class UpdateAuthorAndCreationDateInRating {
 	public Rating execute(Rating rating, AppUser author) {
 		rating.setAuthor(author);
 		rating.setCreated(new Date());
