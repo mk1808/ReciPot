@@ -48,7 +48,7 @@ public class PrivateNotesService implements IPrivateNotesService, ICrudService<P
 		} else {
 			note = privateNotesRepository.save(new UpdatePrivateNote().execute(existingNote.get(0), privateNote));
 		}
-		
+
 		new SetUserNull().execute(note);
 		new SetRecipeNull().execute(note);
 		return note;

@@ -13,8 +13,8 @@ import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Rating;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.notifications.facades.INotificationsFacade;
-import pl.mk.recipot.opinions.domains.UpdateOrCreateNewRating;
 import pl.mk.recipot.opinions.domains.UpdateAverageRatingInRecipe;
+import pl.mk.recipot.opinions.domains.UpdateOrCreateNewRating;
 import pl.mk.recipot.opinions.dtos.RecipeAverageRating;
 import pl.mk.recipot.opinions.repositories.IRatingsRepository;
 import pl.mk.recipot.recipecollections.facades.IRecipeCollectionsFacade;
@@ -30,8 +30,7 @@ public class RatingService implements ICrudService<Rating> {
 	private IRecipeCollectionsFacade recipeCollectionsFacade;
 
 	public RatingService(IRatingsRepository ratingsRepository, IAuthFacade authFacade, IRecipesFacade recipesFacade,
-			INotificationsFacade notificationFacade,
-			IRecipeCollectionsFacade recipeCollectionsFacade) {
+			INotificationsFacade notificationFacade, IRecipeCollectionsFacade recipeCollectionsFacade) {
 		super();
 		this.ratingsRepository = ratingsRepository;
 		this.authFacade = authFacade;
@@ -64,15 +63,19 @@ public class RatingService implements ICrudService<Rating> {
 
 	private void updateCollection(Boolean isEmpty, AppUser currentUser, Rating rating) {
 		if (isEmpty) {
-			recipeCollectionsFacade.addRecipeToUserDefaultCollection(currentUser, DefaultRecipeCollections.COMMENTED,
-					rating.getRecipe());
+			recipeCollectionsFacade.addRecipeToUserDefaultCollection(
+					currentUser, 
+					DefaultRecipeCollections.COMMENTED,
+					rating.getRecipe()
+			);
 		}
 	}
 
 	private void updateRecipeAverageRating(Rating rating) {
 		RecipeAverageRating recipeRatingCount = ratingsRepository.getRecipeAverageRating(rating.getRecipe());
 		recipesFacade.updateRecipeAverageRating(
-				new UpdateAverageRatingInRecipe().execute(rating.getRecipe(), recipeRatingCount));
+				new UpdateAverageRatingInRecipe().execute(rating.getRecipe(), recipeRatingCount)
+		);
 	}
 
 	@Override
