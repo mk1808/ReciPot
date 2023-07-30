@@ -50,6 +50,21 @@ public class RatingService implements ICrudService<Rating> {
 		return savedRating;
 	}
 
+	@Override
+	public Rating update(Rating obj, UUID id) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Rating get(UUID id) {
+		return ratingsRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	public void delete(UUID id) {
+		throw new UnsupportedOperationException();
+	}
+	
 	private Rating updateOrCreateNew(Rating rating) {
 		AppUser currentUser = authFacade.getCurrentUser();
 		List<Rating> existingRating = ratingsRepository.findByUserAndRecipe(currentUser, rating.getRecipe());
@@ -76,21 +91,6 @@ public class RatingService implements ICrudService<Rating> {
 		recipesFacade.updateRecipeAverageRating(
 				new UpdateAverageRatingInRecipe().execute(rating.getRecipe(), recipeRatingCount)
 		);
-	}
-
-	@Override
-	public Rating update(Rating obj, UUID id) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public Rating get(UUID id) {
-		return ratingsRepository.findById(id).orElse(null);
-	}
-
-	@Override
-	public void delete(UUID id) {
-		throw new UnsupportedOperationException();
 	}
 
 }

@@ -92,29 +92,6 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		return cleanRecipe(savedRecipe, savedRecipeIngredients, allStepsCreated);
 	}
 
-	private List<RecipeStep> createSteps(Recipe recipe, Recipe savedRecipe) {
-		List<RecipeStep> updatedSteps = new UpdateRecipeSteps().execute(savedRecipe, recipe.getRecipeSteps());
-		return recipeStepsRepository.saveAll(updatedSteps);
-	}
-
-	private List<RecipeIngredient> saveIngredients(Recipe savedRecipe, Recipe newRecipe, List<Ingredient> ingredients) {
-		new CheckIfIngredientsUnique().execute(ingredients);
-		List<Ingredient> allIngredientsCreated = dictionariesFacade.saveManyIngredients(ingredients);
-		List<RecipeIngredient> recipeIngredients = new UpdateRecipeIngredientsInRecipe().execute(savedRecipe, newRecipe,
-				allIngredientsCreated);
-		return recipeIngredientsRepository.saveAll(recipeIngredients);
-	}
-
-	private Recipe cleanRecipe(Recipe savedRecipe, List<RecipeIngredient> savedRecipeIngredients,
-			List<RecipeStep> allStepsCreated) {
-		CleanRecipe clean = new CleanRecipe();
-
-		savedRecipe.setRecipeIngredients(clean.executeIngredients(savedRecipeIngredients));
-		savedRecipe.setRecipeSteps(clean.executeSteps(allStepsCreated));
-		clean.executeUser(savedRecipe);
-		return savedRecipe;
-	}
-
 	@Override
 	public Recipe update(Recipe recipe, UUID id) {
 		Recipe existingRecipe = recipesRepository.getRecipeWithOwner(id);
@@ -169,10 +146,6 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		throw new UnsupportedOperationException();
 	}
 
-	private void deleteRecipeSteps(List<RecipeStep> steps) {
-		steps.stream().forEach(step -> recipeStepsRepository.delete(step));
-	}
-
 	@Override
 	public void changeVisibility(UUID recipeId) {
 		Recipe savedRecipe = get(recipeId);
@@ -196,5 +169,31 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		Recipe existingRecipe = get(updatedRecipe.getId());
 		return recipesRepository.save(new UpdateAverageRatingInRecipe().execute(existingRecipe, updatedRecipe));
 	}
+	
+	private List<RecipeStep> createSteps(Recipe recipe, Recipe savedRecipe) {
+		List<RecipeStep> updatedSteps = new UpdateRecipeSteps().execute(savedRecipe, recipe.getRecipeSteps());
+		return recipeStepsRepository.saveAll(updatedSteps);
+	}
 
+	private List<RecipeIngredient> saveIngredients(Recipe savedRecipe, Recipe newRecipe, List<Ingredient> ingredients) {
+		new CheckIfIngredientsUnique().execute(ingredients);
+		List<Ingredient> allIngredientsCreated = dictionariesFacade.saveManyIngredients(ingredients);
+		List<RecipeIngredient> recipeIngredients = new UpdateRecipeIngredientsInRecipe().execute(savedRecipe, newRecipe,
+				allIngredientsCreated);
+		return recipeIngredientsRepository.saveAll(recipeIngredients);
+	}
+
+	private Recipe cleanRecipe(Recipe savedRecipe, List<RecipeIngredient> savedRecipeIngredients,
+			List<RecipeStep> allStepsCreated) {
+		CleanRecipe clean = new CleanRecipe();
+
+		savedRecipe.setRecipeIngredients(clean.executeIngredients(savedRecipeIngredients));
+		savedRecipe.setRecipeSteps(clean.executeSteps(allStepsCreated));
+		clean.executeUser(savedRecipe);
+		return savedRecipe;
+	}
+	
+	private void deleteRecipeSteps(List<RecipeStep> steps) {
+		steps.stream().forEach(step -> recipeStepsRepository.delete(step));
+	}
 }

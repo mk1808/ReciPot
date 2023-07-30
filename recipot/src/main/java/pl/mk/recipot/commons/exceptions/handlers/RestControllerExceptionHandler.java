@@ -71,7 +71,10 @@ public class RestControllerExceptionHandler extends ResponseEntityExceptionHandl
 
 	@ExceptionHandler(value = { ConstraintViolationException.class })
 	protected ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException ex, WebRequest request) {
-		String fieldsConstraintVoildations = ex.getConstraintViolations().stream().map(ConstraintViolation::getMessage)
+		String fieldsConstraintVoildations = ex
+				.getConstraintViolations()
+				.stream()
+				.map(ConstraintViolation::getMessage)
 				.collect(Collectors.joining("\",\"", "[\"", "\"]"));
 		return getResponse("Validation failed", fieldsConstraintVoildations, HttpStatus.BAD_REQUEST);
 	}
@@ -79,8 +82,12 @@ public class RestControllerExceptionHandler extends ResponseEntityExceptionHandl
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			org.springframework.http.HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-		String fieldsConstraintVoildations = ex.getBindingResult().getFieldErrors().stream()
-				.map(FieldError::getDefaultMessage).collect(Collectors.joining("\",\"", "[\"", "\"]"));
+		String fieldsConstraintVoildations = ex
+				.getBindingResult()
+				.getFieldErrors()
+				.stream()
+				.map(FieldError::getDefaultMessage)
+				.collect(Collectors.joining("\",\"", "[\"", "\"]"));
 		return getResponse("Validation failed", fieldsConstraintVoildations, HttpStatus.BAD_REQUEST);
 	}
 
@@ -90,7 +97,10 @@ public class RestControllerExceptionHandler extends ResponseEntityExceptionHandl
 	}
 
 	private ResponseEntity<Object> getResponse(String message, String details, HttpStatus status) {
-		Response response = Response.builder().message(message).details(details).build();
+		Response response = Response.builder()
+				.message(message)
+				.details(details)
+				.build();
 		return new ResponseEntity<>(response, status);
 	}
 

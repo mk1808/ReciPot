@@ -67,7 +67,6 @@ public class IngredientsService
 
 	private Ingredient getIngredientByName(Ingredient ingredient) {
 		return new GetIngredientIfExists().execute(ingredientsRepository.findByName(ingredient.getName()));
-
 	}
 
 }
