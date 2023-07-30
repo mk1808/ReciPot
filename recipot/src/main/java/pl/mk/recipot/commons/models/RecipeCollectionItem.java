@@ -40,6 +40,6 @@ public class RecipeCollectionItem implements IRecipeRelated {
 	@JoinColumn(name = "collection_id")
 	private RecipeCollection collection;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
 }
