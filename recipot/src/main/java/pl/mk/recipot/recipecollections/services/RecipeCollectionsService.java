@@ -14,16 +14,16 @@ import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.models.RecipeCollection;
 import pl.mk.recipot.commons.models.RecipeCollectionItem;
 import pl.mk.recipot.commons.services.ICrudService;
-import pl.mk.recipot.recipecollections.domains.UpdateItemsInRecipeCollection;
 import pl.mk.recipot.recipecollections.domains.CheckIfCollectionDoesNotExists;
-import pl.mk.recipot.recipecollections.domains.CheckIfCollectionNotFound;
 import pl.mk.recipot.recipecollections.domains.CheckIfCollectionExists;
+import pl.mk.recipot.recipecollections.domains.CheckIfCollectionNotFound;
 import pl.mk.recipot.recipecollections.domains.CheckIfDeleteIsPossible;
 import pl.mk.recipot.recipecollections.domains.CheckIfItemAlreadyInCollection;
 import pl.mk.recipot.recipecollections.domains.CheckIfItemDoesNotExists;
 import pl.mk.recipot.recipecollections.domains.CleanRecipeCollectionItem;
 import pl.mk.recipot.recipecollections.domains.CleanRecipeCollectionItems;
 import pl.mk.recipot.recipecollections.domains.CreateDefaultRecipeCollections;
+import pl.mk.recipot.recipecollections.domains.UpdateItemsInRecipeCollection;
 import pl.mk.recipot.recipecollections.domains.UpdateRecipeCollectionItem;
 import pl.mk.recipot.recipecollections.domains.UpdateUserInRecipeCollection;
 import pl.mk.recipot.recipecollections.repositories.IRecipeCollectionsItemRepository;
@@ -39,8 +39,7 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 	private IRecipesFacade recipesFacade;
 
 	public RecipeCollectionsService(IRecipeCollectionsRepository recipeCollectionsRepository, IAuthFacade authFacade,
-			IRecipesFacade recipesFacade,
-			IRecipeCollectionsItemRepository recipeCollectionsItemRepository) {
+			IRecipesFacade recipesFacade, IRecipeCollectionsItemRepository recipeCollectionsItemRepository) {
 		super();
 		this.recipeCollectionsRepository = recipeCollectionsRepository;
 		this.authFacade = authFacade;

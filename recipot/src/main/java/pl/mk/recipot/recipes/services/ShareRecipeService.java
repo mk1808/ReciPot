@@ -30,8 +30,8 @@ public class ShareRecipeService implements IShareRecipeService {
 	private INotificationsFacade notificationFacade;
 
 	public ShareRecipeService(IAuthFacade authFacade, IUsersFacade userFacade,
-			IRecipeCollectionsFacade recipeCollectionsFacade,
-			ISharedRecipesRepository sharedRecipesRepository, ICrudService<Recipe> recipeCrudService, INotificationsFacade notificationFacade) {
+			IRecipeCollectionsFacade recipeCollectionsFacade, ISharedRecipesRepository sharedRecipesRepository,
+			ICrudService<Recipe> recipeCrudService, INotificationsFacade notificationFacade) {
 		super();
 		this.authFacade = authFacade;
 		this.userFacade = userFacade;

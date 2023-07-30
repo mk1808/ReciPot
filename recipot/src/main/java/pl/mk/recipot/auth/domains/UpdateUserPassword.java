@@ -6,11 +6,10 @@ import pl.mk.recipot.commons.dtos.ChangePasswordDto;
 import pl.mk.recipot.commons.models.AppUser;
 
 public class UpdateUserPassword {
-	
+
 	public AppUser execute(AppUser oldUser, ChangePasswordDto changePasswordDto, PasswordEncoder passwordEncoder) {
 		oldUser.setPassword(passwordEncoder.encode(changePasswordDto.password));
 		return oldUser;
-
 	}
 
 }

@@ -15,7 +15,5 @@ public class NoContentResponseFactory implements IMessageResponseFactory {
 				.build();
 		
 		return new ResponseEntity<Response<Void>>(response, HttpStatus.NO_CONTENT);
-
 	}
-
 }

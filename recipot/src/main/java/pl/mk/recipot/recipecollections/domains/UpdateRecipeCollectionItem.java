@@ -7,12 +7,12 @@ import pl.mk.recipot.commons.models.RecipeCollection;
 import pl.mk.recipot.commons.models.RecipeCollectionItem;
 
 public class UpdateRecipeCollectionItem {
-	public RecipeCollectionItem execute(RecipeCollectionItem recipeCollectionItem, Recipe recipe, RecipeCollection recipeCollection) {
+	public RecipeCollectionItem execute(RecipeCollectionItem recipeCollectionItem, Recipe recipe,
+			RecipeCollection recipeCollection) {
 		return RecipeCollectionItem.builder()
-		.collection(recipeCollection)
-		.created(new Date())
-		.recipe(recipe).build();
-
+				.collection(recipeCollection)
+				.created(new Date())
+				.recipe(recipe)
+				.build();
 	}
-
 }

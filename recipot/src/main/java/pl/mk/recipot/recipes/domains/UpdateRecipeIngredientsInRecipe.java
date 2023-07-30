@@ -12,14 +12,14 @@ public class UpdateRecipeIngredientsInRecipe {
 	private Recipe savedRecipe;
 	private Recipe newRecipe;
 	private List<Ingredient> ingredients;
-	
+
 	public List<RecipeIngredient> execute(Recipe savedRecipe, Recipe newRecipe, List<Ingredient> ingredients) {
 		this.savedRecipe = savedRecipe;
 		this.newRecipe = newRecipe;
 		this.ingredients = ingredients;
 
 		updateIngredients();
-		
+
 		return newRecipe.getRecipeIngredients();
 	}
 

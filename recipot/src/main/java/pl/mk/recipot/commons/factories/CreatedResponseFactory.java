@@ -15,8 +15,5 @@ public class CreatedResponseFactory implements IValueResponseFactory {
 				.build();
 		
 		return new ResponseEntity<Response<T>>(response, HttpStatus.CREATED);
-
 	}
-	
-
 }

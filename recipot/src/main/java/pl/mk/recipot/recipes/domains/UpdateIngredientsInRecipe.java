@@ -12,7 +12,5 @@ public class UpdateIngredientsInRecipe {
 		added.stream().forEach(new SetRecipeNull()::execute);
 		recipe.setRecipeIngredients(added);
 		return recipe;
-
 	}
-
 }

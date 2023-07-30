@@ -42,7 +42,7 @@ public class SharedRecipe implements IUserRelated, IRecipeRelated {
 	@NotBlank(message = "models.SharedRecipe.errors.commentBlank")
 	@Column(length = 1000)
 	private String comment;
-	
+
 	@Override
 	public AppUser getUser() {
 		return senderUser;

@@ -48,22 +48,6 @@ public class CommentsService implements ICrudService<Comment> {
 		return savedComment;
 	}
 
-	public Comment updateOrCreateNew(Comment comment) {
-		AppUser currentUser = authFacade.getCurrentUser();
-		List<Comment> existingRating = commentRepository.findByUserAndRecipe(currentUser, comment.getRecipe());
-		Comment newComment = commentRepository
-				.save(new UpdateOrCreateNewComment().execute(currentUser, existingRating, comment));
-		updateCollection(existingRating.isEmpty(), currentUser, newComment);
-		return newComment;
-	}
-
-	private void updateCollection(Boolean isEmpty, AppUser currentUser, Comment comment) {
-		if (isEmpty) {
-			recipeCollectionsFacade.addRecipeToUserDefaultCollection(currentUser, DefaultRecipeCollections.COMMENTED,
-					comment.getRecipe());
-		}
-	}
-
 	@Override
 	public Comment update(Comment obj, UUID id) {
 		throw new UnsupportedOperationException();
@@ -77,6 +61,22 @@ public class CommentsService implements ICrudService<Comment> {
 	@Override
 	public void delete(UUID id) {
 		throw new UnsupportedOperationException();
+	}
+	
+	private Comment updateOrCreateNew(Comment comment) {
+		AppUser currentUser = authFacade.getCurrentUser();
+		List<Comment> existingRating = commentRepository.findByUserAndRecipe(currentUser, comment.getRecipe());
+		Comment newComment = commentRepository
+				.save(new UpdateOrCreateNewComment().execute(currentUser, existingRating, comment));
+		updateCollection(existingRating.isEmpty(), currentUser, newComment);
+		return newComment;
+	}
+
+	private void updateCollection(Boolean isEmpty, AppUser currentUser, Comment comment) {
+		if (isEmpty) {
+			recipeCollectionsFacade.addRecipeToUserDefaultCollection(currentUser, DefaultRecipeCollections.COMMENTED,
+					comment.getRecipe());
+		}
 	}
 
 }

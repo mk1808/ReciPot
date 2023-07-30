@@ -74,16 +74,16 @@ public class UsersService implements IUsersService, ICrudService<AppUser> {
 		return rolesRepository.getByName(name);
 	}
 
+	@Override
+	public int getAllUsersCount() {
+		return usersRepository.getAllUsersCount();
+	}
+	
 	private AppUser updateAndSaveUser(AppUser oldUser, AppUser appUser) {
 		new CheckIfUsersNotTheSame().execute(authFacade.getCurrentUser(), oldUser);
 		AppUser updatedUser = new UpdateUser().execute(oldUser, appUser);
 		AppUser userAfterSave = usersRepository.save(updatedUser);
 		return new CleanSensitiveDataInUser().execute(userAfterSave);
-	}
-
-	@Override
-	public int getAllUsersCount() {
-		return usersRepository.getAllUsersCount();
 	}
 
 }

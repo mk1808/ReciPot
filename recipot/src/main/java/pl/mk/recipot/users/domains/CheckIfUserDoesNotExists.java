@@ -10,5 +10,4 @@ public class CheckIfUserDoesNotExists {
 			throw new ForbiddenException("users.error.userNotFound");
 		}
 	}
-
 }

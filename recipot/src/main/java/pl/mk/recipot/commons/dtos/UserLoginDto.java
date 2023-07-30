@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class UserLoginDto {
 	@NotBlank(message = "dtos.UserLoginDto.errors.loginBlank")
-	public String username; 
+	public String username;
 	@NotBlank(message = "dtos.UserLoginDto.errors.passwordBlank")
-	public String password; 
+	public String password;
 }

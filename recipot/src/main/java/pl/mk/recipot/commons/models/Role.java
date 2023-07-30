@@ -20,7 +20,7 @@ public class Role implements GrantedAuthority {
 	@GeneratedValue
 	@UuidGenerator
 	private UUID id;
-	
+
 	@Enumerated(EnumType.STRING)
 	private RoleType name;
 

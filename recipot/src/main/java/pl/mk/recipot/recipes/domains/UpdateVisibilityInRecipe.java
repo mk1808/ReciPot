@@ -14,7 +14,6 @@ public class UpdateVisibilityInRecipe {
 			break;
 		default:
 			break;
-
 		}
 	}
 }

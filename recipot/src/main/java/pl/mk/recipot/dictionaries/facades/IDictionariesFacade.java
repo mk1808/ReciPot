@@ -8,9 +8,9 @@ import pl.mk.recipot.commons.models.HashTag;
 import pl.mk.recipot.commons.models.Ingredient;
 
 public interface IDictionariesFacade {
-	
+
 	Set<HashTag> saveManyHashTags(Set<HashTag> tags);
-	
+
 	List<Ingredient> saveManyIngredients(List<Ingredient> ingredients);
 
 	Set<Category> getCategories(Set<Category> categories);

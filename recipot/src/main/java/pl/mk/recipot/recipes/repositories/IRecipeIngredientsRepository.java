@@ -12,20 +12,17 @@ import pl.mk.recipot.commons.models.RecipeIngredient;
 
 @Repository
 public interface IRecipeIngredientsRepository extends JpaRepository<RecipeIngredient, UUID> {
-	
+
 	@Query("SELECT ri FROM RecipeIngredient ri LEFT JOIN FETCH ri.recipe "
 			+ "LEFT JOIN FETCH ri.ingredient WHERE ri.recipe.id = :recipeId AND ri.ingredient.name = :ingredientName")
 	Recipe getByRecipeAndIngredient(UUID recipeId, String ingredientName);
-	
-	
+
 	@Query("SELECT ri FROM RecipeIngredient ri LEFT JOIN FETCH ri.recipe "
 			+ "LEFT JOIN FETCH ri.ingredient WHERE ri.recipe.id = :recipeId "
 			+ "AND ri.ingredient.name in (:ingredientNames)")
 	List<RecipeIngredient> getByRecipeAndIngredients(UUID recipeId, List<String> ingredientNames);
-	
-	@Query("SELECT ri FROM RecipeIngredient ri "
-			+ "LEFT JOIN FETCH ri.recipe "
-			+ "LEFT JOIN FETCH ri.ingredient "
+
+	@Query("SELECT ri FROM RecipeIngredient ri " + "LEFT JOIN FETCH ri.recipe " + "LEFT JOIN FETCH ri.ingredient "
 			+ "WHERE ri.recipe.id = :recipeId")
 	List<RecipeIngredient> getByRecipeId(UUID recipeId);
 }

@@ -15,7 +15,5 @@ public class OkResponseFactory implements IValueResponseFactory  {
 				.build();
 		
 		return new ResponseEntity<Response<T>>(response, HttpStatus.OK);
-
 	}
-
 }

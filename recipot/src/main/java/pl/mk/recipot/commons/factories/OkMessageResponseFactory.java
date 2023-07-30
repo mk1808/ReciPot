@@ -15,7 +15,5 @@ public class OkMessageResponseFactory implements IMessageResponseFactory {
 				.build();
 		
 		return new ResponseEntity<Response<Void>>(response, HttpStatus.OK);
-
 	}
-	
 }

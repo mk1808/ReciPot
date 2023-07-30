@@ -40,7 +40,7 @@ public class Rating implements IUserRelated, IRecipeRelated {
 
 	@NotNull(message = "models.Rating.errors.valueNull")
 	private Double value;
-	
+
 	@Override
 	public AppUser getUser() {
 		return author;

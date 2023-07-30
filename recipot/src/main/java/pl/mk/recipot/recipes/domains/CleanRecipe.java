@@ -18,7 +18,7 @@ public class CleanRecipe {
 		steps.forEach(new SetRecipeNull()::execute);
 		return steps;
 	}
-	
+
 	public Recipe executeUser(Recipe recipe) {
 		return new SetUserNull().execute(recipe);
 	}
