@@ -17,10 +17,11 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import pl.mk.recipot.commons.models.interfaces.IRecipeRelated;
 import pl.mk.recipot.commons.models.interfaces.IUserRelated;
+import pl.mk.recipot.commons.models.interfaces.IWithDate;
 
 @Entity
 @Data
-public class Rating implements IUserRelated, IRecipeRelated {
+public class Rating implements IUserRelated, IRecipeRelated, IWithDate {
 	@Id
 	@GeneratedValue
 	@UuidGenerator
@@ -49,5 +50,10 @@ public class Rating implements IUserRelated, IRecipeRelated {
 	@Override
 	public void setUser(AppUser user) {
 		setAuthor(user);
+	}
+
+	@Override
+	public void setDate(Date date) {
+		setCreated(date);	
 	}
 }
