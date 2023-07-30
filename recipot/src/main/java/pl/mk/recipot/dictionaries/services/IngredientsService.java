@@ -7,11 +7,11 @@ import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import pl.mk.recipot.commons.domains.GetFirstOrNull;
 import pl.mk.recipot.commons.models.Ingredient;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.commons.services.IFilterService;
 import pl.mk.recipot.dictionaries.domains.CheckIfIngredientExists;
-import pl.mk.recipot.dictionaries.domains.GetIngredientIfExists;
 import pl.mk.recipot.dictionaries.dtos.IngredientsFilterDto;
 import pl.mk.recipot.dictionaries.repositories.IIngredientsRepository;
 
@@ -66,7 +66,7 @@ public class IngredientsService
 	}
 
 	private Ingredient getIngredientByName(Ingredient ingredient) {
-		return new GetIngredientIfExists().execute(ingredientsRepository.findByName(ingredient.getName()));
+		return new GetFirstOrNull().execute(ingredientsRepository.findByName(ingredient.getName()));
 	}
 
 }
