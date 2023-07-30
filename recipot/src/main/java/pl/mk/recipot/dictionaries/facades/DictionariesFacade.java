@@ -15,13 +15,14 @@ import pl.mk.recipot.dictionaries.services.IIngredientsService;
 
 @Service
 public class DictionariesFacade implements IDictionariesFacade {
-	
+
 	private ICrudService<HashTag> hashTagCrudService;
 	private IHashTagsService hashTagsService;
 	private ICategoryService categoryService;
 	private IIngredientsService ingredientsService;
 
-	public DictionariesFacade(ICrudService<HashTag> hashTagCrudService, IHashTagsService hashTagsService, ICategoryService categoryService, IIngredientsService ingredientsService) {
+	public DictionariesFacade(ICrudService<HashTag> hashTagCrudService, IHashTagsService hashTagsService,
+			ICategoryService categoryService, IIngredientsService ingredientsService) {
 		super();
 		this.hashTagCrudService = hashTagCrudService;
 		this.hashTagsService = hashTagsService;

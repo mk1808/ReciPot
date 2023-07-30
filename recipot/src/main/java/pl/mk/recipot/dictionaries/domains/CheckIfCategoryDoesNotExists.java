@@ -9,5 +9,4 @@ public class CheckIfCategoryDoesNotExists {
 			throw new ConflictException("dictionaries.error.categoryNotExists");
 		}
 	}
-
 }
