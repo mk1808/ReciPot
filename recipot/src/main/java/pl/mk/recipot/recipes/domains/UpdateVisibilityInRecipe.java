@@ -3,7 +3,7 @@ package pl.mk.recipot.recipes.domains;
 import pl.mk.recipot.commons.enums.RecipeAccessType;
 import pl.mk.recipot.commons.models.Recipe;
 
-public class ToggleRecipeVisibility {
+public class UpdateVisibilityInRecipe {
 	public void execute(Recipe recipe) {
 		switch (recipe.getAccessType()) {
 		case PRIVATE:

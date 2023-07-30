@@ -8,7 +8,7 @@ import pl.mk.recipot.commons.models.Ingredient;
 import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.models.RecipeIngredient;
 
-public class UpdateRecipeIngredientsForRecipe {
+public class UpdateRecipeIngredientsInRecipe {
 	private Recipe savedRecipe;
 	private Recipe newRecipe;
 	private List<Ingredient> ingredients;

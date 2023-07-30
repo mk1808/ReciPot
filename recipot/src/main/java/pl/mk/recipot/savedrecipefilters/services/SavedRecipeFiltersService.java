@@ -13,7 +13,7 @@ import pl.mk.recipot.commons.models.RecipeFilter;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.savedrecipefilters.domains.CheckIfRecipeFilterDoesNotExists;
 import pl.mk.recipot.savedrecipefilters.domains.CheckIfRecipeFilterExists;
-import pl.mk.recipot.savedrecipefilters.domains.FillRecipeFilterOwnerAndCreationDate;
+import pl.mk.recipot.savedrecipefilters.domains.UpdateOwnerAndCreationDateInRecipeFilter;
 import pl.mk.recipot.savedrecipefilters.repositories.ISavedRecipeFiltersRepository;
 
 @Service
@@ -34,7 +34,7 @@ public class SavedRecipeFiltersService implements ISavedRecipeFiltersService, IC
 		AppUser currentUser = authFacade.getCurrentUser();
 		new CheckIfRecipeFilterExists()
 				.execute(savedRecipeFiltersRepository.findByUserAndName(currentUser, recipeFilter.getName()));
-		new FillRecipeFilterOwnerAndCreationDate().execute(recipeFilter, currentUser);
+		new UpdateOwnerAndCreationDateInRecipeFilter().execute(recipeFilter, currentUser);
 		savedRecipeFiltersRepository.save(recipeFilter);
 		return new SetUserNull().execute(recipeFilter);
 	}

@@ -14,7 +14,7 @@ import pl.mk.recipot.commons.models.Rating;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.notifications.facades.INotificationsFacade;
 import pl.mk.recipot.opinions.domains.UpdateOrCreateNewRating;
-import pl.mk.recipot.opinions.domains.UpdateRecipeAverageRating;
+import pl.mk.recipot.opinions.domains.UpdateAverageRatingInRecipe;
 import pl.mk.recipot.opinions.dtos.RecipeAverageRating;
 import pl.mk.recipot.opinions.repositories.IRatingsRepository;
 import pl.mk.recipot.recipecollections.facades.IRecipeCollectionsFacade;
@@ -72,7 +72,7 @@ public class RatingService implements ICrudService<Rating> {
 	private void updateRecipeAverageRating(Rating rating) {
 		RecipeAverageRating recipeRatingCount = ratingsRepository.getRecipeAverageRating(rating.getRecipe());
 		recipesFacade.updateRecipeAverageRating(
-				new UpdateRecipeAverageRating().execute(rating.getRecipe(), recipeRatingCount));
+				new UpdateAverageRatingInRecipe().execute(rating.getRecipe(), recipeRatingCount));
 	}
 
 	@Override

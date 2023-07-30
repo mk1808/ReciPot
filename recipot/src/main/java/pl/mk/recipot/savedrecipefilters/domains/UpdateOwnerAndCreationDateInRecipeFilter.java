@@ -5,7 +5,7 @@ import java.util.Date;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.RecipeFilter;
 
-public class FillRecipeFilterOwnerAndCreationDate {
+public class UpdateOwnerAndCreationDateInRecipeFilter {
 	public RecipeFilter execute(RecipeFilter recipeFilter, AppUser owner) {
 		recipeFilter.setOwner(owner);
 		recipeFilter.setCreated(new Date());
