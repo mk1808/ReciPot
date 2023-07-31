@@ -14,7 +14,7 @@ public class ConflictResponseFactory implements IErrorResponseFactory {
 				.message(message)
 				.details(details)
 				.build();
-		
-		return new ResponseEntity<Response<Void>>(response, HttpStatus.CONFLICT);
 
-	}}
+		return new ResponseEntity<Response<Void>>(response, HttpStatus.CONFLICT);
+	}
+}

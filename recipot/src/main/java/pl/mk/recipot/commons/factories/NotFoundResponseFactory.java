@@ -16,7 +16,5 @@ public class NotFoundResponseFactory implements IErrorResponseFactory {
 				.build();
 		
 		return new ResponseEntity<Response<Void>>(response, HttpStatus.NOT_FOUND);
-
 	}
-
 }

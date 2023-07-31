@@ -20,8 +20,8 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 @EnableMethodSecurity
 @Configuration
 public class WebSecurityConfig {
-	private static final String[] WHITE_LIST_URLS = { "/api/auth/register"};
-	
+	private static final String[] WHITE_LIST_URLS = { "/api/auth/register" };
+
 	private JwtAuthenticationEntryPoint authenticationEntryPoint;
 	private UserDetailsService userDetailsService;
 	private HttpSecurityConfig httpSecurityConfig;
@@ -38,45 +38,37 @@ public class WebSecurityConfig {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder(11);
 	}
-    
-    @Bean
-    public AuthenticationManager authenticationManager(
-            UserDetailsService userDetailsService,
-            PasswordEncoder passwordEncoder) {
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailsService);
-        authenticationProvider.setPasswordEncoder(passwordEncoder);
 
-        return new ProviderManager(authenticationProvider);
-    }
-    
-    @Bean
-    public HttpSessionSecurityContextRepository securityContextRepository() {
-        return new HttpSessionSecurityContextRepository();
-    }
-    
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers( "/login3");
-    }
+	@Bean
+	public AuthenticationManager authenticationManager(UserDetailsService userDetailsService,
+			PasswordEncoder passwordEncoder) {
+		DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+		authenticationProvider.setUserDetailsService(userDetailsService);
+		authenticationProvider.setPasswordEncoder(passwordEncoder);
+
+		return new ProviderManager(authenticationProvider);
+	}
+
+	@Bean
+	public HttpSessionSecurityContextRepository securityContextRepository() {
+		return new HttpSessionSecurityContextRepository();
+	}
+
+	@Bean
+	public WebSecurityCustomizer webSecurityCustomizer() {
+		return (web) -> web.ignoring().requestMatchers("/login3");
+	}
 
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(authz -> 	
-				authz
-					.requestMatchers(WHITE_LIST_URLS)
-					.permitAll()
-					.anyRequest()
-					.authenticated()	      
-			)
-			.csrf(csrf -> csrf.disable())
-			.cors(cors -> cors.disable())
-			.exceptionHandling(exceptionHandling ->
-				exceptionHandling.authenticationEntryPoint(authenticationEntryPoint)
-			)
-			.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-			.apply(httpSecurityConfig);
-	
+		http.authorizeHttpRequests(
+				authz -> authz.requestMatchers(WHITE_LIST_URLS).permitAll().anyRequest().authenticated())
+				.csrf(csrf -> csrf.disable()).cors(cors -> cors.disable())
+				.exceptionHandling(
+						exceptionHandling -> exceptionHandling.authenticationEntryPoint(authenticationEntryPoint))
+				.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				.apply(httpSecurityConfig);
+
 		return http.build();
 	}
 

@@ -16,8 +16,7 @@ public class UsersFacade implements IUsersFacade {
 
 	private IUsersService usersService;
 	private ICrudService<AppUser> usersCrudService;
-	
-	
+
 	public UsersFacade(@Lazy IUsersService usersService, @Lazy ICrudService<AppUser> usersCrudService) {
 		super();
 		this.usersService = usersService;

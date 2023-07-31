@@ -16,7 +16,5 @@ public class UnauthorizedResponseFactory implements IErrorResponseFactory {
 				.build();
 		
 		return new ResponseEntity<Response<Void>>(response, HttpStatus.UNAUTHORIZED);
-
 	}
-
 }

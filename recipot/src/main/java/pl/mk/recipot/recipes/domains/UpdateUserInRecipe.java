@@ -8,5 +8,4 @@ public class UpdateUserInRecipe {
 		recipe.setOwner(user);
 		return recipe;
 	}
-
 }

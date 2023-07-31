@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import pl.mk.recipot.commons.dtos.Response;
 
 public interface IErrorResponseFactory {
-	
-	public <T> ResponseEntity<Response<T>> createResponse(String message, String details);
 
+	public <T> ResponseEntity<Response<T>> createResponse(String message, String details);
 }

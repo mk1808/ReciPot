@@ -24,7 +24,7 @@ public interface IOpinionsController {
 
 	@PostMapping("/comments")
 	ResponseEntity<Response<Comment>> createComment(@RequestBody @Valid Comment comment);
-	
+
 	@GetMapping("/{recipeId}")
 	ResponseEntity<Response<List<OpinionDto>>> getRecipeOpinions(@PathVariable UUID recipeId);
 

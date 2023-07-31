@@ -32,8 +32,8 @@ public interface IDictionariesController {
 	ResponseEntity<Response<HashTag>> createHashTag(@RequestBody @Valid HashTag hashTag);
 
 	@GetMapping("/hashTags")
-	ResponseEntity<Response<Page<HashTag>>> getAllHashTags(@PathParam(value = "name") String name, @PathParam(value = "page") Integer page,
-			@PathParam(value = "size") Integer size);
+	ResponseEntity<Response<Page<HashTag>>> getAllHashTags(@PathParam(value = "name") String name,
+			@PathParam(value = "page") Integer page, @PathParam(value = "size") Integer size);
 
 	@GetMapping("/requiredEfforts")
 	ResponseEntity<Response<List<RecipeRequiredEffort>>> getAllRequiredEfforts();
@@ -45,7 +45,7 @@ public interface IDictionariesController {
 	ResponseEntity<Response<Ingredient>> createIngredient(@RequestBody @Valid Ingredient ingredient);
 
 	@GetMapping("/ingredients")
-	ResponseEntity<Response<Page<Ingredient>>> getAllIngredients(@PathParam(value = "name") String name, @PathParam(value = "page") Integer page,
-			@PathParam(value = "size") Integer size);
+	ResponseEntity<Response<Page<Ingredient>>> getAllIngredients(@PathParam(value = "name") String name,
+			@PathParam(value = "page") Integer page, @PathParam(value = "size") Integer size);
 
 }

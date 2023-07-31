@@ -27,7 +27,8 @@ public class CreateHierarchicalCategoriesList {
 		if (parentCategory != null) {
 			parentCategoryId = parentCategory.getId();
 		}
-		mappedCategories.put(category.getId(), 
+		mappedCategories.put(
+				category.getId(), 
 				CategoryDto.builder()
 				.id(category.getId())
 				.image(category.getImage())

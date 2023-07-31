@@ -16,6 +16,5 @@ public class NotImplementedResponseFactory implements IErrorResponseFactory {
 				.build();
 		
 		return new ResponseEntity<Response<Void>>(response, HttpStatus.NOT_IMPLEMENTED);
-
 	}
 }

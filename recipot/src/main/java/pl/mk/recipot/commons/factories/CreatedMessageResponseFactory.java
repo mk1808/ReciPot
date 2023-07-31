@@ -15,7 +15,5 @@ public class CreatedMessageResponseFactory implements IMessageResponseFactory {
 				.build();
 		
 		return new ResponseEntity<Response<Void>>(response, HttpStatus.CREATED);
-
 	}
-
 }

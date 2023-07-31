@@ -17,10 +17,13 @@ import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import pl.mk.recipot.commons.models.interfaces.IRecipeRelated;
+import pl.mk.recipot.commons.models.interfaces.IUserRelated;
+import pl.mk.recipot.commons.models.interfaces.IWithDate;
 
 @Entity
 @Data
-public class Comment {
+public class Comment implements IUserRelated, IRecipeRelated, IWithDate {
 	@Id
 	@GeneratedValue
 	@UuidGenerator
@@ -41,4 +44,19 @@ public class Comment {
 	@NotBlank(message = "models.Comment.errors.contentBlank")
 	@Column(length = 1000)
 	private String content;
+
+	@Override
+	public AppUser getUser() {
+		return author;
+	}
+
+	@Override
+	public void setUser(AppUser user) {
+		setAuthor(user);
+	}
+
+	@Override
+	public void setDate(Date date) {
+		setCreated(date);	
+	}
 }

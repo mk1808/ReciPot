@@ -1,21 +1,20 @@
 package pl.mk.recipot.privatenotes.services;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
+import pl.mk.recipot.commons.domains.CheckIfUserIsNotOwner;
+import pl.mk.recipot.commons.domains.SetDateNowAndUserValue;
+import pl.mk.recipot.commons.domains.SetRecipeNull;
+import pl.mk.recipot.commons.domains.SetUserNull;
 import pl.mk.recipot.commons.enums.DefaultRecipeCollections;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.PrivateNote;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.privatenotes.domains.CheckIfPrivateNoteDoesNotExists;
-import pl.mk.recipot.privatenotes.domains.CheckIfUserIsNotAuthor;
-import pl.mk.recipot.privatenotes.domains.ClearRecipeFields;
-import pl.mk.recipot.privatenotes.domains.FillPrivateNoteAuthorAndCreationDate;
-import pl.mk.recipot.privatenotes.domains.GetPrivateNote;
 import pl.mk.recipot.privatenotes.domains.UpdatePrivateNote;
 import pl.mk.recipot.privatenotes.repositories.IPrivateNotesRepository;
 import pl.mk.recipot.recipecollections.facades.IRecipeCollectionsFacade;
@@ -27,7 +26,8 @@ public class PrivateNotesService implements IPrivateNotesService, ICrudService<P
 	private IAuthFacade authFacade;
 	private IRecipeCollectionsFacade recipeCollectionsFacade;
 
-	public PrivateNotesService(IPrivateNotesRepository privateNotesRepository, IAuthFacade authFacade, IRecipeCollectionsFacade recipeCollectionsFacade) {
+	public PrivateNotesService(IPrivateNotesRepository privateNotesRepository, IAuthFacade authFacade,
+			IRecipeCollectionsFacade recipeCollectionsFacade) {
 		super();
 		this.privateNotesRepository = privateNotesRepository;
 		this.authFacade = authFacade;
@@ -39,15 +39,19 @@ public class PrivateNotesService implements IPrivateNotesService, ICrudService<P
 		AppUser currentUser = authFacade.getCurrentUser();
 		List<PrivateNote> existingNote = privateNotesRepository.findByUserAndRecipe(currentUser,
 				privateNote.getRecipe());
-		
+		PrivateNote note;
 		if (existingNote.isEmpty()) {
-			recipeCollectionsFacade.addRecipeToUserDefaultCollection(currentUser, DefaultRecipeCollections.NOTED, privateNote.getRecipe());
-			return new ClearRecipeFields().execute(privateNotesRepository
-					.save(new FillPrivateNoteAuthorAndCreationDate().execute(privateNote, currentUser)));
+			recipeCollectionsFacade.addRecipeToUserDefaultCollection(currentUser, DefaultRecipeCollections.NOTED,
+					privateNote.getRecipe());
+			note = privateNotesRepository
+					.save(new SetDateNowAndUserValue().execute(privateNote, currentUser));
+		} else {
+			note = privateNotesRepository.save(new UpdatePrivateNote().execute(existingNote.get(0), privateNote));
 		}
-		
-		return new ClearRecipeFields().execute(
-				privateNotesRepository.save(new UpdatePrivateNote().execute(existingNote.get(0), privateNote)));
+
+		new SetUserNull().execute(note);
+		new SetRecipeNull().execute(note);
+		return note;
 	}
 
 	@Override
@@ -62,17 +66,18 @@ public class PrivateNotesService implements IPrivateNotesService, ICrudService<P
 
 	@Override
 	public void delete(UUID id) {
-		Optional<PrivateNote> optionalPrivateNote = privateNotesRepository.findById(id);
-		new CheckIfPrivateNoteDoesNotExists().execute(optionalPrivateNote);
-		PrivateNote privateNote = new GetPrivateNote().execute(optionalPrivateNote);
-		new CheckIfUserIsNotAuthor().execute(authFacade.getCurrentUser(), privateNote);
-		privateNotesRepository.delete(privateNote);
+		PrivateNote existingPrivateNote = privateNotesRepository.findById(id).orElse(null);
+		new CheckIfPrivateNoteDoesNotExists().execute(existingPrivateNote);
+		new CheckIfUserIsNotOwner().execute(authFacade.getCurrentUser(), existingPrivateNote);
+		privateNotesRepository.delete(existingPrivateNote);
 	}
 
 	@Override
 	public PrivateNote getByRecipe(UUID recipeId) {
-		return new ClearRecipeFields()
-				.execute(privateNotesRepository.findByUserAndRecipeId(authFacade.getCurrentUser(), recipeId));
+		PrivateNote note = privateNotesRepository.findByUserAndRecipeId(authFacade.getCurrentUser(), recipeId);
+		new SetUserNull().execute(note);
+		new SetRecipeNull().execute(note);
+		return note;
 	}
 
 }

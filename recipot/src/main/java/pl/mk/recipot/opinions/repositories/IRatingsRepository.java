@@ -18,13 +18,13 @@ public interface IRatingsRepository extends JpaRepository<Rating, UUID> {
 
 	@Query("SELECT r FROM Rating r join fetch r.author WHERE r.recipe.id = :recipeId")
 	List<Rating> findByRecipeId(UUID recipeId);
-	
+
 	@Query("SELECT count(r) FROM Rating r where r.author = :user ")
 	int getUserRatedRecipesCount(AppUser user);
-	
+
 	@Query("SELECT count(r) FROM Rating r where r.author = :user ")
 	int getRecipeRatingCount(AppUser user);
-	
+
 	@Query("SELECT count(r) as ratingsCount, avg(r.value) as averageRating FROM Rating r where r.recipe = :recipe ")
 	RecipeAverageRating getRecipeAverageRating(Recipe recipe);
 }

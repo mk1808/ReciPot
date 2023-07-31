@@ -1,28 +1,26 @@
 package pl.mk.recipot.recipes.domains;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import pl.mk.recipot.commons.models.Category;
+import pl.mk.recipot.commons.domains.SetRecipeNull;
+import pl.mk.recipot.commons.domains.SetUserNull;
 import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.models.RecipeIngredient;
 import pl.mk.recipot.commons.models.RecipeStep;
 
 public class CleanRecipe {
 	public List<RecipeIngredient> executeIngredients(List<RecipeIngredient> ingredients) {
-		ingredients.forEach(ingredient -> ingredient.setRecipe(null));
+		ingredients.forEach(new SetRecipeNull()::execute);
 		return ingredients;
 	}
 
 	public List<RecipeStep> executeSteps(List<RecipeStep> steps) {
-		steps.forEach(step -> step.setRecipe(null));
+		steps.forEach(new SetRecipeNull()::execute);
 		return steps;
 	}
-	
+
 	public Recipe executeUser(Recipe recipe) {
-		recipe.setOwner(null);
-		return recipe;
+		return new SetUserNull().execute(recipe);
 	}
 
 }

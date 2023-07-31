@@ -9,7 +9,7 @@ import pl.mk.recipot.commons.enums.RoleType;
 import pl.mk.recipot.commons.models.Role;
 
 @Repository
-public interface IRolesRepository extends JpaRepository<Role, UUID>{
+public interface IRolesRepository extends JpaRepository<Role, UUID> {
 	Role getByName(RoleType name);
 
 }

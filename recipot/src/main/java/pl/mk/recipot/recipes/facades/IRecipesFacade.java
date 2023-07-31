@@ -11,6 +11,6 @@ public interface IRecipesFacade {
 	public int getAllRecipesCount();
 
 	int getUserRecipesCount(AppUser user);
-	
+
 	public Recipe updateRecipeAverageRating(Recipe recipe);
 }

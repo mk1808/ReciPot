@@ -15,10 +15,10 @@ public interface IRecipesRepository extends JpaRepository<Recipe, UUID>, JpaSpec
 	
 	@Query("SELECT r FROM Recipe r LEFT JOIN FETCH r.owner where r.id = :id")
 	Recipe getRecipeWithOwner(UUID id);
-	
+
 	@Query("SELECT count(r) FROM Recipe r")
 	int getAllRecipesCount();
-	
+
 	@Query("SELECT count(r) FROM Recipe r where r.owner = :user")
 	int getUserRecipesCount(AppUser user);
 }

@@ -1,14 +1,12 @@
 package pl.mk.recipot.auth.domains;
 
+import pl.mk.recipot.commons.domains.CheckIfNotNull;
 import pl.mk.recipot.commons.exceptions.BadRequestException;
-import pl.mk.recipot.commons.models.AppUser;
 
-public class CheckIfUserExists {
-	
-	public void execute(AppUser user) {
-		if (user != null) {
-			throw new BadRequestException("auth.error.userExists");
-		}
+public class CheckIfUserExists extends CheckIfNotNull {
+
+	@Override
+	protected RuntimeException getException() {
+		return new BadRequestException("auth.error.userExists");
 	}
-
 }

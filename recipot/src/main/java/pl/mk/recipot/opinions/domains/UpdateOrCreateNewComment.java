@@ -2,6 +2,7 @@ package pl.mk.recipot.opinions.domains;
 
 import java.util.List;
 
+import pl.mk.recipot.commons.domains.SetDateNowAndUserValue;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Comment;
 
@@ -14,7 +15,7 @@ public class UpdateOrCreateNewComment {
 	}
 
 	private Comment getNew(AppUser currentUser, Comment updatedComment) {
-		return new FillCommentAuthorAndCreationDate().execute(updatedComment, currentUser);
+		return new SetDateNowAndUserValue().execute(updatedComment, currentUser);
 	}
 
 	private Comment update(AppUser currentUser, List<Comment> existingComment, Comment updatedComment) {

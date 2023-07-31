@@ -2,6 +2,7 @@ package pl.mk.recipot.opinions.domains;
 
 import java.util.List;
 
+import pl.mk.recipot.commons.domains.SetDateNowAndUserValue;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Rating;
 
@@ -14,7 +15,7 @@ public class UpdateOrCreateNewRating {
 	}
 
 	private Rating getNew(AppUser currentUser, Rating updatedRating) {
-		return new FillRatingAuthorAndCreationDate().execute(updatedRating, currentUser);
+		return new SetDateNowAndUserValue().execute(updatedRating, currentUser);
 	}
 
 	private Rating update(AppUser currentUser, List<Rating> existingRating, Rating updatedRating) {

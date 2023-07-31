@@ -7,5 +7,4 @@ import pl.mk.recipot.commons.dtos.Response;
 public interface IMessageResponseFactory {
 	
 	public <T> ResponseEntity<Response<T>> createResponse(String message);
-
 }

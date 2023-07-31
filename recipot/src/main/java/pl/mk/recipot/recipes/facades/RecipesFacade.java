@@ -20,10 +20,10 @@ public class RecipesFacade implements IRecipesFacade {
 		this.recipeCrudService = recipeCrudService;
 		this.recipesService = recipesService;
 	}
-	
+
 	@Override
 	public Recipe get(UUID id) {
-		
+
 		return recipeCrudService.get(id);
 	}
 
