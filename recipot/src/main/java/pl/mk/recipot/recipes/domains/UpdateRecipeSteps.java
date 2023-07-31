@@ -8,7 +8,9 @@ import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.models.RecipeStep;
 
 public class UpdateRecipeSteps {
-	public List<RecipeStep> execute(Recipe recipe, List<RecipeStep> steps) {
+	public List<RecipeStep> execute(Recipe recipe) {
+		List<RecipeStep> steps = recipe.getRecipeSteps();
+		
 		steps.forEach(step -> step.setRecipe(recipe));
 
 		List<RecipeStep> updatedSteps = steps.stream().sorted(Comparator.comparingInt(RecipeStep::getOrder)).toList();

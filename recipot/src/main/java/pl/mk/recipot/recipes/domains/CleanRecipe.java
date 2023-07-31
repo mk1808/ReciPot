@@ -9,6 +9,13 @@ import pl.mk.recipot.commons.models.RecipeIngredient;
 import pl.mk.recipot.commons.models.RecipeStep;
 
 public class CleanRecipe {
+	public Recipe execute(Recipe recipe) {
+		executeIngredients(recipe.getRecipeIngredients());
+		executeSteps(recipe.getRecipeSteps());
+		executeUser(recipe);
+		return recipe;
+	}
+
 	public List<RecipeIngredient> executeIngredients(List<RecipeIngredient> ingredients) {
 		ingredients.forEach(new SetRecipeNull()::execute);
 		return ingredients;

@@ -9,30 +9,22 @@ import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.models.RecipeIngredient;
 
 public class UpdateRecipeIngredientsInRecipe {
-	private Recipe savedRecipe;
-	private Recipe newRecipe;
-	private List<Ingredient> ingredients;
+	public List<RecipeIngredient> execute(Recipe recipe, List<Ingredient> ingredients) {
+		updateIngredients(recipe, ingredients);
 
-	public List<RecipeIngredient> execute(Recipe savedRecipe, Recipe newRecipe, List<Ingredient> ingredients) {
-		this.savedRecipe = savedRecipe;
-		this.newRecipe = newRecipe;
-		this.ingredients = ingredients;
-
-		updateIngredients();
-
-		return newRecipe.getRecipeIngredients();
+		return recipe.getRecipeIngredients();
 	}
 
-	private void updateIngredients() {
-		Map<String, Ingredient> map = createIngredientsMap();
+	private void updateIngredients(Recipe recipe, List<Ingredient> ingredients) {
+		Map<String, Ingredient> map = createIngredientsMap(ingredients);
 
-		for (RecipeIngredient recipeIngredient : newRecipe.getRecipeIngredients()) {
+		for (RecipeIngredient recipeIngredient : recipe.getRecipeIngredients()) {
 			recipeIngredient.setIngredient(map.get(recipeIngredient.getIngredient().getName()));
-			recipeIngredient.setRecipe(savedRecipe);
+			recipeIngredient.setRecipe(recipe);
 		}
 	}
 
-	private Map<String, Ingredient> createIngredientsMap() {
+	private Map<String, Ingredient> createIngredientsMap(List<Ingredient> ingredients) {
 		return ingredients.stream().collect(Collectors.toMap(Ingredient::getName, ingredient -> ingredient));
 	}
 }
