@@ -8,9 +8,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class SearchCriteriaDto {
+
+	public SearchCriteriaDto(String filterKey, String operation, Object value) {
+		super();
+		this.filterKey = filterKey;
+		this.operation = operation;
+		this.value = value;
+	}
+
 	private String filterKey;
-    private Object value;
-    private String operation;
-    private String dataOption;
+	private Object value;
+	private String operation;
+	private String dataOption;
 
 }
+
+

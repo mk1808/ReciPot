@@ -10,6 +10,8 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -48,6 +50,7 @@ public class Recipe implements IUserRelated, IWithDate {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "owner_id")
+	@JsonIgnore
 	private AppUser owner;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -74,7 +77,7 @@ public class Recipe implements IUserRelated, IWithDate {
 	@JoinTable(name = "recipe_hash_tags", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "hash_tag_id"))
 	private Set<HashTag> hashTags = new HashSet<>();
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "recipe_categories", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
 
@@ -111,6 +114,7 @@ public class Recipe implements IUserRelated, IWithDate {
 				id, image, name, numberOfDishes, owner, ratingsCount, requiredEffort, timeAmount, url);
 	}
 
+	@JsonIgnore
 	@Override
 	public AppUser getUser() {
 		return owner;

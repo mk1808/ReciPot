@@ -8,6 +8,8 @@ import java.util.UUID;
 
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
@@ -72,6 +74,20 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	@Override
 	public Page<Recipe> filter(RecipeFilterDto filterObject) {
 		throw new UnsupportedOperationException();
+	}
+	
+	public Page<Recipe> findBySearchCriteria(Specification<Recipe> spec, Pageable page) {
+		Page<Recipe> recipes = recipesRepository.findAll(spec, page);
+	/*
+		recipes.forEach(x->x.getCategories().forEach(p->p.setParentCategory(null)));
+		recipes.forEach(x->x.getCategories().forEach(p->p.setName(null)));
+		recipes.forEach(x->x.getCategories().forEach(p->p.setImage(null)));
+
+		recipes.forEach(x->x.getCategories().forEach(p->p.setId(null)));
+		*/
+		//recipes.forEach(x->x.setCategories(null));
+		
+		return recipes;
 	}
 
 	@Override
