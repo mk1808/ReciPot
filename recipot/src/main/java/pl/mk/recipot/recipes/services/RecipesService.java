@@ -61,7 +61,7 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		Recipe recipe = recipesRepository.getRecipeWithOwner(id);
 		new CheckIfRecipeDoesNotExists().execute(recipe);
 		return new UpdateStepsAndIngredientsInRecipe().execute(recipe,
-				new CleanRecipe().executeIngredients(recipeIngredientsRepository.getByRecipeId(recipe.getId())),
+				new CleanRecipe().executeIngredients(recipeIngredientsRepository.getByRecipe(recipe)),
 				new CleanRecipe().executeSteps(recipeStepsRepository.getByRecipe(recipe)));
 	}
 

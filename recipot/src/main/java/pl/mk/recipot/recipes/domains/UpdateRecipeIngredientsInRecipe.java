@@ -9,18 +9,21 @@ import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.models.RecipeIngredient;
 
 public class UpdateRecipeIngredientsInRecipe {
-	public List<RecipeIngredient> execute(Recipe recipe, List<Ingredient> ingredients) {
-		updateIngredients(recipe, ingredients);
+	public List<RecipeIngredient> execute(Recipe recipe, List<RecipeIngredient> recipeIngredients, List<Ingredient> ingredients) {
+		updateIngredients(recipe, recipeIngredients, ingredients);
 
-		return recipe.getRecipeIngredients();
+		return recipeIngredients;
 	}
 
-	private void updateIngredients(Recipe recipe, List<Ingredient> ingredients) {
+	private void updateIngredients(Recipe recipe, List<RecipeIngredient> recipeIngredients, List<Ingredient> ingredients) {
 		Map<String, Ingredient> map = createIngredientsMap(ingredients);
-
-		for (RecipeIngredient recipeIngredient : recipe.getRecipeIngredients()) {
-			recipeIngredient.setIngredient(map.get(recipeIngredient.getIngredient().getName()));
-			recipeIngredient.setRecipe(recipe);
+		
+		for (RecipeIngredient recipeIngredient : recipeIngredients) {
+			String name = recipeIngredient.getIngredient().getName();
+			if (map.containsKey(name)) {
+				recipeIngredient.setIngredient(map.get(name));
+				recipeIngredient.setRecipe(recipe);
+			}
 		}
 	}
 

@@ -24,11 +24,9 @@ import pl.mk.recipot.recipes.domains.CheckIfIngredientsUnique;
 import pl.mk.recipot.recipes.domains.CheckIfRecipeDoesNotExists;
 import pl.mk.recipot.recipes.domains.CleanRecipe;
 import pl.mk.recipot.recipes.domains.GetIngredientsDifference;
-import pl.mk.recipot.recipes.domains.GetIngredientsFromRecipe;
-import pl.mk.recipot.recipes.domains.GetRecipeIngredientsNames;
+import pl.mk.recipot.recipes.domains.GetIngredientsFromRecipeIngredients;
 import pl.mk.recipot.recipes.domains.UpdateExistingIngredients;
 import pl.mk.recipot.recipes.domains.UpdateFieldsInRecipe;
-import pl.mk.recipot.recipes.domains.UpdateIngredientsInRecipe;
 import pl.mk.recipot.recipes.domains.UpdateListsInRecipe;
 import pl.mk.recipot.recipes.domains.UpdateRecipeIngredientsInRecipe;
 import pl.mk.recipot.recipes.domains.UpdateRecipeSteps;
@@ -79,9 +77,9 @@ public class PersistRecipeService {
 
 		Recipe savedRecipe = recipesRepository.save(existingRecipe);
 
-		updateIngredients(savedRecipe, updatedRecipe);
+		savedRecipe.setRecipeIngredients(updateIngredients(savedRecipe, updatedRecipe));
 		updateSteps(savedRecipe, updatedRecipe);
-		
+
 		return new CleanRecipe().execute(savedRecipe);
 	}
 
@@ -96,16 +94,15 @@ public class PersistRecipeService {
 	}
 
 	private void saveIngredients(Recipe recipe) {
-		List<Ingredient> ingredients = new GetIngredientsFromRecipe().execute(recipe);
-		saveNewIngredients(recipe, ingredients);
+		saveNewIngredients(recipe, recipe.getRecipeIngredients());
 	}
 
-	private List<RecipeIngredient> saveNewIngredients(Recipe recipe, List<Ingredient> ingredients) {
+	private List<RecipeIngredient> saveNewIngredients(Recipe recipe, List<RecipeIngredient> recipeIngredients) {
+		List<Ingredient> ingredients = new GetIngredientsFromRecipeIngredients().execute(recipeIngredients);
 		new CheckIfIngredientsUnique().execute(ingredients);
 
 		List<Ingredient> allIngredientsCreated = dictionariesFacade.saveManyIngredients(ingredients);
-		List<RecipeIngredient> recipeIngredients = new UpdateRecipeIngredientsInRecipe().execute(recipe,
-				allIngredientsCreated);
+		new UpdateRecipeIngredientsInRecipe().execute(recipe, recipeIngredients, allIngredientsCreated);
 
 		List<RecipeIngredient> savedRecipeIngredients = recipeIngredientsRepository.saveAll(recipeIngredients);
 		recipe.setRecipeIngredients(savedRecipeIngredients);
@@ -128,32 +125,26 @@ public class PersistRecipeService {
 		new CheckIfUserIsNotOwner().execute(authFacade.getCurrentUser(), recipe);
 	}
 
-	private void updateIngredients(Recipe existingRecipe, Recipe updatedRecipe) {
-		existingRecipe.setRecipeIngredients(recipeIngredientsRepository.getByRecipeId(existingRecipe.getId()));
-		Map<ChangeType, List<Ingredient>> ingredientsDifference = new GetIngredientsDifference().execute(existingRecipe,
-				updatedRecipe);
+	private List<RecipeIngredient> updateIngredients(Recipe existingRecipe, Recipe updatedRecipe) {
+		List<RecipeIngredient> existingIngredients = recipeIngredientsRepository.getByRecipe(existingRecipe);
+		Map<ChangeType, List<RecipeIngredient>> ingredientsDifference = new GetIngredientsDifference()
+				.execute(existingIngredients, updatedRecipe.getRecipeIngredients());
 
-		deleteRecipeIngredients(existingRecipe, ingredientsDifference.get(ChangeType.DELETED));
-		List<RecipeIngredient> added = saveNewIngredients(updatedRecipe, ingredientsDifference.get(ChangeType.ADDED));
-		List<RecipeIngredient> updated = updateRecipeIngredients(updatedRecipe,
-				ingredientsDifference.get(ChangeType.UPDATED));
+		deleteRecipeIngredients(ingredientsDifference.get(ChangeType.DELETED));
+		List<RecipeIngredient> saved = saveNewIngredients(existingRecipe, ingredientsDifference.get(ChangeType.ADDED));
+		saved.addAll(updateRecipeIngredients(existingIngredients, ingredientsDifference.get(ChangeType.UPDATED)));
 
-		new UpdateIngredientsInRecipe().execute(existingRecipe, added, updated);
+		return saved;
 	}
 
-	private List<RecipeIngredient> updateRecipeIngredients(Recipe updatedRecipe, List<Ingredient> ingredientsToUpdate) {
-		List<String> namesList = new GetRecipeIngredientsNames().execute(ingredientsToUpdate);
-		List<RecipeIngredient> recipeIngredientsToUpdate = recipeIngredientsRepository
-				.getByRecipeAndIngredients(updatedRecipe.getId(), namesList);
-		List<RecipeIngredient> recipeIngredientsUpdated = new UpdateExistingIngredients()
-				.execute(recipeIngredientsToUpdate, updatedRecipe);
+	private List<RecipeIngredient> updateRecipeIngredients(List<RecipeIngredient> existingIngredients,
+			List<RecipeIngredient> recipeIngredientsToUpdate) {
+		List<RecipeIngredient> recipeIngredientsUpdated = new UpdateExistingIngredients().execute(existingIngredients,
+				recipeIngredientsToUpdate);
 		return recipeIngredientsRepository.saveAll(recipeIngredientsUpdated);
 	}
 
-	private void deleteRecipeIngredients(Recipe existingRecipe, List<Ingredient> ingredientsToDelete) {
-		List<String> namesListDeleted = new GetRecipeIngredientsNames().execute(ingredientsToDelete);
-		List<RecipeIngredient> recipeIngredientsToDelete = recipeIngredientsRepository
-				.getByRecipeAndIngredients(existingRecipe.getId(), namesListDeleted);
+	private void deleteRecipeIngredients(List<RecipeIngredient> recipeIngredientsToDelete) {
 		recipeIngredientsRepository.deleteAll(recipeIngredientsToDelete);
 	}
 

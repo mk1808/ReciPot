@@ -6,21 +6,21 @@ import java.util.UUID;
 
 import org.springframework.data.util.StreamUtils;
 
-import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.models.RecipeIngredient;
 
 public class UpdateExistingIngredients {
 
-	public List<RecipeIngredient> execute(List<RecipeIngredient> recipeIngredientsToUpdate, Recipe recipe) {
-		List<RecipeIngredient> fromRecipeFiltered = getRecupeFiltered(recipeIngredientsToUpdate, recipe);
+	public List<RecipeIngredient> execute(List<RecipeIngredient> existingIngredients,
+			List<RecipeIngredient> recipeIngredientsToUpdate) {
+		List<RecipeIngredient> fromRecipeFiltered = getRecipeFiltered(existingIngredients, recipeIngredientsToUpdate);
 
 		return updateIngredients(recipeIngredientsToUpdate, fromRecipeFiltered);
 	}
 
-	private List<RecipeIngredient> getRecupeFiltered(List<RecipeIngredient> recipeIngredientsToUpdate, Recipe recipe) {
+	private List<RecipeIngredient> getRecipeFiltered(List<RecipeIngredient> existingIngredients,
+			List<RecipeIngredient> recipeIngredientsToUpdate) {
 		List<UUID> idsToUpdate = getIdsToUpdate(recipeIngredientsToUpdate);
-		return recipe
-				.getRecipeIngredients()
+		return existingIngredients
 				.stream()
 				.filter(r -> idsToUpdate.contains(r.getId()))
 				.toList();
@@ -31,7 +31,7 @@ public class UpdateExistingIngredients {
 		return StreamUtils
 				.zip(
 						recipeIngredientsToUpdate.stream().sorted(sort()),
-						fromRecipeFiltered.stream().sorted(sort()), 
+						fromRecipeFiltered.stream().sorted(sort()),
 						this::updateSingle)
 				.toList();
 	}
@@ -47,7 +47,7 @@ public class UpdateExistingIngredients {
 				.toList();
 	}
 
-	private RecipeIngredient updateSingle(RecipeIngredient existingRI, RecipeIngredient newRI) {
+	private RecipeIngredient updateSingle(RecipeIngredient newRI, RecipeIngredient existingRI) {
 		existingRI.setAmount(newRI.getAmount());
 		existingRI.setUnit(newRI.getUnit());
 		return existingRI;

@@ -7,59 +7,65 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import pl.mk.recipot.commons.enums.ChangeType;
-import pl.mk.recipot.commons.models.Ingredient;
-import pl.mk.recipot.commons.models.Recipe;
+import pl.mk.recipot.commons.models.RecipeIngredient;
 
 public class GetIngredientsDifference {
-	public Map<ChangeType, List<Ingredient>> execute(Recipe oldRecipe, Recipe newRecipe) {
-		Map<ChangeType, List<Ingredient>> map = getMap();
+	public Map<ChangeType, List<RecipeIngredient>> execute(List<RecipeIngredient> existingRecipeIngredients,
+			List<RecipeIngredient> newRecipeIngredients) {
+		Map<ChangeType, List<RecipeIngredient>> map = getMap();
 
-		List<Ingredient> oldIngredients = new ArrayList<Ingredient>(new GetIngredientsFromRecipe().execute(oldRecipe));
-		List<Ingredient> newIngredients = new ArrayList<Ingredient>(new GetIngredientsFromRecipe().execute(newRecipe));
-		Map<String, Ingredient> ingredeintsMap = getNameIngredientMap(oldIngredients, newIngredients);
+		Map<String, RecipeIngredient> ingredientsMap = getNameIngredientMap(existingRecipeIngredients,
+				newRecipeIngredients);
 
-		List<String> oldIngredientsIds = getNameList(oldRecipe);
-		List<String> newIngredientsIds = getNameList(newRecipe);
+		List<String> oldIngredientsIds = getNameList(existingRecipeIngredients);
+		List<String> newIngredientsIds = getNameList(newRecipeIngredients);
 
-		map.get(ChangeType.ADDED).addAll(getDifference(newIngredientsIds, oldIngredientsIds, ingredeintsMap));
-		map.get(ChangeType.DELETED).addAll(getDifference(oldIngredientsIds, newIngredientsIds, ingredeintsMap));
-		map.get(ChangeType.UPDATED).addAll(getCommon(oldIngredientsIds, newIngredientsIds, ingredeintsMap));
+		map.get(ChangeType.ADDED).addAll(getDifference(newIngredientsIds, oldIngredientsIds, ingredientsMap));
+		map.get(ChangeType.DELETED).addAll(getDifference(oldIngredientsIds, newIngredientsIds, ingredientsMap));
+		map.get(ChangeType.UPDATED).addAll(getCommon(oldIngredientsIds, newIngredientsIds, ingredientsMap));
 
 		return map;
 	}
 
-	private Map<ChangeType, List<Ingredient>> getMap() {
-		Map<ChangeType, List<Ingredient>> map = new HashMap<>();
-		map.put(ChangeType.ADDED, new ArrayList<Ingredient>());
-		map.put(ChangeType.DELETED, new ArrayList<Ingredient>());
-		map.put(ChangeType.UPDATED, new ArrayList<Ingredient>());
+	private Map<ChangeType, List<RecipeIngredient>> getMap() {
+		Map<ChangeType, List<RecipeIngredient>> map = new HashMap<>();
+		map.put(ChangeType.ADDED, new ArrayList<>());
+		map.put(ChangeType.DELETED, new ArrayList<>());
+		map.put(ChangeType.UPDATED, new ArrayList<>());
 		return map;
 	}
 
-	private Map<String, Ingredient> getNameIngredientMap(List<Ingredient> oldIngredients,
-			List<Ingredient> newIngredients) {
-		oldIngredients.addAll(newIngredients);
-		return oldIngredients.stream().collect(Collectors.toMap(Ingredient::getName, ingredient -> ingredient));
+	private Map<String, RecipeIngredient> getNameIngredientMap(List<RecipeIngredient> oldIngredients,
+			List<RecipeIngredient> newIngredients) {
+		Map<String, RecipeIngredient> ingredientsMap = newIngredients.stream().collect(Collectors.toMap(
+				recipeIngredient -> recipeIngredient.getIngredient().getName(), recipeIngredient -> recipeIngredient));
+		for (RecipeIngredient recipeIngredient : oldIngredients) {
+			String ingredientName = recipeIngredient.getIngredient().getName();
+			if (!ingredientsMap.containsKey(ingredientName)) {
+				ingredientsMap.put(ingredientName, recipeIngredient);
+			}
+		}
+		return ingredientsMap;
 	}
 
-	private List<String> getNameList(Recipe recipe) {
-		List<Ingredient> ingredients = new GetIngredientsFromRecipe().execute(recipe);
-		return new GetRecipeIngredientsNames().execute(ingredients);
+	private List<String> getNameList(List<RecipeIngredient> recipeIngredients) {
+		return new GetRecipeIngredientsNames()
+				.execute(new GetIngredientsFromRecipeIngredients().execute(recipeIngredients));
 	}
 
-	private List<Ingredient> getDifference(List<String> listOne, List<String> listTwo,
-			Map<String, Ingredient> ingredeintsMap) {
+	private List<RecipeIngredient> getDifference(List<String> listOne, List<String> listTwo,
+			Map<String, RecipeIngredient> ingredientsMap) {
 		return listOne.stream()
 				.filter(element -> !listTwo.contains(element))
-				.map(ingredeintsMap::get)
+				.map(ingredientsMap::get)
 				.toList();
 	}
 
-	private List<Ingredient> getCommon(List<String> listOne, List<String> listTwo,
-			Map<String, Ingredient> ingredeintsMap) {
+	private List<RecipeIngredient> getCommon(List<String> listOne, List<String> listTwo,
+			Map<String, RecipeIngredient> ingredientsMap) {
 		return listOne.stream()
 				.filter(listTwo::contains)
-				.map(ingredeintsMap::get)
+				.map(ingredientsMap::get)
 				.toList();
 	}
 
