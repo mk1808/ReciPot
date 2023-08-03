@@ -95,6 +95,31 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>cz.habarta.typescript-generator</groupId>
+				<artifactId>typescript-generator-maven-plugin</artifactId>
+				<version>3.2.1263</version>
+				<executions>
+					<execution>
+						<id>generate</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<phase>process-classes</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<jsonLibrary>jackson2</jsonLibrary>
+					<classPatterns>
+						<pattern>pl.mk.recipot.commons.models.**</pattern>
+						<pattern>pl.mk.recipot.**.dtos.**</pattern>
+					</classPatterns>
+					<outputKind>module</outputKind>
+					<outputFile>src\main\ts\recipot\src\common\models\types.ts</outputFile>
+					<mapClasses>asClasses</mapClasses>
+					<outputFileType>implementationFile</outputFileType>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
