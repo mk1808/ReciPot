@@ -31,7 +31,7 @@ public class JwtController {
 	private PasswordEncoder passwordEncoder;
 
 	@PostMapping("/api/login3")
-	public ResponseEntity createToken(@RequestBody UserLoginDto request,ServletRequest req, HttpServletResponse response)
+	public ResponseEntity createToken(@RequestBody UserLoginDto request, HttpServletResponse response)
 			throws Exception {
 		System.out.print("test");
 		try {

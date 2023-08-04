@@ -30,7 +30,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-      {process.env.REACT_APP_URL}
+    
  
           Learn React
          
