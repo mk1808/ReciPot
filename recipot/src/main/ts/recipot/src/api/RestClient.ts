@@ -1,11 +1,12 @@
 function RestClient(): any {
-    const URL = "/api"
+    const URL = "/api";
+    const HEADER = { 'Content-Type': 'application/json; character=utf-8' };
 
     const apiCall = (method: any, path: string | undefined, onSuccess: () => any, onError: () => any) => {
         fetch(`${URL}${path}`, {
             method: method,
-            headers: { 'Content-Type': 'application/json; character=utf-8' }
-        }) 
+            headers: HEADER
+        })
             .then(response => response.json())
             .then(onSuccess)
             .catch(onError);
@@ -13,9 +14,9 @@ function RestClient(): any {
 
     const apiCallWithBody = (method: any, path: string | undefined, body: object, onSuccess: () => any, onError: () => any) => {
         fetch(`${URL}${path}`, {
-         
+
             method: method,
-            headers: { 'Content-Type': 'application/json; character=utf-8' },
+            headers: HEADER,
             body: JSON.stringify(body)
         })
             .then(response => response.json())
@@ -39,8 +40,11 @@ function RestClient(): any {
         apiCallWithBody('POST', path, body, onSuccess, onError)
     }
 
-    return {get:_get, delete:_delete, update:_update, create:_create}
+    const _patch = (path: string | undefined, body: object, onSuccess: () => any, onError: () => any) => {
+        apiCallWithBody('PATCH', path, body, onSuccess, onError)
+    }
 
+    return { get: _get, delete: _delete, update: _update, create: _create, patch:_patch }
 }
 
 const restClient = RestClient();

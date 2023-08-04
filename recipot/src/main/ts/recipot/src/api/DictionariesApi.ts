@@ -17,7 +17,7 @@ function RecipesApi() {
     }
 
     const changeVisibility = (id: string, onSuccess: () => any, onError: () => any) => {
-        restClient.patch(`${PREFIX}/visibility/${id}`, null, onSuccess, onError)
+        restClient.patch(`${PREFIX}/visibility/${id}`, onSuccess, onError)
     }
 
     const share = (body: Recipe, onSuccess: () => any, onError: () => any) => {
