@@ -5,6 +5,8 @@ import Button from 'react-bootstrap/Button';
 import restClient from './api/RestClient';
 import recipesApi from './api/RecipesApi';
 import authApi from './api/AuthApi';
+import Header from './layouts/header/Header';
+import Footer from './layouts/footer/Footer';
 
 function App() {
 
@@ -19,6 +21,7 @@ function App() {
 
   return (
     <div className="App">
+      <Header></Header>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -37,6 +40,7 @@ function App() {
         </a>
         <Button variant="primary" onClick={send}>Primary</Button>{' '}
       </header>
+      <Footer></Footer>
     </div>
   );
 }
