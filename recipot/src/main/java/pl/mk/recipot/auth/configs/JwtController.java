@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import pl.mk.recipot.commons.dtos.JWTDto;
@@ -29,8 +30,8 @@ public class JwtController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	@PostMapping("/login3")
-	public ResponseEntity createToken(@RequestBody UserLoginDto request, HttpServletResponse response)
+	@PostMapping("/api/login3")
+	public ResponseEntity createToken(@RequestBody UserLoginDto request,ServletRequest req, HttpServletResponse response)
 			throws Exception {
 		System.out.print("test");
 		try {
@@ -42,10 +43,11 @@ public class JwtController {
 			throw new Exception("INVALID_CREDENTIALS", e);
 		}
 		final JwtUserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
-		final String jwtToken = tokenManager.generateJwtToken(userDetails);
+		final String jwtToken = tokenManager.generateJwtToken(userDetails); 
 
 		Cookie jwtCookie = new Cookie("token", jwtToken);
-		jwtCookie.setMaxAge(600000);
+		
+		jwtCookie.setMaxAge(600000); 
 		response.addCookie(jwtCookie);
 
 		return ResponseEntity.ok(new JWTDto(jwtToken));

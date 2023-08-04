@@ -56,7 +56,7 @@ public class WebSecurityConfig {
 
 	@Bean
 	public WebSecurityCustomizer webSecurityCustomizer() {
-		return (web) -> web.ignoring().requestMatchers("/login3");
+		return (web) -> web.ignoring().requestMatchers("/api/login3");
 	}
 
 	@Bean
