@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.scss';
 import Button from 'react-bootstrap/Button';
+import RestClient from './api/RestClient';
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
+      {process.env.REACT_APP_URL}
+      {RestClient()}
           Learn React
           <Button variant="primary">Primary</Button>{' '}
         </a>
