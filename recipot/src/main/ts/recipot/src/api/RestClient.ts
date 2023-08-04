@@ -1,18 +1,19 @@
 function RestClient(): any {
-    const URL = process.env.REACT_APP_URL;
+    const URL = "/api"
 
-    const apiCall = (path: string | undefined, onSuccess: () => any, onError: () => any, method: any) => {
+    const apiCall = (method: any, path: string | undefined, onSuccess: () => any, onError: () => any) => {
         fetch(`${URL}${path}`, {
             method: method,
             headers: { 'Content-Type': 'application/json; character=utf-8' }
-        })
+        }) 
             .then(response => response.json())
             .then(onSuccess)
             .catch(onError);
     }
 
-    const apiCallWithBody = (path: string | undefined, body: object, onSuccess: () => any, onError: () => any, method: any) => {
+    const apiCallWithBody = (method: any, path: string | undefined, body: object, onSuccess: () => any, onError: () => any) => {
         fetch(`${URL}${path}`, {
+         
             method: method,
             headers: { 'Content-Type': 'application/json; character=utf-8' },
             body: JSON.stringify(body)
@@ -23,23 +24,25 @@ function RestClient(): any {
     }
 
     const _get = (path: string | undefined, onSuccess: () => any, onError: () => any) => {
-        apiCall(path, onSuccess, onError, 'GET')
+        apiCall('GET', path, onSuccess, onError)
     }
 
     const _delete = (path: string | undefined, onSuccess: () => any, onError: () => any) => {
-        apiCall(path, onSuccess, onError, 'DELETE')
+        apiCall('DELETE', path, onSuccess, onError)
     }
 
     const _update = (path: string | undefined, body: object, onSuccess: () => any, onError: () => any) => {
-        apiCallWithBody(path, body, onSuccess, onError, 'UPDATE')
+        apiCallWithBody('UPDATE', path, body, onSuccess, onError)
     }
 
     const _create = (path: string | undefined, body: object, onSuccess: () => any, onError: () => any) => {
-        apiCallWithBody(path, body, onSuccess, onError, 'CREATE')
+        apiCallWithBody('POST', path, body, onSuccess, onError)
     }
 
     return {get:_get, delete:_delete, update:_update, create:_create}
 
 }
 
-export default RestClient;
+const restClient = RestClient();
+
+export default restClient;
