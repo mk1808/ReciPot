@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { NavLink } from 'react-router-dom';
 
 function Header() {
   const [isLogged, setIsLogged] = useState(true);
@@ -21,25 +22,25 @@ function Header() {
           >
           </Nav>
           <Nav>
-            <Nav.Link href="#action1">Strona główna</Nav.Link>
-            <Nav.Link href="#action1">Szukaj przepisów</Nav.Link>
+            <Nav.Link as={NavLink} to='/' >Strona główna</Nav.Link>
+            <Nav.Link as={NavLink} to="/recipes/filter">Szukaj przepisów</Nav.Link>
             {isLogged &&
               <>
-                <Nav.Link href="#action1">Dodaj przepis</Nav.Link>
-                <Nav.Link href="#action1">Kolekcje</Nav.Link>
-                <Nav.Link href="#action1">Powiadomienia</Nav.Link>
+                <Nav.Link as={NavLink} to="/recipes/add">Dodaj przepis</Nav.Link>
+                <Nav.Link as={NavLink} to="/recipeCollections">Kolekcje</Nav.Link>
+                <Nav.Link as={NavLink} to="/recipes/filter">Powiadomienia</Nav.Link>
               </>
             }
-            <NavDropdown title="Konto" id="navbarScrollingDropdown" >
+            <NavDropdown title="Konto" id="navbarScrollingDropdown" align="end">
               {!isLogged &&
                 <>
-                  <NavDropdown.Item href="#action3">Zaloguj</NavDropdown.Item>
-                  <NavDropdown.Item href="#action3">Zarejestruj</NavDropdown.Item>
+                  <NavDropdown.Item as={NavLink} to="/login">Zaloguj</NavDropdown.Item>
+                  <NavDropdown.Item as={NavLink} to="/register">Zarejestruj</NavDropdown.Item>
                 </>
               }
               {isLogged && <>
-                <NavDropdown.Item href="#action3">Moje konto</NavDropdown.Item>
-                <NavDropdown.Item href="#action3"><Button>Wyloguj</Button></NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to="/user">Moje konto</NavDropdown.Item>
+                <NavDropdown.Item as={Button} >Wyloguj2</NavDropdown.Item>
               </>
               }
             </NavDropdown>
