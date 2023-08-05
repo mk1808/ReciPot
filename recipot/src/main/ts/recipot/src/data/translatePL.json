@@ -1,0 +1,245 @@
+{
+    "commons": {
+        "error": {
+            "userNotOwner": "User has no rights to object",
+            "userIsOwner": "User is owner"
+        }
+    },
+    "auth": {
+        "success": {
+            "passwordChanged": "Password successfully changed"
+        },
+        "error": {
+            "passwordsNotEqual": "Passwords are not equal",
+            "userNotExists": "User does not exists",
+            "userExists": "User already exists"
+        }
+    },
+    "dictionaries": {
+        "success": {},
+        "error": {
+            "categoryExists": "This category already exists",
+            "categoryNotExists": "Category not found",
+            "hashTagExists": "This hashtag already exists",
+            "ingredientExists": "This ingredient already exists"
+        }
+    },
+    "notificationsM": {
+        "error": {}
+    },
+    "privateNotes": {
+        "success": {
+            "noteDeleted": "Recipe private note successfully deleted"
+        },
+        "error": {
+            "noteNotFound": "Private note not found for recipe"
+        }
+    },
+    "recipeCollections": {
+        "success": {
+            "collectionDeleted": "Collection successfully deleted",
+            "recipeDeletedFromCollection": "Recipe successfully deleted from collection"
+        },
+        "error": {
+            "collectionForUserExists": "Collection already exists for user",
+            "collectionNotExists": "Collection not found",
+            "recipeExistsInCollection": "Recipe already added to collection",
+            "recipeNotFoundInCollection": "Recipe not found in collection",
+            "defaultCollectionCannotBeDeleted": "User cannot delete default collection"
+        }
+    },
+    "recipes": {
+        "success": {
+            "visibilityChanged": "Recipe visibility successfully changed"
+        },
+        "error": {
+            "recipeNotFound": "Recipe not found",
+            "recipeAlreadyShared": "Recipe already shared with user",
+            "canNotShareRecipeWithOneself": "User cannot share recipe with oneself",
+            "ingredientsNotUnique": "Ingredients in recipe are not unique"
+        }
+    },
+    "savedRecipeFilters": {
+        "success": {
+            "savedRecipeFilterDeleted": "Saved recipe filter successfully deleted"
+        },
+        "error": {
+            "savedRecipeFilterExists": "User filter with that name already exists",
+            "savedRecipeFilterNotFound": "User filter not found"
+        }
+    },
+    "users": {
+        "success": {
+            "passwordChanged": "Password successfully changed"
+        },
+        "error": {
+            "noAccessToUser": "User does not have access to this user",
+            "userNotFound": "User not found"
+        }
+    },
+    "enums": {
+        "ChangeType": {
+            "ADDED": "Added",
+            "UPDATED": "Updated",
+            "DELETED": "Deleted"
+        },
+        "DefaultRecipeCollections": {
+            "NOTED": "Noted",
+            "COMMENTED": "Commented",
+            "SHARED_WITH_USER": "Shared with user",
+            "FAVOURITE": "Favourite",
+            "CREATED": "Created"
+        },
+        "NotificationType": {
+            "SHARED_RECIPE": "Shared recipe",
+            "RECIPE_COMMENTED": "Recipe commented"
+        },
+        "RecipeAccessType": {
+            "PRIVATE": "Private",
+            "PUBLIC": "Public"
+        },
+        "RecipeAmountOfDishes": {
+            "SMALL": "Small",
+            "MEDIUM": "Medium",
+            "LARGE": "Large"
+        },
+        "RecipeDifficulty": {
+            "EASY": "Easy",
+            "MEDIUM": "Medium",
+            "ADVANCED": "Advanced"
+        },
+        "RecipeRequiredEffort": {
+            "SMALL": "Small",
+            "MEDIUM": "Medium",
+            "LARGE": "Large"
+        }
+    },
+    "dtos": {
+        "ChangePasswordDto": {
+            "errors": {
+                "passwordBlank": "User password is required",
+                "passwordWeak": "Password too weak",
+                "matchingPasswordBlank": "User matchingPassword is required",
+                "userIdNull": "User id is required"
+            }
+        },
+        "UserLoginDto": {
+            "errors": {
+                "loginBlank": "Username is required",
+                "passwordBlank": "User password is required"
+            }
+        },
+        "UserRegisterDto": {
+            "errors": {
+                "emailBlank": "User email is required",
+                "emailInvalid": "User email is not valid",
+                "loginBlank": "User login is required",
+                "passwordBlank": "User password is required",
+                "passwordWeak": "Password too weak",
+                "matchingPasswordBlank": "User matchingPassword is required"
+            }
+        }
+    },
+    "models": {
+        "AppUser": {
+            "errors": {
+                "emailInvalid": "User email is not valid",
+                "loginBlank": "User login is required"
+            }
+        },
+        "Category": {
+            "errors": {
+                "nameBlank": "Category name is required"
+            }
+        },
+        "Comment": {
+            "errors": {
+                "recipeNull": "Comment recipe not provided",
+                "contentBlank": "Comment content is required"
+            }
+        },
+        "HashTag": {
+            "errors": {
+                "nameBlank": "HashTag name is required"
+            }
+        },
+        "Ingredient": {
+            "errors": {
+                "nameBlank": "Ingredient name is required"
+            }
+        },
+        "Notification": {
+            "errors": {
+                "ownerNull": "Notification owner is required",
+                "typeNull": "Notification type is required",
+                "valueBlank": "Notification value is required"
+            }
+        },
+        "PrivateNote": {
+            "errors": {
+                "recipeNull": "PrivateNote connected recipe is required",
+                "contentBlank": "PrivateNote content is required"
+            }
+        },
+        "Rating": {
+            "errors": {
+                "recipeNull": "Rating connected recipe is required",
+                "valueNull": "Rating value is required"
+            }
+        },
+        "Recipe": {
+            "errors": {
+                "nameBlank": "Recipe name is required"
+            }
+        },
+        "RecipeCollection": {
+            "errors": {
+                "nameBlank": "Recipe collection name is required"
+            }
+        },
+        "RecipeCollectionItem": {
+            "errors": {
+                "recipeNull": "Recipe is required"
+            }
+        },
+        "RecipeFilter": {
+            "errors": {
+                "nameBlank": "Recipe filter name is required",
+                "valueBlank": "Recipe filter value is required"
+            }
+        },
+        "RecipeIngredient": {
+            "errors": {
+                "ingredientNull": "Recipe ingredient is required",
+                "amountNull": "Recipe ingredient amount is required",
+                "unitBlank": "Recipe ingredient unit is required"
+            }
+        },
+        "RecipeStep": {
+            "errors": {
+                "orderNul": "Recipe step order is required",
+                "descriptionBlank": "Recipe step description is required"
+            }
+        },
+        "SharedRecipe": {
+            "errors": {
+                "recipeNull": "Shared recipe is required",
+                "receiverUserNull": "Shared recipe receiver user is required",
+                "commentBlank": "Shared recipe comment is required"
+            }
+        }
+    },
+    "p": {
+        "recipe": "Przepis",
+        "addRecipe": "Dodaj przepis",
+        "main": "Strona główna",
+        "search": "Szukaj przepisów",
+        "logout": "Wyloguj",
+        "login": "Zaloguj",
+        "register": "Zarejestruj",
+        "myAccount": "Moje konto",
+        "collections": "Kolekcje",
+        "notifications": "Powiadomienia",
+        "account": "Konto"
+    }
+}
