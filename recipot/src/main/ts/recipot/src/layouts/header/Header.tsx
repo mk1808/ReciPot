@@ -45,21 +45,6 @@ function Header() {
               }
             </NavDropdown>
           </Nav>
-
-
-          {/*  <Nav.Link href="#" disabled>
-              Link
-  </Nav.Link>*/}
-
-          {/*   <Form className="d-flex">
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button variant="outline-success">Search</Button>
-          </Form>*/}
         </Navbar.Collapse>
       </Container>
     </Navbar>
