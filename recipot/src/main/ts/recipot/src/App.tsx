@@ -18,6 +18,7 @@ import NoAccess from './pages/other/noAccess/NoAccess';
 import RecipeCollectionList from './pages/recipeCollection/list/RecipeCollectionList';
 import RecipeFilter from './pages/recipe/filter/RecipeFilter';
 import User from './pages/user/User';
+import { UserProvider } from './context/UserContext';
 
 const ProtectedRoute = ({ user, element }: any) => {
   if (!user) {
@@ -40,31 +41,33 @@ function App() {
 
   return (
     <div className="App">
-      <Header></Header>
-      <div className="main">
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/recipes/filter" element={<RecipeFilter />} />
-          <Route path="/recipes/add" element={
-            <ProtectedRoute user={user} element={<RecipeAdd />} />}
-          />
-          <Route path="/recipes/edit/:id" element={
-            <ProtectedRoute user={user} element={<RecipeAdd />} />}
-          />
-          <Route path="/recipes/:id" element={<RecipeDetails />} />
-          <Route path="/recipeCollections" element={
-            <ProtectedRoute user={user} element={<RecipeCollectionList />} />}
-          />
-          <Route path="/user" element={
-            <ProtectedRoute user={user} element={<User />} />}
-          />
-          <Route path="/noAccess" element={<NoAccess />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </div>
-      <Footer></Footer>
+      <UserProvider>
+        <Header></Header>
+        <div className="main">
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/recipes/filter" element={<RecipeFilter />} />
+            <Route path="/recipes/add" element={
+              <ProtectedRoute user={user} element={<RecipeAdd />} />}
+            />
+            <Route path="/recipes/edit/:id" element={
+              <ProtectedRoute user={user} element={<RecipeAdd />} />}
+            />
+            <Route path="/recipes/:id" element={<RecipeDetails />} />
+            <Route path="/recipeCollections" element={
+              <ProtectedRoute user={user} element={<RecipeCollectionList />} />}
+            />
+            <Route path="/user" element={
+              <ProtectedRoute user={user} element={<User />} />}
+            />
+            <Route path="/noAccess" element={<NoAccess />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
+        <Footer></Footer>
+      </UserProvider>
     </div>
   );
 }
