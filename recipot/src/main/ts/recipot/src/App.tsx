@@ -59,7 +59,7 @@ function App() {
         </a>
         <Button variant="primary" onClick={send}>Primary</Button>{' '}
       </header>
-      <Footer></Footer>
+
 
 
       <Routes>
@@ -68,21 +68,23 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/recipes/filter" element={<RecipeFilter />} />
         <Route path="/recipes/add" element={
-          <ProtectedRoute user={user} element={<RecipeAdd />} />} 
+          <ProtectedRoute user={user} element={<RecipeAdd />} />}
         />
         <Route path="/recipes/edit/:id" element={
-          <ProtectedRoute user={user} element={<RecipeAdd />} />} 
+          <ProtectedRoute user={user} element={<RecipeAdd />} />}
         />
         <Route path="/recipes/:id" element={<RecipeDetails />} />
         <Route path="/recipeCollections" element={
-          <ProtectedRoute user={user} element={<RecipeCollectionList />} />} 
+          <ProtectedRoute user={user} element={<RecipeCollectionList />} />}
         />
         <Route path="/user" element={
-          <ProtectedRoute user={user} element={<User />} />} 
+          <ProtectedRoute user={user} element={<User />} />}
         />
         <Route path="/noAccess" element={<NoAccess />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+
+      <Footer></Footer>
     </div>
   );
 }
