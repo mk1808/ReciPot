@@ -1,31 +1,15 @@
-import { Recipe } from "../data/types";
+import { AppUser, Response } from "../data/types";
 import restClient from "./RestClient";
 
-function RecipesApi() {
-    const PREFIX = '/recipes';
+function UsersApi() {
+    const PREFIX = '/users';
 
-    const postRecipe = (body: Recipe, onSuccess: () => any, onError: () => any) => {
-        restClient.create(`${PREFIX}`, body, onSuccess, onError)
+    const updateUser = (userId: string, body: AppUser, onSuccess: (response: Response<AppUser>) => any, onError: (response: Response<AppUser>) => any) => {
+        restClient.put(`${PREFIX}/${userId}`, body, onSuccess, onError)
     }
 
-    const getRecipe = (id: string, onSuccess: () => any, onError?: () => any) => {
-        restClient.get(`${PREFIX}/${id}`, onSuccess, onError)
-    }
-
-    const putRecipe = (id: string, body: Recipe, onSuccess: () => any, onError: () => any) => {
-        restClient.update(`${PREFIX}/${id}`, body, onSuccess, onError)
-    }
-
-    const changeVisibility = (id: string, onSuccess: () => any, onError: () => any) => {
-        restClient.patch(`${PREFIX}/visibility/${id}`, onSuccess, onError)
-    }
-
-    const share = (body: Recipe, onSuccess: () => any, onError: () => any) => {
-        restClient.create(`${PREFIX}/sharing`, body, onSuccess, onError)
-    }
-
-    return { postRecipe, getRecipe, putRecipe, changeVisibility, share }
+    return { updateUser }
 }
 
-const recipesApi = RecipesApi();
-export default recipesApi;
+const usersApi = UsersApi();
+export default usersApi;

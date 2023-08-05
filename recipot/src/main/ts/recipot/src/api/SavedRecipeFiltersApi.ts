@@ -1,31 +1,23 @@
-import { Recipe } from "../data/types";
+import { RecipeFilter, Response } from "../data/types";
 import restClient from "./RestClient";
 
-function RecipesApi() {
-    const PREFIX = '/recipes';
+function SavedRecipeFiltersApi() {
+    const PREFIX = '/savedRecipeFilters';
 
-    const postRecipe = (body: Recipe, onSuccess: () => any, onError: () => any) => {
-        restClient.create(`${PREFIX}`, body, onSuccess, onError)
+    const createRecipeFilter = (body: RecipeFilter, onSuccess: (response: Response<RecipeFilter>) => any, onError?: (response: Response<RecipeFilter>) => any) => {
+        restClient.post(`${PREFIX}`, body, onSuccess, onError)
     }
 
-    const getRecipe = (id: string, onSuccess: () => any, onError?: () => any) => {
-        restClient.get(`${PREFIX}/${id}`, onSuccess, onError)
+    const getRecipeFilters = (onSuccess: (response: Response<RecipeFilter[]>) => any, onError?: (response: Response<RecipeFilter[]>) => any) => {
+        restClient.get(`${PREFIX}`, onSuccess, onError)
     }
 
-    const putRecipe = (id: string, body: Recipe, onSuccess: () => any, onError: () => any) => {
-        restClient.update(`${PREFIX}/${id}`, body, onSuccess, onError)
+    const deleteRecipeFilter = (recipeFilterId: string, onSuccess: (response: Response<any>) => any, onError?: (response: Response<any>) => any) => {
+        restClient.delete(`${PREFIX}/${recipeFilterId}`, onSuccess, onError)
     }
 
-    const changeVisibility = (id: string, onSuccess: () => any, onError: () => any) => {
-        restClient.patch(`${PREFIX}/visibility/${id}`, onSuccess, onError)
-    }
-
-    const share = (body: Recipe, onSuccess: () => any, onError: () => any) => {
-        restClient.create(`${PREFIX}/sharing`, body, onSuccess, onError)
-    }
-
-    return { postRecipe, getRecipe, putRecipe, changeVisibility, share }
+    return { createRecipeFilter, getRecipeFilters, deleteRecipeFilter }
 }
 
-const recipesApi = RecipesApi();
-export default recipesApi;
+const savedRecipeFiltersApi = SavedRecipeFiltersApi();
+export default savedRecipeFiltersApi;

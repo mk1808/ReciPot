@@ -1,8 +1,10 @@
-function RestClient(): any {
+import { Response } from "../data/types";
+
+function RestClient() {
     const URL = "/api";
     const HEADER = { 'Content-Type': 'application/json; character=utf-8' };
 
-    const apiCall = (method: any, path: string | undefined, onSuccess: () => any, onError: () => any) => {
+    const apiCall = <T>(method: any, path: string | undefined, onSuccess: (response: Response<T>) => any, onError?: (response: Response<T>) => any) => {
         fetch(`${URL}${path}`, {
             method: method,
             headers: HEADER
@@ -12,9 +14,8 @@ function RestClient(): any {
             .catch(onError);
     }
 
-    const apiCallWithBody = (method: any, path: string | undefined, body: object, onSuccess: () => any, onError: () => any) => {
+    const apiCallWithBody = <T>(method: any, path: string | undefined, body: object, onSuccess: (response: Response<T>) => any, onError?: (response: Response<T>) => any) => {
         fetch(`${URL}${path}`, {
-
             method: method,
             headers: HEADER,
             body: JSON.stringify(body)
@@ -24,27 +25,27 @@ function RestClient(): any {
             .catch(onError);
     }
 
-    const _get = (path: string | undefined, onSuccess: () => any, onError: () => any) => {
+    const _get = <T>(path: string | undefined, onSuccess: (response: Response<T>) => any, onError?: (response: Response<T>) => any) => {
         apiCall('GET', path, onSuccess, onError)
     }
 
-    const _delete = (path: string | undefined, onSuccess: () => any, onError: () => any) => {
+    const _delete = <T>(path: string | undefined, onSuccess: (response: Response<T>) => any, onError?: (response: Response<T>) => any) => {
         apiCall('DELETE', path, onSuccess, onError)
     }
 
-    const _update = (path: string | undefined, body: object, onSuccess: () => any, onError: () => any) => {
-        apiCallWithBody('UPDATE', path, body, onSuccess, onError)
+    const _put = <T>(path: string | undefined, body: object, onSuccess: (response: Response<T>) => any, onError?: (response: Response<T>) => any) => {
+        apiCallWithBody('PUT', path, body, onSuccess, onError)
     }
 
-    const _create = (path: string | undefined, body: object, onSuccess: () => any, onError: () => any) => {
+    const _post = <T>(path: string | undefined, body: object, onSuccess: (response: Response<T>) => any, onError?: (response: Response<T>) => any) => {
         apiCallWithBody('POST', path, body, onSuccess, onError)
     }
 
-    const _patch = (path: string | undefined, body: object, onSuccess: () => any, onError: () => any) => {
+    const _patch = <T>(path: string | undefined, body: object, onSuccess: (response: Response<T>) => any, onError?: (response: Response<T>) => any) => {
         apiCallWithBody('PATCH', path, body, onSuccess, onError)
     }
 
-    return { get: _get, delete: _delete, update: _update, create: _create, patch:_patch }
+    return { get: _get, delete: _delete, put: _put, post: _post, patch: _patch }
 }
 
 const restClient = RestClient();

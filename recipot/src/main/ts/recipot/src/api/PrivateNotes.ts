@@ -1,31 +1,23 @@
-import { Recipe } from "../data/types";
+import { PrivateNote, Response } from "../data/types";
 import restClient from "./RestClient";
 
-function RecipesApi() {
-    const PREFIX = '/recipes';
+function PrivateNotesApi() {
+    const PREFIX = '/privateNotes';
 
-    const postRecipe = (body: Recipe, onSuccess: () => any, onError: () => any) => {
-        restClient.create(`${PREFIX}`, body, onSuccess, onError)
+    const createPrivateNote = (body: PrivateNote, onSuccess: (response: Response<PrivateNote>) => any, onError?: (response: Response<PrivateNote>) => any) => {
+        restClient.post(`${PREFIX}`, body, onSuccess, onError)
     }
 
-    const getRecipe = (id: string, onSuccess: () => any, onError?: () => any) => {
-        restClient.get(`${PREFIX}/${id}`, onSuccess, onError)
+    const deletePrivateNote = (privateNoteId: string, onSuccess: (response: Response<any>) => any, onError?: (response: Response<any>) => any) => {
+        restClient.delete(`${PREFIX}/${privateNoteId}`, onSuccess, onError)
     }
 
-    const putRecipe = (id: string, body: Recipe, onSuccess: () => any, onError: () => any) => {
-        restClient.update(`${PREFIX}/${id}`, body, onSuccess, onError)
+    const getPrivateNoteByRecipeId = (recipeId: string, onSuccess: (response: Response<PrivateNote>) => any, onError?: (response: Response<PrivateNote>) => any) => {
+        restClient.get(`${PREFIX}/${recipeId}`, onSuccess, onError)
     }
 
-    const changeVisibility = (id: string, onSuccess: () => any, onError: () => any) => {
-        restClient.patch(`${PREFIX}/visibility/${id}`, onSuccess, onError)
-    }
-
-    const share = (body: Recipe, onSuccess: () => any, onError: () => any) => {
-        restClient.create(`${PREFIX}/sharing`, body, onSuccess, onError)
-    }
-
-    return { postRecipe, getRecipe, putRecipe, changeVisibility, share }
+    return { createPrivateNote, deletePrivateNote, getPrivateNoteByRecipeId }
 }
 
-const recipesApi = RecipesApi();
-export default recipesApi;
+const privateNotesApi = PrivateNotesApi();
+export default privateNotesApi;

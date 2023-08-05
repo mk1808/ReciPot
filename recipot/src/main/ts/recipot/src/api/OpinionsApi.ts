@@ -1,31 +1,23 @@
-import { Recipe } from "../data/types";
+import { OpinionDto, Rating, Response } from "../data/types";
 import restClient from "./RestClient";
 
-function RecipesApi() {
-    const PREFIX = '/recipes';
+function OpinionsApi() {
+    const PREFIX = '/opinions';
 
-    const postRecipe = (body: Recipe, onSuccess: () => any, onError: () => any) => {
-        restClient.create(`${PREFIX}`, body, onSuccess, onError)
+    const createRating = (body: Rating, onSuccess: (response: Response<Rating>) => any, onError?: (response: Response<Rating>) => any) => {
+        restClient.post(`${PREFIX}/ratings`, body, onSuccess, onError)
     }
 
-    const getRecipe = (id: string, onSuccess: () => any, onError?: () => any) => {
-        restClient.get(`${PREFIX}/${id}`, onSuccess, onError)
+    const createComment = (body: Comment, onSuccess: (response: Response<Comment>) => any, onError?: (response: Response<Comment>) => any) => {
+        restClient.post(`${PREFIX}`, body, onSuccess, onError)
     }
 
-    const putRecipe = (id: string, body: Recipe, onSuccess: () => any, onError: () => any) => {
-        restClient.update(`${PREFIX}/${id}`, body, onSuccess, onError)
+    const getRecipeOpinions = (recipeId: string, onSuccess: (response: Response<OpinionDto[]>) => any, onError?: (response: Response<OpinionDto[]>) => any) => {
+        restClient.get(`${PREFIX}/${recipeId}`, onSuccess, onError)
     }
 
-    const changeVisibility = (id: string, onSuccess: () => any, onError: () => any) => {
-        restClient.patch(`${PREFIX}/visibility/${id}`, onSuccess, onError)
-    }
-
-    const share = (body: Recipe, onSuccess: () => any, onError: () => any) => {
-        restClient.create(`${PREFIX}/sharing`, body, onSuccess, onError)
-    }
-
-    return { postRecipe, getRecipe, putRecipe, changeVisibility, share }
+    return { createRating, createComment, getRecipeOpinions }
 }
 
-const recipesApi = RecipesApi();
-export default recipesApi;
+const opinionsApi = OpinionsApi();
+export default opinionsApi;

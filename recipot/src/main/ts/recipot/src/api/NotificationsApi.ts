@@ -1,31 +1,25 @@
-import { Recipe } from "../data/types";
+import { Response } from "../data/types";
+import { createPathParams } from "../utils/RestUtils";
 import restClient from "./RestClient";
 
-function RecipesApi() {
-    const PREFIX = '/recipes';
+function NotificationsApi() {
+    const PREFIX = '/notifications';
 
-    const postRecipe = (body: Recipe, onSuccess: () => any, onError: () => any) => {
-        restClient.create(`${PREFIX}`, body, onSuccess, onError)
+    const getLastNotifications = (params: { timeFrom?: number }, onSuccess: (response: Response<Notification[]>) => any, onError?: (response: Response<Notification[]>) => any) => {
+        var pathParams = createPathParams(params);
+        restClient.get(`${PREFIX}?${pathParams}`, onSuccess, onError)
     }
 
-    const getRecipe = (id: string, onSuccess: () => any, onError?: () => any) => {
-        restClient.get(`${PREFIX}/${id}`, onSuccess, onError)
+    const createNotification = (body: Notification, onSuccess: (response: Response<Notification>) => any, onError?: (response: Response<Notification>) => any) => {
+        restClient.post(`${PREFIX}`, body, onSuccess, onError)
     }
 
-    const putRecipe = (id: string, body: Recipe, onSuccess: () => any, onError: () => any) => {
-        restClient.update(`${PREFIX}/${id}`, body, onSuccess, onError)
+    const deleteNotification = (notificationId: string, onSuccess: (response: Response<any>) => any, onError?: (response: Response<any>) => any) => {
+        restClient.delete(`${PREFIX}/${notificationId}`, onSuccess, onError)
     }
 
-    const changeVisibility = (id: string, onSuccess: () => any, onError: () => any) => {
-        restClient.patch(`${PREFIX}/visibility/${id}`, onSuccess, onError)
-    }
-
-    const share = (body: Recipe, onSuccess: () => any, onError: () => any) => {
-        restClient.create(`${PREFIX}/sharing`, body, onSuccess, onError)
-    }
-
-    return { postRecipe, getRecipe, putRecipe, changeVisibility, share }
+    return { getLastNotifications, createNotification, deleteNotification }
 }
 
-const recipesApi = RecipesApi();
-export default recipesApi;
+const notificationsApi = NotificationsApi();
+export default notificationsApi;

@@ -1,31 +1,18 @@
-import { Recipe } from "../data/types";
+import { GeneralStatisticsDto, Response, UserStatisticsDto } from "../data/types";
 import restClient from "./RestClient";
 
-function RecipesApi() {
-    const PREFIX = '/recipes';
+function StatisticsApi() {
+    const PREFIX = '/statistics';
 
-    const postRecipe = (body: Recipe, onSuccess: () => any, onError: () => any) => {
-        restClient.create(`${PREFIX}`, body, onSuccess, onError)
+    const getGeneralStatistics = (onSuccess: (response: Response<GeneralStatisticsDto>) => any, onError?: (response: Response<GeneralStatisticsDto>) => any) => {
+        restClient.get(`${PREFIX}/general`, onSuccess, onError)
+    }
+    const getUserStatistics = (onSuccess: (response: Response<UserStatisticsDto>) => any, onError?: (response: Response<UserStatisticsDto>) => any) => {
+        restClient.get(`${PREFIX}/user`, onSuccess, onError)
     }
 
-    const getRecipe = (id: string, onSuccess: () => any, onError?: () => any) => {
-        restClient.get(`${PREFIX}/${id}`, onSuccess, onError)
-    }
-
-    const putRecipe = (id: string, body: Recipe, onSuccess: () => any, onError: () => any) => {
-        restClient.update(`${PREFIX}/${id}`, body, onSuccess, onError)
-    }
-
-    const changeVisibility = (id: string, onSuccess: () => any, onError: () => any) => {
-        restClient.patch(`${PREFIX}/visibility/${id}`, onSuccess, onError)
-    }
-
-    const share = (body: Recipe, onSuccess: () => any, onError: () => any) => {
-        restClient.create(`${PREFIX}/sharing`, body, onSuccess, onError)
-    }
-
-    return { postRecipe, getRecipe, putRecipe, changeVisibility, share }
+    return { getGeneralStatistics, getUserStatistics }
 }
 
-const recipesApi = RecipesApi();
-export default recipesApi;
+const statisticsApi = StatisticsApi();
+export default statisticsApi;

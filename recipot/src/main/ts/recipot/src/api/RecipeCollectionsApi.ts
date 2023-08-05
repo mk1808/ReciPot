@@ -1,31 +1,35 @@
-import { Recipe } from "../data/types";
+import { RecipeCollection, RecipeCollectionItem, Response } from "../data/types";
 import restClient from "./RestClient";
 
-function RecipesApi() {
-    const PREFIX = '/recipes';
+function RecipeCollectionsApi() {
+    const PREFIX = '/recipeCollections';
 
-    const postRecipe = (body: Recipe, onSuccess: () => any, onError: () => any) => {
-        restClient.create(`${PREFIX}`, body, onSuccess, onError)
+    const createCollection = (body: RecipeCollection, onSuccess: (response: Response<RecipeCollection>) => any, onError?: (response: Response<RecipeCollection>) => any) => {
+        restClient.post(`${PREFIX}`, body, onSuccess, onError)
     }
 
-    const getRecipe = (id: string, onSuccess: () => any, onError?: () => any) => {
-        restClient.get(`${PREFIX}/${id}`, onSuccess, onError)
+    const addCollectionItem = (collectionId: string, body: RecipeCollectionItem, onSuccess: (response: Response<RecipeCollectionItem>) => any, onError?: (response: Response<RecipeCollectionItem>) => any) => {
+        restClient.post(`${PREFIX}/${collectionId}/recipe`, body, onSuccess, onError)
     }
 
-    const putRecipe = (id: string, body: Recipe, onSuccess: () => any, onError: () => any) => {
-        restClient.update(`${PREFIX}/${id}`, body, onSuccess, onError)
+    const getCollection = (collectionId: string, onSuccess: (response: Response<RecipeCollection>) => any, onError?: (response: Response<RecipeCollection>) => any) => {
+        restClient.get(`${PREFIX}/${collectionId}`, onSuccess, onError)
     }
 
-    const changeVisibility = (id: string, onSuccess: () => any, onError: () => any) => {
-        restClient.patch(`${PREFIX}/visibility/${id}`, onSuccess, onError)
+    const getUserRecipeCollections = (onSuccess: (response: Response<RecipeCollection[]>) => any, onError?: (response: Response<RecipeCollection[]>) => any) => {
+        restClient.get(`${PREFIX}`, onSuccess, onError)
     }
 
-    const share = (body: Recipe, onSuccess: () => any, onError: () => any) => {
-        restClient.create(`${PREFIX}/sharing`, body, onSuccess, onError)
+    const deleteRecipeFromCollection = (collectionId: string, recipeId: string, onSuccess: (response: Response<any>) => any, onError?: (response: Response<any>) => any) => {
+        restClient.delete(`${PREFIX}/${collectionId}/recipe/${recipeId}`, onSuccess, onError)
     }
 
-    return { postRecipe, getRecipe, putRecipe, changeVisibility, share }
+    const deleteCollection = (collectionId: string, onSuccess: (response: Response<any>) => any, onError?: (response: Response<any>) => any) => {
+        restClient.delete(`${PREFIX}/${collectionId}`, onSuccess, onError)
+    }
+
+    return { createCollection, addCollectionItem, getCollection, getUserRecipeCollections, deleteRecipeFromCollection, deleteCollection }
 }
 
-const recipesApi = RecipesApi();
-export default recipesApi;
+const recipeCollectionsApi = RecipeCollectionsApi();
+export default recipeCollectionsApi;
