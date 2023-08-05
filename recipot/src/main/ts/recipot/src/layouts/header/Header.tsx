@@ -6,6 +6,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { NavLink } from 'react-router-dom';
+import { GiCookingPot } from 'react-icons/gi';
 
 function Header() {
   const [isLogged, setIsLogged] = useState(true);
@@ -20,6 +21,7 @@ function Header() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
+            <GiCookingPot className='fs-4'/>
           </Nav>
           <Nav>
             <Nav.Link as={NavLink} to='/' >Strona główna</Nav.Link>
