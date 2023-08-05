@@ -12,7 +12,15 @@ import Register from './pages/auth/register/Register';
 import NotFound from './pages/other/notFound/NotFound';
 import RecipeDetails from './pages/recipe/details/RecipeDetails';
 import RecipeAdd from './pages/recipe/add/RecipeAdd';
+import NoAccess from './pages/other/noAccess/NoAccess';
 
+const ProtectedRoute = ({ user, children }: any) => {
+  if (!user) {
+    return <Navigate to="/noAccess" replace />;
+  }
+
+  return children;
+};
 
 function App() {
 
@@ -24,10 +32,7 @@ function App() {
   const send = () => {
     recipesApi.getRecipe('14e1ea5f-b236-4f4a-b3ab-cdc6b7b93562', () => { })
   }
-  const hasAccess=true;
-
-
-
+  const user = undefined;//{id:'abcd'};
 
   return (
     <div className="App">
@@ -53,14 +58,18 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/recipes/add" element={<RecipeAdd />} />
+        <Route
+          path="/recipes/add"
+          element={
+            <ProtectedRoute user={user}>
+              <RecipeAdd />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/recipes/:id" element={<RecipeDetails />} />
+        <Route path="/noAccess" element={<NoAccess />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-
-
-
-
     </div>
   );
 }
