@@ -115,9 +115,7 @@
 						<pattern>pl.mk.recipot.**.dtos.**</pattern>
 					</classPatterns>
 					<outputKind>module</outputKind>
-					<outputFile>src\main\ts\recipot\src\data\types.ts</outputFile>
-					<mapClasses>asClasses</mapClasses>
-					<outputFileType>implementationFile</outputFileType>
+					<outputFile>src\main\ts\recipot\src\data\types.d.ts</outputFile>
 				</configuration>
 			</plugin>
 		</plugins>
