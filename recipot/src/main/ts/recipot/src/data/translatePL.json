@@ -1,27 +1,27 @@
 {
     "commons": {
         "error": {
-            "userNotOwner": "User has no rights to object",
-            "userIsOwner": "User is owner"
+            "userNotOwner": "Użytkownik nie ma praw do obiektu",
+            "userIsOwner": "Użytkownik jest właścicielem"
         }
     },
     "auth": {
         "success": {
-            "passwordChanged": "Password successfully changed"
+            "passwordChanged": "Hasło poprawnie zmienione"
         },
         "error": {
-            "passwordsNotEqual": "Passwords are not equal",
-            "userNotExists": "User does not exists",
-            "userExists": "User already exists"
+            "passwordsNotEqual": "Hasła nie są takie same",
+            "userNotExists": "Użytkownik nie istnieje",
+            "userExists": "Użytkownik istnieje"
         }
     },
     "dictionaries": {
         "success": {},
         "error": {
-            "categoryExists": "This category already exists",
-            "categoryNotExists": "Category not found",
-            "hashTagExists": "This hashtag already exists",
-            "ingredientExists": "This ingredient already exists"
+            "categoryExists": "Kategoria istnieje",
+            "categoryNotExists": "Kategoria nie istnieje",
+            "hashTagExists": "Tag istnieje",
+            "ingredientExists": "Składnik istnieje"
         }
     },
     "notificationsM": {
@@ -29,203 +29,203 @@
     },
     "privateNotes": {
         "success": {
-            "noteDeleted": "Recipe private note successfully deleted"
+            "noteDeleted": "Notatka przepisu została usunięta"
         },
         "error": {
-            "noteNotFound": "Private note not found for recipe"
+            "noteNotFound": "Nie znaleziono notatki dla przepisu"
         }
     },
     "recipeCollections": {
         "success": {
-            "collectionDeleted": "Collection successfully deleted",
-            "recipeDeletedFromCollection": "Recipe successfully deleted from collection"
+            "collectionDeleted": "Kolekcja usunięta",
+            "recipeDeletedFromCollection": "Przepis usunięty z kolekcji"
         },
         "error": {
-            "collectionForUserExists": "Collection already exists for user",
-            "collectionNotExists": "Collection not found",
-            "recipeExistsInCollection": "Recipe already added to collection",
-            "recipeNotFoundInCollection": "Recipe not found in collection",
-            "defaultCollectionCannotBeDeleted": "User cannot delete default collection"
+            "collectionForUserExists": "Kolekcja użytkownika już istnieje",
+            "collectionNotExists": "Kolekcja nie istnieje",
+            "recipeExistsInCollection": "Przepis był dodany do kolekcji",
+            "recipeNotFoundInCollection": "Przepis nie znaleziono w kolekcji",
+            "defaultCollectionCannotBeDeleted": "Nie można usunąć domyślnej kolekcji"
         }
     },
     "recipes": {
         "success": {
-            "visibilityChanged": "Recipe visibility successfully changed"
+            "visibilityChanged": "Widoczność przepisu zmieniona"
         },
         "error": {
-            "recipeNotFound": "Recipe not found",
-            "recipeAlreadyShared": "Recipe already shared with user",
-            "canNotShareRecipeWithOneself": "User cannot share recipe with oneself",
-            "ingredientsNotUnique": "Ingredients in recipe are not unique"
+            "recipeNotFound": "Nie odnaleziono przepisu",
+            "recipeAlreadyShared": "Przepis jest już udostępniony użytkownikowi",
+            "canNotShareRecipeWithOneself": "Użytkownik nie może udostępnić przepisu samemu sobie",
+            "ingredientsNotUnique": "Składniki przepisu powtarzają się"
         }
     },
     "savedRecipeFilters": {
         "success": {
-            "savedRecipeFilterDeleted": "Saved recipe filter successfully deleted"
+            "savedRecipeFilterDeleted": "Skasowano zapisany filtr"
         },
         "error": {
-            "savedRecipeFilterExists": "User filter with that name already exists",
-            "savedRecipeFilterNotFound": "User filter not found"
+            "savedRecipeFilterExists": "Filtr o tej nazwie już istnieje",
+            "savedRecipeFilterNotFound": "Filtr nie został odnaleziony"
         }
     },
     "users": {
         "success": {
-            "passwordChanged": "Password successfully changed"
+            "passwordChanged": "Hasło zostało zmienione"
         },
         "error": {
-            "noAccessToUser": "User does not have access to this user",
-            "userNotFound": "User not found"
+            "noAccessToUser": "Brak praw do użytkownika",
+            "userNotFound": "Nie odnaleziono użytkownika"
         }
     },
     "enums": {
         "ChangeType": {
-            "ADDED": "Added",
-            "UPDATED": "Updated",
-            "DELETED": "Deleted"
+            "ADDED": "Dodano",
+            "UPDATED": "Zaktualizowano",
+            "DELETED": "Skasowano"
         },
         "DefaultRecipeCollections": {
-            "NOTED": "Noted",
-            "COMMENTED": "Commented",
-            "SHARED_WITH_USER": "Shared with user",
-            "FAVOURITE": "Favourite",
-            "CREATED": "Created"
+            "NOTED": "Z dodaną notatką",
+            "COMMENTED": "Skomentowane",
+            "SHARED_WITH_USER": "Udostępnione",
+            "FAVOURITE": "Ulubione",
+            "CREATED": "Własne"
         },
         "NotificationType": {
-            "SHARED_RECIPE": "Shared recipe",
-            "RECIPE_COMMENTED": "Recipe commented"
+            "SHARED_RECIPE": "Udostępniono przepis",
+            "RECIPE_COMMENTED": "Skomentowano przepis"
         },
         "RecipeAccessType": {
-            "PRIVATE": "Private",
-            "PUBLIC": "Public"
+            "PRIVATE": "Prywatny",
+            "PUBLIC": "Publiczny"
         },
         "RecipeAmountOfDishes": {
-            "SMALL": "Small",
-            "MEDIUM": "Medium",
-            "LARGE": "Large"
+            "SMALL": "Mało",
+            "MEDIUM": "Przeciętnie",
+            "LARGE": "Dużo"
         },
         "RecipeDifficulty": {
-            "EASY": "Easy",
-            "MEDIUM": "Medium",
-            "ADVANCED": "Advanced"
+            "EASY": "Łatwy",
+            "MEDIUM": "Przeciętny",
+            "ADVANCED": "Zaawansowany"
         },
         "RecipeRequiredEffort": {
-            "SMALL": "Small",
-            "MEDIUM": "Medium",
-            "LARGE": "Large"
+            "SMALL": "Mało",
+            "MEDIUM": "Przeciętnie",
+            "LARGE": "Dużo"
         }
     },
     "dtos": {
         "ChangePasswordDto": {
             "errors": {
-                "passwordBlank": "User password is required",
-                "passwordWeak": "Password too weak",
-                "matchingPasswordBlank": "User matchingPassword is required",
-                "userIdNull": "User id is required"
+                "passwordBlank": "Hasło jest wymagane",
+                "passwordWeak": "Hasło zbyt słabe",
+                "matchingPasswordBlank": "Potwierdzenie hasła jest wymagane",
+                "userIdNull": "Brak wskazanego Id użytkownika"
             }
         },
         "UserLoginDto": {
             "errors": {
-                "loginBlank": "Username is required",
-                "passwordBlank": "User password is required"
+                "loginBlank": "Nazwa użytkownika jest wymagana",
+                "passwordBlank": "Hasło jest wymagane"
             }
         },
         "UserRegisterDto": {
             "errors": {
-                "emailBlank": "User email is required",
-                "emailInvalid": "User email is not valid",
-                "loginBlank": "User login is required",
-                "passwordBlank": "User password is required",
-                "passwordWeak": "Password too weak",
-                "matchingPasswordBlank": "User matchingPassword is required"
+                "emailBlank": "Email jest wymagany",
+                "emailInvalid": "Email nie jest poprawny",
+                "loginBlank": "Login jest wymagany",
+                "passwordBlank": "Hasło jest wymagane",
+                "passwordWeak": "Hasło jest zbyt słabe",
+                "matchingPasswordBlank": "Potwierdzenie hasła jest wymagane"
             }
         }
     },
     "models": {
         "AppUser": {
             "errors": {
-                "emailInvalid": "User email is not valid",
-                "loginBlank": "User login is required"
+                "emailInvalid": "Email nie jest poprawny",
+                "loginBlank": "Login jest wymagany"
             }
         },
         "Category": {
             "errors": {
-                "nameBlank": "Category name is required"
+                "nameBlank": "Nazwa kategorii jest wymagana"
             }
         },
         "Comment": {
             "errors": {
-                "recipeNull": "Comment recipe not provided",
-                "contentBlank": "Comment content is required"
+                "recipeNull": "Brak wskazania przepisu dla komentarza",
+                "contentBlank": "Treść komentarza jest wymagana"
             }
         },
         "HashTag": {
             "errors": {
-                "nameBlank": "HashTag name is required"
+                "nameBlank": "Nazwa tagu jest wymagana"
             }
         },
         "Ingredient": {
             "errors": {
-                "nameBlank": "Ingredient name is required"
+                "nameBlank": "Nazwa składnika jest wymagana"
             }
         },
         "Notification": {
             "errors": {
-                "ownerNull": "Notification owner is required",
-                "typeNull": "Notification type is required",
-                "valueBlank": "Notification value is required"
+                "ownerNull": "Adresat powiadomienia jest wymagany",
+                "typeNull": "Rodzaj powiadomienia jest wymagany",
+                "valueBlank": "Wartość powiadomienia jest wymagana"
             }
         },
         "PrivateNote": {
             "errors": {
-                "recipeNull": "PrivateNote connected recipe is required",
-                "contentBlank": "PrivateNote content is required"
+                "recipeNull": "Brak wskazania przepisu dla notatki",
+                "contentBlank": "Brak treści notatki"
             }
         },
         "Rating": {
             "errors": {
-                "recipeNull": "Rating connected recipe is required",
-                "valueNull": "Rating value is required"
+                "recipeNull": "Brak wskazania przepisu dla oceny",
+                "valueNull": "Brak wartości oceny"
             }
         },
         "Recipe": {
             "errors": {
-                "nameBlank": "Recipe name is required"
+                "nameBlank": "Nazwa przepisu jest wymagana"
             }
         },
         "RecipeCollection": {
             "errors": {
-                "nameBlank": "Recipe collection name is required"
+                "nameBlank": "Nazwa kolekcji jest wymagana"
             }
         },
         "RecipeCollectionItem": {
             "errors": {
-                "recipeNull": "Recipe is required"
+                "recipeNull": "Brak wskazania przepisu"
             }
         },
         "RecipeFilter": {
             "errors": {
-                "nameBlank": "Recipe filter name is required",
-                "valueBlank": "Recipe filter value is required"
+                "nameBlank": "Nazwa filtru jest wymagana",
+                "valueBlank": "Wartość filtru jest wymagana"
             }
         },
         "RecipeIngredient": {
             "errors": {
-                "ingredientNull": "Recipe ingredient is required",
-                "amountNull": "Recipe ingredient amount is required",
-                "unitBlank": "Recipe ingredient unit is required"
+                "ingredientNull": "Składnik jest wymagany",
+                "amountNull": "Ilość składnika jest wymagana",
+                "unitBlank": "Jednostka składnika jest wymagana"
             }
         },
         "RecipeStep": {
             "errors": {
-                "orderNul": "Recipe step order is required",
-                "descriptionBlank": "Recipe step description is required"
+                "orderNul": "Wymagane określenie kolejności kroków",
+                "descriptionBlank": "Opis kroku jest wymagany"
             }
         },
         "SharedRecipe": {
             "errors": {
-                "recipeNull": "Shared recipe is required",
-                "receiverUserNull": "Shared recipe receiver user is required",
-                "commentBlank": "Shared recipe comment is required"
+                "recipeNull": "Brak wskazania przepisu",
+                "receiverUserNull": "Brak wskazania adresata",
+                "commentBlank": "Komentarz udostępnienia jest wymagany"
             }
         }
     },
