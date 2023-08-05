@@ -66,6 +66,9 @@ function App() {
         <Route path="/recipes/add" element={
           <ProtectedRoute user={user} element={<RecipeAdd />} />} 
         />
+        <Route path="/recipes/edit/:id" element={
+          <ProtectedRoute user={user} element={<RecipeAdd />} />} 
+        />
         <Route path="/recipes/:id" element={<RecipeDetails />} />
         <Route path="/recipeCollections" element={
           <ProtectedRoute user={user} element={<RecipeCollectionList />} />} 
