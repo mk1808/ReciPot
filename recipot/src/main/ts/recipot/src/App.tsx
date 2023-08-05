@@ -6,6 +6,8 @@ import Button from 'react-bootstrap/Button';
 import restClient from './api/RestClient';
 import recipesApi from './api/RecipesApi';
 import authApi from './api/AuthApi';
+import Header from './layouts/header/Header';
+import Footer from './layouts/footer/Footer';
 import Main from './pages/main/Main';
 import Login from './pages/auth/login/Login';
 import Register from './pages/auth/register/Register';
@@ -34,51 +36,35 @@ function App() {
   const send = () => {
     recipesApi.getRecipe('14e1ea5f-b236-4f4a-b3ab-cdc6b7b93562', () => { })
   }
-  const user =  undefined;//{ id: 'abcd' };    undefined;
+  const user = undefined;//{ id: 'abcd' };    undefined;
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-
-
-          Learn React
-
-        </a>
-        <Button variant="primary" onClick={send}>Primary</Button>{' '}
-      </header>
-
-
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/recipes/filter" element={<RecipeFilter />} />
-        <Route path="/recipes/add" element={
-          <ProtectedRoute user={user} element={<RecipeAdd />} />} 
-        />
-        <Route path="/recipes/edit/:id" element={
-          <ProtectedRoute user={user} element={<RecipeAdd />} />} 
-        />
-        <Route path="/recipes/:id" element={<RecipeDetails />} />
-        <Route path="/recipeCollections" element={
-          <ProtectedRoute user={user} element={<RecipeCollectionList />} />} 
-        />
-        <Route path="/user" element={
-          <ProtectedRoute user={user} element={<User />} />} 
-        />
-        <Route path="/noAccess" element={<NoAccess />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <Header></Header>
+      <div className="main">
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/recipes/filter" element={<RecipeFilter />} />
+          <Route path="/recipes/add" element={
+            <ProtectedRoute user={user} element={<RecipeAdd />} />}
+          />
+          <Route path="/recipes/edit/:id" element={
+            <ProtectedRoute user={user} element={<RecipeAdd />} />}
+          />
+          <Route path="/recipes/:id" element={<RecipeDetails />} />
+          <Route path="/recipeCollections" element={
+            <ProtectedRoute user={user} element={<RecipeCollectionList />} />}
+          />
+          <Route path="/user" element={
+            <ProtectedRoute user={user} element={<User />} />}
+          />
+          <Route path="/noAccess" element={<NoAccess />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+      <Footer></Footer>
     </div>
   );
 }
