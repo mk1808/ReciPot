@@ -35,6 +35,8 @@ public class RecipeSpecification implements Specification<Recipe> {
             if(searchCriteria.getFilterKey().equals("a")){
                 return criteriaBuilder.like(criteriaBuilder.lower(userJoin(root).<String>get(searchCriteria.getFilterKey())), "%" + strToSearch + "%");
             }
+            
+            
             return criteriaBuilder.like(criteriaBuilder.lower(root.get(searchCriteria.getFilterKey())), "%" + strToSearch + "%");
 
         case DOES_NOT_CONTAIN:
@@ -72,6 +74,11 @@ public class RecipeSpecification implements Specification<Recipe> {
                 System.out.println(searchCriteria.getValue());
                 return criteriaBuilder.equal(userJoin(root).<String>get("login"), searchCriteria.getValue());
             }
+            
+            if (searchCriteria.getFilterKey().equals("numberOfDishes")) {
+        		int num =  RecipeAmountOfDishes.valueOf((String) searchCriteria.getValue()).ordinal(); 
+        		return criteriaBuilder.equal(root.get(searchCriteria.getFilterKey()), num);
+        	}
             return criteriaBuilder.equal(root.get(searchCriteria.getFilterKey()), searchCriteria.getValue());
 
         case NOT_EQUAL:
