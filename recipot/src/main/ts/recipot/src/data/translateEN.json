@@ -240,6 +240,8 @@
 		"myAccount": "My account",
 		"collections": "Collections",
 		"notifications": "Notifications",
-		"account": "Account"
+		"account": "Account",
+		"selectValue": "Select value",
+		"searchOrNew": "Search or type new value"
 	}
 }
