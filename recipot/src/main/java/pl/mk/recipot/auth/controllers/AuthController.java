@@ -9,6 +9,7 @@ import pl.mk.recipot.commons.dtos.ChangePasswordDto;
 import pl.mk.recipot.commons.dtos.Response;
 import pl.mk.recipot.commons.dtos.UserRegisterDto;
 import pl.mk.recipot.commons.factories.OkMessageResponseFactory;
+import pl.mk.recipot.commons.factories.OkResponseFactory;
 import pl.mk.recipot.commons.models.AppUser;
 
 @RestController
@@ -30,6 +31,11 @@ public class AuthController implements IAuthController {
 	public ResponseEntity<Response<Void>> changePassword(ChangePasswordDto changePasswordDto) {
 		authService.changePassword(changePasswordDto);
 		return new OkMessageResponseFactory().createResponse("auth.success.passwordChanged");
+	}
+
+	@Override
+	public ResponseEntity<Response<AppUser>> whoAmI() {
+		return new OkResponseFactory().createResponse(authService.getCurrentUser());
 	}
 
 }
