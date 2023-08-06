@@ -10,6 +10,7 @@ import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import pl.mk.recipot.commons.dtos.SearchCriteriaDto;
+import pl.mk.recipot.commons.enums.RecipeAmountOfDishes;
 import pl.mk.recipot.commons.enums.SearchOperation;
 import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.models.AppUser;
@@ -25,8 +26,9 @@ public class RecipeSpecification implements Specification<Recipe> {
 
 	@Override
 	public Predicate toPredicate(Root<Recipe> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-
 		String strToSearch = searchCriteria.getValue().toString().toLowerCase();
+		
+		RecipeAmountOfDishes.valueOf("SMALL").ordinal();
 
 		switch (Objects.requireNonNull(SearchOperation.getSimpleOperation(searchCriteria.getOperation()))) {
 		case CONTAINS:
@@ -66,9 +68,9 @@ public class RecipeSpecification implements Specification<Recipe> {
             return criteriaBuilder.notLike(criteriaBuilder.lower(root.get(searchCriteria.getFilterKey())), "%" + strToSearch);
 
         case EQUAL:
-            if(searchCriteria.getFilterKey().equals("deptName")){
+            if(searchCriteria.getFilterKey().equals("user")){
                 System.out.println(searchCriteria.getValue());
-                return criteriaBuilder.equal(userJoin(root).<String>get(searchCriteria.getFilterKey()), searchCriteria.getValue());
+                return criteriaBuilder.equal(userJoin(root).<String>get("login"), searchCriteria.getValue());
             }
             return criteriaBuilder.equal(root.get(searchCriteria.getFilterKey()), searchCriteria.getValue());
 
@@ -85,15 +87,28 @@ public class RecipeSpecification implements Specification<Recipe> {
             return criteriaBuilder.isNotNull(root.get(searchCriteria.getFilterKey()));
 
         case GREATER_THAN:
+        	if (searchCriteria.getFilterKey().equals("numberOfDishes")) {
+        		searchCriteria.setValue( RecipeAmountOfDishes.valueOf((String) searchCriteria.getValue()).ordinal()); 
+        	}
             return criteriaBuilder.greaterThan(root.<String> get(searchCriteria.getFilterKey()), searchCriteria.getValue().toString());
 
         case GREATER_THAN_EQUAL:
+        	if (searchCriteria.getFilterKey().equals("numberOfDishes")) {
+        		int num =  RecipeAmountOfDishes.valueOf((String) searchCriteria.getValue()).ordinal(); 
+        		return criteriaBuilder.greaterThanOrEqualTo(root.<String> get(searchCriteria.getFilterKey()), String.valueOf(num));
+        	}
             return criteriaBuilder.greaterThanOrEqualTo(root.<String> get(searchCriteria.getFilterKey()), searchCriteria.getValue().toString());
 
         case LESS_THAN:
+        	if (searchCriteria.getFilterKey().equals("numberOfDishes")) {
+        		searchCriteria.setValue( RecipeAmountOfDishes.valueOf((String) searchCriteria.getValue()).ordinal()); 
+        	}
             return criteriaBuilder.lessThan(root.<String> get(searchCriteria.getFilterKey()), searchCriteria.getValue().toString());
 
         case LESS_THAN_EQUAL:
+        	if (searchCriteria.getFilterKey().equals("numberOfDishes")) {
+        		searchCriteria.setValue( RecipeAmountOfDishes.valueOf((String) searchCriteria.getValue()).ordinal()); 
+        	}
             return criteriaBuilder.lessThanOrEqualTo(root.<String> get(searchCriteria.getFilterKey()), searchCriteria.getValue().toString());
 		}
 
@@ -101,7 +116,7 @@ public class RecipeSpecification implements Specification<Recipe> {
 	}
 
 	private Join<Recipe, AppUser> userJoin(Root<Recipe> root) {
-		return root.join("appUser");
+		return root.join("owner");
 	}
 
 }
