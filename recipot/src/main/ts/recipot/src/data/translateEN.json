@@ -2,7 +2,7 @@
 	"commons": {
 		"error": {
 			"userNotOwner": "User has no rights to object",
-			"userIsOwner":"User is owner"
+			"userIsOwner": "User is owner"
 		}
 	},
 	"auth": {
@@ -24,10 +24,8 @@
 			"ingredientExists": "This ingredient already exists"
 		}
 	},
-	"notifications": {
-		"error": {
-			
-		}
+	"notificationsM": {
+		"error": {}
 	},
 	"privateNotes": {
 		"success": {
@@ -230,5 +228,18 @@
 				"commentBlank": "Shared recipe comment is required"
 			}
 		}
+	},
+	"p": {
+		"recipe": "Recipe",
+		"addRecipe": "Add recipe",
+		"main": "Main page",
+		"search": "Search for recipes",
+		"logout": "Logout",
+		"login": "Login",
+		"register": "Register",
+		"myAccount": "My account",
+		"collections": "Collections",
+		"notifications": "Notifications",
+		"account": "Account"
 	}
 }
