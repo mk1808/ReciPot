@@ -18,6 +18,7 @@ import NoAccess from './pages/other/noAccess/NoAccess';
 import RecipeCollectionList from './pages/recipeCollection/list/RecipeCollectionList';
 import RecipeFilter from './pages/recipe/filter/RecipeFilter';
 import User from './pages/user/User';
+import Test from './pages/other/test/Test';
 
 const ProtectedRoute = ({ user, element }: any) => {
   if (!user) {
@@ -61,6 +62,7 @@ function App() {
             <ProtectedRoute user={user} element={<User />} />}
           />
           <Route path="/noAccess" element={<NoAccess />} />
+          <Route path="/test" element={<Test />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
