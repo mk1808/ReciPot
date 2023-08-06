@@ -1,6 +1,7 @@
 import { Stack } from "react-bootstrap";
 import './styles.scss';
 import HashTagBadge from "../../../components/basicUi/HashTagBadge";
+import SideOffcanvas from "../../../components/basicUi/SideOffcanvas";
 
 function Test() {
     return (<>
@@ -20,10 +21,12 @@ function Test() {
                 </Stack>
 
             </div>
-
-
         </Stack>
-
+        
+        <SideOffcanvas title="Offcanvas">
+            Some text as placeholder. In real life you can have the elements you
+            have chosen. Like, text, images, lists, etc.
+        </SideOffcanvas>
     </>
 
 
