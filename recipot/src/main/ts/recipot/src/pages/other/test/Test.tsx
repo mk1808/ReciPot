@@ -1,5 +1,6 @@
 import { Stack } from "react-bootstrap";
 import './styles.scss';
+import HashTagBadge from "../../../components/basicUi/HashTagBadge";
 
 function Test() {
     return (<>
@@ -11,7 +12,13 @@ function Test() {
         </Stack>
         <Stack className=" justify-content-center mt-5" direction="horizontal" gap={5}>
             <div className="p-4 mb-2 text-start test-szer-2">
-                <div className="p-4 text-start test-szer-3">itemitem</div>
+                <div className="p-4 mb-3 text-start test-szer-3">itemitem</div>
+                <Stack className=" mt-5" direction="horizontal">
+                    <HashTagBadge text="Obiady" />
+                    <HashTagBadge text="Zdrowe" />
+                    <HashTagBadge text="Wegetariańskie" />
+                </Stack>
+
             </div>
 
 
