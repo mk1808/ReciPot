@@ -1,8 +1,9 @@
-import { Stack } from "react-bootstrap";
+import { Button, Form, Stack } from "react-bootstrap";
 import './styles.scss';
 import HashTagBadge from "../../../components/basicUi/HashTagBadge";
 import SideOffcanvas from "../../../components/basicUi/SideOffcanvas";
 import RecipeCard from "../../../components/complex/RecipeCard";
+import MyAlert from "../../../components/basicUi/MyAlert";
 const omitNull = (obj: any) => {
     Object.keys(obj).filter(k => obj[k] === null).forEach(k => delete (obj[k]))
     return obj
@@ -35,7 +36,20 @@ function Test() {
                     <HashTagBadge text="Wegetariańskie" />
                 </Stack>
                 <RecipeCard className="mt-5" recipe={recipe} recipeCallback={recipeCallback}></RecipeCard >
+                 <Form.Check></Form.Check>
+        <Test1.Test2/>
+        <Test1.Test4/>
+        <MyAlert.Primary></MyAlert.Primary>
+
+        <MyAlert.Success></MyAlert.Success>
+        <MyAlert.Error></MyAlert.Error>
+     {  //<MyAlert.Success></MyAlert.Success>
+     
+     //   <MyAlert.Error></MyAlert.Error>
+     }
             </div>
+
+           
 
         </Stack>
 
@@ -44,12 +58,24 @@ function Test() {
             Some text as placeholder. In real life you can have the elements you
             have chosen. Like, text, images, lists, etc.
         </SideOffcanvas>
+
     </>
 
 
     );
 
 
+}
+
+function tempComp (){
+return <></>
+}
+
+
+const Test1 = {
+    Test2:()=><Button variant="primary"/>,
+ //   Test3:()=><tempComp />,
+    Test4:()=><div>2222222222</div>,
 }
 
 export default Test;
