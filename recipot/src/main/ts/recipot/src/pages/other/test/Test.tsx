@@ -4,6 +4,7 @@ import HashTagBadge from "../../../components/basicUi/HashTagBadge";
 import SideOffcanvas from "../../../components/basicUi/SideOffcanvas";
 import RecipeCard from "../../../components/complex/RecipeCard";
 import MyAlert from "../../../components/basicUi/MyAlert";
+import MyButton from "../../../components/basicUi/MyButton";
 const omitNull = (obj: any) => {
     Object.keys(obj).filter(k => obj[k] === null).forEach(k => delete (obj[k]))
     return obj
@@ -36,20 +37,24 @@ function Test() {
                     <HashTagBadge text="Wegetariańskie" />
                 </Stack>
                 <RecipeCard className="mt-5" recipe={recipe} recipeCallback={recipeCallback}></RecipeCard >
-                 <Form.Check></Form.Check>
-        <Test1.Test2/>
-        <Test1.Test4/>
-        <MyAlert.Primary></MyAlert.Primary>
+                <Form.Check></Form.Check>
+                <Test1.Test2 />
+                <Test1.Test4 />
+                <MyAlert.Primary></MyAlert.Primary>
 
-        <MyAlert.Success></MyAlert.Success>
-        <MyAlert.Error></MyAlert.Error>
-     {  //<MyAlert.Success></MyAlert.Success>
-     
-     //   <MyAlert.Error></MyAlert.Error>
-     }
+                <MyAlert.Success></MyAlert.Success>
+                <MyAlert.Error></MyAlert.Error>
+
+                <MyButton.Primary></MyButton.Primary>
+                <MyButton.Secondary></MyButton.Secondary>
+                <MyButton.Outline></MyButton.Outline>
+                {  //<MyAlert.Success></MyAlert.Success>
+
+                    //   <MyAlert.Error></MyAlert.Error>
+                }
             </div>
 
-           
+
 
         </Stack>
 
@@ -67,15 +72,15 @@ function Test() {
 
 }
 
-function tempComp (){
-return <></>
+function tempComp() {
+    return <></>
 }
 
 
 const Test1 = {
-    Test2:()=><Button variant="primary"/>,
- //   Test3:()=><tempComp />,
-    Test4:()=><div>2222222222</div>,
+    Test2: () => <Button variant="primary" />,
+    //   Test3:()=><tempComp />,
+    Test4: () => <div>2222222222</div>,
 }
 
 export default Test;
