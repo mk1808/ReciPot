@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
 import { useTranslation } from "react-i18next";
@@ -8,7 +8,7 @@ function FilteredSelect({
     label,
     placeholder = "p.selectValue",
     searchOrNew = "p.searchOrNew",
-    values = [],
+    valuesList = [],
     defaultValue,
     disabled = false,
     width = 200,
@@ -19,7 +19,6 @@ function FilteredSelect({
 
     const [selected, setSelected] = useState<any>(defaultValue);
     const [searchInputValue, setSearchInputValue] = useState<string>('');
-    const isVisible = useRef(false);
     const { t } = useTranslation();
 
     function onSearch(event: any) {
@@ -28,19 +27,17 @@ function FilteredSelect({
     }
 
     function onSelect(value: any) {
-        isVisible.current = false;
         setSelected(value);
         onSelectCallback(value);
     }
 
     function onDropdownToggle(nextShow: boolean) {
-        if (isVisible.current && searchInputValue) {
+        if (valuesList.length === 0 && searchInputValue) {
             setSelected({ value: searchInputValue, label: searchInputValue })
             onNewValueCallback(searchInputValue)
         }
         setSearchInputValue('');
         onSearchCallback('');
-        isVisible.current = nextShow;
     }
 
     return (
@@ -81,7 +78,7 @@ function FilteredSelect({
     }
 
     function renderValues() {
-        return (values as { value: any, label: string }[]).map(value =>
+        return (valuesList as { value: any, label: string }[]).map(value =>
             <Dropdown.Item key={value.label} onClick={() => onSelect(value)}>{value.label}</Dropdown.Item>
         )
     }

@@ -6,6 +6,8 @@ import dictionariesApi from "../../../api/DictionariesApi";
 import { HashTag } from "../../../data/types";
 import HashTagBadge from "../../../components/basicUi/HashTagBadge";
 import SideOffcanvas from "../../../components/basicUi/SideOffcanvas";
+import FilteredMultiSelect from "../../../components/complex/FilteredMultiSelect";
+import Form from 'react-bootstrap/Form';
 
 function Test() {
     return (<>
@@ -35,6 +37,12 @@ function Test() {
         <Stack className="" direction="horizontal" gap={5}>
             <div className="p-4">
                 <FilteredSelectTest />
+            </div>
+            <div className="p-4">
+                <FilteredMultiSelectTest />
+            </div>
+            <div className="p-4">
+                <Form.Check></Form.Check>
             </div>
         </Stack>
 
@@ -75,8 +83,41 @@ function FilteredSelectTest() {
     }
 
 
-    return <FilteredSelect label="Test wartości" values={filteredSelectValues} onSearchCallback={onSearchCallback} defaultValue={{ value: "asd", label: "dsa" }}
+    return <FilteredSelect label="Test wartości" valuesList={filteredSelectValues} onSearchCallback={onSearchCallback} defaultValue={{ value: "asd", label: "dsa" }}
         onSelectCallback={onSelectCallback} onNewValueCallback={onNewValueCallback} disabled={false} />
+}
+
+function FilteredMultiSelectTest() {
+    const [filteredSelectValues, setFilteredSelectValues] = useState<any[]>([]);
+
+    function onFilteredSelectSearchCallback(phrase: string) {
+        dictionariesApi.getHashTags({ name: phrase, size: 5 }, (response: any) => { setFilteredSelectValues(mapHashTagToSearchList(response.value.content)) })
+    }
+
+    function mapHashTagToSearchList(hashTags: HashTag[]) {
+        return hashTags.map(hashTag => { return { value: hashTag, label: hashTag.name } })
+    }
+
+    useEffect(() => {
+        onFilteredSelectSearchCallback('');
+    }, [])
+
+    function onSearchCallback(phrase: string) {
+        onFilteredSelectSearchCallback(phrase)
+        console.log("onSearchCallback", phrase)
+    }
+
+    function onSelectCallback(value: any) {
+        console.log("onSelectCallback", value)
+    }
+
+    function onNewValueCallback(value: string) {
+        console.log("onNewValueCallback", value)
+    }
+
+
+    return <FilteredMultiSelect label="Test multiSelect" valuesList={filteredSelectValues} onSearchCallback={onSearchCallback}
+        onSelectCallback={onSelectCallback} onNewValueCallback={onNewValueCallback} disabled={false} defaultValue={[{ label: "test123" }, { label: "abc_111" }]} />
 }
 
 export default Test;
