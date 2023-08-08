@@ -27,3 +27,45 @@
         }
     }
 }
+
+.statistic-circle {
+    position: relative;
+
+    div {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    &-value {
+        font-size: larger;
+    }
+
+    &-label {
+        font-size: large;
+    }
+
+    .half-circle {
+        border-radius: 50%;
+        background-color: red;
+        clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%);
+    }
+
+    .rotated {
+        animation: half-circle-rotator 4s infinite ease-in-out;
+    }
+
+    @keyframes half-circle-rotator {
+        0% {
+            transform: rotate(150deg);
+        }
+
+        50% {
+            transform: rotate(160deg);
+        }
+
+        100% {
+            transform: rotate(150deg);
+        }
+    }
+}

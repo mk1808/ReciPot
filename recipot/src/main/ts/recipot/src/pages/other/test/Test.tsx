@@ -8,6 +8,7 @@ import HashTagBadge from "../../../components/basicUi/HashTagBadge";
 import SideOffcanvas from "../../../components/basicUi/SideOffcanvas";
 import FilteredMultiSelect from "../../../components/complex/FilteredMultiSelect";
 import FilteredHierarchicalSelect from "../../../components/complex/FilteredHierarchicalSelect";
+import StatisticCircle from "../../../components/complex/StatisticCircle";
 
 function Test() {
     return (<>
@@ -46,6 +47,11 @@ function Test() {
             </div>
         </Stack>
 
+        <Stack className="" direction="horizontal" gap={5}>
+            <div className="p-4">
+                <StatisticCircle value="70.4%" label="Weird statistic" />
+            </div>
+        </Stack>
     </>
 
 
