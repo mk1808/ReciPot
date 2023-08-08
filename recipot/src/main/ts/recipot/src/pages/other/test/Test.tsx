@@ -12,7 +12,6 @@ import StatisticCircle from "../../../components/complex/StatisticCircle";
 import RecipeCard from "../../../components/complex/RecipeCard";
 import MyAlert from "../../../components/basicUi/MyAlert";
 import MyButton from "../../../components/basicUi/MyButton";
-import RecipeStepsNumbers from "../../../components/complex/RecipeStepsNumbers";
 
 const omitNull = (obj: any) => {
     Object.keys(obj).filter(k => obj[k] === null).forEach(k => delete (obj[k]))
@@ -31,26 +30,8 @@ function Test() {
     };
     const recipeCallback = () => { console.log("go") }
     const [show, setShow] = useState(false);
-    const [scrollTop, setScrollTop] = useState(0);
-    useEffect(() => {
-        const handleScroll = (event: any) => {
-            setScrollTop(window.scrollY);
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
 
-    }, [])
-    function getColor(): string {
-        let name = "my-block",
-            element = document.getElementById(name), //ref
-            offsetTop = element?.offsetTop || 0,
-            scrollTop = window?.scrollY || 0;
-        console.log("offset " + offsetTop)
-        console.log("scrl " + scrollTop)
-        return (offsetTop - scrollTop) < 500 ? "black" : "red";
-    }
+
     return (<>
         <h1>Test</h1>
         <Stack className=" justify-content-center" direction="horizontal" gap={5}>
@@ -68,7 +49,7 @@ function Test() {
                 </Stack>
                 <RecipeCard className="mt-5" recipe={recipe} recipeCallback={recipeCallback}></RecipeCard >
                 <Form.Check></Form.Check>
-                <div id="my-block" style={{ height: 20, width: 600, backgroundColor: getColor() }}></div>
+
                 <button onClick={() => { setShow(!show); }}>showme</button>
                 <div className="alert-container">
                     {show && <MyAlert.Primary >This is a primary alert—check it out!</MyAlert.Primary>}
@@ -79,9 +60,6 @@ function Test() {
                 <MyButton.Primary onClick={() => { console.log("btnz") }} className="button-400" disabled={false}>Zapisz</MyButton.Primary>
                 <MyButton.Secondary onClick={() => { console.log("btna") }}>Anuluj</MyButton.Secondary>
                 <MyButton.Outline onClick={() => { console.log("btni") }}>Inna opcja</MyButton.Outline>
-                <div>
-                    <RecipeStepsNumbers></RecipeStepsNumbers>
-                </div>
             </div>
         </Stack>
 
