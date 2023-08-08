@@ -61,8 +61,6 @@ function Test() {
                 </Stack>
                 <RecipeCard className="mt-5" recipe={recipe} recipeCallback={recipeCallback}></RecipeCard >
                 <Form.Check></Form.Check>
-                <Test1.Test2 />
-                <Test1.Test4 />
                 <div id="my-block" style={{ height: 20, width: 600, backgroundColor: getColor() }}></div>
                 <button onClick={() => { setShow(!show); }}>showme</button>
                 <div className="alert-container">
