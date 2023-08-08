@@ -30,6 +30,7 @@
 
 .statistic-circle {
     position: relative;
+    text-align: left;
 
     div {
         position: absolute;
@@ -39,15 +40,22 @@
 
     &-value {
         font-size: larger;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     &-label {
         font-size: large;
     }
 
+    .circle {
+        border-radius: 50%;
+    }
+
     .half-circle {
         border-radius: 50%;
-        background-color: red;
         clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%);
     }
 

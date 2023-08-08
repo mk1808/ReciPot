@@ -96,7 +96,10 @@ function Test() {
 
         <Stack className="" direction="horizontal" gap={5}>
             <div className="p-4">
-                <StatisticCircle value="70.4%" label="Weird statistic" />
+                <StatisticCircle value="70.4%" label="Basic statistic" />
+            </div>
+            <div className="p-4">
+                <StatisticCircle value="123" label="Other statistic" />
             </div>
         </Stack>
     </>
