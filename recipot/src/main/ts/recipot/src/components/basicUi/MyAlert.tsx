@@ -1,27 +1,41 @@
-import { Alert } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Alert, Fade } from "react-bootstrap";
 
-function PrimaryAlert() {
-    return <MyAlert variant="primary"></MyAlert>
+function PrimaryAlert({ children, show }: any) {
+    return <MyAlert variant="primary" show={show}>{children}</MyAlert>
 }
 
-function SuccessAlert() {
-    return <MyAlert variant="success"></MyAlert>
+function SuccessAlert({ children, show }: any) {
+    return <MyAlert variant="success" show={show}>{children}</MyAlert>
 }
 
-function ErrorAlert() {
-    return <MyAlert variant="danger"></MyAlert>
+function ErrorAlert({ children, show }: any) {
+    return <MyAlert variant="danger" show={show}>{children}</MyAlert>
 }
 
-function MyAlert({ variant }: any) {
+function MyAlert({ variant, children }: any) {
+    const [show, setShow] = useState(true);
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setShow(false);
+        }, 5_000);
+        return () => { clearTimeout(timeout); };
+    }, [show]);
+    
     return (
         <>
-            <Alert variant={variant}>
-                This is a primary alert—check it out!
-            </Alert>
+            {show &&
+                <Alert
+                    variant={variant}
+                    onClose={() => setShow(false)}
+                    dismissible
+                >
+                    {children}
+                </Alert>
+            }
         </>
     );
 }
-
 MyAlert.Primary = PrimaryAlert;
 MyAlert.Success = SuccessAlert;
 MyAlert.Error = ErrorAlert;
