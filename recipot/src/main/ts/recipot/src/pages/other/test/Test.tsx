@@ -42,16 +42,16 @@ function Test() {
                 <Form.Check></Form.Check>
                 <Test1.Test2 />
                 <Test1.Test4 />
+                <div>
+                    <button onClick={() => { setShow(!show); }}>showme</button>
+                    {show && <MyAlert.Primary >This is a primary alert—check it out!</MyAlert.Primary>}
+                    {show && <MyAlert.Success >This is a success alert—check it out!</MyAlert.Success>}
+                    {show && <MyAlert.Error >This is a danger alert—check it out!</MyAlert.Error>}
+                </div>
 
-                <button onClick={() => { setShow(!show); }}>showme</button>
-                {show && <MyAlert.Primary >This is a primary alert—check it out!</MyAlert.Primary>}
-                {show && <MyAlert.Success >This is a success alert—check it out!</MyAlert.Success>}
-                {show && <MyAlert.Error >This is a danger alert—check it out!</MyAlert.Error>}
-
-
-                <MyButton.Primary></MyButton.Primary>
-                <MyButton.Secondary></MyButton.Secondary>
-                <MyButton.Outline></MyButton.Outline>
+                <MyButton.Primary onClick={() => { console.log("btnz") }} className="button-400" disabled={true}>Zapisz</MyButton.Primary>
+                <MyButton.Secondary onClick={() => { console.log("btna") }}>Anuluj</MyButton.Secondary>
+                <MyButton.Outline onClick={() => { console.log("btni") }}>Inna opcja</MyButton.Outline>
                 {
                 }
             </div>
