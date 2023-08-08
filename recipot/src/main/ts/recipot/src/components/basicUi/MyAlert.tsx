@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { Alert, Fade } from "react-bootstrap";
 
-function PrimaryAlert({ children, show }: any) {
-    return <MyAlert variant="primary" show={show}>{children}</MyAlert>
+function PrimaryAlert(props: any) {
+    return <MyAlert variant="primary" show={props.show}>{props.children}</MyAlert>
 }
 
-function SuccessAlert({ children, show }: any) {
-    return <MyAlert variant="success" show={show}>{children}</MyAlert>
+function SuccessAlert(props: any) {
+    return <MyAlert variant="success" show={props.show}>{props.children}</MyAlert>
 }
 
-function ErrorAlert({ children, show }: any) {
-    return <MyAlert variant="danger" show={show}>{children}</MyAlert>
+function ErrorAlert(props: any) {
+    return <MyAlert variant="danger" show={props.show}>{props.children}</MyAlert>
 }
 
 function MyAlert({ variant, children }: any) {
@@ -21,11 +21,11 @@ function MyAlert({ variant, children }: any) {
         }, 5_000);
         return () => { clearTimeout(timeout); };
     }, [show]);
-    
+
     return (
         <>
             {show &&
-                <Alert
+                <Alert className="my-alert"
                     variant={variant}
                     onClose={() => setShow(false)}
                     dismissible

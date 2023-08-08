@@ -1,15 +1,15 @@
 import { Button } from "react-bootstrap";
 
-function PrimaryButton({ children, onClick, className, disabled }: any) {
-    return <MyButton variant="primary" onClick={onClick} className={className} disabled={disabled}>{children}</MyButton>
+function PrimaryButton(props: any) {
+    return <MyButton variant="primary" {...props}>{props.children}</MyButton>
 }
 
-function SecondaryButton({ children, onClick, className, disabled }: any) {
-    return <MyButton variant="secondary" onClick={onClick} className={className} disabled={disabled}>{children}</MyButton>
+function SecondaryButton(props: any) {
+    return <MyButton variant="secondary" {...props}>{props.children}</MyButton>
 }
 
-function OutlineButton({ children, onClick, className, disabled }: any) {
-    return <MyButton variant="outline-primary" onClick={onClick} className={className} disabled={disabled}>{children}</MyButton>
+function OutlineButton(props: any) {
+    return <MyButton variant="outline-primary" {...props}>{props.children}</MyButton>
 }
 
 function MyButton({ variant, children, onClick = () => { }, className = "", disabled = false }: any) {

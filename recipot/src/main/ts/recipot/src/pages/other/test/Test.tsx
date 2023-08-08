@@ -6,6 +6,7 @@ import SideOffcanvas from "../../../components/basicUi/SideOffcanvas";
 import RecipeCard from "../../../components/complex/RecipeCard";
 import MyAlert from "../../../components/basicUi/MyAlert";
 import MyButton from "../../../components/basicUi/MyButton";
+import RecipeStepsNumbers from "../../../components/complex/RecipeStepsNumbers";
 const omitNull = (obj: any) => {
     Object.keys(obj).filter(k => obj[k] === null).forEach(k => delete (obj[k]))
     return obj
@@ -23,6 +24,26 @@ function Test() {
     };
     const recipeCallback = () => { console.log("go") }
     const [show, setShow] = useState(false);
+    const [scrollTop, setScrollTop] = useState(0);
+    useEffect(() => {
+        const handleScroll = (event: any) => {
+            setScrollTop(window.scrollY);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+
+    }, [])
+    function getColor(): string {
+        let name = "my-block",
+            element = document.getElementById(name), //ref
+            offsetTop = element?.offsetTop || 0,
+            scrollTop = window?.scrollY || 0;
+        console.log("offset " + offsetTop)
+        console.log("scrl " + scrollTop)
+        return (offsetTop - scrollTop) < 500 ? "black" : "red";
+    }
     return (<>
         <h1>Test</h1>
         <Stack className=" justify-content-center" direction="horizontal" gap={5}>
@@ -42,16 +63,20 @@ function Test() {
                 <Form.Check></Form.Check>
                 <Test1.Test2 />
                 <Test1.Test4 />
-                <div>
-                    <button onClick={() => { setShow(!show); }}>showme</button>
+                <div id="my-block" style={{ height: 20, width: 600, backgroundColor: getColor() }}></div>
+                <button onClick={() => { setShow(!show); }}>showme</button>
+                <div className="alert-container">
                     {show && <MyAlert.Primary >This is a primary alert—check it out!</MyAlert.Primary>}
                     {show && <MyAlert.Success >This is a success alert—check it out!</MyAlert.Success>}
                     {show && <MyAlert.Error >This is a danger alert—check it out!</MyAlert.Error>}
                 </div>
 
-                <MyButton.Primary onClick={() => { console.log("btnz") }} className="button-400" disabled={true}>Zapisz</MyButton.Primary>
+                <MyButton.Primary onClick={() => { console.log("btnz") }} className="button-400" disabled={false}>Zapisz</MyButton.Primary>
                 <MyButton.Secondary onClick={() => { console.log("btna") }}>Anuluj</MyButton.Secondary>
                 <MyButton.Outline onClick={() => { console.log("btni") }}>Inna opcja</MyButton.Outline>
+                <div>
+                    <RecipeStepsNumbers></RecipeStepsNumbers>
+                </div>
                 {
                 }
             </div>
@@ -72,17 +97,6 @@ function Test() {
     );
 
 
-}
-
-function tempComp() {
-    return <></>
-}
-
-
-const Test1 = {
-    Test2: () => <Button variant="primary" />,
-    //   Test3:()=><tempComp />,
-    Test4: () => <div>2222222222</div>,
 }
 
 export default Test;
