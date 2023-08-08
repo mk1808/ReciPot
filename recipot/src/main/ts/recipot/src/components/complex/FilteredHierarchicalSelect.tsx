@@ -8,7 +8,7 @@ import HashTagBadge from '../basicUi/HashTagBadge';
 import { addUniqueValue, checkListContains, removeValue } from '../../utils/ListUtils';
 import { BsCheckSquareFill, BsSquare } from "react-icons/bs";
 
-function FilteredMultiSelect({
+function FilteredHierarchicalSelect({
     label,
     placeholder = "p.selectValue",
     searchOrNew = "p.searchOrNew",
@@ -127,24 +127,25 @@ function FilteredMultiSelect({
         return <div className='p-1'>
             <Form.Control type="string" placeholder={t(searchOrNew)} onChange={onSearch} value={searchInputValue} />
             <div className='mt-1 filtered-multiselect-list'>
-                {renderValues()}
+                {renderValues(valuesList as { value: { children: any[] }, label: string }[])}
             </div>
         </div>
     }
 
-    function renderValues() {
-        return (valuesList as { value: any, label: string }[]).map(value =>
-            <div key={value.label} onClick={(event) => onSelect(value, event)}>
+    function renderValues(valuesList: any[]): any {
+        return (valuesList as { children: any[], label: string }[])?.map(value =>
+            <div key={value.label} onClick={(event) => onSelect(value, event)} className='ms-3 mb-2'>
                 {renderCheck(checkListContains(selectedValues, value))}{value.label}
+                {renderValues(value?.children)}
             </div>
         )
     }
 
     function renderCheck(checked: boolean) {
-        return <div className='filtered-multiselect-checkbox mx-2'>
+        return <div className='filtered-multiselect-checkbox me-2'>
             {checked ? <BsCheckSquareFill className='checked' /> : <BsSquare />}
         </div>;
     }
 }
 
-export default FilteredMultiSelect;
+export default FilteredHierarchicalSelect;

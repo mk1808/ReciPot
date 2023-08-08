@@ -12,6 +12,7 @@ function FilteredSelect({
     defaultValue,
     disabled = false,
     width = 200,
+    allowNew = false,
     onSearchCallback = (phrase: string) => null,
     onSelectCallback = (value: any) => null,
     onNewValueCallback = (value: string) => null
@@ -32,7 +33,7 @@ function FilteredSelect({
     }
 
     function onDropdownToggle(nextShow: boolean) {
-        if (valuesList.length === 0 && searchInputValue) {
+        if (allowNew && valuesList.length === 0 && searchInputValue) {
             setSelected({ value: searchInputValue, label: searchInputValue })
             onNewValueCallback(searchInputValue)
         }
