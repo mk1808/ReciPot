@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -7,10 +7,14 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { NavLink } from 'react-router-dom';
 import { GiCookingPot } from 'react-icons/gi';
 import { useTranslation } from "react-i18next";
+import NotificationManager from './components/NotificationManager';
+import { UserContext } from '../../context/UserContext';
+import { AppUser } from '../../data/types';
 
 function Header() {
   const [isLogged, setIsLogged] = useState(false);
-  const {t} = useTranslation();
+  const { t } = useTranslation();
+  const user = useContext(UserContext).user;
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid>
@@ -22,7 +26,7 @@ function Header() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <GiCookingPot className='fs-4'/>
+            <GiCookingPot className='fs-4' />
           </Nav>
           <Nav>
             <Nav.Link as={NavLink} to='/' >{t('p.main')}</Nav.Link>
@@ -31,10 +35,9 @@ function Header() {
               <>
                 <Nav.Link as={NavLink} to="/recipes/add">{t('p.addRecipe')}</Nav.Link>
                 <Nav.Link as={NavLink} to="/recipeCollections">{t('p.collections')}</Nav.Link>
-                <Nav.Link as={NavLink} to="/recipes/filter">{t('p.notifications')}</Nav.Link>
               </>
             }
-            <NavDropdown title={t('p.account')} id="navbarScrollingDropdown" align="end">
+            <NavDropdown title={t('p.account') + user?.login} id="navbarScrollingDropdown" align="end">
               {!isLogged &&
                 <>
                   <NavDropdown.Item as={NavLink} to="/login">{t('p.login')}</NavDropdown.Item>
@@ -47,6 +50,7 @@ function Header() {
               </>
               }
             </NavDropdown>
+            {isLogged && <NotificationManager />}
           </Nav>
         </Navbar.Collapse>
       </Container>

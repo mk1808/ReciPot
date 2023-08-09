@@ -30,6 +30,7 @@
 
 .statistic-circle {
     position: relative;
+    text-align: left;
 
     div {
         position: absolute;
@@ -39,15 +40,22 @@
 
     &-value {
         font-size: larger;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     &-label {
         font-size: large;
     }
 
+    .circle {
+        border-radius: 50%;
+    }
+
     .half-circle {
         border-radius: 50%;
-        background-color: red;
         clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%);
     }
 
@@ -67,5 +75,69 @@
         100% {
             transform: rotate(150deg);
         }
+    }
+}
+
+.notifications {
+    .icon {
+        font-size: 20px;
+        line-height: 30px;
+        position: relative;
+        width: 30px;
+        height: 100%;
+        cursor: pointer;
+
+        .badge {
+            font-size: 10px;
+            position: absolute;
+            right: 0;
+            bottom: 3px;
+            padding: 3px;
+            animation: notification-badge-opacity-blink 1s infinite linear;
+        }
+
+        @keyframes notification-badge-opacity-blink {
+            80% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    }
+
+    &-notification {
+        border: 1px solid rgb(222, 226, 230);
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 10px;
+
+        .title {
+            font-size: 20px;
+            margin-bottom: 10px;
+
+        }
+
+        .icon {
+            margin-left: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    }
+}
+
+#notifications-popover {
+    width: 350px;
+    max-width: 350px;
+
+    .popover-body {
+        min-height: 100px;
+        max-height: 400px;
+        overflow-y: auto;
     }
 }

@@ -242,6 +242,15 @@
         "notifications": "Powiadomienia",
         "account": "Konto",
         "selectValue": "Wybierz wartość",
-        "searchOrNew": "Wyszukaj lub podaj nową wartość"
+        "searchOrNew": "Wyszukaj lub podaj nową wartość",
+        "SHARED_RECIPE": "Udostępniono przepis",
+        "RECIPE_COMMENTED": "Skomentowano przepis",
+        "RECIPE_RATED": "Oceniono przepis",
+        "senderUser": "Użytkownik",
+        "sharedRecipe": "udostępnił przepis",
+        "commentedRecipe": "skomentował przepis",
+        "ratedRecipe": "ocenił przepis",
+        "withNote": "z notatką",
+        "withRate": "na"
     }
 }
