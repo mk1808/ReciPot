@@ -20,6 +20,7 @@ import RecipeFilter from './pages/recipe/filter/RecipeFilter';
 import { UserProvider } from './context/UserContext';
 import Test from './pages/other/test/Test';
 import UserDetails from './pages/user/UserDetails';
+import AlertContext from './context/AlertContext';
 
 const ProtectedRoute = ({ user, element }: any) => {
   if (!user) {
@@ -39,37 +40,51 @@ function App() {
     recipesApi.getRecipe('14e1ea5f-b236-4f4a-b3ab-cdc6b7b93562', () => { })
   }
   const user = undefined;//{ id: 'abcd' };    undefined;
+  const routes = () => {
+    return (
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/recipes/filter" element={<RecipeFilter />} />
+        <Route path="/recipes/add" element={
+          <ProtectedRoute user={user} element={<RecipeAdd />} />}
+        />
+        <Route path="/recipes/edit/:id" element={
+          <ProtectedRoute user={user} element={<RecipeAdd />} />}
+        />
+        <Route path="/recipes/:id" element={<RecipeDetails />} />
+        <Route path="/recipeCollections" element={
+          <ProtectedRoute user={user} element={<RecipeCollectionList />} />}
+        />
+        <Route path="/user" element={
+          <ProtectedRoute user={user} element={<UserDetails />} />}
+        />
+        <Route path="/noAccess" element={<NoAccess />} />
+        <Route path="/test" element={<Test />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    )
 
-  return (
-    <div className="App">
-      <UserProvider>
+  }
+
+  const renderApp = () => {
+    return (
+      <div className="App">
         <Header></Header>
         <div className="main">
-          <Routes>
-            <Route path="/" element={<Main />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/recipes/filter" element={<RecipeFilter />} />
-            <Route path="/recipes/add" element={
-              <ProtectedRoute user={user} element={<RecipeAdd />} />}
-            />
-            <Route path="/recipes/edit/:id" element={
-              <ProtectedRoute user={user} element={<RecipeAdd />} />}
-            />
-            <Route path="/recipes/:id" element={<RecipeDetails />} />
-            <Route path="/recipeCollections" element={
-              <ProtectedRoute user={user} element={<RecipeCollectionList />} />}
-            />
-            <Route path="/user" element={
-              <ProtectedRoute user={user} element={<UserDetails />} />}
-            />
-            <Route path="/noAccess" element={<NoAccess />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          {routes()}
         </div>
         <Footer></Footer>
-      </UserProvider>
-    </div>
+      </div>
+    )
+  }
+  return (
+    <AlertContext>
+      {renderApp()}
+    </AlertContext>
   );
 }
 export default App;
+
+//AlertContext

@@ -39,6 +39,8 @@ function Test() {
     const handleClose = () => setShowModal(false);
     const handleShow = () => setShowModal(true);
     const handleSubmit = () => { console.log("successfull submit"); setShowModal(false) };
+    const dispatch = useContext(AlertsDispatchContext);
+    let nextId = 0;
 
 
     return (<>
@@ -70,8 +72,17 @@ function Test() {
                 <MyButton.Primary onClick={() => { console.log("btnz") }} className="button-400" disabled={false}>Zapisz</MyButton.Primary>
                 <MyButton.Secondary onClick={() => { console.log("btna") }}>Anuluj</MyButton.Secondary>
                 <MyButton.Outline onClick={() => { console.log("btni") }}>Inna opcja</MyButton.Outline>
+                <button onClick={() => {
 
-               
+                    dispatch({
+                        type: 'added',
+                        id: nextId++,
+                        message: "This is a primary alert—check it out!",
+                        alertType: "error"
+                    })
+                }
+                }> shownewalert</button>
+
 
 
                 <div>
