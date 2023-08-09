@@ -1,4 +1,4 @@
-import { Response } from "../data/types";
+import { Notification, Response } from "../data/types";
 import { createPathParams } from "../utils/RestUtils";
 import restClient from "./RestClient";
 
