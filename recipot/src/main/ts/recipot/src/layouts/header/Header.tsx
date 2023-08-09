@@ -7,10 +7,11 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { NavLink } from 'react-router-dom';
 import { GiCookingPot } from 'react-icons/gi';
 import { useTranslation } from "react-i18next";
+import NotificationManager from './components/NotificationManager';
 
 function Header() {
-  const [isLogged, setIsLogged] = useState(false);
-  const {t} = useTranslation();
+  const [isLogged, setIsLogged] = useState(true);
+  const { t } = useTranslation();
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid>
@@ -22,7 +23,7 @@ function Header() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <GiCookingPot className='fs-4'/>
+            <GiCookingPot className='fs-4' />
           </Nav>
           <Nav>
             <Nav.Link as={NavLink} to='/' >{t('p.main')}</Nav.Link>
@@ -31,7 +32,6 @@ function Header() {
               <>
                 <Nav.Link as={NavLink} to="/recipes/add">{t('p.addRecipe')}</Nav.Link>
                 <Nav.Link as={NavLink} to="/recipeCollections">{t('p.collections')}</Nav.Link>
-                <Nav.Link as={NavLink} to="/recipes/filter">{t('p.notifications')}</Nav.Link>
               </>
             }
             <NavDropdown title={t('p.account')} id="navbarScrollingDropdown" align="end">
@@ -47,6 +47,7 @@ function Header() {
               </>
               }
             </NavDropdown>
+            {isLogged && <NotificationManager />}
           </Nav>
         </Navbar.Collapse>
       </Container>
