@@ -13,6 +13,7 @@ import RecipeCard from "../../../components/complex/RecipeCard";
 import MyAlert from "../../../components/basicUi/MyAlert";
 import MyButton from "../../../components/basicUi/MyButton";
 import RecipeStepsNumbers from "../../../components/complex/RecipeStepsNumbers";
+import SlidingCards from "../../../components/complex/SlidingCards";
 
 const omitNull = (obj: any) => {
     Object.keys(obj).filter(k => obj[k] === null).forEach(k => delete (obj[k]))
@@ -66,6 +67,9 @@ function Test() {
 
                 <div>
                     <RecipeStepsNumbers></RecipeStepsNumbers>
+                </div>
+                <div>
+                    <SlidingCards></SlidingCards>
                 </div>
             </div>
 
