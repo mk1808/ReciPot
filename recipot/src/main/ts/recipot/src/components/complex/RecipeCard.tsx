@@ -28,7 +28,8 @@ function RecipeCard({ recipe, recipeCallback }: any) {
         )
     }
     return (
-        <Card className="card">
+
+        <Card className="recipe-card mb-2 me-2">
             <Card.Img variant="top" src={recipe.photo} />
             <Card.Body>
                 <Card.Title> {recipe.name} </Card.Title>
