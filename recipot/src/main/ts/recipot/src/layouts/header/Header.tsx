@@ -7,6 +7,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { NavLink } from 'react-router-dom';
 import { GiCookingPot } from 'react-icons/gi';
 import { useTranslation } from "react-i18next";
+import NotificationManager from './components/NotificationManager';
 import { UserContext } from '../../context/UserContext';
 import { AppUser } from '../../data/types';
 
@@ -34,7 +35,6 @@ function Header() {
               <>
                 <Nav.Link as={NavLink} to="/recipes/add">{t('p.addRecipe')}</Nav.Link>
                 <Nav.Link as={NavLink} to="/recipeCollections">{t('p.collections')}</Nav.Link>
-                <Nav.Link as={NavLink} to="/recipes/filter">{t('p.notifications')}</Nav.Link>
               </>
             }
             <NavDropdown title={t('p.account') + user?.login} id="navbarScrollingDropdown" align="end">
@@ -50,6 +50,7 @@ function Header() {
               </>
               }
             </NavDropdown>
+            {isLogged && <NotificationManager />}
           </Nav>
         </Navbar.Collapse>
       </Container>
