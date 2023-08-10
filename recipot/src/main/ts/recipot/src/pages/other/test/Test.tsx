@@ -12,11 +12,19 @@ import StatisticCircle from "../../../components/complex/StatisticCircle";
 import RecipeCard from "../../../components/complex/RecipeCard";
 import MyAlert from "../../../components/basicUi/MyAlert";
 import MyButton from "../../../components/basicUi/MyButton";
+import Tooltip from "../../../components/basicUi/Tooltip";
+import Info from "../../../components/basicUi/Info";
 import CustomModal from "../../../components/basicUi/CustomModal";
-import { AlertsDispatchContext } from "../../../context/AlertContext";
 import RecipeStepsNumbers from "../../../components/complex/RecipeStepsNumbers";
 import SlidingCards from "../../../components/complex/SlidingCards";
 import SlidingElements from "../../../components/complex/SlidingCards";
+import MyInput from "../../../components/basicUi/MyInput";
+import MyTextarea from "../../../components/basicUi/MyTextarea";
+import MyCheckbox from "../../../components/basicUi/MyCheckbox";
+import MySelect from "../../../components/basicUi/MySelect";
+import MyFileInput from "../../../components/basicUi/MyFileInput";
+import MySwitch from "../../../components/basicUi/MySwitch";
+import { AlertsDispatchContext } from "../../../context/AlertContext";
 
 const omitNull = (obj: any) => {
     Object.keys(obj).filter(k => obj[k] === null).forEach(k => delete (obj[k]))
@@ -42,6 +50,7 @@ function Test() {
     const dispatch = useContext(AlertsDispatchContext);
     let nextId = 0;
 
+    const testOptions = [{ label: "op1", value: { name: "nam1" } }, { label: "op2", value: { name: "nam2" } }, { label: "op3", value: { name: "nam3" } }];
 
     return (<>
         <h1>Test</h1>
@@ -68,10 +77,11 @@ function Test() {
                     {show && <MyAlert.Error >This is a danger alert—check it out!</MyAlert.Error>}
                 </div>
 
+                <Tooltip title={"Tekst tooltip right-start"} placement={"right-start"} ><MyButton.Primary onClick={() => { console.log("btnz") }} className="button-400" disabled={false}>Zapisz</MyButton.Primary></Tooltip>
+                <Tooltip title={"Tekst tooltip bottom-start"} placement={"bottom-start"} ><MyButton.Secondary onClick={() => { console.log("btna") }}>Anuluj</MyButton.Secondary></Tooltip>
+                <Tooltip title={"Tekst tooltip left-end"} placement={"left-end"} ><MyButton.Outline onClick={() => { console.log("btni") }}>Inna opcja</MyButton.Outline></Tooltip>
 
-                <MyButton.Primary onClick={() => { console.log("btnz") }} className="button-400" disabled={false}>Zapisz</MyButton.Primary>
-                <MyButton.Secondary onClick={() => { console.log("btna") }}>Anuluj</MyButton.Secondary>
-                <MyButton.Outline onClick={() => { console.log("btni") }}>Inna opcja</MyButton.Outline>
+              
                 <button onClick={() => {
 
                     dispatch({
@@ -83,6 +93,8 @@ function Test() {
                 }
                 }> shownewalert</button>
 
+                <Info value="Why do programmers prefer using the dark mode? Because light attracts bugs! ~ChatGPT" />
+                <Info value="Why do programmers always mix up Christmas and Halloween? Because Oct 31 == Dec 25! ~ChatGPT" />
 
 
                 <div>
@@ -101,6 +113,17 @@ function Test() {
 
 
         </Stack >
+
+        <Stack direction="vertical" style={{ textAlign: "left", marginLeft: "100px", width: "300px" }}>
+            <MyInput name="test1" label="Test jeden" placeholder="Input test 1" onChange={(value: string) => console.log(value)} defaultValue={"Wartość nadana"} />
+            <MyInput name="test2" placeholder="Input test 2" onChange={(value: string) => console.log(value)} />
+            <MyInput name="test3" label="Test trzy" onChange={(value: string) => console.log(value)} />
+            <MyTextarea name="test4" label="Test textarea" placeholder="Input test 1" rows={5} onChange={(value: string) => console.log(value)} />
+            <MyCheckbox name="test5" label="Test checkbox" onChange={(value: string) => console.log(value)} defaultChecked={true} />
+            <MySelect name="test6" label="Test select" emptyOption="Pusta wartość" options={testOptions} defaultValue={testOptions[1].value} onChange={(value: string) => console.log(value)} />
+            <MyFileInput name="test7" label="Test file" placeholder="Select file" onChange={(value: string) => console.log(value)} />
+            <MySwitch name="test8" label="Test switch" onChange={(value: string) => console.log(value)} defaultChecked={false} />
+        </Stack>
 
 
         <SideOffcanvas title="Offcanvas">
