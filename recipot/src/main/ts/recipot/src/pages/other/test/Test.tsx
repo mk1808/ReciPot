@@ -23,6 +23,7 @@ import MyTextarea from "../../../components/basicUi/MyTextarea";
 import MyCheckbox from "../../../components/basicUi/MyCheckbox";
 import MySelect from "../../../components/basicUi/MySelect";
 import MyFileInput from "../../../components/basicUi/MyFileInput";
+import MySwitch from "../../../components/basicUi/MySwitch";
 
 const omitNull = (obj: any) => {
     Object.keys(obj).filter(k => obj[k] === null).forEach(k => delete (obj[k]))
@@ -105,6 +106,7 @@ function Test() {
             <MyCheckbox name="test5" label="Test checkbox" onChange={(value: string) => console.log(value)} defaultChecked={true} />
             <MySelect name="test6" label="Test select" emptyOption="Pusta wartość" options={testOptions} defaultValue={testOptions[1].value} onChange={(value: string) => console.log(value)} />
             <MyFileInput name="test7" label="Test file" placeholder="Select file" onChange={(value: string) => console.log(value)} />
+            <MySwitch name="test8" label="Test switch" onChange={(value: string) => console.log(value)} defaultChecked={false} />
         </Stack>
 
 
