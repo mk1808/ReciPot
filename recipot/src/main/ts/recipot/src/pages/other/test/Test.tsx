@@ -24,6 +24,7 @@ import MyCheckbox from "../../../components/basicUi/MyCheckbox";
 import MySelect from "../../../components/basicUi/MySelect";
 import MyFileInput from "../../../components/basicUi/MyFileInput";
 import MySwitch from "../../../components/basicUi/MySwitch";
+import VerticalPagination from "../../../components/complex/VerticalPagination";
 
 const omitNull = (obj: any) => {
     Object.keys(obj).filter(k => obj[k] === null).forEach(k => delete (obj[k]))
@@ -135,6 +136,8 @@ function Test() {
                 <StatisticCircle value="123" label="Other statistic" />
             </div>
         </Stack>
+
+        <VerticalPagination totalPages={100} actualPage={20} pageButtonsToShow={6} onPageSelect={(pageNumber: number) => console.log(pageNumber)} />
     </>
     );
 }
