@@ -20,6 +20,7 @@ import SlidingCards from "../../../components/complex/SlidingCards";
 import SlidingElements from "../../../components/complex/SlidingCards";
 import MyInput from "../../../components/basicUi/MyInput";
 import MyTextarea from "../../../components/basicUi/MyTextarea";
+import MyCheckbox from "../../../components/basicUi/MyCheckbox";
 
 const omitNull = (obj: any) => {
     Object.keys(obj).filter(k => obj[k] === null).forEach(k => delete (obj[k]))
@@ -95,10 +96,11 @@ function Test() {
         </Stack >
 
         <Stack direction="vertical" style={{ textAlign: "left", marginLeft: "100px", width: "300px" }}>
-            <MyInput name="test1" label="Test jeden" placeholder="Input test 1" onChange={(value: string) => console.log(value)} />
+            <MyInput name="test1" label="Test jeden" placeholder="Input test 1" onChange={(value: string) => console.log(value)} value={"Wartość nadana"} />
             <MyInput name="test2" placeholder="Input test 2" onChange={(value: string) => console.log(value)} />
             <MyInput name="test3" label="Test trzy" onChange={(value: string) => console.log(value)} />
             <MyTextarea name="test4" label="Test jeden" placeholder="Input test 1" rows={5} onChange={(value: string) => console.log(value)} />
+            <MyCheckbox name="test5" label="Test jeden" onChange={(value: string) => console.log(value)} checked={false} />
         </Stack>
 
 
