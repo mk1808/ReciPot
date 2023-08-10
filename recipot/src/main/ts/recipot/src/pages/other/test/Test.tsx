@@ -17,6 +17,7 @@ import { AlertsDispatchContext } from "../../../context/AlertContext";
 import RecipeStepsNumbers from "../../../components/complex/RecipeStepsNumbers";
 import SlidingCards from "../../../components/complex/SlidingCards";
 import SlidingElements from "../../../components/complex/SlidingCards";
+import MyImage from "../../../components/basicUi/MyImage";
 
 const omitNull = (obj: any) => {
     Object.keys(obj).filter(k => obj[k] === null).forEach(k => delete (obj[k]))
@@ -79,6 +80,10 @@ function Test() {
                 </div>
                 <div>
                     <SlidingElements></SlidingElements>
+                </div>
+                
+                <div>
+                    <MyImage></MyImage>
                 </div>
                 <div>
                     <MyButton.Primary onClick={handleShow}>
