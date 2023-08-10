@@ -6,6 +6,7 @@ import SideOffcanvas from "../../../components/basicUi/SideOffcanvas";
 import RecipeCard from "../../../components/complex/RecipeCard";
 import MyAlert from "../../../components/basicUi/MyAlert";
 import MyButton from "../../../components/basicUi/MyButton";
+import Tooltip from "../../../components/basicUi/Tooltip";
 
 const omitNull = (obj: any) => {
     Object.keys(obj).filter(k => obj[k] === null).forEach(k => delete (obj[k]))
@@ -43,7 +44,7 @@ function Test() {
                 </Stack>
                 <RecipeCard className="mt-5" recipe={recipe} recipeCallback={recipeCallback}></RecipeCard >
                 <Form.Check></Form.Check>
-               
+
                 <button onClick={() => { setShow(!show); }}>showme</button>
                 <div className="alert-container">
                     {show && <MyAlert.Primary >This is a primary alert—check it out!</MyAlert.Primary>}
@@ -51,10 +52,10 @@ function Test() {
                     {show && <MyAlert.Error >This is a danger alert—check it out!</MyAlert.Error>}
                 </div>
 
-                <MyButton.Primary onClick={() => { console.log("btnz") }} className="button-400" disabled={false}>Zapisz</MyButton.Primary>
-                <MyButton.Secondary onClick={() => { console.log("btna") }}>Anuluj</MyButton.Secondary>
-                <MyButton.Outline onClick={() => { console.log("btni") }}>Inna opcja</MyButton.Outline>
-             
+                <Tooltip title={"Tekst tooltip right-start"} placement={"right-start"} ><MyButton.Primary onClick={() => { console.log("btnz") }} className="button-400" disabled={false}>Zapisz</MyButton.Primary></Tooltip>
+                <Tooltip title={"Tekst tooltip bottom-start"} placement={"bottom-start"} ><MyButton.Secondary onClick={() => { console.log("btna") }}>Anuluj</MyButton.Secondary></Tooltip>
+                <Tooltip title={"Tekst tooltip left-end"} placement={"left-end"} ><MyButton.Outline onClick={() => { console.log("btni") }}>Inna opcja</MyButton.Outline></Tooltip>
+
                 {
                 }
             </div>
