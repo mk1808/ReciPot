@@ -25,6 +25,7 @@ import MySelect from "../../../components/basicUi/MySelect";
 import MyFileInput from "../../../components/basicUi/MyFileInput";
 import MySwitch from "../../../components/basicUi/MySwitch";
 import VerticalPagination from "../../../components/complex/VerticalPagination";
+import { AlertsDispatchContext } from "../../../context/AlertContext";
 
 const omitNull = (obj: any) => {
     Object.keys(obj).filter(k => obj[k] === null).forEach(k => delete (obj[k]))
@@ -47,6 +48,9 @@ function Test() {
     const handleClose = () => setShowModal(false);
     const handleShow = () => setShowModal(true);
     const handleSubmit = () => { console.log("successfull submit"); setShowModal(false) };
+    const dispatch = useContext(AlertsDispatchContext);
+    let nextId = 0;
+
     const testOptions = [{ label: "op1", value: { name: "nam1" } }, { label: "op2", value: { name: "nam2" } }, { label: "op3", value: { name: "nam3" } }];
 
     return (<>
@@ -77,6 +81,18 @@ function Test() {
                 <Tooltip title={"Tekst tooltip right-start"} placement={"right-start"} ><MyButton.Primary onClick={() => { console.log("btnz") }} className="button-400" disabled={false}>Zapisz</MyButton.Primary></Tooltip>
                 <Tooltip title={"Tekst tooltip bottom-start"} placement={"bottom-start"} ><MyButton.Secondary onClick={() => { console.log("btna") }}>Anuluj</MyButton.Secondary></Tooltip>
                 <Tooltip title={"Tekst tooltip left-end"} placement={"left-end"} ><MyButton.Outline onClick={() => { console.log("btni") }}>Inna opcja</MyButton.Outline></Tooltip>
+
+
+                <button onClick={() => {
+
+                    dispatch({
+                        type: 'added',
+                        id: nextId++,
+                        message: "This is a primary alert—check it out!",
+                        alertType: "error"
+                    })
+                }
+                }> shownewalert</button>
 
                 <Info value="Why do programmers prefer using the dark mode? Because light attracts bugs! ~ChatGPT" />
                 <Info value="Why do programmers always mix up Christmas and Halloween? Because Oct 31 == Dec 25! ~ChatGPT" />

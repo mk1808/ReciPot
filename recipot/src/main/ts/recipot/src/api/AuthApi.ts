@@ -16,7 +16,13 @@ function AuthApi() {
         restClient.patch(`${PREFIX}/changePassword`, body, onSuccess, onError)
     }
 
-    return { login, register, changePassword }
+    const whoAmI = (onSuccess: (response: Response<AppUser>) => any, onError: (response: Response<any>) => any) => {
+        restClient.get(`${PREFIX}/whoAmI`, onSuccess, onError)
+    }
+
+    
+
+    return { login, register, changePassword, whoAmI }
 }
 
 const authApi = AuthApi();
