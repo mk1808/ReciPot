@@ -21,6 +21,7 @@ import SlidingElements from "../../../components/complex/SlidingCards";
 import MyInput from "../../../components/basicUi/MyInput";
 import MyTextarea from "../../../components/basicUi/MyTextarea";
 import MyCheckbox from "../../../components/basicUi/MyCheckbox";
+import MySelect from "../../../components/basicUi/MySelect";
 
 const omitNull = (obj: any) => {
     Object.keys(obj).filter(k => obj[k] === null).forEach(k => delete (obj[k]))
@@ -43,7 +44,7 @@ function Test() {
     const handleClose = () => setShowModal(false);
     const handleShow = () => setShowModal(true);
     const handleSubmit = () => { console.log("successfull submit"); setShowModal(false) };
-
+    const testOptions = [{ label: "op1", value: { name: "nam1" } }, { label: "op2", value: { name: "nam2" } }, { label: "op3", value: { name: "nam3" } }];
 
     return (<>
         <h1>Test</h1>
@@ -96,11 +97,12 @@ function Test() {
         </Stack >
 
         <Stack direction="vertical" style={{ textAlign: "left", marginLeft: "100px", width: "300px" }}>
-            <MyInput name="test1" label="Test jeden" placeholder="Input test 1" onChange={(value: string) => console.log(value)} value={"Wartość nadana"} />
+            <MyInput name="test1" label="Test jeden" placeholder="Input test 1" onChange={(value: string) => console.log(value)} defaultValue={"Wartość nadana"} />
             <MyInput name="test2" placeholder="Input test 2" onChange={(value: string) => console.log(value)} />
             <MyInput name="test3" label="Test trzy" onChange={(value: string) => console.log(value)} />
-            <MyTextarea name="test4" label="Test jeden" placeholder="Input test 1" rows={5} onChange={(value: string) => console.log(value)} />
-            <MyCheckbox name="test5" label="Test jeden" onChange={(value: string) => console.log(value)} checked={false} />
+            <MyTextarea name="test4" label="Test textarea" placeholder="Input test 1" rows={5} onChange={(value: string) => console.log(value)} />
+            <MyCheckbox name="test5" label="Test checkbox" onChange={(value: string) => console.log(value)} defaultChecked={true} />
+            <MySelect name="test6" label="Test select" emptyOption="Pusta wartość" options={testOptions} defaultValue={testOptions[1].value} onChange={(value: string) => console.log(value)} />
         </Stack>
 
 
