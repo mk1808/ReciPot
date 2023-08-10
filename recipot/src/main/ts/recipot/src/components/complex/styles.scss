@@ -1,7 +1,55 @@
-.card {
+@use "../../assets/variables"as v;
+//
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+
+
+.recipe-card {
     width: 18rem
 }
 
-.full-button{
-    width:100%
+.full-button {
+    width: 100%
+}
+
+.width {
+    width: 200px;
+    height: 350px;
+    background-color: gray;
+}
+
+.circle1 {
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    border: 2px solid $primary;
+}
+
+.circle-light {
+    background-color: v.$background-light;
+}
+
+.circle-dark {
+    background-color: v.$background-dark;
+
+}
+
+.step-circle-value{
+    font-size: xx-large;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+
+}
+
+.rectangle{
+    background-color: white;
+    height: 100%;
+    border: 1px solid black;
+    border-radius: 33px;
+    
 }

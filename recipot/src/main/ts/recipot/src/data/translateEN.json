@@ -240,6 +240,17 @@
 		"myAccount": "My account",
 		"collections": "Collections",
 		"notifications": "Notifications",
-		"account": "Account"
+		"account": "Account",
+		"selectValue": "Select value",
+		"searchOrNew": "Search or type new value",
+		"SHARED_RECIPE": "Shared recipe",
+		"RECIPE_COMMENTED": "Commented recipe",
+		"RECIPE_RATED": "Rated recipe",
+		"senderUser": "User",
+		"sharedRecipe": "shared recipe",
+		"commentedRecipe": "commented recipe",
+		"ratedRecipe": "rated recipe",
+		"withNote": "with comment",
+		"withRate": "for"
 	}
 }
