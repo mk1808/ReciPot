@@ -18,6 +18,7 @@ import CustomModal from "../../../components/basicUi/CustomModal";
 import RecipeStepsNumbers from "../../../components/complex/RecipeStepsNumbers";
 import SlidingCards from "../../../components/complex/SlidingCards";
 import SlidingElements from "../../../components/complex/SlidingCards";
+import MyInput from "../../../components/basicUi/MyInput";
 
 const omitNull = (obj: any) => {
     Object.keys(obj).filter(k => obj[k] === null).forEach(k => delete (obj[k]))
@@ -91,6 +92,12 @@ function Test() {
 
 
         </Stack >
+
+        <Stack direction="vertical" style={{ textAlign: "left", marginLeft: "100px", width: "300px" }}>
+            <MyInput name="test1" label="Test jeden" placeholder="Input test 1" onChange={(value: string) => console.log(value)} />
+            <MyInput name="test2" placeholder="Input test 2" onChange={(value: string) => console.log(value)} />
+            <MyInput name="test3" label="Test trzy" onChange={(value: string) => console.log(value)} />
+        </Stack>
 
 
         <SideOffcanvas title="Offcanvas">
