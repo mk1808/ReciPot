@@ -2,7 +2,7 @@ import Form from 'react-bootstrap/Form';
 import { initFcn } from '../../utils/ObjectUtils';
 import { useState } from 'react';
 
-function MySwitch({ name = "inputName", label = "", disabled = false, defaultChecked = true, onChange = initFcn<any>() }: any) {
+function MySwitch({ name = "inputName", label = "", disabled = false, defaultChecked = true, onChange = initFcn<boolean>() }: any) {
     const [isChecked, setChecked] = useState(defaultChecked)
 
     function onChangeCallback(event: any) {

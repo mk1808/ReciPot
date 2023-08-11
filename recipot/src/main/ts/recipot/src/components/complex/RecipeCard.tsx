@@ -32,12 +32,14 @@ function RecipeCard({ recipe, recipeCallback }: any) {
             <Card.Img variant="top" src={recipe.photo} />
             <Card.Body>
                 <Card.Title> {recipe.name} </Card.Title>
-                <Card.Text>
+
+                <div className='mb-3'>
                     <h6>{recipe.categories.slice(0, 1)}</h6>
                     {getHashTags()}
                     {getRating()}
                     {shortDesc}
-                </Card.Text>
+                </div>
+
                 <Button variant="primary" className="full-button" onClick={recipeCallback}>Go somewhere</Button>
             </Card.Body>
         </Card >

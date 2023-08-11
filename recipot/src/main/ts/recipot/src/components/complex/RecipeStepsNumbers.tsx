@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import { Card, Col, Image, Row } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 
 function RecipeStepsNumbers({ steps }: any) {
   const [scrollTop, setScrollTop] = useState(0);
   const size = 100;
-  const diameter = 100;
   const name = "step-circle";
   useEffect(() => {
     const handleScroll = (event: any) => {
@@ -32,14 +31,13 @@ function RecipeStepsNumbers({ steps }: any) {
     )
   }
 
-  function renderCircleWithText(element: any, backgroundClass: string, { key }: any) {
+  function renderCircleWithText(element: any, backgroundClass: string, key: number) {
     return (
-      <Row className="mb-3">
+      <Row className="mb-3" key={key} >
         <Col xs={2}>
-          <div {...key} className={name + " mb-5 " + backgroundClass} style={{ width: diameter, height: diameter, margin: (size - diameter) / 2 }}>
+          <div className={name + " mb-5 " + backgroundClass}>
             {renderValue(key + 1)}
           </div>
-          <div></div>
         </Col>
         <Col >
           <Card>
@@ -53,7 +51,7 @@ function RecipeStepsNumbers({ steps }: any) {
   return (
     <>
       {steps.map((element: any, index: number) => {
-        return renderCircleWithText(element, getColor(index), { key: index });
+        return renderCircleWithText(element, getColor(index), index);
       })}
     </>
   );
