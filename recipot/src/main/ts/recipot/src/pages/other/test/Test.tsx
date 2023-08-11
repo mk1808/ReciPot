@@ -18,6 +18,7 @@ import CustomModal from "../../../components/basicUi/CustomModal";
 import RecipeStepsNumbers from "../../../components/complex/RecipeStepsNumbers";
 import SlidingCards from "../../../components/complex/SlidingCards";
 import SlidingElements from "../../../components/complex/SlidingCards";
+import MyImage from "../../../components/basicUi/MyImage";
 import MyInput from "../../../components/basicUi/MyInput";
 import MyTextarea from "../../../components/basicUi/MyTextarea";
 import MyCheckbox from "../../../components/basicUi/MyCheckbox";
@@ -103,6 +104,10 @@ function Test() {
                 </div>
                 <div>
                     <SlidingElements></SlidingElements>
+                </div>
+                
+                <div>
+                    <MyImage></MyImage>
                 </div>
                 <div>
                     <MyButton.Primary onClick={handleShow}>
