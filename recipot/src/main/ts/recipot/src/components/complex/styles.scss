@@ -20,38 +20,29 @@
     background-color: gray;
 }
 
-.circle1 {
+.step-circle {
     border-radius: 50%;
     height: 100px;
     width: 100px;
     border: 2px solid $primary;
-}
 
-.circle-light {
-    background-color: v.$background-light;
-}
+    .value {
+        font-size: xx-large;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+    }
 
-.circle-dark {
-    background-color: v.$background-dark;
+    &.circle-light {
+        background-color: v.$background-light;
+    }
 
-}
+    &.circle-dark {
+        background-color: v.$background-dark;
 
-.step-circle-value {
-    font-size: xx-large;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-
-}
-
-.rectangle {
-    background-color: white;
-    height: 100%;
-    border: 1px solid black;
-    border-radius: 33px;
-
+    }
 }
 
 .vertical-pagination {
@@ -81,58 +72,51 @@
         }
     }
 }
-.img {
-    position: relative;
-    top: -80px;
-    left: 613px;
-    //    border-radius: 50%;
-    height: 160px;
-    border: 4px solid white;
-    cursor: pointer;
-}
 
-.box {
-    //   text-align: center;
-    min-height: 200px;
-    width: 450px;
-    //border: 1px solid black;
-    // background-color: #DDD;
-    margin-right: auto;
-    margin-left: auto;
-}
 
-.container {
-    padding: 10px;
-}
-
-.img:hover {
-    -ms-transform: scale(1.5);
-    /* IE 9 */
-    -webkit-transform: scale(1.5);
-    /* Safari 3-8 */
-    transform: scale(1.5);
-    transition-duration: 1s;
-    //  border: 0px solid white;
-}
-
-.big-title {
-    font-size: 31px;
-    border-bottom: 1px solid black;
-}
-
-.cbody {
-    padding-right: 38px;
-}
-
-.circle-box-container {
+.circle-card-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
-}
 
-.circle-box-container2 {
-    padding-top: 30px;
-    background-image: url(https://img.freepik.com/premium-photo/food-cooking-background-black-table-fresh-vegetables-spices-herbs-ingredients-cooking_215990-485.jpg);
-    /* background-repeat: round; */
-    background-size: 100% 100%;
+
+    .circle-container {
+        padding: 10px;
+        padding-top: 30px;
+        background-image: url(https://img.freepik.com/premium-photo/food-cooking-background-black-table-fresh-vegetables-spices-herbs-ingredients-cooking_215990-485.jpg);
+        background-size: 100% 100%;
+        width: 100%;
+
+        .card {
+            min-height: 200px;
+            width: 450px;
+            margin-right: auto;
+            margin-left: auto;
+
+            .big-title {
+                font-size: 31px;
+                border-bottom: 1px solid black;
+            }
+
+            .body {
+                padding-right: 38px;
+            }
+        }
+
+        .img {
+            position: relative;
+            top: -80px;
+            left: 613px;
+            height: 160px;
+            border: 4px solid white;
+            cursor: pointer;
+
+            &:hover {
+                -ms-transform: scale(1.5);
+                -webkit-transform: scale(1.5);
+                transform: scale(1.5);
+                transition-duration: 1s;
+            }
+        }
+    }
 }

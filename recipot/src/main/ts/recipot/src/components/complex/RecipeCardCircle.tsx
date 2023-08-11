@@ -15,36 +15,18 @@ function RecipeCardCircle({ recipe, recipeCallback }: any) {
             </div>
         )
     }
-    const getHashTags = () => {
-        return (
-            <Stack direction="horizontal">
-                {
-                    recipe.tags.slice(0, 2).map((category: any) => (
-                        <HashTagBadge text={category} key={category} />)
-                    )
-                }
-            </Stack>
-        )
-    }
 
     return (
-        <div className='circle-box-container'>
-            <div className="container circle-box-container2">
-                <Card className='box p-3'>
+        <div className='circle-card-container'>
+            <div className="circle-container">
+                <Card className='p-3'>
                     <Card.Title className="big-title pb-3 mb-3"> {recipe.name} </Card.Title>
-                    {/*  <Card.Text>
-                    
-                </Card.Text>*/}
-                    <Card.Body className="cbody">
+                    <Card.Body className="body">
                         <h6>{recipe.categories.slice(0, 1)}</h6>
-                        {/*getHashTags()*/}
                         {getRating()}
                         {shortDesc}
-
                     </Card.Body>
-
                 </Card>
-
                 <Image className="img" src={photo} roundedCircle onClick={recipeCallback} />
             </div>
         </div>

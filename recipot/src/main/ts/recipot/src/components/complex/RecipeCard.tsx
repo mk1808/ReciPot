@@ -2,7 +2,6 @@
 import { Button, Card, Stack } from 'react-bootstrap';
 import { AiFillStar } from 'react-icons/ai';
 import './styles.scss';
-import { Recipe } from '../../data/types';
 import HashTagBadge from '../basicUi/HashTagBadge';
 
 function RecipeCard({ recipe, recipeCallback }: any) {
@@ -45,5 +44,4 @@ function RecipeCard({ recipe, recipeCallback }: any) {
     );
 }
 
-//kategoria, hasztagi, ocena, liczba ocen
 export default RecipeCard;
