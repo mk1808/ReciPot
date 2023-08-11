@@ -32,11 +32,11 @@ function RecipeStepsNumbers({ steps }: any) {
     )
   }
 
-  function renderCircleWithText(element: any, backgroundClass: string, { key }: any) {
+  function renderCircleWithText(element: any, backgroundClass: string, key: number) {
     return (
-      <Row className="mb-3">
+      <Row className="mb-3" key={key} >
         <Col xs={2}>
-          <div {...key} className={name + " mb-5 " + backgroundClass} style={{ width: diameter, height: diameter, margin: (size - diameter) / 2 }}>
+          <div className={name + " mb-5 " + backgroundClass} style={{ width: diameter, height: diameter, margin: (size - diameter) / 2 }}>
             {renderValue(key + 1)}
           </div>
           <div></div>
@@ -53,7 +53,7 @@ function RecipeStepsNumbers({ steps }: any) {
   return (
     <>
       {steps.map((element: any, index: number) => {
-        return renderCircleWithText(element, getColor(index), { key: index });
+        return renderCircleWithText(element, getColor(index), index);
       })}
     </>
   );
