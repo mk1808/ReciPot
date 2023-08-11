@@ -7,6 +7,7 @@ import '../styles.scss';
 import HashTagBadge from '../basicUi/HashTagBadge';
 import { addUniqueValue, checkListContains, removeValue } from '../../utils/ListUtils';
 import { BsCheckSquareFill, BsSquare } from "react-icons/bs";
+import { initAs } from '../../utils/ObjectUtils';
 
 function FilteredHierarchicalSelect({
     label,

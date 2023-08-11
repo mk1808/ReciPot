@@ -65,7 +65,7 @@ function Test() {
 
     
     const getRecipe = (num: number) => { let nr = { ...recipe }; nr.name += (' ' + num); return nr }
-    const recipes = [getRecipe(1), getRecipe(2), getRecipe(3), getRecipe(4), getRecipe(5), getRecipe(6), getRecipe(7)];
+    const recipes = [getRecipe(1), getRecipe(2), getRecipe(3), getRecipe(4), getRecipe(5), getRecipe(6), getRecipe(7), getRecipe(8), getRecipe(9)];
 
     const recipeCallbackForSlider = (recipe: any, index: number) => {
         console.log("from callback" + index)
