@@ -36,7 +36,7 @@
 
 }
 
-.step-circle-value{
+.step-circle-value {
     font-size: xx-large;
     position: absolute;
     display: flex;
@@ -46,10 +46,38 @@
 
 }
 
-.rectangle{
+.rectangle {
     background-color: white;
     height: 100%;
     border: 1px solid black;
     border-radius: 33px;
-    
+
+}
+
+.vertical-pagination {
+    width: 50px;
+
+    .pagination-container {
+        position: fixed;
+        height: 100%;
+        right: 0;
+        top: 150px;
+        display: block;
+
+        .page-button {
+            display: block;
+            width: 50px;
+        }
+
+        .empty-page-button {
+            display: block;
+            border: 1px solid rgb(222, 226, 230);
+            border-radius: 5px;
+            margin: 8px;
+            padding: 4px;
+            font-size: 20px;
+            line-height: 20px;
+            color: rgb(13, 110, 253);
+        }
+    }
 }
