@@ -63,6 +63,14 @@ function Test() {
     const recipeSteps=[{description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}, 
         {description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}]
 
+    
+    const getRecipe = (num: number) => { let nr = { ...recipe }; nr.name += (' ' + num); return nr }
+    const recipes = [getRecipe(1), getRecipe(2), getRecipe(3), getRecipe(4), getRecipe(5), getRecipe(6), getRecipe(7)];
+
+    const recipeCallbackForSlider = (recipe: any, index: number) => {
+        console.log("from callback" + index)
+    }
+
     return (<>
         <h1>Test</h1>
         <Stack className=" justify-content-center" direction="horizontal" gap={5}>
@@ -112,7 +120,7 @@ function Test() {
                     <RecipeStepsNumbers steps={recipeSteps}></RecipeStepsNumbers>
                 </div>
                 <div>
-                    <SlidingElements></SlidingElements>
+                    <SlidingElements recipes={recipes} recipeCallbackForSlider={recipeCallbackForSlider}></SlidingElements>
                 </div>
                 
                 <div>
