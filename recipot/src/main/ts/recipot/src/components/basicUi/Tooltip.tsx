@@ -15,7 +15,7 @@ function Tooltip({ children, placement = "right", title = "" }: any) {
             delay={{ show: 250, hide: 400 }}
             overlay={renderTooltip}
         >
-            <div className='trigger-children'>{children}</div>
+            <div className='tooltip-trigger-children'>{children}</div>
         </OverlayTrigger>
     );
 

@@ -18,7 +18,6 @@ function MySelect({ name = "inputName", label = "", emptyOption = "", disabled =
                 {options.map((optionElement: any, index: number) => <option key={index} value={index}>{optionElement.label}</option>)}
             </Form.Select>
         </Form.Group>
-
     )
 }
 

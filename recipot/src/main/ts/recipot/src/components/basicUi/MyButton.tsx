@@ -12,7 +12,7 @@ function OutlineButton(props: any) {
     return <MyButton variant="outline-primary" {...props}>{props.children}</MyButton>
 }
 
-function MyButton({ variant, children, onClick = () => { }, className = "", disabled = false }: any) {
+function MyButton({ variant, children, onClick = () => {}, className = "", disabled = false }: any) {
     return (
         <Button
             variant={variant}

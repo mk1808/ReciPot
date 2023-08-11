@@ -21,16 +21,26 @@ function SideOffcanvas({ title = "Title", children }: any) {
                 scroll={true}
                 backdrop={false}
                 placement="end"
-                className="side-right">
+                className="side-right"
+            >
+
+                {renderContent()}
+
+            </Offcanvas>
+        </>
+    );
+    function renderContent() {
+        return (
+            <>
                 <Offcanvas.Header closeButton>
                     <Offcanvas.Title>{title}</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                     {children}
                 </Offcanvas.Body>
-            </Offcanvas>
-        </>
-    );
+            </>
+        )
+    }
 }
 
 export default SideOffcanvas;

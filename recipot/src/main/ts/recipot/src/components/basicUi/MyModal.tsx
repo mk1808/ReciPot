@@ -1,5 +1,4 @@
-import { Button, Modal } from "react-bootstrap";
-import React, { useState, useEffect } from "react";
+import { Modal } from "react-bootstrap";
 import MyButton from "./MyButton";
 
 function MyModal({
@@ -10,26 +9,41 @@ function MyModal({
     buttonCloseText = "Anuluj",
     buttonSubmitText = "Zatwierdź",
     children }: any) {
+
     return (
         <div>
             <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{title}</Modal.Title>
-                </Modal.Header>
-
-                <Modal.Body>{children}</Modal.Body>
-
-                <Modal.Footer>
-                    <MyButton.Secondary onClick={handleClose}>
-                        {buttonCloseText}
-                    </MyButton.Secondary>
-                    <MyButton.Primary onClick={handleSubmit}>
-                        {buttonSubmitText}
-                    </MyButton.Primary>
-                </Modal.Footer>
+                {renderHeader()}
+                {renderBody()}
+                {renderFooter()}
             </Modal>
         </div>
     );
+
+    function renderHeader() {
+        return (
+            <Modal.Header closeButton>
+                <Modal.Title>{title}</Modal.Title>
+            </Modal.Header>
+        )
+    }
+    function renderBody() {
+        return (
+            <Modal.Body>{children}</Modal.Body>
+        )
+    }
+    function renderFooter() {
+        return (
+            <Modal.Footer>
+                <MyButton.Secondary onClick={handleClose}>
+                    {buttonCloseText}
+                </MyButton.Secondary>
+                <MyButton.Primary onClick={handleSubmit}>
+                    {buttonSubmitText}
+                </MyButton.Primary>
+            </Modal.Footer>
+        )
+    }
 }
 
 export default MyModal;

@@ -1,31 +1,32 @@
 import { useEffect, useState } from "react";
-import { Alert, Fade } from "react-bootstrap";
+import { Alert } from "react-bootstrap";
 
-function PrimaryAlert(props: any) {
-    return <MyAlert variant="primary" show={props.show}>{props.children}</MyAlert>
+function PrimaryAlert({ children }: any) {
+    return <MyAlert variant="primary">{children}</MyAlert>
 }
 
-function SuccessAlert(props: any) {
-    return <MyAlert variant="success" show={props.show}>{props.children}</MyAlert>
+function SuccessAlert({ children }: any) {
+    return <MyAlert variant="success">{children}</MyAlert>
 }
 
-function ErrorAlert(props: any) {
-    return <MyAlert variant="danger" show={props.show}>{props.children}</MyAlert>
+function ErrorAlert({ children }: any) {
+    return <MyAlert >{children}</MyAlert>
 }
 
 function MyAlert({ variant, children }: any) {
     const [show, setShow] = useState(true);
+
     useEffect(() => {
         const timeout = setTimeout(() => {
             setShow(false);
         }, 5_000);
         return () => { clearTimeout(timeout); };
-    }, [show]);
+    }, []);
 
     return (
         <>
             {show &&
-                <Alert className="my-alert"
+                <Alert
                     variant={variant}
                     onClose={() => setShow(false)}
                     dismissible

@@ -148,7 +148,7 @@ function Test() {
             <MyInput name="test2" placeholder="Input test 2" onChange={(value: string) => console.log(value)} />
             <MyInput name="test3" label="Test trzy" onChange={(value: string) => console.log(value)} />
             <MyTextarea name="test4" label="Test textarea" placeholder="Input test 1" rows={5} onChange={(value: string) => console.log(value)} />
-            <MyCheckbox name="test5" label="Test checkbox" onChange={(value: string) => console.log(value)} defaultChecked={true} />
+            <MyCheckbox name="test5" label="Test checkbox" onChange={(value: boolean) => console.log(value)} defaultChecked={true} />
             <MySelect name="test6" label="Test select" emptyOption="Pusta wartość" options={testOptions} defaultValue={testOptions[1].value} onChange={(value: string) => console.log(value)} />
             <MyFileInput name="test7" label="Test file" placeholder="Select file" onChange={(value: string) => console.log(value)} />
             <MySwitch name="test8" label="Test switch" onChange={(value: string) => console.log(value)} defaultChecked={false} />
