@@ -81,3 +81,58 @@
         }
     }
 }
+.img {
+    position: relative;
+    top: -80px;
+    left: 613px;
+    //    border-radius: 50%;
+    height: 160px;
+    border: 4px solid white;
+    cursor: pointer;
+}
+
+.box {
+    //   text-align: center;
+    min-height: 200px;
+    width: 450px;
+    //border: 1px solid black;
+    // background-color: #DDD;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.container {
+    padding: 10px;
+}
+
+.img:hover {
+    -ms-transform: scale(1.5);
+    /* IE 9 */
+    -webkit-transform: scale(1.5);
+    /* Safari 3-8 */
+    transform: scale(1.5);
+    transition-duration: 1s;
+    //  border: 0px solid white;
+}
+
+.big-title {
+    font-size: 31px;
+    border-bottom: 1px solid black;
+}
+
+.cbody {
+    padding-right: 38px;
+}
+
+.circle-box-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.circle-box-container2 {
+    padding-top: 30px;
+    background-image: url(https://img.freepik.com/premium-photo/food-cooking-background-black-table-fresh-vegetables-spices-herbs-ingredients-cooking_215990-485.jpg);
+    /* background-repeat: round; */
+    background-size: 100% 100%;
+}
