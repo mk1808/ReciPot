@@ -18,7 +18,7 @@ function MyModal({
                 </Modal.Header>
 
                 <Modal.Body>{children}</Modal.Body>
-                
+
                 <Modal.Footer>
                     <MyButton.Secondary onClick={handleClose}>
                         {buttonCloseText}
