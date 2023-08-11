@@ -20,30 +20,29 @@
     background-color: gray;
 }
 
-.circle1 {
+.step-circle {
     border-radius: 50%;
     height: 100px;
     width: 100px;
     border: 2px solid $primary;
-}
 
-.circle-light {
-    background-color: v.$background-light;
-}
+    .value {
+        font-size: xx-large;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+    }
 
-.circle-dark {
-    background-color: v.$background-dark;
+    &.circle-light {
+        background-color: v.$background-light;
+    }
 
-}
+    &.circle-dark {
+        background-color: v.$background-dark;
 
-.step-circle-value {
-    font-size: xx-large;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-
+    }
 }
 
 .vertical-pagination {
@@ -121,5 +120,3 @@
         }
     }
 }
-
-.circle-box-container2 {}

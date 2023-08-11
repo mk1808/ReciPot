@@ -56,6 +56,12 @@ function Test() {
 
 
     const testOptions = [{ label: "op1", value: { name: "nam1" } }, { label: "op2", value: { name: "nam2" } }, { label: "op3", value: { name: "nam3" } }];
+    const stepText = `      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dui mi, mattis sit amet felis quis, faucibus varius enim. Cras faucibus odio nec nisl pharetra, eu convallis orci viverra. Phasellus lobortis quis ex vitae porta. Donec a est elementum, convallis lorem a, efficitur enim. Curabitur dapibus id tortor a placerat. Suspendisse felis libero, suscipit a ipsum nec, interdum blandit risus. Donec mollis nec tortor nec volutpat. Ut feugiat nunc ac elementum tincidunt.
+
+    Donec eu orci ullamcorper, vestibulum tortor eget, faucibus augue. Nunc in est maximus, finibus dui nec, vehicula elit. Nam ullamcorper dictum lacus, nec gravida massa egestas in. Praesent in hendrerit metus. Duis a nisl volutpat nunc consequat finibus nec a velit. Duis non luctus massa. Morbi faucibus neque non diam venenatis, vel congue neque euismod. In et nisi ligula. Suspendisse ac odio sagittis, elementum sem id, elementum felis. Ut sed enim mauris. Sed rutrum, nulla nec elementum consectetur, est felis semper orci, nec porta neque metus sodales odio. Vestibulum a quam ac lectus tincidunt blandit vel vitae mauris. 
+     `
+    const recipeSteps=[{description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}, 
+        {description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}]
 
     return (<>
         <h1>Test</h1>
@@ -103,7 +109,7 @@ function Test() {
 
 
                 <div>
-                    <RecipeStepsNumbers></RecipeStepsNumbers>
+                    <RecipeStepsNumbers steps={recipeSteps}></RecipeStepsNumbers>
                 </div>
                 <div>
                     <SlidingElements></SlidingElements>
