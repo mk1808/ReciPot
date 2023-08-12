@@ -1,5 +1,4 @@
 @use "../../assets/variables"as v;
-//
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
@@ -50,13 +49,14 @@
 
         .empty-page-button {
             display: block;
-            border: 1px solid rgb(222, 226, 230);
+            border: $input-border-width solid $input-border-color;
             border-radius: 5px;
             margin: 8px;
             padding: 4px;
             font-size: 20px;
             line-height: 20px;
-            color: rgb(13, 110, 253);
+            color: $primary;
+            text-align: center;
         }
     }
 }
@@ -71,7 +71,7 @@
     .circle-container {
         padding: 10px;
         padding-top: 30px;
-        background-image: url(https://img.freepik.com/premium-photo/food-cooking-background-black-table-fresh-vegetables-spices-herbs-ingredients-cooking_215990-485.jpg);
+        background-image: v.$circle-card-image-url;
         background-size: 100% 100%;
         width: 100%;
 
@@ -83,7 +83,7 @@
 
             .big-title {
                 font-size: 31px;
-                border-bottom: 1px solid black;
+                border-bottom: 1px solid $card-border-color;
             }
 
             .body {
@@ -97,7 +97,7 @@
             left: 613px;
             height: 160px;
             width: 160px;
-            border: 4px solid white;
+            border: 4px solid $white;
             cursor: pointer;
 
             &:hover {
@@ -113,9 +113,9 @@
 .filtered-select {
 
     &-toggle {
-        background-color: rgb(255, 255, 255) !important;
-        border-color: rgb(222, 226, 230) !important;
-        color: rgb(33, 37, 41) !important;
+        background-color: $input-bg !important;
+        border: $input-border-width solid $input-border-color !important;
+        color: $input-color !important;
     }
 
     &-button-text {
@@ -131,10 +131,10 @@
 
     &-checkbox {
         display: inline-block;
-        color: rgb(222, 226, 230);
+        color: $input-border-color;
 
         .checked {
-            color: rgb(13, 110, 253);
+            color: $form-check-input-checked-bg-color;
         }
     }
 }
@@ -145,7 +145,7 @@
 
     &-ring {
         animation: ring-clipper 4s infinite ease-in-out;
-        border: 15px solid rgb(13, 110, 253);
+        border: 15px solid $primary;
         border-radius: 50%;
         z-index: 1;
     }
@@ -213,7 +213,7 @@
     }
 
     &-notification {
-        border: 1px solid rgb(222, 226, 230);
+        border: 1px solid $card-border-color;
         border-radius: 10px;
         padding: 10px;
         margin-bottom: 10px;

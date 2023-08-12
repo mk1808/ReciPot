@@ -1,6 +1,7 @@
 import { getPageNumbers } from "../../utils/VerticalPaginationUtils";
 import MyButton from "../basicUi/MyButton";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import './styles.scss';
 
 function VerticalPagination({
     totalPages,
