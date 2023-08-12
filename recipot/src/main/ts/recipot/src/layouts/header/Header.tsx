@@ -20,42 +20,55 @@ function Header() {
       <Container fluid>
         <Navbar.Brand href="#">Recipot</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
-        <Navbar.Collapse id="navbarScroll" className="justify-content-end">
-          <Nav
-            className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: '100px' }}
-            navbarScroll
-          >
-            <GiCookingPot className='fs-4' />
-          </Nav>
-          <Nav>
-            <Nav.Link as={NavLink} to='/' >{t('p.main')}</Nav.Link>
-            <Nav.Link as={NavLink} to="/recipes/filter">{t('p.search')}</Nav.Link>
-            {isLogged &&
-              <>
-                <Nav.Link as={NavLink} to="/recipes/add">{t('p.addRecipe')}</Nav.Link>
-                <Nav.Link as={NavLink} to="/recipeCollections">{t('p.collections')}</Nav.Link>
-              </>
-            }
-            <NavDropdown title={t('p.account') + user?.login} id="navbarScrollingDropdown" align="end">
-              {!isLogged &&
-                <>
-                  <NavDropdown.Item as={NavLink} to="/login">{t('p.login')}</NavDropdown.Item>
-                  <NavDropdown.Item as={NavLink} to="/register">{t('p.register')}</NavDropdown.Item>
-                </>
-              }
-              {isLogged && <>
-                <NavDropdown.Item as={NavLink} to="/user">{t('p.myAccount')}</NavDropdown.Item>
-                <NavDropdown.Item as={Button} >{t('p.logout')}</NavDropdown.Item>
-              </>
-              }
-            </NavDropdown>
-            {isLogged && <NotificationManager />}
-          </Nav>
-        </Navbar.Collapse>
+        {renderCollapse()}
       </Container>
     </Navbar>
   );
+
+  function renderCollapse() {
+    return (
+      <Navbar.Collapse id="navbarScroll" className="justify-content-end">
+        <Nav
+          className="me-auto my-2 my-lg-0"
+          style={{ maxHeight: '100px' }}
+          navbarScroll
+        >
+          <GiCookingPot className='fs-4' />
+        </Nav>
+        {renderRightSide()}
+      </Navbar.Collapse>
+    )
+  }
+
+  function renderRightSide() {
+    return (
+      <Nav>
+        <Nav.Link as={NavLink} to='/' >{t('p.main')}</Nav.Link>
+        <Nav.Link as={NavLink} to="/recipes/filter">{t('p.search')}</Nav.Link>
+        {isLogged &&
+          <>
+            <Nav.Link as={NavLink} to="/recipes/add">{t('p.addRecipe')}</Nav.Link>
+            <Nav.Link as={NavLink} to="/recipeCollections">{t('p.collections')}</Nav.Link>
+          </>
+        }
+        <NavDropdown title={t('p.account') + user?.login} id="navbarScrollingDropdown" align="end">
+          {!isLogged &&
+            <>
+              <NavDropdown.Item as={NavLink} to="/login">{t('p.login')}</NavDropdown.Item>
+              <NavDropdown.Item as={NavLink} to="/register">{t('p.register')}</NavDropdown.Item>
+            </>
+          }
+          {isLogged &&
+            <>
+              <NavDropdown.Item as={NavLink} to="/user">{t('p.myAccount')}</NavDropdown.Item>
+              <NavDropdown.Item as={Button} >{t('p.logout')}</NavDropdown.Item>
+            </>
+          }
+        </NavDropdown>
+        {isLogged && <NotificationManager />}
+      </Nav>
+    )
+  }
 }
 
 export default Header;
