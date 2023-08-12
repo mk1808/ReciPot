@@ -16,13 +16,15 @@ function Notifications({
 }) {
     const { t } = useTranslation();
 
-    return <div className="notifications">
-        <OverlayTrigger trigger="click" placement="bottom" overlay={renderPopover()} rootClose={true}>
-            <div className="icon">
-                {renderIcon()}
-            </div>
-        </OverlayTrigger>
-    </div >
+    return (
+        <div className="notifications">
+            <OverlayTrigger trigger="click" placement="bottom" overlay={renderPopover()} rootClose={true}>
+                <div className="icon">
+                    {renderIcon()}
+                </div>
+            </OverlayTrigger>
+        </div >
+    );
 
     function renderPopover() {
         return (
@@ -39,20 +41,24 @@ function Notifications({
         if (notifications.length === 0) {
             return <FaRegBell />
         }
-        return <>
-            <FaBell />
-            <Badge pill bg="danger">{notifications.length}</Badge>
-        </>
+        return (
+            <>
+                <FaBell />
+                <Badge pill bg="danger">{notifications.length}</Badge>
+            </>
+        )
     }
 
     function renderNotification(notification: Notification) {
-        return <div key={notification.id} className="notifications-notification d-flex align-items-center">
-            <div>
-                <p className="title">{t('p.' + notification.type)}</p>
-                <p className="content">{parseNotificationContent(notification, t)}</p>
+        return (
+            <div key={notification.id} className="notifications-notification d-flex align-items-center">
+                <div>
+                    <p className="title">{t('p.' + notification.type)}</p>
+                    <p className="content">{parseNotificationContent(notification, t)}</p>
+                </div>
+                <FaCheck className="icon" onClick={e => onCheck(notification)} />
             </div>
-            <FaCheck className="icon" onClick={e => onCheck(notification)} />
-        </div>
+        )
     }
 }
 
