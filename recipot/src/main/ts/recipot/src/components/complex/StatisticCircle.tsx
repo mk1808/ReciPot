@@ -1,38 +1,25 @@
+import Stack from 'react-bootstrap/Stack';
 
-function StatisticCircle({ value = '', label = '', size = 100, ringSize = 30, mainColor = "rgb(13, 110, 253)", secondaryColor = "#fff" }) {
+function StatisticCircle({ value, label, size = 100, ringSize = 20 }: { value: string, label: string, size?: number, ringSize?: number }) {
 
-    return <div>
-        {renderRing()}
-        <span className="statistic-circle-label">{label}</span>
-    </div>
-
-    function renderRing() {
-        return <div className="statistic-circle mx-auto" style={{ width: size, height: size }}>
-            {renderHalfRing("main")}
-            {renderHalfRing("rotated")}
+    return <Stack className="align-items-center">
+        <div className="statistic-circle">
+            {renderRing()}
             {renderValue()}
         </div>
-    }
+        <span className="statistic-circle-label">{label}</span>
+    </Stack>
 
-    function renderHalfRing(className: string) {
-        return <div className={className} style={{ width: size, height: size }}>
-            {renderHalfCircle(size, mainColor)}
-            {renderCircle(size - ringSize, secondaryColor)}
-        </div>
-    }
-    function renderCircle(diameter: number, backgroundColor: string) {
-        return <div className="circle" style={{ backgroundColor, width: diameter, height: diameter, margin: (size - diameter) / 2 }}></div>
-    }
-
-    function renderHalfCircle(diameter: number, backgroundColor: string) {
-        return <div className="half-circle" style={{ backgroundColor, width: diameter, height: diameter, margin: (size - diameter) / 2 }}></div>
+    function renderRing() {
+        return <div className="statistic-circle-ring" style={{ width: size, height: size, borderWidth: ringSize }}></div>
     }
 
     function renderValue() {
-        return <div style={{ width: size, height: size }} className="statistic-circle-value" >
+        return <div className="statistic-circle-value" style={{ width: size, height: size }}>
             <span>{value}</span>
         </div>
     }
+
 }
 
 export default StatisticCircle;
