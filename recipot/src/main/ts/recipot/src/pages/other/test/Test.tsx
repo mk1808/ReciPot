@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import './styles.scss';
 import FilteredSelect from "../../../components/complex/FilteredSelect";
 import dictionariesApi from "../../../api/DictionariesApi";
-import { Category, CategoryDto, HashTag, Response } from "../../../data/types";
+import { Category, CategoryDto, HashTag, Response, RecipeStep } from "../../../data/types";
 import HashTagBadge from "../../../components/basicUi/HashTagBadge";
 import SideOffcanvas from "../../../components/basicUi/SideOffcanvas";
 import FilteredMultiSelect from "../../../components/complex/FilteredMultiSelect";
@@ -28,6 +28,7 @@ import VerticalPagination from "../../../components/complex/VerticalPagination";
 import { AlertsDispatchContext } from "../../../context/AlertContext";
 import RecipeCardCircle from "../../../components/complex/RecipeCardCircle";
 import MyImage from "../../../components/basicUi/MyImage";
+import { initAs } from "../../../utils/ObjectUtils";
 
 const omitNull = (obj: any) => {
     Object.keys(obj).filter(k => obj[k] === null).forEach(k => delete (obj[k]))
@@ -60,9 +61,9 @@ function Test() {
 
     Donec eu orci ullamcorper, vestibulum tortor eget, faucibus augue. Nunc in est maximus, finibus dui nec, vehicula elit. Nam ullamcorper dictum lacus, nec gravida massa egestas in. Praesent in hendrerit metus. Duis a nisl volutpat nunc consequat finibus nec a velit. Duis non luctus massa. Morbi faucibus neque non diam venenatis, vel congue neque euismod. In et nisi ligula. Suspendisse ac odio sagittis, elementum sem id, elementum felis. Ut sed enim mauris. Sed rutrum, nulla nec elementum consectetur, est felis semper orci, nec porta neque metus sodales odio. Vestibulum a quam ac lectus tincidunt blandit vel vitae mauris. 
      `
-    const recipeSteps=[{description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}, 
+    const recipeSteps=initAs<RecipeStep[]>([{description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}, 
         {description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}]
-
+    )
     
     const getRecipe = (num: number) => { let nr = { ...recipe }; nr.name += (' ' + num); return nr }
     const recipes = [getRecipe(1), getRecipe(2), getRecipe(3), getRecipe(4), getRecipe(5), getRecipe(6), getRecipe(7), getRecipe(8), getRecipe(9)];
