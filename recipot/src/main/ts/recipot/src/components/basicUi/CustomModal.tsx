@@ -8,8 +8,9 @@ function CustomModal({ shouldShow, handleClose, handleSubmit }: any) {
             handleClose={handleClose}
             handleSubmit={handleSubmit}
             show={shouldShow}
-            buttonSubmitText="submit"
-            buttonCloseText="close">
+            buttonCloseText = 'p.cancel'
+            buttonSubmitText = 'p.confirm'
+        >
             inside of modal
         </MyModal>
     )
