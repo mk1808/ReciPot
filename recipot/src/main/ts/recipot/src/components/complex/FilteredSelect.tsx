@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
 import { useTranslation } from "react-i18next";
-import '../styles.scss';
+import './styles.scss';
 import { renderButonSimpleText, renderButtonComplexContent, renderCheck, renderDropdownComponent, renderLabel, renderWrappedDropdownContent } from './FilteredSelectCommonElements';
 import { addUniqueValue, checkListContains, removeValue } from '../../utils/ListUtils';
 import { canCreateNewValue, createNewValue, stopEventPropagation } from '../../utils/FilteredSelectUtils';

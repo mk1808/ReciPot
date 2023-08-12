@@ -1,5 +1,5 @@
 import { FaBell, FaRegBell, FaCheck } from "react-icons/fa6";
-import '../styles.scss';
+import './styles.scss';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import { useTranslation } from "react-i18next";
