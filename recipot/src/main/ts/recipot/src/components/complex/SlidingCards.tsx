@@ -2,16 +2,17 @@ import { useState, useEffect } from "react";
 import { Stack } from "react-bootstrap";
 import MyButton from "../basicUi/MyButton";
 import RecipeCard from "./RecipeCard";
+import { Recipe } from "../../data/types";
+import { initFcn } from "../../utils/ObjectUtils";
 
-function SlidingCards({ recipes, getSingleCard, recipeCallback }: any) {
+function SlidingElements({ recipes, getSingleCard, recipeCallback, size = 3 }: any) {
 
-    const SLIDER_SIZE = 3;
-    const lastIndex=recipes.length-SLIDER_SIZE;
     const [counter, setCounter] = useState(0);
     const [readyRecipes, setReadyRecipes] = useState<any[] | undefined>([]);
+    const lastIndex = recipes.length - size;
     const sliceTab = () => {
         if (counter > -1 && counter <= lastIndex) {
-            var slicedRecipes = [...recipes].slice(counter, counter + SLIDER_SIZE);
+            let slicedRecipes = [...recipes].slice(counter, counter + size);
             setReadyRecipes(slicedRecipes);
         }
     };
@@ -41,7 +42,7 @@ function SlidingCards({ recipes, getSingleCard, recipeCallback }: any) {
             </Stack>
         </>
     );
-    
+
     function renderContent() {
         return (
             <>
@@ -51,7 +52,7 @@ function SlidingCards({ recipes, getSingleCard, recipeCallback }: any) {
     }
 }
 
-function SlidingElements({ recipes, recipeCallbackForSlider }: any) {
+function SlidingCards({ recipes = [], recipeCallbackForSlider = initFcn<Recipe>() }: { recipes: Recipe[], recipeCallbackForSlider: Function }) {
 
     const getSingleCard = (element: any, index: number) => {
         return <RecipeCard className="mt-5" key={index} recipe={element} recipeCallback={recipeCallbackForSlider}></RecipeCard >
@@ -59,9 +60,9 @@ function SlidingElements({ recipes, recipeCallbackForSlider }: any) {
 
     return (
         <div className="mt-5">
-            <SlidingCards recipes={recipes} getSingleCard={getSingleCard} recipeCallback={recipeCallbackForSlider}></SlidingCards>
+            <SlidingElements recipes={recipes} getSingleCard={getSingleCard} recipeCallback={recipeCallbackForSlider}></SlidingElements>
         </div>
     );
 }
 
-export default SlidingElements;
+export default SlidingCards;
