@@ -2,7 +2,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import BootstrapTooltip from 'react-bootstrap/Tooltip';
 import './styles.scss';
 
-function Tooltip({ children, placement = "right", title = "" }: any) {
+function Tooltip({ children, placement = "right", title = "" }: { children: any, placement: any, title: string }) {
     const renderTooltip = (props: any) => (
         <BootstrapTooltip  {...props}>
             {title}

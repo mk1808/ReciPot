@@ -35,19 +35,28 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
 .main {
-  min-height:calc(100% - 56px - 58px)
+  min-height: calc(100% - 56px - 58px)
 }
 
 .full-height {
   height: 100%;
 }
 
-.button-400{
-  width:400px;
+.full-button {
+  width: 100%;
+  margin: 0 !important;
+}
+
+.alert-container {
+  width: 500px;
+  position: fixed;
+  top: 100px;
+  right: 0;
 }

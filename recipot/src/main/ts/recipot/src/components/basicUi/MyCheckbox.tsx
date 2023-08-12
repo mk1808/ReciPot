@@ -2,7 +2,20 @@ import Form from 'react-bootstrap/Form';
 import { initFcn } from '../../utils/ObjectUtils';
 import { useState } from 'react';
 
-function MyCheckbox({ name = "inputName", label = "", disabled = false, defaultChecked = true, onChange = initFcn<boolean>() }) {
+function MyCheckbox(
+    {
+        name = "inputName",
+        label = "",
+        disabled = false,
+        defaultChecked = true,
+        onChange = initFcn<boolean>()
+    }: {
+        name: string,
+        label: string,
+        disabled?: boolean,
+        defaultChecked?: boolean,
+        onChange: any
+    }) {
     const [isChecked, setChecked] = useState(defaultChecked)
 
     function onChangeCallback(event: any) {

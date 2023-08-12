@@ -1,6 +1,6 @@
 import MyModal from "./MyModal";
 
-function CustomModal({ shouldShow, handleClose, handleSubmit }: any) {
+function CustomModal({ shouldShow, handleClose, handleSubmit }: { shouldShow: boolean, handleClose: () => void, handleSubmit: () => void }) {
 
     return (
         <MyModal
@@ -8,8 +8,9 @@ function CustomModal({ shouldShow, handleClose, handleSubmit }: any) {
             handleClose={handleClose}
             handleSubmit={handleSubmit}
             show={shouldShow}
-            buttonSubmitText="submit"
-            buttonCloseText="close">
+            buttonCloseText='p.cancel'
+            buttonSubmitText='p.confirm'
+        >
             inside of modal
         </MyModal>
     )

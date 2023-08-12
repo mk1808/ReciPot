@@ -251,6 +251,10 @@
 		"commentedRecipe": "commented recipe",
 		"ratedRecipe": "rated recipe",
 		"withNote": "with comment",
-		"withRate": "for"
+		"withRate": "for",
+		"cancel":"Cancel",
+		"confirm":"OK",
+        "goToRecipe":"See recipe",
+        "numberOfRatings":"Number of ratings"
 	}
 }

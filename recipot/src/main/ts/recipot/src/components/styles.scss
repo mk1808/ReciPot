@@ -1,5 +1,4 @@
-.filtered-select,
-.filtered-multiselect {
+.filtered-select {
 
     &-toggle {
         background-color: rgb(255, 255, 255) !important;
@@ -32,15 +31,18 @@
     position: relative;
     text-align: left;
 
-    div {
-        position: absolute;
-        top: 0;
-        left: 0;
+    &-ring {
+        animation: ring-clipper 4s infinite ease-in-out;
+        border: 15px solid rgb(13, 110, 253);
+        border-radius: 50%;
+        z-index: 1;
     }
 
     &-value {
         font-size: larger;
         position: absolute;
+        top: 0;
+        left: 0;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -50,30 +52,17 @@
         font-size: large;
     }
 
-    .circle {
-        border-radius: 50%;
-    }
-
-    .half-circle {
-        border-radius: 50%;
-        clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%);
-    }
-
-    .rotated {
-        animation: half-circle-rotator 4s infinite ease-in-out;
-    }
-
-    @keyframes half-circle-rotator {
+    @keyframes ring-clipper {
         0% {
-            transform: rotate(150deg);
+            clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 20%, 10% 0%);
         }
 
         50% {
-            transform: rotate(160deg);
+            clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 20%, 30% 0%);
         }
 
         100% {
-            transform: rotate(150deg);
+            clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 20%, 10% 0%);
         }
     }
 }

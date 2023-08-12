@@ -1,12 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card, Col, Row } from "react-bootstrap";
+import { RecipeStep } from "../../data/types";
 
-function RecipeStepsNumbers({ steps }: any) {
+function RecipeStepsNumbers({ steps = [], size = 100, scrollHeight = 300 }: { steps: RecipeStep[], size?: number, scrollHeight?: number }) {
   const [scrollTop, setScrollTop] = useState(0);
-  const size = 100;
-  const name = "step-circle";
+  const circleElements = useRef<any[]>([]);
+
   useEffect(() => {
-    const handleScroll = (event: any) => {
+    const handleScroll = () => {
       setScrollTop(window.scrollY);
     };
     window.addEventListener('scroll', handleScroll);
@@ -16,26 +17,25 @@ function RecipeStepsNumbers({ steps }: any) {
   }, [])
 
   function getColor(index: number): string {
-    let allElements = document.getElementsByClassName(name),
-      element: any = allElements[index], //ref
+    let element: any = circleElements.current[index],
       offsetTop = element?.offsetTop || 0,
       scrollTop = window?.scrollY || 0;
-    return (offsetTop - scrollTop) < 300 ? "circle-light" : "circle-dark";
+    return (offsetTop - scrollTop) < scrollHeight ? "circle-light" : "circle-dark";
   }
 
-  function renderValue(value: number) {
-    return (
-      <div style={{ width: size, height: size }} className="value" >
-        <span>{value}</span>
-      </div>
-    )
-  }
+  return (
+    <div>
+      {steps.map((element: any, index: number) => {
+        return renderCircleWithText(element, getColor(index), index);
+      })}
+    </div>
+  );
 
   function renderCircleWithText(element: any, backgroundClass: string, key: number) {
     return (
       <Row className="mb-3" key={key} >
         <Col xs={2}>
-          <div className={name + " mb-5 " + backgroundClass}>
+          <div ref={circleElement => circleElements.current[key] = circleElement} className={"step-circle mb-5 " + backgroundClass}>
             {renderValue(key + 1)}
           </div>
         </Col>
@@ -48,12 +48,12 @@ function RecipeStepsNumbers({ steps }: any) {
     )
   }
 
-  return (
-    <>
-      {steps.map((element: any, index: number) => {
-        return renderCircleWithText(element, getColor(index), index);
-      })}
-    </>
-  );
+  function renderValue(value: number) {
+    return (
+      <div style={{ width: size, height: size }} className="value" >
+        <span>{value}</span>
+      </div>
+    )
+  }
 }
 export default RecipeStepsNumbers;

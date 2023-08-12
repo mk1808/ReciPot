@@ -1,7 +1,23 @@
 import Form from 'react-bootstrap/Form';
 import { initFcn } from '../../utils/ObjectUtils';
 
-function MyTextarea({ name = "inputName", label = "", placeholder = "", disabled = false, onChange = initFcn<any>(), rows = 3, defaultValue = "" }: any) {
+function MyTextarea({
+    name = "inputName",
+    label = "",
+    placeholder = "",
+    disabled = false,
+    onChange = initFcn<any>(),
+    rows = 3,
+    defaultValue = ""
+}: {
+    name: string,
+    label?: string,
+    placeholder: string,
+    disabled?: boolean,
+    onChange: Function,
+    rows?: number,
+    defaultValue?: string
+}) {
 
     function onChangeCallback(event: any) {
         onChange(event.target.value)

@@ -251,6 +251,10 @@
         "commentedRecipe": "skomentował przepis",
         "ratedRecipe": "ocenił przepis",
         "withNote": "z notatką",
-        "withRate": "na"
+        "withRate": "na",
+        "cancel":"Anuluj",
+        "confirm":"Potwierdź",
+        "goToRecipe":"Zobacz przepis",
+        "numberOfRatings":"Liczba ocen"
     }
 }

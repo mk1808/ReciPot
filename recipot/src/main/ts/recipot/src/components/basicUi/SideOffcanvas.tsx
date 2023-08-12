@@ -4,14 +4,14 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import { BsArrowLeft } from 'react-icons/bs';
 import './styles.scss';
 
-function SideOffcanvas({ title = "Title", children }: any) {
+function SideOffcanvas({ title = "", children }: { title: string, children: any }) {
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
     return (
         <>
-            <Button variant="primary" onClick={handleShow} className="nav-right">
+            <Button variant="primary" onClick={handleShow} className="side-offcanvas-button">
                 <BsArrowLeft />
             </Button>
 
@@ -21,7 +21,7 @@ function SideOffcanvas({ title = "Title", children }: any) {
                 scroll={true}
                 backdrop={false}
                 placement="end"
-                className="side-right"
+                className="side-offcanvas-panel"
             >
 
                 {renderContent()}

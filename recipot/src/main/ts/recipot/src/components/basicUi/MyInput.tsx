@@ -1,7 +1,23 @@
 import Form from 'react-bootstrap/Form';
 import { initFcn } from '../../utils/ObjectUtils';
 
-function MyInput({ name = "inputName", label = "", type = "text", placeholder = "", disabled = false, onChange = initFcn<any>(), defaultValue = "" }: any) {
+function MyInput({
+    name = "inputName",
+    label = "",
+    type = "text",
+    placeholder = "",
+    disabled = false,
+    onChange = initFcn<any>(),
+    defaultValue = ""
+}: {
+    name: string,
+    label?: string,
+    type?: string,
+    placeholder?: string,
+    disabled?: boolean,
+    onChange: Function,
+    defaultValue?: string
+}) {
 
     function onChangeCallback(event: any) {
         onChange(event.target.value)
