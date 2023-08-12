@@ -1,6 +1,6 @@
 import MyModal from "./MyModal";
 
-function CustomModal({ shouldShow, handleClose, handleSubmit }: { shouldShow: boolean, handleClose: Function, handleSubmit: Function }) {
+function CustomModal({ shouldShow, handleClose, handleSubmit }: { shouldShow: boolean, handleClose: () => void, handleSubmit: () => void }) {
 
     return (
         <MyModal

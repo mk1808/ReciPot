@@ -1,7 +1,8 @@
 import Form from 'react-bootstrap/Form';
 import { initFcn } from '../../utils/ObjectUtils';
 
-function MySelect({ name = "inputName", label = "", emptyOption = "", disabled = false, options = [], defaultValue = {}, onChange = initFcn<any>() }: any) {
+function MySelect({ name = "inputName", label = "", emptyOption = "", disabled = false, options = [], defaultValue = {}, onChange = initFcn<any>() }: 
+{ name: string, label?: string, emptyOption?: string, disabled?: boolean, onChange: Function, defaultValue?: any, options:any }) {
     function onChangeCallback(event: any) {
         onChange(options[event.target.value]?.value)
     }

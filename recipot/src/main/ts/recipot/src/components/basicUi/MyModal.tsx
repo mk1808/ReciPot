@@ -9,7 +9,15 @@ function MyModal({
     handleSubmit,
     buttonCloseText = 'p.cancel',
     buttonSubmitText = 'p.confirm',
-    children }: any) {
+    children }: {
+        title: string,
+        show: boolean,
+        handleClose: () => void,
+        handleSubmit: () => void,
+        buttonCloseText?: string,
+        buttonSubmitText?: string,
+        children: any
+    }) {
 
     const { t } = useTranslation();
     return (
