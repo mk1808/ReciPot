@@ -254,6 +254,7 @@
 		"withRate": "for",
 		"cancel":"Cancel",
 		"confirm":"OK",
-        "goToRecipe":"See recipe"
+        "goToRecipe":"See recipe",
+        "numberOfRatings":"Number of ratings"
 	}
 }

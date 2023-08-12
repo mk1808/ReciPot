@@ -1,18 +1,12 @@
 import { Card } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
-import { AiFillStar } from 'react-icons/ai';
+import { renderRating } from './RecipeCardCommonElements';
+import { useTranslation } from 'react-i18next';
+import { Recipe } from '../../data/types';
+import { getShorterText } from '../../utils/TextUtils';
 
-function RecipeCardCircle({ recipe, recipeCallback }: any) {
-    const shortDesc = recipe.description.length > 160 ? recipe.description.substring(0, 160) + "..." : recipe.description;
-    const getRating = () => {
-        return (
-            <div className="h6">
-                <AiFillStar /> {recipe.averageRating}/5  &nbsp;
-                <div className="vr"></div>
-                &nbsp; Liczba ocen: {recipe.ratingsCount}
-            </div>
-        )
-    }
+function RecipeCardCircle({ recipe, recipeCallback }: {recipe:Recipe, recipeCallback:()=>void}) {
+    const { t } = useTranslation();
 
     return (
         <div className='circle-card-container'>
@@ -20,12 +14,12 @@ function RecipeCardCircle({ recipe, recipeCallback }: any) {
                 <Card className='p-3'>
                     <Card.Title className="big-title pb-3 mb-3"> {recipe.name} </Card.Title>
                     <Card.Body className="body">
-                        <h6>{recipe.categories.slice(0, 1)}</h6>
-                        {getRating()}
-                        {shortDesc}
+                        <h6>{recipe.categories.map(category => category.name).slice(0, 1)}</h6>
+                        {renderRating(recipe, t('p.numberOfRatings'))}
+                        {getShorterText(recipe.description, 60)}
                     </Card.Body>
                 </Card>
-                <Image className="img" src={recipe.photo} roundedCircle onClick={recipeCallback} />
+                <Image className="img" src={recipe.image} roundedCircle onClick={recipeCallback} />
             </div>
         </div>
     );

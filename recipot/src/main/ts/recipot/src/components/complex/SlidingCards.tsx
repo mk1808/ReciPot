@@ -52,11 +52,11 @@ function SlidingElements({ recipes, getSingleElement, size = 3 }: { recipes: Rec
 function SlidingCards({ recipes = [], goToRecipeCallback = initFcn<Recipe>() }: { recipes: Recipe[], goToRecipeCallback: Function }) {
 
     function renderSingleCard(element: any, index: number) {
-        return <RecipeCard className="mt-5" key={index} recipe={element} recipeCallback={goToRecipeCallback}></RecipeCard >
+        return <RecipeCard  key={index} recipe={element} recipeCallback={goToRecipeCallback}></RecipeCard > 
     }
 
     return (
-        <div className="mt-5">
+        <div className="my-5">
             <SlidingElements recipes={recipes} getSingleElement={renderSingleCard}></SlidingElements>
         </div>
     );
