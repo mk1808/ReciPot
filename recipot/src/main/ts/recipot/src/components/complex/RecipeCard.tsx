@@ -3,8 +3,11 @@ import { Button, Card, Stack } from 'react-bootstrap';
 import { AiFillStar } from 'react-icons/ai';
 import './styles.scss';
 import HashTagBadge from '../basicUi/HashTagBadge';
+import MyButton from '../basicUi/MyButton';
+import { useTranslation } from 'react-i18next';
 
 function RecipeCard({ recipe, recipeCallback }: any) {
+    const { t } = useTranslation();
     const shortDesc = recipe.description.length > 60 ? recipe.description.substring(0, 60) + "..." : recipe.description;
     const getRating = () => {
         return (
@@ -40,7 +43,7 @@ function RecipeCard({ recipe, recipeCallback }: any) {
                     {shortDesc}
                 </div>
 
-                <Button variant="primary" className="full-button" onClick={recipeCallback}>Go somewhere</Button>
+                <MyButton.Primary onClick={recipeCallback} className="full-button">{t('p.goToRecipe')}</MyButton.Primary>
             </Card.Body>
         </Card >
     );

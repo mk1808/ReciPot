@@ -253,6 +253,7 @@
 		"withNote": "with comment",
 		"withRate": "for",
 		"cancel":"Cancel",
-		"confirm":"OK"
+		"confirm":"OK",
+        "goToRecipe":"See recipe"
 	}
 }

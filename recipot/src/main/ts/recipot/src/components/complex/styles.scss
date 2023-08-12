@@ -4,20 +4,13 @@
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 
-
-
 .recipe-card {
     width: 18rem
 }
 
 .full-button {
-    width: 100%
-}
-
-.width {
-    width: 200px;
-    height: 350px;
-    background-color: gray;
+    width: 100%;
+    margin: 0 !important;
 }
 
 .step-circle {
