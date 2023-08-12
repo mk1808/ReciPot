@@ -125,7 +125,7 @@ function Test() {
                 </div>
 
                 <div>
-                    <MyImage src={photo} height="300" rounded></MyImage>
+                    <MyImage src={photo} height={300} rounded></MyImage>
                 </div>
                 <div>
                     <MyButton.Primary onClick={handleShow}>

@@ -1,7 +1,8 @@
 import Form from 'react-bootstrap/Form';
 import { initFcn } from '../../utils/ObjectUtils';
 
-function MyFileInput({ name = "inputName", label = "", placeholder = "", disabled = false, onChange = initFcn<any>(), defaultValue = "" }: any) {
+function MyFileInput({ name = "inputName", label = "", placeholder = "", disabled = false, onChange = initFcn<any>(), defaultValue = "" }:
+    { name: string, label: string, placeholder: string, disabled?: boolean, onChange: any, defaultValue?: string }) {
 
     function onChangeCallback(event: any) {
         onChange(event.target.value)
