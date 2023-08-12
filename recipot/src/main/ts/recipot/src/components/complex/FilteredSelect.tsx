@@ -59,7 +59,7 @@ function FilteredSelect({
     function onSelect(value: any, event?: any) {
         if (multiple) {
             stopEventPropagation(event);
-            onSelectMultiple(value)
+            onSelectMultiple(value);
         } else {
             setSelected(value);
         }
@@ -74,8 +74,8 @@ function FilteredSelect({
     }
 
     function removeElement(value: any) {
-        setSelectedValues(removeValue(selectedValues, value))
-        setCreatedValues(removeValue(createdValues, value))
+        setSelectedValues(removeValue(selectedValues, value));
+        setCreatedValues(removeValue(createdValues, value));
     }
 
     function createNewValueBySearchInput() {
@@ -99,8 +99,8 @@ function FilteredSelect({
 
     function createForSingleMode() {
         const newValue = createNewValue(searchInputValue);
-        setSelected(newValue)
-        onNewValueCallback(newValue)
+        setSelected(newValue);
+        onNewValueCallback(newValue);
     }
 
 
