@@ -5,14 +5,15 @@ import Popover from 'react-bootstrap/Popover';
 import { useTranslation } from "react-i18next";
 import Badge from 'react-bootstrap/Badge';
 import { Notification } from "../../data/types";
-import { initAs, initFcn } from "../../utils/ObjectUtils";
 import { parseNotificationContent } from "../../utils/NotificationUtils";
 
 function Notifications({
-    notifications = initAs<Notification[]>([]),
-    onCheck = initFcn<Notification>()
+    notifications,
+    onCheck
+}: {
+    notifications: Notification[],
+    onCheck: (parameter: Notification) => void
 }) {
-
     const { t } = useTranslation();
 
     return <div className="notifications">
@@ -54,6 +55,5 @@ function Notifications({
         </div>
     }
 }
-
 
 export default Notifications;
