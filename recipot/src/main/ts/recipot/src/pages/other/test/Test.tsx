@@ -6,8 +6,6 @@ import dictionariesApi from "../../../api/DictionariesApi";
 import { Category, CategoryDto, HashTag, Response, RecipeStep } from "../../../data/types";
 import HashTagBadge from "../../../components/basicUi/HashTagBadge";
 import SideOffcanvas from "../../../components/basicUi/SideOffcanvas";
-import FilteredMultiSelect from "../../../components/complex/FilteredMultiSelect";
-import FilteredHierarchicalSelect from "../../../components/complex/FilteredHierarchicalSelect";
 import StatisticCircle from "../../../components/complex/StatisticCircle";
 import RecipeCard from "../../../components/complex/RecipeCard";
 import MyAlert from "../../../components/basicUi/MyAlert";
@@ -45,7 +43,7 @@ function Test() {
         description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
         photo: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22286%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20286%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_189cc491e6b%20text%20%7B%20fill%3A%23999%3Bfont-weight%3Anormal%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A14pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_189cc491e6b%22%3E%3Crect%20width%3D%22286%22%20height%3D%22180%22%20fill%3D%22%23373940%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22107.1953125%22%20y%3D%2296.3%22%3E286x180%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
     };
-    const recipeCallback = () => {console.log("go to recipe!") }
+    const recipeCallback = () => { console.log("go to recipe!") }
     const [show, setShow] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const handleClose = () => setShowModal(false);
@@ -53,7 +51,7 @@ function Test() {
     const handleSubmit = () => { console.log("successfull submit"); setShowModal(false) };
     const dispatch = useContext(AlertsDispatchContext);
     let nextId = 0;
-    const photo="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22171%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20171%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_189d8cc414e%20text%20%7B%20fill%3A%23999%3Bfont-weight%3Anormal%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_189d8cc414e%22%3E%3Crect%20width%3D%22171%22%20height%3D%22180%22%20fill%3D%22%23373940%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2259.921875%22%20y%3D%2294.5%22%3E171x180%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E";
+    const photo = "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22171%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20171%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_189d8cc414e%20text%20%7B%20fill%3A%23999%3Bfont-weight%3Anormal%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_189d8cc414e%22%3E%3Crect%20width%3D%22171%22%20height%3D%22180%22%20fill%3D%22%23373940%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2259.921875%22%20y%3D%2294.5%22%3E171x180%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E";
 
 
     const testOptions = [{ label: "op1", value: { name: "nam1" } }, { label: "op2", value: { name: "nam2" } }, { label: "op3", value: { name: "nam3" } }];
@@ -61,10 +59,10 @@ function Test() {
 
     Donec eu orci ullamcorper, vestibulum tortor eget, faucibus augue. Nunc in est maximus, finibus dui nec, vehicula elit. Nam ullamcorper dictum lacus, nec gravida massa egestas in. Praesent in hendrerit metus. Duis a nisl volutpat nunc consequat finibus nec a velit. Duis non luctus massa. Morbi faucibus neque non diam venenatis, vel congue neque euismod. In et nisi ligula. Suspendisse ac odio sagittis, elementum sem id, elementum felis. Ut sed enim mauris. Sed rutrum, nulla nec elementum consectetur, est felis semper orci, nec porta neque metus sodales odio. Vestibulum a quam ac lectus tincidunt blandit vel vitae mauris. 
      `
-    const recipeSteps=initAs<RecipeStep[]>([{description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}, 
-        {description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}, {description:stepText}]
+    const recipeSteps = initAs<RecipeStep[]>([{ description: stepText }, { description: stepText }, { description: stepText }, { description: stepText }, { description: stepText },
+    { description: stepText }, { description: stepText }, { description: stepText }, { description: stepText }, { description: stepText }, { description: stepText }, { description: stepText }]
     )
-    
+
     const getRecipe = (num: number) => { let nr = { ...recipe }; nr.name += (' ' + num); return nr }
     const recipes = [getRecipe(1), getRecipe(2), getRecipe(3), getRecipe(4), getRecipe(5), getRecipe(6), getRecipe(7), getRecipe(8), getRecipe(9)];
 
@@ -123,7 +121,7 @@ function Test() {
                 <div>
                     <SlidingElements recipes={recipes} recipeCallbackForSlider={recipeCallbackForSlider}></SlidingElements>
                 </div>
-                
+
                 <div>
                     <MyImage src={photo} height="300" rounded></MyImage>
                 </div>
@@ -138,7 +136,7 @@ function Test() {
                     <RecipeCardCircle recipe={recipe} recipeCallback={recipeCallback}></RecipeCardCircle>
                 </div>
 
-                
+
             </div>
 
 
@@ -204,19 +202,19 @@ function FilteredSelectTest() {
 
     function onSearchCallback(phrase: string) {
         onFilteredSelectSearchCallback(phrase)
-        console.log("onSearchCallback", phrase)
+        //console.log("onSearchCallback", phrase)
     }
 
     function onSelectCallback(value: any) {
-        console.log("onSelectCallback", value)
+        //console.log("onSelectCallback", value)
     }
 
     function onNewValueCallback(value: string) {
-        console.log("onNewValueCallback", value)
+        //console.log("onNewValueCallback", value)
     }
 
 
-    return <FilteredSelect label="Test wartości" valuesList={filteredSelectValues} onSearchCallback={onSearchCallback} defaultValue={{ value: "asd", label: "dsa" }}
+    return <FilteredSelect label="Test wartości" options={filteredSelectValues} onSearchCallback={onSearchCallback} defaultValue={{ value: "asd", label: "dsa" }}
         onSelectCallback={onSelectCallback} onNewValueCallback={onNewValueCallback} disabled={false} allowNew={true} />
 }
 
@@ -237,19 +235,19 @@ function FilteredMultiSelectTest() {
 
     function onSearchCallback(phrase: string) {
         onFilteredSelectSearchCallback(phrase)
-        console.log("onSearchCallback", phrase)
+        //console.log("onSearchCallback", phrase)
     }
 
     function onSelectCallback(value: any) {
-        console.log("onSelectCallback", value)
+        //console.log("onSelectCallback", value)
     }
 
     function onNewValueCallback(value: string) {
-        console.log("onNewValueCallback", value)
+        //console.log("onNewValueCallback", value)
     }
 
 
-    return <FilteredMultiSelect label="Test multiSelect" valuesList={filteredSelectValues} onSearchCallback={onSearchCallback} allowNew={true}
+    return <FilteredSelect multiple={true} label="Test multiSelect" options={filteredSelectValues} onSearchCallback={onSearchCallback} allowNew={true}
         onSelectCallback={onSelectCallback} onNewValueCallback={onNewValueCallback} disabled={false} defaultValue={[{ label: "test123" }, { label: "abc_111" }]} />
 }
 
@@ -296,19 +294,19 @@ function FilteredHierarchicalSelectTest() {
 
     function onSearchCallback(phrase: string) {
         onFilteredSelectSearchCallback(phrase)
-        console.log("onSearchCallback", phrase)
+        //console.log("onSearchCallback", phrase)
     }
 
     function onSelectCallback(value: any) {
-        console.log("onSelectCallback", value)
+        //console.log("onSelectCallback", value)
     }
 
     function onNewValueCallback(value: string) {
-        console.log("onNewValueCallback", value)
+        //console.log("onNewValueCallback", value)
     }
 
 
-    return <FilteredHierarchicalSelect label="Test hierarchical Select" valuesList={filteredSelectValues} onSearchCallback={onSearchCallback}
+    return <FilteredSelect multiple={true} label="Test hierarchical Select" options={filteredSelectValues} onSearchCallback={onSearchCallback} hierarchical={true}
         onSelectCallback={onSelectCallback} onNewValueCallback={onNewValueCallback} disabled={false} allowNew={false} />
 }
 
