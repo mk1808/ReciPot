@@ -1,7 +1,7 @@
 import Tooltip from "./Tooltip";
 import { FaCircleInfo } from "react-icons/fa6";
 
-function Info({ placement = "right", value = "" }: any) {
+function Info({ placement = "right", value = "" }: { placement?: string, value: string }) {
     return <Tooltip placement={placement} title={value}><FaCircleInfo className="info-icon" /></Tooltip>
 }
 

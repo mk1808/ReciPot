@@ -13,7 +13,7 @@ function ErrorAlert({ children }: any) {
     return <MyAlert >{children}</MyAlert>
 }
 
-function MyAlert({ variant, children }: any) {
+function MyAlert({ variant, children }: { variant?: string, children: any }) {
     const [show, setShow] = useState(true);
 
     useEffect(() => {

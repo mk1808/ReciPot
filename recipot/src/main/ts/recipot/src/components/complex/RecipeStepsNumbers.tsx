@@ -5,8 +5,9 @@ import { RecipeStep } from "../../data/types";
 function RecipeStepsNumbers({ steps = [], size = 100, scrollHeight = 300 }: { steps: RecipeStep[], size?: number, scrollHeight?: number }) {
   const [scrollTop, setScrollTop] = useState(0);
   const circleElements = useRef<any[]>([]);
+
   useEffect(() => {
-    const handleScroll = (event: any) => {
+    const handleScroll = () => {
       setScrollTop(window.scrollY);
     };
     window.addEventListener('scroll', handleScroll);
@@ -21,7 +22,7 @@ function RecipeStepsNumbers({ steps = [], size = 100, scrollHeight = 300 }: { st
       scrollTop = window?.scrollY || 0;
     return (offsetTop - scrollTop) < scrollHeight ? "circle-light" : "circle-dark";
   }
-  
+
   return (
     <div>
       {steps.map((element: any, index: number) => {
