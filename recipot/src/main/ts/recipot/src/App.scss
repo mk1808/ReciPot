@@ -1,5 +1,10 @@
 @import "./assets/bootstrapCustomTheme.scss";
 
+.App {
+  text-align: center;
+  height: 100%;
+}
+
 .main {
   min-height: calc(100% - 56px - 58px)
 }
