@@ -5,62 +5,59 @@ import RecipeCard from "./RecipeCard";
 import { Recipe } from "../../data/types";
 import { initFcn } from "../../utils/ObjectUtils";
 
-function SlidingElements({ recipes, getSingleCard, recipeCallback, size = 3 }: any) {
+function SlidingElements({ recipes, getSingleElement, size = 3 }: { recipes: Recipe[], getSingleElement: Function, size?: number }) {
 
     const [counter, setCounter] = useState(0);
-    const [readyRecipes, setReadyRecipes] = useState<any[] | undefined>([]);
+    const [slicedRecipes, setSlicedRecipes] = useState<any[] | undefined>([]);
     const lastIndex = recipes.length - size;
-    const sliceTab = () => {
-        if (counter > -1 && counter <= lastIndex) {
-            let slicedRecipes = [...recipes].slice(counter, counter + size);
-            setReadyRecipes(slicedRecipes);
-        }
-    };
-    const clickSlide = (counterValue: number) => {
-        setCounter(counterValue);
-    }
 
     useEffect(() => {
         sliceTab();
     }, [counter]);
 
+    function clickSlide(counterValue: number) {
+        setCounter(counterValue);
+    };
 
+    function sliceTab() {
+        if (counter > -1 && counter <= lastIndex) {
+            let mySlicedRecipes = [...recipes].slice(counter, counter + size);
+            setSlicedRecipes(mySlicedRecipes);
+        }
+    };
 
     return (
-        <>
-            <Stack direction="horizontal" >
-                <MyButton.Primary onClick={() => clickSlide(counter === 0 ? 0 : counter - 1)}>
-                    &#10094;
-                </MyButton.Primary>
+        <Stack direction="horizontal" >
+            <MyButton.Primary onClick={() => clickSlide(counter === 0 ? 0 : counter - 1)}>
+                &#10094;
+            </MyButton.Primary>
 
-                {renderContent()}
+            {renderContent()}
 
-                <MyButton.Primary onClick={() => clickSlide(counter === lastIndex ? lastIndex : counter + 1)}>
-                    &#10095;
-                </MyButton.Primary>
-
-            </Stack>
-        </>
+            <MyButton.Primary onClick={() => clickSlide(counter === lastIndex ? lastIndex : counter + 1)}>
+                &#10095;
+            </MyButton.Primary>
+        </Stack>
     );
 
     function renderContent() {
         return (
             <>
-                {readyRecipes?.map((element, index) => { return getSingleCard(element, index) })}
+                {slicedRecipes?.map((element, index) => { return getSingleElement(element, index) })}
             </>
         )
     }
 }
 
-function SlidingCards({ recipes = [], recipeCallbackForSlider = initFcn<Recipe>() }: { recipes: Recipe[], recipeCallbackForSlider: Function }) {
+function SlidingCards({ recipes = [], goToRecipeCallback = initFcn<Recipe>() }: { recipes: Recipe[], goToRecipeCallback: Function }) {
 
-    const getSingleCard = (element: any, index: number) => {
-        return <RecipeCard className="mt-5" key={index} recipe={element} recipeCallback={recipeCallbackForSlider}></RecipeCard >
+    function renderSingleCard(element: any, index: number) {
+        return <RecipeCard className="mt-5" key={index} recipe={element} recipeCallback={goToRecipeCallback}></RecipeCard >
     }
 
     return (
         <div className="mt-5">
-            <SlidingElements recipes={recipes} getSingleCard={getSingleCard} recipeCallback={recipeCallbackForSlider}></SlidingElements>
+            <SlidingElements recipes={recipes} getSingleElement={renderSingleCard}></SlidingElements>
         </div>
     );
 }
