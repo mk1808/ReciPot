@@ -109,3 +109,136 @@
         }
     }
 }
+
+.filtered-select {
+
+    &-toggle {
+        background-color: rgb(255, 255, 255) !important;
+        border-color: rgb(222, 226, 230) !important;
+        color: rgb(33, 37, 41) !important;
+    }
+
+    &-button-text {
+        display: inline-block;
+        margin: 0;
+        text-align: left;
+    }
+
+    &-list {
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+    &-checkbox {
+        display: inline-block;
+        color: rgb(222, 226, 230);
+
+        .checked {
+            color: rgb(13, 110, 253);
+        }
+    }
+}
+
+.statistic-circle {
+    position: relative;
+    text-align: left;
+
+    &-ring {
+        animation: ring-clipper 4s infinite ease-in-out;
+        border: 15px solid rgb(13, 110, 253);
+        border-radius: 50%;
+        z-index: 1;
+    }
+
+    &-value {
+        font-size: larger;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &-label {
+        font-size: large;
+    }
+
+    @keyframes ring-clipper {
+        0% {
+            clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 20%, 10% 0%);
+        }
+
+        50% {
+            clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 20%, 30% 0%);
+        }
+
+        100% {
+            clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 20%, 10% 0%);
+        }
+    }
+}
+
+.notifications {
+    .icon {
+        font-size: 20px;
+        line-height: 30px;
+        position: relative;
+        width: 30px;
+        height: 100%;
+        cursor: pointer;
+
+        .badge {
+            font-size: 10px;
+            position: absolute;
+            right: 0;
+            bottom: 3px;
+            padding: 3px;
+            animation: notification-badge-opacity-blink 1s infinite linear;
+        }
+
+        @keyframes notification-badge-opacity-blink {
+            80% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    }
+
+    &-notification {
+        border: 1px solid rgb(222, 226, 230);
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 10px;
+
+        .title {
+            font-size: 20px;
+            margin-bottom: 10px;
+
+        }
+
+        .icon {
+            margin-left: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    }
+}
+
+#notifications-popover {
+    width: 350px;
+    max-width: 350px;
+
+    .popover-body {
+        min-height: 100px;
+        max-height: 400px;
+        overflow-y: auto;
+    }
+}
