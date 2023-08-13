@@ -33,12 +33,12 @@
 }
 
 .vertical-pagination {
-    width: 50px;
+    width: 60px;
+    float: right;
 
     .pagination-container {
         position: fixed;
         height: 100%;
-        right: 0;
         top: 150px;
         display: block;
 
