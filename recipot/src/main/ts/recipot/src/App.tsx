@@ -17,7 +17,7 @@ import RecipeAdd from './pages/recipe/add/RecipeAdd';
 import NoAccess from './pages/other/noAccess/NoAccess';
 import RecipeCollectionList from './pages/recipeCollection/list/RecipeCollectionList';
 import RecipeFilter from './pages/recipe/filter/RecipeFilter';
-import { UserProvider } from './context/UserContext';
+import { UserContextProvider } from './context/UserContext';
 import Test from './pages/other/test/Test';
 import UserDetails from './pages/user/UserDetails';
 import AlertContext from './context/AlertContext';
@@ -80,9 +80,11 @@ function App() {
     )
   }
   return (
-    <AlertContext>
-      {renderApp()}
-    </AlertContext>
+    <UserContextProvider>
+      <AlertContext>
+        {renderApp()}
+      </AlertContext>
+    </UserContextProvider>
   );
 }
 export default App;

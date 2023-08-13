@@ -1,25 +1,48 @@
-import React, { createContext, useContext, useState, useEffect, Context } from "react";
+import { createContext, useEffect, Context, useReducer } from "react";
 import authApi from "../api/AuthApi";
-import usersApi from "../api/UsersApi";
 import { AppUser, Response } from "../data/types";
 
-const myUser = { id: "abc", name: "John" };
+export const UsersContext: Context<{ user?: AppUser }> = createContext({});
 
-export const UserContext: Context<{ user?: AppUser }> = createContext({});
-export const UserProvider = ({ children }: any) => {
-    const [user, setUser] = useState<AppUser>();
-    const onSuccess = (response: Response<AppUser>) => {
+export const UsersDispatchContext = createContext<Function>(() => { });
+
+export const UserContextProvider = ({ children }: any) => {
+    const [user, dispatch]: [any, Function] = useReducer(
+        usersReducer, null
+    );
+
+    function onSuccess(response: Response<AppUser>) {
         console.log(response.value);
-        setUser(response.value);
+        let action = { user: response.value, type: 'logged' }
+        dispatch(action);
+    };
+
+    function usersReducer(user: any, action: any) {
+        switch (action.type) {
+            case 'logged': {
+                return action.user;
+            }
+            case 'loggedOut': {
+                return null;
+            }
+            case 'refresh': {
+                authApi.whoAmI(onSuccess, () => { })
+                return user;
+            }
+            default: {
+                throw Error('Unknown action: ' + action.type);
+            }
+        }
     }
     useEffect(() => {
-        authApi.whoAmI(onSuccess, () => { })
-
+        dispatch({ type: 'refresh' })
     }, [])
 
     return (
-        <UserContext.Provider value={{ user }}>
-            {children}
-        </UserContext.Provider>
+        <UsersContext.Provider value={{ user }}>
+            <UsersDispatchContext.Provider value={dispatch}>
+                {children}
+            </UsersDispatchContext.Provider>
+        </UsersContext.Provider>
     )
 }

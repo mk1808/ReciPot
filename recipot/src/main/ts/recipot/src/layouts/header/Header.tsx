@@ -8,13 +8,13 @@ import { NavLink } from 'react-router-dom';
 import { GiCookingPot } from 'react-icons/gi';
 import { useTranslation } from "react-i18next";
 import NotificationManager from './components/NotificationManager';
-import { UserContext } from '../../context/UserContext';
+import { UsersContext } from '../../context/UserContext';
 import { AppUser } from '../../data/types';
 
 function Header() {
   const [isLogged, setIsLogged] = useState(false);
   const { t } = useTranslation();
-  const user = useContext(UserContext).user;
+  const user = useContext(UsersContext).user;
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid>
@@ -51,7 +51,7 @@ function Header() {
             <Nav.Link as={NavLink} to="/recipeCollections">{t('p.collections')}</Nav.Link>
           </>
         }
-        <NavDropdown title={t('p.account') + user?.login} id="navbarScrollingDropdown" align="end">
+        <NavDropdown title={t('p.account') +' '+ user?.login} id="navbarScrollingDropdown" align="end">
           {!isLogged &&
             <>
               <NavDropdown.Item as={NavLink} to="/login">{t('p.login')}</NavDropdown.Item>
