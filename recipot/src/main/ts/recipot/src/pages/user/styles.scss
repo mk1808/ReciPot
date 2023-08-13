@@ -1,0 +1,15 @@
+@use "../../assets/variables"as v;
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+.user-details-page {
+
+    .edit-form {
+        text-align: left;
+    }
+
+    .statistic-circle {
+        font-size: 30px;
+    }
+}
