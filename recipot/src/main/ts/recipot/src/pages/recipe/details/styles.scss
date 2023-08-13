@@ -1,0 +1,18 @@
+@use "../../../assets/variables"as v;
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+.recipe-details-page {
+    .basic-container-border {
+        & {
+            height: 1000px;
+        }
+
+    }
+
+    .main-img {
+        width: calc(100% - 2rem);
+    }
+
+}
