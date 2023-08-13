@@ -263,8 +263,23 @@
 		"ingredients": "Ingredients",
 		"add": "Add",
 		"save": "Save",
+		"edit": "Edit",
 		"recipeFilterHeader": "Recipe search",
 		"savedRecipeFilterHeader": "Saved filters",
-		"recipeFilterForm": "Search criteria"
+		"recipeFilterForm": "Search criteria",
+		"userDetailsHeader": "User account details",
+		"createdRecipesCount": "Created recipes",
+		"commentedRecipesCount": "Commented recipes",
+		"ratedRecipesCount": "Rated recipes",
+		"userRecipeCollectionsCount": "Own collections",
+		"recipesInUserRecipeCollectionsCount": "Recipes in own collections",
+		"emailInputLabel": "Email address",
+		"emailInputPlaceholder": "Fill email address",
+		"loginInputLabel": "User login",
+		"loginInputPlaceholder": "Fill user login",
+		"avatarInputLabel": "Avatar URL",
+		"avatarInputPlaceholder": "Avatar URL",
+		"selfDescriptionInputLabel": "Account description",
+		"selfDescriptionInputPlaceholder": "Fill description"
 	}
 }

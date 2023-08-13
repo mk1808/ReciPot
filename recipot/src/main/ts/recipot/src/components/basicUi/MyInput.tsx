@@ -15,7 +15,7 @@ function MyInput({
     type?: string,
     placeholder?: string,
     disabled?: boolean,
-    onChange: Function,
+    onChange?: Function,
     defaultValue?: string
 }) {
 
