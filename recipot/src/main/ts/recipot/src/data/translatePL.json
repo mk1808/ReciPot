@@ -263,6 +263,7 @@
         "ingredients": "Składniki",
         "add": "Dodaj",
         "save": "Zapisz",
+        "edit": "Edytuj",
         "recipeFilterHeader": "Wyszukaj przepis",
         "savedRecipeFilterHeader": "Zapisane filtry",
         "recipeFilterForm": "Kryteria wyszukiwania",
@@ -271,6 +272,22 @@
         "recipesCount": "Liczba przepisów",
         "usersCount": "Liczba użytkowników",
         "allRecipeCollectionsCount": "Liczba kolekcji",
-        "more": "Więcej..."
+        "more": "Więcej...",
+        "savedCollections": "Zapisane kolekcje",
+        "recipeCollectionListHeader": "Kolekcje użytkownika",
+        "userDetailsHeader": "Konto użytkownika",
+        "createdRecipesCount": "Utworzonych przepisów",
+        "commentedRecipesCount": "Skomentowanych przepisów",
+        "ratedRecipesCount": "Ocenionych przepisów",
+        "userRecipeCollectionsCount": "Posiadanych kolekcji",
+        "recipesInUserRecipeCollectionsCount": "Posiadanych przepisów w kolekcjach",
+        "emailInputLabel": "Adres email",
+        "emailInputPlaceholder": "Wprowadź adres email",
+        "loginInputLabel": "Login użytkownika",
+        "loginInputPlaceholder": "Wprowadź login użytkownika",
+        "avatarInputLabel": "Adres URL do awataru",
+        "avatarInputPlaceholder": "Adres URL",
+        "selfDescriptionInputLabel": "Opis konta",
+        "selfDescriptionInputPlaceholder": "Uzupełnij opis"
     }
 }
