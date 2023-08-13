@@ -26,6 +26,7 @@ import { AlertsDispatchContext } from "../../../context/AlertContext";
 import RecipeCardCircle from "../../../components/complex/RecipeCardCircle";
 import MyImage from "../../../components/basicUi/MyImage";
 import { initAs } from "../../../utils/ObjectUtils";
+import CategoryCard from "../../../components/complex/CategoryCard";
 
 const omitNull = (obj: any) => {
     Object.keys(obj).filter(k => obj[k] === null).forEach(k => delete (obj[k]))
@@ -182,6 +183,8 @@ function Test() {
             </div>
         </Stack>
 
+        <CategoryCardExample />
+
         <VerticalPagination totalPages={100} actualPage={testPagiatorActualPage} pageButtonsToShow={6} onPageSelect={setTestPagiatorActualPage} />
     </>
     );
@@ -310,6 +313,20 @@ function FilteredHierarchicalSelectTest() {
 
     return <FilteredSelect multiple={true} label="Test hierarchical Select" options={filteredSelectValues} onSearchCallback={onSearchCallback} hierarchical={true}
         onSelectCallback={onSelectCallback} onNewValueCallback={onNewValueCallback} disabled={false} allowNew={false} />
+}
+
+function CategoryCardExample() {
+    const [allCategories, setAllCategories] = useState<any[]>([]);
+    useEffect(() => {
+        dictionariesApi.getAllCategories((response: Response<Category[]>) => {
+            setAllCategories(response.value)
+        })
+    }, [])
+    return <Stack direction="horizontal" gap={3} className="align-items-stretch" style={{ marginLeft: 100, width: 1200 }}>
+        {allCategories.length > 0 && <CategoryCard category={allCategories[0]} className="col-4" />}
+        {allCategories.length > 1 && <CategoryCard category={allCategories[1]} className="col-4" />}
+        {allCategories.length > 2 && <CategoryCard category={allCategories[2]} className="col-4" />}
+    </Stack>
 }
 
 export default Test;
