@@ -12,7 +12,7 @@ function RecipeAdd() {
             <div className="pt-4 mb-2 basic-container-large basic-container-border">
                 <MyHeader title={t('p.newRecipeHeader')}></MyHeader>
                 {renderForm()}
-                {renderButton()}
+                {renderButtons()}
             </div>
         </Stack>
     );
@@ -23,10 +23,10 @@ function RecipeAdd() {
                 <Container >
                     <Row>
                         <Col className="border-right">
-                            {renderL()}
+                            {renderLeftSide()}
                         </Col>
                         <Col className="border-left">
-                            {renderR()}
+                            {renderRightSide()}
                         </Col>
                     </Row>
                 </Container>
@@ -34,29 +34,14 @@ function RecipeAdd() {
         );
 
     }
-    function renderL() {
+
+    function renderLeftSide() {
         return (
             <>
                 <div className="text-start">
-
-                    <Form.Label htmlFor="inputPassword5">Password</Form.Label>
-                    <Form.Control
-                        type="password"
-                        id="inputPassword5"
-                        aria-describedby="passwordHelpBlock"
-                    />
-                    <Form.Label htmlFor="inputPassword5">Password</Form.Label>
-                    <Form.Control
-                        type="password"
-                        id="inputPassword5"
-                        aria-describedby="passwordHelpBlock"
-                    />
-                    <Form.Label htmlFor="inputPassword5">Password</Form.Label>
-                    <Form.Control
-                        type="password"
-                        id="inputPassword5"
-                        aria-describedby="passwordHelpBlock"
-                    />
+                    {renderBasicInput()}
+                    {renderBasicInput()}
+                    {renderBasicInput()}
                 </div>
                 <div className="mt-5 ">
                     <hr />
@@ -64,66 +49,21 @@ function RecipeAdd() {
                     <div className="text-start">
                         <Row>
                             <Col className="bor" >
-                                <Form.Label htmlFor="inputPassword5">Password</Form.Label>
-                                <Form.Control
-                                    type="password"
-                                    id="inputPassword5"
-                                    aria-describedby="passwordHelpBlock"
-                                />
+                                {renderBasicInput()}
                             </Col>
                             <Col className="bor">
-                            <Form.Label htmlFor="inputPassword5">Password</Form.Label>
-                                <Form.Control
-                                    type="password"
-                                    id="inputPassword5"
-                                    aria-describedby="passwordHelpBlock"
-                                />
+                                {renderBasicInput()}
                             </Col>
-                            <Col className="bor" xs={6}>
-                            <Form.Label htmlFor="inputPassword5">Password</Form.Label>
-                                <Form.Control
-                                    type="password"
-                                    id="inputPassword5"
-                                    aria-describedby="passwordHelpBlock"
-                                />
+                            <Col className="bor" md={6}>
+                                {renderBasicInput()}
                             </Col>
                         </Row>
-                        <Form.Label htmlFor="inputPassword5">Password</Form.Label>
-                        <Form.Control
-                            type="password"
-                            id="inputPassword5"
-                            aria-describedby="passwordHelpBlock"
-                        />
-                        <Form.Label htmlFor="inputPassword5">Password</Form.Label>
-                        <Form.Control
-                            type="password"
-                            id="inputPassword5"
-                            aria-describedby="passwordHelpBlock"
-                        />
-                        <Form.Label htmlFor="inputPassword5">Password</Form.Label>
-                        <Form.Control
-                            type="password"
-                            id="inputPassword5"
-                            aria-describedby="passwordHelpBlock"
-                        />
-                        <Form.Label htmlFor="inputPassword5">Password</Form.Label>
-                        <Form.Control
-                            type="password"
-                            id="inputPassword5"
-                            aria-describedby="passwordHelpBlock"
-                        />
-                        <Form.Label htmlFor="inputPassword5">Password</Form.Label>
-                        <Form.Control
-                            type="password"
-                            id="inputPassword5"
-                            aria-describedby="passwordHelpBlock"
-                        />
-                        <Form.Label htmlFor="inputPassword5">Password</Form.Label>
-                        <Form.Control
-                            type="password"
-                            id="inputPassword5"
-                            aria-describedby="passwordHelpBlock"
-                        />
+                        {renderBasicInput()}
+                        {renderBasicInput()}
+                        {renderBasicInput()}
+                        {renderBasicInput()}
+                        {renderBasicInput()}
+                        {renderBasicInput()}
                     </div>
 
                     <MyButton.Primary onClick={() => { }}>Dodaj <BsPlusCircleFill className="mb-1 ms-1" /></MyButton.Primary>
@@ -132,28 +72,14 @@ function RecipeAdd() {
             </>
         )
     }
-    function renderR() {
+
+    function renderRightSide() {
         return (
             <>
                 <div className="text-start">
-                    <Form.Label htmlFor="inputPassword5">Password</Form.Label>
-                    <Form.Control
-                        type="password"
-                        id="inputPassword5"
-                        aria-describedby="passwordHelpBlock"
-                    />
-                    <Form.Label htmlFor="inputPassword5">Password</Form.Label>
-                    <Form.Control
-                        type="password"
-                        id="inputPassword5"
-                        aria-describedby="passwordHelpBlock"
-                    />
-                    <Form.Label htmlFor="inputPassword5">Password</Form.Label>
-                    <Form.Control
-                        type="password"
-                        id="inputPassword5"
-                        aria-describedby="passwordHelpBlock"
-                    />
+                    {renderBasicInput()}
+                    {renderBasicInput()}
+                    {renderBasicInput()}
                 </div>
                 <div className="mt-5 ">
                     <hr />
@@ -165,19 +91,28 @@ function RecipeAdd() {
     }
 }
 
-function renderButton() {
+function renderButtons() {
     return (
-        
         <div className="bottom-part">
             <hr></hr>
-            <MyButton.Primary onClick={() => { }}>Anuluj </MyButton.Primary>
+            <MyButton.Secondary onClick={() => { }}>Anuluj </MyButton.Secondary>
             <MyButton.Primary onClick={() => { }}>Zapisz </MyButton.Primary>
-            </div>)
-    
-    }
+        </div>
+    )
+
+}
+
+function renderBasicInput() {
+    return (
+        <>
+            <Form.Label htmlFor="inputPassword5">Password</Form.Label>
+            <Form.Control
+                type="password"
+                id="inputPassword5"
+                aria-describedby="passwordHelpBlock"
+            />
+        </>
+    )
+}
 
 export default RecipeAdd;
-
-/* <input type="text" className="my-3"></input> <br></br>
-                    <input type="text" className="my-3"></input>  <br></br>
-                    <input type="text" className="my-3"></input>  <br></br>*/
