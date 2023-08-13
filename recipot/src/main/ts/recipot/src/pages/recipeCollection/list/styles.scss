@@ -1,0 +1,11 @@
+@use "../../../assets/variables"as v;
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+.recipe-collections-list-page {
+    .content-column {
+        min-height: 80vh;
+        position: relative;
+    }
+}
