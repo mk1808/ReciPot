@@ -1,0 +1,16 @@
+@use "../../../assets/variables"as v;
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+.login-page {
+    height: 87vh;
+
+    .test {
+        width: 1000px;
+        border: $input-border-width solid $gray-400;
+        border-radius: 10px;
+        box-shadow: $box-shadow;
+        height: 100%;
+    }
+}
