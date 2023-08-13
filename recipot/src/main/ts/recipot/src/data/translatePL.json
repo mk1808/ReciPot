@@ -258,6 +258,11 @@
         "numberOfRatings": "Liczba ocen",
         "loginHeader": "Logowanie",
         "registerHeader": "Załóż konto",
+        "newRecipeHeader": "Dodaj nowy przepis",
+        "recipeSteps": "Kroki przepisu",
+        "ingredients": "Składniki",
+        "add": "Dodaj",
+        "save": "Zapisz",
         "recipeFilterHeader": "Wyszukaj przepis",
         "savedRecipeFilterHeader": "Zapisane filtry",
         "recipeFilterForm": "Kryteria wyszukiwania"
