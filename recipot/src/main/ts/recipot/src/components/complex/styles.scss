@@ -242,3 +242,8 @@
         overflow-y: auto;
     }
 }
+
+.category-card {
+    border: 1px solid $card-border-color;
+    padding: 10px;
+}
