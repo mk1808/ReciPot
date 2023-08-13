@@ -265,6 +265,8 @@
         "save": "Zapisz",
         "recipeFilterHeader": "Wyszukaj przepis",
         "savedRecipeFilterHeader": "Zapisane filtry",
-        "recipeFilterForm": "Kryteria wyszukiwania"
+        "recipeFilterForm": "Kryteria wyszukiwania",
+		"newestRecipes":"Najnowsze przepisy",
+        "categories":"Kategorie"
     }
 }
