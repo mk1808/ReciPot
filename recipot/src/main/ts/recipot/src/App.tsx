@@ -17,10 +17,10 @@ import RecipeAdd from './pages/recipe/add/RecipeAdd';
 import NoAccess from './pages/other/noAccess/NoAccess';
 import RecipeCollectionList from './pages/recipeCollection/list/RecipeCollectionList';
 import RecipeFilter from './pages/recipe/filter/RecipeFilter';
-import { UserProvider } from './context/UserContext';
+import { UserContextProvider } from './context/UserContext';
 import Test from './pages/other/test/Test';
 import UserDetails from './pages/user/UserDetails';
-import AlertContext from './context/AlertContext';
+import AlertContextProvider from './context/AlertContext';
 
 const ProtectedRoute = ({ user, element }: any) => {
   if (!user) {
@@ -80,9 +80,11 @@ function App() {
     )
   }
   return (
-    <AlertContext>
-      {renderApp()}
-    </AlertContext>
+    <UserContextProvider>
+      <AlertContextProvider>
+        {renderApp()}
+      </AlertContextProvider>
+    </UserContextProvider>
   );
 }
 export default App;
