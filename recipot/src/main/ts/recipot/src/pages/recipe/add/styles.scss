@@ -3,38 +3,40 @@
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 
-.recipe-add-page{
-    .border-right{
-        border-right: 1px solid black;
-        padding-left: 50px;
-        padding-right: 50px
+.recipe-add-page {
+    .border {
+
+        &-right {
+            border-right: 1px solid black;
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+
+        &-left {
+            border-left: 1px solid black;
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+
     }
-    .border-left{
-        border-left: 1px solid black;
-        padding-left: 50px;
-        padding-right: 50px
+
+    input {
+        width: 440px;
     }
- 
-    .col{
-        
-    }
-    input{
-        width:440px;
-    }
-    .bor{
-        border:1px solid black;
-        input{
-            width:90px;
+
+    .ingredient-section {
+        &>* {
+            border: 1px solid black;
+
+            input {
+                width: 90px;
+            }
         }
     }
 
-    .bottom-part{
+    .bottom-part {
         padding-top: 20px;
         padding-bottom: 20px;
-        /*
-        background-color: darkgray;
-        border-bottom-right-radius: 10px;
-        border-bottom-left-radius: 10px;*/
     }
 
 }
