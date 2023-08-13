@@ -267,6 +267,8 @@
 		"recipeFilterHeader": "Recipe search",
 		"savedRecipeFilterHeader": "Saved filters",
 		"recipeFilterForm": "Search criteria",
+		"savedCollections": "Saved collections",
+		"recipeCollectionListHeader": "User collections",
 		"userDetailsHeader": "User account details",
 		"createdRecipesCount": "Created recipes",
 		"commentedRecipesCount": "Commented recipes",
