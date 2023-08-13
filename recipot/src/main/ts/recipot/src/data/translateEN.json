@@ -252,12 +252,16 @@
 		"ratedRecipe": "rated recipe",
 		"withNote": "with comment",
 		"withRate": "for",
-		"cancel":"Cancel",
-		"confirm":"OK",
-        "goToRecipe":"See recipe",
-        "numberOfRatings":"Number of ratings",
-		"loginHeader":"Login", 
-		"registerHeader":"Create account",
-        "newRecipeHeader":"Add new recipe"
+		"cancel": "Cancel",
+		"confirm": "OK",
+		"goToRecipe": "See recipe",
+		"numberOfRatings": "Number of ratings",
+		"loginHeader": "Login",
+		"registerHeader": "Create account",
+		"newRecipeHeader": "Add new recipe",
+		"recipeSteps": "Recipe steps",
+		"ingredients": "Ingredients",
+		"add": "Add",
+		"save": "Save"
 	}
 }

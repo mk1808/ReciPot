@@ -252,12 +252,16 @@
         "ratedRecipe": "ocenił przepis",
         "withNote": "z notatką",
         "withRate": "na",
-        "cancel":"Anuluj",
-        "confirm":"Potwierdź",
-        "goToRecipe":"Zobacz przepis",
-        "numberOfRatings":"Liczba ocen",
-		"loginHeader":"Logowanie", 
-        "registerHeader":"Załóż konto",
-        "newRecipeHeader":"Dodaj nowy przepis"
+        "cancel": "Anuluj",
+        "confirm": "Potwierdź",
+        "goToRecipe": "Zobacz przepis",
+        "numberOfRatings": "Liczba ocen",
+        "loginHeader": "Logowanie",
+        "registerHeader": "Załóż konto",
+        "newRecipeHeader": "Dodaj nowy przepis",
+        "recipeSteps": "Kroki przepisu",
+        "ingredients": "Składniki",
+        "add": "Dodaj",
+        "save": "Zapisz"
     }
 }

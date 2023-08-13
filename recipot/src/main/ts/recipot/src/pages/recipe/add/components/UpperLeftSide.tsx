@@ -8,8 +8,6 @@ function UpperLeftSide() {
             {renderBasicInput()}
         </div>
     );
-
-
 }
 
 export default UpperLeftSide;

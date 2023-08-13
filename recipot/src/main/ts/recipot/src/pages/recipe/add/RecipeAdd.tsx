@@ -13,29 +13,28 @@ function RecipeAdd() {
     return (
         <Stack className="justify-content-center py-5 recipe-add-page" direction="horizontal">
             <div className="pt-4 mb-2 basic-container-large basic-container-border">
+
                 <MyHeader title={t('p.newRecipeHeader')}></MyHeader>
                 {renderForm()}
                 {renderButtons()}
+
             </div>
         </Stack>
     );
 
     function renderForm() {
         return (
-            <div className="my-5">
-                <Container>
-                    <Row>
-                        <Col className="border-right">
-                            {renderLeftSide()}
-                        </Col>
-                        <Col className="border-left">
-                            {renderRightSide()}
-                        </Col>
-                    </Row>
-                </Container>
-            </div>
+            <Container className="my-5">
+                <Row>
+                    <Col className="border-right">
+                        {renderLeftSide()}
+                    </Col>
+                    <Col className="border-left">
+                        {renderRightSide()}
+                    </Col>
+                </Row>
+            </Container>
         );
-
     }
 
     function renderLeftSide() {
@@ -55,18 +54,20 @@ function RecipeAdd() {
             </>
         )
     }
+    
+    function renderButtons() {
+        return (
+            <div className="bottom-part">
+                <hr/>
+                <MyButton.Secondary onClick={() => { }}>{t('p.cancel')} </MyButton.Secondary>
+                <MyButton.Primary onClick={() => { }}>{t('p.save')} </MyButton.Primary>
+            </div>
+        )
+    
+    }
 }
 
-function renderButtons() {
-    return (
-        <div className="bottom-part">
-            <hr></hr>
-            <MyButton.Secondary onClick={() => { }}>Anuluj </MyButton.Secondary>
-            <MyButton.Primary onClick={() => { }}>Zapisz </MyButton.Primary>
-        </div>
-    )
 
-}
 
 export default RecipeAdd;
 
