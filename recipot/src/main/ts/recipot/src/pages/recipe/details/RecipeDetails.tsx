@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import './styles.scss';
 import MyImage from "../../../components/basicUi/MyImage";
 import MyHeader from "../../../components/basicUi/MyHeader";
+import OtherColumn from "./components/OtherColumn";
 
 function RecipeDetails() {
     const { t } = useTranslation();
@@ -18,10 +19,14 @@ function RecipeDetails() {
         return (
             <Row className='gx-2 m-3'>
                 <Col md={7} className="offset-md-2">
-                    <div className='basic-container-border p-3'>{renderMainRecipeColumn()}</div>
+                    <div className='basic-container-border p-3'>
+                        {renderMainRecipeColumn()}
+                    </div>
                 </Col>
                 <Col md={2}>
-                    <div className='h-100 basic-container-border p-3'>{renderOtherColumn()}</div>
+                    <div className='h-100 basic-container-border p-3'>
+                        <OtherColumn></OtherColumn>
+                    </div>
                 </Col>
                 <Col md={1}></Col>
             </Row>
@@ -102,27 +107,6 @@ function RecipeDetails() {
             <div className="mb-5 px-5 ingredients">
                 <h4 className="my-3 display-4">{t('p.comments')}</h4>
                 <div className="test"></div>
-            </div>
-        )
-    }
-
-    function renderOtherColumn() {
-        return (
-            <div className="h-100  other" >
-                <div className="py-4 categories">
-                    <h4 className="my-3 display-4">{t('p.categories')}</h4>
-                    <div className="test"></div>
-                </div>
-                <div className="py-4 recipes">
-                    <h4 className="my-3 display-4">{t('p.recipes')}</h4>
-                    {recipes.map(recipe => {
-                        return (
-                            <div className="my-3 test"></div>
-                        )
-                    })}
-
-                </div>
-
             </div>
         )
     }
