@@ -266,10 +266,11 @@
         "recipeFilterHeader": "Wyszukaj przepis",
         "savedRecipeFilterHeader": "Zapisane filtry",
         "recipeFilterForm": "Kryteria wyszukiwania",
-		"newestRecipes":"Najnowsze przepisy",
-        "categories":"Kategorie",
-        "recipesCount":"Liczba przepisów",
-		"usersCount":"Liczba użytkowników",
-		"allRecipeCollectionsCount":"Liczba kolekcji"
+        "newestRecipes": "Najnowsze przepisy",
+        "categories": "Kategorie",
+        "recipesCount": "Liczba przepisów",
+        "usersCount": "Liczba użytkowników",
+        "allRecipeCollectionsCount": "Liczba kolekcji",
+        "more": "Więcej..."
     }
 }
