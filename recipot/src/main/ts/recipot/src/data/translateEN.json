@@ -267,6 +267,9 @@
 		"savedRecipeFilterHeader": "Saved filters",
 		"recipeFilterForm": "Search criteria",
 		"newestRecipes":"Newest recipes",
-		"categories":"Categories"
+		"categories":"Categories",
+		"recipesCount":"Recipes count",
+		"usersCount":"Users count",
+		"allRecipeCollectionsCount":"Collections count"
 	}
 }
