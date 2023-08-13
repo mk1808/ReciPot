@@ -288,6 +288,9 @@
 		"avatarInputLabel": "Avatar URL",
 		"avatarInputPlaceholder": "Avatar URL",
 		"selfDescriptionInputLabel": "Account description",
-		"selfDescriptionInputPlaceholder": "Fill description"
+		"selfDescriptionInputPlaceholder": "Fill description",
+		"privateNote": "Private note",
+		"comments": "Comments",
+		"recipes": "Recipes"
 	}
 }
