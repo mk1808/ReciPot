@@ -257,6 +257,7 @@
         "goToRecipe":"Zobacz przepis",
         "numberOfRatings":"Liczba ocen",
 		"loginHeader":"Logowanie", 
-        "registerHeader":"Załóż konto"
+        "registerHeader":"Załóż konto",
+        "newRecipeHeader":"Dodaj nowy przepis"
     }
 }
