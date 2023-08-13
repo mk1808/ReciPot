@@ -262,6 +262,9 @@
 		"recipeSteps": "Recipe steps",
 		"ingredients": "Ingredients",
 		"add": "Add",
-		"save": "Save"
+		"save": "Save",
+		"recipeFilterHeader": "Recipe search",
+		"savedRecipeFilterHeader": "Saved filters",
+		"recipeFilterForm": "Search criteria"
 	}
 }

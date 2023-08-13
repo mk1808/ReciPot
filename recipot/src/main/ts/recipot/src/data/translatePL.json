@@ -262,6 +262,9 @@
         "recipeSteps": "Kroki przepisu",
         "ingredients": "Składniki",
         "add": "Dodaj",
-        "save": "Zapisz"
+        "save": "Zapisz",
+        "recipeFilterHeader": "Wyszukaj przepis",
+        "savedRecipeFilterHeader": "Zapisane filtry",
+        "recipeFilterForm": "Kryteria wyszukiwania"
     }
 }
