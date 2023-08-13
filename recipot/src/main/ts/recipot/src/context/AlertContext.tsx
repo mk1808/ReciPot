@@ -24,7 +24,7 @@ function alertsReducer(alerts: any[], action: any) {
     }
 }
 
-function AlertContext({ children }: any) {
+function AlertContextProvider({ children }: any) {
     const [alerts, dispatch]: [any, Function] = useReducer(
         alertsReducer,
         []
@@ -64,4 +64,4 @@ export function AlertManager({ alerts = [] }: any) {
 }
 
 
-export default AlertContext;
+export default AlertContextProvider;

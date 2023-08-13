@@ -20,7 +20,7 @@ import RecipeFilter from './pages/recipe/filter/RecipeFilter';
 import { UserContextProvider } from './context/UserContext';
 import Test from './pages/other/test/Test';
 import UserDetails from './pages/user/UserDetails';
-import AlertContext from './context/AlertContext';
+import AlertContextProvider from './context/AlertContext';
 
 const ProtectedRoute = ({ user, element }: any) => {
   if (!user) {
@@ -81,9 +81,9 @@ function App() {
   }
   return (
     <UserContextProvider>
-      <AlertContext>
+      <AlertContextProvider>
         {renderApp()}
-      </AlertContext>
+      </AlertContextProvider>
     </UserContextProvider>
   );
 }
