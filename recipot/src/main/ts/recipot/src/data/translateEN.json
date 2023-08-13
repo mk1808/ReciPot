@@ -256,6 +256,7 @@
 		"confirm":"OK",
         "goToRecipe":"See recipe",
         "numberOfRatings":"Number of ratings",
-		"loginHeader":"Login"
+		"loginHeader":"Login", 
+		"registerHeader":"Create account"
 	}
 }
