@@ -24,3 +24,18 @@
   top: 100px;
   right: 0;
 }
+
+.basic-container {
+  width: 1000px;
+  height: 100%;
+}
+
+.basic-container-border {
+  border: $input-border-width solid $gray-400;
+  border-radius: 10px;
+  box-shadow: $box-shadow;
+}
+
+.full-height-page {
+  height: 87vh;
+}

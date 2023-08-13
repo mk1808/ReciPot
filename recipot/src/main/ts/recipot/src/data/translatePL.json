@@ -255,6 +255,8 @@
         "cancel":"Anuluj",
         "confirm":"Potwierdź",
         "goToRecipe":"Zobacz przepis",
-        "numberOfRatings":"Liczba ocen"
+        "numberOfRatings":"Liczba ocen",
+		"loginHeader":"Logowanie", 
+        "registerHeader":"Załóż konto"
     }
 }
