@@ -22,6 +22,8 @@ import pl.mk.recipot.commons.factories.OkResponseFactory;
 import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.models.SharedRecipe;
 import pl.mk.recipot.commons.services.ICrudService;
+import pl.mk.recipot.commons.services.IFilterService;
+import pl.mk.recipot.recipes.dtos.RecipeFilterDto;
 import pl.mk.recipot.recipes.helpers.RecipeSpecificationBuilder;
 import pl.mk.recipot.recipes.services.IRecipesService;
 import pl.mk.recipot.recipes.services.IShareRecipeService;
@@ -30,15 +32,17 @@ import pl.mk.recipot.recipes.services.IShareRecipeService;
 public class RecipesController implements IRecipesController {
 
 	private ICrudService<Recipe> recipeCrudService;
+	private IFilterService<Recipe, RecipeSearchDto> recipeFilterService;
 	private IRecipesService recipesService;
 	private IShareRecipeService shareRecipeService;
 
 	public RecipesController(ICrudService<Recipe> recipeCrudService, IRecipesService recipesService,
-			IShareRecipeService shareRecipeService) {
+			IShareRecipeService shareRecipeService, IFilterService<Recipe, RecipeSearchDto> recipeFilterService) {
 		super();
 		this.recipeCrudService = recipeCrudService;
 		this.recipesService = recipesService;
 		this.shareRecipeService = shareRecipeService;
+		this.recipeFilterService = recipeFilterService;
 	}
 
 	@Override
@@ -66,39 +70,15 @@ public class RecipesController implements IRecipesController {
 	public ResponseEntity<Response<SharedRecipe>> shareWithUser(SharedRecipe sharedRecipe) {
 		return new OkResponseFactory().createResponse(shareRecipeService.shareWithUser(sharedRecipe));
 	}
-	
+
 	@PostMapping("/search")
-    public ResponseEntity<Response<Page<Recipe>>> searchEmployees
-                         (@RequestParam(name = "pageNum", 
-                           defaultValue = "0") int pageNum,
-                          @RequestParam(name = "pageSize", 
-                           defaultValue = "10") int pageSize,
-                          @RequestBody RecipeSearchDto 
-                           employeeSearchDto){        
-        RecipeSpecificationBuilder builder = new 
-        		RecipeSpecificationBuilder();
-        List<SearchCriteriaDto> criteriaList = 
-                          employeeSearchDto.getSearchCriteriaList();
-        if(criteriaList != null){
-            criteriaList.forEach(x-> 
-                                {x.setDataOption(employeeSearchDto
-                                  .getDataOption());
-                                  builder.with(x);
-            });
-        }
+	public ResponseEntity<Response<Page<Recipe>>> searchEmployees(
+			@RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
+			@RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
+			@RequestBody RecipeSearchDto recipeSearchDto) {
 
-        Pageable page = PageRequest.of(pageNum, pageSize, 
-                               Sort.by("name")     
-                                   .ascending()
-                                   .and(Sort.by("id"))
-                                   .ascending()
-                               );
-
-        Page<Recipe> employeePage = 
-        		recipesService.findBySearchCriteria(builder.build(),   
-                                              page);
-
-        return new OkResponseFactory().createResponse(employeePage);
-    }
+		Page<Recipe> page = recipeFilterService.filter(recipeSearchDto, pageSize, pageNum);
+		return new OkResponseFactory().createResponse(page);
+	}
 
 }

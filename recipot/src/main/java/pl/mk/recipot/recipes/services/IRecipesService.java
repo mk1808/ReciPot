@@ -18,6 +18,4 @@ public interface IRecipesService {
 	int getUserRecipesCount(AppUser user);
 
 	public Recipe updateRecipeAverageRating(Recipe recipe);
-	
-	public Page<Recipe> findBySearchCriteria(Specification<Recipe> spec, Pageable page);
 }

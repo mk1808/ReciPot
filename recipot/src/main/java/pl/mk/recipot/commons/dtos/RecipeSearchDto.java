@@ -13,5 +13,6 @@ public class RecipeSearchDto {
 
 	private List<SearchCriteriaDto> searchCriteriaList;
 	private String dataOption;
+	private SearchOrderDto searchOrderDto;
 
 }
