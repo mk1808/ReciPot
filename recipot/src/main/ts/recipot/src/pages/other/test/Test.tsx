@@ -27,6 +27,7 @@ import RecipeCardCircle from "../../../components/complex/RecipeCardCircle";
 import MyImage from "../../../components/basicUi/MyImage";
 import { initAs } from "../../../utils/ObjectUtils";
 import CategoryCard from "../../../components/complex/CategoryCard";
+import TimeAmountInput from "../../../components/complex/TimeAmountInput";
 
 const omitNull = (obj: any) => {
     Object.keys(obj).filter(k => obj[k] === null).forEach(k => delete (obj[k]))
@@ -154,6 +155,7 @@ function Test() {
             <MySelect name="test6" label="Test select" emptyOption="Pusta wartość" options={testOptions} defaultValue={testOptions[1].value} onChange={(value: string) => console.log(value)} />
             <MyFileInput name="test7" label="Test file" placeholder="Select file" onChange={(value: string) => console.log(value)} />
             <MySwitch name="test8" label="Test switch" onChange={(value: string) => console.log(value)} defaultChecked={false} />
+            <TimeAmountInput name="test9" label="test time amount" onChange={(value: number) => console.log(value)} defaultValue={103} />
         </Stack>
 
 
