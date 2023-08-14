@@ -1,0 +1,54 @@
+@use "../../../assets/variables"as v;
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+.recipe-details-page {
+    .basic-container-border {}
+
+    .main {
+        .main-img {
+            width: calc(100% - 2rem);
+        }
+
+        .breadcrumps {
+            &>* {
+                height: 10px;
+                background-color: gray;
+                text-align: start;
+                
+            }
+        }
+
+        .basic-info {
+
+            .test {
+                height: 80px;
+            }
+        }
+
+        .ingredients {
+            .test {
+                height: 200px;
+            }
+        }
+
+
+
+    }
+
+    .other {
+        .test {
+            height: 200px;
+        }
+    }
+
+
+
+    .test {
+        height: 20px;
+        background-color: gray;
+        border: 1px solid black;
+    }
+
+}

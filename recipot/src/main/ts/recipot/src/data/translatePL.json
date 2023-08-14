@@ -289,6 +289,9 @@
         "avatarInputPlaceholder": "Adres URL",
         "selfDescriptionInputLabel": "Opis konta",
         "selfDescriptionInputPlaceholder": "Uzupełnij opis",
+        "privateNote": "Własna notatka",
+        "comments": "Komentarze",
+        "recipes": "Przepisy",
         "timeAmountPickerHeader": "Wybierz czas trwania"
     }
 }

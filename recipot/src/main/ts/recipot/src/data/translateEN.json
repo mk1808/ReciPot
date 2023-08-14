@@ -289,6 +289,9 @@
 		"avatarInputPlaceholder": "Avatar URL",
 		"selfDescriptionInputLabel": "Account description",
 		"selfDescriptionInputPlaceholder": "Fill description",
-		"timeAmountPickerHeader": "Select time amount"
+		"privateNote": "Private note",
+		"comments": "Comments",
+		"recipes": "Recipes",
+		"timeAmountPickerHeader": "Select time amount"\
 	}
 }
