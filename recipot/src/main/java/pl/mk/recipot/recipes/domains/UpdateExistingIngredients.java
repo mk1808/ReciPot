@@ -6,40 +6,51 @@ import java.util.UUID;
 
 import org.springframework.data.util.StreamUtils;
 
-import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.models.RecipeIngredient;
 
 public class UpdateExistingIngredients {
-	
-	public List<RecipeIngredient> execute(List<RecipeIngredient> recipeIngredientsToUpdate,
-			List<RecipeIngredient> fromRecipe, Recipe recipe) {
-		List<UUID> idsToUpdate = getIdsToUpdate(recipeIngredientsToUpdate);
-		List<RecipeIngredient> fromRecipeFiltered = fromRecipe.stream().filter(r -> idsToUpdate.contains(r.getId()))
-				.toList();
 
+	public List<RecipeIngredient> execute(List<RecipeIngredient> existingIngredients,
+			List<RecipeIngredient> recipeIngredientsToUpdate) {
+		List<RecipeIngredient> fromRecipeFiltered = getRecipeFiltered(existingIngredients, recipeIngredientsToUpdate);
+
+		return updateIngredients(recipeIngredientsToUpdate, fromRecipeFiltered);
+	}
+
+	private List<RecipeIngredient> getRecipeFiltered(List<RecipeIngredient> existingIngredients,
+			List<RecipeIngredient> recipeIngredientsToUpdate) {
+		List<UUID> idsToUpdate = getIdsToUpdate(recipeIngredientsToUpdate);
+		return existingIngredients
+				.stream()
+				.filter(r -> idsToUpdate.contains(r.getId()))
+				.toList();
+	}
+
+	private List<RecipeIngredient> updateIngredients(List<RecipeIngredient> recipeIngredientsToUpdate,
+			List<RecipeIngredient> fromRecipeFiltered) {
 		return StreamUtils
 				.zip(
 						recipeIngredientsToUpdate.stream().sorted(sort()),
-						fromRecipeFiltered.stream().sorted(sort()), 
-						this::updateSingle
-				)
+						fromRecipeFiltered.stream().sorted(sort()),
+						this::updateSingle)
 				.toList();
-
 	}
-		
-		private Comparator<? super RecipeIngredient> sort() {
-			return Comparator.comparing(RecipeIngredient::getId);
-		}
-		
-		List<UUID> getIdsToUpdate(List<RecipeIngredient> recipeIngredients){
-			return recipeIngredients.stream().map(RecipeIngredient::getId).toList();
-		}
-		
-		private RecipeIngredient updateSingle(RecipeIngredient existingRI, RecipeIngredient newRI) {
-			existingRI.setAmount(newRI.getAmount());
-			existingRI.setUnit(newRI.getUnit());
-			return existingRI;
-		}
-	
+
+	private Comparator<? super RecipeIngredient> sort() {
+		return Comparator.comparing(RecipeIngredient::getId);
+	}
+
+	List<UUID> getIdsToUpdate(List<RecipeIngredient> recipeIngredients) {
+		return recipeIngredients
+				.stream()
+				.map(RecipeIngredient::getId)
+				.toList();
+	}
+
+	private RecipeIngredient updateSingle(RecipeIngredient newRI, RecipeIngredient existingRI) {
+		existingRI.setAmount(newRI.getAmount());
+		existingRI.setUnit(newRI.getUnit());
+		return existingRI;
+	}
 
 }

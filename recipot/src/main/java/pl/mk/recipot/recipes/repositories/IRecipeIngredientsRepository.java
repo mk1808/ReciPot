@@ -23,6 +23,6 @@ public interface IRecipeIngredientsRepository extends JpaRepository<RecipeIngred
 	List<RecipeIngredient> getByRecipeAndIngredients(UUID recipeId, List<String> ingredientNames);
 
 	@Query("SELECT ri FROM RecipeIngredient ri " + "LEFT JOIN FETCH ri.recipe " + "LEFT JOIN FETCH ri.ingredient "
-			+ "WHERE ri.recipe.id = :recipeId")
-	List<RecipeIngredient> getByRecipeId(UUID recipeId);
+			+ "WHERE ri.recipe = :recipe")
+	List<RecipeIngredient> getByRecipe(Recipe recipe);
 }

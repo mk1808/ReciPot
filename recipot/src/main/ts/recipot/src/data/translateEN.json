@@ -2,7 +2,7 @@
 	"commons": {
 		"error": {
 			"userNotOwner": "User has no rights to object",
-			"userIsOwner":"User is owner"
+			"userIsOwner": "User is owner"
 		}
 	},
 	"auth": {
@@ -24,10 +24,8 @@
 			"ingredientExists": "This ingredient already exists"
 		}
 	},
-	"notifications": {
-		"error": {
-			
-		}
+	"notificationsM": {
+		"error": {}
 	},
 	"privateNotes": {
 		"success": {
@@ -230,5 +228,66 @@
 				"commentBlank": "Shared recipe comment is required"
 			}
 		}
+	},
+	"p": {
+		"recipe": "Recipe",
+		"addRecipe": "Add recipe",
+		"main": "Main page",
+		"search": "Search for recipes",
+		"logout": "Logout",
+		"login": "Login",
+		"register": "Register",
+		"myAccount": "My account",
+		"collections": "Collections",
+		"notifications": "Notifications",
+		"account": "Account",
+		"selectValue": "Select value",
+		"searchOrNew": "Search or type new value",
+		"SHARED_RECIPE": "Shared recipe",
+		"RECIPE_COMMENTED": "Commented recipe",
+		"RECIPE_RATED": "Rated recipe",
+		"senderUser": "User",
+		"sharedRecipe": "shared recipe",
+		"commentedRecipe": "commented recipe",
+		"ratedRecipe": "rated recipe",
+		"withNote": "with comment",
+		"withRate": "for",
+		"cancel": "Cancel",
+		"confirm": "OK",
+		"goToRecipe": "See recipe",
+		"numberOfRatings": "Number of ratings",
+		"loginHeader": "Login",
+		"registerHeader": "Create account",
+		"newRecipeHeader": "Add new recipe",
+		"recipeSteps": "Recipe steps",
+		"ingredients": "Ingredients",
+		"add": "Add",
+		"save": "Save",
+		"edit": "Edit",
+		"recipeFilterHeader": "Recipe search",
+		"savedRecipeFilterHeader": "Saved filters",
+		"recipeFilterForm": "Search criteria",
+		"newestRecipes": "Newest recipes",
+		"categories": "Categories",
+		"recipesCount": "Recipes count",
+		"usersCount": "Users count",
+		"allRecipeCollectionsCount": "Collections count",
+		"more": "More...",
+		"savedCollections": "Saved collections",
+		"recipeCollectionListHeader": "User collections",
+		"userDetailsHeader": "User account details",
+		"createdRecipesCount": "Created recipes",
+		"commentedRecipesCount": "Commented recipes",
+		"ratedRecipesCount": "Rated recipes",
+		"userRecipeCollectionsCount": "Own collections",
+		"recipesInUserRecipeCollectionsCount": "Recipes in own collections",
+		"emailInputLabel": "Email address",
+		"emailInputPlaceholder": "Fill email address",
+		"loginInputLabel": "User login",
+		"loginInputPlaceholder": "Fill user login",
+		"avatarInputLabel": "Avatar URL",
+		"avatarInputPlaceholder": "Avatar URL",
+		"selfDescriptionInputLabel": "Account description",
+		"selfDescriptionInputPlaceholder": "Fill description"
 	}
 }

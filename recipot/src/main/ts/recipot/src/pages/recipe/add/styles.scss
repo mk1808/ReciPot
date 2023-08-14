@@ -1,0 +1,42 @@
+@use "../../../assets/variables"as v;
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+.recipe-add-page {
+    .border {
+
+        &-right {
+            border-right: 1px solid black;
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+
+        &-left {
+            border-left: 1px solid black;
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+
+    }
+
+    input {
+        width: 440px;
+    }
+
+    .ingredient-section {
+        &>* {
+            border: 1px solid black;
+
+            input {
+                width: 90px;
+            }
+        }
+    }
+
+    .bottom-part {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+}
