@@ -288,6 +288,7 @@
 		"avatarInputLabel": "Avatar URL",
 		"avatarInputPlaceholder": "Avatar URL",
 		"selfDescriptionInputLabel": "Account description",
-		"selfDescriptionInputPlaceholder": "Fill description"
+		"selfDescriptionInputPlaceholder": "Fill description",
+		"timeAmountPickerHeader": "Select time amount"
 	}
 }

@@ -288,6 +288,7 @@
         "avatarInputLabel": "Adres URL do awataru",
         "avatarInputPlaceholder": "Adres URL",
         "selfDescriptionInputLabel": "Opis konta",
-        "selfDescriptionInputPlaceholder": "Uzupełnij opis"
+        "selfDescriptionInputPlaceholder": "Uzupełnij opis",
+        "timeAmountPickerHeader": "Wybierz czas trwania"
     }
 }
