@@ -3,16 +3,21 @@ package pl.mk.recipot.recipes.services;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
 import pl.mk.recipot.commons.domains.CheckIfUserIsNotOwner;
+import pl.mk.recipot.commons.dtos.RecipeSearchDto;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.commons.services.IFilterService;
 import pl.mk.recipot.recipes.domains.CheckIfRecipeDoesNotExists;
 import pl.mk.recipot.recipes.domains.CleanRecipe;
+import pl.mk.recipot.recipes.domains.GetPageForSearching;
+import pl.mk.recipot.recipes.domains.SearchRecipesByCriteria;
 import pl.mk.recipot.recipes.domains.UpdateAverageRatingInRecipe;
 import pl.mk.recipot.recipes.domains.UpdateStepsAndIngredientsInRecipe;
 import pl.mk.recipot.recipes.domains.UpdateVisibilityInRecipe;
@@ -22,7 +27,7 @@ import pl.mk.recipot.recipes.repositories.IRecipeStepsRepository;
 import pl.mk.recipot.recipes.repositories.IRecipesRepository;
 
 @Service
-public class RecipesService implements IRecipesService, ICrudService<Recipe>, IFilterService<Recipe, RecipeFilterDto> {
+public class RecipesService implements IRecipesService, ICrudService<Recipe>, IFilterService<Recipe, RecipeSearchDto> {
 
 	private IRecipesRepository recipesRepository;
 	private IRecipeIngredientsRepository recipeIngredientsRepository;
@@ -42,8 +47,10 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	}
 
 	@Override
-	public Page<Recipe> filter(RecipeFilterDto filterObject) {
-		throw new UnsupportedOperationException();
+	public Page<Recipe> filter(RecipeSearchDto recipeSearchDto) {
+		Specification<Recipe> specification = new SearchRecipesByCriteria().execute(recipeSearchDto);
+		Pageable page = new GetPageForSearching().execute(recipeSearchDto); 
+		return recipesRepository.findAll(specification, page);
 	}
 
 	@Override
