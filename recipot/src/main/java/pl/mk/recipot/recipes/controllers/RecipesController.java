@@ -23,6 +23,7 @@ import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.models.SharedRecipe;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.commons.services.IFilterService;
+import pl.mk.recipot.dictionaries.dtos.IngredientsFilterDto;
 import pl.mk.recipot.recipes.dtos.RecipeFilterDto;
 import pl.mk.recipot.recipes.helpers.RecipeSpecificationBuilder;
 import pl.mk.recipot.recipes.services.IRecipesService;
@@ -76,8 +77,8 @@ public class RecipesController implements IRecipesController {
 			@RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
 			@RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
 			@RequestBody RecipeSearchDto recipeSearchDto) {
-
-		Page<Recipe> page = recipeFilterService.filter(recipeSearchDto, pageSize, pageNum);
+		
+		Page<Recipe> page = recipeFilterService.filter(recipeSearchDto.setPage(pageNum).setSize(pageSize));
 		return new OkResponseFactory().createResponse(page);
 	}
 

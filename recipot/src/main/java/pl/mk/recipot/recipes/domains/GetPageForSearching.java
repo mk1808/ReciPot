@@ -6,9 +6,9 @@ import org.springframework.data.domain.Sort;
 import pl.mk.recipot.commons.dtos.RecipeSearchDto;
 
 public class GetPageForSearching {
-	public PageRequest execute(int pageNum, int pageSize, RecipeSearchDto recipeSearchDto) {
+	public PageRequest execute(RecipeSearchDto recipeSearchDto) {
 		return PageRequest
-				.of(pageNum, pageSize, 
+				.of(recipeSearchDto.page, recipeSearchDto.size, 
 						Sort.by("name")
 						.ascending()
 						.and(Sort.by("id"))

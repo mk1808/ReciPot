@@ -47,9 +47,9 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	}
 
 	@Override
-	public Page<Recipe> filter(RecipeSearchDto recipeSearchDto, int pageSize, int pageNum) {
+	public Page<Recipe> filter(RecipeSearchDto recipeSearchDto) {
 		Specification<Recipe> specification = new SearchRecipesByCriteria().execute(recipeSearchDto);
-		Pageable page = new GetPageForSearching().execute( pageNum, pageSize, recipeSearchDto); 
+		Pageable page = new GetPageForSearching().execute(recipeSearchDto); 
 		return recipesRepository.findAll(specification, page);
 	}
 
