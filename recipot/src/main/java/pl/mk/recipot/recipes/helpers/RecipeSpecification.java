@@ -13,6 +13,8 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import pl.mk.recipot.commons.dtos.SearchCriteriaDto;
 import pl.mk.recipot.commons.enums.RecipeAmountOfDishes;
+import pl.mk.recipot.commons.enums.RecipeDifficulty;
+import pl.mk.recipot.commons.enums.RecipeRequiredEffort;
 import pl.mk.recipot.commons.enums.SearchOperation;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Category;
@@ -35,7 +37,7 @@ public class RecipeSpecification implements Specification<Recipe> {
 
 		switch (Objects.requireNonNull(SearchOperation.getSimpleOperation(searchCriteria.getOperation()))) {
 		case CONTAINS:
-			if (searchCriteria.getFilterKey().equals("a")) {
+			if (searchCriteria.getFilterKey().equals("name")) {
 				return criteriaBuilder.like(
 						criteriaBuilder.lower(userJoin(root).<String>get(searchCriteria.getFilterKey())),
 						"%" + strToSearch + "%");
@@ -97,6 +99,16 @@ public class RecipeSpecification implements Specification<Recipe> {
 
 			if (searchCriteria.getFilterKey().equals("numberOfDishes")) {
 				int num = RecipeAmountOfDishes.valueOf((String) searchCriteria.getValue()).ordinal();
+				return criteriaBuilder.equal(root.get(searchCriteria.getFilterKey()), num);
+			}
+			
+			if (searchCriteria.getFilterKey().equals("difficulty")) {
+				int num = RecipeDifficulty.valueOf((String) searchCriteria.getValue()).ordinal();
+				return criteriaBuilder.equal(root.get(searchCriteria.getFilterKey()), num);
+			}
+			
+			if (searchCriteria.getFilterKey().equals("requiredEffort")) {
+				int num = RecipeRequiredEffort.valueOf((String) searchCriteria.getValue()).ordinal();
 				return criteriaBuilder.equal(root.get(searchCriteria.getFilterKey()), num);
 			}
 			return criteriaBuilder.equal(root.get(searchCriteria.getFilterKey()), searchCriteria.getValue());
