@@ -44,3 +44,14 @@
 .full-height-page {
   height: 87vh;
 }
+
+.info-icon {
+  color: $primary;
+  margin: 5px;
+  cursor: pointer;
+
+  &.disabled {
+    opacity: $btn-disabled-opacity;
+    cursor: not-allowed;
+  }
+}

@@ -291,6 +291,7 @@
         "selfDescriptionInputPlaceholder": "Uzupełnij opis",
         "privateNote": "Własna notatka",
         "comments": "Komentarze",
-        "recipes": "Przepisy"
+        "recipes": "Przepisy",
+        "timeAmountPickerHeader": "Wybierz czas trwania"
     }
 }

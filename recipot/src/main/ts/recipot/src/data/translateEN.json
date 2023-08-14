@@ -291,6 +291,7 @@
 		"selfDescriptionInputPlaceholder": "Fill description",
 		"privateNote": "Private note",
 		"comments": "Comments",
-		"recipes": "Recipes"
+		"recipes": "Recipes",
+		"timeAmountPickerHeader": "Select time amount"\
 	}
 }

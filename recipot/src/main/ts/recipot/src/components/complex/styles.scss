@@ -247,3 +247,23 @@
     border: 1px solid $card-border-color;
     padding: 10px;
 }
+
+.time-amount-input {
+
+    &-picker-popover {
+
+        .value-picker {
+            width: 80px;
+
+            input {
+                width: 45px;
+            }
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    }
+}
