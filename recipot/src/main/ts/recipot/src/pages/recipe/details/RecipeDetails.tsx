@@ -4,6 +4,11 @@ import './styles.scss';
 import MyImage from "../../../components/basicUi/MyImage";
 import MyHeader from "../../../components/basicUi/MyHeader";
 import OtherColumn from "./components/OtherColumn";
+import BasicInfo from "./components/BasicInfo";
+import IngredientList from "./components/IngredientsList";
+import Steps from "./components/Steps";
+import PrivateNote from "./components/PrivateNote";
+import Comments from "./components/Comments";
 
 function RecipeDetails() {
     const { t } = useTranslation();
@@ -39,15 +44,15 @@ function RecipeDetails() {
                 <MyImage src={photo} height={400} className="main-img" rounded></MyImage>
                 <MyHeader title={"Nazwa przepisu"}></MyHeader>
                 {renderBreadcrumps()}
-                {renderBasicInfo()}
+                <BasicInfo></BasicInfo>
                 <hr />
-                {renderIngredients()}
+                <IngredientList></IngredientList>
                 <hr />
-                {renderSteps()}
+                <Steps></Steps>
                 <hr />
-                {renderPrivateNote()}
+                <PrivateNote></PrivateNote>
                 <hr />
-                {renderComments()}
+                <Comments></Comments>
 
             </div>
         )
@@ -57,56 +62,6 @@ function RecipeDetails() {
         return (
             <div className=" px-5 breadcrumps">
                 <div className="my-4">breadcrumps</div>
-            </div>
-        )
-    }
-
-    function renderBasicInfo() {
-        return (
-            <div className="mt-3 mb-5 px-5 basic-info">
-                <Row>
-                    <Col className="border-right">
-                        <div className="test"></div>
-                    </Col>
-                    <Col className="border-left">
-                        <div className="test"></div>
-                    </Col>
-                </Row>
-            </div>
-        )
-    }
-
-    function renderIngredients() {
-        return (
-            <div className="mb-5 px-5 ingredients">
-                <h4 className="my-3 display-4">{t('p.ingredients')}</h4>
-                <div className="test"></div>
-            </div>
-        )
-    }
-
-    function renderSteps() {
-        return (
-            <div className="mb-5 px-5 ingredients">
-                <h4 className="my-3 display-4">{t('p.recipeSteps')}</h4>
-                <div className="test"></div>
-            </div>
-        )
-    }
-    function renderPrivateNote() {
-        return (
-            <div className="mb-5 px-5 ingredients">
-                <h4 className="my-3 display-4">{t('p.privateNote')}</h4>
-                <div className="test"></div>
-            </div>
-        )
-    }
-
-    function renderComments() {
-        return (
-            <div className="mb-5 px-5 ingredients">
-                <h4 className="my-3 display-4">{t('p.comments')}</h4>
-                <div className="test"></div>
             </div>
         )
     }
