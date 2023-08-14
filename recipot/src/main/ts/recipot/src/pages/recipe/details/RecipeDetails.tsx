@@ -30,7 +30,7 @@ function RecipeDetails() {
                 </Col>
                 <Col md={2}>
                     <div className='h-100 basic-container-border p-3'>
-                        <OtherColumn></OtherColumn>
+                        <OtherColumn/>
                     </div>
                 </Col>
                 <Col md={1}></Col>
@@ -44,15 +44,15 @@ function RecipeDetails() {
                 <MyImage src={photo} height={400} className="main-img" rounded></MyImage>
                 <MyHeader title={"Nazwa przepisu"}></MyHeader>
                 {renderBreadcrumps()}
-                <BasicInfo></BasicInfo>
+                <BasicInfo/>
                 <hr />
-                <IngredientList></IngredientList>
+                <IngredientList/>
                 <hr />
-                <Steps></Steps>
+                <Steps/>
                 <hr />
-                <PrivateNote></PrivateNote>
+                <PrivateNote/>
                 <hr />
-                <Comments></Comments>
+                <Comments/>
 
             </div>
         )
