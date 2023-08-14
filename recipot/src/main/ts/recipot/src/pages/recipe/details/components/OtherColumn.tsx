@@ -11,9 +11,9 @@ function OtherColumn() {
             </div>
             <div className="py-4 recipes">
                 <h4 className="my-3 display-4">{t('p.recipes')}</h4>
-                {recipes.map(recipe => {
+                {recipes.map((recipe, index) => {
                     return (
-                        <div className="my-3 test"></div>
+                        <div className="my-3 test" key={index}></div>
                     )
                 })}
 
