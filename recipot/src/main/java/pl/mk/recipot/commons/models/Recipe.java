@@ -64,7 +64,7 @@ public class Recipe implements IUserRelated, IWithDate {
 	private String description;
 	private String url;
 	private String image;
-	private String timeAmount;
+	private Long timeAmount;
 	private double averageRating;
 	private int ratingsCount;
 
