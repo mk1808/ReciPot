@@ -72,12 +72,8 @@ public class RecipesController implements IRecipesController {
 		return new OkResponseFactory().createResponse(shareRecipeService.shareWithUser(sharedRecipe));
 	}
 
-	@PostMapping("/search")
-	public ResponseEntity<Response<Page<Recipe>>> searchEmployees(
-			@RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
-			@RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
-			@RequestBody RecipeSearchDto recipeSearchDto) {
-		
+	@Override
+	public ResponseEntity<Response<Page<Recipe>>> search(int pageNum, int pageSize, RecipeSearchDto recipeSearchDto) {
 		Page<Recipe> page = recipeFilterService.filter(recipeSearchDto.setPage(pageNum).setSize(pageSize));
 		return new OkResponseFactory().createResponse(page);
 	}

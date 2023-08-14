@@ -1,6 +1,5 @@
 package pl.mk.recipot.recipes.helpers;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -9,20 +8,17 @@ import org.springframework.data.jpa.domain.Specification;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Expression;
 import jakarta.persistence.criteria.Join;
-import jakarta.persistence.criteria.Path;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import pl.mk.recipot.commons.dtos.SearchCriteriaDto;
 import pl.mk.recipot.commons.enums.RecipeAmountOfDishes;
 import pl.mk.recipot.commons.enums.SearchOperation;
-import pl.mk.recipot.commons.models.Recipe;
-import pl.mk.recipot.commons.models.RecipeIngredient;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Category;
 import pl.mk.recipot.commons.models.HashTag;
-import pl.mk.recipot.commons.models.Ingredient;
+import pl.mk.recipot.commons.models.Recipe;
+import pl.mk.recipot.commons.models.RecipeIngredient;
 
 public class RecipeSpecification implements Specification<Recipe> {
 
@@ -36,8 +32,6 @@ public class RecipeSpecification implements Specification<Recipe> {
 	@Override
 	public Predicate toPredicate(Root<Recipe> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 		String strToSearch = searchCriteria.getValue().toString().toLowerCase();
-
-		RecipeAmountOfDishes.valueOf("SMALL").ordinal();
 
 		switch (Objects.requireNonNull(SearchOperation.getSimpleOperation(searchCriteria.getOperation()))) {
 		case CONTAINS:
@@ -152,29 +146,21 @@ public class RecipeSpecification implements Specification<Recipe> {
 
 		case IN:
 			if (searchCriteria.getFilterKey().equals("hashTags")) {
-				List<String> uuids = (List<String>) searchCriteria.getValue();
-				List<UUID> uuidsList = uuids.stream().map(UUID::fromString).toList();
-
-				return criteriaBuilder.and(hashTagsJoin(root).get("id").in(uuidsList));
+				return criteriaBuilder.and(hashTagsJoin(root).get("id").in(getUuidsList()));
 			}
 			if (searchCriteria.getFilterKey().equals("categories")) {
-				List<String> uuids = (List<String>) searchCriteria.getValue();
-				List<UUID> uuidsList = uuids.stream().map(UUID::fromString).toList();
-
-				return criteriaBuilder.and(categoriesJoin(root).get("id").in(uuidsList));
+				return criteriaBuilder.and(categoriesJoin(root).get("id").in(getUuidsList()));
 			}
 			if (searchCriteria.getFilterKey().equals("ingredients")) {
-				List<String> uuids = (List<String>) searchCriteria.getValue();
-				List<UUID> uuidsList = uuids.stream().map(UUID::fromString).toList();
-
 				Root<RecipeIngredient> riRoot = query.from(RecipeIngredient.class);
-
 				return criteriaBuilder.and(criteriaBuilder.equal(root.get("id"), riRoot.get("recipe").get("id")),
-						riRoot.get("ingredient").get("id").in(uuidsList));
+						riRoot.get("ingredient").get("id").in(getUuidsList()));
 
 			}
 
 			return null;
+		default:
+			break;
 		}
 
 		return null;
@@ -190,6 +176,11 @@ public class RecipeSpecification implements Specification<Recipe> {
 
 	private Join<Recipe, HashTag> hashTagsJoin(Root<Recipe> root) {
 		return root.join("hashTags");
+	}
+
+	private List<UUID> getUuidsList() {
+		List<String> uuids = (List<String>) searchCriteria.getValue();
+		return uuids.stream().map(UUID::fromString).toList();
 	}
 
 }
