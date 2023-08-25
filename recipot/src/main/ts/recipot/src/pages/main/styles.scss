@@ -21,12 +21,23 @@
 
     .recipes-list,
     .categories {
+        
+        .title {
+            height: 140px;
+        }
+    }
+    .recipes-list{
         height: 690px;
         padding-left: 400px;
         padding-right: 400px;
-
-        .title {
-            height: 140px;
+    }
+    .categories {
+        height: auto;
+        padding-left: 300px;
+        padding-right: 300px;
+        .categories-row{
+            margin: auto;
+            width: 1200px;
         }
     }
 
