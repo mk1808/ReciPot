@@ -1,6 +1,6 @@
 import Form from 'react-bootstrap/Form';
 import { initFcn } from '../../utils/ObjectUtils';
-import { InputHTMLAttributes, useEffect, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { checkValidity } from '../../utils/FormInputUtils';
 
 function MyInput({
@@ -9,9 +9,9 @@ function MyInput({
     type = "text",
     placeholder = "",
     disabled = false,
-    onChange = initFcn<any>(),
     defaultValue = "",
-    required,
+    required = false,
+    onChange = initFcn<any>(),
     isValid
 }: {
     name: string,
@@ -25,19 +25,29 @@ function MyInput({
     isValid?: boolean
 }) {
     const inputRef = useRef<HTMLInputElement>(null);
+    const [inputValue, setInputValue] = useState(defaultValue)
 
     useEffect(() => {
         checkValidity(inputRef.current, isValid);
     }, [isValid])
 
+    useEffect(() => { onChange(inputValue) }, [inputValue])
+
     function onChangeCallback(event: any) {
-        onChange(event.target.value)
+        setInputValue(event.target.value)
     }
 
     return (
         <Form.Group className="mb-3" controlId={name}>
             {label && <Form.Label>{label}</Form.Label>}
-            <Form.Control required={true} ref={inputRef} type={type} placeholder={placeholder} disabled={disabled} onChange={onChangeCallback} defaultValue={defaultValue} />
+            <Form.Control
+                required={required}
+                type={type}
+                placeholder={placeholder}
+                disabled={disabled}
+                onChange={onChangeCallback}
+                defaultValue={defaultValue}
+                ref={inputRef} />
         </Form.Group>
     )
 }
