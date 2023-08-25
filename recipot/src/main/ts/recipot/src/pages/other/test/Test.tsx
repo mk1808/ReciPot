@@ -111,7 +111,22 @@ function Test() {
         }   
     }
 
+    const onFormChange = (value: string, name:string) => { 
+        console.log(value); 
+        dispatchForm({ type: name, value: value }); 
+    }
+
+    function inputAttributes(name:string){
+        return {
+            name: name,
+            isValid: myForm.formValidity[name],
+            onChange: (value:string)=>onFormChange(value, name)
+        }
+
+    }
+
     useEffect(() => { setValidated(true); }, [])
+    
     function handleSubmit1(event: any) {
         const form = myForm;
         setValidated(true);
@@ -194,13 +209,13 @@ function Test() {
                 <div className="mt-5">
                     <Form noValidate validated={validated} onSubmit={(e) => handleSubmit1(e)}>
                         <MyInput
-                            name="name"
+                            
                             label="Test jeden"
                             placeholder="Input test 1"
                             defaultValue="default"
-                            onChange={(value: string) => { console.log(value); dispatchForm({ type: "name", value: value }); }}
+                           
                             required={true}
-                            isValid={myForm.formValidity["name"]}
+                            {...inputAttributes("name")}
                         />
                         <MyInput
                             name="surname"
