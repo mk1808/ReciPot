@@ -1,7 +1,6 @@
 import Form from 'react-bootstrap/Form';
 import { initFcn } from '../../utils/ObjectUtils';
-import { useContext, useEffect, useState } from "react";
-import { Button } from 'react-bootstrap';
+import { useEffect, useState } from "react";
 
 function MyInput({
     name = "inputName",
