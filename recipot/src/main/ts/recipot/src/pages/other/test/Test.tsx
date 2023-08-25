@@ -170,13 +170,13 @@ function Test() {
         <Form noValidate validated={true}  >
             <Stack className="" direction="horizontal" gap={5}>
                 <div className="p-4">
-                    <FilteredSelectTest />
+                    <FilteredSelectTest required={true} isValid={isValid} />
                 </div>
                 <div className="p-4">
-                    <FilteredMultiSelectTest />
+                    <FilteredMultiSelectTest required={true} isValid={isValid} />
                 </div>
                 <div className="p-4">
-                    <FilteredHierarchicalSelectTest></FilteredHierarchicalSelectTest>
+                    <FilteredHierarchicalSelectTest required={true} isValid={isValid} />
                 </div>
             </Stack>
         </Form>
@@ -197,7 +197,7 @@ function Test() {
     );
 }
 
-function FilteredSelectTest() {
+function FilteredSelectTest({ required, isValid }: any) {
     const [filteredSelectValues, setFilteredSelectValues] = useState<any[]>([]);
 
     function onFilteredSelectSearchCallback(phrase: string) {
@@ -226,11 +226,11 @@ function FilteredSelectTest() {
     }
 
 
-    return <FilteredSelect label="Test wartości" options={filteredSelectValues} onSearchCallback={onSearchCallback} defaultValue={{ value: "asd", label: "dsa" }}
+    return <FilteredSelect required={required} isValid={isValid} label="Test wartości" options={filteredSelectValues} onSearchCallback={onSearchCallback}
         onSelectCallback={onSelectCallback} onNewValueCallback={onNewValueCallback} disabled={false} allowNew={true} />
 }
 
-function FilteredMultiSelectTest() {
+function FilteredMultiSelectTest({ required, isValid }: any) {
     const [filteredSelectValues, setFilteredSelectValues] = useState<any[]>([]);
 
     function onFilteredSelectSearchCallback(phrase: string) {
@@ -259,12 +259,12 @@ function FilteredMultiSelectTest() {
     }
 
 
-    return <FilteredSelect multiple={true} label="Test multiSelect" options={filteredSelectValues} onSearchCallback={onSearchCallback} allowNew={true}
+    return <FilteredSelect required={required} isValid={isValid} multiple={true} label="Test multiSelect" options={filteredSelectValues} onSearchCallback={onSearchCallback} allowNew={true}
         onSelectCallback={onSelectCallback} onNewValueCallback={onNewValueCallback} disabled={false} defaultValue={[{ label: "test123" }, { label: "abc_111" }]} />
 }
 
 
-function FilteredHierarchicalSelectTest() {
+function FilteredHierarchicalSelectTest({ required, isValid }: any) {
     const [filteredSelectValues, setFilteredSelectValues] = useState<any[]>([]);
     const [allCategories, setAllCategories] = useState<any[]>([]);
 
@@ -318,7 +318,7 @@ function FilteredHierarchicalSelectTest() {
     }
 
 
-    return <FilteredSelect multiple={true} label="Test hierarchical Select" options={filteredSelectValues} onSearchCallback={onSearchCallback} hierarchical={true}
+    return <FilteredSelect required={required} isValid={isValid} multiple={true} label="Test hierarchical Select" options={filteredSelectValues} onSearchCallback={onSearchCallback} hierarchical={true}
         onSelectCallback={onSelectCallback} onNewValueCallback={onNewValueCallback} disabled={false} allowNew={false} />
 }
 

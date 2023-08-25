@@ -18,6 +18,9 @@ function FilteredSelect({
     allowNew = false,
     multiple = false,
     hierarchical = false,
+    required,
+    isValid,
+    highlightValidity = true,
     onSearchCallback,
     onSelectCallback,
     onNewValueCallback
@@ -32,6 +35,9 @@ function FilteredSelect({
     allowNew?: boolean,
     multiple?: boolean,
     hierarchical?: boolean,
+    required?: boolean,
+    isValid?: boolean,
+    highlightValidity?: boolean,
     onSearchCallback: (phrase: string) => any,
     onSelectCallback: (value: any | any[]) => any,
     onNewValueCallback: (value: any | any[]) => any
@@ -114,6 +120,19 @@ function FilteredSelect({
         removeElement(value);
     }
 
+    function getDropdownComponentStyleClasses() {
+        var styleClasses = 'form-control filtered-select-toggle d-flex align-items-center '
+        if (highlightValidity) {
+            const isEmpty = multiple ? selectedValues.length === 0 : selected === undefined;
+            if (!isValid || (required && isEmpty)) {
+                styleClasses += " is-invalid ";
+            } else {
+                styleClasses += " is-valid ";
+            }
+        }
+        return styleClasses
+    }
+
     return (
         <Form.Group>
             {renderLabel(label)}
@@ -126,7 +145,7 @@ function FilteredSelect({
             buttonContent: renderButtonContent(),
             dropdownContent: renderDropdownContent(),
             menuWidth: width,
-            className: 'filtered-select-toggle d-flex align-items-center',
+            className: getDropdownComponentStyleClasses(),
             onDropdownToggle: createNewValueBySearchInput,
             disabled
         })

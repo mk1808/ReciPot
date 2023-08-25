@@ -116,6 +116,14 @@
         background-color: $input-bg !important;
         border: $input-border-width solid $input-border-color !important;
         color: $input-color !important;
+
+        &.form-control.is-invalid {
+            border-color: $form-invalid-border-color !important;
+        }
+
+        &.form-control.is-valid {
+            border-color: $form-valid-border-color !important;
+        }
     }
 
     &-button-text {
