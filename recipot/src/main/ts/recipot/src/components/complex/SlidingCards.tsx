@@ -27,7 +27,7 @@ function SlidingElements({ recipes, getSingleElement, size = 3 }: { recipes: Rec
     };
 
     return (
-        <Stack direction="horizontal" >
+        <Stack direction="horizontal" className="justify-content-center" >
             <MyButton.Primary onClick={() => clickSlide(counter === 0 ? 0 : counter - 1)}>
                 &#10094;
             </MyButton.Primary>
@@ -56,7 +56,7 @@ function SlidingCards({ recipes = [], goToRecipeCallback = initFcn<Recipe>() }: 
     }
 
     return (
-        <div className="my-5">
+        <div className="mt-4 mb-5">
             <SlidingElements recipes={recipes} getSingleElement={renderSingleCard}></SlidingElements>
         </div>
     );
