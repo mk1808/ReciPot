@@ -133,13 +133,20 @@ function Test() {
         const form = myForm;
         setValidated(true);
         console.log(form)
-        if (event.currentTarget.checkValidity() === false) {
-            console.log('invalid')
-        } else {
+
+        if (checkIfAllValid(event)) {
             console.log('valid')
+        } else {
+            console.log('invalid')
         }
         event.preventDefault();
         event.stopPropagation();
+    };
+    function checkIfAllValid(event:any) {
+        for (const field in myForm.formValidity) {
+            if (!myForm.formValidity[field]) { return false; }
+        }
+        return event.currentTarget.checkValidity() === true;
     };
 
     return (<>
