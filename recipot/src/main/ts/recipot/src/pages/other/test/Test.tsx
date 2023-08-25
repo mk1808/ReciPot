@@ -1,5 +1,5 @@
 import { Button, Form, Stack } from "react-bootstrap";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState,useReducer } from "react";
 import './styles.scss';
 import FilteredSelect from "../../../components/complex/FilteredSelect";
 import dictionariesApi from "../../../api/DictionariesApi";
@@ -73,6 +73,44 @@ function Test() {
         console.log("from callback" + recipe.id)
     }
 
+    const [validated, setValidated] = useState(false);
+    const [formValue , setFormValue] = useState({name:''});
+    const [formValidity, setFormValidity] = useState({name:false});
+    const initialState={formValue:{}, formValidity:{}}
+    const [form1, dispatch1]: [any, Function] = useReducer(
+        formReducer, initialState
+    );
+
+    function formReducer(state:any, action: any) {
+        switch (action.type) {
+            case 'name': {
+                let state1= 
+                {
+                    ...state,
+                    formValue:{
+                        ...state.formValue,
+                        [action.type]:action.value
+                    }
+                };
+                console.log(state1)
+                return state1;
+            }
+            
+            default: {
+                throw Error('Unknown action: ' + action);
+            }
+        }
+    }
+    function handleSubmit1  (event: any)  {
+        const form = form1;
+        if (event.currentTarget.checkValidity() === false) {
+
+        }
+        event.preventDefault();
+        event.stopPropagation();
+        setValidated(true);
+    };
+
     return (<>
         <h1>Test</h1>
         <Stack className=" justify-content-center" direction="horizontal" gap={5}>
@@ -138,6 +176,18 @@ function Test() {
 
                 <div>
                     <RecipeCardCircle recipe={recipe} recipeCallback={recipeCallback}></RecipeCardCircle>
+                </div>
+                <div className="mt-5">
+                    <Form noValidate validated={validated} onSubmit={(e)=>handleSubmit1(e)}>
+                        <MyInput name="name" label="Test jeden" placeholder="Input test 1"
+                        defaultValue="default"
+                        onChange={(value: string) =>
+                        { console.log(value);  dispatch1({type:"name", value:value});}
+                        } 
+                        required={true} 
+                        />
+                        <Button type="submit">Submit form</Button>
+                    </Form>
                 </div>
                 {/**/}
 
