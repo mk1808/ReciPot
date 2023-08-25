@@ -11,11 +11,11 @@ function CategoryCards() {
     const [allCategories, setAllCategories] = useState<any[]>([]);
     const [readyCategories, setReadyCategorires] = useState<any[]>([[]]);
     const numInRow = 3;
-    let noOfRows: number;
     function setCategoriesInRows(categories: Category[]) {
-        let newTab = [...readyCategories]
+        let newTab = [...readyCategories];
+        let noOfRows = Math.ceil(categories.length / numInRow);
         for (let i = 0; i < noOfRows; i++) {
-            newTab.push(categories.slice(i * numInRow, i * numInRow + numInRow))
+            newTab.push(categories.slice(i * numInRow, i * numInRow + numInRow));
         }
         setReadyCategorires(newTab);
     }
@@ -30,7 +30,7 @@ function CategoryCards() {
     useEffect(() => {
         dictionariesApi.getAllCategories((response: Response<Category[]>) => {
             let categories = prepareCategories(response);
-            noOfRows = Math.ceil(categories.length / numInRow)
+            
             setCategoriesInRows(categories);
             //setAllCategories(response.value);
         })
