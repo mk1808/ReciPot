@@ -1,5 +1,5 @@
 import { Button, Form, Stack } from "react-bootstrap";
-import { useContext, useEffect, useState,useReducer } from "react";
+import { useContext, useEffect, useState, useReducer } from "react";
 import './styles.scss';
 import FilteredSelect from "../../../components/complex/FilteredSelect";
 import dictionariesApi from "../../../api/DictionariesApi";
@@ -74,41 +74,48 @@ function Test() {
     }
 
     const [validated, setValidated] = useState(false);
-    const [formValue , setFormValue] = useState({name:''});
-    const [formValidity, setFormValidity] = useState({name:false});
-    const initialState={formValue:{}, formValidity:{}}
-    const [form1, dispatch1]: [any, Function] = useReducer(
+    const initialState = { formValue: {}, formValidity: {} }
+    const [myForm, dispatchForm]: [any, Function] = useReducer(
         formReducer, initialState
     );
 
-    function formReducer(state:any, action: any) {
+    function formReducer(state: any, action: any) {
+        let newState =
+        {
+            ...state,
+            formValue: {
+                ...state.formValue,
+                [action.type]: action.value
+            }
+        };
+        console.log(newState)
         switch (action.type) {
             case 'name': {
-                let state1= 
-                {
-                    ...state,
-                    formValue:{
-                        ...state.formValue,
-                        [action.type]:action.value
-                    }
-                };
-                console.log(state1)
-                return state1;
+                //validation
+                return newState;
             }
-            
+            case 'surname': {
+                //validation
+                return newState;
+            }
             default: {
                 throw Error('Unknown action: ' + action);
-            }
-        }
+            }     
+        }     
     }
-    function handleSubmit1  (event: any)  {
-        const form = form1;
-        if (event.currentTarget.checkValidity() === false) {
 
+    useEffect(() => { setValidated(true); }, [])
+    function handleSubmit1(event: any) {
+        const form = myForm;
+        setValidated(true);
+        console.log(form)
+        if (event.currentTarget.checkValidity() === false) {
+            console.log('invalid')
+        } else {
+            console.log('valid')
         }
         event.preventDefault();
-        event.stopPropagation();
-        setValidated(true);
+        event.stopPropagation();     
     };
 
     return (<>
@@ -178,13 +185,21 @@ function Test() {
                     <RecipeCardCircle recipe={recipe} recipeCallback={recipeCallback}></RecipeCardCircle>
                 </div>
                 <div className="mt-5">
-                    <Form noValidate validated={validated} onSubmit={(e)=>handleSubmit1(e)}>
-                        <MyInput name="name" label="Test jeden" placeholder="Input test 1"
-                        defaultValue="default"
-                        onChange={(value: string) =>
-                        { console.log(value);  dispatch1({type:"name", value:value});}
-                        } 
-                        required={true} 
+                    <Form noValidate validated={validated} onSubmit={(e) => handleSubmit1(e)}>
+                        <MyInput
+                            name="name"
+                            label="Test jeden"
+                            placeholder="Input test 1"
+                            defaultValue="default"
+                            onChange={(value: string) => { console.log(value); dispatchForm({ type: "name", value: value }); }}
+                            required={true}
+                        />
+                        <MyInput
+                            name="surname"
+                            label="Test dwa"
+                            placeholder="Input test 2"
+                            onChange={(value: string) => { console.log(value); dispatchForm({ type: "surname", value: value }); }}
+                            required={true}
                         />
                         <Button type="submit">Submit form</Button>
                     </Form>
