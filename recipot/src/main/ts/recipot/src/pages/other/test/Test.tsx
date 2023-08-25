@@ -86,22 +86,29 @@ function Test() {
             formValue: {
                 ...state.formValue,
                 [action.type]: action.value
-            }
+            },
+            formValidity: {
+                ...state.formValidity,
+                [action.type]: checkValidity(action)
+            },
         };
         console.log(newState)
+        return newState;
+    }
+
+    function checkValidity(action:any){
         switch (action.type) {
             case 'name': {
-                //validation
-                return newState;
+                return action.value && action.value.length > 3; 
             }
             case 'surname': {
                 //validation
-                return newState;
+                return true;
             }
             default: {
                 throw Error('Unknown action: ' + action);
             }     
-        }     
+        }   
     }
 
     useEffect(() => { setValidated(true); }, [])
@@ -193,6 +200,7 @@ function Test() {
                             defaultValue="default"
                             onChange={(value: string) => { console.log(value); dispatchForm({ type: "name", value: value }); }}
                             required={true}
+                            isValid={myForm.formValidity["name"]}
                         />
                         <MyInput
                             name="surname"
@@ -200,6 +208,7 @@ function Test() {
                             placeholder="Input test 2"
                             onChange={(value: string) => { console.log(value); dispatchForm({ type: "surname", value: value }); }}
                             required={true}
+                            isValid={myForm.formValidity["surname"]}
                         />
                         <Button type="submit">Submit form</Button>
                     </Form>
