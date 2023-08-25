@@ -1,5 +1,5 @@
 import { Button, Form, Stack } from "react-bootstrap";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useReducer } from "react";
 import './styles.scss';
 import FilteredSelect from "../../../components/complex/FilteredSelect";
 import dictionariesApi from "../../../api/DictionariesApi";
@@ -73,6 +73,73 @@ function Test() {
         console.log("from callback" + recipe.id)
     }
 
+    const [validated, setValidated] = useState(false);
+    const initialState = { formValue: {}, formValidity: {} }
+    const [myForm, dispatchForm]: [any, Function] = useReducer(
+        formReducer, initialState
+    );
+
+    function formReducer(state: any, action: any) {
+        let newState =
+        {
+            ...state,
+            formValue: {
+                ...state.formValue,
+                [action.type]: action.value
+            },
+            formValidity: {
+                ...state.formValidity,
+                [action.type]: checkValidity(action)
+            },
+        };
+        console.log(newState)
+        return newState;
+    }
+
+    function checkValidity(action:any){
+        switch (action.type) {
+            case 'name': {
+                return action.value && action.value.length > 3; 
+            }
+            case 'surname': {
+                //validation
+                return true;
+            }
+            default: {
+                throw Error('Unknown action: ' + action);
+            }     
+        }   
+    }
+
+    const onFormChange = (value: string, name:string) => { 
+        console.log(value); 
+        dispatchForm({ type: name, value: value }); 
+    }
+
+    function inputAttributes(name:string){
+        return {
+            name: name,
+            isValid: myForm.formValidity[name],
+            onChange: (value:string)=>onFormChange(value, name)
+        }
+
+    }
+
+    useEffect(() => { setValidated(true); }, [])
+    
+    function handleSubmit1(event: any) {
+        const form = myForm;
+        setValidated(true);
+        console.log(form)
+        if (event.currentTarget.checkValidity() === false) {
+            console.log('invalid')
+        } else {
+            console.log('valid')
+        }
+        event.preventDefault();
+        event.stopPropagation();     
+    };
+
     return (<>
         <h1>Test</h1>
         <Stack className=" justify-content-center" direction="horizontal" gap={5}>
@@ -138,6 +205,28 @@ function Test() {
 
                 <div>
                     <RecipeCardCircle recipe={recipe} recipeCallback={recipeCallback}></RecipeCardCircle>
+                </div>
+                <div className="mt-5">
+                    <Form noValidate validated={validated} onSubmit={(e) => handleSubmit1(e)}>
+                        <MyInput
+                            
+                            label="Test jeden"
+                            placeholder="Input test 1"
+                            defaultValue="default"
+                           
+                            required={true}
+                            {...inputAttributes("name")}
+                        />
+                        <MyInput
+                            name="surname"
+                            label="Test dwa"
+                            placeholder="Input test 2"
+                            onChange={(value: string) => { console.log(value); dispatchForm({ type: "surname", value: value }); }}
+                            required={true}
+                            isValid={myForm.formValidity["surname"]}
+                        />
+                        <Button type="submit">Submit form</Button>
+                    </Form>
                 </div>
                 {/**/}
 
