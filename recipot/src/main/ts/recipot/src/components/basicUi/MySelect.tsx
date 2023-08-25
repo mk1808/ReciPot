@@ -1,5 +1,7 @@
 import Form from 'react-bootstrap/Form';
 import { initFcn } from '../../utils/ObjectUtils';
+import { useEffect, useRef } from 'react';
+import { checkValidity } from '../../utils/FormInputUtils';
 
 function MySelect({
     name = "inputName",
@@ -8,7 +10,9 @@ function MySelect({
     disabled = false,
     options = [],
     defaultValue = {},
-    onChange = initFcn<any>()
+    onChange = initFcn<any>(),
+    required,
+    isValid
 }: {
     name: string,
     label?: string,
@@ -16,8 +20,16 @@ function MySelect({
     disabled?: boolean,
     onChange: Function,
     defaultValue?: any,
-    options: any
+    options: any,
+    required?: boolean,
+    isValid?: boolean
 }) {
+    const inputRef = useRef<HTMLSelectElement>(null);
+
+    useEffect(() => {
+        checkValidity(inputRef.current, isValid);
+    }, [isValid])
+
     function onChangeCallback(event: any) {
         onChange(options[event.target.value]?.value)
     }
@@ -29,8 +41,8 @@ function MySelect({
     return (
         <Form.Group className="mb-3" controlId={name}>
             {label && <Form.Label>{label}</Form.Label>}
-            <Form.Select disabled={disabled} onChange={onChangeCallback} defaultValue={getDefaultValue()}>
-                {emptyOption && <option value="-1">{emptyOption}</option>}
+            <Form.Select disabled={disabled} onChange={onChangeCallback} defaultValue={getDefaultValue()} required={required} ref={inputRef}>
+                {emptyOption && <option value="">{emptyOption}</option>}
                 {options.map((optionElement: any, index: number) => <option key={index} value={index}>{optionElement.label}</option>)}
             </Form.Select>
         </Form.Group>

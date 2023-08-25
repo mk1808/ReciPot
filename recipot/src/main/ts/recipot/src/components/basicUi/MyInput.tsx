@@ -1,6 +1,7 @@
 import Form from 'react-bootstrap/Form';
 import { initFcn } from '../../utils/ObjectUtils';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from 'react';
+import { checkValidity } from '../../utils/FormInputUtils';
 
 function MyInput({
     name = "inputName",
@@ -23,7 +24,12 @@ function MyInput({
     required?: boolean,
     isValid?: boolean
 }) {
+    const inputRef = useRef<HTMLInputElement>(null);
     const [inputValue, setInputValue] = useState(defaultValue)
+
+    useEffect(() => {
+        checkValidity(inputRef.current, isValid);
+    }, [isValid])
 
     useEffect(() => { onChange(inputValue) }, [inputValue])
 
@@ -41,7 +47,7 @@ function MyInput({
                 disabled={disabled}
                 onChange={onChangeCallback}
                 defaultValue={defaultValue}
-                isValid={isValid} />
+                ref={inputRef} />
         </Form.Group>
     )
 }

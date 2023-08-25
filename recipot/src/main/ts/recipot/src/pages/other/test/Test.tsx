@@ -1,3 +1,4 @@
+
 import { Button, Form, Stack } from "react-bootstrap";
 import { useContext, useEffect, useState, useReducer } from "react";
 import './styles.scss';
@@ -56,6 +57,7 @@ function Test() {
     let nextId = 0;
     const photo = "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22171%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20171%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_189d8cc414e%20text%20%7B%20fill%3A%23999%3Bfont-weight%3Anormal%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_189d8cc414e%22%3E%3Crect%20width%3D%22171%22%20height%3D%22180%22%20fill%3D%22%23373940%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2259.921875%22%20y%3D%2294.5%22%3E171x180%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E";
     const [testPagiatorActualPage, setTestPagiatorActualPage] = useState(20);
+    const [isValid, setIsValid] = useState(false);
 
     const testOptions = [{ label: "op1", value: { name: "nam1" } }, { label: "op2", value: { name: "nam2" } }, { label: "op3", value: { name: "nam3" } }];
     const stepText = `      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dui mi, mattis sit amet felis quis, faucibus varius enim. Cras faucibus odio nec nisl pharetra, eu convallis orci viverra. Phasellus lobortis quis ex vitae porta. Donec a est elementum, convallis lorem a, efficitur enim. Curabitur dapibus id tortor a placerat. Suspendisse felis libero, suscipit a ipsum nec, interdum blandit risus. Donec mollis nec tortor nec volutpat. Ut feugiat nunc ac elementum tincidunt.
@@ -96,10 +98,10 @@ function Test() {
         return newState;
     }
 
-    function checkValidity(action:any){
+    function checkValidity(action: any) {
         switch (action.type) {
             case 'name': {
-                return action.value && action.value.length > 3; 
+                return action.value && action.value.length > 3;
             }
             case 'surname': {
                 //validation
@@ -107,26 +109,26 @@ function Test() {
             }
             default: {
                 throw Error('Unknown action: ' + action);
-            }     
-        }   
+            }
+        }
     }
 
-    const onFormChange = (value: string, name:string) => { 
-        console.log(value); 
-        dispatchForm({ type: name, value: value }); 
+    const onFormChange = (value: string, name: string) => {
+        console.log(value);
+        dispatchForm({ type: name, value: value });
     }
 
-    function inputAttributes(name:string){
+    function inputAttributes(name: string) {
         return {
             name: name,
             isValid: myForm.formValidity[name],
-            onChange: (value:string)=>onFormChange(value, name)
+            onChange: (value: string) => onFormChange(value, name)
         }
 
     }
 
     useEffect(() => { setValidated(true); }, [])
-    
+
     function handleSubmit1(event: any) {
         const form = myForm;
         setValidated(true);
@@ -137,7 +139,7 @@ function Test() {
             console.log('valid')
         }
         event.preventDefault();
-        event.stopPropagation();     
+        event.stopPropagation();
     };
 
     return (<>
@@ -209,11 +211,11 @@ function Test() {
                 <div className="mt-5">
                     <Form noValidate validated={validated} onSubmit={(e) => handleSubmit1(e)}>
                         <MyInput
-                            
+
                             label="Test jeden"
                             placeholder="Input test 1"
                             defaultValue="default"
-                           
+
                             required={true}
                             {...inputAttributes("name")}
                         />
@@ -236,15 +238,16 @@ function Test() {
         </Stack >
 
         <Stack direction="vertical" style={{ textAlign: "left", marginLeft: "100px", width: "300px" }}>
-            <MyInput name="test1" label="Test jeden" placeholder="Input test 1" onChange={(value: string) => console.log(value)} defaultValue={"Wartość nadana"} />
-            <MyInput name="test2" placeholder="Input test 2" onChange={(value: string) => console.log(value)} />
-            <MyInput name="test3" label="Test trzy" onChange={(value: string) => console.log(value)} />
-            <MyTextarea name="test4" label="Test textarea" placeholder="Input test 1" rows={5} onChange={(value: string) => console.log(value)} />
-            <MyCheckbox name="test5" label="Test checkbox" onChange={(value: boolean) => console.log(value)} defaultChecked={true} />
-            <MySelect name="test6" label="Test select" emptyOption="Pusta wartość" options={testOptions} defaultValue={testOptions[1].value} onChange={(value: string) => console.log(value)} />
-            <MyFileInput name="test7" label="Test file" placeholder="Select file" onChange={(value: string) => console.log(value)} />
-            <MySwitch name="test8" label="Test switch" onChange={(value: string) => console.log(value)} defaultChecked={false} />
-            <TimeAmountInput name="test9" label="test time amount" onChange={(value: number) => console.log(value)} defaultValue={103} />
+            <Form noValidate validated={true}  >
+                <MyInput isValid={isValid} name="test1" label="Test jeden" placeholder="Input test 1" onChange={(value: string) => console.log(value)} defaultValue={"Wartość nadana"} />
+                <MyInput required={true} isValid={isValid} name="test2" placeholder="Input test 2" onChange={(value: string) => console.log(value)} />
+                <MyInput isValid={isValid} name="test3" label="Test trzy" onChange={(value: string) => console.log(value)} />
+                <MyTextarea required={true} isValid={isValid} name="test4" label="Test textarea" placeholder="Input test 1" rows={5} onChange={(value: string) => console.log(value)} />
+                <MyCheckbox required={true} isValid={isValid} name="test5" label="Test checkbox" onChange={(value: boolean) => console.log(value)} defaultChecked={true} />
+                <MySelect required={true} isValid={isValid} name="test6" label="Test select" emptyOption="Pusta wartość" options={testOptions} defaultValue={testOptions[1].value} onChange={(value: string) => console.log(value)} />
+                <MyFileInput required={true} isValid={isValid} name="test7" label="Test file" placeholder="Select file" onChange={(value: string) => console.log(value)} />
+                <MySwitch required={true} isValid={true} name="test8" label="Test switch" onChange={setIsValid} defaultChecked={isValid} />
+            </Form>
         </Stack>
 
 
@@ -253,17 +256,19 @@ function Test() {
             have chosen. Like, text, images, lists, etc.
         </SideOffcanvas>
 
-        <Stack className="" direction="horizontal" gap={5}>
-            <div className="p-4">
-                <FilteredSelectTest />
-            </div>
-            <div className="p-4">
-                <FilteredMultiSelectTest />
-            </div>
-            <div className="p-4">
-                <FilteredHierarchicalSelectTest></FilteredHierarchicalSelectTest>
-            </div>
-        </Stack>
+        <Form noValidate validated={true}  >
+            <Stack className="" direction="horizontal" gap={5}>
+                <div className="p-4">
+                    <FilteredSelectTest required={true} isValid={isValid} />
+                </div>
+                <div className="p-4">
+                    <FilteredMultiSelectTest required={true} isValid={isValid} />
+                </div>
+                <div className="p-4">
+                    <FilteredHierarchicalSelectTest required={true} isValid={isValid} />
+                </div>
+            </Stack>
+        </Form>
 
         <Stack className="" direction="horizontal" gap={5}>
             <div className="p-4">
@@ -281,7 +286,7 @@ function Test() {
     );
 }
 
-function FilteredSelectTest() {
+function FilteredSelectTest({ required, isValid }: any) {
     const [filteredSelectValues, setFilteredSelectValues] = useState<any[]>([]);
 
     function onFilteredSelectSearchCallback(phrase: string) {
@@ -310,11 +315,11 @@ function FilteredSelectTest() {
     }
 
 
-    return <FilteredSelect label="Test wartości" options={filteredSelectValues} onSearchCallback={onSearchCallback} defaultValue={{ value: "asd", label: "dsa" }}
+    return <FilteredSelect required={required} isValid={isValid} label="Test wartości" options={filteredSelectValues} onSearchCallback={onSearchCallback}
         onSelectCallback={onSelectCallback} onNewValueCallback={onNewValueCallback} disabled={false} allowNew={true} />
 }
 
-function FilteredMultiSelectTest() {
+function FilteredMultiSelectTest({ required, isValid }: any) {
     const [filteredSelectValues, setFilteredSelectValues] = useState<any[]>([]);
 
     function onFilteredSelectSearchCallback(phrase: string) {
@@ -343,12 +348,12 @@ function FilteredMultiSelectTest() {
     }
 
 
-    return <FilteredSelect multiple={true} label="Test multiSelect" options={filteredSelectValues} onSearchCallback={onSearchCallback} allowNew={true}
+    return <FilteredSelect required={required} isValid={isValid} multiple={true} label="Test multiSelect" options={filteredSelectValues} onSearchCallback={onSearchCallback} allowNew={true}
         onSelectCallback={onSelectCallback} onNewValueCallback={onNewValueCallback} disabled={false} defaultValue={[{ label: "test123" }, { label: "abc_111" }]} />
 }
 
 
-function FilteredHierarchicalSelectTest() {
+function FilteredHierarchicalSelectTest({ required, isValid }: any) {
     const [filteredSelectValues, setFilteredSelectValues] = useState<any[]>([]);
     const [allCategories, setAllCategories] = useState<any[]>([]);
 
@@ -402,7 +407,7 @@ function FilteredHierarchicalSelectTest() {
     }
 
 
-    return <FilteredSelect multiple={true} label="Test hierarchical Select" options={filteredSelectValues} onSearchCallback={onSearchCallback} hierarchical={true}
+    return <FilteredSelect required={required} isValid={isValid} multiple={true} label="Test hierarchical Select" options={filteredSelectValues} onSearchCallback={onSearchCallback} hierarchical={true}
         onSelectCallback={onSelectCallback} onNewValueCallback={onNewValueCallback} disabled={false} allowNew={false} />
 }
 
