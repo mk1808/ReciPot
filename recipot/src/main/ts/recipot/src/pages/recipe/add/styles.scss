@@ -25,13 +25,25 @@
     }
 
     .ingredient-section {
+
+
         &>* {
-            border: 1px solid black;
+            margin-bottom: 0px !important;
 
             input {
                 width: 90px;
             }
         }
+
+
+        .bin-icon {
+            padding-right: 0px;
+            text-align: right;
+            margin: auto;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
     }
 
     .bottom-part {
