@@ -292,6 +292,20 @@
 		"privateNote": "Private note",
 		"comments": "Comments",
 		"recipes": "Recipes",
-		"timeAmountPickerHeader": "Select time amount"
+		"timeAmountPickerHeader": "Select time amount",
+		"userIsOwnerFilter": "User's recipes",
+		"accessTypeFilter": "Access type",
+		"recipeNameFilter": "Search by name",
+		"timeAmountFromFilter": "Time amount from",
+		"timeAmountToFilter": "Time amount to",
+		"amountOfDishesFilter": "Amount of dishes",
+		"difficultiesFilter": "Difficulty",
+		"requiredEffortFilter": "Required effort",
+		"averageRatingFilter": "Average rating",
+		"andMore": "and more",
+		"hashTagFilter": "Search hashTag",
+		"ingredientFilter": "Search ingredient",
+		"categoryFilter": "Search category",
+		"saveRecipeFilter": "Save recipe filter"
 	}
 }

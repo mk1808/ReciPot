@@ -86,9 +86,9 @@ function TimeAmountInput({
 
     function renderTimePicker() {
         const incHours = () => { updateHours(1) }
-        const decHours = () => { updateHours(1) }
+        const decHours = () => { updateHours(-1) }
         const incMinutes = () => { updateMinutes(1) }
-        const decMinutes = () => { updateMinutes(1) }
+        const decMinutes = () => { updateMinutes(-1) }
 
         return (
             <Popover className="time-amount-input-picker-popover">

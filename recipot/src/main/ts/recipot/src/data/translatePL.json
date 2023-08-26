@@ -292,6 +292,20 @@
         "privateNote": "Własna notatka",
         "comments": "Komentarze",
         "recipes": "Przepisy",
-        "timeAmountPickerHeader": "Wybierz czas trwania"
+        "timeAmountPickerHeader": "Wybierz czas trwania",
+        "userIsOwnerFilter": "Własne przepisy",
+        "accessTypeFilter": "Rodzaj dostępu",
+        "recipeNameFilter": "Wyszukaj frazę",
+        "timeAmountFromFilter": "Zakres czasu trwania od",
+        "timeAmountToFilter": "Zakres czasu trwania do",
+        "amountOfDishesFilter": "Ilość potrzebnych naczyń",
+        "difficultiesFilter": "Trudność przepisu",
+        "requiredEffortFilter": "Wymagany wysiłek",
+        "averageRatingFilter": "Średnia ocena",
+        "andMore": "i więcej",
+        "hashTagFilter": "Wyszukaj hashTagi",
+        "ingredientFilter": "Wyszukaj składniki",
+        "categoryFilter": "Wyszukaj kategorie",
+        "saveRecipeFilter": "Zapisz filtr przepisów"
     }
 }

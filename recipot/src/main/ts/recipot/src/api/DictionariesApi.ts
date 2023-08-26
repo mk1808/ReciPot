@@ -1,4 +1,4 @@
-import { Category, HashTag, Ingredient, RecipeDifficulty, RecipeRequiredEffort, Response } from "../data/types";
+import { Category, CategoryDto, HashTag, Ingredient, RecipeDifficulty, RecipeRequiredEffort, Response } from "../data/types";
 import { createPathParams } from "../utils/RestUtils";
 import restClient from "./RestClient";
 
@@ -9,7 +9,7 @@ function DictionariesApi() {
         restClient.post(`${PREFIX}/categories`, body, onSuccess, onError)
     }
 
-    const getAllCategories = (onSuccess: (response: Response<Category[]>) => any, onError?: (response: Response<Category[]>) => any) => {
+    const getAllCategories = (onSuccess: (response: Response<CategoryDto[]>) => any, onError?: (response: Response<CategoryDto[]>) => any) => {
         restClient.get(`${PREFIX}/categories`, onSuccess, onError)
     }
 

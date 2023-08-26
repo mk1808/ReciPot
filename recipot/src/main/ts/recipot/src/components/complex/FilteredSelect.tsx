@@ -6,6 +6,7 @@ import './styles.scss';
 import { renderButonSimpleText, renderButtonComplexContent, renderCheck, renderDropdownComponent, renderLabel, renderWrappedDropdownContent } from './FilteredSelectCommonElements';
 import { addUniqueValue, checkListContains, removeValue } from '../../utils/ListUtils';
 import { canCreateNewValue, createNewValue, stopEventPropagation } from '../../utils/FilteredSelectUtils';
+import { initFcn } from '../../utils/ObjectUtils';
 
 function FilteredSelect({
     label,
@@ -23,7 +24,7 @@ function FilteredSelect({
     highlightValidity = true,
     onSearchCallback,
     onSelectCallback,
-    onNewValueCallback
+    onNewValueCallback = initFcn()
 }: {
     label: string,
     placeholder?: string,
@@ -40,7 +41,7 @@ function FilteredSelect({
     highlightValidity?: boolean,
     onSearchCallback: (phrase: string) => any,
     onSelectCallback: (value: any | any[]) => any,
-    onNewValueCallback: (value: any | any[]) => any
+    onNewValueCallback?: (value: any | any[]) => any
 }) {
 
     const [selectedValues, setSelectedValues] = useState<any[]>(defaultValue || []);

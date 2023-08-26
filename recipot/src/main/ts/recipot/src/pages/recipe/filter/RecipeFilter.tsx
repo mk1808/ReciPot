@@ -32,10 +32,12 @@ function RecipeFilter() {
     }
 
     function renderFiltersColumn() {
-        return (<>
-            <h2>{t('p.recipeFilterForm')}</h2>
-            <RecipeFiltersColumn />
-        </>);
+        return (
+            <div className='mt-5'>
+                <h2>{t('p.recipeFilterForm')}</h2>
+                <RecipeFiltersColumn />
+            </div>
+        );
     }
 
     function renderContent() {
