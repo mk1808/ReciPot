@@ -1,32 +1,45 @@
 import { Stack } from "react-bootstrap";
-import SavedRecipeFilter from "./SavedRecipeFilter";
-import { RecipeFilter } from "../../../../data/types";
 import { initAs } from "../../../../utils/ObjectUtils";
+import ComplexListElement from "../../../../components/complex/ComplexListElement";
+import { RecipeFilter } from "../../../../data/types";
+import { useState } from "react";
 
 function SavedRecipeFilters() {
-    function getRecipeFilter(id: number): RecipeFilter {
-        return initAs<RecipeFilter>({ id: id, name: "recipe filter " + id })
+    const [activeRecipeFilterIndex, setActiveRecipeFilterIndex] = useState<number | null>(null);
+
+    function getRecipeFilters() {
+        const result: RecipeFilter[] = [];
+        for (let i = 0; i < 5; i++) {
+            result.push(initAs<RecipeFilter>({ id: i, name: "recipe filter " + i }))
+        }
+        return result
     }
 
-    function onRecipeFilterDelete(recipeFilter: RecipeFilter) {
-        console.log("recipeDeleted", recipeFilter)
+    function onRecipeFilterDelete(index: number) {
+        console.log("recipeFilterDeleted", index)
     }
 
-    function onFilterSelect(recipeFilter: RecipeFilter) {
-        console.log("recipeSelected", recipeFilter)
+    function onFilterSelect(index: number) {
+        setActiveRecipeFilterIndex(index);
+        console.log("recipeFilterSelected", index)
     }
 
     return (
-        <Stack className="p-2 text-start saved-recipe-filters" gap={3} >
-            <SavedRecipeFilter recipeFilter={getRecipeFilter(1)} onDeleteCallback={onRecipeFilterDelete} onFilterSelectCallback={onFilterSelect} />
-            <SavedRecipeFilter recipeFilter={getRecipeFilter(2)} onDeleteCallback={onRecipeFilterDelete} onFilterSelectCallback={onFilterSelect} />
-            <SavedRecipeFilter recipeFilter={getRecipeFilter(3)} onDeleteCallback={onRecipeFilterDelete} onFilterSelectCallback={onFilterSelect} />
-            <SavedRecipeFilter recipeFilter={getRecipeFilter(4)} onDeleteCallback={onRecipeFilterDelete} onFilterSelectCallback={onFilterSelect} />
-            <SavedRecipeFilter recipeFilter={getRecipeFilter(5)} onDeleteCallback={onRecipeFilterDelete} onFilterSelectCallback={onFilterSelect} />
-            <SavedRecipeFilter recipeFilter={getRecipeFilter(6)} onDeleteCallback={onRecipeFilterDelete} onFilterSelectCallback={onFilterSelect} />
+        <Stack className="p-2 text-start" gap={3} >
+            {getRecipeFilters().map(renderRecipeFilter)}
         </Stack>
     )
-
+    function renderRecipeFilter(recipeFilter: RecipeFilter, index: number) {
+        return (
+            <ComplexListElement
+                key={recipeFilter.id}
+                index={index}
+                onSelectCallback={onFilterSelect}
+                onDeleteCallback={onRecipeFilterDelete}
+                element={recipeFilter}
+                isActive={index === activeRecipeFilterIndex}
+            />);
+    }
 }
 
 export default SavedRecipeFilters;

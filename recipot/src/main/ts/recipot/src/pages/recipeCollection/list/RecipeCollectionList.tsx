@@ -6,10 +6,7 @@ import MyHeader from '../../../components/basicUi/MyHeader';
 import VerticalPagination from '../../../components/complex/VerticalPagination';
 import CollectionRecipesColumn from './components/CollectionRecipesColumn';
 import CollectionList from './components/CollectionList';
-import MyButton from '../../../components/basicUi/MyButton';
-import { FaPlus } from "react-icons/fa6";
-import { Stack } from "react-bootstrap";
-import MyInput from '../../../components/basicUi/MyInput';
+import NewCollectionForm from './components/NewCollectionForm';
 
 function RecipeCollectionList() {
     const { t } = useTranslation();
@@ -35,20 +32,11 @@ function RecipeCollectionList() {
     function renderCollectionsColumn() {
         return (<>
             <h2>{t('p.savedCollections')}</h2>
+            <br />
             <CollectionList />
             <hr />
-            {renderNewCollectionForm()}
+            <NewCollectionForm />
         </>);
-    }
-
-    function renderNewCollectionForm() {
-        return (
-            <Stack>
-                <MyButton.Primary><FaPlus /></MyButton.Primary>
-                <MyInput name="newCollectionName" placeholder="Wprowadź nazwę nowej kolekcji" label='Wprowadź nazwę nowej kolekcji' onChange={(value: string) => console.log(value)} />
-                <MyButton.Primary>{t('p.save')}</MyButton.Primary>
-            </Stack>
-        )
     }
 
     function renderContent() {
