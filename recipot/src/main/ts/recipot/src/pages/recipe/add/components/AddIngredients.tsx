@@ -72,12 +72,27 @@ function AddIngredients() {
     }
     function renderUnitInput() {
         return (
-            <MySelect required={true} isValid={true} name="unit" label="Jednostka" emptyOption="Pusta wartość" options={testOptions} defaultValue={testOptions[1].value} onChange={(value: string) => console.log(value)} />
+            <MySelect
+                required={true}
+                isValid={true}
+                name="unit"
+                label="Jednostka"
+                emptyOption="Pusta wartość"
+                options={testOptions}
+                defaultValue={testOptions[1].value} onChange={(value: string) => console.log(value)} />
         )
     }
     function renderIngredientInput() {
         return (
-            <MySelect required={true} isValid={true} name="unit" label="Składnik" emptyOption="Pusta wartość" options={testOptions} defaultValue={testOptions[1].value} onChange={(value: string) => console.log(value)} />
+            <MySelect
+                required={true}
+                isValid={true}
+                name="unit" 
+                label="Składnik" 
+                emptyOption="Pusta wartość" 
+                options={testOptions} 
+                defaultValue={testOptions[1].value} 
+                onChange={(value: string) => console.log(value)} />
         )
     }
 }
