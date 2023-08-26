@@ -9,3 +9,17 @@
         position: relative;
     }
 }
+
+.saved-recipe-filters {
+
+    .saved-recipe-filter {
+        border: 1px solid $card-border-color;
+        padding: 10px;
+
+        .action-icon {
+            cursor: pointer;
+            margin-left: 10px;
+            color: $primary;
+        }
+    }
+}

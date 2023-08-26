@@ -11,9 +11,33 @@ import MyImage from '../../components/basicUi/MyImage';
 import MyInput from '../../components/basicUi/MyInput';
 import MyTextarea from '../../components/basicUi/MyTextarea';
 import MyButton from '../../components/basicUi/MyButton';
+import { UserStatisticsDto } from '../../data/types';
+import { useState } from 'react';
 
 function UserDetails() {
     const { t } = useTranslation();
+
+    const [isEditMode, setEditMode] = useState(false);
+
+    const userStatistics: UserStatisticsDto = {
+        commentedRecipesCount: 12,
+        createdRecipesCount: 20,
+        ratedRecipesCount: 40,
+        recipesInUserRecipeCollectionsCount: 55,
+        userRecipeCollectionsCount: 18
+    };
+
+    function onEdit() {
+        setEditMode(true);
+    };
+
+    function onSave() {
+
+    };
+
+    function onCancel() {
+        setEditMode(false);
+    };
 
     return (
         <div className='mx-auto my-5 p-4 user-details-page basic-container basic-container-border'>
@@ -27,13 +51,17 @@ function UserDetails() {
     function renderUserStatistics() {
         return (
             <Stack direction="horizontal" gap={5} className='flex-wrap justify-content-center'>
-                <div className='col-3'><StatisticCircle value="12" size={150} ringSize={30} label={t('p.createdRecipesCount')} /></div>
-                <div className='col-3'><StatisticCircle value="10" size={150} ringSize={30} label={t('p.commentedRecipesCount')} /></div>
-                <div className='col-3'><StatisticCircle value="53" size={150} ringSize={30} label={t('p.ratedRecipesCount')} /></div>
-                <div className='col-3'><StatisticCircle value="7" size={150} ringSize={30} label={t('p.userRecipeCollectionsCount')} /></div>
-                <div className='col-3'><StatisticCircle value="42" size={150} ringSize={30} label={t('p.recipesInUserRecipeCollectionsCount')} /></div>
+                {renderStatistic(userStatistics.createdRecipesCount, 'p.createdRecipesCount')}
+                {renderStatistic(userStatistics.commentedRecipesCount, 'p.commentedRecipesCount')}
+                {renderStatistic(userStatistics.ratedRecipesCount, 'p.ratedRecipesCount')}
+                {renderStatistic(userStatistics.userRecipeCollectionsCount, 'p.userRecipeCollectionsCount')}
+                {renderStatistic(userStatistics.recipesInUserRecipeCollectionsCount, 'p.recipesInUserRecipeCollectionsCount')}
             </Stack>
         );
+    }
+
+    function renderStatistic(value: number, label: string) {
+        return <div className='col-3'><StatisticCircle value={String(value)} size={150} ringSize={30} label={t(label)} /></div>
     }
 
     function renderUserEditForm() {
@@ -61,8 +89,8 @@ function UserDetails() {
             <MyInput name="email" label={t('p.emailInputLabel')} placeholder={t('p.emailInputPlaceholder')} defaultValue={"example@email.com"} disabled={true} />
             <MyInput name="login" label={t('p.loginInputLabel')} placeholder={t('p.loginInputPlaceholder')} defaultValue={"userLogin"} disabled={true} />
 
-            <MyInput name="avatarImageSrc" label={t('p.avatarInputLabel')} placeholder={t('p.avatarInputPlaceholder')} onChange={(value: string) => console.log(value)} />
-            <MyTextarea name="selfDescription" label={t('p.selfDescriptionInputLabel')} placeholder={t('p.selfDescriptionInputPlaceholder')} onChange={(value: string) => console.log(value)} />
+            <MyInput name="avatarImageSrc" label={t('p.avatarInputLabel')} placeholder={t('p.avatarInputPlaceholder')} onChange={(value: string) => console.log(value)} disabled={!isEditMode} />
+            <MyTextarea name="selfDescription" label={t('p.selfDescriptionInputLabel')} placeholder={t('p.selfDescriptionInputPlaceholder')} onChange={(value: string) => console.log(value)} disabled={!isEditMode} />
         </>)
     }
 
@@ -70,20 +98,33 @@ function UserDetails() {
         return (
             <Row>
                 <Col></Col>
-                <Col md={1}>
-                    <MyButton.Secondary onClick={() => { }}>{t('p.cancel')} </MyButton.Secondary>
-                </Col>
-                <Col md={1}>
-                    <MyButton.Primary onClick={() => { }}>{t('p.save')} </MyButton.Primary>
-                </Col>
-                <Col md={1}>
-                    <MyButton.Primary onClick={() => { }}>{t('p.edit')} </MyButton.Primary>
-                </Col>
+                {renderCancelButton()}
+                {renderSaveButton()}
+                {renderEditButton()}
                 <Col></Col>
             </Row>
         )
     }
 
+    function renderCancelButton() {
+        return isEditMode && renderButton(MyButton.Secondary, onCancel, 'p.cancel');
+    }
+
+    function renderSaveButton() {
+        return isEditMode && renderButton(MyButton.Primary, onSave, 'p.save');
+    }
+
+    function renderEditButton() {
+        return !isEditMode && renderButton(MyButton.Primary, onEdit, 'p.edit');
+    }
+
+    function renderButton(Button: any, onClick: any, label: string) {
+        return (
+            <Col md={3}>
+                <Button onClick={onClick}>{t(label)} </Button>
+            </Col>
+        )
+    }
 }
 
 export default UserDetails;
