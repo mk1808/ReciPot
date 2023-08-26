@@ -35,14 +35,6 @@ function AddIngredients() {
                 {ingredients.map((ingredient, index) => { return renderSingleRow(ingredient, index) })}
             </div>
             <MyButton.Primary onClick={onAddIngredientClick}>{t('p.add')} <BsPlusCircleFill className="mb-1 ms-1" /></MyButton.Primary>
-            <div className="text-start">
-                {renderBasicInput()}
-                {renderBasicInput()}
-                {renderBasicInput()}
-                {renderBasicInput()}
-                {renderBasicInput()}
-                {renderBasicInput()}
-            </div>
         </div>
     );
     function renderSingleRow(ingredient: any, index: number) {
