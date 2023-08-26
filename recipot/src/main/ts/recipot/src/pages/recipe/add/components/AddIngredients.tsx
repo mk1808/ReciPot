@@ -8,6 +8,7 @@ import MySelect from "../../../../components/basicUi/MySelect";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { useState } from "react";
 import { RecipeIngredient } from "../../../../data/types";
+import { onAddElementClick, onDeleteElementClick } from "../ListManipulation";
 
 function AddIngredients() {
     const { t } = useTranslation();
@@ -21,14 +22,10 @@ function AddIngredients() {
         recipe: {}
     }
     const onAddIngredientClick = () => {
-        let list = [...ingredients];
-        list.push(basicIngredient);
-        setIngredients(list);
+        onAddElementClick(setIngredients, ingredients, basicIngredient);
     }
     const onDeleteIngredientClick = (index: number) => {
-        let list = [...ingredients];
-        list.splice(index, 1);
-        setIngredients(list);
+        onDeleteElementClick(setIngredients, ingredients, index);
     }
     return (
         <div className="mt-5">
