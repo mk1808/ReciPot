@@ -19,7 +19,7 @@ function RecipeCard({ recipe, recipeCallback = initFcn<Recipe>() }: { recipe: Re
                 <Card.Title> {recipe.name} </Card.Title>
 
                 <div className='mb-3'>
-                    <h6>{recipe.categories.map(category => category.name).slice(0, 1)}</h6>
+                    <h6>{recipe.categories.map(category => category.name)[0]}</h6>
                     {renderHashTags()}
                     {renderRating(recipe, t('p.numberOfRatings'))}
                     {getShorterText(recipe.description, 60)}

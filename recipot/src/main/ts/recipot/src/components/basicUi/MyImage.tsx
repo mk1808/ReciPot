@@ -8,7 +8,7 @@ function MyImage({
     roundedCircle = false
 }: {
     src: string,
-    height?: number,
+    height?: number|string,
     rounded?: boolean,
     className?: string,
     roundedCircle?: boolean
