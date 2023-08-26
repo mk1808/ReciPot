@@ -29,6 +29,7 @@ import MyImage from "../../../components/basicUi/MyImage";
 import { initAs } from "../../../utils/ObjectUtils";
 import CategoryCard from "../../../components/complex/CategoryCard";
 import TimeAmountInput from "../../../components/complex/TimeAmountInput";
+import { mapCategoriesToSearchList, mapDictionaryValueToSearchList, searchCategory } from "../../../utils/DictionariesUtils";
 
 const omitNull = (obj: any) => {
     Object.keys(obj).filter(k => obj[k] === null).forEach(k => delete (obj[k]))
@@ -304,11 +305,7 @@ function FilteredSelectTest({ required, isValid }: any) {
     const [filteredSelectValues, setFilteredSelectValues] = useState<any[]>([]);
 
     function onFilteredSelectSearchCallback(phrase: string) {
-        dictionariesApi.getHashTags({ name: phrase, size: 5 }, (response: any) => { setFilteredSelectValues(mapHashTagToSearchList(response.value.content)) })
-    }
-
-    function mapHashTagToSearchList(hashTags: HashTag[]) {
-        return hashTags.map(hashTag => { return { value: hashTag, label: hashTag.name } })
+        dictionariesApi.getHashTags({ name: phrase, size: 5 }, (response: any) => { setFilteredSelectValues(mapDictionaryValueToSearchList(response.value.content)) })
     }
 
     useEffect(() => {
@@ -337,11 +334,7 @@ function FilteredMultiSelectTest({ required, isValid }: any) {
     const [filteredSelectValues, setFilteredSelectValues] = useState<any[]>([]);
 
     function onFilteredSelectSearchCallback(phrase: string) {
-        dictionariesApi.getHashTags({ name: phrase, size: 5 }, (response: any) => { setFilteredSelectValues(mapHashTagToSearchList(response.value.content)) })
-    }
-
-    function mapHashTagToSearchList(hashTags: HashTag[]) {
-        return hashTags.map(hashTag => { return { value: hashTag, label: hashTag.name } })
+        dictionariesApi.getHashTags({ name: phrase, size: 5 }, (response: any) => { setFilteredSelectValues(mapDictionaryValueToSearchList(response.value.content)) })
     }
 
     useEffect(() => {
@@ -375,33 +368,8 @@ function FilteredHierarchicalSelectTest({ required, isValid }: any) {
         setFilteredSelectValues(mapCategoriesToSearchList(searchCategory(allCategories, phrase)))
     }
 
-    function searchCategory(categories: CategoryDto[], phrase: string): any[] {
-        const result: any[] = [];
-        categories.forEach(category => {
-            if (checkCategoryContainsPhrase(category, phrase)) {
-                result.push(category)
-            } else if (category.children.length > 0) {
-                const foundChildren = searchCategory(category.children, phrase)
-                if (foundChildren.length > 0) {
-                    const tempCategory = { ...category }
-                    tempCategory.children = foundChildren
-                    result.push(tempCategory)
-                }
-            }
-        })
-        return result;
-    }
-
-    function checkCategoryContainsPhrase(category: CategoryDto, phrase: string) {
-        return category.name.indexOf(phrase) >= 0;
-    }
-
-    function mapCategoriesToSearchList(categories: any[]): any[] {
-        return categories.map(category => { return { value: category, label: category.name, children: mapCategoriesToSearchList(category.children) } })
-    }
-
     useEffect(() => {
-        dictionariesApi.getAllCategories((response: Response<Category[]>) => {
+        dictionariesApi.getAllCategories((response: Response<CategoryDto[]>) => {
             setAllCategories(response.value)
             setFilteredSelectValues(mapCategoriesToSearchList(response.value))
         })
@@ -428,7 +396,7 @@ function FilteredHierarchicalSelectTest({ required, isValid }: any) {
 function CategoryCardExample() {
     const [allCategories, setAllCategories] = useState<any[]>([]);
     useEffect(() => {
-        dictionariesApi.getAllCategories((response: Response<Category[]>) => {
+        dictionariesApi.getAllCategories((response: Response<CategoryDto[]>) => {
             setAllCategories(response.value)
         })
     }, [])
