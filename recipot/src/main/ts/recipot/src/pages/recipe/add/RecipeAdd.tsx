@@ -7,6 +7,7 @@ import UpperLeftSide from "./components/UpperLeftSide";
 import AddIngredients from "./components/AddIngredients";
 import UpperRightSide from "./components/UpperRightSide";
 import AddSteps from "./components/AddSteps";
+import ConfirmCancelButtons from "../../../components/basicUi/ConfirmCancelButtons";
 
 function RecipeAdd() {
     const { t } = useTranslation();
@@ -54,16 +55,19 @@ function RecipeAdd() {
             </>
         )
     }
-    
+
     function renderButtons() {
         return (
             <div className="bottom-part">
-                <hr/>
-                <MyButton.Secondary onClick={() => { }}>{t('p.cancel')} </MyButton.Secondary>
-                <MyButton.Primary onClick={() => { }}>{t('p.save')} </MyButton.Primary>
+                <hr />
+                <ConfirmCancelButtons
+                    handleConfirm={() => { }}
+                    handleCancel={() => { }}
+                    className="justify-content-center"
+                />
             </div>
         )
-    
+
     }
 }
 

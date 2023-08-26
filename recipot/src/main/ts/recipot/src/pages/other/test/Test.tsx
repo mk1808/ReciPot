@@ -142,7 +142,7 @@ function Test() {
         event.preventDefault();
         event.stopPropagation();
     };
-    function checkIfAllValid(event:any) {
+    function checkIfAllValid(event: any) {
         for (const field in myForm.formValidity) {
             if (!myForm.formValidity[field]) { return false; }
         }
@@ -214,6 +214,13 @@ function Test() {
 
                 <div>
                     <RecipeCardCircle recipe={recipe} recipeCallback={recipeCallback}></RecipeCardCircle>
+                </div>
+                <div>
+                    <TimeAmountInput
+                        name="timeAmountFrom"
+                        label={"p.timeAmountFromFilter"}
+                        onChange={() => { }}
+                    />
                 </div>
                 <div className="mt-5">
                     <Form noValidate validated={validated} onSubmit={(e) => handleSubmit1(e)}>
