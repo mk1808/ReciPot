@@ -34,14 +34,22 @@
                 width: 90px;
             }
         }
+    }
 
-
+    .steps-section,
+    .ingredient-section {
         .bin-icon {
             padding-right: 0px;
             text-align: right;
             margin: auto;
             font-size: 28px;
             cursor: pointer;
+        }
+    }
+
+    .steps-section {
+        .step-number {
+            font-size: 38px;
         }
 
     }
