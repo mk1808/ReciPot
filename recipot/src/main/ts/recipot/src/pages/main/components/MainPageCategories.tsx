@@ -28,9 +28,9 @@ function CategoryCards() {
         return categories;
     }
     useEffect(() => {
-        dictionariesApi.getAllCategories((response: Response<Category[]>) => {
+        dictionariesApi.getAllCategories((response: Response<any[]>) => {
             let categories = prepareCategories(response);
-            
+
             setCategoriesInRows(categories);
             //setAllCategories(response.value);
         })
