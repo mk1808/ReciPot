@@ -310,7 +310,9 @@
         "privateNoteInfo":"You can add note to the recipe. Note will be visible only for you. If you do this, recipe will be added to recipe collections 'With note'.",
 		"savePrivateNote":"Save note",
         "editPrivateNote":"Edit note",
-        "addPrivateNote":"Add own note"
+        "addPrivateNote":"Add own note",
+        "addComment":"Add comment",
+		"saveComment":"Publish comment and rating"
 
 	}
 }

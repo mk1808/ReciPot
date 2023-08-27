@@ -50,6 +50,20 @@
                 margin-right: 0px !important;
             }
         }
+
+        .comments {
+            .stars-button {
+                justify-content: space-between;
+            }
+
+            .single-comment {
+                .content {
+                    min-height: 50px;
+                    background-color: rgb(250, 248, 248);
+                    text-align: start;
+                }
+            }
+        }
     }
 
     .other {
