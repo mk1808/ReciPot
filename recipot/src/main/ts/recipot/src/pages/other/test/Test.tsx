@@ -30,6 +30,7 @@ import { initAs } from "../../../utils/ObjectUtils";
 import CategoryCard from "../../../components/complex/CategoryCard";
 import TimeAmountInput from "../../../components/complex/TimeAmountInput";
 import { mapCategoriesToSearchList, mapDictionaryValueToSearchList, searchCategory } from "../../../utils/DictionariesUtils";
+import StarSelectInput from "../../../components/basicUi/StarSelectInput";
 
 const omitNull = (obj: any) => {
     Object.keys(obj).filter(k => obj[k] === null).forEach(k => delete (obj[k]))
@@ -262,6 +263,7 @@ function Test() {
                 <MySelect required={true} isValid={isValid} name="test6" label="Test select" emptyOption="Pusta wartość" options={testOptions} defaultValue={testOptions[1].value} onChange={(value: string) => console.log(value)} />
                 <MyFileInput required={true} isValid={isValid} name="test7" label="Test file" placeholder="Select file" onChange={(value: string) => console.log(value)} />
                 <MySwitch required={true} isValid={true} name="test8" label="Test switch" onChange={setIsValid} defaultChecked={isValid} />
+                <StarSelectInput required={true} isValid={true} name="test9" label="Test star select" onChange={(value: number) => console.log(value)} defaultValue={0} />
             </Form>
         </Stack>
 
