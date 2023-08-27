@@ -4,7 +4,17 @@ import MyImage from "../basicUi/MyImage";
 import { initFcn } from "../../utils/ObjectUtils";
 
 
-function CategoryCard({ category, className = "", onCategorySelect = initFcn<CategoryDto>() }: { category: CategoryDto, className?: string, onCategorySelect?: (category: CategoryDto) => void }) {
+function CategoryCard({
+    category,
+    className = "",
+    onCategorySelect = initFcn<CategoryDto>(),
+    showChildren = true
+}: {
+    category: CategoryDto,
+    className?: string,
+    onCategorySelect?: (category: CategoryDto) => void,
+    showChildren?: boolean
+}) {
     const CATEGORY_IMAGE_SIZES_HIERARCHY = [160, 100, 60, 40]
     return (
         <div className={"category-card " + className}>
@@ -24,7 +34,7 @@ function CategoryCard({ category, className = "", onCategorySelect = initFcn<Cat
     }
 
     function renderChildren(categories: CategoryDto[], level: number) {
-        return (
+        return showChildren && (
             <>
                 <hr />
                 <Stack direction="horizontal" gap={3} className="flex-wrap align-items-start">
