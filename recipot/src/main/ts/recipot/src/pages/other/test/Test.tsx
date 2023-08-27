@@ -31,6 +31,7 @@ import CategoryCard from "../../../components/complex/CategoryCard";
 import TimeAmountInput from "../../../components/complex/TimeAmountInput";
 import { mapCategoriesToSearchList, mapDictionaryValueToSearchList, searchCategory } from "../../../utils/DictionariesUtils";
 import StarSelectInput from "../../../components/basicUi/StarSelectInput";
+import { inputAttributes } from "../../../utils/FormInputUtils";
 
 const omitNull = (obj: any) => {
     Object.keys(obj).filter(k => obj[k] === null).forEach(k => delete (obj[k]))
@@ -113,20 +114,6 @@ function Test() {
                 throw Error('Unknown action: ' + action);
             }
         }
-    }
-
-    const onFormChange = (value: string, name: string) => {
-        console.log(value);
-        dispatchForm({ type: name, value: value });
-    }
-
-    function inputAttributes(name: string) {
-        return {
-            name: name,
-            isValid: myForm.formValidity[name],
-            onChange: (value: string) => onFormChange(value, name)
-        }
-
     }
 
     useEffect(() => { setValidated(true); }, [])
@@ -233,7 +220,7 @@ function Test() {
                             defaultValue="default"
 
                             required={true}
-                            {...inputAttributes("name")}
+                            {...inputAttributes("name", myForm, dispatchForm)}
                         />
                         <MyInput
                             name="surname"
