@@ -314,6 +314,11 @@
 		"addComment": "Add comment",
 		"saveComment": "Publish comment and rating",
 		"username": "Username",
-		"password": "Password"
+		"password": "Password",
+		"mail": "E-mail",
+		"passwordRepeat": "Repeat password",
+		"profileDescription": "Profile description",
+		"avatar": "Profile picture",
+		"writeAboutYourself": "Write something about yourself"
 	}
 }
