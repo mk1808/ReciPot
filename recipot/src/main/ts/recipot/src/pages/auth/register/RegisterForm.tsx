@@ -75,21 +75,9 @@ function RegisterForm({ formSave }: { formSave: object }) {
                         placeholder="Input test 1"
                         {...inputAttributes("matchingPassword", myForm, dispatchForm)} />
                 </Row>
-                <hr></hr>
-                <Row className="row">
-                    <MyInput
-                        label={t('p.avatar')}
-                        placeholder="Input test 1"
-                        {...inputAttributes("avatarImageSrc", myForm, dispatchForm)} />
-                    <MyTextarea
-                        label={t('p.profileDescription')}
-                        placeholder={t('p.writeAboutYourself')}
-                        rows={5}
-                        {...inputAttributes("selfDescription", myForm, dispatchForm)} />
-                </Row>
             </Col>
 
-            <MyButton.Primary onClick={handleSubmit} className="button-400">
+            <MyButton.Primary className="button-400" type="submit">
                 {t('p.register')}
             </MyButton.Primary>
         </Form>

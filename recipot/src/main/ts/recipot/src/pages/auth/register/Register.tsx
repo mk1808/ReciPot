@@ -22,7 +22,7 @@ function Register() {
 
     }
     return (
-        <Stack className="justify-content-center py-5 register-page" direction="horizontal">
+        <Stack className="justify-content-center py-5 full-height-page register-page" direction="horizontal">
             <div className="p-4 mb-2 basic-container basic-container-border">
                 <MyHeader title={t('p.registerHeader')}></MyHeader>
                 {renderForm()}
