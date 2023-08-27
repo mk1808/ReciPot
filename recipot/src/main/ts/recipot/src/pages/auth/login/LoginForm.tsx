@@ -7,7 +7,7 @@ import {useReducer } from 'react';
 import { checkIfAllValid, checkInputValidity, getEmptyForm, getNewState, inputAttributes, preventFurtherAction } from '../../../utils/FormInputUtils';
 
 
-function LoginForm() {
+function LoginForm({formSave}:{formSave:object}) {
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [any, Function] = useReducer(formReducer, getEmptyForm());
 

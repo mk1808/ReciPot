@@ -32,6 +32,14 @@ export function getEmptyForm() {
     return { formValue: {}, formValidity: {} };
 }
 
+export function getEmptyFormSave() {
+    return {
+        onSubmit: Function,
+        onSuccess: Function,
+        onError: Function
+    };
+}
+
 export function getNewState(state: any, action: any, value: any, checkInputValidity: any) {
     let newState = {
         ...state,
@@ -48,7 +56,7 @@ export function getNewState(state: any, action: any, value: any, checkInputValid
     return newState;
 }
 
-export function preventFurtherAction(event:any){
+export function preventFurtherAction(event: any) {
     event.preventDefault();
     event.stopPropagation();
 }
