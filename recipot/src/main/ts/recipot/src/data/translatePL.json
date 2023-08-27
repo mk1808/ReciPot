@@ -307,11 +307,11 @@
         "ingredientFilter": "Wyszukaj składniki",
         "categoryFilter": "Wyszukaj kategorie",
         "saveRecipeFilter": "Zapisz filtr przepisów",
-        "privateNoteInfo":"Możesz dodać notatkę do przepisu, która będzie widoczna tylko dla Ciebie. Jeżeli to zrobisz, przepis trafi na listę przepisów z notatką.",
-        "savePrivateNote":"Zapisz notatkę",
-        "editPrivateNote":"Edytuj notatkę",
-        "addPrivateNote":"Dodaj własną notatkę",
-        "addComment":"Dodaj komentarz",
-        "saveComment":"Opublikuj komentarz i ocenę"
+        "privateNoteInfo": "Możesz dodać notatkę do przepisu, która będzie widoczna tylko dla Ciebie. Jeżeli to zrobisz, przepis trafi na listę przepisów z notatką.",
+        "savePrivateNote": "Zapisz notatkę",
+        "editPrivateNote": "Edytuj notatkę",
+        "addPrivateNote": "Dodaj własną notatkę",
+        "addComment": "Dodaj komentarz",
+        "saveComment": "Opublikuj komentarz i ocenę"
     }
 }
