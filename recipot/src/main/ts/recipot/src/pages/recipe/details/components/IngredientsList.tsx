@@ -5,7 +5,7 @@ import { initAs } from "../../../../utils/ObjectUtils";
 
 function IngredientList() {
     const { t } = useTranslation();
-    const ingr1: RecipeIngredient[] =
+    const ingredients: RecipeIngredient[] =
         [
             {
                 id: '1',
@@ -64,6 +64,7 @@ function IngredientList() {
                 unit: "łyżka",
                 recipe: initAs()
             }];
+
     return (
         <div className="mb-5 px-5 ingredients">
             <h4 className="my-3 display-4">{t('p.ingredients')}</h4>
@@ -75,22 +76,31 @@ function IngredientList() {
     function renderIngredients() {
         return (
             <>
-                {ingr1.map(singleIngredient => { return renderSingleIngredient(singleIngredient) })}
+                {ingredients.map(singleIngredient => { return renderSingleIngredient(singleIngredient); })}
             </>
-
         )
-    }
-    function getIngredient(singleIngredient: RecipeIngredient): any {
-        let aomunt = `${singleIngredient.amount} ${singleIngredient.unit}`;
-        return (<><span className="imp">{aomunt}</span>&nbsp;{`${singleIngredient.ingredient.name}`} </>);
     }
     function renderSingleIngredient(singleIngredient: RecipeIngredient) {
         return (
             <div className="my-3">
-                <MyCheckbox required={false} isValid={true} name="ingredient" label={getIngredient(singleIngredient)} onChange={(value: boolean) => console.log(value)} defaultChecked={false} />
-
+                <MyCheckbox
+                    required={false}
+                    isValid={true}
+                    name="ingredient"
+                    label={renderIngredientLabel(singleIngredient)}
+                    onChange={(value: boolean) => console.log(value)}
+                    defaultChecked={false} />
             </div>
         )
+    }
+    function renderIngredientLabel(singleIngredient: RecipeIngredient): any {
+        let amount = `${singleIngredient.amount} ${singleIngredient.unit}`;
+        return (
+            <>
+                <span className="ingredient-amount">{amount}</span>&nbsp;
+                {`${singleIngredient.ingredient.name}`}
+            </>
+        );
     }
 }
 
