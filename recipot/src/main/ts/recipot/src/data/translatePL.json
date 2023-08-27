@@ -314,6 +314,11 @@
         "addComment": "Dodaj komentarz",
         "saveComment": "Opublikuj komentarz i ocenę",
         "username": "Login",
-        "password": "Hasło"
+        "password": "Hasło",
+        "mail": "E-mail",
+        "passwordRepeat": "Powtórz hasło",
+        "profileDescription": "Opis profilu",
+        "avatar": "Zdjęcie profilowe",
+        "writeAboutYourself": "Napisz parę słów o sobie"
     }
 }

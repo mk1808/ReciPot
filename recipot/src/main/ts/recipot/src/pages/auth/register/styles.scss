@@ -4,5 +4,25 @@
 @import "~bootstrap/scss/mixins";
 
 .register-page {
-    
+    h6 {
+        margin-bottom: 60px
+    }
+
+    .main-column {
+        margin-right: 0;
+        margin-left: 0;
+        margin-bottom: 40px;
+
+        .row {
+            width: 500px;
+            margin-right: auto;
+            margin-left: auto;
+            text-align: start;
+            margin: auto;
+        }
+        hr{
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    }
 }
