@@ -22,6 +22,7 @@ function FilteredSelect({
     required,
     isValid,
     highlightValidity = true,
+    className = '',
     onSearchCallback,
     onSelectCallback,
     onNewValueCallback = initFcn()
@@ -39,6 +40,7 @@ function FilteredSelect({
     required?: boolean,
     isValid?: boolean,
     highlightValidity?: boolean,
+    className?: string,
     onSearchCallback: (phrase: string) => any,
     onSelectCallback: (value: any | any[]) => any,
     onNewValueCallback?: (value: any | any[]) => any
@@ -135,7 +137,7 @@ function FilteredSelect({
     }
 
     return (
-        <Form.Group>
+        <Form.Group className={className}>
             {renderLabel(label)}
             {renderDropdown()}
         </Form.Group>
