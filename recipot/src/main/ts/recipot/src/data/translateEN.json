@@ -312,6 +312,8 @@
 		"editPrivateNote": "Edit note",
 		"addPrivateNote": "Add own note",
 		"addComment": "Add comment",
-		"saveComment": "Publish comment and rating"
+		"saveComment": "Publish comment and rating",
+		"username": "Username",
+		"password": "Password"
 	}
 }

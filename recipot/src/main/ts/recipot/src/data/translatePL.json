@@ -312,6 +312,8 @@
         "editPrivateNote": "Edytuj notatkę",
         "addPrivateNote": "Dodaj własną notatkę",
         "addComment": "Dodaj komentarz",
-        "saveComment": "Opublikuj komentarz i ocenę"
+        "saveComment": "Opublikuj komentarz i ocenę",
+        "username": "Login",
+        "password": "Hasło"
     }
 }
