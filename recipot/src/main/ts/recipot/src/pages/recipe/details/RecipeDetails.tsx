@@ -59,7 +59,7 @@ function RecipeDetails() {
                 <MyImage src={recipe.image} height="auto" className="main-img" rounded></MyImage>
                 <MyHeader title={recipe.name}></MyHeader>
                 {renderBreadcrumps()}
-                <BasicInfo />
+                <BasicInfo recipe = {recipe} />
                 <hr />
                 <IngredientList />
                 <hr />

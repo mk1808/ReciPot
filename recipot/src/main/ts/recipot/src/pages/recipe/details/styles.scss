@@ -19,6 +19,8 @@
         }
 
         .basic-info {
+            text-align: start;
+            font-size: 19px;
 
             .test {
                 height: 80px;
@@ -36,9 +38,16 @@
                 }
             }
         }
-        .steps{
-            .list{
+
+        .steps {
+            .list {
                 text-align: start;
+            }
+        }
+
+        .private-note {
+            .edit-save-btn {
+                margin-right: 0px !important;
             }
         }
     }
