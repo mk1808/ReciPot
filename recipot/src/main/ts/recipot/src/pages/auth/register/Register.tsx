@@ -12,7 +12,7 @@ import { getEmptyFormSave } from "../../../utils/FormInputUtils";
 function Register() {
     const { t } = useTranslation();
     const formSave: FormSave = getEmptyFormSave();
-    formSave.onSubmit = function () {
+    formSave.onSubmit = function (formValue:any) {
 
     }
     formSave.onSuccess = function () {

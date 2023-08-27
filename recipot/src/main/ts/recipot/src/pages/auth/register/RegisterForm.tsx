@@ -7,16 +7,18 @@ import { useReducer } from 'react';
 import { checkIfAllValid, getEmptyForm, getNewState, inputAttributes, preventFurtherAction } from '../../../utils/FormInputUtils';
 import MyTextarea from "../../../components/basicUi/MyTextarea";
 import { validateEmail } from '../../../utils/RegexUtils';
+import { FormSave, MyForm } from '../../../data/utilTypes';
 
-function RegisterForm({ formSave }: { formSave: object }) {
+function RegisterForm({ formSave }: { formSave: FormSave }) {
     const { t } = useTranslation();
-    const [myForm, dispatchForm]: [any, Function] = useReducer(formReducer, getEmptyForm());
+    const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
 
     function handleSubmit(event: any) {
         const form = myForm;
         console.log(form)
 
         if (checkIfAllValid(event, myForm)) {
+            formSave.onSubmit(myForm.formValue);
             console.log('valid')
         } else {
             console.log('invalid')
@@ -49,30 +51,30 @@ function RegisterForm({ formSave }: { formSave: object }) {
     }
 
     return (
-        <Form noValidate validated={true} onSubmit={(e) => handleSubmit(e)}>
+        <Form noValidate validated={true} onSubmit={handleSubmit}>
             <Col className="main-column">
                 <Row className="row">
                     <MyInput
                         required={true}
                         label={t('p.username')}
-                        placeholder="Input test 1"
+                        placeholder={t('p.username')}
                         {...inputAttributes("login", myForm, dispatchForm)} />
                     <MyInput
                         required={true}
                         label={t('p.mail')}
-                        placeholder="Input test 1"
+                        placeholder={t('p.mail')}
                         {...inputAttributes("email", myForm, dispatchForm)} />
                     <MyInput
                         type="password"
                         required={true}
                         label={t('p.password')}
-                        placeholder="Input test 1"
+                        placeholder={t('p.password')}
                         {...inputAttributes("password", myForm, dispatchForm)} />
                     <MyInput
                         type="password"
                         required={true}
                         label={t('p.passwordRepeat')}
-                        placeholder="Input test 1"
+                        placeholder={t('p.passwordRepeat')}
                         {...inputAttributes("matchingPassword", myForm, dispatchForm)} />
                 </Row>
             </Col>
