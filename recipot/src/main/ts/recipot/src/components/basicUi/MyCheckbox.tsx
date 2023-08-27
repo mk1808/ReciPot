@@ -14,7 +14,7 @@ function MyCheckbox(
         isValid
     }: {
         name: string,
-        label: string,
+        label: string|any,
         disabled?: boolean,
         defaultChecked?: boolean,
         onChange: any,
