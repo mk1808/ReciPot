@@ -5,6 +5,7 @@ import MyButton from "../../../../components/basicUi/MyButton";
 import { Card, Stack } from "react-bootstrap";
 import MyImage from "../../../../components/basicUi/MyImage";
 import { AiFillStar } from "react-icons/ai";
+import StarSelectInput from "../../../../components/basicUi/StarSelectInput";
 
 function Comments() {
     const { t } = useTranslation();
@@ -45,10 +46,8 @@ function Comments() {
     function renderButton() {
         return (
             <Stack direction="horizontal" className="stars-button">
-                <MyButton.Primary onClick={onSaveClick} className="button-400 edit-save-btn" disabled={false}>
-                    {t('p.saveComment')}
-                </MyButton.Primary>
-                <MyButton.Primary onClick={onSaveClick} className="button-400 edit-save-btn" disabled={false}>
+                <StarSelectInput required={true} isValid={true} name="rating" label={t('p.addRating')} onChange={(value: number) => console.log(value)} defaultValue={0} />
+                <MyButton.Primary onClick={onSaveClick} className="button-400 save-btn" disabled={false}>
                     {t('p.saveComment')}
                 </MyButton.Primary>
             </Stack>
