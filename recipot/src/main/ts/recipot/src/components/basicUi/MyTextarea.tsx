@@ -11,7 +11,7 @@ function MyTextarea({
     onChange = initFcn<any>(),
     rows = 3,
     defaultValue = "",
-    required,
+    required = false,
     isValid
 }: {
     name: string,

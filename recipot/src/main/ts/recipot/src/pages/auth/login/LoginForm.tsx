@@ -5,17 +5,19 @@ import MyInput from '../../../components/basicUi/MyInput';
 import MyButton from '../../../components/basicUi/MyButton';
 import {useReducer } from 'react';
 import { checkIfAllValid, checkInputValidity, getEmptyForm, getNewState, inputAttributes, preventFurtherAction } from '../../../utils/FormInputUtils';
+import { FormSave, MyForm } from '../../../data/utilTypes';
 
 
-function LoginForm({formSave}:{formSave:object}) {
+function LoginForm({formSave}:{formSave:FormSave}) {
     const { t } = useTranslation();
-    const [myForm, dispatchForm]: [any, Function] = useReducer(formReducer, getEmptyForm());
+    const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
 
     function handleSubmit(event: any) {
         const form = myForm;
         console.log(form)
 
         if (checkIfAllValid(event, myForm)) {
+            formSave.onSubmit(myForm.formValue);
             console.log('valid')
         } else {
             console.log('invalid')
@@ -28,24 +30,24 @@ function LoginForm({formSave}:{formSave:object}) {
     }
 
     return (
-        <Form noValidate validated={true} onSubmit={(e) => handleSubmit(e)}>
+        <Form noValidate validated={true} onSubmit={handleSubmit}>
             <Col className="main-column">
                 <Row className="row">
                     <MyInput
                         label={t('p.username')}
-                        placeholder="Input test 1"
+                        placeholder={t('p.username')}
                         required
                         {...inputAttributes("username", myForm, dispatchForm)} />
                     <MyInput
                         type="password"
                         label={t('p.password')}
-                        placeholder="Input test 1"
+                        placeholder={t('p.password')}
                         required
                         {...inputAttributes("password", myForm, dispatchForm)} />
                 </Row>
             </Col>
 
-            <MyButton.Primary onClick={handleSubmit} className="button-400">
+            <MyButton.Primary className="button-400" type="submit">
                 {t('p.login')}
             </MyButton.Primary>
         </Form>

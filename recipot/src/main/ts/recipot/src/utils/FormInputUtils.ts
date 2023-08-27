@@ -49,7 +49,7 @@ export function getNewState(state: any, action: any, value: any, checkInputValid
         },
         formValidity: {
             ...state.formValidity,
-            [action.type]: checkInputValidity(action)
+            [action.type]: checkInputValidity(action, state)
         },
     };
     console.log(newState)
