@@ -1,6 +1,6 @@
 import Form from 'react-bootstrap/Form';
 import { initFcn } from '../../utils/ObjectUtils';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { checkValidity } from '../../utils/FormInputUtils';
 
 function MyTextarea({
@@ -26,12 +26,16 @@ function MyTextarea({
 }) {
     const inputRef = useRef<HTMLTextAreaElement>(null);
 
+    const [inputValue, setInputValue] = useState(defaultValue)
+
     useEffect(() => {
         checkValidity(inputRef.current, isValid);
     }, [isValid])
 
+    useEffect(() => { onChange(inputValue) }, [inputValue])
+
     function onChangeCallback(event: any) {
-        onChange(event.target.value)
+        setInputValue(event.target.value)
     }
 
     return (

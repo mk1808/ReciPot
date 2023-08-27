@@ -28,7 +28,7 @@ export function checkIfAllValid(event: any, myForm: MyForm) {
     return event.currentTarget.checkValidity() === true;
 };
 
-export function getEmptyForm() {
+export function getEmptyForm(): MyForm {
     return { formValue: {}, formValidity: {} };
 }
 
