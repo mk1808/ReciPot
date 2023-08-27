@@ -3,6 +3,22 @@
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 
-.login-page{
-    
+.login-page {
+    h6 {
+        margin-bottom: 60px
+    }
+
+    .main-column {
+        margin-right: 0;
+        margin-left: 0;
+        margin-bottom: 40px;
+
+        .row {
+            width: 500px;
+            text-align: start;
+            margin: auto;
+        }
+    }
+
+
 }
