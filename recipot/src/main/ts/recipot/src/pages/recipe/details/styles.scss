@@ -64,11 +64,16 @@
                 }
             }
         }
+
     }
 
     .other {
         .test {
             height: 200px;
+        }
+
+        .category-no-border {
+            border: 0px;
         }
     }
 
