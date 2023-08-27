@@ -319,6 +319,7 @@
         "passwordRepeat": "Powtórz hasło",
         "profileDescription": "Opis profilu",
         "avatar": "Zdjęcie profilowe",
-        "writeAboutYourself": "Napisz parę słów o sobie"
+        "writeAboutYourself": "Napisz parę słów o sobie",
+        "addRating": "Dodaj ocenę"
     }
 }

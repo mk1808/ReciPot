@@ -319,6 +319,7 @@
 		"passwordRepeat": "Repeat password",
 		"profileDescription": "Profile description",
 		"avatar": "Profile picture",
-		"writeAboutYourself": "Write something about yourself"
+		"writeAboutYourself": "Write something about yourself",
+		"addRating": "Add rating"
 	}
 }
