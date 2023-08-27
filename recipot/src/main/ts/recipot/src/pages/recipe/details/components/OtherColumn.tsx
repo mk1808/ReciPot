@@ -2,11 +2,9 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import dictionariesApi from "../../../../api/DictionariesApi";
 import { CategoryDto, Recipe, Response } from "../../../../data/types";
-import MyImage from "../../../../components/basicUi/MyImage";
 import RecipeCard from "../../../../components/complex/RecipeCard";
 import { initAs } from "../../../../utils/ObjectUtils";
 import CategoryCard from "../../../../components/complex/CategoryCard";
-import { Stack } from "react-bootstrap";
 
 function OtherColumn() {
     const { t } = useTranslation();
@@ -23,10 +21,6 @@ function OtherColumn() {
         });
     const getRecipe = (num: number) => { let nr = { ...recipe }; nr.name += (' ' + num); return nr }
     const recipes = [getRecipe(1), getRecipe(2), getRecipe(3), getRecipe(4), getRecipe(5), getRecipe(6), getRecipe(7), getRecipe(8), getRecipe(9)];
-
-    const CATEGORY_IMAGE_SIZES_HIERARCHY = [160, 100, 60, 40]
-    const categories = [{}, {}, {}, {}, {}, {}, {}]
-
     const [allCategories, setAllCategories] = useState<CategoryDto[]>([]);
     useEffect(() => {
         dictionariesApi.getAllCategories((response: Response<any[]>) => {
@@ -34,38 +28,44 @@ function OtherColumn() {
         })
     }, [])
     return (
-        <div className="h-100  other" >
+        <div className="h-100 other" >
             <div className="py-4 categories">
                 <h4 className="my-3 display-4">{t('p.categories')}</h4>
                 {renderCategories()}
             </div>
+            <hr></hr>
             <div className="py-4 recipes">
                 <h4 className="my-3 display-4">{t('p.recipes')}</h4>
-                {recipes.map((recipe, index) => {
-                    return (
-                        <RecipeCard recipe={recipe} recipeCallback={() => { }}></RecipeCard >
-                    )
-                })}
-
+                {renderRecipes()}
             </div>
-
         </div>
     )
     function renderCategories() {
         return (
             <>
                 {allCategories.map((category: CategoryDto, index) => {
-                    return (renderCategory(category, 0, index))
+                    return renderCategory(category, index)
                 })}
             </>
         )
     }
-    function renderCategory(category: CategoryDto, level: number, key?: any) {
+    function renderCategory(category: CategoryDto, key: any) {
         return (
-            <CategoryCard category={category}  showChildren={false} className="category-no-border"/>
+            <CategoryCard category={category} showChildren={false} className="category-no-border" key={key} />
         )
-
     }
+    function renderRecipes() {
+        return (
+            <div className="list">
+                {recipes.map((recipe, index) => {
+                    return (
+                        <RecipeCard recipe={recipe} recipeCallback={() => { }} key={index}></RecipeCard >
+                    )
+                })}
+            </div>
+        )
+    }
+
 }
 
 export default OtherColumn;
