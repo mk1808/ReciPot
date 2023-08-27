@@ -13,14 +13,15 @@ function OutlineButton(props: any) {
     return <MyButton variant="outline-primary" {...props}>{props.children}</MyButton>
 }
 
-function MyButton({ variant, children, onClick = initFcn<any>(), className = "", disabled = false }:
-    { variant: string, children: any, onClick: any, className?: string, disabled?: boolean }) {
+function MyButton({ variant, children, onClick = initFcn<any>(), className = "", disabled = false, type = "button" }:
+    { variant: string, children: any, onClick: any, className?: string, disabled?: boolean, type?: "button" | "submit" | "reset" | undefined }) {
     return (
         <Button
             variant={variant}
             className={className + " m-2"}
             onClick={onClick}
-            disabled={disabled}>
+            disabled={disabled}
+            type={type}>
             {children}
         </Button>
     );
