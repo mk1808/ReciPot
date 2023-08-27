@@ -10,19 +10,21 @@ function ConfirmCancelButtons({
     buttonCancelText = 'p.cancel',
     buttonSubmitText = 'p.save',
     className,
+    submitButtonType = "button",
     direction = "horizontal" }: {
         handleCancel: () => void,
         handleConfirm: () => void,
         buttonCancelText?: string,
         buttonSubmitText?: string,
         className?: string,
+        submitButtonType?: string,
         direction?: StackDirection
     }) {
     const { t } = useTranslation();
     return (
         <Stack direction={direction} className={className}>
             <MyButton.Secondary onClick={handleCancel}>{t(buttonCancelText)} </MyButton.Secondary>
-            <MyButton.Primary onClick={handleConfirm}>{t(buttonSubmitText)} </MyButton.Primary>
+            <MyButton.Primary onClick={handleConfirm} type={submitButtonType}>{t(buttonSubmitText)} </MyButton.Primary>
         </Stack>
     );
 }

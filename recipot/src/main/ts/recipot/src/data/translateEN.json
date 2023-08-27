@@ -320,6 +320,7 @@
 		"profileDescription": "Profile description",
 		"avatar": "Profile picture",
 		"writeAboutYourself": "Write something about yourself",
-		"addRating": "Add rating"
+		"addRating": "Add rating",
+		"newCollectionNameInput": "New collection name"
 	}
 }

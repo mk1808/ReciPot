@@ -7,9 +7,22 @@ import VerticalPagination from '../../../components/complex/VerticalPagination';
 import CollectionRecipesColumn from './components/CollectionRecipesColumn';
 import CollectionList from './components/CollectionList';
 import NewCollectionForm from './components/NewCollectionForm';
+import { FormSave } from '../../../data/utilTypes';
+import { getEmptyFormSave } from '../../../utils/FormInputUtils';
 
 function RecipeCollectionList() {
     const { t } = useTranslation();
+    const formSave: FormSave = getEmptyFormSave();
+    formSave.onSubmit = function (formValue: any) {
+        console.log(formValue);
+    }
+    formSave.onSuccess = function () {
+
+    }
+    formSave.onError = function () {
+
+    }
+
     return (
         <div className='m-2 recipe-collections-list-page'>
             {renderColumns()}
@@ -35,7 +48,7 @@ function RecipeCollectionList() {
             <br />
             <CollectionList />
             <hr />
-            <NewCollectionForm />
+            <NewCollectionForm formSave={formSave} />
         </>);
     }
 

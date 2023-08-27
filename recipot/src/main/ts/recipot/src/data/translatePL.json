@@ -320,6 +320,7 @@
         "profileDescription": "Opis profilu",
         "avatar": "Zdjęcie profilowe",
         "writeAboutYourself": "Napisz parę słów o sobie",
-        "addRating": "Dodaj ocenę"
+        "addRating": "Dodaj ocenę",
+        "newCollectionNameInput": "Wprowadź nazwę nowej kolekcji"
     }
 }
