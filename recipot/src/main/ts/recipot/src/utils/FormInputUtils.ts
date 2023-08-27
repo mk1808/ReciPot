@@ -16,7 +16,7 @@ export function inputAttributes(name: string, myForm: MyForm, dispatchForm: any)
     }
 }
 
-function onFormChange(value: string, name: string, dispatchForm: any) {
+export function onFormChange(value: any, name: string, dispatchForm: any) {
     console.log(value);
     dispatchForm({ type: name, value: value });
 }

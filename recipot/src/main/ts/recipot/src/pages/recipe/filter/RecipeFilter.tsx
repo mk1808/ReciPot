@@ -8,9 +8,27 @@ import RecipeFiltersColumn from './components/RecipeFiltersColumn';
 import FilteredRecipesColumn from './components/FilteredRecipesColumn';
 import SavedRecipeFilters from './components/SavedRecipeFilters';
 import VerticalPagination from '../../../components/complex/VerticalPagination';
+import { FormSave } from '../../../data/utilTypes';
+import { getEmptyFormSave } from '../../../utils/FormInputUtils';
 
 function RecipeFilter() {
+
     const { t } = useTranslation();
+
+    const formSave: FormSave = getEmptyFormSave();
+
+    formSave.onSubmit = function (formValue: any) {
+        console.log(formValue)
+    }
+
+    formSave.onSuccess = function () {
+
+    }
+
+    formSave.onError = function () {
+
+    }
+
     return (
         <div className='m-2 recipe-filter-page'>
             {renderColumns()}
@@ -35,7 +53,7 @@ function RecipeFilter() {
         return (
             <div className='mt-5'>
                 <h2>{t('p.recipeFilterForm')}</h2>
-                <RecipeFiltersColumn />
+                <RecipeFiltersColumn formSave={formSave} />
             </div>
         );
     }
