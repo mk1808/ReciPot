@@ -7,11 +7,13 @@ import { useReducer, useState } from "react";
 import ConfirmCancelButtons from "../../../../components/basicUi/ConfirmCancelButtons";
 import { FormSave, MyForm } from "../../../../data/utilTypes";
 import { checkIfAllValid, checkInputValidity, getEmptyForm, getNewState, inputAttributes, preventFurtherAction } from "../../../../utils/FormInputUtils";
+import AddCollectionDialog from "../dialogs/AddCollectionDialog";
 
 function NewCollectionForm({ formSave }: { formSave: FormSave }) {
     const { t } = useTranslation();
     const [isAddNewMode, setAddNewMode] = useState(false);
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
+    const [showModal, setShowModal] = useState(false);
 
     function handleSubmit(event: any) {
         const form = myForm;
@@ -31,7 +33,7 @@ function NewCollectionForm({ formSave }: { formSave: FormSave }) {
     }
 
     function onAddMode() {
-        setAddNewMode(true);
+        setShowModal(true);
     }
 
     function onCancelAddMode() {
@@ -50,7 +52,10 @@ function NewCollectionForm({ formSave }: { formSave: FormSave }) {
     );
 
     function renderAddButton() {
-        return !isAddNewMode && <MyButton.Primary onClick={onAddMode}><FaPlus /></MyButton.Primary>;
+        return <>
+            <MyButton.Primary onClick={onAddMode}><FaPlus /></MyButton.Primary>
+            <AddCollectionDialog showModal={showModal} handleClose={() => setShowModal(false)}></AddCollectionDialog>
+        </>
     }
 
     function renderForm() {
