@@ -12,6 +12,7 @@ import { getAccessTypes, getAmountOfDishes, getDifficulties, getRequiredEfforts,
 import MyButton from "../../../../components/basicUi/MyButton";
 import { FormSave, MyForm } from "../../../../data/utilTypes";
 import { checkInputValidity, getEmptyForm, getNewState, inputAttributes, preventFurtherAction } from "../../../../utils/FormInputUtils";
+import AddRecipeFilterDialog from "../dialogs/AddRecipeFilterDialog";
 
 function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     const { t } = useTranslation();
@@ -21,6 +22,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     const [filteredCategories, setFilteredCategories] = useState<any[]>([]);
     const [allCategories, setAllCategories] = useState<any[]>([]);
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         onFilteredHashTagSearch('', setFilteredHashTags);
@@ -238,7 +240,8 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     function renderButtons() {
         return <>
             <MyButton.Primary onClick={handleSubmit}>{t('p.search')}</MyButton.Primary >
-            <MyButton.Secondary onClick={() => { }} >{t('p.saveRecipeFilter')}</MyButton.Secondary>
+            <MyButton.Secondary onClick={()=>setShowModal(true)} >{t('p.saveRecipeFilter')}</MyButton.Secondary>
+            <AddRecipeFilterDialog showModal={showModal} handleClose={() => setShowModal(false)}></AddRecipeFilterDialog>
         </>
     }
 }
