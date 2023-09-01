@@ -321,6 +321,8 @@
         "avatar": "Zdjęcie profilowe",
         "writeAboutYourself": "Napisz parę słów o sobie",
         "addRating": "Dodaj ocenę",
-        "newCollectionNameInput": "Wprowadź nazwę nowej kolekcji"
+        "newCollectionNameInput": "Wprowadź nazwę nowej kolekcji",
+        "recipeFilterSave": "Zapisanie filtra przepisu",
+        "newFilterNameInput": "Wprowadź nazwę nowego filtra"
     }
 }
