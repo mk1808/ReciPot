@@ -323,6 +323,7 @@
         "addRating": "Dodaj ocenę",
         "newCollectionNameInput": "Wprowadź nazwę nowej kolekcji",
         "recipeFilterSave": "Zapisanie filtra przepisu",
-        "newFilterNameInput": "Wprowadź nazwę nowego filtra"
+        "newFilterNameInput": "Wprowadź nazwę nowego filtra",
+        "recipeFilterSaveInfo": "Zapisanie filtra umożliwia łatwy dostęp do wyfiltrowanych przepisów w przyszłości."
     }
 }
