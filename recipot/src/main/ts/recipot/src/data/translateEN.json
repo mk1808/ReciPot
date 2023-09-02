@@ -324,6 +324,7 @@
 		"newCollectionNameInput": "New collection name",
 		"recipeFilterSave": "Save recipe filter",
 		"newFilterNameInput": "New filter name",
+		"recipeFilterSaveInfo": "Saving filter will allow you to get an easy access to these recipes in the future.",
 		"addingNewCollection": "Adding new collection"
 	}
 }
