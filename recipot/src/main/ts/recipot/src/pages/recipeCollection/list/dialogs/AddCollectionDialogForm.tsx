@@ -3,7 +3,7 @@ import { Stack, Form } from "react-bootstrap";
 import MyButton from "../../../../components/basicUi/MyButton";
 import MyInput from "../../../../components/basicUi/MyInput";
 import { useTranslation } from 'react-i18next';
-import { useImperativeHandle, useReducer, useRef, useState } from "react";
+import { forwardRef, useImperativeHandle, useReducer, useRef, useState } from "react";
 import ConfirmCancelButtons from "../../../../components/basicUi/ConfirmCancelButtons";
 import { FormSave, MyForm } from "../../../../data/utilTypes";
 import { checkIfAllValid, checkInputValidity, getEmptyForm, getNewState, inputAttributes, preventFurtherAction } from "../../../../utils/FormInputUtils";
@@ -55,4 +55,4 @@ function AddCollectionDialogForm({ formSave }: { formSave: FormSave }, ref: any)
 
 }
 
-export default AddCollectionDialogForm;
+export default forwardRef(AddCollectionDialogForm);

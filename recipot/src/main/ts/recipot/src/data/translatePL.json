@@ -324,6 +324,7 @@
         "newCollectionNameInput": "Wprowadź nazwę nowej kolekcji",
         "recipeFilterSave": "Zapisanie filtra przepisu",
         "newFilterNameInput": "Wprowadź nazwę nowego filtra",
-        "recipeFilterSaveInfo": "Zapisanie filtra umożliwia łatwy dostęp do wyfiltrowanych przepisów w przyszłości."
+        "recipeFilterSaveInfo": "Zapisanie filtra umożliwia łatwy dostęp do wyfiltrowanych przepisów w przyszłości.",
+        "addingNewCollection": "Dodawanie nowej kolekcji"
     }
 }

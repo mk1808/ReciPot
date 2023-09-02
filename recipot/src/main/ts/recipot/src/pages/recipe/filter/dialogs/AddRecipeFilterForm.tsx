@@ -32,7 +32,7 @@ function AddRecipeFilterForm({ formSave }: { formSave: FormSave }, ref: any) {
     };
 
     return (
-        <Form id='my-form' noValidate validated={true} className="mt-3 text-start" ref={form}>
+        <Form noValidate validated={true} className="mt-3 text-start" ref={form}>
             {renderFilterNameInput()}
         </Form>
     )

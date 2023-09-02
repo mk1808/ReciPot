@@ -322,7 +322,8 @@
 		"writeAboutYourself": "Write something about yourself",
 		"addRating": "Add rating",
 		"newCollectionNameInput": "New collection name",
-        "recipeFilterSave": "Save recipe filter",
-		"newFilterNameInput": "New filter name"
+		"recipeFilterSave": "Save recipe filter",
+		"newFilterNameInput": "New filter name",
+		"addingNewCollection": "Adding new collection"
 	}
 }

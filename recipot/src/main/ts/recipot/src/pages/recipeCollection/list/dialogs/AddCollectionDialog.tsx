@@ -25,7 +25,7 @@ function AddCollectionDialog({ showModal, handleClose }: { showModal: boolean, h
         form.current.submitForm();
     }
     return (
-        <CustomModal shouldShow={showModal} handleClose={handleClose} handleSubmit={myHandleSubmit}>
+        <CustomModal shouldShow={showModal} handleClose={handleClose} handleSubmit={myHandleSubmit} title={'p.addingNewCollection'}>
             {renderContent()}
         </CustomModal>
     );
@@ -33,7 +33,6 @@ function AddCollectionDialog({ showModal, handleClose }: { showModal: boolean, h
     function renderContent() {
         return (
             <>
-                <span>{t('p.recipeFilterSaveInfo')}</span>
                 <AddCollectionDialogForm formSave={formSave} ref={form}></AddCollectionDialogForm>
 
             </>
