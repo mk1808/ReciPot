@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import pl.mk.recipot.commons.dtos.Response;
+import pl.mk.recipot.commons.enums.RecipeAccessType;
+import pl.mk.recipot.commons.enums.RecipeAmountOfDishes;
 import pl.mk.recipot.commons.enums.RecipeDifficulty;
 import pl.mk.recipot.commons.enums.RecipeRequiredEffort;
 import pl.mk.recipot.commons.models.Category;
@@ -40,6 +42,12 @@ public interface IDictionariesController {
 
 	@GetMapping("/difficulties")
 	ResponseEntity<Response<List<RecipeDifficulty>>> getAllDifficulties();
+
+	@GetMapping("/accessTypes")
+	ResponseEntity<Response<List<RecipeAccessType>>> getAllAccessTypes();
+
+	@GetMapping("/amountOfDishes")
+	ResponseEntity<Response<List<RecipeAmountOfDishes>>> getAllAmountOfDishes();
 
 	@PostMapping("/ingredients")
 	ResponseEntity<Response<Ingredient>> createIngredient(@RequestBody @Valid Ingredient ingredient);

@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import pl.mk.recipot.commons.dtos.Response;
+import pl.mk.recipot.commons.enums.RecipeAccessType;
+import pl.mk.recipot.commons.enums.RecipeAmountOfDishes;
 import pl.mk.recipot.commons.enums.RecipeDifficulty;
 import pl.mk.recipot.commons.enums.RecipeRequiredEffort;
 import pl.mk.recipot.commons.factories.OkResponseFactory;
@@ -85,6 +87,16 @@ public class DictionariesController implements IDictionariesController {
 	public ResponseEntity<Response<Page<Ingredient>>> getAllIngredients(String name, Integer page, Integer size) {
 		return new OkResponseFactory().createResponse(
 				ingredientsFilterService.filter(new IngredientsFilterDto().setName(name).setPage(page).setSize(size)));
+	}
+
+	@Override
+	public ResponseEntity<Response<List<RecipeAccessType>>> getAllAccessTypes() {
+		return new OkResponseFactory().createResponse(dictionaryService.getAllAccessTypes());
+	}
+
+	@Override
+	public ResponseEntity<Response<List<RecipeAmountOfDishes>>> getAllAmountOfDishes() {
+		return new OkResponseFactory().createResponse(dictionaryService.getAllAmountOfDishes());
 	}
 
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import pl.mk.recipot.commons.enums.RecipeAccessType;
+import pl.mk.recipot.commons.enums.RecipeAmountOfDishes;
 import pl.mk.recipot.commons.enums.RecipeDifficulty;
 import pl.mk.recipot.commons.enums.RecipeRequiredEffort;
 import pl.mk.recipot.commons.models.Category;
@@ -38,6 +40,16 @@ public class DictionariesService implements IDictionariesService {
 	@Override
 	public List<RecipeDifficulty> getAllDifficulties() {
 		return Arrays.asList(RecipeDifficulty.values());
+	}
+
+	@Override
+	public List<RecipeAccessType> getAllAccessTypes() {
+		return Arrays.asList(RecipeAccessType.values());
+	}
+
+	@Override
+	public List<RecipeAmountOfDishes> getAllAmountOfDishes() {
+		return Arrays.asList(RecipeAmountOfDishes.values());
 	}
 
 }
