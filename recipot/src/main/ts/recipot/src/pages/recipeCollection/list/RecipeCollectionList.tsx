@@ -12,16 +12,7 @@ import { getEmptyFormSave } from '../../../utils/FormInputUtils';
 
 function RecipeCollectionList() {
     const { t } = useTranslation();
-    const formSave: FormSave = getEmptyFormSave();
-    formSave.onSubmit = function (formValue: any) {
-        console.log(formValue);
-    }
-    formSave.onSuccess = function () {
 
-    }
-    formSave.onError = function () {
-
-    }
 
     return (
         <div className='m-2 recipe-collections-list-page'>
@@ -48,7 +39,7 @@ function RecipeCollectionList() {
             <br />
             <CollectionList />
             <hr />
-            <NewCollectionForm formSave={formSave} />
+            <NewCollectionForm />
         </>);
     }
 

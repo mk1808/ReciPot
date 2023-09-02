@@ -9,73 +9,20 @@ import { FormSave, MyForm } from "../../../../data/utilTypes";
 import { checkIfAllValid, checkInputValidity, getEmptyForm, getNewState, inputAttributes, preventFurtherAction } from "../../../../utils/FormInputUtils";
 import AddCollectionDialog from "../dialogs/AddCollectionDialog";
 
-function NewCollectionForm({ formSave }: { formSave: FormSave }) {
-    const { t } = useTranslation();
-    const [isAddNewMode, setAddNewMode] = useState(false);
-    const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
+function NewCollectionForm() {
     const [showModal, setShowModal] = useState(false);
 
-    function handleSubmit(event: any) {
-        const form = myForm;
-        console.log(form)
-
-        if (checkIfAllValid(event, myForm)) {
-            formSave.onSubmit(myForm.formValue);
-            console.log('valid')
-        } else {
-            console.log('invalid')
-        }
-        preventFurtherAction(event);
-    };
-
-    function formReducer(state: any, action: any) {
-        return getNewState(state, action, action.value, checkInputValidity);
-    }
-
-    function onAddMode() {
-        setShowModal(true);
-    }
-
-    function onCancelAddMode() {
-        setAddNewMode(false);
-    }
-
-    function onSave() {
-        console.log("onSave")
-    }
-
     return (
-        <Stack >
+        <Stack>
             {renderAddButton()}
-            {renderForm()}
         </Stack>
     );
 
     function renderAddButton() {
         return <>
-            <MyButton.Primary onClick={onAddMode}><FaPlus /></MyButton.Primary>
+            <MyButton.Primary onClick={()=>setShowModal(true)}><FaPlus /></MyButton.Primary>
             <AddCollectionDialog showModal={showModal} handleClose={() => setShowModal(false)}></AddCollectionDialog>
         </>
-    }
-
-    function renderForm() {
-        return (isAddNewMode &&
-            <Form noValidate validated={true} onSubmit={handleSubmit} className="mt-3 text-start">
-                {renderCollectionNameInput()}
-                <ConfirmCancelButtons handleCancel={onCancelAddMode} handleConfirm={onSave} submitButtonType="submit" className="justify-content-center" />
-            </Form>
-        )
-    }
-
-    function renderCollectionNameInput() {
-        return (
-            <MyInput
-                {...inputAttributes("newCollectionName", myForm, dispatchForm)}
-                placeholder={t('p.newCollectionNameInput')}
-                label={t('p.newCollectionNameInput')}
-                required
-            />
-        )
     }
 }
 
