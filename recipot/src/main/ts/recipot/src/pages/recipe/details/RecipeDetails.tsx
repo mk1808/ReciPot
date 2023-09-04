@@ -22,6 +22,7 @@ function RecipeDetails() {
         {
             id: "osidj-oeifj-9239",
             name: "Sałatka warzywna",
+            accessType:"PUBLIC",
             averageRating: 4.5,
             ratingsCount: 110,
             categories: [{ id: "1", name: "Sałatki", image: "", parentCategory: { id: "6", name: "Przekąski", image: "" } }, { id: "2", name: "Zdrowe", image: "" }],

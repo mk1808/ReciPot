@@ -325,6 +325,15 @@
         "recipeFilterSave": "Zapisanie filtra przepisu",
         "newFilterNameInput": "Wprowadź nazwę nowego filtra",
         "recipeFilterSaveInfo": "Zapisanie filtra umożliwia łatwy dostęp do wyfiltrowanych przepisów w przyszłości.",
-        "addingNewCollection": "Dodawanie nowej kolekcji"
+        "addingNewCollection": "Dodawanie nowej kolekcji",
+        "confirmation": "Potwierdzenie",
+        "changeVisibilityQuestion": "Czy na pewno chcesz zmienić widoczność przepisu na",
+        "deleteRecipeQuestion": "Czy na pewno chcesz usunąć przepis",
+        "shareRecipeInfo": "Przepis można udostępnić dowolnej osobie.",
+        "addToCollectionInfo": "Przepis można dodać do wybranej poniżej kolekcji.",
+        "chooseUser": "Wybierz użytkownika",
+        "recipeSharing": "Udostępnianie przepisu",
+		"addingToCollection":"Dodawanie przepisu do kolekcji",
+		"collectionToChooseOrAdd":"Wybierz istniejącą kolekcję lub utwórz nową"
     }
 }
