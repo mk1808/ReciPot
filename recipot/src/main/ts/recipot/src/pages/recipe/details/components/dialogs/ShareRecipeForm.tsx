@@ -1,24 +1,66 @@
-import CustomModal from "../../../../../components/basicUi/CustomModal";
+import { useReducer, useRef, useImperativeHandle, forwardRef } from "react";
+
+import { Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
+import { FormSave, MyForm } from "../../../../../data/utilTypes";
+import MyInput from "../../../../../components/basicUi/MyInput";
+import { checkIfAllValid, checkInputValidity, getEmptyForm, inputAttributes, getNewState, preventFurtherAction } from "../../../../../utils/FormInputUtils";
+import MyTextarea from "../../../../../components/basicUi/MyTextarea";
 
 
-function ShareRecipeForm({ showModal, handleClose  }: { showModal: boolean, handleClose: any}) {
+function ShareRecipeForm({ formSave }: { formSave: FormSave }, ref: any) {
     const { t } = useTranslation();
-    
-    function myHandleSubmit() {
-        handleClose();
-        console.log("ciag dalszy")
-    }
+    const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
+    const form = useRef<any>();
+
+    useImperativeHandle(ref, () => ({
+        submitForm() {
+            handleSubmit();
+        }
+    }));
+
+    function handleSubmit() {
+        const submitFormEvent = { currentTarget: form.current }
+
+        if (checkIfAllValid(submitFormEvent, myForm)) {
+            formSave.onSubmit(myForm.formValue);
+            console.log('valid')
+        } else {
+            console.log('invalid')
+        }
+    };
+
+    function formReducer(state: any, action: any) {
+        return getNewState(state, action, action.value, checkInputValidity);
+    };
+
     return (
-        <CustomModal shouldShow={showModal} handleClose={handleClose} handleSubmit={myHandleSubmit}>
-            {renderContent()}
-        </CustomModal>
-    );
+        <Form noValidate validated={true} className="mt-3 text-start" ref={form}>
+            {renderFilterNameInput()}
+            {renderCommentInput()}
+        </Form>
+    )
 
-    function renderContent() {
-        return (<></>)
+    function renderFilterNameInput() {
+        return (
+            <MyInput
+                {...inputAttributes("receiverUser", myForm, dispatchForm)}
+                placeholder={t('p.chooseUser')}
+                label={t('p.chooseUser')}
+                required
+            />
+        )
     }
 
+    function renderCommentInput() {
+        return (
+            <MyTextarea
+                {...inputAttributes("comment", myForm, dispatchForm)}
+                label={t('p.addComment')}
+                placeholder={t('p.addComment')}
+                rows={5}
+            />)
+    }
 }
 
-export default ShareRecipeForm;
+export default forwardRef(ShareRecipeForm);

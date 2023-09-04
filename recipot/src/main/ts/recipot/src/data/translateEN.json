@@ -326,8 +326,12 @@
 		"newFilterNameInput": "New filter name",
 		"recipeFilterSaveInfo": "Saving filter will allow you to get an easy access to these recipes in the future.",
 		"addingNewCollection": "Adding new collection",
-		"confirmation":"Confirmation",
+		"confirmation": "Confirmation",
 		"changeVisibilityQuestion": "Are you sure about changing recipe visiblity to",
-        "deleteRecipeQuestion": "Are you sure about deleting recipe"
+		"deleteRecipeQuestion": "Are you sure about deleting recipe",
+		"shareRecipeInfo": "Recipe can be shared with any user.",
+		"addToCollectionInfo": "Recipe can be added to a collcetion chosen below",
+		"chooseUser": "Choose user",
+		"recipeSharing": "Recipe sharing"
 	}
 }

@@ -328,6 +328,10 @@
         "addingNewCollection": "Dodawanie nowej kolekcji",
         "confirmation": "Potwierdzenie",
         "changeVisibilityQuestion": "Czy na pewno chcesz zmienić widoczność przepisu na",
-        "deleteRecipeQuestion": "Czy na pewno chcesz usunąć przepis"
+        "deleteRecipeQuestion": "Czy na pewno chcesz usunąć przepis",
+        "shareRecipeInfo": "Przepis można udostępnić dowolnej osobie.",
+        "addToCollectionInfo": "Przepis można dodać do wybranej poniżej kolekcji.",
+        "chooseUser": "Wybierz użytkownika",
+        "recipeSharing": "Udostępnianie przepisu"
     }
 }
