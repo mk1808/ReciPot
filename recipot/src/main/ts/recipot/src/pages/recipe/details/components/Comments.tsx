@@ -6,6 +6,9 @@ import { Card, Stack } from "react-bootstrap";
 import MyImage from "../../../../components/basicUi/MyImage";
 import { AiFillStar } from "react-icons/ai";
 import StarSelectInput from "../../../../components/basicUi/StarSelectInput";
+import CommentsForm from "./CommentsForm";
+import { FormSave } from "../../../../data/utilTypes";
+import { getEmptyFormSave } from "../../../../utils/FormInputUtils";
 
 function Comments() {
     const { t } = useTranslation();
@@ -16,43 +19,31 @@ function Comments() {
     useEffect(() => {
         setIsEditModeOn(!isNotePresent);
     }, [])
-    function onSaveClick() {
+    const formSave: FormSave = getEmptyFormSave();
+    formSave.onSubmit = function (formValue: any) {
         console.log("btnz");
+        console.log(formValue)
         setIsEditModeOn(!isEditModeOn);
+    }
+    formSave.onSuccess = function () {
+
+    }
+    formSave.onError = function () {
+
     }
     return (
         <div className="mb-5 px-5 comments">
             <h4 className="my-3 display-4">{t('p.comments')}</h4>
-            {renderTextArea()}
-            {renderButton()}
+            {renderForm()}
             {renderPageOfComments()}
         </div>
     )
-    function renderTextArea() {
+    function renderForm() {
         return (
-            <div className="field">
-                <MyTextarea
-                    required={false}
-                    isValid={true}
-                    name="note"
-                    label=""
-                    placeholder={t('p.addComment')}
-                    rows={5}
-                    onChange={(value: string) => console.log(value)}
-                    disabled={!isEditModeOn} />
-            </div>
-        )
+            <CommentsForm formSave={formSave} isEditModeOn={isEditModeOn}></CommentsForm>
+        );
     }
-    function renderButton() {
-        return (
-            <Stack direction="horizontal" className="stars-button">
-                <StarSelectInput required={true} isValid={true} name="rating" label={t('p.addRating')} onChange={(value: number) => console.log(value)} defaultValue={0} />
-                <MyButton.Primary onClick={onSaveClick} className="button-400 save-btn" disabled={false}>
-                    {t('p.saveComment')}
-                </MyButton.Primary>
-            </Stack>
-        )
-    }
+
     function renderPageOfComments() {
         return <>
             {comments.map((comment: any, index: number) => { return (renderComments(comment, index)); })}
