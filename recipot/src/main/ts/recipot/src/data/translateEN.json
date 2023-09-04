@@ -325,6 +325,9 @@
 		"recipeFilterSave": "Save recipe filter",
 		"newFilterNameInput": "New filter name",
 		"recipeFilterSaveInfo": "Saving filter will allow you to get an easy access to these recipes in the future.",
-		"addingNewCollection": "Adding new collection"
+		"addingNewCollection": "Adding new collection",
+		"confirmation":"Confirmation",
+		"changeVisibilityQuestion": "Are you sure about changing recipe visiblity to",
+        "deleteRecipeQuestion": "Are you sure about deleting recipe"
 	}
 }

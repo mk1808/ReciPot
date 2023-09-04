@@ -40,8 +40,8 @@ function BasicInfo({ recipe }: { recipe: Recipe }) {
             <>
                 <AddToCollectionDialog showModal={showModalAddToCollection} handleClose={() => setShowModalAddToCollection(false)}></AddToCollectionDialog>
                 <ShareRecipeDialog showModal={showModalShare} handleClose={() => setShowModalShare(false)}></ShareRecipeDialog>
-                <DeleteRecipeDialog showModal={showModalDelete} handleClose={() => setShowModalDelete(false)}></DeleteRecipeDialog>
-                <ChangeVisibilityDialog showModal={showModalChangeVisibility} handleClose={() => setShowModalChangeVisibility(false)}></ChangeVisibilityDialog>
+                <DeleteRecipeDialog showModal={showModalDelete} handleClose={() => setShowModalDelete(false)} data={recipe}></DeleteRecipeDialog>
+                <ChangeVisibilityDialog showModal={showModalChangeVisibility} handleClose={() => setShowModalChangeVisibility(false)} data={recipe}></ChangeVisibilityDialog>
                 
             </>
         )
