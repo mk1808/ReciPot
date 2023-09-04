@@ -332,6 +332,8 @@
 		"shareRecipeInfo": "Recipe can be shared with any user.",
 		"addToCollectionInfo": "Recipe can be added to a collcetion chosen below",
 		"chooseUser": "Choose user",
-		"recipeSharing": "Recipe sharing"
+		"recipeSharing": "Recipe sharing",
+		"addingToCollection":"Adding recipe to collection",
+		"collectionToChooseOrAdd":"Add new collection or choose existing"
 	}
 }

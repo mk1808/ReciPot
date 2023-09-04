@@ -332,6 +332,8 @@
         "shareRecipeInfo": "Przepis można udostępnić dowolnej osobie.",
         "addToCollectionInfo": "Przepis można dodać do wybranej poniżej kolekcji.",
         "chooseUser": "Wybierz użytkownika",
-        "recipeSharing": "Udostępnianie przepisu"
+        "recipeSharing": "Udostępnianie przepisu",
+		"addingToCollection":"Dodawanie przepisu do kolekcji",
+		"collectionToChooseOrAdd":"Wybierz istniejącą kolekcję lub utwórz nową"
     }
 }
