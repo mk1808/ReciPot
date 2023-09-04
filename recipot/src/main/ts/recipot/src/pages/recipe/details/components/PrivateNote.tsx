@@ -4,6 +4,9 @@ import { Stack } from "react-bootstrap";
 import MyButton from "../../../../components/basicUi/MyButton";
 import Info from "../../../../components/basicUi/Info";
 import { useEffect, useState } from "react";
+import PrivateNoteForm from "./PrivateNoteForm";
+import { FormSave } from "../../../../data/utilTypes";
+import { getEmptyFormSave } from "../../../../utils/FormInputUtils";
 
 function PrivateNote() {
     const { t } = useTranslation();
@@ -12,15 +15,24 @@ function PrivateNote() {
     useEffect(() => {
         setIsEditModeOn(!isNotePresent);
     }, [])
-    function onSaveClick() {
-        console.log("btnz");
+    const formSave: FormSave = getEmptyFormSave();
+    formSave.onSubmit = function (formValue: any) {
+        if (isEditModeOn) {
+            console.log("btnz");
+            console.log(formValue)
+        }
         setIsEditModeOn(!isEditModeOn);
+    }
+    formSave.onSuccess = function () {
+
+    }
+    formSave.onError = function () {
+
     }
     return (
         <div className="mb-5 px-5 private-note">
             {renderHeaderWithInfo()}
-            {renderTextArea()}
-            {renderButton()}
+            {renderForm()}
         </div>
     )
     function renderHeaderWithInfo() {
@@ -33,30 +45,11 @@ function PrivateNote() {
             </Stack>
         )
     }
-    function renderTextArea() {
+
+    function renderForm() {
         return (
-            <div className="field">
-                <MyTextarea
-                    required={false}
-                    isValid={true}
-                    name="note"
-                    label=""
-                    placeholder={t('p.addPrivateNote')}
-                    rows={5}
-                    onChange={(value: string) => console.log(value)}
-                    disabled={!isEditModeOn} />
-            </div>
-        )
-    }
-    function renderButton() {
-        return (
-            <Stack direction="horizontal" className="justify-content-end">
-                <MyButton.Primary onClick={onSaveClick} className="button-400 edit-save-btn" disabled={false}>
-                    {isEditModeOn && t('p.savePrivateNote')}
-                    {!isEditModeOn && t('p.editPrivateNote')}
-                </MyButton.Primary>
-            </Stack>
-        )
+            <PrivateNoteForm formSave={formSave} isEditModeOn={isEditModeOn}></PrivateNoteForm>
+        );
     }
 }
 
