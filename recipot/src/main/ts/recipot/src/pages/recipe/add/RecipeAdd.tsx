@@ -8,82 +8,25 @@ import AddIngredients from "./components/AddIngredients";
 import UpperRightSide from "./components/UpperRightSide";
 import AddSteps from "./components/AddSteps";
 import ConfirmCancelButtons from "../../../components/basicUi/ConfirmCancelButtons";
+import RecipeAddForm from "./components/RecipeAddForm";
+import AddRecipeContextProvider from "../../../context/AddRecipeContext";
 
 function RecipeAdd() {
     const { t } = useTranslation();
     return (
-        <Stack className="justify-content-center py-5 recipe-add-page" direction="horizontal">
-            <div className="pt-4 mb-2 basic-container-large basic-container-border">
+        <AddRecipeContextProvider>
+            <Form noValidate validated={true}>
+                <Stack className="justify-content-center py-5 recipe-add-page" direction="horizontal">
+                    <div className="pt-4 mb-2 basic-container-large basic-container-border">
 
-                <MyHeader title={t('p.newRecipeHeader')}></MyHeader>
-                {renderForm()}
-                {renderButtons()}
+                        <MyHeader title={t('p.newRecipeHeader')}></MyHeader>
+                        <RecipeAddForm></RecipeAddForm>
 
-            </div>
-        </Stack>
+                    </div>
+                </Stack>
+            </Form>
+        </AddRecipeContextProvider>
     );
-
-    function renderForm() {
-        return (
-            <Container className="my-5">
-                <Row>
-                    <Col className="border-right">
-                        {renderLeftSide()}
-                    </Col>
-                    <Col className="border-left">
-                        {renderRightSide()}
-                    </Col>
-                </Row>
-            </Container>
-        );
-    }
-
-    function renderLeftSide() {
-        return (
-            <>
-                <UpperLeftSide></UpperLeftSide>
-                <AddIngredients></AddIngredients>
-            </>
-        )
-    }
-
-    function renderRightSide() {
-        return (
-            <>
-                <UpperRightSide></UpperRightSide>
-                <AddSteps></AddSteps>
-            </>
-        )
-    }
-
-    function renderButtons() {
-        return (
-            <div className="bottom-part">
-                <hr />
-                <ConfirmCancelButtons
-                    handleConfirm={() => { }}
-                    handleCancel={() => { }}
-                    className="justify-content-center"
-                />
-            </div>
-        )
-
-    }
 }
-
-
 
 export default RecipeAdd;
-
-export function renderBasicInput() {
-    return (
-        <>
-            <Form.Label htmlFor="inputPassword5">Password</Form.Label>
-            <Form.Control
-                type="password"
-                id="inputPassword5"
-                aria-describedby="passwordHelpBlock"
-            />
-        </>
-    )
-}

@@ -2,7 +2,6 @@ import { useTranslation } from "react-i18next";
 import MySelect from "../../../../components/basicUi/MySelect";
 import TimeAmountInput from "../../../../components/complex/TimeAmountInput";
 import { getAccessTypes, getAmountOfDishes, getDifficulties, getRequiredEfforts, mapCategoriesToSearchList, onFilteredHashTagSearch, onFilteredIngredientSearch, searchCategory } from "../../../../utils/DictionariesUtils";
-import { renderBasicInput } from "../RecipeAdd";
 import FilteredSelect from "../../../../components/complex/FilteredSelect";
 import { useEffect, useState } from "react";
 import dictionariesApi from "../../../../api/DictionariesApi";

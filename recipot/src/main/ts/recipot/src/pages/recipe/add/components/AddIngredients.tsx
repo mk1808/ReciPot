@@ -1,7 +1,6 @@
 import { Card, Col, Row } from "react-bootstrap";
 import MyButton from "../../../../components/basicUi/MyButton";
 import { BsPlusCircleFill } from "react-icons/bs";
-import { renderBasicInput } from "../RecipeAdd";
 import { useTranslation } from "react-i18next";
 import MyInput from "../../../../components/basicUi/MyInput";
 import MySelect from "../../../../components/basicUi/MySelect";
