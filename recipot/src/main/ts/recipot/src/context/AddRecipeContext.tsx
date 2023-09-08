@@ -96,8 +96,20 @@ function AddRecipeContextProvider({ children }: any) {
                 };
             }
             case 'onDelete': {
+                let el = [...(fields.formValue.ingredients).slice(0,action.index),...(fields.formValue.ingredients).slice(action.index+1)]
+                let elValid = [...(fields.formValidity.ingredients).slice(0,action.index),...(fields.formValidity.ingredients).slice(action.index+1)]
 
-                return fields;
+                return {
+                    ...fields,
+                    formValue: {
+                        ...fields.formValue,
+                        [action.fieldName]: el
+                    },
+                    formValidity: {
+                        ...fields.formValue,
+                        [action.fieldName]: elValid
+                    },
+                };
             }
             default: {
                 throw Error('Unknown action: ' + action.type);

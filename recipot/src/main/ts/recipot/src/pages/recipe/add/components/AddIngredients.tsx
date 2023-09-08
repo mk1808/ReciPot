@@ -50,6 +50,16 @@ function AddIngredients() {
         })
     }
 
+    function onDelete(index:number) {
+        console.log("onDelete")
+        addRecipeDispatchContext({
+            type: "onDelete",
+            isIngredient: true,
+            fieldName: "ingredients", 
+            index
+        })
+    }
+
     function checkInputValidity(fieldValue: any, fieldName: string) {
         switch (fieldName) {
             case 'name': {
@@ -104,7 +114,7 @@ function AddIngredients() {
                         <Col md={6}>
                             {renderIngredientInput()}
                         </Col>
-                        <Col className="bin-icon"><MdOutlineDeleteOutline onClick={() => onDeleteIngredientClick(index)} /></Col>
+                        <Col className="bin-icon"><MdOutlineDeleteOutline onClick={() => onDelete(index)} /></Col>
                     </Row>
                 </Card.Body>
             </Card>
