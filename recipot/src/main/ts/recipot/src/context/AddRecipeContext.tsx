@@ -2,6 +2,7 @@ import { createContext, useReducer, useRef } from "react";
 import { FormSave } from "../data/utilTypes";
 import { getEmptyFormSave } from "../utils/FormInputUtils";
 import { convertToObjects } from "../utils/AddRecipeContextUtil";
+import { onAddElementClick } from "../pages/recipe/add/ListManipulation";
 
 export const AddRecipeContext = createContext<any>([]);
 
@@ -17,8 +18,9 @@ function AddRecipeContextProvider({ children }: any) {
     );
 
     formSave.current.onSubmit = function (formValue: any) {
-        
+
         convertToObjects(formValue.hashTag);
+        console.log("formval")
         console.log(formValue)
     }
     formSave.current.onSuccess = function () {
@@ -31,6 +33,20 @@ function AddRecipeContextProvider({ children }: any) {
     function addRecipeReducer(fields: any, action: any) {
         switch (action.type) {
             case 'onChange': {
+                if (action.isIngredient) {
+                    fields.formValue.ingredients[action.index][action.subFieldName] = action.fieldValue;
+                    fields.formValidity.ingredients[action.index][action.subFieldName] = action.fieldValidity;
+                    return {
+                        ...fields,
+                        formValue: {
+                            ...fields.formValue,
+                        },
+                        formValidity: {
+                            ...fields.formValidity,
+
+                        },
+                    };
+                }
                 return {
                     ...fields,
                     formValue: {
@@ -47,6 +63,42 @@ function AddRecipeContextProvider({ children }: any) {
                 onSubmit(fields);
                 return fields;
             }
+            case 'onAdd': {
+                let ingredients: any;
+                let ingredientsValidity: any
+                if (action.isIngredient) {
+
+                    if (fields.formValue.ingredients == null) {
+                        ingredients = [];
+                    } else {
+                        ingredients = [...fields.formValue.ingredients];
+                    }
+                    ingredients.push({ ...action.basicObj });
+                    console.log(ingredients)
+                    if (fields.formValidity.ingredients == null) {
+                        ingredientsValidity = [];
+                    } else {
+                        ingredientsValidity = [...fields.formValidity.ingredients];
+                    }
+                    ingredientsValidity.push({ ...action.basicObj });
+
+                }
+                return {
+                    ...fields,
+                    formValue: {
+                        ...fields.formValue,
+                        [action.fieldName]: ingredients
+                    },
+                    formValidity: {
+                        ...fields.formValidity,
+                        [action.fieldName]: ingredientsValidity
+                    },
+                };
+            }
+            case 'onDelete': {
+
+                return fields;
+            }
             default: {
                 throw Error('Unknown action: ' + action.type);
             }
@@ -55,10 +107,11 @@ function AddRecipeContextProvider({ children }: any) {
 
     function onSubmit(fields: any) {
         for (const field in fields.formValidity) {
-            if (!fields.formValidity[field]) { 
-                return false; 
+            if (!fields.formValidity[field]) {
+                // return false; 
             }
         }
+        console.log(fields.formValidity)
         formSave.current.onSubmit(fields.formValue);
     }
 

@@ -16,11 +16,11 @@ export function inputAttributes(name: string, myForm: MyForm, dispatchForm: any)
     }
 }
 
-export function inputAttributesForContext(name: string, onChange: Function, getValidity: Function) {
+export function inputAttributesForContext(name: string, onChange: Function, getValidity: Function, index?: number) {
     return {
         name: name,
         isValid: getValidity(name),
-        onChange: (value: string) => onChange(value, name)
+        onChange: (value: string) => onChange(value, name, index)
     }
 }
 

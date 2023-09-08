@@ -8,6 +8,9 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 import { useState } from "react";
 import { RecipeIngredient } from "../../../../data/types";
 import { onAddElementClick, onDeleteElementClick } from "../ListManipulation";
+import { useContext, useEffect } from "react";
+import { AddRecipeContext, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
+import { inputAttributesForContext } from "../../../../utils/FormInputUtils";
 
 function AddIngredients() {
     const { t } = useTranslation();
@@ -20,6 +23,56 @@ function AddIngredients() {
         unit: "",
         recipe: {}
     }
+    const addRecipeDispatchContext = useContext(AddRecipeDispatchContext);
+    const formFields = useContext(AddRecipeContext).fields;
+    function onChange(fieldValue: any, fieldName: string, index?: number) {
+        //
+        if (formFields.formValue && formFields.formValue[fieldName] !== fieldValue) {
+            addRecipeDispatchContext({
+                type: "onChange",
+                fieldName: "ingredients",
+                fieldValue,
+                fieldValidity: checkInputValidity(fieldValue, fieldName),
+                subFieldName: fieldName,
+                isIngredient: true,
+                index: index
+            })
+        }
+    }
+
+    function onAdd(fieldValue: any, fieldName: string) {
+        console.log("onAdd")
+        addRecipeDispatchContext({
+            type: "onAdd",
+            isIngredient: true,
+            basicObj: basicIngredient,
+            fieldName: "ingredients"
+        })
+    }
+
+    function checkInputValidity(fieldValue: any, fieldName: string) {
+        switch (fieldName) {
+            case 'name': {
+                return fieldValue && fieldValue.length > 3;
+            }
+            case 'amount': {
+                return fieldValue && Number(fieldValue) > 0;
+            }
+            default: {
+                return true;
+            }
+        }
+    }
+
+    function getValidity(fieldName: string) {
+        return formFields?.formValidity ? formFields?.formValidity[fieldName] : false;
+    }
+
+    function getIngredientValidity(fieldName: string, index: number) {
+        return formFields?.formValidity ? formFields?.formValidity.ingredients[index][fieldName] : false;
+    }
+
+
     const onAddIngredientClick = () => {
         onAddElementClick(setIngredients, ingredients, basicIngredient);
     }
@@ -31,9 +84,10 @@ function AddIngredients() {
             <hr />
             <h4 className="mt-3">{t('p.ingredients')}</h4>
             <div className="text-start">
-                {ingredients.map((ingredient, index) => { return renderSingleRow(ingredient, index) })}
+
+                {formFields.formValue && formFields.formValue.ingredients && formFields.formValue.ingredients.map((ingredient: any, index: number) => { return renderSingleRow(ingredient, index) })}
             </div>
-            <MyButton.Primary onClick={onAddIngredientClick}>{t('p.add')} <BsPlusCircleFill className="mb-1 ms-1" /></MyButton.Primary>
+            <MyButton.Primary onClick={onAdd}>{t('p.add')} <BsPlusCircleFill className="mb-1 ms-1" /></MyButton.Primary>
         </div>
     );
     function renderSingleRow(ingredient: any, index: number) {
@@ -42,7 +96,7 @@ function AddIngredients() {
                 <Card.Body className="py-1 px-4">
                     <Row className="ingredient-section ">
                         <Col>
-                            {renderAmountInput()}
+                            {renderAmountInput(index)}
                         </Col>
                         <Col>
                             {renderUnitInput()}
@@ -56,16 +110,17 @@ function AddIngredients() {
             </Card>
         )
     }
-    function renderAmountInput() {
+    function renderAmountInput(index: number) {
         return (
             <MyInput
-                name="amount"
                 label="Ilość"
-                onChange={(value: string) => { console.log(value); }}
                 required={true}
-                isValid={true}
                 defaultValue="0"
                 type="number"
+                name={"amount"}
+                isValid={getIngredientValidity("amount", index)}
+                onChange={(value: string) => onChange(value, "amount", index)}
+
             />
         )
     }
@@ -73,25 +128,23 @@ function AddIngredients() {
         return (
             <MySelect
                 required={true}
-                isValid={true}
-                name="unit"
                 label="Jednostka"
                 emptyOption="Pusta wartość"
                 options={testOptions}
-                defaultValue={testOptions[1].value} onChange={(value: string) => console.log(value)} />
+                defaultValue={testOptions[1].value}
+                {...inputAttributesForContext("unit", onChange, getValidity)} />
         )
     }
     function renderIngredientInput() {
         return (
             <MySelect
                 required={true}
-                isValid={true}
-                name="unit" 
-                label="Składnik" 
-                emptyOption="Pusta wartość" 
-                options={testOptions} 
-                defaultValue={testOptions[1].value} 
-                onChange={(value: string) => console.log(value)} />
+                label="Składnik"
+                emptyOption="Pusta wartość"
+                options={testOptions}
+                defaultValue={testOptions[1].value}
+                {...inputAttributesForContext("content", onChange, getValidity)}
+            />
         )
     }
 }
