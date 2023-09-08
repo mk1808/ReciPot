@@ -16,6 +16,14 @@ export function inputAttributes(name: string, myForm: MyForm, dispatchForm: any)
     }
 }
 
+export function inputAttributesForContext(name: string, onChange: Function, getValidity: Function) {
+    return {
+        name: name,
+        isValid: getValidity(name),
+        onChange: (value: string) => onChange(value, name)
+    }
+}
+
 export function onFormChange(value: any, name: string, dispatchForm: any) {
     console.log(value);
     dispatchForm({ type: name, value: value });

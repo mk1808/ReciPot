@@ -3,6 +3,7 @@ import MyInput from "../../../../components/basicUi/MyInput";
 import MyTextarea from "../../../../components/basicUi/MyTextarea";
 import { AddRecipeContext, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
 import { useContext } from "react";
+import { inputAttributes, inputAttributesForContext } from "../../../../utils/FormInputUtils";
 
 function UpperLeftSide() {
     const { t } = useTranslation();
@@ -22,10 +23,6 @@ function UpperLeftSide() {
         switch (fieldName) {
             case 'name': {
                 return fieldValue && fieldValue.length > 3;
-            }
-            case 'description': {
-                return true
-                // return validateEmail(action.value);
             }
             case 'image': {
                 return fieldValue && fieldValue.length > 3;
@@ -48,11 +45,10 @@ function UpperLeftSide() {
     function renderNameInput() {
         return (
             <MyInput
-                name="name"
-                label="Nazwa"
-                onChange={(value: string) => onChange(value, "name")}
+                label={t('p.name')}
+                placeholder={t('p.name')}
                 required={true}
-                isValid={getValidity("name")}
+                {...inputAttributesForContext("name", onChange, getValidity)}
             />
         )
     }
@@ -60,24 +56,22 @@ function UpperLeftSide() {
     function renderDescriptionInput() {
         return (
             <MyTextarea
+                label={t('p.description')}
+                placeholder={t('p.description')}
                 required={true}
-                isValid={getValidity("description")}
-                name="description"
-                label="Opis"
-                placeholder="Input test 1"
                 rows={5}
-                onChange={(value: string) => onChange(value, "description")} />
+                {...inputAttributesForContext("description", onChange, getValidity)}
+            />
         )
     }
 
     function renderImageInput() {
         return (
             <MyInput
-                name="image"
-                label="Zdjęcie"
-                onChange={(value: string) => onChange(value, "image")}
+                label={t('p.image')}
+                placeholder={t('p.image')}
                 required={true}
-                isValid={getValidity("image")}
+                {...inputAttributesForContext("image", onChange, getValidity)}
             />
         )
     }
