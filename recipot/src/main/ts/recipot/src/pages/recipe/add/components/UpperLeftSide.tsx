@@ -58,7 +58,6 @@ function UpperLeftSide() {
             <MyTextarea
                 label={t('p.description')}
                 placeholder={t('p.description')}
-                required={true}
                 rows={5}
                 {...inputAttributesForContext("description", onChange, getValidity)}
             />

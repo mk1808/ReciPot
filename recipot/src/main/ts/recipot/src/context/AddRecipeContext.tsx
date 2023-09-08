@@ -1,6 +1,7 @@
 import { createContext, useReducer, useRef } from "react";
 import { FormSave } from "../data/utilTypes";
 import { getEmptyFormSave } from "../utils/FormInputUtils";
+import { convertToObjects } from "../utils/AddRecipeContextUtil";
 
 export const AddRecipeContext = createContext<any>([]);
 
@@ -16,7 +17,8 @@ function AddRecipeContextProvider({ children }: any) {
     );
 
     formSave.current.onSubmit = function (formValue: any) {
-        console.log("btnz");
+        
+        convertToObjects(formValue.hashTag);
         console.log(formValue)
     }
     formSave.current.onSuccess = function () {
@@ -53,7 +55,9 @@ function AddRecipeContextProvider({ children }: any) {
 
     function onSubmit(fields: any) {
         for (const field in fields.formValidity) {
-            if (!fields.formValidity[field]) { return false; }
+            if (!fields.formValidity[field]) { 
+                return false; 
+            }
         }
         formSave.current.onSubmit(fields.formValue);
     }

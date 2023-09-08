@@ -17,12 +17,11 @@ function RecipeAddForm() {
     let formContent: any;
     const addRecipeDispatchContext = useContext(AddRecipeDispatchContext);
 
-    function onSubmit(){
+    function onSubmit() {
         addRecipeDispatchContext({
-            type:"onSubmit"
+            type: "onSubmit"
         })
     }
-
 
     return (
         <>
