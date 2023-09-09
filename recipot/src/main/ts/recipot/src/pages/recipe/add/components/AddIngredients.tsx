@@ -26,7 +26,7 @@ function AddIngredients() {
     const addRecipeDispatchContext = useContext(AddRecipeDispatchContext);
     const formFields = useContext(AddRecipeContext).fields;
     function onChange(fieldValue: any, fieldName: string, index?: number) {
-        //
+
         if (formFields.formValue && formFields.formValue[fieldName] !== fieldValue) {
             addRecipeDispatchContext({
                 type: "onChange",
@@ -42,6 +42,7 @@ function AddIngredients() {
 
     function onAdd(fieldValue: any, fieldName: string) {
         console.log("onAdd")
+        basicIngredient.id = Math.random() * 1000;
         addRecipeDispatchContext({
             type: "onAdd",
             isIngredient: true,
@@ -80,7 +81,6 @@ function AddIngredients() {
             <hr />
             <h4 className="mt-3">{t('p.ingredients')}</h4>
             <div className="text-start">
-
                 {formFields.formValue && formFields.formValue.ingredients && formFields.formValue.ingredients.map((ingredient: any, index: number) => { return renderSingleRow(ingredient, index) })}
             </div>
             <MyButton.Primary onClick={onAdd}>{t('p.add')} <BsPlusCircleFill className="mb-1 ms-1" /></MyButton.Primary>
@@ -88,7 +88,7 @@ function AddIngredients() {
     );
     function renderSingleRow(ingredient: any, index: number) {
         return (
-            <Card className="my-4" key={index}>
+            <Card className="my-4" key={ingredient.id}>
                 <Card.Body className="py-1 px-4">
                     <Row className="ingredient-section ">
                         <Col>

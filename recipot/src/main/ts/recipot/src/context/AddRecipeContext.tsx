@@ -2,7 +2,6 @@ import { createContext, useReducer, useRef } from "react";
 import { FormSave } from "../data/utilTypes";
 import { getEmptyFormSave } from "../utils/FormInputUtils";
 import { convertToObjects } from "../utils/AddRecipeContextUtil";
-import { onAddElementClick } from "../pages/recipe/add/ListManipulation";
 
 export const AddRecipeContext = createContext<any>([]);
 
@@ -34,9 +33,9 @@ function AddRecipeContextProvider({ children }: any) {
         switch (action.type) {
             case 'onChange': {
                 if (action.isIngredient) {
-                    if (fields.formValue.ingredients[action.index]) {
-                        fields.formValue.ingredients[action.index][action.subFieldName] = action.fieldValue;
-                        fields.formValidity.ingredients[action.index][action.subFieldName] = action.fieldValidity;
+                    if (fields.formValue[action.fieldName][action.index]) {
+                        fields.formValue[action.fieldName][action.index][action.subFieldName] = action.fieldValue;
+                        fields.formValidity[action.fieldName][action.index][action.subFieldName] = action.fieldValidity;
                     }
                     return {
                         ...fields,
@@ -70,17 +69,17 @@ function AddRecipeContextProvider({ children }: any) {
                 let ingredientsValidity: any
                 if (action.isIngredient) {
 
-                    if (fields.formValue.ingredients == null) {
+                    if (fields.formValue[action.fieldName] == null) {
                         ingredients = [];
                     } else {
-                        ingredients = [...fields.formValue.ingredients];
+                        ingredients = [...fields.formValue[action.fieldName]];
                     }
                     ingredients.push({ ...action.basicObj });
-                    console.log(ingredients)
-                    if (fields.formValidity.ingredients == null) {
+
+                    if (fields.formValidity[action.fieldName] == null) {
                         ingredientsValidity = [];
                     } else {
-                        ingredientsValidity = [...fields.formValidity.ingredients];
+                        ingredientsValidity = [...fields.formValidity[action.fieldName]];
                     }
                     ingredientsValidity.push({ ...action.basicObj });
 
@@ -98,8 +97,8 @@ function AddRecipeContextProvider({ children }: any) {
                 };
             }
             case 'onDelete': {
-                let el = [...(fields.formValue.ingredients).slice(0, action.index), ...(fields.formValue.ingredients).slice(action.index + 1)]
-                let elValid = [...(fields.formValidity.ingredients).slice(0, action.index), ...(fields.formValidity.ingredients).slice(action.index + 1)]
+                let el = [...(fields.formValue[action.fieldName]).slice(0, action.index), ...(fields.formValue[action.fieldName]).slice(action.index + 1)]
+                let elValid = [...(fields.formValidity[action.fieldName]).slice(0, action.index), ...(fields.formValidity[action.fieldName]).slice(action.index + 1)]
 
                 return {
                     ...fields,
