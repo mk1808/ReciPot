@@ -3,21 +3,22 @@ import { useTranslation } from 'react-i18next';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import MyHeader from '../../../components/basicUi/MyHeader';
-import VerticalPagination from '../../../components/complex/VerticalPagination';
 import CollectionRecipesColumn from './components/CollectionRecipesColumn';
 import CollectionList from './components/CollectionList';
 import NewCollectionForm from './components/NewCollectionForm';
-import { FormSave } from '../../../data/utilTypes';
-import { getEmptyFormSave } from '../../../utils/FormInputUtils';
+import { RecipeCollectionListContextProvider } from './context/RecipeCollectionListContext';
+import CollectionRecipesPagination from './components/CollectionRecipesPagination';
 
 function RecipeCollectionList() {
     const { t } = useTranslation();
 
 
     return (
-        <div className='m-2 recipe-collections-list-page'>
-            {renderColumns()}
-        </div>
+        <RecipeCollectionListContextProvider>
+            <div className='m-2 recipe-collections-list-page'>
+                {renderColumns()}
+            </div>
+        </RecipeCollectionListContextProvider>
     );
 
     function renderColumns() {
@@ -48,7 +49,7 @@ function RecipeCollectionList() {
             <div className='content-column'>
                 {renderHeader()}
                 <CollectionRecipesColumn />
-                <VerticalPagination totalPages={100} actualPage={3} pageButtonsToShow={6} onPageSelect={() => { }} />
+                <CollectionRecipesPagination />
             </div>
         );
     }

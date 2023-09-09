@@ -1,32 +1,30 @@
 import { Stack } from "react-bootstrap";
-import { AppUser, RecipeCollection } from "../../../../data/types";
-import { initAs } from "../../../../utils/ObjectUtils";
 import ComplexListElement from "../../../../components/complex/ComplexListElement";
-import { useState } from "react";
+import { useContext } from "react";
+import { RecipeCollectionListContext, RecipeCollectionListDispatchContext } from "../context/RecipeCollectionListContext";
+import { RecipeCollection } from "../../../../data/types";
 
 function CollectionList() {
-    const [activeCollectionIndex, setActiveCollectionIndex] = useState(0);
-
-    function getCollections() {
-        const result: RecipeCollection[] = [];
-        for (let i = 0; i < 5; i++) {
-            result.push({ id: String(i), canDelete: i > 2, name: "recipe collection " + i, owner: initAs<AppUser>(), recipeCollectionItems: [], user: initAs<AppUser>() })
-        }
-        return result
-    }
+    const collectionsContext = useContext(RecipeCollectionListContext);
+    const collectionsDispatchContext = useContext(RecipeCollectionListDispatchContext);
 
     function onCollectionSelectCallback(index: number) {
-        setActiveCollectionIndex(index);
-        console.log("recipeCollectionSelected", index)
+        collectionsDispatchContext({
+            type: 'collectionSelect',
+            activeCollectionId: (collectionsContext.collections || [])[index].id
+        });
     }
 
     function onCollectionDeleteCallback(index: number) {
-        console.log("recipeCollectionDeleted", index)
+        collectionsDispatchContext({
+            type: 'deleteCollection',
+            value: (collectionsContext.collections || [])[index].id
+        });
     }
 
     return (
         <Stack gap={3}>
-            {getCollections().map(renderCollection)}
+            {collectionsContext.collections?.map(renderCollection)}
         </Stack>
     );
 
@@ -38,7 +36,7 @@ function CollectionList() {
                 onSelectCallback={onCollectionSelectCallback}
                 onDeleteCallback={onCollectionDeleteCallback}
                 element={collection}
-                isActive={index === activeCollectionIndex}
+                isActive={collection.id === collectionsContext.activeCollectionId}
             />);
     }
 

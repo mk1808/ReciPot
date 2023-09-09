@@ -333,7 +333,8 @@
 		"addToCollectionInfo": "Recipe can be added to a collcetion chosen below",
 		"chooseUser": "Choose user",
 		"recipeSharing": "Recipe sharing",
-		"addingToCollection":"Adding recipe to collection",
-		"collectionToChooseOrAdd":"Add new collection or choose existing"
+		"addingToCollection": "Adding recipe to collection",
+		"collectionToChooseOrAdd": "Add new collection or choose existing",
+		"page": "Page"
 	}
 }
