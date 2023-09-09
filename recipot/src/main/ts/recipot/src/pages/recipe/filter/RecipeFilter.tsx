@@ -7,9 +7,10 @@ import SideOffcanvas from '../../../components/basicUi/SideOffcanvas';
 import RecipeFiltersColumn from './components/RecipeFiltersColumn';
 import FilteredRecipesColumn from './components/FilteredRecipesColumn';
 import SavedRecipeFilters from './components/SavedRecipeFilters';
-import VerticalPagination from '../../../components/complex/VerticalPagination';
 import { FormSave } from '../../../data/utilTypes';
 import { getEmptyFormSave } from '../../../utils/FormInputUtils';
+import FilteredRecipesPagination from './components/FilteredRecipesPagination';
+import { RecipeFilterContextContextProvider } from './context/RecipeFilterContext';
 
 function RecipeFilter() {
 
@@ -30,10 +31,12 @@ function RecipeFilter() {
     }
 
     return (
-        <div className='m-2 recipe-filter-page'>
-            {renderColumns()}
-            {renderSavedFiltersColumn()}
-        </div>
+        <RecipeFilterContextContextProvider>
+            <div className='m-2 recipe-filter-page'>
+                {renderColumns()}
+                {renderSavedFiltersColumn()}
+            </div>
+        </RecipeFilterContextContextProvider>
     );
 
     function renderColumns() {
@@ -63,7 +66,7 @@ function RecipeFilter() {
             <div className='content-column'>
                 {renderHeader()}
                 <FilteredRecipesColumn />
-                <VerticalPagination totalPages={100} actualPage={3} pageButtonsToShow={6} onPageSelect={() => { }} />
+                <FilteredRecipesPagination />
             </div>
         );
     }
