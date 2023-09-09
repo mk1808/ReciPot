@@ -7,21 +7,24 @@ import MyInput from "../../../../components/basicUi/MyInput";
 import TimeAmountInput from "../../../../components/complex/TimeAmountInput";
 import FilteredSelect from "../../../../components/complex/FilteredSelect";
 import dictionariesApi from "../../../../api/DictionariesApi";
-import { useEffect, useReducer, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getAccessTypes, getAmountOfDishes, getDifficulties, getRequiredEfforts, mapCategoriesToSearchList, onFilteredHashTagSearch, onFilteredIngredientSearch, searchCategory } from "../../../../utils/DictionariesUtils";
 import MyButton from "../../../../components/basicUi/MyButton";
-import { FormSave, MyForm } from "../../../../data/utilTypes";
-import { checkInputValidity, getEmptyForm, getNewState, inputAttributes, preventFurtherAction } from "../../../../utils/FormInputUtils";
+import { FormSave } from "../../../../data/utilTypes";
+import { preventFurtherAction } from "../../../../utils/FormInputUtils";
 import AddRecipeFilterDialog from "../dialogs/AddRecipeFilterDialog";
+import { RecipeFilterContext, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 
 function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     const { t } = useTranslation();
+
+    const recipesFilterForm = useContext(RecipeFilterContext).recipesFilterForm;
+    const recipeFilterDispatchContext = useContext(RecipeFilterDispatchContext);
 
     const [filteredHashTags, setFilteredHashTags] = useState<any[]>([]);
     const [filteredIngredients, setFilteredIngredients] = useState<any[]>([]);
     const [filteredCategories, setFilteredCategories] = useState<any[]>([]);
     const [allCategories, setAllCategories] = useState<any[]>([]);
-    const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
@@ -50,29 +53,43 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     }
 
     function handleSubmit(event: any) {
-        formSave.onSubmit(myForm.formValue);
-        preventFurtherAction(event);
+        recipeFilterDispatchContext({
+            type: "filter"
+        })
     };
 
-    function formReducer(state: any, action: any) {
-        return getNewState(state, action, action.value, checkInputValidity);
+    function onChange(fieldName: string, value: any) {
+        recipeFilterDispatchContext({
+            type: "filterFormChange",
+            fieldName,
+            value
+        })
     }
 
     function onHashTagChange(value: HashTag[]) {
-        if (value.length !== myForm.formValue.hashTags?.length) {
-            dispatchForm({ type: "hashTags", value: value })
+        if (!recipesFilterForm || value.length !== recipesFilterForm.hashTags?.length) {
+            onChange("hashTags", value)
         }
     }
 
     function onIngredientsChange(value: Ingredient[]) {
-        if (value.length !== myForm.formValue.ingredients?.length) {
-            dispatchForm({ type: "ingredients", value: value })
+        if (!recipesFilterForm || value.length !== recipesFilterForm.ingredients?.length) {
+            onChange("ingredients", value)
         }
     }
 
     function onCategoriesChange(value: CategoryDto[]) {
-        if (value.length !== myForm.formValue.categories?.length) {
-            dispatchForm({ type: "categories", value: value })
+        if (!recipesFilterForm || value.length !== recipesFilterForm.categories?.length) {
+            onChange("categories", value)
+        }
+    }
+
+    function initAttributes(name: string, label: string, defaultValue?: any) {
+        return {
+            name,
+            label: t(label),
+            onChange: (value: string) => onChange(name, value),
+            defaultValue: (recipesFilterForm && recipesFilterForm[name]) || defaultValue
         }
     }
 
@@ -99,9 +116,8 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     function renderUserIsOwnerInput() {
         return (
             <MyCheckbox
-                {...inputAttributes("userIsOwner", myForm, dispatchForm)}
-                label={t("p.userIsOwnerFilter")}
-                defaultChecked={false}
+                {...initAttributes("userIsOwner", "p.userIsOwnerFilter")}
+                defaultChecked={recipesFilterForm?.userIsOwner || false}
             />
         )
     }
@@ -110,10 +126,8 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
         const accessTypes = getAccessTypes(t);
         return (
             <MySelect
-                {...inputAttributes("accessType", myForm, dispatchForm)}
-                label={t("p.accessTypeFilter")}
+                {...initAttributes("accessType", "p.accessTypeFilter")}
                 options={accessTypes}
-                defaultValue={accessTypes[0].value}
             />
         )
     }
@@ -121,8 +135,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     function renderNameContainsInput() {
         return (
             < MyInput
-                {...inputAttributes("recipeName", myForm, dispatchForm)}
-                label={t("p.recipeNameFilter")}
+                {...initAttributes("recipeName", "p.recipeNameFilter")}
                 placeholder={t("p.recipeNameFilter")}
             />
         )
@@ -131,8 +144,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     function renderTimeAmountFromInput() {
         return (
             <TimeAmountInput
-                {...inputAttributes("timeAmountFrom", myForm, dispatchForm)}
-                label={t("p.timeAmountFromFilter")}
+                {...initAttributes("timeAmountFrom", "p.timeAmountFromFilter")}
             />
         )
     }
@@ -140,8 +152,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     function renderTimeAmountToInput() {
         return (
             <TimeAmountInput
-                {...inputAttributes("timeAmountTo", myForm, dispatchForm)}
-                label={t("p.timeAmountToFilter")}
+                {...initAttributes("timeAmountTo", "p.timeAmountToFilter", 99 * 60 + 59)}
             />
         )
     }
@@ -150,8 +161,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
         const amountOfDishes = getAmountOfDishes(t);
         return (
             <MySelect
-                {...inputAttributes("amountOfDishes", myForm, dispatchForm)}
-                label={t("p.amountOfDishesFilter")}
+                {...initAttributes("amountOfDishes", "p.amountOfDishesFilter")}
                 options={amountOfDishes}
                 emptyOption={t('p.selectValue')}
             />
@@ -162,8 +172,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
         const difficulties = getDifficulties(t);
         return (
             <MySelect
-                {...inputAttributes("difficulties", myForm, dispatchForm)}
-                label={t("p.difficultiesFilter")}
+                {...initAttributes("difficulties", "p.difficultiesFilter")}
                 options={difficulties}
                 emptyOption={t('p.selectValue')}
             />
@@ -174,8 +183,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
         const requiredEffort = getRequiredEfforts(t);
         return (
             <MySelect
-                {...inputAttributes("requiredEffort", myForm, dispatchForm)}
-                label={t("p.requiredEffortFilter")}
+                {...initAttributes("requiredEffort", "p.requiredEffortFilter")}
                 options={requiredEffort}
                 emptyOption={t('p.selectValue')}
             />)
@@ -184,8 +192,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     function renderAverageRatingInput() {
         return (
             <MySelect
-                {...inputAttributes("averageRating", myForm, dispatchForm)}
-                label={t("p.averageRatingFilter")}
+                {...initAttributes("averageRating", "p.averageRatingFilter")}
                 options={getAverageRating()}
                 emptyOption={t('p.selectValue')}
             />)
@@ -194,9 +201,8 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     function renderHashTagInput() {
         return (
             <FilteredSelect
-                {...inputAttributes("hashTags", myForm, dispatchForm)}
+                {...initAttributes("hashTags", "p.hashTagFilter")}
                 multiple={true}
-                label={t("p.hashTagFilter")}
                 options={filteredHashTags}
                 onSearchCallback={(phrase: string) => onFilteredHashTagSearch(phrase, setFilteredHashTags)}
                 onSelectCallback={onHashTagChange}
@@ -210,8 +216,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
         return (
             <FilteredSelect
                 multiple={true}
-                {...inputAttributes("ingredients", myForm, dispatchForm)}
-                label={t("p.ingredientFilter")}
+                {...initAttributes("ingredients", "p.ingredientFilter")}
                 options={filteredIngredients}
                 onSearchCallback={(phrase: string) => onFilteredIngredientSearch(phrase, setFilteredIngredients)}
                 onSelectCallback={onIngredientsChange}
@@ -224,9 +229,8 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     function renderCategoryInput() {
         return (
             <FilteredSelect
-                {...inputAttributes("categories", myForm, dispatchForm)}
+                {...initAttributes("categories", "p.categoryFilter")}
                 multiple={true}
-                label={t("p.categoryFilter")}
                 options={filteredCategories}
                 onSearchCallback={onCategorySearchCallback}
                 onSelectCallback={onCategoriesChange}
@@ -240,7 +244,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     function renderButtons() {
         return <>
             <MyButton.Primary onClick={handleSubmit}>{t('p.search')}</MyButton.Primary >
-            <MyButton.Secondary onClick={()=>setShowModal(true)} >{t('p.saveRecipeFilter')}</MyButton.Secondary>
+            <MyButton.Secondary onClick={() => setShowModal(true)} >{t('p.saveRecipeFilter')}</MyButton.Secondary>
             <AddRecipeFilterDialog showModal={showModal} handleClose={() => setShowModal(false)}></AddRecipeFilterDialog>
         </>
     }

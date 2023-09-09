@@ -1,22 +1,36 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import CustomModal from "../../../../components/basicUi/CustomModal";
 import { getEmptyFormSave } from "../../../../utils/FormInputUtils";
 import { FormSave } from "../../../../data/utilTypes";
 import { useTranslation } from "react-i18next";
 import AddRecipeFilterForm from "./AddRecipeFilterForm";
+import { RecipeFilterContext, RecipeFilterDispatchContext, tempSavedRecipesList } from "../context/RecipeFilterContext";
+import { RecipeFilter } from "../../../../data/types";
 
 function AddRecipeFilterDialog({ showModal, handleClose }: { showModal: boolean, handleClose: any }) {
     const { t } = useTranslation();
+
+    const recipeFilterContext = useContext(RecipeFilterContext);
+    const recipeFilterDispatchContext = useContext(RecipeFilterDispatchContext);
+
     const formSave: FormSave = getEmptyFormSave();
     const form = useRef<any>();
-    let formContent: any;
 
     formSave.onSubmit = function (formValue: any) {
-        formContent = formValue;
-        console.log("zapytanie do backendu")
+        const newRecipeFilter = {
+            id: Math.random() * 1000,
+            name: formValue.newFilterName,
+            value: JSON.stringify(recipeFilterContext.recipesFilterForm)
+        }
+        //TODO POST save new recipe
+        this.onSuccess(newRecipeFilter);
     }
-    formSave.onSuccess = function () {
-
+    formSave.onSuccess = function (savedRecipeFilter: RecipeFilter) {
+        tempSavedRecipesList.push(savedRecipeFilter)
+        recipeFilterDispatchContext({
+            type: "refreshFiltersList"
+        })
+        handleClose();
     }
     formSave.onError = function () {
 
