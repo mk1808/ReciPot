@@ -16,6 +16,7 @@ function AddCollectionDialog({ showModal, handleClose }: { showModal: boolean, h
         formContent = formValue;
         console.log(formValue);
         //TODO: POST recipe collection
+        formSave.onSuccess();
     }
     formSave.onSuccess = function () {
         collectionsDispatchContext({ type: 'refreshCollectionsList' });
