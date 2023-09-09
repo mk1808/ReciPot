@@ -3,6 +3,8 @@ package pl.mk.recipot.recipecollections.controllers;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -61,6 +63,14 @@ public class RecipeCollectionsController implements IRecipeCollectionsController
 	public ResponseEntity<Response<Void>> delete(UUID collectionId) {
 		recipeCollectionCrudService.delete(collectionId);
 		return new OkMessageResponseFactory().createResponse("recipeCollections.success.collectionDeleted");
+	}
+
+	@Override
+	public ResponseEntity<Response<Page<RecipeCollectionItem>>> getRecipeCollectionRecipes(UUID collectionId,
+			int pageNum, int pageSize) {
+		PageRequest pageRequest = PageRequest.of(pageNum, pageSize);
+		return new OkResponseFactory()
+				.createResponse(recipeCollectionsService.findPageByCollection(collectionId, pageRequest));
 	}
 
 }
