@@ -28,14 +28,19 @@ function TimeAmountInput({
     const HOURS_MAX = 99;
     const MINUTES_MAX = 59;
 
-    const [hours, setHours] = useState(Math.floor((defaultValue || 0) / 60))
-    const [minutes, setMinutes] = useState((defaultValue || 0) % 60)
+    const [hours, setHours] = useState(0)
+    const [minutes, setMinutes] = useState(0)
 
     const { t } = useTranslation();
 
     useEffect(() => {
         onChange(hours * 60 + minutes)
     }, [hours, minutes])
+
+    useEffect(() => {
+        setHours(Math.floor((defaultValue || 0) / 60));
+        setMinutes((defaultValue || 0) % 60);
+    }, [defaultValue])
 
     function updateHours(value: number) {
         setHours(currentHours => getValidValue(currentHours + value, HOURS_MAX));

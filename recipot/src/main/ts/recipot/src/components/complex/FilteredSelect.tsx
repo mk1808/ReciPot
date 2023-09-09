@@ -54,7 +54,7 @@ function FilteredSelect({
 
     useEffect(() => {
         onSelectCallback(multiple ? selectedValues : selected);
-    }, [selectedValues, selected, multiple, onSelectCallback]);
+    }, [selectedValues, selected]);
 
     useEffect(() => {
         onNewValueCallback(createdValues);
