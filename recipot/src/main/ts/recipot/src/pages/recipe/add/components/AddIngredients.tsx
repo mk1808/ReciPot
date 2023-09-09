@@ -10,7 +10,7 @@ import { RecipeIngredient } from "../../../../data/types";
 import { onAddElementClick, onDeleteElementClick } from "../ListManipulation";
 import { useContext, useEffect } from "react";
 import { AddRecipeContext, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
-import { inputAttributesForContext } from "../../../../utils/FormInputUtils";
+import { dynamicInputAttributesForContext, inputAttributesForContext } from "../../../../utils/FormInputUtils";
 
 function AddIngredients() {
     const { t } = useTranslation();
@@ -50,21 +50,18 @@ function AddIngredients() {
         })
     }
 
-    function onDelete(index:number) {
+    function onDelete(index: number) {
         console.log("onDelete")
         addRecipeDispatchContext({
             type: "onDelete",
             isIngredient: true,
-            fieldName: "ingredients", 
+            fieldName: "ingredients",
             index
         })
     }
 
     function checkInputValidity(fieldValue: any, fieldName: string) {
         switch (fieldName) {
-            case 'name': {
-                return fieldValue && fieldValue.length > 3;
-            }
             case 'amount': {
                 return fieldValue && Number(fieldValue) > 0;
             }
@@ -74,21 +71,10 @@ function AddIngredients() {
         }
     }
 
-    function getValidity(fieldName: string) {
-        return formFields?.formValidity ? formFields?.formValidity[fieldName] : false;
-    }
-
     function getIngredientValidity(fieldName: string, index: number) {
-        return formFields?.formValidity ? formFields?.formValidity.ingredients[index][fieldName] : false;
+        return formFields?.formValidity && formFields?.formValidity.ingredients[index] ? formFields?.formValidity.ingredients[index][fieldName] : false;
     }
 
-
-    const onAddIngredientClick = () => {
-        onAddElementClick(setIngredients, ingredients, basicIngredient);
-    }
-    const onDeleteIngredientClick = (index: number) => {
-        onDeleteElementClick(setIngredients, ingredients, index);
-    }
     return (
         <div className="mt-5">
             <hr />
@@ -109,10 +95,10 @@ function AddIngredients() {
                             {renderAmountInput(index)}
                         </Col>
                         <Col>
-                            {renderUnitInput()}
+                            {renderUnitInput(index)}
                         </Col>
                         <Col md={6}>
-                            {renderIngredientInput()}
+                            {renderIngredientInput(index)}
                         </Col>
                         <Col className="bin-icon"><MdOutlineDeleteOutline onClick={() => onDelete(index)} /></Col>
                     </Row>
@@ -127,14 +113,11 @@ function AddIngredients() {
                 required={true}
                 defaultValue="0"
                 type="number"
-                name={"amount"}
-                isValid={getIngredientValidity("amount", index)}
-                onChange={(value: string) => onChange(value, "amount", index)}
-
+                {...dynamicInputAttributesForContext("amount", onChange, getIngredientValidity, index)}
             />
         )
     }
-    function renderUnitInput() {
+    function renderUnitInput(index: number) {
         return (
             <MySelect
                 required={true}
@@ -142,10 +125,11 @@ function AddIngredients() {
                 emptyOption="Pusta wartość"
                 options={testOptions}
                 defaultValue={testOptions[1].value}
-                {...inputAttributesForContext("unit", onChange, getValidity)} />
+                {...dynamicInputAttributesForContext("unit", onChange, getIngredientValidity, index)}
+            />
         )
     }
-    function renderIngredientInput() {
+    function renderIngredientInput(index: number) {
         return (
             <MySelect
                 required={true}
@@ -153,7 +137,7 @@ function AddIngredients() {
                 emptyOption="Pusta wartość"
                 options={testOptions}
                 defaultValue={testOptions[1].value}
-                {...inputAttributesForContext("content", onChange, getValidity)}
+                {...dynamicInputAttributesForContext("ingredient", onChange, getIngredientValidity, index)}
             />
         )
     }

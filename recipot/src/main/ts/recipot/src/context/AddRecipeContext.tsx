@@ -34,8 +34,10 @@ function AddRecipeContextProvider({ children }: any) {
         switch (action.type) {
             case 'onChange': {
                 if (action.isIngredient) {
-                    fields.formValue.ingredients[action.index][action.subFieldName] = action.fieldValue;
-                    fields.formValidity.ingredients[action.index][action.subFieldName] = action.fieldValidity;
+                    if (fields.formValue.ingredients[action.index]) {
+                        fields.formValue.ingredients[action.index][action.subFieldName] = action.fieldValue;
+                        fields.formValidity.ingredients[action.index][action.subFieldName] = action.fieldValidity;
+                    }
                     return {
                         ...fields,
                         formValue: {
@@ -96,8 +98,8 @@ function AddRecipeContextProvider({ children }: any) {
                 };
             }
             case 'onDelete': {
-                let el = [...(fields.formValue.ingredients).slice(0,action.index),...(fields.formValue.ingredients).slice(action.index+1)]
-                let elValid = [...(fields.formValidity.ingredients).slice(0,action.index),...(fields.formValidity.ingredients).slice(action.index+1)]
+                let el = [...(fields.formValue.ingredients).slice(0, action.index), ...(fields.formValue.ingredients).slice(action.index + 1)]
+                let elValid = [...(fields.formValidity.ingredients).slice(0, action.index), ...(fields.formValidity.ingredients).slice(action.index + 1)]
 
                 return {
                     ...fields,
