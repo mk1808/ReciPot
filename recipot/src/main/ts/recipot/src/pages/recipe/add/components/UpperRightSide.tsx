@@ -2,17 +2,20 @@ import { useTranslation } from "react-i18next";
 import MySelect from "../../../../components/basicUi/MySelect";
 import TimeAmountInput from "../../../../components/complex/TimeAmountInput";
 import { getAccessTypes, getAmountOfDishes, getDifficulties, getRequiredEfforts, mapCategoriesToSearchList, onFilteredHashTagSearch, onFilteredIngredientSearch, searchCategory } from "../../../../utils/DictionariesUtils";
-import { renderBasicInput } from "../RecipeAdd";
 import FilteredSelect from "../../../../components/complex/FilteredSelect";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import dictionariesApi from "../../../../api/DictionariesApi";
 import { CategoryDto, Response } from "../../../../data/types";
+import { AddRecipeContext, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
+import { inputAttributesForContext } from "../../../../utils/FormInputUtils";
 
 function UpperRightSide() {
     const { t } = useTranslation();
     const [filteredHashTags, setFilteredHashTags] = useState<any[]>([]);
     const [filteredCategories, setFilteredCategories] = useState<any[]>([]);
     const [allCategories, setAllCategories] = useState<any[]>([]);
+    const addRecipeDispatchContext = useContext(AddRecipeDispatchContext);
+    const formFields = useContext(AddRecipeContext).fields;
 
     useEffect(() => {
         onFilteredHashTagSearch('', setFilteredHashTags);
@@ -29,6 +32,35 @@ function UpperRightSide() {
     function onCategorySearchCallback(phrase: string) {
         setFilteredCategories(mapCategoriesToSearchList(searchCategory(allCategories, phrase)))
     }
+
+    function onChange(fieldValue: any, fieldName: string) {
+        if (formFields.formValue && formFields.formValue[fieldName] !== fieldValue) {
+            addRecipeDispatchContext({
+                type: "onChange",
+                fieldName,
+                fieldValue,
+                fieldValidity: checkInputValidity(fieldValue, fieldName)
+            })
+        }
+    }
+
+    function checkInputValidity(fieldValue: any, fieldName: string) {
+        switch (fieldName) {
+            case 'name': {
+                return fieldValue && fieldValue.length > 3;
+            }
+            case 'image': {
+                return fieldValue && fieldValue.length > 3;
+            }
+            default: {
+                return true;
+            }
+        }
+    }
+    function getValidity(fieldName: string) {
+        return formFields?.formValidity ? formFields?.formValidity[fieldName] : false;
+    }
+
     return (
         <div className="text-start">
             {renderTimeAmountInput()}
@@ -44,9 +76,8 @@ function UpperRightSide() {
     function renderTimeAmountInput() {
         return (
             <TimeAmountInput
-                name="timeAmountFrom"
                 label={"Ilość czasu na przygotowanie"}
-                onChange={() => { }}
+                {...inputAttributesForContext("timeAmountFrom", onChange, getValidity)}
             />
         )
     }
@@ -55,11 +86,10 @@ function UpperRightSide() {
         const accessTypes = getAccessTypes(t);
         return (
             <MySelect
-                name="accessType"
                 label={t("p.accessTypeFilter")}
                 options={accessTypes}
                 defaultValue={accessTypes[0].value}
-                onChange={() => { }}
+                {...inputAttributesForContext("accessType", onChange, getValidity)}
             />
         )
     }
@@ -68,11 +98,10 @@ function UpperRightSide() {
         const amountOfDishes = getAmountOfDishes(t);
         return (
             <MySelect
-                name="amountOfDishes"
                 label={t("p.amountOfDishesFilter")}
                 options={amountOfDishes}
                 emptyOption={t('p.selectValue')}
-                onChange={() => { }}
+                {...inputAttributesForContext("amountOfDishes", onChange, getValidity)}
             />
         )
     }
@@ -80,11 +109,10 @@ function UpperRightSide() {
         const difficulties = getDifficulties(t);
         return (
             <MySelect
-                name="difficulties"
                 label={t("p.difficultiesFilter")}
                 options={difficulties}
                 emptyOption={t('p.selectValue')}
-                onChange={() => { }}
+                {...inputAttributesForContext("difficulties", onChange, getValidity)}
             />
         )
     }
@@ -93,11 +121,10 @@ function UpperRightSide() {
         const requiredEffort = getRequiredEfforts(t);
         return (
             <MySelect
-                name="requiredEffort"
                 label={t("p.requiredEffortFilter")}
                 options={requiredEffort}
                 emptyOption={t('p.selectValue')}
-                onChange={() => { }}
+                {...inputAttributesForContext("requiredEffort", onChange, getValidity)}
             />)
     }
 
@@ -108,9 +135,12 @@ function UpperRightSide() {
             label={t("p.hashTagFilter")}
             options={filteredHashTags}
             onSearchCallback={(phrase: string) => onFilteredHashTagSearch(phrase, setFilteredHashTags)}
-            onSelectCallback={() => { }}
-            highlightValidity={false}
-            width={500} />
+            highlightValidity={true}
+            allowNew={true}
+            width={500}
+            isValid={getValidity("hashTag")}
+            onSelectCallback={(value: string) => onChange(value, "hashTag")}
+        />
     }
 
     function renderCategoryInput() {
@@ -120,10 +150,12 @@ function UpperRightSide() {
             label={t("p.categoryFilter")}
             options={filteredCategories}
             onSearchCallback={onCategorySearchCallback}
-            onSelectCallback={() => { }}
-            highlightValidity={false}
+            highlightValidity={true}
             hierarchical={true}
-            width={500} />
+            width={500}
+            isValid={getValidity("category")}
+            onSelectCallback={(value: string) => onChange(value, "category")}
+        />
     }
 }
 

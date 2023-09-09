@@ -1,11 +1,40 @@
 import { useTranslation } from "react-i18next";
 import MyInput from "../../../../components/basicUi/MyInput";
-import { renderBasicInput } from "../RecipeAdd";
 import MyTextarea from "../../../../components/basicUi/MyTextarea";
-import TimeAmountInput from "../../../../components/complex/TimeAmountInput";
+import { AddRecipeContext, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
+import { useContext } from "react";
+import { inputAttributes, inputAttributesForContext } from "../../../../utils/FormInputUtils";
 
 function UpperLeftSide() {
     const { t } = useTranslation();
+    const addRecipeDispatchContext = useContext(AddRecipeDispatchContext);
+    const formFields = useContext(AddRecipeContext).fields;
+
+    function onChange(fieldValue: any, fieldName: string) {
+        addRecipeDispatchContext({
+            type: "onChange",
+            fieldName,
+            fieldValue,
+            fieldValidity: checkInputValidity(fieldValue, fieldName)
+        })
+    }
+
+    function checkInputValidity(fieldValue: any, fieldName: string) {
+        switch (fieldName) {
+            case 'name': {
+                return fieldValue && fieldValue.length > 3;
+            }
+            case 'image': {
+                return fieldValue && fieldValue.length > 3;
+            }
+            default: {
+                return true;
+            }
+        }
+    }
+    function getValidity(fieldName: string) {
+        return formFields?.formValidity ? formFields?.formValidity[fieldName] : false;
+    }
     return (
         <div className="text-start">
             {renderNameInput()}
@@ -16,11 +45,10 @@ function UpperLeftSide() {
     function renderNameInput() {
         return (
             <MyInput
-                name="name"
-                label="Nazwa"
-                onChange={(value: string) => { console.log(value); }}
+                label={t('p.name')}
+                placeholder={t('p.name')}
                 required={true}
-                isValid={true}
+                {...inputAttributesForContext("name", onChange, getValidity)}
             />
         )
     }
@@ -28,24 +56,21 @@ function UpperLeftSide() {
     function renderDescriptionInput() {
         return (
             <MyTextarea
-                required={true}
-                isValid={true}
-                name="name"
-                label="Opis"
-                placeholder="Input test 1"
+                label={t('p.description')}
+                placeholder={t('p.description')}
                 rows={5}
-                onChange={(value: string) => console.log(value)} />
+                {...inputAttributesForContext("description", onChange, getValidity)}
+            />
         )
     }
 
     function renderImageInput() {
         return (
             <MyInput
-                name="name"
-                label="Zdjęcie"
-                onChange={(value: string) => { console.log(value); }}
+                label={t('p.image')}
+                placeholder={t('p.image')}
                 required={true}
-                isValid={true}
+                {...inputAttributesForContext("image", onChange, getValidity)}
             />
         )
     }
