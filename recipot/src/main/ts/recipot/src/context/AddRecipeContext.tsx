@@ -16,11 +16,16 @@ function AddRecipeContextProvider({ children }: any) {
         []
     );
 
-    formSave.current.onSubmit = function (formValue: any) {
-
-        convertToObjects(formValue.hashTag);
-        console.log("formval")
-        console.log(formValue)
+    formSave.current.onSubmit = function (fields:any) {
+        for (const field in fields.formValidity) {
+            if (!fields.formValidity[field]) {
+                console.log("invalid fields value")
+                //return false;
+            }
+        }
+        convertToObjects(fields.formValue.hashTag);
+        console.log("correct fields value")
+        console.log(fields.formValue)
     }
     formSave.current.onSuccess = function () {
 
@@ -60,7 +65,7 @@ function AddRecipeContextProvider({ children }: any) {
                 };
             }
             case 'onSubmit': {
-                onSubmit(fields);
+                formSave.current.onSubmit(fields);
                 return fields;
             }
             case 'onAdd': {
@@ -115,16 +120,6 @@ function AddRecipeContextProvider({ children }: any) {
                 throw Error('Unknown action: ' + action.type);
             }
         }
-    }
-
-    function onSubmit(fields: any) {
-        for (const field in fields.formValidity) {
-            if (!fields.formValidity[field]) {
-                // return false; 
-            }
-        }
-        console.log(fields.formValidity)
-        formSave.current.onSubmit(fields.formValue);
     }
 
     return (
