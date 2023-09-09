@@ -380,7 +380,7 @@ function FilteredHierarchicalSelectTest({ required, isValid }: any) {
 
     const defaultValue = filteredSelectValues.length > 0 ? [filteredSelectValues[0]] : null
 
-    return defaultValue && <FilteredSelect required={required} isValid={isValid} multiple={true} label="Test hierarchical Select" options={filteredSelectValues} onSearchCallback={onSearchCallback} hierarchical={true}
+    return <FilteredSelect required={required} isValid={isValid} multiple={true} label="Test hierarchical Select" options={filteredSelectValues} onSearchCallback={onSearchCallback} hierarchical={true}
         onSelectCallback={onSelectCallback} onNewValueCallback={onNewValueCallback} disabled={false} allowNew={false}
         defaultValue={defaultValue} />
 }
