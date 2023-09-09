@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
 import { useTranslation } from "react-i18next";
@@ -59,6 +59,11 @@ function FilteredSelect({
     useEffect(() => {
         onNewValueCallback(createdValues);
     }, [createdValues, onNewValueCallback]);
+
+    useEffect(() => {
+        setSelectedValues(defaultValue || [])
+        setSelected(defaultValue);
+    }, [defaultValue])
 
     function onSearch(event: any) {
         onSearchCallback(event.target.value);
