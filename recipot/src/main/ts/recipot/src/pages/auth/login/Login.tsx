@@ -5,18 +5,32 @@ import { useTranslation } from 'react-i18next';
 import LoginForm from './LoginForm';
 import { FormSave } from '../../../data/utilTypes';
 import { getEmptyFormSave } from '../../../utils/FormInputUtils';
+import { useContext, useEffect } from 'react';
+import { UsersContext, UsersDispatchContext } from '../../../context/UserContext';
+import authApi from '../../../api/AuthApi';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const { t } = useTranslation();
+    const usersDispatchContext = useContext(UsersDispatchContext);
+    const navigate = useNavigate();
+    const user = useContext(UsersContext).user;
     const formSave: FormSave = getEmptyFormSave();
-    formSave.onSubmit = function(formValue:any){
-        
+    useEffect(() => {
+        if (user != null) {
+            navigate('/user');
+        }
+    }, [user])
+
+    formSave.onSubmit = function (formValue: any) {
+        authApi.login(formValue, formSave.onSuccess, formSave.onError);
+
     }
-    formSave.onSuccess = function(){
-        
+    formSave.onSuccess = function (response: any) {
+        usersDispatchContext({ type: "refresh" });
     }
-    formSave.onError = function(){
-        
+    formSave.onError = function (response: any) {
+
     }
 
     return (
