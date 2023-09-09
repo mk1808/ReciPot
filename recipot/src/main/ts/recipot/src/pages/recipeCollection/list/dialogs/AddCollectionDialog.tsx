@@ -1,21 +1,26 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import CustomModal from "../../../../components/basicUi/CustomModal";
 import { FormSave } from "../../../../data/utilTypes";
 import { getEmptyFormSave } from "../../../../utils/FormInputUtils";
 import { useTranslation } from "react-i18next";
 import AddCollectionDialogForm from "./AddCollectionDialogForm";
+import { RecipeCollectionListDispatchContext } from "../context/RecipeCollectionListContext";
 
 function AddCollectionDialog({ showModal, handleClose }: { showModal: boolean, handleClose: any }) {
     const { t } = useTranslation();
+    const collectionsDispatchContext = useContext(RecipeCollectionListDispatchContext);
     const formSave: FormSave = getEmptyFormSave();
     const form = useRef<any>();
     let formContent: any;
     formSave.onSubmit = function (formValue: any) {
         formContent = formValue;
         console.log(formValue);
+        //TODO: POST recipe collection
+        formSave.onSuccess();
     }
     formSave.onSuccess = function () {
-
+        collectionsDispatchContext({ type: 'refreshCollectionsList' });
+        handleClose();
     }
     formSave.onError = function () {
 
