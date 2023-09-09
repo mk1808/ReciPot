@@ -32,6 +32,13 @@ function MyTextarea({
         checkValidity(inputRef.current, isValid);
     }, [isValid])
 
+    useEffect(() => {
+        if (inputRef.current) {
+            inputRef.current.value = defaultValue;
+            setInputValue(defaultValue)
+        }
+    }, [defaultValue])
+
     useEffect(() => { onChange(inputValue) }, [inputValue])
 
     function onChangeCallback(event: any) {

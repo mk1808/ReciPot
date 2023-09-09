@@ -14,7 +14,7 @@ function MyCheckbox(
         isValid
     }: {
         name: string,
-        label: string|any,
+        label: string | any,
         disabled?: boolean,
         defaultChecked?: boolean,
         onChange: any,
@@ -28,6 +28,13 @@ function MyCheckbox(
     useEffect(() => {
         checkValidity(inputRef.current, isValid);
     }, [isValid])
+
+    useEffect(() => {
+        if (inputRef.current) {
+            inputRef.current.checked = defaultChecked;
+            setChecked(defaultChecked)
+        }
+    }, [defaultChecked])
 
     function onChangeCallback(event: any) {
         onChange(!isChecked)

@@ -52,6 +52,7 @@ function Test() {
 
     const recipeCallback = () => { console.log("go to recipe!") }
     const [show, setShow] = useState(false);
+    const [defaultValueIndex, setDefaultValueIndex] = useState(1);
     const [showModal, setShowModal] = useState(false);
     const handleClose = () => setShowModal(false);
     const handleShow = () => setShowModal(true);
@@ -137,6 +138,10 @@ function Test() {
         }
         return event.currentTarget.checkValidity() === true;
     };
+
+    function nextDefaultValue() {
+        setDefaultValueIndex((defaultValueIndex) => defaultValueIndex + 1)
+    }
 
     return (<>
         <h1>Test</h1>
@@ -242,16 +247,19 @@ function Test() {
 
         <Stack direction="vertical" style={{ textAlign: "left", marginLeft: "100px", width: "300px" }}>
             <Form noValidate validated={true}  >
-                <MyInput isValid={isValid} name="test1" label="Test jeden" placeholder="Input test 1" onChange={(value: string) => console.log(value)} defaultValue={"Wartość nadana"} />
+                <MyInput isValid={isValid} name="test1" label="Test jeden" placeholder="Input test 1" onChange={(value: string) => console.log(value)} defaultValue={"Wartość nadana" + defaultValueIndex} />
                 <MyInput required={true} isValid={isValid} name="test2" placeholder="Input test 2" onChange={(value: string) => console.log(value)} />
                 <MyInput isValid={isValid} name="test3" label="Test trzy" onChange={(value: string) => console.log(value)} />
-                <MyTextarea defaultValue="default" required={true} isValid={isValid} name="test4" label="Test textarea" placeholder="Input test 1" rows={5} onChange={(value: string) => console.log(value)} />
-                <MyCheckbox required={true} isValid={isValid} name="test5" label="Test checkbox" onChange={(value: boolean) => console.log(value)} defaultChecked={true} />
-                <MySelect required={true} isValid={isValid} name="test6" label="Test select" emptyOption="Pusta wartość" options={testOptions} defaultValue={testOptions[1].value} onChange={(value: string) => console.log(value)} />
+                <MyTextarea defaultValue={"default" + defaultValueIndex} required={true} isValid={isValid} name="test4" label="Test textarea" placeholder="Input test 1" rows={5} onChange={(value: string) => console.log(value)} />
+                <MyCheckbox required={true} isValid={isValid} name="test5" label="Test checkbox" onChange={(value: boolean) => console.log(value)} defaultChecked={defaultValueIndex % 2 == 0} />
+                <MySelect required={true} isValid={isValid} name="test6" label="Test select" emptyOption="Pusta wartość" options={testOptions} defaultValue={testOptions[defaultValueIndex % 2].value} onChange={(value: string) => console.log(value)} />
                 <MyFileInput required={true} isValid={isValid} name="test7" label="Test file" placeholder="Select file" onChange={(value: string) => console.log(value)} />
-                <MySwitch required={true} isValid={true} name="test8" label="Test switch" onChange={setIsValid} defaultChecked={true} />
-                <StarSelectInput required={true} isValid={true} name="test9" label="Test star select" onChange={(value: number) => console.log(value)} defaultValue={2} />
+                <MySwitch required={true} isValid={true} name="test8" label="Test switch" onChange={setIsValid} defaultChecked={defaultValueIndex % 2 == 0} />
+                <StarSelectInput required={true} isValid={true} name="test9" label="Test star select" onChange={(value: number) => console.log(value)} defaultValue={defaultValueIndex % 5} />
             </Form>
+            <MyButton.Primary onClick={nextDefaultValue}>
+                Next default value
+            </MyButton.Primary>
         </Stack>
 
 
@@ -263,13 +271,13 @@ function Test() {
         <Form noValidate validated={true}  >
             <Stack className="" direction="horizontal" gap={5}>
                 <div className="p-4">
-                    <FilteredSelectTest required={true} isValid={isValid} />
+                    <FilteredSelectTest required={true} isValid={isValid} defaultValueIndex={defaultValueIndex} />
                 </div>
                 <div className="p-4">
-                    <FilteredMultiSelectTest required={true} isValid={isValid} />
+                    <FilteredMultiSelectTest required={true} isValid={isValid} defaultValueIndex={defaultValueIndex} />
                 </div>
                 <div className="p-4">
-                    <FilteredHierarchicalSelectTest required={true} isValid={isValid} />
+                    <FilteredHierarchicalSelectTest required={true} isValid={isValid} defaultValueIndex={defaultValueIndex} />
                 </div>
             </Stack>
         </Form>
@@ -290,8 +298,13 @@ function Test() {
     );
 }
 
-function FilteredSelectTest({ required, isValid }: any) {
+function FilteredSelectTest({ required, isValid, defaultValueIndex }: any) {
     const [filteredSelectValues, setFilteredSelectValues] = useState<any[]>([]);
+    const [defaultValues, setDefaultValues] = useState<any>();
+
+    useEffect(() => {
+        setDefaultValues({ label: "test123" + defaultValueIndex })
+    }, [defaultValueIndex])
 
     function onFilteredSelectSearchCallback(phrase: string) {
         dictionariesApi.getHashTags({ name: phrase, size: 5 }, (response: any) => { setFilteredSelectValues(mapDictionaryValueToSearchList(response.value.content)) })
@@ -317,11 +330,16 @@ function FilteredSelectTest({ required, isValid }: any) {
 
     return <FilteredSelect required={required} isValid={isValid} label="Test wartości" options={filteredSelectValues} onSearchCallback={onSearchCallback}
         onSelectCallback={onSelectCallback} onNewValueCallback={onNewValueCallback} disabled={false} allowNew={true}
-        defaultValue={{ label: "test123" }} />
+        defaultValue={defaultValues} />
 }
 
-function FilteredMultiSelectTest({ required, isValid }: any) {
+function FilteredMultiSelectTest({ required, isValid, defaultValueIndex }: any) {
     const [filteredSelectValues, setFilteredSelectValues] = useState<any[]>([]);
+    const [defaultValues, setDefaultValues] = useState<any[]>([]);
+
+    useEffect(() => {
+        setDefaultValues([{ label: "test123" + defaultValueIndex }, { label: "abc_111" }])
+    }, [defaultValueIndex])
 
     function onFilteredSelectSearchCallback(phrase: string) {
         dictionariesApi.getHashTags({ name: phrase, size: 5 }, (response: any) => { setFilteredSelectValues(mapDictionaryValueToSearchList(response.value.content)) })
@@ -346,13 +364,18 @@ function FilteredMultiSelectTest({ required, isValid }: any) {
 
 
     return <FilteredSelect required={required} isValid={isValid} multiple={true} label="Test multiSelect" options={filteredSelectValues} onSearchCallback={onSearchCallback} allowNew={true}
-        onSelectCallback={onSelectCallback} onNewValueCallback={onNewValueCallback} disabled={false} defaultValue={[{ label: "test123" }, { label: "abc_111" }]} />
+        onSelectCallback={onSelectCallback} onNewValueCallback={onNewValueCallback} disabled={false} defaultValue={defaultValues} />
 }
 
 
-function FilteredHierarchicalSelectTest({ required, isValid }: any) {
+function FilteredHierarchicalSelectTest({ required, isValid, defaultValueIndex }: any) {
     const [filteredSelectValues, setFilteredSelectValues] = useState<any[]>([]);
     const [allCategories, setAllCategories] = useState<any[]>([]);
+    const [defaultValues, setDefaultValues] = useState<any[]>([]);
+
+    useEffect(() => {
+        setDefaultValues(filteredSelectValues.length > 0 ? [filteredSelectValues[defaultValueIndex % 3]] : [])
+    }, [defaultValueIndex])
 
     function onFilteredSelectSearchCallback(phrase: string) {
         setFilteredSelectValues(mapCategoriesToSearchList(searchCategory(allCategories, phrase)))
@@ -378,11 +401,10 @@ function FilteredHierarchicalSelectTest({ required, isValid }: any) {
         //console.log("onNewValueCallback", value)
     }
 
-    const defaultValue = filteredSelectValues.length > 0 ? [filteredSelectValues[0]] : null
 
     return <FilteredSelect required={required} isValid={isValid} multiple={true} label="Test hierarchical Select" options={filteredSelectValues} onSearchCallback={onSearchCallback} hierarchical={true}
         onSelectCallback={onSelectCallback} onNewValueCallback={onNewValueCallback} disabled={false} allowNew={false}
-        defaultValue={defaultValue} />
+        defaultValue={defaultValues} />
 }
 
 function CategoryCardExample() {
