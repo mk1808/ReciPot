@@ -24,6 +24,15 @@ export function inputAttributesForContext(name: string, onChange: Function, getV
     }
 }
 
+export function inputAttributesForContextWithoutValidity(name: string, label: string, onChange: Function, formObject: any, defaultValue?: any) {
+    return {
+        name,
+        label,
+        onChange: (value: string) => onChange(name, value),
+        defaultValue: (formObject && formObject[name]) || defaultValue
+    }
+}
+
 export function dynamicInputAttributesForContext(name: string, onChange: Function, getValidity: Function, index?: number) {
     return {
         name: name,

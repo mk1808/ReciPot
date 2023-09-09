@@ -11,7 +11,7 @@ import { useContext, useEffect, useState } from "react";
 import { getAccessTypes, getAmountOfDishes, getDifficulties, getRequiredEfforts, mapCategoriesToSearchList, onFilteredHashTagSearch, onFilteredIngredientSearch, searchCategory } from "../../../../utils/DictionariesUtils";
 import MyButton from "../../../../components/basicUi/MyButton";
 import { FormSave } from "../../../../data/utilTypes";
-import { preventFurtherAction } from "../../../../utils/FormInputUtils";
+import { inputAttributesForContextWithoutValidity } from "../../../../utils/FormInputUtils";
 import AddRecipeFilterDialog from "../dialogs/AddRecipeFilterDialog";
 import { RecipeFilterContext, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 
@@ -84,15 +84,6 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
         }
     }
 
-    function initAttributes(name: string, label: string, defaultValue?: any) {
-        return {
-            name,
-            label: t(label),
-            onChange: (value: string) => onChange(name, value),
-            defaultValue: (recipesFilterForm && recipesFilterForm[name]) || defaultValue
-        }
-    }
-
     return (
         <Form onSubmit={() => console.log("asd")}>
             <Stack className="p-5 text-start" gap={3}>
@@ -116,7 +107,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     function renderUserIsOwnerInput() {
         return (
             <MyCheckbox
-                {...initAttributes("userIsOwner", "p.userIsOwnerFilter")}
+                {...inputAttributesForContextWithoutValidity("userIsOwner", t("p.userIsOwnerFilter"), onChange, recipesFilterForm)}
                 defaultChecked={recipesFilterForm?.userIsOwner || false}
             />
         )
@@ -126,7 +117,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
         const accessTypes = getAccessTypes(t);
         return (
             <MySelect
-                {...initAttributes("accessType", "p.accessTypeFilter")}
+                {...inputAttributesForContextWithoutValidity("accessType", t("p.accessTypeFilter"), onChange, recipesFilterForm)}
                 options={accessTypes}
             />
         )
@@ -135,7 +126,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     function renderNameContainsInput() {
         return (
             < MyInput
-                {...initAttributes("recipeName", "p.recipeNameFilter")}
+                {...inputAttributesForContextWithoutValidity("recipeName", t("p.recipeNameFilter"), onChange, recipesFilterForm)}
                 placeholder={t("p.recipeNameFilter")}
             />
         )
@@ -144,7 +135,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     function renderTimeAmountFromInput() {
         return (
             <TimeAmountInput
-                {...initAttributes("timeAmountFrom", "p.timeAmountFromFilter")}
+                {...inputAttributesForContextWithoutValidity("timeAmountFrom", t("p.timeAmountFromFilter"), onChange, recipesFilterForm)}
             />
         )
     }
@@ -152,7 +143,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     function renderTimeAmountToInput() {
         return (
             <TimeAmountInput
-                {...initAttributes("timeAmountTo", "p.timeAmountToFilter", 99 * 60 + 59)}
+                {...inputAttributesForContextWithoutValidity("timeAmountTo", t("p.timeAmountToFilter"), onChange, recipesFilterForm, 99 * 60 + 59)}
             />
         )
     }
@@ -161,7 +152,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
         const amountOfDishes = getAmountOfDishes(t);
         return (
             <MySelect
-                {...initAttributes("amountOfDishes", "p.amountOfDishesFilter")}
+                {...inputAttributesForContextWithoutValidity("amountOfDishes", t("p.amountOfDishesFilter"), onChange, recipesFilterForm)}
                 options={amountOfDishes}
                 emptyOption={t('p.selectValue')}
             />
@@ -172,7 +163,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
         const difficulties = getDifficulties(t);
         return (
             <MySelect
-                {...initAttributes("difficulties", "p.difficultiesFilter")}
+                {...inputAttributesForContextWithoutValidity("difficulties", t("p.difficultiesFilter"), onChange, recipesFilterForm)}
                 options={difficulties}
                 emptyOption={t('p.selectValue')}
             />
@@ -183,7 +174,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
         const requiredEffort = getRequiredEfforts(t);
         return (
             <MySelect
-                {...initAttributes("requiredEffort", "p.requiredEffortFilter")}
+                {...inputAttributesForContextWithoutValidity("requiredEffort", t("p.requiredEffortFilter"), onChange, recipesFilterForm)}
                 options={requiredEffort}
                 emptyOption={t('p.selectValue')}
             />)
@@ -192,7 +183,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     function renderAverageRatingInput() {
         return (
             <MySelect
-                {...initAttributes("averageRating", "p.averageRatingFilter")}
+                {...inputAttributesForContextWithoutValidity("averageRating", t("p.averageRatingFilter"), onChange, recipesFilterForm)}
                 options={getAverageRating()}
                 emptyOption={t('p.selectValue')}
             />)
@@ -201,7 +192,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     function renderHashTagInput() {
         return (
             <FilteredSelect
-                {...initAttributes("hashTags", "p.hashTagFilter")}
+                {...inputAttributesForContextWithoutValidity("hashTags", t("p.hashTagFilter"), onChange, recipesFilterForm)}
                 multiple={true}
                 options={filteredHashTags}
                 onSearchCallback={(phrase: string) => onFilteredHashTagSearch(phrase, setFilteredHashTags)}
@@ -216,7 +207,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
         return (
             <FilteredSelect
                 multiple={true}
-                {...initAttributes("ingredients", "p.ingredientFilter")}
+                {...inputAttributesForContextWithoutValidity("ingredients", t("p.ingredientFilter"), onChange, recipesFilterForm)}
                 options={filteredIngredients}
                 onSearchCallback={(phrase: string) => onFilteredIngredientSearch(phrase, setFilteredIngredients)}
                 onSelectCallback={onIngredientsChange}
@@ -229,7 +220,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     function renderCategoryInput() {
         return (
             <FilteredSelect
-                {...initAttributes("categories", "p.categoryFilter")}
+                {...inputAttributesForContextWithoutValidity("categories", t("p.categoryFilter"), onChange, recipesFilterForm)}
                 multiple={true}
                 options={filteredCategories}
                 onSearchCallback={onCategorySearchCallback}
