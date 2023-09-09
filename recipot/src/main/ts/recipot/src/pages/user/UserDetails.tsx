@@ -8,10 +8,13 @@ import { UserStatisticsDto } from '../../data/types';
 import UserDetailsForm from './UserDetailsForm';
 import { FormSave } from '../../data/utilTypes';
 import { getEmptyFormSave } from '../../utils/FormInputUtils';
+import { useContext, useEffect } from 'react';
+import { UsersContext, UsersDispatchContext } from '../../context/UserContext';
 
 function UserDetails() {
     const { t } = useTranslation();
-
+    const user = useContext(UsersContext).user;
+    const usersDispatchContext = useContext(UsersDispatchContext);
     const userStatistics: UserStatisticsDto = {
         commentedRecipesCount: 12,
         createdRecipesCount: 20,
@@ -25,7 +28,9 @@ function UserDetails() {
         console.log(userFormValue)
     }
     formSave.onSuccess = function () {
-
+        usersDispatchContext(
+            { type: "refresh" }
+        )
     }
     formSave.onError = function () {
 
@@ -36,7 +41,7 @@ function UserDetails() {
             <MyHeader title={t('p.userDetailsHeader')}></MyHeader>
             {renderUserStatistics()}
             <hr />
-            <UserDetailsForm formSave={formSave} />
+            <UserDetailsForm formSave={formSave} user={user} />
         </div>
     );
 

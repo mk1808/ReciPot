@@ -12,7 +12,7 @@ import { useReducer, useState } from 'react';
 import { checkIfAllValid, checkInputValidity, getEmptyForm, getNewState, inputAttributes, preventFurtherAction } from '../../utils/FormInputUtils';
 import { MyForm, FormSave } from '../../data/utilTypes';
 
-function UserDetailsForm({ formSave }: { formSave: FormSave }) {
+function UserDetailsForm({ formSave, user }: { formSave: FormSave, user:any }) {
     const { t } = useTranslation();
 
     const [isEditMode, setEditMode] = useState(false);
@@ -74,7 +74,7 @@ function UserDetailsForm({ formSave }: { formSave: FormSave }) {
                 {...inputAttributes("email", myForm, dispatchForm)}
                 label={t('p.emailInputLabel')}
                 placeholder={t('p.emailInputPlaceholder')}
-                defaultValue={"example@email.com"}
+                defaultValue={user.email}
                 disabled={true}
             />);
     }
@@ -85,7 +85,7 @@ function UserDetailsForm({ formSave }: { formSave: FormSave }) {
                 {...inputAttributes("login", myForm, dispatchForm)}
                 label={t('p.loginInputLabel')}
                 placeholder={t('p.loginInputPlaceholder')}
-                defaultValue={"userLogin"}
+                defaultValue={user.login}
                 disabled={true}
             />);
     }
@@ -97,6 +97,7 @@ function UserDetailsForm({ formSave }: { formSave: FormSave }) {
                 label={t('p.avatarInputLabel')}
                 placeholder={t('p.avatarInputPlaceholder')}
                 disabled={!isEditMode}
+                defaultValue={user.avatarImageSrc}
             />);
     }
 
@@ -106,6 +107,7 @@ function UserDetailsForm({ formSave }: { formSave: FormSave }) {
                 {...inputAttributes("selfDescription", myForm, dispatchForm)}
                 label={t('p.selfDescriptionInputLabel')}
                 placeholder={t('p.selfDescriptionInputPlaceholder')}
+                defaultValue={user.selfDescription}
                 disabled={!isEditMode}
             />);
     }
@@ -127,7 +129,7 @@ function UserDetailsForm({ formSave }: { formSave: FormSave }) {
     }
 
     function renderSaveButton() {
-        return isEditMode && renderButton(MyButton.Primary, () => { }, 'p.save', "submit");
+        return isEditMode && renderButton(MyButton.Primary, handleSubmit, 'p.save', "submit");
     }
 
     function renderEditButton() {
