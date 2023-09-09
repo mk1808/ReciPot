@@ -20,7 +20,7 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 @EnableMethodSecurity
 @Configuration
 public class WebSecurityConfig {
-	private static final String[] WHITE_LIST_URLS = { "/api/auth/register" };
+	private static final String[] WHITE_LIST_URLS = { "/api/auth/register", "/api/logout2" };
 
 	private JwtAuthenticationEntryPoint authenticationEntryPoint;
 	private UserDetailsService userDetailsService;

@@ -42,7 +42,7 @@ public class HelloController {
 		return new UnauthorizedResponseFactory().createResponse("unauth", "u dont have access");
 	}
 
-	@GetMapping("/logout2")
+	@GetMapping("/api/logout2")
 	public String logout(HttpServletResponse response) {
 		response.addCookie(new Cookie("token", null));
 		return "hello";
