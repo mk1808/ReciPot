@@ -3,6 +3,8 @@ package pl.mk.recipot.recipecollections.services;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
@@ -26,7 +28,6 @@ import pl.mk.recipot.recipecollections.domains.CleanRecipeCollectionItems;
 import pl.mk.recipot.recipecollections.domains.CreateDefaultRecipeCollections;
 import pl.mk.recipot.recipecollections.domains.UpdateItemsInRecipeCollection;
 import pl.mk.recipot.recipecollections.domains.UpdateRecipeCollectionItem;
-import pl.mk.recipot.recipecollections.domains.UpdateUserInRecipeCollection;
 import pl.mk.recipot.recipecollections.repositories.IRecipeCollectionsItemRepository;
 import pl.mk.recipot.recipecollections.repositories.IRecipeCollectionsRepository;
 import pl.mk.recipot.recipes.facades.IRecipesFacade;
@@ -162,6 +163,13 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 	@Override
 	public int getRecipesInUserRecipeCollectionsCount(AppUser user) {
 		return recipeCollectionsItemRepository.getRecipesInUserRecipeCollectionsCount(user);
+	}
+
+	@Override
+	public Page<RecipeCollectionItem> findPageByCollection(UUID collectionId, Pageable pageRequest) {
+		Page<RecipeCollectionItem> recipesPage = recipeCollectionsItemRepository.findPageByCollection(collectionId, pageRequest);
+		recipesPage.forEach(new CleanRecipeCollectionItem()::execute);
+		return recipesPage;
 	}
 
 }

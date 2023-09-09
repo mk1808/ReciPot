@@ -3,6 +3,8 @@ package pl.mk.recipot.recipecollections.repositories;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -22,4 +24,7 @@ public interface IRecipeCollectionsItemRepository extends JpaRepository<RecipeCo
 
 	@Query("SELECT count(rci) FROM RecipeCollectionItem rci where rci.collection.owner = :user")
 	int getRecipesInUserRecipeCollectionsCount(AppUser user);
+
+	@Query("SELECT rci FROM RecipeCollectionItem rci WHERE rci.collection.id = :collectionId")
+	Page<RecipeCollectionItem> findPageByCollection(UUID collectionId, Pageable pageable);
 }

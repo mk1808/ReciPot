@@ -1,4 +1,5 @@
 import { RecipeCollection, RecipeCollectionItem, Response } from "../data/types";
+import { createPathParams } from "../utils/RestUtils";
 import restClient from "./RestClient";
 
 function RecipeCollectionsApi() {
@@ -20,6 +21,11 @@ function RecipeCollectionsApi() {
         restClient.get(`${PREFIX}`, onSuccess, onError)
     }
 
+    const getRecipeCollectionRecipes = (collectionId: string, params: { pageNum?: number, pageSize?: number }, onSuccess: (response: Response<RecipeCollectionItem[]>) => any, onError?: (response: Response<RecipeCollectionItem[]>) => any) => {
+        var pathParams = createPathParams(params);
+        restClient.get(`${PREFIX}/${collectionId}/recipes?${pathParams}`, onSuccess, onError)
+    }
+
     const deleteRecipeFromCollection = (collectionId: string, recipeId: string, onSuccess: (response: Response<any>) => any, onError?: (response: Response<any>) => any) => {
         restClient.delete(`${PREFIX}/${collectionId}/recipe/${recipeId}`, onSuccess, onError)
     }
@@ -28,7 +34,7 @@ function RecipeCollectionsApi() {
         restClient.delete(`${PREFIX}/${collectionId}`, onSuccess, onError)
     }
 
-    return { createCollection, addCollectionItem, getCollection, getUserRecipeCollections, deleteRecipeFromCollection, deleteCollection }
+    return { createCollection, addCollectionItem, getCollection, getUserRecipeCollections, deleteRecipeFromCollection, deleteCollection, getRecipeCollectionRecipes }
 }
 
 const recipeCollectionsApi = RecipeCollectionsApi();

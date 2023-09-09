@@ -3,6 +3,9 @@ package pl.mk.recipot.recipecollections.services;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import pl.mk.recipot.commons.enums.DefaultRecipeCollections;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Recipe;
@@ -26,4 +29,6 @@ public interface IRecipeCollectionsService {
 	int getUserRecipeCollectionsCount(AppUser user);
 
 	int getRecipesInUserRecipeCollectionsCount(AppUser user);
+
+	Page<RecipeCollectionItem> findPageByCollection(UUID collectionId, Pageable pageRequest);
 }

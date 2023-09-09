@@ -8,6 +8,7 @@ public class CleanRecipeCollectionItem {
 		SetUserNull cleaner = new SetUserNull();
 		cleaner.execute(item.getCollection());
 		cleaner.execute(item.getRecipe());
+		item.setCollection(null);
 		return item;
 	}
 }
