@@ -5,17 +5,14 @@ import { useTranslation } from "react-i18next";
 import MyInput from "../../../../components/basicUi/MyInput";
 import MySelect from "../../../../components/basicUi/MySelect";
 import { MdOutlineDeleteOutline } from "react-icons/md";
-import { useState } from "react";
-import { RecipeIngredient } from "../../../../data/types";
-import { onAddElementClick, onDeleteElementClick } from "../ListManipulation";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AddRecipeContext, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
-import { dynamicInputAttributesForContext, inputAttributesForContext } from "../../../../utils/FormInputUtils";
+import { dynamicInputAttributesForContext } from "../../../../utils/FormInputUtils";
 
 function AddIngredients() {
     const { t } = useTranslation();
+    const FIELD_NAME = 'ingredients';
     const testOptions = [{ label: "op1", value: { name: "nam1" } }, { label: "op2", value: { name: "nam2" } }, { label: "op3", value: { name: "nam3" } }];
-    const [ingredients, setIngredients] = useState<any[]>([]);
     const basicIngredient: any = {
         id: "",
         ingredient: "",
@@ -30,24 +27,23 @@ function AddIngredients() {
         if (formFields.formValue && formFields.formValue[fieldName] !== fieldValue) {
             addRecipeDispatchContext({
                 type: "onChange",
-                fieldName: "ingredients",
+                fieldName: FIELD_NAME,
                 fieldValue,
                 fieldValidity: checkInputValidity(fieldValue, fieldName),
                 subFieldName: fieldName,
-                isIngredient: true,
+                isIngredientOrStep: true,
                 index: index
             })
         }
     }
 
-    function onAdd(fieldValue: any, fieldName: string) {
+    function onAdd() {
         console.log("onAdd")
         basicIngredient.id = Math.random() * 1000;
         addRecipeDispatchContext({
             type: "onAdd",
-            isIngredient: true,
             basicObj: basicIngredient,
-            fieldName: "ingredients"
+            fieldName: FIELD_NAME
         })
     }
 
@@ -55,8 +51,7 @@ function AddIngredients() {
         console.log("onDelete")
         addRecipeDispatchContext({
             type: "onDelete",
-            isIngredient: true,
-            fieldName: "ingredients",
+            fieldName: FIELD_NAME,
             index
         })
     }

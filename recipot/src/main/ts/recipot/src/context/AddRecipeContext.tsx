@@ -32,7 +32,7 @@ function AddRecipeContextProvider({ children }: any) {
     function addRecipeReducer(fields: any, action: any) {
         switch (action.type) {
             case 'onChange': {
-                if (action.isIngredient) {
+                if (action.isIngredientOrStep) {
                     if (fields.formValue[action.fieldName][action.index]) {
                         fields.formValue[action.fieldName][action.index][action.subFieldName] = action.fieldValue;
                         fields.formValidity[action.fieldName][action.index][action.subFieldName] = action.fieldValidity;
@@ -44,7 +44,6 @@ function AddRecipeContextProvider({ children }: any) {
                         },
                         formValidity: {
                             ...fields.formValidity,
-
                         },
                     };
                 }
@@ -65,34 +64,34 @@ function AddRecipeContextProvider({ children }: any) {
                 return fields;
             }
             case 'onAdd': {
-                let ingredients: any;
-                let ingredientsValidity: any
-                if (action.isIngredient) {
+                let elements: any;
+                let elementsValidity: any
 
-                    if (fields.formValue[action.fieldName] == null) {
-                        ingredients = [];
-                    } else {
-                        ingredients = [...fields.formValue[action.fieldName]];
-                    }
-                    ingredients.push({ ...action.basicObj });
 
-                    if (fields.formValidity[action.fieldName] == null) {
-                        ingredientsValidity = [];
-                    } else {
-                        ingredientsValidity = [...fields.formValidity[action.fieldName]];
-                    }
-                    ingredientsValidity.push({ ...action.basicObj });
-
+                if (fields.formValue[action.fieldName] == null) {
+                    elements = [];
+                } else {
+                    elements = [...fields.formValue[action.fieldName]];
                 }
+                elements.push({ ...action.basicObj });
+
+                if (fields.formValidity[action.fieldName] == null) {
+                    elementsValidity = [];
+                } else {
+                    elementsValidity = [...fields.formValidity[action.fieldName]];
+                }
+                elementsValidity.push({ ...action.basicObj });
+
+
                 return {
                     ...fields,
                     formValue: {
                         ...fields.formValue,
-                        [action.fieldName]: ingredients
+                        [action.fieldName]: elements
                     },
                     formValidity: {
                         ...fields.formValidity,
-                        [action.fieldName]: ingredientsValidity
+                        [action.fieldName]: elementsValidity
                     },
                 };
             }
