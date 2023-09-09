@@ -11,10 +11,18 @@ export const UserContextProvider = ({ children }: any) => {
         usersReducer, null
     );
 
-    function onSuccess(response: Response<AppUser>) {
+    function onSuccessRefresh(response: Response<AppUser>) {
         console.log(response.value);
         let action = { user: response.value, type: 'logged' }
         dispatch(action);
+    };
+
+    function onError(response: any) {
+        console.log("error")
+    };
+
+    function onSuccessLogout(response: Response<AppUser>) {
+        console.log(response.value);
     };
 
     function usersReducer(user: any, action: any) {
@@ -22,11 +30,12 @@ export const UserContextProvider = ({ children }: any) => {
             case 'logged': {
                 return action.user;
             }
-            case 'loggedOut': {
+            case 'logout': {
+                authApi.logout(onSuccessLogout, () => { });
                 return null;
             }
             case 'refresh': {
-                authApi.whoAmI(onSuccess, () => { })
+                authApi.whoAmI(onSuccessRefresh, onError)
                 return user;
             }
             default: {

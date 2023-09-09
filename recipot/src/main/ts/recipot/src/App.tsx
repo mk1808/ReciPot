@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.scss';
@@ -17,29 +17,33 @@ import RecipeAdd from './pages/recipe/add/RecipeAdd';
 import NoAccess from './pages/other/noAccess/NoAccess';
 import RecipeCollectionList from './pages/recipeCollection/list/RecipeCollectionList';
 import RecipeFilter from './pages/recipe/filter/RecipeFilter';
-import { UserContextProvider } from './context/UserContext';
+import { UserContextProvider, UsersContext, UsersDispatchContext } from './context/UserContext';
 import Test from './pages/other/test/Test';
 import UserDetails from './pages/user/UserDetails';
 import AlertContextProvider from './context/AlertContext';
 
-const ProtectedRoute = ({ user, element }: any) => {
+const ProtectedRoute = ({ element }: any) => {
+  const user = useContext(UsersContext).user;
+  const usersDispatchContext = useContext(UsersDispatchContext);
   if (!user) {
+    usersDispatchContext(
+      { type: "refresh" }
+    )
     return <Navigate to="/noAccess" replace />;
   }
   return element;
 };
 
 function App() {
+  const usersDispatchContext = useContext(UsersDispatchContext);
 
   useEffect(() => {
-    authApi.login({ username: "randomuser1234567", password: "Password1!" }, () => { }, () => { })
-
+    usersDispatchContext(
+      { type: "refresh" }
+    )
+    //authApi.login({ username: "randomuser1234567", password: "Password1!" }, () => { }, () => { })
   }, [])
 
-  const send = () => {
-    recipesApi.getRecipe('14e1ea5f-b236-4f4a-b3ab-cdc6b7b93562', () => { })
-  }
-  const user = undefined;//{ id: 'abcd' };    undefined;
   const routes = () => {
     return (
       <Routes>
@@ -48,17 +52,17 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/recipes/filter" element={<RecipeFilter />} />
         <Route path="/recipes/add" element={
-          <ProtectedRoute user={user} element={<RecipeAdd />} />}
+          <ProtectedRoute element={<RecipeAdd />} />}
         />
         <Route path="/recipes/edit/:id" element={
-          <ProtectedRoute user={user} element={<RecipeAdd />} />}
+          <ProtectedRoute element={<RecipeAdd />} />}
         />
         <Route path="/recipes/:id" element={<RecipeDetails />} />
         <Route path="/recipeCollections" element={
-          <ProtectedRoute user={user} element={<RecipeCollectionList />} />}
+          <ProtectedRoute element={<RecipeCollectionList />} />}
         />
         <Route path="/user" element={
-          <ProtectedRoute user={user} element={<UserDetails />} />}
+          <ProtectedRoute element={<UserDetails />} />}
         />
         <Route path="/noAccess" element={<NoAccess />} />
         <Route path="/test" element={<Test />} />
@@ -88,5 +92,3 @@ function App() {
   );
 }
 export default App;
-
-//AlertContext

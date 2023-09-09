@@ -4,7 +4,7 @@ import restClient from "./RestClient";
 function AuthApi() {
     const PREFIX = '/auth';
 
-    const login = (body: UserLoginDto, onSuccess: (response: Response<any>) => any, onError: (response: Response<any>) => any) => {
+    const login = (body: UserLoginDto, onSuccess: any, onError: any) => {
         restClient.post('/login3', body, onSuccess, onError)
     }
 
@@ -20,9 +20,12 @@ function AuthApi() {
         restClient.get(`${PREFIX}/whoAmI`, onSuccess, onError)
     }
 
-    
+    const logout = (onSuccess: (response: Response<any>) => any, onError: (response: Response<any>) => any) => {
+        restClient.get(`/logout2`, onSuccess, onError)
+    }
 
-    return { login, register, changePassword, whoAmI }
+
+    return { login, register, changePassword, whoAmI, logout }
 }
 
 const authApi = AuthApi();
