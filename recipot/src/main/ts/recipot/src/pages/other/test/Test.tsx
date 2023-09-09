@@ -245,12 +245,12 @@ function Test() {
                 <MyInput isValid={isValid} name="test1" label="Test jeden" placeholder="Input test 1" onChange={(value: string) => console.log(value)} defaultValue={"Wartość nadana"} />
                 <MyInput required={true} isValid={isValid} name="test2" placeholder="Input test 2" onChange={(value: string) => console.log(value)} />
                 <MyInput isValid={isValid} name="test3" label="Test trzy" onChange={(value: string) => console.log(value)} />
-                <MyTextarea required={true} isValid={isValid} name="test4" label="Test textarea" placeholder="Input test 1" rows={5} onChange={(value: string) => console.log(value)} />
+                <MyTextarea defaultValue="default" required={true} isValid={isValid} name="test4" label="Test textarea" placeholder="Input test 1" rows={5} onChange={(value: string) => console.log(value)} />
                 <MyCheckbox required={true} isValid={isValid} name="test5" label="Test checkbox" onChange={(value: boolean) => console.log(value)} defaultChecked={true} />
                 <MySelect required={true} isValid={isValid} name="test6" label="Test select" emptyOption="Pusta wartość" options={testOptions} defaultValue={testOptions[1].value} onChange={(value: string) => console.log(value)} />
                 <MyFileInput required={true} isValid={isValid} name="test7" label="Test file" placeholder="Select file" onChange={(value: string) => console.log(value)} />
-                <MySwitch required={true} isValid={true} name="test8" label="Test switch" onChange={setIsValid} defaultChecked={isValid} />
-                <StarSelectInput required={true} isValid={true} name="test9" label="Test star select" onChange={(value: number) => console.log(value)} defaultValue={0} />
+                <MySwitch required={true} isValid={true} name="test8" label="Test switch" onChange={setIsValid} defaultChecked={true} />
+                <StarSelectInput required={true} isValid={true} name="test9" label="Test star select" onChange={(value: number) => console.log(value)} defaultValue={2} />
             </Form>
         </Stack>
 
@@ -316,7 +316,8 @@ function FilteredSelectTest({ required, isValid }: any) {
 
 
     return <FilteredSelect required={required} isValid={isValid} label="Test wartości" options={filteredSelectValues} onSearchCallback={onSearchCallback}
-        onSelectCallback={onSelectCallback} onNewValueCallback={onNewValueCallback} disabled={false} allowNew={true} />
+        onSelectCallback={onSelectCallback} onNewValueCallback={onNewValueCallback} disabled={false} allowNew={true}
+        defaultValue={{ label: "test123" }} />
 }
 
 function FilteredMultiSelectTest({ required, isValid }: any) {
@@ -377,9 +378,11 @@ function FilteredHierarchicalSelectTest({ required, isValid }: any) {
         //console.log("onNewValueCallback", value)
     }
 
+    const defaultValue = filteredSelectValues.length > 0 ? [filteredSelectValues[0]] : null
 
-    return <FilteredSelect required={required} isValid={isValid} multiple={true} label="Test hierarchical Select" options={filteredSelectValues} onSearchCallback={onSearchCallback} hierarchical={true}
-        onSelectCallback={onSelectCallback} onNewValueCallback={onNewValueCallback} disabled={false} allowNew={false} />
+    return defaultValue && <FilteredSelect required={required} isValid={isValid} multiple={true} label="Test hierarchical Select" options={filteredSelectValues} onSearchCallback={onSearchCallback} hierarchical={true}
+        onSelectCallback={onSelectCallback} onNewValueCallback={onNewValueCallback} disabled={false} allowNew={false}
+        defaultValue={defaultValue} />
 }
 
 function CategoryCardExample() {

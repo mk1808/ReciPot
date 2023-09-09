@@ -33,6 +33,12 @@ function MyInput({
 
     useEffect(() => { onChange(inputValue) }, [inputValue])
 
+    useEffect(() => { 
+        if (inputRef.current) { 
+            inputRef.current.value = defaultValue; 
+            setInputValue(defaultValue) } 
+        }, [defaultValue])
+
     function onChangeCallback(event: any) {
         setInputValue(event.target.value)
     }
