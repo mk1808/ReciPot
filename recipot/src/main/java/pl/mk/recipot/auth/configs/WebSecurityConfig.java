@@ -2,6 +2,7 @@ package pl.mk.recipot.auth.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -20,18 +21,20 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 @EnableMethodSecurity
 @Configuration
 public class WebSecurityConfig {
-	private static final String[] WHITE_LIST_URLS = { "/api/auth/register", "/api/logout2" };
 
 	private JwtAuthenticationEntryPoint authenticationEntryPoint;
 	private UserDetailsService userDetailsService;
 	private HttpSecurityConfig httpSecurityConfig;
+	private WhiteListUrls whiteListUrls;
 
 	public WebSecurityConfig(JwtAuthenticationEntryPoint authenticationEntryPoint,
-			UserDetailsService userDetailsService, HttpSecurityConfig httpSecurityConfig) {
+			UserDetailsService userDetailsService, HttpSecurityConfig httpSecurityConfig, 
+			WhiteListUrls whiteListUrls) {
 		super();
 		this.authenticationEntryPoint = authenticationEntryPoint;
 		this.userDetailsService = userDetailsService;
 		this.httpSecurityConfig = httpSecurityConfig;
+		this.whiteListUrls = whiteListUrls;
 	}
 
 	@Bean
@@ -62,7 +65,10 @@ public class WebSecurityConfig {
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(
-				authz -> authz.requestMatchers(WHITE_LIST_URLS).permitAll().anyRequest().authenticated())
+				authz -> authz
+				.requestMatchers(HttpMethod.GET, whiteListUrls.returnGetUrls()).permitAll()
+				.requestMatchers(HttpMethod.POST, whiteListUrls.returnPostUrls()).permitAll()
+				.anyRequest().authenticated())
 				.csrf(csrf -> csrf.disable()).cors(cors -> cors.disable())
 				.exceptionHandling(
 						exceptionHandling -> exceptionHandling.authenticationEntryPoint(authenticationEntryPoint))
