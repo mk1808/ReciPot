@@ -1,11 +1,6 @@
 import React, { useEffect, useContext } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import logo from './logo.svg';
+import { Routes, Route } from 'react-router-dom';
 import './App.scss';
-import Button from 'react-bootstrap/Button';
-import restClient from './api/RestClient';
-import recipesApi from './api/RecipesApi';
-import authApi from './api/AuthApi';
 import Header from './layouts/header/Header';
 import Footer from './layouts/footer/Footer';
 import Main from './pages/main/Main';
@@ -21,18 +16,7 @@ import { UserContextProvider, UsersContext, UsersDispatchContext } from './conte
 import Test from './pages/other/test/Test';
 import UserDetails from './pages/user/UserDetails';
 import AlertContextProvider from './context/AlertContext';
-
-const ProtectedRoute = ({ element }: any) => {
-  const user = useContext(UsersContext).user;
-  const usersDispatchContext = useContext(UsersDispatchContext);
-  if (!user) {
-    usersDispatchContext(
-      { type: "refresh" }
-    )
-    return <Navigate to="/noAccess" replace />;
-  }
-  return element;
-};
+import ProtectedRoute from './config/ProtectedRoute';
 
 function App() {
   const usersDispatchContext = useContext(UsersDispatchContext);
