@@ -12,6 +12,7 @@ import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import pl.mk.recipot.commons.dtos.SearchCriteriaDto;
+import pl.mk.recipot.commons.enums.RecipeAccessType;
 import pl.mk.recipot.commons.enums.RecipeAmountOfDishes;
 import pl.mk.recipot.commons.enums.RecipeDifficulty;
 import pl.mk.recipot.commons.enums.RecipeRequiredEffort;
@@ -99,6 +100,11 @@ public class RecipeSpecification implements Specification<Recipe> {
 
 			if (searchCriteria.getFilterKey().equals("numberOfDishes")) {
 				int num = RecipeAmountOfDishes.valueOf((String) searchCriteria.getValue()).ordinal();
+				return criteriaBuilder.equal(root.get(searchCriteria.getFilterKey()), num);
+			}
+			
+			if (searchCriteria.getFilterKey().equals("accessType")) {
+				int num = RecipeAccessType.valueOf((String) searchCriteria.getValue()).ordinal();
 				return criteriaBuilder.equal(root.get(searchCriteria.getFilterKey()), num);
 			}
 			
