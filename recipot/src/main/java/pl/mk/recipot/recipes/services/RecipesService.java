@@ -21,7 +21,6 @@ import pl.mk.recipot.recipes.domains.SearchRecipesByCriteria;
 import pl.mk.recipot.recipes.domains.UpdateAverageRatingInRecipe;
 import pl.mk.recipot.recipes.domains.UpdateStepsAndIngredientsInRecipe;
 import pl.mk.recipot.recipes.domains.UpdateVisibilityInRecipe;
-import pl.mk.recipot.recipes.dtos.RecipeFilterDto;
 import pl.mk.recipot.recipes.repositories.IRecipeIngredientsRepository;
 import pl.mk.recipot.recipes.repositories.IRecipeStepsRepository;
 import pl.mk.recipot.recipes.repositories.IRecipesRepository;
