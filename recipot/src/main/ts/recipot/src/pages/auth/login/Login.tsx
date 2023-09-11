@@ -9,6 +9,8 @@ import { useContext, useEffect } from 'react';
 import { UsersContext, UsersDispatchContext } from '../../../context/UserContext';
 import authApi from '../../../api/AuthApi';
 import { useNavigate } from 'react-router-dom';
+import { AlertsDispatchContext } from '../../../context/AlertContext';
+import { showErrorAlert } from '../../../utils/RestUtils';
 
 function Login() {
     const { t } = useTranslation();
@@ -16,6 +18,7 @@ function Login() {
     const navigate = useNavigate();
     const user = useContext(UsersContext).user;
     const formSave: FormSave = getEmptyFormSave();
+    const dispatch = useContext(AlertsDispatchContext);
     useEffect(() => {
         if (user != null) {
             navigate('/user');
@@ -30,7 +33,8 @@ function Login() {
         usersDispatchContext({ type: "refresh" });
     }
     formSave.onError = function (response: any) {
-
+        console.log(response)
+        showErrorAlert(t(response.message), dispatch);
     }
 
     return (

@@ -9,8 +9,12 @@ export const AlertsDispatchContext = createContext<Function>(() => { });
 function alertsReducer(alerts: any[], action: any) {
     switch (action.type) {
         case 'added': {
+            if (alerts.filter(alert => alert.message == action.message).length > 0) {
+                return alerts;
+            }
+            let index = alerts && alerts.length > 0 ? alerts[alerts.length - 1].id + 1 : 1;
             return [...alerts, {
-                id: action.id,
+                id: index,
                 message: action.message,
                 alertType: action.alertType
             }];
@@ -47,15 +51,15 @@ export function AlertManager({ alerts = [] }: any) {
     function getAlert(alert: any): any {
         switch (alert.alertType) {
             case 'primary':
-                return  (<MyAlert.Primary key={alert.id} >{alert.message}</MyAlert.Primary>)
-            case 'success': return  (<MyAlert.Success key={alert.id} >{alert.message}</MyAlert.Success>)
-            case 'error': return (<MyAlert.Error key={alert.id} >{alert.message}</MyAlert.Error>) 
+                return (<MyAlert.Primary key={alert.id} >{alert.message}</MyAlert.Primary>)
+            case 'success': return (<MyAlert.Success key={alert.id} >{alert.message}</MyAlert.Success>)
+            case 'danger': return (<MyAlert.Error key={alert.id} >{alert.message}</MyAlert.Error>)
         }
     }
 
     return (<div className="alert-container">
         {alerts.map((alert: any) => {
-           
+
             return (getAlert(alert));
         })
         }

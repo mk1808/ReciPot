@@ -68,11 +68,11 @@ function App() {
     )
   }
   return (
-    <UserContextProvider>
-      <AlertContextProvider>
+    <AlertContextProvider>
+      <UserContextProvider>
         {renderApp()}
-      </AlertContextProvider>
-    </UserContextProvider>
+      </UserContextProvider>
+    </AlertContextProvider>
   );
 }
 export default App;

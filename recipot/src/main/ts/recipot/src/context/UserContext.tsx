@@ -1,12 +1,17 @@
-import { createContext, useEffect, Context, useReducer } from "react";
+import { createContext, useEffect, Context, useReducer, useContext } from "react";
 import authApi from "../api/AuthApi";
 import { AppUser, Response } from "../data/types";
+import { showSuccessAlert } from "../utils/RestUtils";
+import { useTranslation } from "react-i18next";
+import { AlertsDispatchContext } from "./AlertContext";
 
 export const UsersContext: Context<{ user?: AppUser }> = createContext({});
 
 export const UsersDispatchContext = createContext<Function>(() => { });
 
 export const UserContextProvider = ({ children }: any) => {
+    const { t } = useTranslation();
+    const alertsDispatchContext = useContext(AlertsDispatchContext);
     const [user, dispatch]: [any, Function] = useReducer(
         usersReducer, null
     );
@@ -21,8 +26,9 @@ export const UserContextProvider = ({ children }: any) => {
         console.log("error")
     };
 
-    function onSuccessLogout(response: Response<AppUser>) {
-        console.log(response.value);
+    function onSuccessLogout(response: Response<any>) {
+        showSuccessAlert(t(response.message), alertsDispatchContext);
+        console.log(response);
     };
 
     function usersReducer(user: any, action: any) {

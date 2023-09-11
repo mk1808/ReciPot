@@ -17,6 +17,8 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import pl.mk.recipot.commons.dtos.JWTDto;
 import pl.mk.recipot.commons.dtos.UserLoginDto;
+import pl.mk.recipot.commons.exceptions.ForbiddenException;
+import pl.mk.recipot.commons.exceptions.UnauthorizedException;
 
 @RestController
 @CrossOrigin
@@ -40,7 +42,7 @@ public class JwtController {
 		} catch (DisabledException e) {
 			throw new Exception("USER_DISABLED", e);
 		} catch (BadCredentialsException e) {
-			throw new Exception("INVALID_CREDENTIALS", e);
+			throw new UnauthorizedException("auth.error.loginNotCorrect");
 		}
 		final JwtUserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
 		final String jwtToken = tokenManager.generateJwtToken(userDetails); 
