@@ -1,4 +1,4 @@
-import { Category, CategoryDto, HashTag, Ingredient, RecipeDifficulty, RecipeRequiredEffort, Response } from "../data/types";
+import { Category, CategoryDto, HashTag, Ingredient, RecipeAccessType, RecipeAmountOfDishes, RecipeDifficulty, RecipeRequiredEffort, Response } from "../data/types";
 import { createPathParams } from "../utils/RestUtils";
 import restClient from "./RestClient";
 
@@ -31,6 +31,14 @@ function DictionariesApi() {
         restClient.get(`${PREFIX}/difficulties`, onSuccess, onError)
     }
 
+    const getAllAmountsOfDishes = (onSuccess: (response: Response<RecipeAmountOfDishes[]>) => any, onError?: (response: Response<RecipeAmountOfDishes[]>) => any) => {
+        restClient.get(`${PREFIX}/amountOfDishes`, onSuccess, onError)
+    }
+
+    const getAllAccessTypes = (onSuccess: (response: Response<RecipeAccessType[]>) => any, onError?: (response: Response<RecipeAccessType[]>) => any) => {
+        restClient.get(`${PREFIX}/accessTypes`, onSuccess, onError)
+    }
+
     const createIngredient = (body: Category, onSuccess: (response: Response<Ingredient>) => any, onError?: (response: Response<Ingredient>) => any) => {
         restClient.post(`${PREFIX}/ingredients`, body, onSuccess, onError)
     }
@@ -40,7 +48,7 @@ function DictionariesApi() {
         restClient.get(`${PREFIX}/ingredients?${pathParams}`, onSuccess, onError)
     }
 
-    return { createCategory, getAllCategories, createHashTag, getHashTags, getAllRequiredEfforts, getAllDifficulties, createIngredient, getAllIngredients }
+    return { createCategory, getAllCategories, createHashTag, getHashTags, getAllRequiredEfforts, getAllDifficulties, getAllAmountsOfDishes, getAllAccessTypes, createIngredient, getAllIngredients }
 }
 
 const dictionariesApi = DictionariesApi();

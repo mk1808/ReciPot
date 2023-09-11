@@ -8,3 +8,10 @@ export interface FormSave {
     onSuccess: Function;
     onError: Function;
 }
+
+export interface Enums {
+    difficulties: [] | Function,
+    requiredEfforts: [] | Function,
+    amountsOfDishes: [] | Function,
+    accessTypes: [] | Function,
+}
