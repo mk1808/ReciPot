@@ -9,3 +9,11 @@ export function createPathParams(params: any) {
     }
     return pathParams;
 }
+
+export function showErrorAlert(response:string, alertDispatchContest:any){
+    alertDispatchContest({
+        type: 'added',
+        message: response,
+        alertType: "danger"
+    })
+}

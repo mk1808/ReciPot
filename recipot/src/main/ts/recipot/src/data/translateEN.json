@@ -12,7 +12,8 @@
 		"error": {
 			"passwordsNotEqual": "Passwords are not equal",
 			"userNotExists": "User does not exists",
-			"userExists": "User already exists"
+			"userExists": "User already exists",
+            "loginNotCorrect": "Incorrect login data"
 		}
 	},
 	"dictionaries": {

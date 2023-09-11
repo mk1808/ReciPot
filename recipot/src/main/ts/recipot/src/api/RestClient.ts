@@ -9,9 +9,14 @@ function RestClient() {
             method: method,
             headers: HEADER
         })
-            .then(response => response.json())
+            .then((response: any) => {
+                if (!response.ok) {
+                    return Promise.reject(response);
+                }
+                return response.json();
+            })
             .then(onSuccess)
-            .catch(onError);
+            .catch((response) => response.json().then(onError).catch(onError));
     }
 
     const apiCallWithBody = <T>(method: any, path: string | undefined, body: object, onSuccess: (response: Response<T>) => any, onError?: (response: Response<T>) => any) => {
@@ -20,9 +25,14 @@ function RestClient() {
             headers: HEADER,
             body: JSON.stringify(body)
         })
-            .then(response => response.json())
+            .then((response: any) => {
+                if (!response.ok) {
+                    return Promise.reject(response);
+                }
+                return response.json();
+            })
             .then(onSuccess)
-            .catch(onError);
+            .catch((response) => response.json().then(onError).catch(onError));
     }
 
     const _get = <T>(path: string | undefined, onSuccess: (response: Response<T>) => any, onError?: (response: Response<T>) => any) => {

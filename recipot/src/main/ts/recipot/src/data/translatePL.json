@@ -12,7 +12,8 @@
         "error": {
             "passwordsNotEqual": "Hasła nie są takie same",
             "userNotExists": "Użytkownik nie istnieje",
-            "userExists": "Użytkownik istnieje"
+            "userExists": "Użytkownik istnieje",
+            "loginNotCorrect": "Niepoprawne dane logowania"
         }
     },
     "dictionaries": {

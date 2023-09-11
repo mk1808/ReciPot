@@ -10,7 +10,7 @@ function SuccessAlert({ children }: any) {
 }
 
 function ErrorAlert({ children }: any) {
-    return <MyAlert >{children}</MyAlert>
+    return <MyAlert variant="danger">{children}</MyAlert>
 }
 
 function MyAlert({ variant, children }: { variant?: string, children: any }) {
