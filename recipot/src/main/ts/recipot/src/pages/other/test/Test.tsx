@@ -29,7 +29,7 @@ import MyImage from "../../../components/basicUi/MyImage";
 import { initAs } from "../../../utils/ObjectUtils";
 import CategoryCard from "../../../components/complex/CategoryCard";
 import TimeAmountInput from "../../../components/complex/TimeAmountInput";
-import { mapCategoriesToSearchList, mapDictionaryValueToSearchList, searchCategory } from "../../../utils/DictionariesUtils";
+import { mapCategoriesToSearchList, onFilteredHashTagSearch, searchCategory } from "../../../utils/DictionariesUtils";
 import StarSelectInput from "../../../components/basicUi/StarSelectInput";
 import { inputAttributes } from "../../../utils/FormInputUtils";
 
@@ -299,26 +299,17 @@ function Test() {
 }
 
 function FilteredSelectTest({ required, isValid, defaultValueIndex }: any) {
-    const [filteredSelectValues, setFilteredSelectValues] = useState<any[]>([]);
+    const [filteredHashTags, setFilteredHashTags] = useState<any[]>([]);
     const [defaultValues, setDefaultValues] = useState<any>();
+
+    useEffect(() => {
+        onFilteredHashTagSearch('', setFilteredHashTags);
+    }, [])
 
     useEffect(() => {
         setDefaultValues({ label: "test123" + defaultValueIndex })
     }, [defaultValueIndex])
 
-    function onFilteredSelectSearchCallback(phrase: string) {
-        dictionariesApi.getHashTags({ name: phrase, size: 5 }, (response: any) => { setFilteredSelectValues(mapDictionaryValueToSearchList(response.value.content)) })
-    }
-
-    useEffect(() => {
-        onFilteredSelectSearchCallback('');
-    }, [])
-
-    function onSearchCallback(phrase: string) {
-        onFilteredSelectSearchCallback(phrase)
-        //console.log("onSearchCallback", phrase)
-    }
-
     function onSelectCallback(value: any) {
         //console.log("onSelectCallback", value)
     }
@@ -328,32 +319,32 @@ function FilteredSelectTest({ required, isValid, defaultValueIndex }: any) {
     }
 
 
-    return <FilteredSelect required={required} isValid={isValid} label="Test wartości" options={filteredSelectValues} onSearchCallback={onSearchCallback}
-        onSelectCallback={onSelectCallback} onNewValueCallback={onNewValueCallback} disabled={false} allowNew={true}
-        defaultValue={defaultValues} />
+    return <FilteredSelect
+        required={required}
+        isValid={isValid}
+        label="Test wartości"
+        options={filteredHashTags}
+        onSearchCallback={(phrase: string) => onFilteredHashTagSearch(phrase, setFilteredHashTags)}
+        onSelectCallback={onSelectCallback}
+        onNewValueCallback={onNewValueCallback}
+        disabled={false}
+        allowNew={true}
+        defaultValue={defaultValues}
+    />
 }
 
 function FilteredMultiSelectTest({ required, isValid, defaultValueIndex }: any) {
-    const [filteredSelectValues, setFilteredSelectValues] = useState<any[]>([]);
+    const [filteredHashTags, setFilteredHashTags] = useState<any[]>([]);
     const [defaultValues, setDefaultValues] = useState<any[]>([]);
+
+    useEffect(() => {
+        onFilteredHashTagSearch('', setFilteredHashTags);
+    }, [])
 
     useEffect(() => {
         setDefaultValues([{ label: "test123" + defaultValueIndex }, { label: "abc_111" }])
     }, [defaultValueIndex])
 
-    function onFilteredSelectSearchCallback(phrase: string) {
-        dictionariesApi.getHashTags({ name: phrase, size: 5 }, (response: any) => { setFilteredSelectValues(mapDictionaryValueToSearchList(response.value.content)) })
-    }
-
-    useEffect(() => {
-        onFilteredSelectSearchCallback('');
-    }, [])
-
-    function onSearchCallback(phrase: string) {
-        onFilteredSelectSearchCallback(phrase)
-        //console.log("onSearchCallback", phrase)
-    }
-
     function onSelectCallback(value: any) {
         //console.log("onSelectCallback", value)
     }
@@ -363,34 +354,40 @@ function FilteredMultiSelectTest({ required, isValid, defaultValueIndex }: any) 
     }
 
 
-    return <FilteredSelect required={required} isValid={isValid} multiple={true} label="Test multiSelect" options={filteredSelectValues} onSearchCallback={onSearchCallback} allowNew={true}
-        onSelectCallback={onSelectCallback} onNewValueCallback={onNewValueCallback} disabled={false} defaultValue={defaultValues} />
+    return <FilteredSelect
+        required={required}
+        isValid={isValid}
+        multiple={true}
+        label="Test multiSelect"
+        options={filteredHashTags}
+        onSearchCallback={(phrase: string) => onFilteredHashTagSearch(phrase, setFilteredHashTags)}
+        allowNew={true}
+        onSelectCallback={onSelectCallback}
+        onNewValueCallback={onNewValueCallback}
+        disabled={false}
+        defaultValue={defaultValues}
+    />
 }
 
 
 function FilteredHierarchicalSelectTest({ required, isValid, defaultValueIndex }: any) {
-    const [filteredSelectValues, setFilteredSelectValues] = useState<any[]>([]);
+    const [filteredCategories, setFilteredCategories] = useState<any[]>([]);
     const [allCategories, setAllCategories] = useState<any[]>([]);
     const [defaultValues, setDefaultValues] = useState<any[]>([]);
 
     useEffect(() => {
-        setDefaultValues(filteredSelectValues.length > 0 ? [filteredSelectValues[defaultValueIndex % 3]] : [])
+        setDefaultValues(filteredCategories.length > 0 ? [filteredCategories[defaultValueIndex % 3]] : [])
     }, [defaultValueIndex])
-
-    function onFilteredSelectSearchCallback(phrase: string) {
-        setFilteredSelectValues(mapCategoriesToSearchList(searchCategory(allCategories, phrase)))
-    }
 
     useEffect(() => {
         dictionariesApi.getAllCategories((response: Response<CategoryDto[]>) => {
             setAllCategories(response.value)
-            setFilteredSelectValues(mapCategoriesToSearchList(response.value))
+            setFilteredCategories(mapCategoriesToSearchList(response.value))
         })
     }, [])
 
-    function onSearchCallback(phrase: string) {
-        onFilteredSelectSearchCallback(phrase)
-        //console.log("onSearchCallback", phrase)
+    function onCategorySearchCallback(phrase: string) {
+        setFilteredCategories(mapCategoriesToSearchList(searchCategory(allCategories, phrase)))
     }
 
     function onSelectCallback(value: any) {
@@ -402,9 +399,20 @@ function FilteredHierarchicalSelectTest({ required, isValid, defaultValueIndex }
     }
 
 
-    return <FilteredSelect required={required} isValid={isValid} multiple={true} label="Test hierarchical Select" options={filteredSelectValues} onSearchCallback={onSearchCallback} hierarchical={true}
-        onSelectCallback={onSelectCallback} onNewValueCallback={onNewValueCallback} disabled={false} allowNew={false}
-        defaultValue={defaultValues} />
+    return <FilteredSelect
+        required={required}
+        isValid={isValid}
+        multiple={true}
+        label="Test hierarchical Select"
+        options={filteredCategories}
+        onSearchCallback={onCategorySearchCallback}
+        hierarchical={true}
+        onSelectCallback={onSelectCallback}
+        onNewValueCallback={onNewValueCallback}
+        disabled={false}
+        allowNew={false}
+        defaultValue={defaultValues}
+    />
 }
 
 function CategoryCardExample() {
