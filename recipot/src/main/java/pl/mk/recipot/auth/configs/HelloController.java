@@ -9,6 +9,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import pl.mk.recipot.commons.dtos.Response;
 import pl.mk.recipot.commons.exceptions.UnauthorizedException;
+import pl.mk.recipot.commons.factories.OkMessageResponseFactory;
 import pl.mk.recipot.commons.factories.UnauthorizedResponseFactory;
 
 @RestController
@@ -43,8 +44,8 @@ public class HelloController {
 	}
 
 	@GetMapping("/api/logout2")
-	public String logout(HttpServletResponse response) {
+	public ResponseEntity<Response<Void>> logout(HttpServletResponse response) {
 		response.addCookie(new Cookie("token", null));
-		return "hello";
+		return new OkMessageResponseFactory().createResponse("logged out");
 	}
 }
