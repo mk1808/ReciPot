@@ -27,7 +27,7 @@ export const UserContextProvider = ({ children }: any) => {
     };
 
     function onSuccessLogout(response: Response<any>) {
-        showSuccessAlert((response.message), alertsDispatchContext);
+        showSuccessAlert(t(response.message), alertsDispatchContext);
         console.log(response);
     };
 

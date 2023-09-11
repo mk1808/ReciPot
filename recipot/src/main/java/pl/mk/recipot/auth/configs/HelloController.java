@@ -46,6 +46,6 @@ public class HelloController {
 	@GetMapping("/api/logout2")
 	public ResponseEntity<Response<Void>> logout(HttpServletResponse response) {
 		response.addCookie(new Cookie("token", null));
-		return new OkMessageResponseFactory().createResponse("logged out");
+		return new OkMessageResponseFactory().createResponse("auth.success.loggedOut");
 	}
 }

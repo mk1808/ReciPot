@@ -7,7 +7,8 @@
     },
     "auth": {
         "success": {
-            "passwordChanged": "Hasło poprawnie zmienione"
+            "passwordChanged": "Hasło poprawnie zmienione",
+            "loggedOut": "Użytkownik został wylogowany"
         },
         "error": {
             "passwordsNotEqual": "Hasła nie są takie same",
