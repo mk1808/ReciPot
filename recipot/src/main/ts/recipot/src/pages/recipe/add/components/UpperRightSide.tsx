@@ -8,6 +8,7 @@ import dictionariesApi from "../../../../api/DictionariesApi";
 import { CategoryDto, Response } from "../../../../data/types";
 import { AddRecipeContext, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
 import { inputAttributesForContext } from "../../../../utils/FormInputUtils";
+import { EnumDictionaryContext, EnumDictionaryDispatchContext } from "../../../../context/EnumDictionaryContext";
 
 function UpperRightSide() {
     const { t } = useTranslation();
@@ -16,6 +17,7 @@ function UpperRightSide() {
     const [allCategories, setAllCategories] = useState<any[]>([]);
     const addRecipeDispatchContext = useContext(AddRecipeDispatchContext);
     const formFields = useContext(AddRecipeContext).fields;
+    const enumDictionaryContext = useContext(EnumDictionaryContext).enums;
 
     useEffect(() => {
         onFilteredHashTagSearch('', setFilteredHashTags);
@@ -31,6 +33,10 @@ function UpperRightSide() {
 
     function onCategorySearchCallback(phrase: string) {
         setFilteredCategories(mapCategoriesToSearchList(searchCategory(allCategories, phrase)))
+    }
+
+    function getEnum(enumName: string) {
+        return enumDictionaryContext[enumName] || [];
     }
 
     function onChange(fieldValue: any, fieldName: string) {
@@ -83,7 +89,7 @@ function UpperRightSide() {
     }
 
     function renderAccessTypeInput() {
-        const accessTypes = getAccessTypes(t);
+        const accessTypes = getEnum("accessTypes");
         return (
             <MySelect
                 label={t("p.accessTypeFilter")}
@@ -95,7 +101,7 @@ function UpperRightSide() {
     }
 
     function renderAmountOfDishesInput() {
-        const amountOfDishes = getAmountOfDishes(t);
+        const amountOfDishes = getEnum("amountsOfDishes");
         return (
             <MySelect
                 label={t("p.amountOfDishesFilter")}
@@ -106,7 +112,7 @@ function UpperRightSide() {
         )
     }
     function renderDifficultyInput() {
-        const difficulties = getDifficulties(t);
+        const difficulties = getEnum("difficulties");
         return (
             <MySelect
                 label={t("p.difficultiesFilter")}
@@ -118,7 +124,7 @@ function UpperRightSide() {
     }
 
     function renderRequiredEffortInput() {
-        const requiredEffort = getRequiredEfforts(t);
+        const requiredEffort = getEnum("requiredEfforts");
         return (
             <MySelect
                 label={t("p.requiredEffortFilter")}

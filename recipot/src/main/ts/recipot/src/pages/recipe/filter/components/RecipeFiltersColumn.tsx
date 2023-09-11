@@ -14,6 +14,7 @@ import { FormSave } from "../../../../data/utilTypes";
 import { inputAttributesForContextWithoutValidity } from "../../../../utils/FormInputUtils";
 import AddRecipeFilterDialog from "../dialogs/AddRecipeFilterDialog";
 import { RecipeFilterContext, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
+import { EnumDictionaryContext } from "../../../../context/EnumDictionaryContext";
 
 function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     const { t } = useTranslation();
@@ -26,6 +27,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     const [filteredCategories, setFilteredCategories] = useState<any[]>([]);
     const [allCategories, setAllCategories] = useState<any[]>([]);
     const [showModal, setShowModal] = useState(false);
+    const enumDictionaryContext = useContext(EnumDictionaryContext).enums;
 
     useEffect(() => {
         onFilteredHashTagSearch('', setFilteredHashTags);
@@ -83,6 +85,9 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
             onChange("categories", value)
         }
     }
+    function getEnum(enumName: string) {
+        return enumDictionaryContext[enumName] || [];
+    }
 
     return (
         <Form onSubmit={() => console.log("asd")}>
@@ -114,7 +119,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     }
 
     function renderAccessTypeInput() {
-        const accessTypes = getAccessTypes(t);
+        const accessTypes = getEnum("accessTypes");
         return (
             <MySelect
                 {...inputAttributesForContextWithoutValidity("accessType", t("p.accessTypeFilter"), onChange, recipesFilterForm)}
@@ -149,7 +154,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     }
 
     function renderAmountOfDishesInput() {
-        const amountOfDishes = getAmountOfDishes(t);
+        const amountOfDishes = getEnum("amountsOfDishes")
         return (
             <MySelect
                 {...inputAttributesForContextWithoutValidity("amountOfDishes", t("p.amountOfDishesFilter"), onChange, recipesFilterForm)}
@@ -160,7 +165,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     }
 
     function renderDifficultyInput() {
-        const difficulties = getDifficulties(t);
+        const difficulties = getEnum("difficulties")
         return (
             <MySelect
                 {...inputAttributesForContextWithoutValidity("difficulties", t("p.difficultiesFilter"), onChange, recipesFilterForm)}
@@ -171,7 +176,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     }
 
     function renderRequiredEffortInput() {
-        const requiredEffort = getRequiredEfforts(t);
+        const requiredEffort = getEnum("requiredEfforts");
         return (
             <MySelect
                 {...inputAttributesForContextWithoutValidity("requiredEffort", t("p.requiredEffortFilter"), onChange, recipesFilterForm)}

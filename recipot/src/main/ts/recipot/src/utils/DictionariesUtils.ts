@@ -1,23 +1,20 @@
 import dictionariesApi from "../api/DictionariesApi";
 import { CategoryDto, RecipeAccessType, RecipeAmountOfDishes, RecipeDifficulty, RecipeRequiredEffort } from "../data/types";
+import { Enums } from "../data/utilTypes";
 
-export function getAccessTypes(t: any): { label: string, value: RecipeAccessType }[] {
-    const values: RecipeAccessType[] = ["PUBLIC", "PRIVATE"];
+export function getAccessTypes(t: any, values: RecipeAccessType[]): { label: string, value: RecipeAccessType }[] {
     return dictionaryValueToSelectOption('RecipeAccessType', values, t);
 }
 
-export function getAmountOfDishes(t: any): { label: string, value: RecipeAmountOfDishes }[] {
-    const values: RecipeAmountOfDishes[] = ["SMALL", "MEDIUM", "LARGE"];
+export function getAmountOfDishes(t: any, values: RecipeAmountOfDishes[]): { label: string, value: RecipeAmountOfDishes }[] {
     return dictionaryValueToSelectOption('RecipeAmountOfDishes', values, t);
 }
 
-export function getDifficulties(t: any): { label: string, value: RecipeDifficulty }[] {
-    const values: RecipeDifficulty[] = ["EASY", "MEDIUM", "ADVANCED"]; //TODO: fetch from API
+export function getDifficulties(t: any, values: RecipeDifficulty[]): { label: string, value: RecipeDifficulty }[] {
     return dictionaryValueToSelectOption('RecipeDifficulty', values, t);
 }
 
-export function getRequiredEfforts(t: any): { label: string, value: RecipeRequiredEffort }[] {
-    const values: RecipeRequiredEffort[] = ["SMALL", "MEDIUM", "LARGE"]; //TODO: fetch from API
+export function getRequiredEfforts(t: any, values: RecipeRequiredEffort[]): { label: string, value: RecipeRequiredEffort }[] {
     return dictionaryValueToSelectOption('RecipeRequiredEffort', values, t);
 }
 
@@ -57,6 +54,15 @@ export function searchCategory(categories: CategoryDto[], phrase: string): any[]
         }
     })
     return result;
+}
+
+export function getConverters(): any {
+    return {
+        difficulties: getDifficulties,
+        requiredEfforts: getRequiredEfforts,
+        amountsOfDishes: getAmountOfDishes,
+        accessTypes: getAccessTypes
+    }
 }
 
 function checkCategoryContainsPhrase(category: CategoryDto, phrase: string) {

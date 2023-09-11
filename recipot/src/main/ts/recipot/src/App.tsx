@@ -17,6 +17,7 @@ import Test from './pages/other/test/Test';
 import UserDetails from './pages/user/UserDetails';
 import AlertContextProvider from './context/AlertContext';
 import ProtectedRoute from './config/ProtectedRoute';
+import { EnumDictionaryContextProvider } from './context/EnumDictionaryContext';
 
 function App() {
   const usersDispatchContext = useContext(UsersDispatchContext);
@@ -68,11 +69,13 @@ function App() {
     )
   }
   return (
-    <AlertContextProvider>
-      <UserContextProvider>
-        {renderApp()}
-      </UserContextProvider>
-    </AlertContextProvider>
+    <EnumDictionaryContextProvider>
+      <AlertContextProvider>
+        <UserContextProvider>
+          {renderApp()}
+        </UserContextProvider>
+      </AlertContextProvider>
+    </EnumDictionaryContextProvider>
   );
 }
 export default App;
