@@ -9,6 +9,9 @@ export const AlertsDispatchContext = createContext<Function>(() => { });
 function alertsReducer(alerts: any[], action: any) {
     switch (action.type) {
         case 'added': {
+            if (alerts.filter(alert => alert.message == action.message).length > 0) {
+                return alerts;
+            }
             let index = alerts && alerts.length > 0 ? alerts[alerts.length - 1].id + 1 : 1;
             return [...alerts, {
                 id: index,

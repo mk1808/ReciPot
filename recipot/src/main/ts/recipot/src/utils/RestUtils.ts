@@ -17,3 +17,11 @@ export function showErrorAlert(response:string, alertDispatchContest:any){
         alertType: "danger"
     })
 }
+
+export function showSuccessAlert(response:string, alertDispatchContest:any){
+    alertDispatchContest({
+        type: 'added',
+        message: response,
+        alertType: "success"
+    })
+}
