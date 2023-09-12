@@ -3,7 +3,7 @@ import './styles.scss';
 import { useTranslation } from 'react-i18next';
 import MyInput from '../../../components/basicUi/MyInput';
 import MyButton from '../../../components/basicUi/MyButton';
-import { useReducer } from 'react';
+import { useReducer, useState } from 'react';
 import { checkIfAllValid, getEmptyForm, getNewState, inputAttributes, preventFurtherAction } from '../../../utils/FormInputUtils';
 import MyTextarea from "../../../components/basicUi/MyTextarea";
 import { validateEmail } from '../../../utils/RegexUtils';
@@ -12,6 +12,7 @@ import { FormSave, MyForm } from '../../../data/utilTypes';
 function RegisterForm({ formSave }: { formSave: FormSave }) {
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
+    const [defaultValue, setDefaultValue] = useState("");
 
     function handleSubmit(event: any) {
         const form = myForm;
@@ -58,23 +59,27 @@ function RegisterForm({ formSave }: { formSave: FormSave }) {
                         required={true}
                         label={t('p.username')}
                         placeholder={t('p.username')}
+                        defaultValue={defaultValue}
                         {...inputAttributes("login", myForm, dispatchForm)} />
                     <MyInput
                         required={true}
                         label={t('p.mail')}
                         placeholder={t('p.mail')}
+                        defaultValue={defaultValue}
                         {...inputAttributes("email", myForm, dispatchForm)} />
                     <MyInput
                         type="password"
                         required={true}
                         label={t('p.password')}
                         placeholder={t('p.password')}
+                        defaultValue={defaultValue}
                         {...inputAttributes("password", myForm, dispatchForm)} />
                     <MyInput
                         type="password"
                         required={true}
                         label={t('p.passwordRepeat')}
                         placeholder={t('p.passwordRepeat')}
+                        defaultValue={defaultValue}
                         {...inputAttributes("matchingPassword", myForm, dispatchForm)} />
                 </Row>
             </Col>

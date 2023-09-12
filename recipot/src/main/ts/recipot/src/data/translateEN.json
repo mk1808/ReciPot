@@ -340,6 +340,7 @@
 		"page": "Page",
 		"name": "Name",
 		"description": "Description",
-		"image": "Image"
+		"image": "Image",
+        "userRegisterCorrect": "Account created!"
 	}
 }

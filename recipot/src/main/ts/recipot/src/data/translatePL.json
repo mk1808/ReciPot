@@ -340,6 +340,7 @@
         "page": "Strona",
         "name": "Nazwa",
         "description": "Opis",
-        "image": "Zdjęcie"
+        "image": "Zdjęcie",
+        "userRegisterCorrect": "Konto zostało utworzone!"
     }
 }
