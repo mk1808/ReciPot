@@ -56,7 +56,7 @@ export function searchCategory(categories: CategoryDto[], phrase: string): any[]
     return result;
 }
 
-export function getConverters(): any {
+export function getConverters(): Enums {
     return {
         difficulties: getDifficulties,
         requiredEfforts: getRequiredEfforts,

@@ -14,11 +14,11 @@ export const EnumDictionaryContextProvider = ({ children }: any) => {
         enumsReducer, {}
     );
 
-    function onSuccessRefresh(response: Response<any>, enumType: string) {
-        console.log(response.value);
-        let converter = getConverters()[enumType];
-
-        let action = { singleEnum: converter(t, response.value), type: 'update', enumType: enumType }
+    function onSuccessRefresh(response: Response<any>, enumType: any) {
+        let converter = getConverters();
+        type ObjectKey = keyof typeof converter;
+        let singleConverter: any = converter[enumType as ObjectKey];
+        let action = { singleEnum: singleConverter(t, response.value), type: 'update', enumType: enumType }
         dispatch(action);
     };
 
