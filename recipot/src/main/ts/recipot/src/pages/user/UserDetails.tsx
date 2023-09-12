@@ -6,10 +6,10 @@ import { useTranslation } from 'react-i18next';
 import { Stack } from 'react-bootstrap';
 import { UserStatisticsDto } from '../../data/types';
 import UserDetailsForm from './UserDetailsForm';
-import { FormSave } from '../../data/utilTypes';
 import { getEmptyFormSave } from '../../utils/FormInputUtils';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { UsersContext, UsersDispatchContext } from '../../context/UserContext';
+import usersApi from '../../api/UsersApi';
 
 function UserDetails() {
     const { t } = useTranslation();
@@ -23,11 +23,11 @@ function UserDetails() {
         userRecipeCollectionsCount: 18
     };
 
-    const formSave: FormSave = getEmptyFormSave();
+    const formSave: any = getEmptyFormSave();
     formSave.onSubmit = function (userFormValue: any) {
-        console.log(userFormValue)
+        usersApi.updateUser(user?.id || "", userFormValue, formSave.onSuccess, formSave.onError);
     }
-    formSave.onSuccess = function () {
+    formSave.onSuccess = function (response: any) {
         usersDispatchContext(
             { type: "refresh" }
         )
