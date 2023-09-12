@@ -340,6 +340,8 @@
         "page": "Strona",
         "name": "Nazwa",
         "description": "Opis",
-        "image": "Zdjęcie"
+        "image": "Zdjęcie",
+        "userSuccessfullyEdited": "Użytkownik poprawnie edytowany",
+        "defaultError": "Wystąpił błąd"
     }
 }

@@ -340,6 +340,8 @@
 		"page": "Page",
 		"name": "Name",
 		"description": "Description",
-		"image": "Image"
+		"image": "Image",
+		"userSuccessfullyEdited": "User successfully edited",
+		"defaultError": "Error occurred"
 	}
 }
