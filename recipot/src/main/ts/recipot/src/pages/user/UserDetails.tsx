@@ -10,11 +10,14 @@ import { getEmptyFormSave } from '../../utils/FormInputUtils';
 import { useContext } from 'react';
 import { UsersContext, UsersDispatchContext } from '../../context/UserContext';
 import usersApi from '../../api/UsersApi';
+import { showErrorAlert, showSuccessAlert } from '../../utils/RestUtils';
+import { AlertsDispatchContext } from '../../context/AlertContext';
 
 function UserDetails() {
     const { t } = useTranslation();
     const user = useContext(UsersContext).user;
     const usersDispatchContext = useContext(UsersDispatchContext);
+    const alertsDispatchContext = useContext(AlertsDispatchContext);
     const userStatistics: UserStatisticsDto = {
         commentedRecipesCount: 12,
         createdRecipesCount: 20,
@@ -28,12 +31,13 @@ function UserDetails() {
         usersApi.updateUser(user?.id || "", userFormValue, formSave.onSuccess, formSave.onError);
     }
     formSave.onSuccess = function (response: any) {
+        showSuccessAlert(t("p.userSuccessfullyEdited"), alertsDispatchContext);
         usersDispatchContext(
             { type: "refresh" }
         )
     }
     formSave.onError = function () {
-
+        showErrorAlert(t("p.defaultError"), alertsDispatchContext);
     }
 
     return (
