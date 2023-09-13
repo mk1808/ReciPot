@@ -9,10 +9,10 @@ import MyTextarea from "../../../components/basicUi/MyTextarea";
 import { validateEmail } from '../../../utils/RegexUtils';
 import { FormSave, MyForm } from '../../../data/utilTypes';
 
-function RegisterForm({ formSave }: { formSave: FormSave }) {
+function RegisterForm({ formSave, defaultValue }: { formSave: FormSave, defaultValue:string }) {
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
-    const [defaultValue, setDefaultValue] = useState("");
+
 
     function handleSubmit(event: any) {
         const form = myForm;
@@ -20,6 +20,7 @@ function RegisterForm({ formSave }: { formSave: FormSave }) {
 
         if (checkIfAllValid(event, myForm)) {
             formSave.onSubmit(myForm.formValue);
+      
             console.log('valid')
         } else {
             console.log('invalid')

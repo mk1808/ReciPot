@@ -11,19 +11,22 @@ import { getEmptyFormSave } from "../../../utils/FormInputUtils";
 import authApi from "../../../api/AuthApi";
 import { AppUser, Response } from "../../../data/types";
 import { showErrorAlert, showSuccessAlert } from "../../../utils/RestUtils";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AlertsDispatchContext } from "../../../context/AlertContext";
 
 function Register() {
     const { t } = useTranslation();
     const formSave: FormSave = getEmptyFormSave();
     const alertDispatch = useContext(AlertsDispatchContext);
+    const [defaultValue, setDefaultValue] = useState<string>("");
     formSave.onSubmit = function (formValue: any) {
         console.log(formValue);
         authApi.register(formValue, formSave.onSuccess, formSave.onError);
     }
     formSave.onSuccess = function (response: Response<AppUser>) {
-        showSuccessAlert(t('userRegisterCorrect'), alertDispatch);
+        setDefaultValue(" ");
+        setTimeout(()=>{ setDefaultValue("");}, 100)
+        showSuccessAlert(t('p.userRegisterCorrect'), alertDispatch);
     }
     formSave.onError = function (response: any) {
         showErrorAlert(t(response.message), alertDispatch);
@@ -41,7 +44,7 @@ function Register() {
         return (
             <div>
                 <h6 className="display-6">Wpisz dane poniżej, aby założyć konto.</h6>
-                <RegisterForm formSave={formSave}></RegisterForm>
+                <RegisterForm formSave={formSave} defaultValue={defaultValue}></RegisterForm>
             </div>
         )
     }
