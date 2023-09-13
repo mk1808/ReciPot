@@ -4,14 +4,16 @@ import { getEmptyFormSave } from "../../../../utils/FormInputUtils";
 import { useTranslation } from "react-i18next";
 import AddRecipeFilterForm from "./AddRecipeFilterForm";
 import { RecipeFilterContext, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
-import { RecipeFilter } from "../../../../data/types";
 import savedRecipeFiltersApi from "../../../../api/SavedRecipeFiltersApi";
+import { AlertsDispatchContext } from "../../../../context/AlertContext";
+import { showErrorAlert, showSuccessAlert } from "../../../../utils/RestUtils";
 
 function AddRecipeFilterDialog({ showModal, handleClose }: { showModal: boolean, handleClose: any }) {
     const { t } = useTranslation();
 
     const recipeFilterContext = useContext(RecipeFilterContext);
     const recipeFilterDispatchContext = useContext(RecipeFilterDispatchContext);
+    const alertsDispatchContext = useContext(AlertsDispatchContext);
 
     const formSave: any = getEmptyFormSave();
     const form = useRef<any>();
@@ -21,17 +23,17 @@ function AddRecipeFilterDialog({ showModal, handleClose }: { showModal: boolean,
             name: formValue.newFilterName,
             value: JSON.stringify(recipeFilterContext.recipesFilterForm)
         }
-        savedRecipeFiltersApi.createRecipeFilter(newRecipeFilter, this.onSuccess)
-        this.onSuccess(newRecipeFilter);
+        savedRecipeFiltersApi.createRecipeFilter(newRecipeFilter, this.onSuccess, this.onError)
     }
-    formSave.onSuccess = function (savedRecipeFilter: RecipeFilter) {
+    formSave.onSuccess = function () {
+        showSuccessAlert(t("p.recipeFilterSaved"), alertsDispatchContext);
         recipeFilterDispatchContext({
             type: "refreshFiltersList"
         })
         handleClose();
     }
-    formSave.onError = function () {
-
+    formSave.onError = function (response: any) {
+        showErrorAlert(t(response.message), alertsDispatchContext);
     }
     async function myHandleSubmit() {
         form.current.submitForm();

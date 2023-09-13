@@ -1,4 +1,4 @@
-import { createContext, useEffect, Context, useReducer, useRef } from "react";
+import { createContext, useEffect, Context, useReducer } from "react";
 import { Recipe, RecipeFilter, Response } from "../../../../data/types";
 import savedRecipeFiltersApi from "../../../../api/SavedRecipeFiltersApi";
 import recipesApi from "../../../../api/RecipesApi";
