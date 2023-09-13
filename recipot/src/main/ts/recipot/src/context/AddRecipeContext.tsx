@@ -1,22 +1,28 @@
-import { createContext, useReducer, useRef } from "react";
+import { createContext, useReducer, useRef, useContext } from "react";
 import { FormSave } from "../data/utilTypes";
 import { getEmptyFormSave } from "../utils/FormInputUtils";
 import { convertToObjects } from "../utils/AddRecipeContextUtil";
+import recipesApi from "../api/RecipesApi";
+import { useNavigate } from "react-router-dom";
+import { showErrorAlert, showSuccessAlert } from "../utils/RestUtils";
+import { useTranslation } from "react-i18next";
+import { AlertsDispatchContext } from "./AlertContext";
 
 export const AddRecipeContext = createContext<any>([]);
 
 export const AddRecipeDispatchContext = createContext<Function>(() => { });
 
 function AddRecipeContextProvider({ children }: any) {
-
+    const navigate = useNavigate();
     const formSave = useRef<FormSave>(getEmptyFormSave());
-
+    const { t } = useTranslation();
+    const alertDispatch = useContext(AlertsDispatchContext);
     const [fields, dispatch]: [any, Function] = useReducer(
         addRecipeReducer,
         []
     );
 
-    formSave.current.onSubmit = function (fields:any) {
+    formSave.current.onSubmit = function (fields: any) {
         for (const field in fields.formValidity) {
             if (!fields.formValidity[field]) {
                 console.log("invalid fields value")
@@ -24,14 +30,19 @@ function AddRecipeContextProvider({ children }: any) {
             }
         }
         convertToObjects(fields.formValue.hashTag);
+        recipesApi.postRecipe(fields.formValue, formSave.current.onSuccess, formSave.current.onError)
         console.log("correct fields value")
         console.log(fields.formValue)
     }
-    formSave.current.onSuccess = function () {
-
+    formSave.current.onSuccess = function (response: any) {
+        let id = response.value.id;
+        navigate(`/recipes/${id}`)
+        console.log(response)
+        showSuccessAlert(t('p.recipeAddCorrect'), alertDispatch);
     }
-    formSave.current.onError = function () {
-
+    formSave.current.onError = function (response: any) {
+        console.log(response)
+        showErrorAlert(t(response.message), alertDispatch);
     }
 
     function addRecipeReducer(fields: any, action: any) {

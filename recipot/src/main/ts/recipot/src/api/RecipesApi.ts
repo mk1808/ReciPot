@@ -6,7 +6,7 @@ import restClient from "./RestClient";
 function RecipesApi() {
     const PREFIX = '/recipes';
 
-    const postRecipe = (body: Recipe, onSuccess: (response: Response<Recipe>) => any, onError?: (response: Response<Recipe>) => any) => {
+    const postRecipe = (body: Recipe, onSuccess: any, onError?: any) => {
         restClient.post(`${PREFIX}`, body, onSuccess, onError)
     }
 
