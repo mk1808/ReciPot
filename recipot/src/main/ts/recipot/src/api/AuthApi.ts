@@ -8,7 +8,7 @@ function AuthApi() {
         restClient.post('/login3', body, onSuccess, onError)
     }
 
-    const register = (body: UserRegisterDto, onSuccess: (response: Response<AppUser>) => any, onError: (response: Response<AppUser>) => any) => {
+    const register = (body: UserRegisterDto, onSuccess: any, onError: any) => {
         restClient.post(`${PREFIX}/register`, body, onSuccess, onError)
     }
 
