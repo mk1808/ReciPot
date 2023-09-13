@@ -1,4 +1,6 @@
-import { Recipe, Response, SharedRecipe } from "../data/types";
+import { Recipe, RecipeSearchDto, Response, SharedRecipe } from "../data/types";
+import { ResponsePage } from "../data/utilTypes";
+import { createPathParams } from "../utils/RestUtils";
 import restClient from "./RestClient";
 
 function RecipesApi() {
@@ -24,7 +26,12 @@ function RecipesApi() {
         restClient.post(`${PREFIX}/sharing`, body, onSuccess, onError)
     }
 
-    return { postRecipe, getRecipe, putRecipe, changeVisibility, share }
+    const search = (body: RecipeSearchDto, params: { pageNum?: number, pageSize?: number }, onSuccess: (response: Response<ResponsePage<Recipe>>) => any, onError?: (response: Response<any>) => any) => {
+        var pathParams = createPathParams(params);
+        restClient.post(`${PREFIX}/search?${pathParams}`, body, onSuccess, onError)
+    }
+
+    return { postRecipe, getRecipe, putRecipe, changeVisibility, share, search }
 }
 
 const recipesApi = RecipesApi();

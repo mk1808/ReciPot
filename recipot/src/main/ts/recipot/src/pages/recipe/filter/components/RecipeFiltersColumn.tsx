@@ -8,19 +8,21 @@ import TimeAmountInput from "../../../../components/complex/TimeAmountInput";
 import FilteredSelect from "../../../../components/complex/FilteredSelect";
 import dictionariesApi from "../../../../api/DictionariesApi";
 import { useContext, useEffect, useState } from "react";
-import { getAccessTypes, getAmountOfDishes, getDifficulties, getRequiredEfforts, mapCategoriesToSearchList, onFilteredHashTagSearch, onFilteredIngredientSearch, searchCategory } from "../../../../utils/DictionariesUtils";
+import { mapCategoriesToSearchList, onFilteredHashTagSearch, onFilteredIngredientSearch, searchCategory } from "../../../../utils/DictionariesUtils";
 import MyButton from "../../../../components/basicUi/MyButton";
 import { FormSave } from "../../../../data/utilTypes";
 import { inputAttributesForContextWithoutValidity } from "../../../../utils/FormInputUtils";
 import AddRecipeFilterDialog from "../dialogs/AddRecipeFilterDialog";
 import { RecipeFilterContext, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 import { EnumDictionaryContext } from "../../../../context/EnumDictionaryContext";
+import { UsersContext } from "../../../../context/UserContext";
 
 function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     const { t } = useTranslation();
 
     const recipesFilterForm = useContext(RecipeFilterContext).recipesFilterForm;
     const recipeFilterDispatchContext = useContext(RecipeFilterDispatchContext);
+    const userContext = useContext(UsersContext);
 
     const [filteredHashTags, setFilteredHashTags] = useState<any[]>([]);
     const [filteredIngredients, setFilteredIngredients] = useState<any[]>([]);
@@ -85,6 +87,11 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
             onChange("categories", value)
         }
     }
+
+    function onUserIsOwnerChange(fieldName: string, value: boolean) {
+        onChange(fieldName, (value && userContext.user?.login) || null);
+    }
+
     function getEnum(enumName: string) {
         return enumDictionaryContext[enumName] || [];
     }
@@ -112,7 +119,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     function renderUserIsOwnerInput() {
         return (
             <MyCheckbox
-                {...inputAttributesForContextWithoutValidity("userIsOwner", t("p.userIsOwnerFilter"), onChange, recipesFilterForm)}
+                {...inputAttributesForContextWithoutValidity("userIsOwner", t("p.userIsOwnerFilter"), onUserIsOwnerChange, recipesFilterForm)}
                 defaultChecked={recipesFilterForm?.userIsOwner || false}
             />
         )
@@ -124,6 +131,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
             <MySelect
                 {...inputAttributesForContextWithoutValidity("accessType", t("p.accessTypeFilter"), onChange, recipesFilterForm)}
                 options={accessTypes}
+                emptyOption={t('p.selectValue')}
             />
         )
     }
