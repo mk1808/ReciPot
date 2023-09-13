@@ -13,7 +13,7 @@ type contextStateModel = {
     recipesFilterForm?: any
 };
 
-const RECIPES_PAGE_SIZE = 24;
+const RECIPES_PAGE_SIZE = 4;
 
 export const RecipeFilterContext: Context<contextStateModel> = createContext({});
 
@@ -38,7 +38,7 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
     }
 
     function getSelectedFilterFormValue(contextState: contextStateModel, activeRecipeFilterId: string) {
-        const filterId = contextState.savedFilters?.map(filter => filter.id).indexOf(activeRecipeFilterId) || -1
+        const filterId = Number(contextState.savedFilters?.map(filter => filter.id).indexOf(activeRecipeFilterId))
         if (filterId >= 0) {
             return JSON.parse(contextState.savedFilters ? contextState.savedFilters[filterId].value : "")
         }
@@ -48,13 +48,13 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
     function recipeFilterReducer(contextState: contextStateModel, action: any): contextStateModel {
         switch (action.type) {
             case 'filterSelect': {
-                //TODO: POST recipes search with saved filter value
+                const newRecipesFilterFormState = getSelectedFilterFormValue(contextState, action.activeRecipeFilterId)
+                getRecipesByFilter(newRecipesFilterFormState || {}, 0, RECIPES_PAGE_SIZE);
                 return {
                     ...contextState,
                     activeRecipeFilterId: action.activeRecipeFilterId,
-                    //recipesPages: getTempRecipesPage(),
-                    //currentPage: getTempCurrentPage(0),
-                    recipesFilterForm: getSelectedFilterFormValue(contextState, action.activeRecipeFilterId)
+                    recipesPages: [],
+                    recipesFilterForm: newRecipesFilterFormState
                 };
             }
             case 'refreshFiltersList': {
@@ -70,7 +70,8 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
             case 'filter': {
                 getRecipesByFilter(contextState.recipesFilterForm || {}, 0, RECIPES_PAGE_SIZE);
                 return {
-                    ...contextState
+                    ...contextState,
+                    recipesPages: []
                 };
             }
             case 'filterFormChange': {
@@ -88,15 +89,13 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
                 return {
                     ...contextState,
                     recipesPages: recipesPages,
-                    currentPage: action.recipesPage.content
+                    currentPage: action.recipesPage
                 };
             }
             case 'loadRecipesPage': {
-                //TODO: POST recipes search + page from action.value
+                getRecipesByFilter(contextState.recipesFilterForm || {}, action.value, RECIPES_PAGE_SIZE);
                 return {
-                    ...contextState,
-                    //recipesPages: getTempRecipesPage(),
-                    //currentPage: getTempCurrentPage(action.value)
+                    ...contextState
                 };
             }
             default: {
