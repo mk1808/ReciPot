@@ -12,7 +12,7 @@ import { useReducer, useState } from 'react';
 import { checkIfAllValid, checkInputValidity, getEmptyForm, getNewState, inputAttributes, preventFurtherAction } from '../../utils/FormInputUtils';
 import { MyForm, FormSave } from '../../data/utilTypes';
 
-function UserDetailsForm({ formSave, user }: { formSave: FormSave, user:any }) {
+function UserDetailsForm({ formSave, user }: { formSave: FormSave, user: any }) {
     const { t } = useTranslation();
 
     const [isEditMode, setEditMode] = useState(false);
@@ -55,7 +55,7 @@ function UserDetailsForm({ formSave, user }: { formSave: FormSave, user:any }) {
     );
 
     function renderAvatar() {
-        return <MyImage src={"https://cdn-icons-png.flaticon.com/512/1077/1077114.png"} height={200} />
+        return <MyImage src={user.avatarImageSrc || "https://cdn-icons-png.flaticon.com/512/1077/1077114.png"} height={200} />
     }
 
     function renderUserForm() {
