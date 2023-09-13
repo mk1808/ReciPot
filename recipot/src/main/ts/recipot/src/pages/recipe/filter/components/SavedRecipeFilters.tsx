@@ -3,19 +3,26 @@ import ComplexListElement from "../../../../components/complex/ComplexListElemen
 import { RecipeFilter } from "../../../../data/types";
 import { useContext } from "react";
 import { RecipeFilterContext, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
+import savedRecipeFiltersApi from "../../../../api/SavedRecipeFiltersApi";
+import { showSuccessAlert } from "../../../../utils/RestUtils";
+import { AlertsDispatchContext } from "../../../../context/AlertContext";
+import { useTranslation } from "react-i18next";
 
 function SavedRecipeFilters() {
+    const { t } = useTranslation();
 
     const recipeFilterContext = useContext(RecipeFilterContext);
     const recipeFilterDispatchContext = useContext(RecipeFilterDispatchContext);
+    const alertsDispatchContext = useContext(AlertsDispatchContext);
 
     function onRecipeFilterDelete(index: number) {
-        recipeFilterDispatchContext(
-            {
-                type: 'deleteRecipeFilter',
-                value: recipeFilterContext.savedFilters && recipeFilterContext.savedFilters[index].id
-            }
-        )
+        const recipeFilterId = (recipeFilterContext.savedFilters && recipeFilterContext.savedFilters[index].id) || "";
+        savedRecipeFiltersApi.deleteRecipeFilter(recipeFilterId, onRecipeFilterDeleteResponse);
+    }
+
+    function onRecipeFilterDeleteResponse(response: any) {
+        showSuccessAlert(t(response.message), alertsDispatchContext);
+        recipeFilterDispatchContext({ type: 'refreshFiltersList' })
     }
 
     function onFilterSelect(index: number) {

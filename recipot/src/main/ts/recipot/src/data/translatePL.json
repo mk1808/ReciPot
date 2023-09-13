@@ -343,6 +343,7 @@
         "image": "Zdjęcie",
         "userRegisterCorrect": "Konto zostało utworzone!"
         "userSuccessfullyEdited": "Użytkownik poprawnie edytowany",
-        "defaultError": "Wystąpił błąd"
+        "defaultError": "Wystąpił błąd",
+        "recipeFilterSaved": "Zapisano filtr przepisów"
     }
 }

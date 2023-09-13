@@ -343,6 +343,7 @@
 		"image": "Image",
     "userRegisterCorrect": "Account created!"
 		"userSuccessfullyEdited": "User successfully edited",
-		"defaultError": "Error occurred"
+		"defaultError": "Error occurred",
+		"recipeFilterSaved": "Recipe filter saved"
 	}
 }

@@ -4,7 +4,9 @@ function RestClient() {
     const URL = "/api";
     const HEADER = { 'Content-Type': 'application/json; character=utf-8' };
 
-    const apiCall = <T>(method: any, path: string | undefined, onSuccess: (response: Response<T>) => any, onError?: (response: Response<T>) => any) => {
+    const defaultOnError = (response: any) => { console.warn(response) }
+
+    const apiCall = <T>(method: any, path: string | undefined, onSuccess: (response: Response<T>) => any, onError: (response: Response<T>) => any = defaultOnError) => {
         fetch(`${URL}${path}`, {
             method: method,
             headers: HEADER
@@ -19,7 +21,7 @@ function RestClient() {
             .catch((response) => response.json().then(onError).catch(onError));
     }
 
-    const apiCallWithBody = <T>(method: any, path: string | undefined, body: object, onSuccess: (response: Response<T>) => any, onError?: (response: Response<T>) => any) => {
+    const apiCallWithBody = <T>(method: any, path: string | undefined, body: object, onSuccess: (response: Response<T>) => any, onError: (response: Response<T>) => any = defaultOnError) => {
         fetch(`${URL}${path}`, {
             method: method,
             headers: HEADER,
