@@ -1,11 +1,11 @@
 import { useContext, useRef } from "react";
 import CustomModal from "../../../../components/basicUi/CustomModal";
 import { getEmptyFormSave } from "../../../../utils/FormInputUtils";
-import { FormSave } from "../../../../data/utilTypes";
 import { useTranslation } from "react-i18next";
 import AddRecipeFilterForm from "./AddRecipeFilterForm";
-import { RecipeFilterContext, RecipeFilterDispatchContext, tempSavedRecipesList } from "../context/RecipeFilterContext";
+import { RecipeFilterContext, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 import { RecipeFilter } from "../../../../data/types";
+import savedRecipeFiltersApi from "../../../../api/SavedRecipeFiltersApi";
 
 function AddRecipeFilterDialog({ showModal, handleClose }: { showModal: boolean, handleClose: any }) {
     const { t } = useTranslation();
@@ -13,20 +13,18 @@ function AddRecipeFilterDialog({ showModal, handleClose }: { showModal: boolean,
     const recipeFilterContext = useContext(RecipeFilterContext);
     const recipeFilterDispatchContext = useContext(RecipeFilterDispatchContext);
 
-    const formSave: FormSave = getEmptyFormSave();
+    const formSave: any = getEmptyFormSave();
     const form = useRef<any>();
 
     formSave.onSubmit = function (formValue: any) {
-        const newRecipeFilter = {
-            id: Math.random() * 1000,
+        const newRecipeFilter: any = {
             name: formValue.newFilterName,
             value: JSON.stringify(recipeFilterContext.recipesFilterForm)
         }
-        //TODO POST save new recipe
+        savedRecipeFiltersApi.createRecipeFilter(newRecipeFilter, this.onSuccess)
         this.onSuccess(newRecipeFilter);
     }
     formSave.onSuccess = function (savedRecipeFilter: RecipeFilter) {
-        tempSavedRecipesList.push(savedRecipeFilter)
         recipeFilterDispatchContext({
             type: "refreshFiltersList"
         })

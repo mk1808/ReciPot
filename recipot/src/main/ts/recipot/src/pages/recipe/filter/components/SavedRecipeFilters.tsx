@@ -3,6 +3,7 @@ import ComplexListElement from "../../../../components/complex/ComplexListElemen
 import { RecipeFilter } from "../../../../data/types";
 import { useContext } from "react";
 import { RecipeFilterContext, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
+import savedRecipeFiltersApi from "../../../../api/SavedRecipeFiltersApi";
 
 function SavedRecipeFilters() {
 
@@ -10,12 +11,8 @@ function SavedRecipeFilters() {
     const recipeFilterDispatchContext = useContext(RecipeFilterDispatchContext);
 
     function onRecipeFilterDelete(index: number) {
-        recipeFilterDispatchContext(
-            {
-                type: 'deleteRecipeFilter',
-                value: recipeFilterContext.savedFilters && recipeFilterContext.savedFilters[index].id
-            }
-        )
+        const recipeFilterId = (recipeFilterContext.savedFilters && recipeFilterContext.savedFilters[index].id) || "";
+        savedRecipeFiltersApi.deleteRecipeFilter(recipeFilterId, () => recipeFilterDispatchContext({ type: 'refreshFiltersList' }));
     }
 
     function onFilterSelect(index: number) {

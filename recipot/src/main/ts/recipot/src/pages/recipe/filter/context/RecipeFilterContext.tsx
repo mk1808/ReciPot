@@ -1,6 +1,7 @@
 import { createContext, useEffect, Context, useReducer } from "react";
 import { Recipe, RecipeFilter } from "../../../../data/types";
 import { initAs } from "../../../../utils/ObjectUtils";
+import savedRecipeFiltersApi from "../../../../api/SavedRecipeFiltersApi";
 
 type contextStateModel = {
     savedFilters?: RecipeFilter[],
@@ -25,8 +26,8 @@ export const RecipeFilterDispatchContext = createContext<Function>(() => { });
 export const RecipeFilterContextContextProvider = ({ children }: any) => {
     const [contextState, dispatch]: [contextStateModel, Function] = useReducer(recipeFilterReducer, {});
 
-    function getTempSavedFilters() {
-        return tempSavedRecipesList;
+    function getSavedFilters() {
+        savedRecipeFiltersApi.getRecipeFilters((response) => dispatch({ type: 'setSavedFiltersList', value: response.value }))
     }
 
     function getTempRecipesPage() {
@@ -75,20 +76,14 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
                 };
             }
             case 'refreshFiltersList': {
-                //TODO: GET saved filters 
-
+                getSavedFilters();
+                return contextState;
+            }
+            case 'setSavedFiltersList': {
                 return {
                     ...contextState,
-                    savedFilters: getTempSavedFilters()
+                    savedFilters: action.value
                 };
-            }
-            case 'savedRecipeFilter': {
-                //TODO: POST saved filter
-                return contextState;
-            }
-            case 'deleteRecipeFilter': {
-                //TODO: DELETE saved recipe filter
-                return contextState;
             }
             case 'filter': {
                 //TODO: POST recipes search + new filter form value + page = 0
