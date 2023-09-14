@@ -345,6 +345,7 @@
 		"userSuccessfullyEdited": "User successfully edited",
 		"defaultError": "Error occurred",
 		"recipeFilterSaved": "Recipe filter saved",
-		"recipeAddCorrect": "Recipe created!"
+		"recipeAddCorrect": "Recipe created!",
+		"recipesCollectionSaved": "Created recipes collection"
 	}
 }

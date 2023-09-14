@@ -345,6 +345,7 @@
         "userSuccessfullyEdited": "Użytkownik poprawnie edytowany",
         "defaultError": "Wystąpił błąd",
         "recipeFilterSaved": "Zapisano filtr przepisów",
-        "recipeAddCorrect": "Przepis został utworzony!"
+        "recipeAddCorrect": "Przepis został utworzony!",
+        "recipesCollectionSaved": "Utworzono nową kolekcję przepisów"
     }
 }
