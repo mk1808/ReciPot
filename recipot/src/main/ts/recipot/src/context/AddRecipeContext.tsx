@@ -40,6 +40,7 @@ function AddRecipeContextProvider({ children }: any) {
         console.log(fields.formValue)
     }
     formSave.current.onSuccess = function (response: any) {
+        wasSaveSend.current = false;
         let id = response.value.id;
         navigate(`/recipes/${id}`)
         console.log(response)
