@@ -15,13 +15,13 @@ export const AddRecipeDispatchContext = createContext<Function>(() => { });
 function AddRecipeContextProvider({ children }: any) {
     const navigate = useNavigate();
     const formSave = useRef<FormSave>(getEmptyFormSave());
+    const wasSaveSend = useRef<boolean>(false);
     const { t } = useTranslation();
     const alertDispatch = useContext(AlertsDispatchContext);
     const [fields, dispatch]: [any, Function] = useReducer(
         addRecipeReducer,
         []
     );
-
     formSave.current.onSubmit = function (fields: any) {
         for (const field in fields.formValidity) {
             if (!fields.formValidity[field]) {
@@ -30,7 +30,12 @@ function AddRecipeContextProvider({ children }: any) {
             }
         }
         convertToObjects(fields.formValue.hashTag);
-        recipesApi.postRecipe(fields.formValue, formSave.current.onSuccess, formSave.current.onError)
+        convertToObjects(fields.formValue.ingredients);
+        if (!wasSaveSend.current) {
+            wasSaveSend.current = true;
+            recipesApi.postRecipe(fields.formValue, formSave.current.onSuccess, formSave.current.onError)
+        }
+
         console.log("correct fields value")
         console.log(fields.formValue)
     }
@@ -42,6 +47,7 @@ function AddRecipeContextProvider({ children }: any) {
     }
     formSave.current.onError = function (response: any) {
         console.log(response)
+        wasSaveSend.current = false;
         showErrorAlert(t(response.message), alertDispatch);
     }
 
