@@ -341,7 +341,7 @@
 		"name": "Name",
 		"description": "Description",
 		"image": "Image",
-    "userRegisterCorrect": "Account created!"
+    		"userRegisterCorrect": "Account created!",
 		"userSuccessfullyEdited": "User successfully edited",
 		"defaultError": "Error occurred",
 		"recipeFilterSaved": "Recipe filter saved"
