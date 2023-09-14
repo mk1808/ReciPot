@@ -344,6 +344,7 @@
         "userRegisterCorrect": "Konto zostało utworzone!",
         "userSuccessfullyEdited": "Użytkownik poprawnie edytowany",
         "defaultError": "Wystąpił błąd",
-        "recipeFilterSaved": "Zapisano filtr przepisów"
+        "recipeFilterSaved": "Zapisano filtr przepisów",
+        "recipesCollectionSaved": "Utworzono nową kolekcję przepisów"
     }
 }
