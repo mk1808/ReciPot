@@ -341,7 +341,7 @@
         "name": "Nazwa",
         "description": "Opis",
         "image": "Zdjęcie",
-        "userRegisterCorrect": "Konto zostało utworzone!"
+        "userRegisterCorrect": "Konto zostało utworzone!",
         "userSuccessfullyEdited": "Użytkownik poprawnie edytowany",
         "defaultError": "Wystąpił błąd",
         "recipeFilterSaved": "Zapisano filtr przepisów"
