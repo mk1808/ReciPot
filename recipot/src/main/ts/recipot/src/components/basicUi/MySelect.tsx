@@ -9,7 +9,7 @@ function MySelect({
     emptyOption = "",
     disabled = false,
     options = [],
-    defaultValue = {},
+    defaultValue = "",
     onChange = initFcn<any>(),
     required,
     isValid

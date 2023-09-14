@@ -102,7 +102,7 @@ function UpperRightSide() {
 
     function renderAmountOfDishesInput() {
         const amountOfDishes = getEnum("amountsOfDishes");
-        return (
+        return ( 
             <MySelect
                 label={t("p.amountOfDishesFilter")}
                 options={amountOfDishes}

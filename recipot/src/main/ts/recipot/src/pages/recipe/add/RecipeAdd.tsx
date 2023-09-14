@@ -2,12 +2,6 @@ import { Col, Container, Form, Row, Stack } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import MyHeader from "../../../components/basicUi/MyHeader";
 import './styles.scss';
-import MyButton from "../../../components/basicUi/MyButton";
-import UpperLeftSide from "./components/UpperLeftSide";
-import AddIngredients from "./components/AddIngredients";
-import UpperRightSide from "./components/UpperRightSide";
-import AddSteps from "./components/AddSteps";
-import ConfirmCancelButtons from "../../../components/basicUi/ConfirmCancelButtons";
 import RecipeAddForm from "./components/RecipeAddForm";
 import AddRecipeContextProvider from "../../../context/AddRecipeContext";
 

@@ -5,9 +5,11 @@ import { useTranslation } from "react-i18next";
 import MyInput from "../../../../components/basicUi/MyInput";
 import MySelect from "../../../../components/basicUi/MySelect";
 import { MdOutlineDeleteOutline } from "react-icons/md";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AddRecipeContext, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
 import { dynamicInputAttributesForContext } from "../../../../utils/FormInputUtils";
+import FilteredSelect from "../../../../components/complex/FilteredSelect";
+import { onFilteredIngredientSearch } from "../../../../utils/DictionariesUtils";
 
 function AddIngredients() {
     const { t } = useTranslation();
@@ -22,6 +24,10 @@ function AddIngredients() {
     }
     const addRecipeDispatchContext = useContext(AddRecipeDispatchContext);
     const formFields = useContext(AddRecipeContext).fields;
+    const [filteredIngredients, setFilteredIngredients] = useState<any[]>([]);
+    useEffect(() => {
+        onFilteredIngredientSearch('', setFilteredIngredients);
+    }, [])
     function onChange(fieldValue: any, fieldName: string, index?: number) {
 
         if (formFields.formValue && formFields.formValue[fieldName] !== fieldValue) {
@@ -114,28 +120,28 @@ function AddIngredients() {
     }
     function renderUnitInput(index: number) {
         return (
-            <MySelect
-                required={true}
+            <MyInput
                 label="Jednostka"
-                emptyOption="Pusta wartość"
-                options={testOptions}
-                defaultValue={testOptions[1].value}
+                required={true}
                 {...dynamicInputAttributesForContext("unit", onChange, getIngredientValidity, index)}
             />
         )
     }
     function renderIngredientInput(index: number) {
         return (
-            <MySelect
-                required={true}
-                label="Składnik"
-                emptyOption="Pusta wartość"
-                options={testOptions}
-                defaultValue={testOptions[1].value}
-                {...dynamicInputAttributesForContext("ingredient", onChange, getIngredientValidity, index)}
+            <FilteredSelect
+                multiple={false}
+                className="mb-3"
+                label={t("Składnik")}
+                options={filteredIngredients}
+                onSearchCallback={(phrase: string) => onFilteredIngredientSearch(phrase, setFilteredIngredients)}
+                highlightValidity={true}
+                allowNew={true}
+                width={150}
+                onSelectCallback={(value: string) => onChange(value, "ingredient", index)}
+                isValid={getIngredientValidity("ingredient", index)}
             />
         )
     }
 }
-
 export default AddIngredients;

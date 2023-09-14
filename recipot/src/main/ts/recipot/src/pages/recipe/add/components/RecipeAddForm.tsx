@@ -1,7 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { getEmptyFormSave } from "../../../../utils/FormInputUtils";
 import { useContext, useRef } from "react";
-import { FormSave } from "../../../../data/utilTypes";
 import { Col, Container, Row } from "react-bootstrap";
 import UpperLeftSide from "./UpperLeftSide";
 import AddIngredients from "./AddIngredients";
@@ -12,9 +10,6 @@ import { AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
 
 function RecipeAddForm() {
     const { t } = useTranslation();
-    const formSave: FormSave = getEmptyFormSave();
-    const form = useRef<any>();
-    let formContent: any;
     const addRecipeDispatchContext = useContext(AddRecipeDispatchContext);
 
     function onSubmit() {
