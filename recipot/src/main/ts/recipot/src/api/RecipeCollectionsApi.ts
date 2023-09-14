@@ -1,4 +1,5 @@
 import { RecipeCollection, RecipeCollectionItem, Response } from "../data/types";
+import { ResponsePage } from "../data/utilTypes";
 import { createPathParams } from "../utils/RestUtils";
 import restClient from "./RestClient";
 
@@ -21,7 +22,7 @@ function RecipeCollectionsApi() {
         restClient.get(`${PREFIX}`, onSuccess, onError)
     }
 
-    const getRecipeCollectionRecipes = (collectionId: string, params: { pageNum?: number, pageSize?: number }, onSuccess: (response: Response<RecipeCollectionItem[]>) => any, onError?: (response: Response<RecipeCollectionItem[]>) => any) => {
+    const getRecipeCollectionRecipes = (collectionId: string, params: { pageNum?: number, pageSize?: number }, onSuccess: (response: Response<ResponsePage<RecipeCollectionItem>>) => any, onError?: (response: Response<any>) => any) => {
         var pathParams = createPathParams(params);
         restClient.get(`${PREFIX}/${collectionId}/recipes?${pathParams}`, onSuccess, onError)
     }
