@@ -1,12 +1,14 @@
 package pl.mk.recipot.commons.dtos;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 public class SearchCriteriaDto {
 
 	public SearchCriteriaDto(String filterKey, String operation, Object value) {
