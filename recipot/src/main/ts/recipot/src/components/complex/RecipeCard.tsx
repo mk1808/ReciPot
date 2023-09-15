@@ -14,8 +14,8 @@ function RecipeCard({ recipe, recipeCallback = initFcn<Recipe>() }: { recipe: Re
 
     return (
         <Card className="recipe-card mb-2 me-2">
-            <Card.Img variant="top" src={recipe.image} />
-            <Card.Body>
+            <Card.Img variant="top" src={recipe.image} height={180} />
+            <Card.Body className="body">
                 <Card.Title> {recipe.name} </Card.Title>
 
                 <div className='mb-3'>
@@ -25,14 +25,14 @@ function RecipeCard({ recipe, recipeCallback = initFcn<Recipe>() }: { recipe: Re
                     {getShorterText(recipe.description, 60)}
                 </div>
 
-                <MyButton.Primary onClick={()=>recipeCallback(recipe)} className="full-width">{t('p.goToRecipe')}</MyButton.Primary>
+                <MyButton.Primary onClick={() => recipeCallback(recipe)} className="full-width">{t('p.goToRecipe')}</MyButton.Primary>
             </Card.Body>
         </Card >
     );
 
     function renderHashTags() {
         return (
-            <Stack direction="horizontal">
+            <Stack direction="horizontal" className='hash-tags'>
                 {
                     recipe.hashTags.slice(0, 2).map((tag: any) => (
                         <HashTagBadge text={tag.name} key={tag.id} />)

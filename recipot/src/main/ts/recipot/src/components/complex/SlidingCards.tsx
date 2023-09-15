@@ -13,7 +13,7 @@ function SlidingElements({ recipes, getSingleElement, size = 3 }: { recipes: Rec
 
     useEffect(() => {
         sliceTab();
-    }, [counter]);
+    }, [counter, recipes]);
 
     function clickSlide(counterValue: number) {
         setCounter(counterValue);

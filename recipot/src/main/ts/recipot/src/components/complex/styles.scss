@@ -4,7 +4,16 @@
 @import "~bootstrap/scss/mixins";
 
 .recipe-card {
-    width: 18rem
+    width: 18rem;
+
+    .body {
+        text-align: left;
+
+        .hash-tags {
+            height: 41px;
+        }
+
+    }
 }
 
 .step-circle {

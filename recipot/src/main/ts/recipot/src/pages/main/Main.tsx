@@ -11,6 +11,8 @@ import { Recipe } from "../../data/types";
 import { initAs } from "../../utils/ObjectUtils";
 import SlidingCards from "../../components/complex/SlidingCards";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import recipesApi from "../../api/RecipesApi";
 
 function Main() {
     const { t } = useTranslation();
@@ -28,10 +30,15 @@ function Main() {
     const navigate = useNavigate();
     const recipeCallback = (recipe: Recipe) => { navigate(`/recipes/${recipe.id}`) }
     const getRecipe = (num: number) => { let nr = { ...recipe }; nr.name += (' ' + num); nr.id += (' ' + num); return nr }
-    const recipes = [getRecipe(1), getRecipe(2), getRecipe(3), getRecipe(4), getRecipe(5), getRecipe(6), getRecipe(7), getRecipe(8), getRecipe(9)];
     const recipeCallbackForSlider = (recipe: Recipe) => {
         navigate(`/recipes/${recipe.id}`)
     }
+    const [recipes, setRecipes] = useState([]);
+    useEffect(() => {
+        recipesApi.getPredefinedFilter({ pageNum: 0, pageSize: 20, type: "NEWEST" }, (response: any) => {
+            setRecipes(response.value.content)
+        })
+    }, [])
 
     return (
         <div className=" main-page">
