@@ -25,7 +25,7 @@ function RecipeCard({ recipe, recipeCallback = initFcn<Recipe>() }: { recipe: Re
                     {getShorterText(recipe.description, 60)}
                 </div>
 
-                <MyButton.Primary onClick={recipeCallback} className="full-width">{t('p.goToRecipe')}</MyButton.Primary>
+                <MyButton.Primary onClick={()=>recipeCallback(recipe)} className="full-width">{t('p.goToRecipe')}</MyButton.Primary>
             </Card.Body>
         </Card >
     );
