@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import pl.mk.recipot.auth.facades.IAuthFacade;
 import pl.mk.recipot.commons.domains.CheckIfUserIsNotOwner;
 import pl.mk.recipot.commons.dtos.RecipeSearchDto;
+import pl.mk.recipot.commons.enums.PredefinedRecipeFilter;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.services.ICrudService;
@@ -98,6 +99,14 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	public Recipe updateRecipeAverageRating(Recipe updatedRecipe) {
 		Recipe existingRecipe = get(updatedRecipe.getId());
 		return recipesRepository.save(new UpdateAverageRatingInRecipe().execute(existingRecipe, updatedRecipe));
+	}
+
+	@Override
+	public Page<Recipe> getByPredefinedFilter(PredefinedRecipeFilter type, int pageNum, int pageSize) {
+		RecipeSearchDto recipeSearchDto = type.getFilter().setPage(pageNum).setSize(pageSize);
+		Specification<Recipe> specification = new SearchRecipesByCriteria().execute(recipeSearchDto);
+		Pageable page = new GetPageForSearching().execute(recipeSearchDto); 
+		return recipesRepository.findAll(specification, page);
 	}
 
 }
