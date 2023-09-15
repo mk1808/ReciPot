@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import pl.mk.recipot.commons.dtos.RecipeSearchDto;
 import pl.mk.recipot.commons.dtos.Response;
+import pl.mk.recipot.commons.enums.PredefinedRecipeFilter;
 import pl.mk.recipot.commons.factories.CreatedResponseFactory;
 import pl.mk.recipot.commons.factories.OkMessageResponseFactory;
 import pl.mk.recipot.commons.factories.OkResponseFactory;
@@ -64,6 +65,13 @@ public class RecipesController implements IRecipesController {
 	@Override
 	public ResponseEntity<Response<Page<Recipe>>> search(int pageNum, int pageSize, RecipeSearchDto recipeSearchDto) {
 		Page<Recipe> page = recipeFilterService.filter(recipeSearchDto.setPage(pageNum).setSize(pageSize));
+		return new OkResponseFactory().createResponse(page);
+	}
+
+	@Override
+	public ResponseEntity<Response<Page<Recipe>>> getPredefinedFilter(int pageNum, int pageSize,
+			PredefinedRecipeFilter type) {
+		Page<Recipe> page = recipesService.getByPredefinedFilter(type, pageNum, pageSize);
 		return new OkResponseFactory().createResponse(page);
 	}
 

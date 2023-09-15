@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
+import pl.mk.recipot.commons.enums.PredefinedRecipeFilter;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Recipe;
 
@@ -18,4 +19,6 @@ public interface IRecipesService {
 	int getUserRecipesCount(AppUser user);
 
 	public Recipe updateRecipeAverageRating(Recipe recipe);
+	
+	public Page<Recipe> getByPredefinedFilter(PredefinedRecipeFilter type, int pageNum, int pageSize);
 }

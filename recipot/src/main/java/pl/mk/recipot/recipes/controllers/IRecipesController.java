@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.validation.Valid;
 import pl.mk.recipot.commons.dtos.RecipeSearchDto;
 import pl.mk.recipot.commons.dtos.Response;
+import pl.mk.recipot.commons.enums.PredefinedRecipeFilter;
 import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.models.SharedRecipe;
 
@@ -42,4 +43,10 @@ public interface IRecipesController {
 			@RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
 			@RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
 			@RequestBody RecipeSearchDto recipeSearchDto);
+
+	@GetMapping("/predefinedFilter")
+	ResponseEntity<Response<Page<Recipe>>> getPredefinedFilter(
+			@RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
+			@RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
+			@RequestParam(name = "type") PredefinedRecipeFilter type);
 }
