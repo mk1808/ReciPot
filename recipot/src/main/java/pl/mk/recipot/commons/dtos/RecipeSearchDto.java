@@ -15,11 +15,9 @@ public class RecipeSearchDto {
 
 	private List<SearchCriteriaDto> searchCriteriaList;
 	private String dataOption;
-	private SearchOrderDto searchOrderDto;
 	public int page = 0;
 	public int size = 1000;
-	public String sortBy;
-	public String sortDirection;
+	public SearchOrderDto searchOrder;
 
 	public RecipeSearchDto setPage(Integer page) {
 		if (page != null) {
