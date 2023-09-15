@@ -113,6 +113,7 @@
 					<classPatterns>
 						<pattern>pl.mk.recipot.commons.models.**</pattern>
 						<pattern>pl.mk.recipot.**.dtos.**</pattern>
+						<pattern>pl.mk.recipot.commons.enums.**</pattern>
 					</classPatterns>
 					<outputKind>module</outputKind>
 					<outputFile>src\main\ts\recipot\src\data\types.d.ts</outputFile>

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Recipe } from '../../data/types';
 import { getShorterText } from '../../utils/TextUtils';
 
-function RecipeCardCircle({ recipe, recipeCallback }: {recipe:Recipe, recipeCallback:()=>void}) {
+function RecipeCardCircle({ recipe, recipeCallback }: {recipe:Recipe, recipeCallback:(recipe:Recipe)=>void}) {
     const { t } = useTranslation();
 
     return (
@@ -19,7 +19,7 @@ function RecipeCardCircle({ recipe, recipeCallback }: {recipe:Recipe, recipeCall
                         {getShorterText(recipe.description, 60)}
                     </Card.Body>
                 </Card>
-                <Image className="img" src={recipe.image} roundedCircle onClick={recipeCallback} />
+                <Image className="img" src={recipe.image} roundedCircle onClick={()=>recipeCallback(recipe)} />
             </div>
         </div>
     );

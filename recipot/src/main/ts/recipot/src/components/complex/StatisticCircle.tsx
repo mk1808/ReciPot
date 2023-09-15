@@ -1,7 +1,7 @@
 import Stack from 'react-bootstrap/Stack';
 import './styles.scss';
 
-function StatisticCircle({ value, label, size = 100, ringSize = 20 }: { value: string, label: string, size?: number, ringSize?: number }) {
+function StatisticCircle({ value, label, size = 100, ringSize = 20 }: { value: string | number, label: string, size?: number, ringSize?: number }) {
 
     return (
         <Stack className="align-items-center">
