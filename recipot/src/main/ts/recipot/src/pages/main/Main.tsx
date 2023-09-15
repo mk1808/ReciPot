@@ -7,12 +7,13 @@ import MyButton from "../../components/basicUi/MyButton";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import MainPageCategories from "./components/MainPageCategories";
 import RecipeCardCircle from "../../components/complex/RecipeCardCircle";
-import { Recipe } from "../../data/types";
+import { GeneralStatisticsDto, Recipe } from "../../data/types";
 import { initAs } from "../../utils/ObjectUtils";
 import SlidingCards from "../../components/complex/SlidingCards";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import recipesApi from "../../api/RecipesApi";
+import statisticsApi from "../../api/StatisticsApi";
 
 function Main() {
     const { t } = useTranslation();
@@ -29,15 +30,17 @@ function Main() {
         });
     const navigate = useNavigate();
     const recipeCallback = (recipe: Recipe) => { navigate(`/recipes/${recipe.id}`) }
-    const getRecipe = (num: number) => { let nr = { ...recipe }; nr.name += (' ' + num); nr.id += (' ' + num); return nr }
     const recipeCallbackForSlider = (recipe: Recipe) => {
         navigate(`/recipes/${recipe.id}`)
     }
     const [recipes, setRecipes] = useState([]);
+    const [statistics, setStatistics] = useState<GeneralStatisticsDto>();
     useEffect(() => {
         recipesApi.getPredefinedFilter({ pageNum: 0, pageSize: 20, type: "NEWEST" }, (response: any) => {
             setRecipes(response.value.content)
         })
+        statisticsApi.getGeneralStatistics((response) => { setStatistics(response.value) })
+
     }, [])
 
     return (
@@ -83,9 +86,9 @@ function Main() {
         return (
             <div className="my-4">
                 <Stack direction="horizontal" gap={5} className='flex-wrap justify-content-center py-3'>
-                    <div className='col-3'><StatisticCircle value="12" size={150} ringSize={30} label={t('p.recipesCount')} /></div>
-                    <div className='col-3'><StatisticCircle value="10" size={150} ringSize={30} label={t('p.usersCount')} /></div>
-                    <div className='col-3'><StatisticCircle value="53" size={150} ringSize={30} label={t('p.allRecipeCollectionsCount')} /></div>
+                    <div className='col-3'><StatisticCircle value={statistics?.recipesCount ?? 0} size={150} ringSize={30} label={t('p.recipesCount')} /></div>
+                    <div className='col-3'><StatisticCircle value={statistics?.usersCount ?? 0} size={150} ringSize={30} label={t('p.usersCount')} /></div>
+                    <div className='col-3'><StatisticCircle value={statistics?.allRecipeCollectionsCount ?? 0} size={150} ringSize={30} label={t('p.allRecipeCollectionsCount')} /></div>
                 </Stack>
 
             </div>
