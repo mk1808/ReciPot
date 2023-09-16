@@ -4,7 +4,7 @@ import restClient from "./RestClient";
 function PrivateNotesApi() {
     const PREFIX = '/privateNotes';
 
-    const createPrivateNote = (body: PrivateNote, onSuccess: (response: Response<PrivateNote>) => any, onError?: (response: Response<PrivateNote>) => any) => {
+    const createPrivateNote = (body: PrivateNote, onSuccess: any, onError?: (response: Response<PrivateNote>) => any) => {
         restClient.post(`${PREFIX}`, body, onSuccess, onError)
     }
 

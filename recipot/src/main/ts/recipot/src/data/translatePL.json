@@ -365,6 +365,7 @@
         "effort": "Pracochłonność",
         "effortInfo": "Określa, czy przepis wymaga dużego wysiłku",
         "difficulty": "Skomplikowanie",
-        "difficultyInfo": "Określa, czy przepis wymaga dużych umiejętności"
+        "difficultyInfo": "Określa, czy przepis wymaga dużych umiejętności",
+        "noteSaved": "Notatka została zapisana!"
     }
 }

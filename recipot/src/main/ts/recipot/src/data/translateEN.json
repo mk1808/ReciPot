@@ -365,6 +365,7 @@
 		"effort": "Effort",
 		"effortInfo": "Shows how much effort recipe requires",
 		"difficulty": "Difficulty",
-		"difficultyInfo": "Shows if recipe requires advanced cooking skills"
+		"difficultyInfo": "Shows if recipe requires advanced cooking skills",
+		"noteSaved": "Private note has been saved successfully!"
 	}
 }

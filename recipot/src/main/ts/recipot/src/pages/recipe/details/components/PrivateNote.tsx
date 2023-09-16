@@ -3,27 +3,38 @@ import MyTextarea from "../../../../components/basicUi/MyTextarea";
 import { Stack } from "react-bootstrap";
 import MyButton from "../../../../components/basicUi/MyButton";
 import Info from "../../../../components/basicUi/Info";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PrivateNoteForm from "./PrivateNoteForm";
 import { FormSave } from "../../../../data/utilTypes";
 import { getEmptyFormSave } from "../../../../utils/FormInputUtils";
+import privateNotesApi from "../../../../api/PrivateNotes";
+import { Recipe, PrivateNote as PrivateNoteT } from "../../../../data/types";
+import { AlertsDispatchContext } from "../../../../context/AlertContext";
+import { showSuccessAlert } from "../../../../utils/RestUtils";
 
-function PrivateNote() {
+function PrivateNote({ recipe, note }: { recipe: Recipe, note: PrivateNoteT }) {
     const { t } = useTranslation();
+    const alertsDispatchContext = useContext(AlertsDispatchContext);
     const isNotePresent = false;
     const [isEditModeOn, setIsEditModeOn] = useState<any>(false);
     useEffect(() => {
-        setIsEditModeOn(!isNotePresent);
+        setIsEditModeOn(note == null);
     }, [])
     const formSave: FormSave = getEmptyFormSave();
     formSave.onSubmit = function (formValue: any) {
         if (isEditModeOn) {
             console.log("btnz");
             console.log(formValue)
+            let note = { ...formValue };
+            note.recipe = { id: recipe.id };
+            privateNotesApi.createPrivateNote(note, formSave.onSuccess)
         }
-        setIsEditModeOn(!isEditModeOn);
+
     }
-    formSave.onSuccess = function () {
+    formSave.onSuccess = function (response: any) {
+
+        setIsEditModeOn(!isEditModeOn);
+        showSuccessAlert(t("p.noteSaved"), alertsDispatchContext);
 
     }
     formSave.onError = function () {
@@ -48,7 +59,7 @@ function PrivateNote() {
 
     function renderForm() {
         return (
-            <PrivateNoteForm formSave={formSave} isEditModeOn={isEditModeOn}></PrivateNoteForm>
+            <PrivateNoteForm formSave={formSave} isEditModeOn={isEditModeOn} note={note} setIsEditModeOn={setIsEditModeOn}></PrivateNoteForm>
         );
     }
 }
