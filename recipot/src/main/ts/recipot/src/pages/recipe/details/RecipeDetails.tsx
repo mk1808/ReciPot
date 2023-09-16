@@ -21,28 +21,23 @@ import ChangeVisibilityDialog from "./components/dialogs/ChangeVisibilityDialog"
 import { GiTurd } from "react-icons/gi";
 import Tooltip from "../../../components/basicUi/Tooltip";
 import ActionButtons from "./components/ActionButtons";
+import recipesApi from "../../../api/RecipesApi";
+import { useLocation, useParams } from "react-router-dom";
 
 function RecipeDetails() {
     const { t } = useTranslation();
+    const params = useParams();
+    const [recipe, setRecipe] = useState<any | Recipe>(initAs());
+    const [isLoaded, setIsLoaded] = useState<boolean>(false);
+    useEffect(() => {
+        let id: string = params.id ?? "";
+        let b = {}
+        console.log(params)
+        recipesApi.getRecipe(id, (response) => { setRecipe(response.value); setIsLoaded(true); })
+    }, [])
 
     const recipes = [{}, {}, {}, {}, {}, {}, {}]
 
-    const recipe = initAs<Recipe>(
-        {
-            id: "osidj-oeifj-9239",
-            name: "Sałatka warzywna",
-            accessType: "PUBLIC",
-            averageRating: 4.5,
-            ratingsCount: 110,
-            timeAmount: 60,
-            numberOfDishes: "MEDIUM",
-            difficulty: "MEDIUM",
-            requiredEffort: "MEDIUM",
-            categories: [{ id: "1", name: "Sałatki", image: "", parentCategory: { id: "6", name: "Przekąski", image: "" } }, { id: "2", name: "Zdrowe", image: "" }],
-            hashTags: [{ id: "1", name: "Obiady" }, { id: "2", name: "Zupy" }, { id: "3", name: "Zdrowe" }],
-            description: "Some quick example text to build on the card title and make up the bulk of the card's content.Some quick example text to build on the card title and make up the bulk of the card's content.",
-            image: "https://images.immediate.co.uk/production/volatile/sites/30/2014/05/Epic-summer-salad-hub-2646e6e.jpg"
-        });
     return (
         <div className='m-2 recipe-details-page'>
             {renderColumns()}
@@ -54,7 +49,7 @@ function RecipeDetails() {
             <Row className='gx-2 m-3'>
                 <Col md={7} className="offset-md-2">
                     <div className='basic-container-border p-3'>
-                        {renderMainRecipeColumn()}
+                        {isLoaded && renderMainRecipeColumn()}
                     </div>
                 </Col>
                 <Col md={2}>
