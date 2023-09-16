@@ -34,6 +34,10 @@ function RecipeDetails() {
             accessType: "PUBLIC",
             averageRating: 4.5,
             ratingsCount: 110,
+            timeAmount: 60,
+            numberOfDishes: "MEDIUM",
+            difficulty: "MEDIUM",
+            requiredEffort: "MEDIUM",
             categories: [{ id: "1", name: "Sałatki", image: "", parentCategory: { id: "6", name: "Przekąski", image: "" } }, { id: "2", name: "Zdrowe", image: "" }],
             hashTags: [{ id: "1", name: "Obiady" }, { id: "2", name: "Zupy" }, { id: "3", name: "Zdrowe" }],
             description: "Some quick example text to build on the card title and make up the bulk of the card's content.Some quick example text to build on the card title and make up the bulk of the card's content.",
@@ -67,7 +71,7 @@ function RecipeDetails() {
         return (
             <div className="mt-3 main">
                 <MyImage src={recipe.image} height="auto" className="main-img" rounded></MyImage>
-                <ActionButtons recipe={recipe}/>
+                <ActionButtons recipe={recipe} />
                 <MyHeader title={recipe.name}></MyHeader>
                 {renderBreadcrumps()}
                 <BasicInfo recipe={recipe} />

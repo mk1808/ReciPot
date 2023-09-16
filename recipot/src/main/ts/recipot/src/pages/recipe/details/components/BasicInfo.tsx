@@ -4,10 +4,6 @@ import { Recipe } from "../../../../data/types";
 import MyButton from "../../../../components/basicUi/MyButton";
 import { FaPlus } from "react-icons/fa6";
 import { useState } from "react";
-import AddToCollectionDialog from "./dialogs/AddToCollectionDialog";
-import ShareRecipeDialog from "./dialogs/ShareRecipeDialog";
-import ChangeVisibilityDialog from "./dialogs/ChangeVisibilityDialog";
-import DeleteRecipeDialog from "./dialogs/DeleteRecipeDialog";
 import { MdAccessTime, MdWork } from "react-icons/md";
 import { GiCookingPot } from "react-icons/gi";
 import { VscTools } from "react-icons/vsc";
@@ -15,47 +11,64 @@ import Info from "../../../../components/basicUi/Info";
 
 function BasicInfo({ recipe }: { recipe: Recipe }) {
     const { t } = useTranslation();
-    const [showModalAddToCollection, setShowModalAddToCollection] = useState(false);
-    const [showModalShare, setShowModalShare] = useState(false);
-    const [showModalDelete, setShowModalDelete] = useState(false);
-    const [showModalChangeVisibility, setShowModalChangeVisibility] = useState(false);
     return (
         <div className="mt-3 mb-5 px-5 basic-info">
             <div className="my-4">
                 {recipe.description}
             </div>
-
             <Row className="mb-5">
                 <Col>
                     <Row className="align-center icon-info">
                         <Col>
-                            <Info value={t('p.privateNoteInfo')} className="icon" renderIcon={(className: string) => <MdAccessTime className={className} />} /><br />
-                            <strong> Czas</strong> <br />
-                            30 min
+                            {renderSingleInfoIcon({
+                                tooltip: "timeInfo",
+                                icon: (className: string) => <MdAccessTime className={className} />,
+                                label: "time",
+                                value: recipe.timeAmount + " min"
+                            })}
                         </Col>
                         <Col>
-                            <Info value={t('p.privateNoteInfo')} className="icon" renderIcon={(className: string) => <GiCookingPot className={className} />} /><br />
-                            <strong> Ilość naczyń</strong> <br />
-                            duża
+                            {renderSingleInfoIcon({
+                                tooltip: "amountOfDishesInfo",
+                                icon: (className: string) => <GiCookingPot className={className} />,
+                                label: "amountOfDishes",
+                                value: recipe.numberOfDishes
+                            })}
+
                         </Col>
                         <Col>
-                            <Info value={t('p.privateNoteInfo')} className="icon" renderIcon={(className: string) => <MdWork className={className} />} /><br />
-                            <strong>   Pracochłonność</strong> <br />
-                            średnia
+                            {renderSingleInfoIcon({
+                                tooltip: "effortInfo",
+                                icon: (className: string) => <MdWork className={className} />,
+                                label: "effort",
+                                value: recipe.requiredEffort
+                            })}
+
                         </Col>
                         <Col>
-                            <Info value={t('p.privateNoteInfo')} className="icon" renderIcon={(className: string) => <VscTools className={className} />} /><br />
-                            <strong>   Skomplikowanie</strong><br />
-                            średnie
+                            {renderSingleInfoIcon({
+                                tooltip: "difficultyInfo",
+                                icon: (className: string) => <VscTools className={className} />,
+                                label: "difficulty",
+                                value: recipe.difficulty
+                            })}
 
                         </Col>
                     </Row>
-
                 </Col>
-
             </Row>
         </div>
     )
+
+    function renderSingleInfoIcon({ tooltip, icon, label, value }: { tooltip: any, icon: any, label: any, value: any }) {
+        return (
+            <>
+                <Info value={t(`p.${tooltip}`)} className="icon" renderIcon={icon} /><br />
+                <strong> {t(`p.${label}`)}</strong> <br />
+                {value}
+            </>
+        )
+    }
 }
 
 export default BasicInfo;

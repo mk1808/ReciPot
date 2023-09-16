@@ -346,6 +346,14 @@
         "defaultError": "Wystąpił błąd",
         "recipeFilterSaved": "Zapisano filtr przepisów",
         "recipeAddCorrect": "Przepis został utworzony!",
-        "recipesCollectionSaved": "Utworzono nową kolekcję przepisów"
+        "recipesCollectionSaved": "Utworzono nową kolekcję przepisów",
+        "time": "Czas",
+        "timeInfo": "Czas potrzebny na przygotowanie",
+        "amountOfDishes": "Ilość naczyń",
+        "amountOfDishesInfo": "Ilość naczyń, jaka jest potrzebna",
+        "effort": "Pracochłonność",
+        "effortInfo": "Określa, czy przepis wymaga dużego wysiłku",
+        "difficulty": "Skomplikowanie",
+        "difficultyInfo": "Określa, czy przepis wymaga dużych umiejętności"
     }
 }
