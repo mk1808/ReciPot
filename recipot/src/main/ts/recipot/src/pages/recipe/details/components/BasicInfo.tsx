@@ -32,7 +32,7 @@ function BasicInfo({ recipe }: { recipe: Recipe }) {
                                 tooltip: "amountOfDishesInfo",
                                 icon: (className: string) => <GiCookingPot className={className} />,
                                 label: "amountOfDishes",
-                                value: recipe.numberOfDishes
+                                value: t(`enums.RecipeAmountOfDishes.${recipe.numberOfDishes}`)
                             })}
 
                         </Col>
@@ -41,7 +41,7 @@ function BasicInfo({ recipe }: { recipe: Recipe }) {
                                 tooltip: "effortInfo",
                                 icon: (className: string) => <MdWork className={className} />,
                                 label: "effort",
-                                value: recipe.requiredEffort
+                                value: t(`enums.RecipeRequiredEffort.${recipe.requiredEffort}`)
                             })}
 
                         </Col>
@@ -50,7 +50,7 @@ function BasicInfo({ recipe }: { recipe: Recipe }) {
                                 tooltip: "difficultyInfo",
                                 icon: (className: string) => <VscTools className={className} />,
                                 label: "difficulty",
-                                value: recipe.difficulty
+                                value: t(`enums.RecipeDifficulty.${recipe.difficulty}`)
                             })}
 
                         </Col>
