@@ -17,6 +17,29 @@ export function buildRecipeSearchDto(recipesFilterForm?: any): RecipeSearchDto {
     } as RecipeSearchDto
 }
 
+export function updatePageUrl(recipesFilterForm?: any) {
+    const url = new URL(window.location as any);
+
+    for (const filter in recipesFilterForm) {
+        const value = recipesFilterForm[filter];
+        if (typeof value === 'object') {
+            if (typeof value.children !== 'undefined') {
+                value.children = null;
+            }
+            if (typeof value.value !== 'undefined') {
+                value.value.name = null;
+                value.value.children = null;
+                value.value.image = null;
+            }
+            url.searchParams.set(filter, JSON.stringify(value));
+        } else {
+            url.searchParams.set(filter, value);
+        }
+    }
+
+    window.history.pushState({}, "", url);
+}
+
 function getFilterSearchCriteria(filterKey: string, filterValue: any): SearchCriteriaDto | null {
     switch (filterKey) {
         case "userIsOwner": return filter("user", "eq", () => filterValue);

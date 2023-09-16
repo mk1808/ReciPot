@@ -36,7 +36,7 @@ function MySelect({
             inputRef.current.value = newValue;
             onChange(options[newValue]?.value)
         }
-    }, [defaultValue])
+    }, [defaultValue, options])
 
     function onChangeCallback(event: any) {
         onChange(options[event.target.value]?.value)
