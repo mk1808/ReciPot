@@ -26,11 +26,9 @@ function BasicInfo({ recipe }: { recipe: Recipe }) {
             </div>
 
             <Row className="mb-5">
-                <Col className="border-right">
-
+                <Col>
                     <Row className="align-center icon-info">
                         <Col>
-
                             <Info value={t('p.privateNoteInfo')} className="icon" renderIcon={(className: string) => <MdAccessTime className={className} />} /><br />
                             <strong> Czas</strong> <br />
                             30 min
@@ -56,31 +54,8 @@ function BasicInfo({ recipe }: { recipe: Recipe }) {
                 </Col>
 
             </Row>
-            <Row className="align-center">
-                <Col className="border-left">
-                    <div className="test">
-                        <MyButton.Primary onClick={() => setShowModalAddToCollection(true)} className="action-btn">Dodaj do kolekcji</MyButton.Primary>
-                        <MyButton.Primary onClick={() => setShowModalShare(true)} className="action-btn">Udostępnij</MyButton.Primary>
-                        <MyButton.Primary onClick={() => setShowModalDelete(true)} className="action-btn">Usuń przepis</MyButton.Primary>
-                        <MyButton.Primary onClick={() => setShowModalChangeVisibility(true)} className="action-btn" >Zmień widoczność</MyButton.Primary>
-                        {renderDialogs()}
-                    </div>
-                </Col>
-
-            </Row>
         </div>
     )
-    function renderDialogs() {
-        return (
-            <>
-                <AddToCollectionDialog showModal={showModalAddToCollection} handleClose={() => setShowModalAddToCollection(false)}></AddToCollectionDialog>
-                <ShareRecipeDialog showModal={showModalShare} handleClose={() => setShowModalShare(false)}></ShareRecipeDialog>
-                <DeleteRecipeDialog showModal={showModalDelete} handleClose={() => setShowModalDelete(false)} data={recipe}></DeleteRecipeDialog>
-                <ChangeVisibilityDialog showModal={showModalChangeVisibility} handleClose={() => setShowModalChangeVisibility(false)} data={recipe}></ChangeVisibilityDialog>
-
-            </>
-        )
-    }
 }
 
 export default BasicInfo;

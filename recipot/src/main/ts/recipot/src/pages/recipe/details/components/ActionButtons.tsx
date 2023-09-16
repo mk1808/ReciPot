@@ -19,7 +19,7 @@ function ActionButtons({ recipe }: { recipe: Recipe }) {
     const [showModalDelete, setShowModalDelete] = useState(false);
     const [showModalChangeVisibility, setShowModalChangeVisibility] = useState(false);
     return (<>
-        <Row className="align-center recipe-details-action-buttons">
+        <Row className="align-center action-buttons">
             <Col md="7"></Col>
             <Col md="4">
                 <Row>

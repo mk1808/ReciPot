@@ -18,12 +18,49 @@
             }
         }
 
+        .action-buttons {
+            position: relative;
+
+            .row {
+                position: relative;
+                top: -50%;
+
+                button {
+                    font-size: 20px;
+                    width: 50px;
+                    height: 50px;
+                    box-shadow: 0px 0px 34px 0px rgba(34, 42, 134, 1);
+                }
+            }
+        }
+
         .basic-info {
             text-align: start;
             font-size: 19px;
 
             .test {
                 height: 130px;
+            }
+        }
+
+        .icon-info {
+
+            svg {
+                font-size: 35px;
+            }
+
+            .icon {
+                color: $primary;
+                font-size: 35px;
+            }
+
+            .col {
+                text-align: center;
+                border-right: 1px dashed $secondary;
+            }
+
+            :last-child {
+                border-right: 0px dashed $secondary;
             }
         }
 
@@ -86,47 +123,5 @@
             }
 
         }
-    }
-
-    .action-btn {
-        width: 200px;
-    }
-
-    .icon {
-        color: $primary;
-        font-size: 35px;
-    }
-
-    .border-left {
-        text-align: right;
-        height: 52px;
-        background-color: $input-border-color;
-    }
-
-    .icon-info {
-
-        svg {
-            font-size: 35px;
-        }
-
-        .col {
-            text-align: center;
-            border-right: 1px dashed $secondary;
-        }
-
-        :last-child {
-            border-right: 0px dashed $secondary;
-        }
-    }
-
-}
-
-
-.recipe-details-action-buttons {
-    position: relative;
-
-    .row {
-        position: relative;
-        top: -50%
     }
 }
