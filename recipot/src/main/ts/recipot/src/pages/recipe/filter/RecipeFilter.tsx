@@ -11,6 +11,7 @@ import { FormSave } from '../../../data/utilTypes';
 import { getEmptyFormSave } from '../../../utils/FormInputUtils';
 import FilteredRecipesPagination from './components/FilteredRecipesPagination';
 import { RecipeFilterContextContextProvider } from './context/RecipeFilterContext';
+import RecipesSortForm from './components/RecipesSortForm';
 
 function RecipeFilter() {
 
@@ -55,6 +56,9 @@ function RecipeFilter() {
     function renderFiltersColumn() {
         return (
             <div className='mt-5'>
+                <h2>{t('p.recipesSort')}</h2>
+                <RecipesSortForm />
+                <hr />
                 <h2>{t('p.recipeFilterForm')}</h2>
                 <RecipeFiltersColumn formSave={formSave} />
             </div>

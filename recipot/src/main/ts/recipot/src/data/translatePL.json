@@ -114,6 +114,16 @@
             "SMALL": "Mało",
             "MEDIUM": "Przeciętnie",
             "LARGE": "Dużo"
+        },
+        "RecipesSort": {
+            "nameASC": "Po nazwie A-Z",
+            "nameDESC": "Po nazwie Z-A",
+            "ratingsCountASC": "Po popularności rosnąco",
+            "ratingsCountDESC": "Po popularności malejąco",
+            "averageRatingASC": "Po średniej ocenie rosnąco",
+            "averageRatingDESC": "Po średniej ocenie malejąco",
+            "createdASC": "Od najstarszych",
+            "createdDESC": "Od najnowszych"
         }
     },
     "dtos": {
@@ -269,6 +279,7 @@
         "recipeFilterHeader": "Wyszukaj przepis",
         "savedRecipeFilterHeader": "Zapisane filtry",
         "recipeFilterForm": "Kryteria wyszukiwania",
+        "recipesSort": "Sortowanie wyników",
         "newestRecipes": "Najnowsze przepisy",
         "categories": "Kategorie",
         "recipesCount": "Liczba przepisów",

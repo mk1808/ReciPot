@@ -114,6 +114,16 @@
 			"SMALL": "Small",
 			"MEDIUM": "Medium",
 			"LARGE": "Large"
+		},
+		"RecipesSort": {
+			"nameASC": "By name A-Z",
+			"nameDESC": "By name Z-A",
+			"ratingsCountASC": "By popularity ascending",
+			"ratingsCountDESC": "By popularity descending",
+			"averageRatingASC": "By average rating ascending",
+			"averageRatingDESC": "By average rating descending",
+			"createdASC": "Oldest first",
+			"createdDESC": "Newest first"
 		}
 	},
 	"dtos": {
@@ -269,6 +279,7 @@
 		"recipeFilterHeader": "Recipe search",
 		"savedRecipeFilterHeader": "Saved filters",
 		"recipeFilterForm": "Search criteria",
+		"recipesSort": "Recipes sort",
 		"newestRecipes": "Newest recipes",
 		"categories": "Categories",
 		"recipesCount": "Recipes count",
