@@ -13,18 +13,31 @@ import { Recipe } from "../../../data/types";
 import { initAs } from "../../../utils/ObjectUtils";
 import { useEffect, useState } from "react";
 import BreadCrumbs from "./components/BreadCrumbs";
+import MyButton from "../../../components/basicUi/MyButton";
+import AddToCollectionDialog from "./components/dialogs/AddToCollectionDialog";
+import ShareRecipeDialog from "./components/dialogs/ShareRecipeDialog";
+import DeleteRecipeDialog from "./components/dialogs/DeleteRecipeDialog";
+import ChangeVisibilityDialog from "./components/dialogs/ChangeVisibilityDialog";
+import { GiTurd } from "react-icons/gi";
+import Tooltip from "../../../components/basicUi/Tooltip";
+import ActionButtons from "./components/ActionButtons";
 
 function RecipeDetails() {
     const { t } = useTranslation();
+
     const recipes = [{}, {}, {}, {}, {}, {}, {}]
 
     const recipe = initAs<Recipe>(
         {
             id: "osidj-oeifj-9239",
             name: "Sałatka warzywna",
-            accessType:"PUBLIC",
+            accessType: "PUBLIC",
             averageRating: 4.5,
             ratingsCount: 110,
+            timeAmount: 60,
+            numberOfDishes: "MEDIUM",
+            difficulty: "MEDIUM",
+            requiredEffort: "MEDIUM",
             categories: [{ id: "1", name: "Sałatki", image: "", parentCategory: { id: "6", name: "Przekąski", image: "" } }, { id: "2", name: "Zdrowe", image: "" }],
             hashTags: [{ id: "1", name: "Obiady" }, { id: "2", name: "Zupy" }, { id: "3", name: "Zdrowe" }],
             description: "Some quick example text to build on the card title and make up the bulk of the card's content.Some quick example text to build on the card title and make up the bulk of the card's content.",
@@ -58,9 +71,10 @@ function RecipeDetails() {
         return (
             <div className="mt-3 main">
                 <MyImage src={recipe.image} height="auto" className="main-img" rounded></MyImage>
+                <ActionButtons recipe={recipe} />
                 <MyHeader title={recipe.name}></MyHeader>
                 {renderBreadcrumps()}
-                <BasicInfo recipe = {recipe} />
+                <BasicInfo recipe={recipe} />
                 <hr />
                 <IngredientList />
                 <hr />

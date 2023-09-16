@@ -357,6 +357,14 @@
 		"defaultError": "Error occurred",
 		"recipeFilterSaved": "Recipe filter saved",
 		"recipeAddCorrect": "Recipe created!",
-		"recipesCollectionSaved": "Created recipes collection"
+		"recipesCollectionSaved": "Created recipes collection",
+		"time": "Time",
+		"timeInfo": "Time needed to prepare",
+		"amountOfDishes": "Amount of dishes",
+		"amountOfDishesInfo": "Amount of dishes needed for this recipe",
+		"effort": "Effort",
+		"effortInfo": "Shows how much effort recipe requires",
+		"difficulty": "Difficulty",
+		"difficultyInfo": "Shows if recipe requires advanced cooking skills"
 	}
 }
