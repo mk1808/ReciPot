@@ -16,31 +16,38 @@
     }
 }
 
-.step-circle {
-    border-radius: 50%;
-    height: 100px;
-    width: 100px;
-    border: 4px solid $primary;
-    box-shadow: 8px 0px 18px 0px $secondary;
+.steps {
+    .step-circle {
+        border-radius: 50%;
+        height: 100px;
+        width: 100px;
+        border: 4px solid $primary;
+        box-shadow: 8px 0px 18px 0px $secondary;
 
-    .value {
-        font-size: xx-large;
-        position: absolute;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
+        .value {
+            font-size: xx-large;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        &.circle-light {
+            background-color: v.$background-light;
+        }
+
+        &.circle-dark {
+            background-color: v.$background-dark;
+
+        }
     }
-
-    &.circle-light {
-        background-color: v.$background-light;
-    }
-
-    &.circle-dark {
-        background-color: v.$background-dark;
-
+    .card-content{
+        font-size:18px;
+        min-height: 100px;
     }
 }
+
 
 .vertical-pagination {
     width: 60px;

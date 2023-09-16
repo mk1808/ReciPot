@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
 import MyCheckbox from "../../../../components/basicUi/MyCheckbox";
-import { Ingredient, RecipeIngredient } from "../../../../data/types";
+import { Ingredient, Recipe, RecipeIngredient } from "../../../../data/types";
 import { initAs } from "../../../../utils/ObjectUtils";
 
-function IngredientList() {
+function IngredientList({ recipe }: { recipe: Recipe }) {
     const { t } = useTranslation();
     const ingredients: RecipeIngredient[] =
         [
@@ -76,7 +76,7 @@ function IngredientList() {
     function renderIngredients() {
         return (
             <>
-                {ingredients.map(singleIngredient => { return renderSingleIngredient(singleIngredient); })}
+                {recipe.recipeIngredients.map(singleIngredient => { return renderSingleIngredient(singleIngredient); })}
             </>
         )
     }

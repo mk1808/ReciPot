@@ -71,9 +71,9 @@ function RecipeDetails() {
                 {renderBreadcrumps()}
                 <BasicInfo recipe={recipe} />
                 <hr />
-                <IngredientList />
+                <IngredientList recipe={recipe} />
                 <hr />
-                <Steps />
+                <Steps recipe={recipe}/>
                 <hr />
                 <PrivateNote />
                 <hr />

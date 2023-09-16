@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
 import { initAs } from "../../../../utils/ObjectUtils";
-import { RecipeStep } from "../../../../data/types";
+import { Recipe, RecipeStep } from "../../../../data/types";
 import RecipeStepsNumbers from "../../../../components/complex/RecipeStepsNumbers";
 
-function Steps() {
+function Steps({ recipe }: { recipe: Recipe }) {
     const { t } = useTranslation();
     const stepText = `      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dui mi, mattis sit amet felis quis, faucibus varius enim. Cras faucibus odio nec nisl pharetra, eu convallis orci viverra. Phasellus lobortis quis ex vitae porta. Donec a est elementum, convallis lorem a, efficitur enim. Curabitur dapibus id tortor a placerat. Suspendisse felis libero, suscipit a ipsum nec, interdum blandit risus. Donec mollis nec tortor nec volutpat. Ut feugiat nunc ac elementum tincidunt.
 
@@ -21,7 +21,7 @@ function Steps() {
     )
     function renderSteps() {
         return (
-            <RecipeStepsNumbers steps={recipeSteps}></RecipeStepsNumbers>
+            <RecipeStepsNumbers steps={recipe.recipeSteps}></RecipeStepsNumbers>
         );
     }
 }
