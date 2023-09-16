@@ -1,6 +1,6 @@
 import Form from 'react-bootstrap/Form';
-import { initFcn } from '../../utils/ObjectUtils';
-import { useEffect, useRef, useState } from 'react';
+import { asHash, initFcn } from '../../utils/ObjectUtils';
+import { useEffect, useRef } from 'react';
 import { checkValidity } from '../../utils/FormInputUtils';
 
 function MySelect({
@@ -43,7 +43,7 @@ function MySelect({
     }
 
     function getDefaultValue(defaultValue: any) {
-        const valueIndex = options.map((option: any) => option.value).indexOf(defaultValue);
+        const valueIndex = options.map((option: any) => asHash(option.value)).indexOf(asHash(defaultValue));
         if (valueIndex >= 0) {
             return String(valueIndex);
         }

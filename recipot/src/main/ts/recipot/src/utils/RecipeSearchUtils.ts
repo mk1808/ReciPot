@@ -12,26 +12,27 @@ export function buildRecipeSearchDto(recipesFilterForm?: any): RecipeSearchDto {
 
     return {
         searchCriteriaList: searchCriteriaList,
-        dataOption: "all"
+        dataOption: "all",
+        searchOrder: recipesFilterForm.recipesSort
     } as RecipeSearchDto
 }
 
-function getFilterSearchCriteria(filterKey: string, filterValue: any): SearchCriteriaDto {
-    const filterOperationsMap = {
-        userIsOwner: () => filter("user", "eq", () => filterValue),
-        accessType: () => filter("accessType", "eq", () => filterValue),
-        recipeName: () => filter("name", "cn", () => filterValue),
-        timeAmountFrom: () => filter("timeAmount", "ge", () => filterValue),
-        timeAmountTo: () => filter("timeAmount", "le", () => filterValue),
-        amountOfDishes: () => filter("numberOfDishes", "eq", () => filterValue),
-        difficulties: () => filter("difficulty", "eq", () => filterValue),
-        requiredEffort: () => filter("requiredEffort", "eq", () => filterValue),
-        averageRating: () => filter("averageRating", "ge", () => filterValue),
-        hashTags: () => filter("hashTags", "in", () => getValueIdsFromArray(filterValue)),
-        ingredients: () => filter("ingredients", "in", () => getValueIdsFromArray(filterValue)),
-        categories: () => filter("categories", "in", () => getValueIdsFromArray(filterValue)),
+function getFilterSearchCriteria(filterKey: string, filterValue: any): SearchCriteriaDto | null {
+    switch (filterKey) {
+        case "userIsOwner": return filter("user", "eq", () => filterValue);
+        case "accessType": return filter("accessType", "eq", () => filterValue);
+        case "recipeName": return filter("name", "cn", () => filterValue);
+        case "timeAmountFrom": return filter("timeAmount", "ge", () => filterValue);
+        case "timeAmountTo": return filter("timeAmount", "le", () => filterValue);
+        case "amountOfDishes": return filter("numberOfDishes", "eq", () => filterValue);
+        case "difficulties": return filter("difficulty", "eq", () => filterValue);
+        case "requiredEffort": return filter("requiredEffort", "eq", () => filterValue);
+        case "averageRating": return filter("averageRating", "ge", () => filterValue);
+        case "hashTags": return filter("hashTags", "in", () => getValueIdsFromArray(filterValue));
+        case "ingredients": return filter("ingredients", "in", () => getValueIdsFromArray(filterValue));
+        case "categories": return filter("categories", "in", () => getValueIdsFromArray(filterValue));
+        default: return null;
     }
-    return filterOperationsMap[filterKey as keyof typeof filterOperationsMap]();
 }
 
 function filter(filterKey: string, operation: string, getValue: any): SearchCriteriaDto {
