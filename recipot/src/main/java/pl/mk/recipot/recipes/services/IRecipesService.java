@@ -21,4 +21,6 @@ public interface IRecipesService {
 	public Recipe updateRecipeAverageRating(Recipe recipe);
 	
 	public Page<Recipe> getByPredefinedFilter(PredefinedRecipeFilter type, int pageNum, int pageSize);
+	
+	public Recipe getCleanedRecipe(UUID recipeId);
 }
