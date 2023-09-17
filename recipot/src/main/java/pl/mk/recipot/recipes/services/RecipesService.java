@@ -21,6 +21,7 @@ import pl.mk.recipot.commons.services.IFilterService;
 import pl.mk.recipot.recipes.domains.CheckIfRecipeDoesNotExists;
 import pl.mk.recipot.recipes.domains.CleanRecipe;
 import pl.mk.recipot.recipes.domains.GetPageForSearching;
+import pl.mk.recipot.recipes.domains.GetRandomRecipes;
 import pl.mk.recipot.recipes.domains.SearchRecipesByCriteria;
 import pl.mk.recipot.recipes.domains.UpdateAverageRatingInRecipe;
 import pl.mk.recipot.recipes.domains.UpdateStepsAndIngredientsInRecipe;
@@ -120,11 +121,6 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 
 	@Override
 	public List<Recipe> getRandomRecipes(int pageSize) {
-		List<Recipe> recipes = new ArrayList<>(getByPredefinedFilter(PredefinedRecipeFilter.NEWEST, 0, 10000).getContent());
-		Collections.shuffle(recipes);
-		if(recipes.size() <= pageSize) {
-			return recipes;
-		}
-		return recipes.subList(0, pageSize);
+		return new GetRandomRecipes().execute(getByPredefinedFilter(PredefinedRecipeFilter.NEWEST, 0, 10000), pageSize);
 	}
 }
