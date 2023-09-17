@@ -40,9 +40,11 @@ function RecipeDetails() {
         let b = {}
         console.log(params)
         recipesApi.getRecipe(id, (response) => { setRecipe(response.value); setIsLoaded(true); })
-        opinionsApi.getRecipeOpinions(id, (response)=>{ setOpinions(response.value)})
-        privateNotesApi.getPrivateNoteByRecipeId(id, (response)=>{ setNote(response.value); setIsNoteLoaded(true)})
+        getOpinions(id);
+        privateNotesApi.getPrivateNoteByRecipeId(id, (response)=>{ setNote(response.value); setIsNoteLoaded(true)});
+        
     }, [])
+    function getOpinions (id:string){opinionsApi.getRecipeOpinions(id, (response)=>{ setOpinions(response.value)})}
 
     const recipes = [{}, {}, {}, {}, {}, {}, {}]
 
@@ -85,7 +87,7 @@ function RecipeDetails() {
                 <hr />
                 {isNoteLoaded && <PrivateNote recipe={recipe} note={note} />}
                 <hr />
-                <Comments recipe={recipe} opinions={opinions} />
+                <Comments recipe={recipe} opinions={opinions} getOpinions = {getOpinions}/>
 
             </div>
         )

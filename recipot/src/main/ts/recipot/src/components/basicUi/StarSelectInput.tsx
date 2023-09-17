@@ -25,6 +25,11 @@ function StarSelectInput({
     const [inputValue, setInputValue] = useState(defaultValue);
     const [currentValue, setCurrentValue] = useState(defaultValue);
 
+    useEffect(() => { 
+            setInputValue(defaultValue) 
+            setCurrentValue(defaultValue);
+        }, [defaultValue])
+
     useEffect(() => { onChange(inputValue) }, [inputValue])
 
     function getStarsIndexes() {

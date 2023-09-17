@@ -14,16 +14,25 @@ import { Recipe } from "../../../../data/types";
 import opinionsApi from "../../../../api/OpinionsApi";
 import { showSuccessAlert } from "../../../../utils/RestUtils";
 import { AlertsDispatchContext } from "../../../../context/AlertContext";
+import { UsersContext } from "../../../../context/UserContext";
 
-function Comments({ opinions, recipe }: { opinions: any[], recipe: Recipe }) {
+function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: Recipe, getOpinions: any }) {
     const { t } = useTranslation();
     const isNotePresent = false;
     const [isEditModeOn, setIsEditModeOn] = useState<any>(false);
+    const [userOpinion, setUserOpinion] = useState<any>(false);
     const alertsDispatchContext = useContext(AlertsDispatchContext);
+    const user = useContext(UsersContext).user;
     const content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut consectetur sem ut nisl bibendum, sed iaculis sem accumsan. Phasellus viverra malesuada tincidunt."
     useEffect(() => {
-        setIsEditModeOn(!isNotePresent);
-    }, [])
+        setIsEditModeOn(true);
+        if (user) {
+            let opinion = opinions.filter((opinion: any) => opinion.authorLogin == user.login);
+            opinion = opinion.length > 0 ? opinion[0] : null;
+            setUserOpinion(opinion);
+        }
+
+    }, [user])
     const formSave: FormSave = getEmptyFormSave();
     formSave.onSubmit = function (formValue: any) {
         let recipeObj = { recipe: { id: recipe.id } };
@@ -31,26 +40,20 @@ function Comments({ opinions, recipe }: { opinions: any[], recipe: Recipe }) {
             let commentObj: any = { ...recipeObj, content: formValue.content };
             opinionsApi.createComment(commentObj, (response) => {
                 showSuccessAlert(t('p.commentAddSuccess'), alertsDispatchContext);
+                getOpinions(recipe.id);
             });
         }
         if (formValue.value != 0) {
             let ratingObj: any = { ...recipeObj, value: formValue.value };
             opinionsApi.createRating(ratingObj, (response) => {
                 showSuccessAlert(t('p.ratingAddSuccess'), alertsDispatchContext);
+                getOpinions(recipe.id);
             });
         }
-
-
-        console.log("btnz");
-        console.log(formValue)
-        setIsEditModeOn(!isEditModeOn);
     }
-    formSave.onSuccess = function () {
 
-    }
-    formSave.onError = function () {
 
-    }
+
     return (
         <div className="mb-5 px-5 comments">
             <h4 className="my-3 display-4">{t('p.comments')}</h4>
@@ -60,7 +63,7 @@ function Comments({ opinions, recipe }: { opinions: any[], recipe: Recipe }) {
     )
     function renderForm() {
         return (
-            <CommentsForm formSave={formSave} isEditModeOn={isEditModeOn}></CommentsForm>
+            <CommentsForm formSave={formSave} isEditModeOn={isEditModeOn} userOpinion={userOpinion}></CommentsForm>
         );
     }
 

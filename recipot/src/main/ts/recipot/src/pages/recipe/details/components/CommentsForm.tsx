@@ -7,7 +7,7 @@ import { Form, Stack } from "react-bootstrap";
 import StarSelectInput from "../../../../components/basicUi/StarSelectInput";
 import MyButton from "../../../../components/basicUi/MyButton";
 
-function CommentsForm({ formSave, isEditModeOn }: { formSave: FormSave, isEditModeOn: boolean }) {
+function CommentsForm({ formSave, isEditModeOn, userOpinion }: { formSave: FormSave, isEditModeOn: boolean, userOpinion: any }) {
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
 
@@ -42,6 +42,7 @@ function CommentsForm({ formSave, isEditModeOn }: { formSave: FormSave, isEditMo
                     placeholder={t('p.addComment')}
                     rows={5}
                     disabled={!isEditModeOn}
+                    defaultValue={(userOpinion && userOpinion.comment) || ""}
                     {...inputAttributes("content", myForm, dispatchForm)}
                 />
             </div>
@@ -53,7 +54,7 @@ function CommentsForm({ formSave, isEditModeOn }: { formSave: FormSave, isEditMo
                 <StarSelectInput
                     required
                     label={t('p.addRating')}
-                    defaultValue={0}
+                    defaultValue={(userOpinion && userOpinion.rating) || 0}
                     {...inputAttributes("value", myForm, dispatchForm)}
                 />
                 <MyButton.Primary type="submit" className="button-400 save-btn" disabled={false}>
