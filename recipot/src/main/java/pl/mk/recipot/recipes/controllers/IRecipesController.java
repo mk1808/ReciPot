@@ -1,5 +1,6 @@
 package pl.mk.recipot.recipes.controllers;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -49,4 +50,7 @@ public interface IRecipesController {
 			@RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
 			@RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
 			@RequestParam(name = "type") PredefinedRecipeFilter type);
+
+	@GetMapping("/random")
+	public ResponseEntity<Response<List<Recipe>>> getRandomRecipes(@RequestParam(name = "pageSize", defaultValue = "1") int pageSize);
 }

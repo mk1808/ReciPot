@@ -1,5 +1,8 @@
 package pl.mk.recipot.recipes.services;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -109,4 +112,13 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		return recipesRepository.findAll(specification, page);
 	}
 
+	@Override
+	public List<Recipe> getRandomRecipes(int pageSize) {
+		List<Recipe> recipes = new ArrayList<>(getByPredefinedFilter(PredefinedRecipeFilter.NEWEST, 0, 10000).getContent());
+		Collections.shuffle(recipes);
+		if(recipes.size() <= pageSize) {
+			return recipes;
+		}
+		return recipes.subList(0, pageSize);
+	}
 }
