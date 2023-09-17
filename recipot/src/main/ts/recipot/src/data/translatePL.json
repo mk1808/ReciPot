@@ -369,6 +369,8 @@
         "noteSaved": "Notatka została zapisana!",
         "noComment": "Brak komentarza",
         "rating": "Ocena",
-        "publishDate": "Data opublikowania"
+        "publishDate": "Data opublikowania",
+        "ratingAddSuccess": "Ocena została dodana!",
+        "commentAddSuccess": "Komentarz został dodany!"
     }
 }

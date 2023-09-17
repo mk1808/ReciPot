@@ -63,7 +63,7 @@ public class CreateRecipeOpinions {
 		if (comment != null) {
 			opinionCreationDate = comment.getCreated();
 		}
-		if (rating != null && rating.getCreated().before(opinionCreationDate)) {
+		if (rating != null && (opinionCreationDate == null || rating.getCreated().before(opinionCreationDate))) {
 			opinionCreationDate = rating.getCreated();
 		}
 		return opinionCreationDate;
