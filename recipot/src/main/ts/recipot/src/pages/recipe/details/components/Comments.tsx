@@ -9,6 +9,7 @@ import StarSelectInput from "../../../../components/basicUi/StarSelectInput";
 import CommentsForm from "./CommentsForm";
 import { FormSave } from "../../../../data/utilTypes";
 import { getEmptyFormSave } from "../../../../utils/FormInputUtils";
+import { format } from "../../../../utils/DateUtils";
 
 function Comments({ opinions }: { opinions: any[] }) {
     const { t } = useTranslation();
@@ -61,7 +62,7 @@ function Comments({ opinions }: { opinions: any[] }) {
                                         {t('p.rating')}:&nbsp;
                                         <AiFillStar /> {comment.rating ?? '-'}/5  &nbsp;
                                         <div className="vr"></div>
-                                        &nbsp;{t('p.publishDate')}:&nbsp;{comment.created}
+                                        &nbsp;{t('p.publishDate')}:&nbsp;{format(comment.created)}
                                     </div>
                                 </div>
                                 {comment.comment ?? t('p.noComment')}
