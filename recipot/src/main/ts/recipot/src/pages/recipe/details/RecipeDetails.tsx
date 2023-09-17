@@ -9,7 +9,7 @@ import IngredientList from "./components/IngredientsList";
 import Steps from "./components/Steps";
 import PrivateNote from "./components/PrivateNote";
 import Comments from "./components/Comments";
-import { Recipe } from "../../../data/types";
+import { OpinionDto, PrivateNote as PrivateNoteT, Recipe } from "../../../data/types";
 import { initAs } from "../../../utils/ObjectUtils";
 import { useEffect, useState } from "react";
 import BreadCrumbs from "./components/BreadCrumbs";
@@ -23,17 +23,25 @@ import Tooltip from "../../../components/basicUi/Tooltip";
 import ActionButtons from "./components/ActionButtons";
 import recipesApi from "../../../api/RecipesApi";
 import { useLocation, useParams } from "react-router-dom";
+import opinionsApi from "../../../api/OpinionsApi";
+import privateNotesApi from "../../../api/PrivateNotes";
 
 function RecipeDetails() {
     const { t } = useTranslation();
     const params = useParams();
     const [recipe, setRecipe] = useState<any | Recipe>(initAs());
+    const [opinions, setOpinions] = useState<any | OpinionDto[]>([]);
+    const [note, setNote] = useState<any | PrivateNoteT>(initAs());
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
+    const [isNoteLoaded, setIsNoteLoaded] = useState<boolean>(false);
+    
     useEffect(() => {
         let id: string = params.id ?? "";
         let b = {}
         console.log(params)
         recipesApi.getRecipe(id, (response) => { setRecipe(response.value); setIsLoaded(true); })
+        opinionsApi.getRecipeOpinions(id, (response)=>{ setOpinions(response.value)})
+        privateNotesApi.getPrivateNoteByRecipeId(id, (response)=>{ setNote(response.value); setIsNoteLoaded(true)})
     }, [])
 
     const recipes = [{}, {}, {}, {}, {}, {}, {}]
@@ -75,9 +83,9 @@ function RecipeDetails() {
                 <hr />
                 <Steps recipe={recipe}/>
                 <hr />
-                <PrivateNote />
+                {isNoteLoaded && <PrivateNote recipe={recipe} note={note} />}
                 <hr />
-                <Comments />
+                <Comments opinions={opinions} />
 
             </div>
         )
