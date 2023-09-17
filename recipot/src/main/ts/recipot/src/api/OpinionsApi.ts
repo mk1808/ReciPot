@@ -9,7 +9,7 @@ function OpinionsApi() {
     }
 
     const createComment = (body: Comment, onSuccess: (response: Response<Comment>) => any, onError?: (response: Response<Comment>) => any) => {
-        restClient.post(`${PREFIX}`, body, onSuccess, onError)
+        restClient.post(`${PREFIX}/comments`, body, onSuccess, onError)
     }
 
     const getRecipeOpinions = (recipeId: string, onSuccess: (response: Response<OpinionDto[]>) => any, onError?: (response: Response<OpinionDto[]>) => any) => {

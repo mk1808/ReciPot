@@ -85,7 +85,7 @@ function RecipeDetails() {
                 <hr />
                 {isNoteLoaded && <PrivateNote recipe={recipe} note={note} />}
                 <hr />
-                <Comments opinions={opinions} />
+                <Comments recipe={recipe} opinions={opinions} />
 
             </div>
         )

@@ -368,7 +368,9 @@
 		"difficultyInfo": "Shows if recipe requires advanced cooking skills",
 		"noteSaved": "Private note has been saved successfully!",
 		"noComment": "No comment",
-        "rating": "Rating",
-        "publishDate": "Publish date"
+		"rating": "Rating",
+		"publishDate": "Publish date",
+		"ratingAddSuccess": "Rating has been added successfully!",
+		"commentAddSuccess": "Comment has been added successfully!"
 	}
 }

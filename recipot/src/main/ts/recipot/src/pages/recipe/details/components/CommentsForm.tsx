@@ -42,7 +42,7 @@ function CommentsForm({ formSave, isEditModeOn }: { formSave: FormSave, isEditMo
                     placeholder={t('p.addComment')}
                     rows={5}
                     disabled={!isEditModeOn}
-                    {...inputAttributes("note", myForm, dispatchForm)}
+                    {...inputAttributes("content", myForm, dispatchForm)}
                 />
             </div>
         )
@@ -54,7 +54,7 @@ function CommentsForm({ formSave, isEditModeOn }: { formSave: FormSave, isEditMo
                     required
                     label={t('p.addRating')}
                     defaultValue={0}
-                    {...inputAttributes("rating", myForm, dispatchForm)}
+                    {...inputAttributes("value", myForm, dispatchForm)}
                 />
                 <MyButton.Primary type="submit" className="button-400 save-btn" disabled={false}>
                     {t('p.saveComment')}
