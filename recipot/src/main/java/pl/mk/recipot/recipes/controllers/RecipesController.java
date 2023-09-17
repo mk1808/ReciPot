@@ -50,7 +50,7 @@ public class RecipesController implements IRecipesController {
 
 	@Override
 	public ResponseEntity<Response<Recipe>> get(UUID id) {
-		return new OkResponseFactory().createResponse(recipeCrudService.get(id));
+		return new OkResponseFactory().createResponse(recipesService.getCleanedRecipe(id));
 	}
 
 	@Override

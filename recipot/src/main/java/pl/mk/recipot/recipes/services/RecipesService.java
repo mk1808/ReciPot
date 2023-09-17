@@ -52,7 +52,7 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	@Override
 	public Page<Recipe> filter(RecipeSearchDto recipeSearchDto) {
 		Specification<Recipe> specification = new SearchRecipesByCriteria().execute(recipeSearchDto);
-		Pageable page = new GetPageForSearching().execute(recipeSearchDto); 
+		Pageable page = new GetPageForSearching().execute(recipeSearchDto);
 		return recipesRepository.findAll(specification, page);
 	}
 
@@ -70,6 +70,12 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	public Recipe get(UUID id) {
 		Recipe recipe = recipesRepository.getRecipeWithOwner(id);
 		new CheckIfRecipeDoesNotExists().execute(recipe);
+		return recipe;
+	}
+
+	@Override
+	public Recipe getCleanedRecipe(UUID id) {
+		Recipe recipe = get(id);
 		return new UpdateStepsAndIngredientsInRecipe().execute(recipe,
 				new CleanRecipe().executeIngredients(recipeIngredientsRepository.getByRecipe(recipe)),
 				new CleanRecipe().executeSteps(recipeStepsRepository.getByRecipe(recipe)));
@@ -108,7 +114,7 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	public Page<Recipe> getByPredefinedFilter(PredefinedRecipeFilter type, int pageNum, int pageSize) {
 		RecipeSearchDto recipeSearchDto = type.getFilter().setPage(pageNum).setSize(pageSize);
 		Specification<Recipe> specification = new SearchRecipesByCriteria().execute(recipeSearchDto);
-		Pageable page = new GetPageForSearching().execute(recipeSearchDto); 
+		Pageable page = new GetPageForSearching().execute(recipeSearchDto);
 		return recipesRepository.findAll(specification, page);
 	}
 

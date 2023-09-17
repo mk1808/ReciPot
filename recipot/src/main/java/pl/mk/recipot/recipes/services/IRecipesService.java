@@ -24,5 +24,7 @@ public interface IRecipesService {
 	public Page<Recipe> getByPredefinedFilter(PredefinedRecipeFilter type, int pageNum, int pageSize);
 
 	public List<Recipe> getRandomRecipes(int pageSize);
+	
+	public Recipe getCleanedRecipe(UUID recipeId);
 
 }
