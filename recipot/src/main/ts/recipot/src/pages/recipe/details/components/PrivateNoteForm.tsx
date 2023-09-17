@@ -6,20 +6,26 @@ import MyTextarea from "../../../../components/basicUi/MyTextarea";
 import { Form, Stack } from "react-bootstrap";
 import StarSelectInput from "../../../../components/basicUi/StarSelectInput";
 import MyButton from "../../../../components/basicUi/MyButton";
+import { PrivateNote } from "../../../../data/types";
 
-function PrivateNoteForm({ formSave, isEditModeOn }: { formSave: FormSave, isEditModeOn: boolean }) {
+function PrivateNoteForm({ formSave, isEditModeOn, note, setIsEditModeOn }: { formSave: FormSave, isEditModeOn: boolean, note: PrivateNote, setIsEditModeOn: any }) {
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
 
     function handleSubmit(event: any) {
-        const form = myForm;
-        console.log(form)
-
-        if (checkIfAllValid(event, myForm)) {
-            formSave.onSubmit(myForm.formValue);
-            console.log('valid')
+        if (!isEditModeOn) {
+            setIsEditModeOn(true);
         } else {
-            console.log('invalid')
+            const form = myForm;
+            console.log(form)
+
+            if (checkIfAllValid(event, myForm)) {
+                formSave.onSubmit(myForm.formValue);
+                console.log('valid')
+            } else {
+                console.log('invalid')
+            }
+
         }
         preventFurtherAction(event);
     };
@@ -44,6 +50,7 @@ function PrivateNoteForm({ formSave, isEditModeOn }: { formSave: FormSave, isEdi
                     placeholder={t('p.addPrivateNote')}
                     rows={5}
                     disabled={!isEditModeOn}
+                    defaultValue={note != null ? note.content : ""}
                     {...inputAttributes("content", myForm, dispatchForm)} />
             </div>
         )

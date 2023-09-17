@@ -43,8 +43,7 @@ public class PrivateNotesService implements IPrivateNotesService, ICrudService<P
 		if (existingNote.isEmpty()) {
 			recipeCollectionsFacade.addRecipeToUserDefaultCollection(currentUser, DefaultRecipeCollections.NOTED,
 					privateNote.getRecipe());
-			note = privateNotesRepository
-					.save(new SetDateNowAndUserValue().execute(privateNote, currentUser));
+			note = privateNotesRepository.save(new SetDateNowAndUserValue().execute(privateNote, currentUser));
 		} else {
 			note = privateNotesRepository.save(new UpdatePrivateNote().execute(existingNote.get(0), privateNote));
 		}
@@ -75,8 +74,11 @@ public class PrivateNotesService implements IPrivateNotesService, ICrudService<P
 	@Override
 	public PrivateNote getByRecipe(UUID recipeId) {
 		PrivateNote note = privateNotesRepository.findByUserAndRecipeId(authFacade.getCurrentUser(), recipeId);
-		new SetUserNull().execute(note);
-		new SetRecipeNull().execute(note);
+		if (note != null) {
+			new SetUserNull().execute(note);
+			new SetRecipeNull().execute(note);
+		}
+
 		return note;
 	}
 

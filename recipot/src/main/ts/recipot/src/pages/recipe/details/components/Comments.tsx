@@ -10,7 +10,7 @@ import CommentsForm from "./CommentsForm";
 import { FormSave } from "../../../../data/utilTypes";
 import { getEmptyFormSave } from "../../../../utils/FormInputUtils";
 
-function Comments() {
+function Comments({opinions}:{opinions:any[]}) {
     const { t } = useTranslation();
     const isNotePresent = false;
     const [isEditModeOn, setIsEditModeOn] = useState<any>(false);

@@ -33,7 +33,7 @@ function RecipeStepsNumbers({ steps = [], size = 100, scrollHeight = 300 }: { st
 
   function renderCircleWithText(element: any, backgroundClass: string, key: number) {
     return (
-      <Row className="mb-3" key={key} >
+      <Row className="mb-3 steps" key={key} >
         <Col xs={2}>
           <div ref={circleElement => circleElements.current[key] = circleElement} className={"step-circle mb-5 " + backgroundClass}>
             {renderValue(key + 1)}
@@ -41,7 +41,7 @@ function RecipeStepsNumbers({ steps = [], size = 100, scrollHeight = 300 }: { st
         </Col>
         <Col >
           <Card>
-            <Card.Body className="py-3 px-4">{element.description} </Card.Body>
+            <Card.Body className="py-3 px-4 card-content">{element.description} </Card.Body>
           </Card>
         </Col>
       </Row>
