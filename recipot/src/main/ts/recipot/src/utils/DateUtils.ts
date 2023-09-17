@@ -1,9 +1,11 @@
 export function format(date: any) {
     let newDate = new Date(date),
+        minute = newDate.getMinutes(),
+        hour = newDate.getHours(),
         day = newDate.getDate(),
         month = newDate.getMonth() + 1,
         year = newDate.getFullYear();
-    return `${addZeroIfNeeded(day)}-${addZeroIfNeeded(month)}-${year}`
+    return `${addZeroIfNeeded(day)}-${addZeroIfNeeded(month)}-${year} ${addZeroIfNeeded(hour)}:${addZeroIfNeeded(minute)}`
 }
 
 function addZeroIfNeeded(datePart: any) {
