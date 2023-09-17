@@ -1,5 +1,8 @@
 package pl.mk.recipot.recipes.services;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -18,6 +21,7 @@ import pl.mk.recipot.commons.services.IFilterService;
 import pl.mk.recipot.recipes.domains.CheckIfRecipeDoesNotExists;
 import pl.mk.recipot.recipes.domains.CleanRecipe;
 import pl.mk.recipot.recipes.domains.GetPageForSearching;
+import pl.mk.recipot.recipes.domains.GetRandomRecipes;
 import pl.mk.recipot.recipes.domains.SearchRecipesByCriteria;
 import pl.mk.recipot.recipes.domains.UpdateAverageRatingInRecipe;
 import pl.mk.recipot.recipes.domains.UpdateStepsAndIngredientsInRecipe;
@@ -115,4 +119,8 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		return recipesRepository.findAll(specification, page);
 	}
 
+	@Override
+	public List<Recipe> getRandomRecipes(int pageSize) {
+		return new GetRandomRecipes().execute(getByPredefinedFilter(PredefinedRecipeFilter.NEWEST, 0, 10000), pageSize);
+	}
 }

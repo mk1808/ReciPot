@@ -1,5 +1,6 @@
 package pl.mk.recipot.recipes.controllers;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -75,4 +76,8 @@ public class RecipesController implements IRecipesController {
 		return new OkResponseFactory().createResponse(page);
 	}
 
+	@Override
+	public ResponseEntity<Response<List<Recipe>>> getRandomRecipes(int pageSize) {
+		return new OkResponseFactory().createResponse(recipesService.getRandomRecipes(pageSize));
+	}
 }
