@@ -43,6 +43,19 @@
             }
         }
 
+        .rating {
+            font-size: 22px;
+            height: 100%;
+            align-items: center;
+
+            :last-child {
+                text-align: left;
+            }
+        }
+
+
+
+
         .icon-info {
 
             svg {

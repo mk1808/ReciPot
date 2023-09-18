@@ -25,6 +25,9 @@ import recipesApi from "../../../api/RecipesApi";
 import { useLocation, useParams } from "react-router-dom";
 import opinionsApi from "../../../api/OpinionsApi";
 import privateNotesApi from "../../../api/PrivateNotes";
+import StarSelectInput from "../../../components/basicUi/StarSelectInput";
+import { inputAttributes } from "../../../utils/FormInputUtils";
+import Rating from "./components/Rating";
 
 function RecipeDetails() {
     const { t } = useTranslation();
@@ -34,17 +37,17 @@ function RecipeDetails() {
     const [note, setNote] = useState<any | PrivateNoteT>(initAs());
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
     const [isNoteLoaded, setIsNoteLoaded] = useState<boolean>(false);
-    
+
     useEffect(() => {
         let id: string = params.id ?? "";
         let b = {}
         console.log(params)
         recipesApi.getRecipe(id, (response) => { setRecipe(response.value); setIsLoaded(true); })
         getOpinions(id);
-        privateNotesApi.getPrivateNoteByRecipeId(id, (response)=>{ setNote(response.value); setIsNoteLoaded(true)});
-        
+        privateNotesApi.getPrivateNoteByRecipeId(id, (response) => { setNote(response.value); setIsNoteLoaded(true) });
+
     }, [])
-    function getOpinions (id:string){opinionsApi.getRecipeOpinions(id, (response)=>{ setOpinions(response.value)})}
+    function getOpinions(id: string) { opinionsApi.getRecipeOpinions(id, (response) => { setOpinions(response.value) }) }
 
     const recipes = [{}, {}, {}, {}, {}, {}, {}]
 
@@ -78,16 +81,23 @@ function RecipeDetails() {
                 <MyImage src={recipe.image} height="auto" className="main-img" rounded></MyImage>
                 <ActionButtons recipe={recipe} />
                 <MyHeader title={recipe.name}></MyHeader>
-                {renderBreadcrumps()}
+                <Row>
+                    <Col md={5}>{renderBreadcrumps()}</Col>
+                    <Col md={1}></Col>
+                    <Col md={6}><Rating recipe={recipe}></Rating></Col>
+                </Row>
+                
+              
+
                 <BasicInfo recipe={recipe} />
                 <hr />
                 <IngredientList recipe={recipe} />
                 <hr />
-                <Steps recipe={recipe}/>
+                <Steps recipe={recipe} />
                 <hr />
                 {isNoteLoaded && <PrivateNote recipe={recipe} note={note} />}
                 <hr />
-                <Comments recipe={recipe} opinions={opinions} getOpinions = {getOpinions}/>
+                <Comments recipe={recipe} opinions={opinions} getOpinions={getOpinions} />
 
             </div>
         )
