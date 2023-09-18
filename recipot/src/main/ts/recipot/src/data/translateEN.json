@@ -52,7 +52,8 @@
 	},
 	"recipes": {
 		"success": {
-			"visibilityChanged": "Recipe visibility successfully changed"
+			"visibilityChanged": "Recipe visibility successfully changed",
+			"recipeDeleted": "Recipe has been deleted"
 		},
 		"error": {
 			"recipeNotFound": "Recipe not found",

@@ -84,7 +84,9 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 
 	@Override
 	public void delete(UUID id) {
-		throw new UnsupportedOperationException();
+		Recipe existingRecipe = get(id);
+		new CheckIfUserIsNotOwner().execute(authFacade.getCurrentUser(), existingRecipe);
+		recipesRepository.deleteById(id);
 	}
 
 	@Override
