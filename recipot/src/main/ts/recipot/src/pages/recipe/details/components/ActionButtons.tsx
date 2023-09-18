@@ -9,7 +9,7 @@ import { GiTurd } from "react-icons/gi";
 import { Recipe } from "../../../../data/types";
 import Tooltip from "../../../../components/basicUi/Tooltip";
 import { MdDeleteOutline } from "react-icons/md";
-import { AiFillEye } from "react-icons/ai";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { BsCollectionFill, BsShare } from "react-icons/bs";
 
 function ActionButtons({ recipe }: { recipe: Recipe }) {
@@ -18,6 +18,13 @@ function ActionButtons({ recipe }: { recipe: Recipe }) {
     const [showModalShare, setShowModalShare] = useState(false);
     const [showModalDelete, setShowModalDelete] = useState(false);
     const [showModalChangeVisibility, setShowModalChangeVisibility] = useState(false);
+    const [accessType, setAccessType] = useState("PRIVATE");
+    const getAccessTypeIcon = () => { return (accessType === "PRIVATE" ? <AiFillEyeInvisible /> : <AiFillEye />) }
+
+    useEffect(() => {
+        setAccessType(recipe.accessType);
+    }, [])
+
     return (<>
         <Row className="align-center action-buttons">
             <Col md="7"></Col>
@@ -26,7 +33,7 @@ function ActionButtons({ recipe }: { recipe: Recipe }) {
                     <Col><Tooltip placement="bottom" title="Dodaj do kolekcji"><MyButton.Primary onClick={() => setShowModalAddToCollection(true)} className="round"><BsCollectionFill /></MyButton.Primary></Tooltip></Col>
                     <Col><Tooltip placement="bottom" title="Udostępnij"><MyButton.Primary onClick={() => setShowModalShare(true)} className="round"><BsShare /></MyButton.Primary></Tooltip></Col>
                     <Col><Tooltip placement="bottom" title="Usuń przepis"><MyButton.Primary onClick={() => setShowModalDelete(true)} className="round"><MdDeleteOutline /></MyButton.Primary></Tooltip></Col>
-                    <Col><Tooltip placement="bottom" title="Zmień widoczność"><MyButton.Primary onClick={() => setShowModalChangeVisibility(true)} className="round" ><AiFillEye /></MyButton.Primary></Tooltip></Col>
+                    <Col><Tooltip placement="bottom" title="Zmień widoczność"><MyButton.Primary onClick={() => setShowModalChangeVisibility(true)} className="round" >{getAccessTypeIcon()}</MyButton.Primary></Tooltip></Col>
                 </Row>
             </Col>
         </Row>
@@ -38,7 +45,7 @@ function ActionButtons({ recipe }: { recipe: Recipe }) {
                 <AddToCollectionDialog showModal={showModalAddToCollection} handleClose={() => setShowModalAddToCollection(false)} data={recipe}></AddToCollectionDialog>
                 <ShareRecipeDialog showModal={showModalShare} handleClose={() => setShowModalShare(false)} data={recipe}></ShareRecipeDialog>
                 <DeleteRecipeDialog showModal={showModalDelete} handleClose={() => setShowModalDelete(false)} data={recipe}></DeleteRecipeDialog>
-                <ChangeVisibilityDialog showModal={showModalChangeVisibility} handleClose={() => setShowModalChangeVisibility(false)} data={recipe}></ChangeVisibilityDialog>
+                <ChangeVisibilityDialog showModal={showModalChangeVisibility} handleClose={() => setShowModalChangeVisibility(false)} handleSuccess={setAccessType} data={recipe} accessType={accessType}></ChangeVisibilityDialog>
 
             </>
         )
