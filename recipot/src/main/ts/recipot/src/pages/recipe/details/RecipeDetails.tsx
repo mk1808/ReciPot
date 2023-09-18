@@ -43,17 +43,19 @@ function RecipeDetails() {
     useEffect(() => {
         let id: string = params.id ?? "";
         console.log(params)
-        recipesApi.getRecipe(id, (response) => {
-            setRecipe(response.value);
-            setIsLoaded(true);
-            const filter: RecipeSearchDto = buildRecipeSearchDto({ categories: response.value.categories, recipesSort: { fieldName: "created", order: "DESC" } });
-            recipesApi.search(filter, { pageNum: 0, pageSize: 10 }, (response) => { setOtherRecipes(response.value.content) });
-        })
+        recipesApi.getRecipe(id, onGetRecipeSuccess)
         getOpinions(id);
         privateNotesApi.getPrivateNoteByRecipeId(id, (response) => { setNote(response.value); setIsNoteLoaded(true) });
     }, [])
-    function getOpinions(id: string) { opinionsApi.getRecipeOpinions(id, (response) => { setOpinions(response.value) }) }
-
+    function getOpinions(id: string) {
+        opinionsApi.getRecipeOpinions(id, (response) => { setOpinions(response.value) })
+    }
+    function onGetRecipeSuccess(response: any) {
+        setRecipe(response.value);
+        setIsLoaded(true);
+        const filter: RecipeSearchDto = buildRecipeSearchDto({ categories: response.value.categories, recipesSort: { fieldName: "created", order: "DESC" } });
+        recipesApi.search(filter, { pageNum: 0, pageSize: 10 }, (response) => { setOtherRecipes(response.value.content) });
+    }
     return (
         <div className='m-2 recipe-details-page'>
             {renderColumns()}
