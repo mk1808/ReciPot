@@ -47,9 +47,11 @@
             font-size: 22px;
             height: 100%;
             align-items: center;
+            text-align: right;
 
-            :last-child {
-                text-align: left;
+            .star-col {
+                margin-top: 7px;
+                padding-left: 50px
             }
         }
 
