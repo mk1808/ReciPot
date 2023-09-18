@@ -371,6 +371,7 @@
 		"rating": "Rating",
 		"publishDate": "Publish date",
 		"ratingAddSuccess": "Rating has been added successfully!",
-		"commentAddSuccess": "Comment has been added successfully!"
+		"commentAddSuccess": "Comment has been added successfully!",
+		"addedToCollection": "Recipe added to collection"
 	}
 }

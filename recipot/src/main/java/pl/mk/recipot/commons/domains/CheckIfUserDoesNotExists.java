@@ -1,6 +1,5 @@
-package pl.mk.recipot.auth.domains;
+package pl.mk.recipot.commons.domains;
 
-import pl.mk.recipot.commons.domains.CheckIfNull;
 import pl.mk.recipot.commons.exceptions.BadRequestException;
 
 public class CheckIfUserDoesNotExists extends CheckIfNull {
