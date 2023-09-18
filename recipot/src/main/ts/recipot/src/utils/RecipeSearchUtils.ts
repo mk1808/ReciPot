@@ -70,7 +70,7 @@ function filter(filterKey: string, operation: string, getValue: any): SearchCrit
 function getValueIdsFromArray(filterValue: any) {
     const result: any[] = [];
     filterValue && filterValue.forEach((element: any) => {
-        result.push(element.value.id)
+        result.push(element.id || element.value.id)
     });
     return result.length > 0 ? result : null;
 }

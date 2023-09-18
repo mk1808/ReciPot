@@ -1,20 +1,35 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import CustomModal from "../../../../../components/basicUi/CustomModal";
 import { useTranslation } from "react-i18next";
 import { Recipe, RecipeAccessType } from "../../../../../data/types";
+import { AlertsDispatchContext } from "../../../../../context/AlertContext";
+import { useNavigate } from "react-router-dom";
+import recipesApi from "../../../../../api/RecipesApi";
+import { showSuccessAlert } from "../../../../../utils/RestUtils";
 
 
-function ChangeVisibilityDialog({ showModal, handleClose, data }: { showModal: boolean, handleClose: any, data: Recipe }) {
+function ChangeVisibilityDialog({ showModal, handleClose, handleSuccess, data, accessType }: { showModal: boolean, handleClose: any, handleSuccess: any, data: Recipe, accessType: string }) {
     const { t } = useTranslation();
     const ACCESS_TYPE_PREFIX = "enums.RecipeAccessType."
+    const alertDispatch = useContext(AlertsDispatchContext);
+    const [newType, setNewType] = useState("");
     function myHandleSubmit() {
         handleClose();
-        console.log("ciag dalszy")
+        recipesApi.changeVisibility(data.id, onSuccess)
+    }
+
+    useEffect(() => {
+        setNewType(accessType === "PRIVATE" ? "PUBLIC" : "PRIVATE")
+    }, [accessType])
+
+    function onSuccess(response: any) {
+        showSuccessAlert(t(response.message), alertDispatch)
+        handleSuccess(newType);
     }
     function getQuestionText() {
-        let type = data.accessType === "PRIVATE" ? "PUBLIC" : "PRIVATE";
-        return `${t("p.changeVisibilityQuestion")} ${t(ACCESS_TYPE_PREFIX + type)}?`
+        return `${t("p.changeVisibilityQuestion")} ${t(ACCESS_TYPE_PREFIX + newType)}?`
     }
+
     return (
         <CustomModal shouldShow={showModal} handleClose={handleClose} handleSubmit={myHandleSubmit}>
             {renderContent()}
