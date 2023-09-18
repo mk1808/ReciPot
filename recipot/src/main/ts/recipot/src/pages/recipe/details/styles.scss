@@ -43,6 +43,21 @@
             }
         }
 
+        .rating {
+            font-size: 22px;
+            height: 100%;
+            align-items: center;
+            text-align: right;
+
+            .star-col {
+                margin-top: 7px;
+                padding-left: 50px
+            }
+        }
+
+
+
+
         .icon-info {
 
             svg {
