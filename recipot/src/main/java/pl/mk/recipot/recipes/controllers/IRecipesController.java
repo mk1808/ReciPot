@@ -55,6 +55,6 @@ public interface IRecipesController {
 	@GetMapping("/random")
 	ResponseEntity<Response<List<Recipe>>> getRandomRecipes(@RequestParam(name = "pageSize", defaultValue = "1") int pageSize);
 	
-	@DeleteMapping
+	@DeleteMapping("/{recipeId}")
 	ResponseEntity<Response<Void>> delete(@PathVariable UUID recipeId);
 }

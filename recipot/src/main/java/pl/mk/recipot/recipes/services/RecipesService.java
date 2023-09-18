@@ -86,7 +86,7 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	public void delete(UUID id) {
 		Recipe existingRecipe = get(id);
 		new CheckIfUserIsNotOwner().execute(authFacade.getCurrentUser(), existingRecipe);
-		recipesRepository.deleteById(id);
+		//recipesRepository.deleteById(id);
 	}
 
 	@Override
