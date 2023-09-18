@@ -80,4 +80,10 @@ public class RecipesController implements IRecipesController {
 	public ResponseEntity<Response<List<Recipe>>> getRandomRecipes(int pageSize) {
 		return new OkResponseFactory().createResponse(recipesService.getRandomRecipes(pageSize));
 	}
+
+	@Override
+	public ResponseEntity<Response<Void>> delete(UUID recipeId) {
+		recipeCrudService.delete(recipeId);
+		return new OkMessageResponseFactory().createResponse("recipes.success.recipeDeleted");
+	}
 }
