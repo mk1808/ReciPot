@@ -1,6 +1,6 @@
 import Form from 'react-bootstrap/Form';
 import { asHash, initFcn } from '../../utils/ObjectUtils';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { checkValidity } from '../../utils/FormInputUtils';
 
 function MySelect({
@@ -25,16 +25,21 @@ function MySelect({
     isValid?: boolean
 }) {
     const inputRef = useRef<HTMLSelectElement>(null);
+    const [selected, setSelected] = useState(defaultValue);
 
     useEffect(() => {
         checkValidity(inputRef.current, isValid);
     }, [isValid])
 
     useEffect(() => {
+        onChange(selected);
+    }, [selected])
+
+    useEffect(() => {
         const newValue = getDefaultValue(defaultValue);
         if (inputRef.current && inputRef.current.value !== newValue) {
             inputRef.current.value = newValue;
-            onChange(options[newValue]?.value)
+            setSelected(options[newValue]?.value)
         }
     }, [defaultValue, options])
 

@@ -40,7 +40,7 @@ function UpperRightSide() {
     }
 
     function onChange(fieldValue: any, fieldName: string) {
-        if (formFields.formValue && formFields.formValue[fieldName] !== fieldValue) {
+        if (!formFields.formValue || formFields.formValue[fieldName] !== fieldValue) {
             addRecipeDispatchContext({
                 type: "onChange",
                 fieldName,
@@ -76,7 +76,6 @@ function UpperRightSide() {
             {renderRequiredEffortInput()}
             {renderHashTagInput()}
             {renderCategoryInput()}
-
         </div>
     );
     function renderTimeAmountInput() {
@@ -102,7 +101,7 @@ function UpperRightSide() {
 
     function renderAmountOfDishesInput() {
         const amountOfDishes = getEnum("amountsOfDishes");
-        return ( 
+        return (
             <MySelect
                 label={t("p.amountOfDishesFilter")}
                 options={amountOfDishes}
