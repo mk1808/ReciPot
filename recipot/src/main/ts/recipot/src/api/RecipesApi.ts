@@ -36,7 +36,11 @@ function RecipesApi() {
         restClient.get(`${PREFIX}/predefinedFilter?${pathParams}`, onSuccess, onError)
     }
 
-    return { postRecipe, getRecipe, putRecipe, changeVisibility, share, search, getPredefinedFilter }
+    const deleteRecipe = (id: string, onSuccess: (response: Response<any>) => any, onError?: (response: Response<any>) => any) => {
+        restClient.delete(`${PREFIX}/${id}`, onSuccess, onError)
+    }
+
+    return { postRecipe, getRecipe, putRecipe, changeVisibility, share, search, getPredefinedFilter, deleteRecipe }
 }
 
 const recipesApi = RecipesApi();
