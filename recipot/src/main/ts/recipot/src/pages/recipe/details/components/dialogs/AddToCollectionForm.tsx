@@ -1,16 +1,23 @@
-import { useReducer, useRef, useImperativeHandle, forwardRef } from "react";
-
+import { useRef, useImperativeHandle, forwardRef, useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { FormSave, MyForm } from "../../../../../data/utilTypes";
-import MyInput from "../../../../../components/basicUi/MyInput";
-import { checkIfAllValid,checkInputValidity, getEmptyForm, inputAttributes, getNewState, preventFurtherAction } from "../../../../../utils/FormInputUtils";
+import { FormSave } from "../../../../../data/utilTypes";
+import FilteredSelect from "../../../../../components/complex/FilteredSelect";
+import { RecipeCollection, Response } from "../../../../../data/types";
+import recipeCollectionsApi from "../../../../../api/RecipeCollectionsApi";
+import { mapDictionaryValueToSearchList } from "../../../../../utils/DictionariesUtils";
 
 
 function AddToCollectionForm({ formSave }: { formSave: FormSave }, ref: any) {
     const { t } = useTranslation();
-    const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
+    const [filteredCollections, setFilteredCollections] = useState<any[]>([]);
+    const [allCollections, setAllCollections] = useState<any[]>([]);
+    const [selectedCategory, setSelectedCategory] = useState<any>(null);
     const form = useRef<any>();
+
+    useEffect(() => {
+        getAllCollections();
+    }, [])
 
     useImperativeHandle(ref, () => ({
         submitForm() {
@@ -18,19 +25,25 @@ function AddToCollectionForm({ formSave }: { formSave: FormSave }, ref: any) {
         }
     }));
 
+    function getAllCollections() {
+        recipeCollectionsApi.getUserRecipeCollections((response: Response<RecipeCollection[]>) => {
+            setAllCollections(response.value)
+            setFilteredCollections(mapDictionaryValueToSearchList(response.value))
+        })
+    }
+
+    function onCategorySearchCallback(phrase: string) {
+        setFilteredCollections(mapDictionaryValueToSearchList(searchCategory(phrase)));
+    }
+
+    function searchCategory(phrase: string): RecipeCollection[] {
+        return allCollections.filter(collection => collection.name.indexOf(phrase) >= 0);
+    }
+
     function handleSubmit() {
-        const submitFormEvent = { currentTarget: form.current }
-
-        if (checkIfAllValid(submitFormEvent, myForm)) {
-            formSave.onSubmit(myForm.formValue);
-            console.log('valid')
-        } else {
-            console.log('invalid')
+        if (selectedCategory != null) {
+            formSave.onSubmit(selectedCategory.value);
         }
-    };
-
-    function formReducer(state: any, action: any) {
-        return getNewState(state, action, action.value, checkInputValidity);
     };
 
     return (
@@ -41,11 +54,19 @@ function AddToCollectionForm({ formSave }: { formSave: FormSave }, ref: any) {
 
     function renderCollectionInput() {
         return (
-            <MyInput
-                {...inputAttributes("collection", myForm, dispatchForm)}
-                placeholder={t('p.collectionToChooseOrAdd')}
+            <FilteredSelect
+                multiple={false}
+                allowNew={true}
+                options={filteredCollections}
+                onSearchCallback={onCategorySearchCallback}
+                onSelectCallback={setSelectedCategory}
+                highlightValidity={true}
+                hierarchical={true}
+                className="mb-3"
+                width={400}
                 label={t('p.collectionToChooseOrAdd')}
                 required
+                isValid={true}
             />
         )
     }
