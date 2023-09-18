@@ -3,6 +3,7 @@ package pl.mk.recipot.recipes.services;
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
+import pl.mk.recipot.commons.domains.CheckIfUserDoesNotExists;
 import pl.mk.recipot.commons.domains.CheckIfUserIsOwner;
 import pl.mk.recipot.commons.domains.GetIsUserOwner;
 import pl.mk.recipot.commons.enums.DefaultRecipeCollections;
@@ -55,7 +56,7 @@ public class ShareRecipeService implements IShareRecipeService {
 
 	private void updateRecipeSharingFields(SharedRecipe sharedRecipe) {
 		new UpdateRecipeSharingFields().senderUser(authFacade.getCurrentUser())
-				.receiverUser(userFacade.getUserById(sharedRecipe.getReceiverUser().getId()))
+				.receiverUser(userFacade.getUserByLogin(sharedRecipe.getReceiverUser().getLogin()))
 				.recipe(recipeCrudService.get(sharedRecipe.getRecipe().getId())).execute(sharedRecipe);
 	}
 
@@ -70,6 +71,7 @@ public class ShareRecipeService implements IShareRecipeService {
 	}
 
 	private void checkReceiverUserCanReceiveSharing(SharedRecipe sharedRecipe) {
+		new CheckIfUserDoesNotExists().execute(sharedRecipe.getReceiverUser());
 		new CheckIfUserIsOwner().execute(sharedRecipe.getReceiverUser(), sharedRecipe);
 		new CheckIfRecipeWasSharedWithUser().execute(sharedRecipesRepository
 				.findRecipesSharedWithUser(sharedRecipe.getRecipe(), sharedRecipe.getReceiverUser()));

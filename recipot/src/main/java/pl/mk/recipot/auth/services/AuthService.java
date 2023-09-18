@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.configs.JwtUserDetails;
 import pl.mk.recipot.auth.domains.CheckIfPasswordsDoNotMatch;
-import pl.mk.recipot.auth.domains.CheckIfUserDoesNotExists;
 import pl.mk.recipot.auth.domains.CheckIfUserExists;
 import pl.mk.recipot.auth.domains.CreateUser;
 import pl.mk.recipot.auth.domains.UpdateUserPassword;
+import pl.mk.recipot.commons.domains.CheckIfUserDoesNotExists;
 import pl.mk.recipot.commons.dtos.ChangePasswordDto;
 import pl.mk.recipot.commons.dtos.UserRegisterDto;
 import pl.mk.recipot.commons.enums.RoleType;

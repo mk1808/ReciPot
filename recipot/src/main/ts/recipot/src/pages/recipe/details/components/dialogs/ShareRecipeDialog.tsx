@@ -1,28 +1,46 @@
-import { useRef, useState } from "react";
+import { useRef, useContext } from "react";
 import CustomModal from "../../../../../components/basicUi/CustomModal";
 import ShareRecipeForm from "./ShareRecipeForm";
 import { useTranslation } from "react-i18next";
 import { getEmptyFormSave } from "../../../../../utils/FormInputUtils";
 import { FormSave } from "../../../../../data/utilTypes";
+import { Recipe, Response, SharedRecipe } from "../../../../../data/types";
+import { AlertsDispatchContext } from "../../../../../context/AlertContext";
+import { initAs } from "../../../../../utils/ObjectUtils";
+import recipesApi from "../../../../../api/RecipesApi";
+import { showErrorAlert, showSuccessAlert } from "../../../../../utils/RestUtils";
 
 
-function ShareRecipeDialog({ showModal, handleClose }: { showModal: boolean, handleClose: any }) {
+function ShareRecipeDialog({ showModal, handleClose, data }: { showModal: boolean, handleClose: any, data: Recipe }) {
     const { t } = useTranslation();
-    const formSave: FormSave = getEmptyFormSave();
+    const formSave: any = getEmptyFormSave();
     const form = useRef<any>();
-    let formContent: any;
+
+    const alertDispatch = useContext(AlertsDispatchContext);
 
     formSave.onSubmit = function (formValue: any) {
-        formContent = formValue;
-        console.log("zapytanie do backendu")
-        console.log(formContent);
+        const sharedRecipe: SharedRecipe = initAs<SharedRecipe>({
+            recipe: { id: data.id },
+            receiverUser: {
+                login: formValue.receiverUser
+            },
+            comment: formValue.comment
+        })
+        recipesApi.share(sharedRecipe, formSave.onSuccess, formSave.onError);
     }
-    formSave.onSuccess = function () {
+    formSave.onSuccess = function (response: Response<SharedRecipe>) {
+        showSuccessAlert(t('p.SHARED_RECIPE'), alertDispatch);
+        handleClose();
+    }
+    formSave.onError = function (response: Response<any>) {
+        try {
+            const errorDetails = JSON.parse(response.details);
+            errorDetails.forEach((errorMessage: string) => showErrorAlert(t(errorMessage), alertDispatch));
+        } catch (e) {
+            showErrorAlert(t(response.message), alertDispatch);
+        }
+    }
 
-    }
-    formSave.onError = function () {
-
-    }
     async function myHandleSubmit() {
         form.current.submitForm();
     }

@@ -22,7 +22,7 @@ function RecipesApi() {
         restClient.patch(`${PREFIX}/visibility/${id}`, {}, onSuccess, onError)
     }
 
-    const share = (body: Recipe, onSuccess: (response: Response<SharedRecipe>) => any, onError?: (response: Response<SharedRecipe>) => any) => {
+    const share = (body: SharedRecipe, onSuccess: (response: Response<SharedRecipe>) => any, onError?: (response: Response<SharedRecipe>) => any) => {
         restClient.post(`${PREFIX}/sharing`, body, onSuccess, onError)
     }
 

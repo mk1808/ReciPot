@@ -58,6 +58,7 @@ function ShareRecipeForm({ formSave }: { formSave: FormSave }, ref: any) {
                 {...inputAttributes("comment", myForm, dispatchForm)}
                 label={t('p.addComment')}
                 placeholder={t('p.addComment')}
+                required
                 rows={5}
             />)
     }
