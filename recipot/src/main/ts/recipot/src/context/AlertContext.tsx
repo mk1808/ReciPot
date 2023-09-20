@@ -34,11 +34,19 @@ function AlertContextProvider({ children }: any) {
         []
     );
 
+    function onAlertClose(alert: any) {
+        dispatch({
+            type: "deleted",
+            id: alert.id
+        })
+    }
+
+
     return (
         <AlertsContext.Provider value={alerts}>
             <AlertsDispatchContext.Provider value={dispatch}>
                 {children}
-                <AlertManager alerts={alerts}></AlertManager>
+                <AlertManager alerts={alerts} onClose={onAlertClose}></AlertManager>
             </AlertsDispatchContext.Provider>
         </AlertsContext.Provider>
     );
@@ -46,14 +54,14 @@ function AlertContextProvider({ children }: any) {
 
 }
 
-export function AlertManager({ alerts = [] }: any) {
+function AlertManager({ alerts = [], onClose }: any) {
 
     function getAlert(alert: any): any {
         switch (alert.alertType) {
             case 'primary':
-                return (<MyAlert.Primary key={alert.id} >{alert.message}</MyAlert.Primary>)
-            case 'success': return (<MyAlert.Success key={alert.id} >{alert.message}</MyAlert.Success>)
-            case 'danger': return (<MyAlert.Error key={alert.id} >{alert.message}</MyAlert.Error>)
+                return (<MyAlert.Primary key={alert.id} onClose={() => onClose(alert)}>{alert.message}</MyAlert.Primary>)
+            case 'success': return (<MyAlert.Success key={alert.id} onClose={() => onClose(alert)} >{alert.message}</MyAlert.Success>)
+            case 'danger': return (<MyAlert.Error key={alert.id} onClose={() => onClose(alert)} >{alert.message}</MyAlert.Error>)
         }
     }
 
