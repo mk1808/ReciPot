@@ -1,20 +1,26 @@
 import { useEffect, useState } from "react";
 import { Alert } from "react-bootstrap";
 
-function PrimaryAlert({ children }: any) {
-    return <MyAlert variant="primary">{children}</MyAlert>
+function PrimaryAlert({ children, onClose }: any) {
+    return <MyAlert variant="primary" onClose={onClose}>{children}</MyAlert>
 }
 
-function SuccessAlert({ children }: any) {
-    return <MyAlert variant="success">{children}</MyAlert>
+function SuccessAlert({ children, onClose }: any) {
+    return <MyAlert variant="success" onClose={onClose}>{children}</MyAlert>
 }
 
-function ErrorAlert({ children }: any) {
-    return <MyAlert variant="danger">{children}</MyAlert>
+function ErrorAlert({ children, onClose }: any) {
+    return <MyAlert variant="danger" onClose={onClose}>{children}</MyAlert>
 }
 
-function MyAlert({ variant, children }: { variant?: string, children: any }) {
+function MyAlert({ variant, children, onClose }: { variant?: string, children: any, onClose: () => void }) {
     const [show, setShow] = useState(true);
+
+    useEffect(() => {
+        if (!show) {
+            onClose();
+        }
+    }, [show])
 
     useEffect(() => {
         const timeout = setTimeout(() => {
