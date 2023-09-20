@@ -11,8 +11,10 @@ import Tooltip from "../../../../components/basicUi/Tooltip";
 import { MdDeleteOutline } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { BsCollectionFill, BsShare } from "react-icons/bs";
+import { useTranslation } from "react-i18next";
 
 function ActionButtons({ recipe }: { recipe: Recipe }) {
+    const { t } = useTranslation();
 
     const [showModalAddToCollection, setShowModalAddToCollection] = useState(false);
     const [showModalShare, setShowModalShare] = useState(false);
@@ -30,10 +32,10 @@ function ActionButtons({ recipe }: { recipe: Recipe }) {
             <Col md="7"></Col>
             <Col md="4">
                 <Row>
-                    <Col><Tooltip placement="bottom" title="Dodaj do kolekcji"><MyButton.Primary onClick={() => setShowModalAddToCollection(true)} className="round"><BsCollectionFill /></MyButton.Primary></Tooltip></Col>
-                    <Col><Tooltip placement="bottom" title="Udostępnij"><MyButton.Primary onClick={() => setShowModalShare(true)} className="round"><BsShare /></MyButton.Primary></Tooltip></Col>
-                    <Col><Tooltip placement="bottom" title="Usuń przepis"><MyButton.Primary onClick={() => setShowModalDelete(true)} className="round"><MdDeleteOutline /></MyButton.Primary></Tooltip></Col>
-                    <Col><Tooltip placement="bottom" title="Zmień widoczność"><MyButton.Primary onClick={() => setShowModalChangeVisibility(true)} className="round" >{getAccessTypeIcon()}</MyButton.Primary></Tooltip></Col>
+                    <Col><Tooltip placement="bottom" title={t('p.addToCollectionButton')}><MyButton.Primary onClick={() => setShowModalAddToCollection(true)} className="round"><BsCollectionFill /></MyButton.Primary></Tooltip></Col>
+                    <Col><Tooltip placement="bottom" title={t('p.shareRecipeButton')}><MyButton.Primary onClick={() => setShowModalShare(true)} className="round"><BsShare /></MyButton.Primary></Tooltip></Col>
+                    <Col><Tooltip placement="bottom" title={t('p.deleteRecipeButton')}><MyButton.Primary onClick={() => setShowModalDelete(true)} className="round"><MdDeleteOutline /></MyButton.Primary></Tooltip></Col>
+                    <Col><Tooltip placement="bottom" title={t('p.changeRecipeVisibilityButton')}><MyButton.Primary onClick={() => setShowModalChangeVisibility(true)} className="round" >{getAccessTypeIcon()}</MyButton.Primary></Tooltip></Col>
                 </Row>
             </Col>
         </Row>

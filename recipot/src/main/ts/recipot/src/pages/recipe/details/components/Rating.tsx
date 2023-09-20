@@ -2,6 +2,7 @@ import { Col, Row } from "react-bootstrap";
 import StarSelectInput from "../../../../components/basicUi/StarSelectInput";
 import { Recipe } from "../../../../data/types";
 import { roundToHalf } from "../../../../utils/MathUtils";
+import { t } from "i18next";
 
 function Rating({ recipe }: { recipe: Recipe }) {
     return (
@@ -19,7 +20,7 @@ function Rating({ recipe }: { recipe: Recipe }) {
             </Col>
 
             <Col md={5} className="ps-0">
-                <span>{recipe.averageRating} / 5 ({recipe.ratingsCount} ocen)</span>
+                <span>{recipe.averageRating} / 5 ({recipe.ratingsCount} {t('p.ratingsCount')})</span>
             </Col>
         </Row>
     )

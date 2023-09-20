@@ -81,7 +81,7 @@ function UpperRightSide() {
     function renderTimeAmountInput() {
         return (
             <TimeAmountInput
-                label={"Ilość czasu na przygotowanie"}
+                label={t('p.timeAmountInputLabel')}
                 {...inputAttributesForContext("timeAmountFrom", onChange, getValidity)}
             />
         )

@@ -25,7 +25,7 @@ function Register() {
     }
     formSave.onSuccess = function (response: Response<AppUser>) {
         setDefaultValue(" ");
-        setTimeout(()=>{ setDefaultValue("");}, 100)
+        setTimeout(() => { setDefaultValue(""); }, 100)
         showSuccessAlert(t('p.userRegisterCorrect'), alertDispatch);
     }
     formSave.onError = function (response: any) {
@@ -43,7 +43,7 @@ function Register() {
     function renderForm() {
         return (
             <div>
-                <h6 className="display-6">Wpisz dane poniżej, aby założyć konto.</h6>
+                <h6 className="display-6">{t('p.fillRegisterPageInfo')}</h6>
                 <RegisterForm formSave={formSave} defaultValue={defaultValue}></RegisterForm>
             </div>
         )

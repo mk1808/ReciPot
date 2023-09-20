@@ -49,7 +49,7 @@ function Login() {
     function renderForm() {
         return (
             <div>
-                <h6 className="display-6">Wpisz dane poniżej, aby się zalogować.</h6>
+                <h6 className="display-6">{t('p.fillLoginPageInfo')}</h6>
                 <LoginForm formSave={formSave}></LoginForm>
             </div>
         )
