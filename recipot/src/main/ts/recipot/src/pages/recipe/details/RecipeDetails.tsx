@@ -32,18 +32,20 @@ function RecipeDetails() {
     const [note, setNote] = useState<any | PrivateNoteT>(initAs());
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
     const [isNoteLoaded, setIsNoteLoaded] = useState<boolean>(false);
+    const id: string  = params.id ?? "";
     const user = useContext(UsersContext).user;
 
     useEffect(() => {
-        let id: string = params.id ?? "";
         console.log(params)
         recipesApi.getRecipe(id, onGetRecipeSuccess)
         getOpinions(id);
+
+    }, [])
+    useEffect(() => {
         if (user) {
             privateNotesApi.getPrivateNoteByRecipeId(id, (response) => { setNote(response.value); setIsNoteLoaded(true) }, (errorResponse) => { console.log(errorResponse) });
         }
-
-    }, [])
+    }, [user])
     function getOpinions(id: string) {
         opinionsApi.getRecipeOpinions(id, (response) => { setOpinions(response.value) })
     }
