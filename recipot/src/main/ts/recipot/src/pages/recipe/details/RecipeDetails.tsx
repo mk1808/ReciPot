@@ -1,4 +1,5 @@
-import { Breadcrumb, Col, Container, Row } from "react-bootstrap";
+import { useContext } from "react";
+import { Col, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import './styles.scss';
 import MyImage from "../../../components/basicUi/MyImage";
@@ -13,22 +14,14 @@ import { OpinionDto, PrivateNote as PrivateNoteT, Recipe, RecipeSearchDto } from
 import { initAs } from "../../../utils/ObjectUtils";
 import { useEffect, useState } from "react";
 import BreadCrumbs from "./components/BreadCrumbs";
-import MyButton from "../../../components/basicUi/MyButton";
-import AddToCollectionDialog from "./components/dialogs/AddToCollectionDialog";
-import ShareRecipeDialog from "./components/dialogs/ShareRecipeDialog";
-import DeleteRecipeDialog from "./components/dialogs/DeleteRecipeDialog";
-import ChangeVisibilityDialog from "./components/dialogs/ChangeVisibilityDialog";
-import { GiTurd } from "react-icons/gi";
-import Tooltip from "../../../components/basicUi/Tooltip";
 import ActionButtons from "./components/ActionButtons";
 import recipesApi from "../../../api/RecipesApi";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import opinionsApi from "../../../api/OpinionsApi";
 import privateNotesApi from "../../../api/PrivateNotes";
-import StarSelectInput from "../../../components/basicUi/StarSelectInput";
-import { inputAttributes } from "../../../utils/FormInputUtils";
 import Rating from "./components/Rating";
 import { buildRecipeSearchDto } from "../../../utils/RecipeSearchUtils";
+import { UsersContext } from "../../../context/UserContext";
 
 function RecipeDetails() {
     const { t } = useTranslation();
@@ -39,13 +32,17 @@ function RecipeDetails() {
     const [note, setNote] = useState<any | PrivateNoteT>(initAs());
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
     const [isNoteLoaded, setIsNoteLoaded] = useState<boolean>(false);
+    const user = useContext(UsersContext).user;
 
     useEffect(() => {
         let id: string = params.id ?? "";
         console.log(params)
         recipesApi.getRecipe(id, onGetRecipeSuccess)
         getOpinions(id);
-        privateNotesApi.getPrivateNoteByRecipeId(id, (response) => { setNote(response.value); setIsNoteLoaded(true) });
+        if (user) {
+            privateNotesApi.getPrivateNoteByRecipeId(id, (response) => { setNote(response.value); setIsNoteLoaded(true) }, (errorResponse) => { console.log(errorResponse) });
+        }
+
     }, [])
     function getOpinions(id: string) {
         opinionsApi.getRecipeOpinions(id, (response) => { setOpinions(response.value) })
@@ -96,8 +93,11 @@ function RecipeDetails() {
                 <IngredientList recipe={recipe} />
                 <hr />
                 <Steps recipe={recipe} />
-                <hr />
-                {isNoteLoaded && <PrivateNote recipe={recipe} note={note} />}
+                {isNoteLoaded && <>
+                    <hr />
+                    <PrivateNote recipe={recipe} note={note} />
+                </>
+                }
                 <hr />
                 <Comments recipe={recipe} opinions={opinions} getOpinions={getOpinions} />
 
