@@ -26,7 +26,7 @@ function BreadCrumbs({ recipe }: { recipe: Recipe }) {
     return (
         <div className="my-4 breadcrumps">
             <Breadcrumb>
-                <Breadcrumb.Item active>Home</Breadcrumb.Item>
+                <Breadcrumb.Item active>{t("p.breadCrumbsMain")}</Breadcrumb.Item>
                 {categoriesNames.map(category => { return <Breadcrumb.Item active key={category}>{category}</Breadcrumb.Item> })}
                 <Breadcrumb.Item active>{recipe.name}</Breadcrumb.Item>
             </Breadcrumb>

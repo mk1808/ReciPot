@@ -24,7 +24,7 @@ function BasicInfo({ recipe }: { recipe: Recipe }) {
                                 tooltip: "timeInfo",
                                 icon: (className: string) => <MdAccessTime className={className} />,
                                 label: "time",
-                                value: recipe.timeAmount + " min"
+                                value: `${recipe.timeAmount} ${t('p.minutesShortcut')}`
                             })}
                         </Col>
                         <Col>

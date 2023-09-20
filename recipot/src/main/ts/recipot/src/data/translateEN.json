@@ -373,6 +373,22 @@
 		"publishDate": "Publish date",
 		"ratingAddSuccess": "Rating has been added successfully!",
 		"commentAddSuccess": "Comment has been added successfully!",
-		"addedToCollection": "Recipe added to collection"
+		"addedToCollection": "Recipe added to collection",
+		"minutesShortcut": "mins",
+		"breadCrumbsMain": "Home",
+		"ratingsCount": "ratings",
+		"fillLoginPageInfo": "Provide log in data below.",
+		"fillRegisterPageInfo": "Provide register data below.",
+		"noAccess": "No access",
+		"notFound": "404 - Resource not found",
+		"amount": "Amount",
+		"unit": "Unit",
+		"ingredient": "Ingredient",
+		"step": "Step",
+		"timeAmountInputLabel": "Time amount required to prepare",
+		"addToCollectionButton": "Add to collection",
+		"shareRecipeButton": "Share to",
+		"deleteRecipeButton": "Delete",
+		"changeRecipeVisibilityButton": "Change visibility"
 	}
 }

@@ -110,7 +110,7 @@ function AddIngredients() {
     function renderAmountInput(index: number) {
         return (
             <MyInput
-                label="Ilość"
+                label={t('p.amount')}
                 required={true}
                 defaultValue="0"
                 type="number"
@@ -121,7 +121,7 @@ function AddIngredients() {
     function renderUnitInput(index: number) {
         return (
             <MyInput
-                label="Jednostka"
+                label={t('p.unit')}
                 required={true}
                 {...dynamicInputAttributesForContext("unit", onChange, getIngredientValidity, index)}
             />
@@ -132,7 +132,7 @@ function AddIngredients() {
             <FilteredSelect
                 multiple={false}
                 className="mb-3"
-                label={t("Składnik")}
+                label={t("p.ingredient")}
                 options={filteredIngredients}
                 onSearchCallback={(phrase: string) => onFilteredIngredientSearch(phrase, setFilteredIngredients)}
                 highlightValidity={true}

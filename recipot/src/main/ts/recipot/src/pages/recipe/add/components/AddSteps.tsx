@@ -89,7 +89,7 @@ function AddSteps() {
         return (
             <MyTextarea
                 required={true}
-                label="Krok"
+                label={t('p.step')}
                 placeholder="Input test 1"
                 rows={4}
                 {...dynamicInputAttributesForContext("description", onChange, getStepValidity, index)}
