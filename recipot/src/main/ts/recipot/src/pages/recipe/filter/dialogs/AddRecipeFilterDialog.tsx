@@ -6,7 +6,7 @@ import AddRecipeFilterForm from "./AddRecipeFilterForm";
 import { RecipeFilterContext, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 import savedRecipeFiltersApi from "../../../../api/SavedRecipeFiltersApi";
 import { AlertsDispatchContext } from "../../../../context/AlertContext";
-import { showErrorAlert, showSuccessAlert } from "../../../../utils/RestUtils";
+import { onShowAlertOnErrorResponse, showSuccessAlert } from "../../../../utils/RestUtils";
 
 function AddRecipeFilterDialog({ showModal, handleClose }: { showModal: boolean, handleClose: any }) {
     const { t } = useTranslation();
@@ -33,7 +33,7 @@ function AddRecipeFilterDialog({ showModal, handleClose }: { showModal: boolean,
         handleClose();
     }
     formSave.onError = function (response: any) {
-        showErrorAlert(t(response.message), alertsDispatchContext);
+        onShowAlertOnErrorResponse(response, alertsDispatchContext, t);
     }
     async function myHandleSubmit() {
         form.current.submitForm();

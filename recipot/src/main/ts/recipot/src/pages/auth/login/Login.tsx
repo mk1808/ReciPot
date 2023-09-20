@@ -10,7 +10,7 @@ import { UsersContext, UsersDispatchContext } from '../../../context/UserContext
 import authApi from '../../../api/AuthApi';
 import { useNavigate } from 'react-router-dom';
 import { AlertsDispatchContext } from '../../../context/AlertContext';
-import { showErrorAlert } from '../../../utils/RestUtils';
+import { onShowAlertOnErrorResponse } from '../../../utils/RestUtils';
 
 function Login() {
     const { t } = useTranslation();
@@ -33,8 +33,7 @@ function Login() {
         usersDispatchContext({ type: "refresh" });
     }
     formSave.onError = function (response: any) {
-        console.log(response)
-        showErrorAlert(t(response.message), dispatch);
+        onShowAlertOnErrorResponse(response, dispatch, t);
     }
 
     return (
