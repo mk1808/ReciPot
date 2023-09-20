@@ -10,7 +10,7 @@ import { FormSave } from "../../../data/utilTypes";
 import { getEmptyFormSave } from "../../../utils/FormInputUtils";
 import authApi from "../../../api/AuthApi";
 import { AppUser, Response } from "../../../data/types";
-import { showErrorAlert, showSuccessAlert } from "../../../utils/RestUtils";
+import { onShowAlertOnErrorResponse, showSuccessAlert } from "../../../utils/RestUtils";
 import { useContext, useState } from "react";
 import { AlertsDispatchContext } from "../../../context/AlertContext";
 
@@ -29,7 +29,7 @@ function Register() {
         showSuccessAlert(t('p.userRegisterCorrect'), alertDispatch);
     }
     formSave.onError = function (response: any) {
-        showErrorAlert(t(response.message), alertDispatch);
+        onShowAlertOnErrorResponse(response, alertDispatch, t);
     }
     return (
         <Stack className="justify-content-center py-5 full-height-page register-page" direction="horizontal">

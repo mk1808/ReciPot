@@ -7,7 +7,7 @@ import { RecipeCollectionListDispatchContext } from "../context/RecipeCollection
 import recipeCollectionsApi from "../../../../api/RecipeCollectionsApi";
 import { RecipeCollection, Response } from "../../../../data/types";
 import { AlertsDispatchContext } from "../../../../context/AlertContext";
-import { showErrorAlert, showSuccessAlert } from "../../../../utils/RestUtils";
+import { onShowAlertOnErrorResponse, showSuccessAlert } from "../../../../utils/RestUtils";
 
 function AddCollectionDialog({ showModal, handleClose }: { showModal: boolean, handleClose: any }) {
     const { t } = useTranslation();
@@ -27,7 +27,7 @@ function AddCollectionDialog({ showModal, handleClose }: { showModal: boolean, h
         handleClose();
     }
     formSave.onError = function (response: Response<any>) {
-        showErrorAlert(t(response.message), alertsDispatchContext);
+        onShowAlertOnErrorResponse(response, alertsDispatchContext, t);
     }
 
     function myHandleSubmit() {

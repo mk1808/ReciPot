@@ -8,7 +8,7 @@ import { Recipe, Response, SharedRecipe } from "../../../../../data/types";
 import { AlertsDispatchContext } from "../../../../../context/AlertContext";
 import { initAs } from "../../../../../utils/ObjectUtils";
 import recipesApi from "../../../../../api/RecipesApi";
-import { showErrorAlert, showSuccessAlert } from "../../../../../utils/RestUtils";
+import { onShowAlertOnErrorResponse, showSuccessAlert } from "../../../../../utils/RestUtils";
 
 
 function ShareRecipeDialog({ showModal, handleClose, data }: { showModal: boolean, handleClose: any, data: Recipe }) {
@@ -33,12 +33,7 @@ function ShareRecipeDialog({ showModal, handleClose, data }: { showModal: boolea
         handleClose();
     }
     formSave.onError = function (response: Response<any>) {
-        try {
-            const errorDetails = JSON.parse(response.details);
-            errorDetails.forEach((errorMessage: string) => showErrorAlert(t(errorMessage), alertDispatch));
-        } catch (e) {
-            showErrorAlert(t(response.message), alertDispatch);
-        }
+        onShowAlertOnErrorResponse(response, alertDispatch, t);
     }
 
     async function myHandleSubmit() {

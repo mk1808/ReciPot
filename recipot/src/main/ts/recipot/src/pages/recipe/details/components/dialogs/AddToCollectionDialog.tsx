@@ -6,7 +6,7 @@ import { getEmptyFormSave } from "../../../../../utils/FormInputUtils";
 import { FormSave } from "../../../../../data/utilTypes";
 import { Recipe, RecipeCollection, RecipeCollectionItem, Response, SharedRecipe } from "../../../../../data/types";
 import { initAs } from "../../../../../utils/ObjectUtils";
-import { showErrorAlert, showSuccessAlert } from "../../../../../utils/RestUtils";
+import { onShowAlertOnErrorResponse, showSuccessAlert } from "../../../../../utils/RestUtils";
 import { AlertsDispatchContext } from "../../../../../context/AlertContext";
 import recipeCollectionsApi from "../../../../../api/RecipeCollectionsApi";
 
@@ -45,7 +45,7 @@ function AddToCollectionDialog({ showModal, handleClose, data }: { showModal: bo
         handleClose();
     }
     formSave.onError = function (response: Response<any>) {
-        showErrorAlert(t(response.message), alertDispatch);
+        onShowAlertOnErrorResponse(response, alertDispatch, t);
     }
     async function myHandleSubmit() {
         form.current.submitForm();
