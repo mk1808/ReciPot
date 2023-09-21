@@ -17,7 +17,7 @@ function TimeAmountInput({
     onChange = initFcn<number>(),
     defaultValue,
     isValid,
-    highlightValidity = true
+    highlightValidity = false
 }: {
     name: string,
     label?: string,
