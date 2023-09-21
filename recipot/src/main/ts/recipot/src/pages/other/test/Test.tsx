@@ -256,6 +256,8 @@ function Test() {
                 <MyFileInput required={true} isValid={isValid} name="test7" label="Test file" placeholder="Select file" onChange={(value: string) => console.log(value)} />
                 <MySwitch required={true} isValid={true} name="test8" label="Test switch" onChange={setIsValid} defaultChecked={defaultValueIndex % 2 == 0} />
                 <StarSelectInput required={true} isValid={true} name="test9" label="Test star select" onChange={(value: number) => console.log(value)} defaultValue={defaultValueIndex % 5} />
+                <TimeAmountInput name="timeAmountFrom1" label={"Z walidacją"} onChange={() => { }} isValid={isValid} />
+                <TimeAmountInput name="timeAmountFrom2" label={"bez walidacji"} onChange={() => { }} isValid={isValid} highlightValidity={false} />
             </Form>
             <MyButton.Primary onClick={nextDefaultValue}>
                 Next default value
