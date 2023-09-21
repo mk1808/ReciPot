@@ -8,3 +8,11 @@ export function convertToObjects(list: []) {
         })
     }
 }
+
+export function fillOrderNumbers(steps: []) {
+    steps.forEach((step: any, index: number) => { step.order = index + 1; })
+}
+
+export function clearIds(elements: []) {
+    elements.forEach((element: any) => { element.id = null; })
+}
