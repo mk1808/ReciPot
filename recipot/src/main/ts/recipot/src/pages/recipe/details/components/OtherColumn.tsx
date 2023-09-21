@@ -5,10 +5,17 @@ import { CategoryDto, Recipe, Response } from "../../../../data/types";
 import RecipeCard from "../../../../components/complex/RecipeCard";
 import { initAs } from "../../../../utils/ObjectUtils";
 import CategoryCard from "../../../../components/complex/CategoryCard";
+import { useNavigate } from "react-router-dom";
 
 function OtherColumn({ recipes }: { recipes: Recipe[] }) {
     const { t } = useTranslation();
     const [allCategories, setAllCategories] = useState<CategoryDto[]>([]);
+    const navigate = useNavigate();
+    const recipeCallback = (recipe: Recipe) => {
+        navigate(`/recipes/${recipe.id}`, { replace: true });
+        //navigate(0);
+    }
+
     useEffect(() => {
         dictionariesApi.getAllCategories((response: Response<any[]>) => {
             setAllCategories(response.value)
@@ -46,7 +53,7 @@ function OtherColumn({ recipes }: { recipes: Recipe[] }) {
             <div className="list">
                 {recipes.map((recipe, index) => {
                     return (
-                        <RecipeCard recipe={recipe} recipeCallback={() => { }} key={index}></RecipeCard >
+                        <RecipeCard recipe={recipe} recipeCallback={recipeCallback} key={index}></RecipeCard >
                     )
                 })}
             </div>
