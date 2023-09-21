@@ -1,7 +1,7 @@
 import { createContext, useReducer, useRef, useContext } from "react";
 import { FormSave } from "../data/utilTypes";
 import { getEmptyFormSave } from "../utils/FormInputUtils";
-import { convertToObjects } from "../utils/AddRecipeContextUtil";
+import { clearIds, convertToObjects, fillOrderNumbers } from "../utils/AddRecipeContextUtil";
 import recipesApi from "../api/RecipesApi";
 import { useNavigate } from "react-router-dom";
 import { showErrorAlert, showSuccessAlert } from "../utils/RestUtils";
@@ -26,9 +26,11 @@ function AddRecipeContextProvider({ children }: any) {
         for (const field in fields.formValidity) {
             if (!fields.formValidity[field]) {
                 console.log("invalid fields value")
-                //return false;
+              //return false;
             }
         }
+        fillOrderNumbers(fields.formValue.steps);
+        clearIds(fields.formValue.steps);
         convertToObjects(fields.formValue.hashTag);
         convertToObjects(fields.formValue.ingredients);
         if (!wasSaveSend.current) {
