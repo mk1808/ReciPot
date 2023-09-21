@@ -26,13 +26,8 @@ function IngredientList({ recipe }: { recipe: Recipe }) {
     }
 
     function onRecipeIngredientCheck(value: boolean, ingredientId: string) {
-        var newValue = []
-        if (value) {
-            newValue = addUniqueValue(checkedIngredients, ingredientId)
-        }
-        else {
-            newValue = removeValue(checkedIngredients, ingredientId)
-        }
+        var newValue = value ? addUniqueValue(checkedIngredients, ingredientId) : removeValue(checkedIngredients, ingredientId);
+
         setCheckedIngredients(newValue)
         updateLocalStorage(newValue)
     }
