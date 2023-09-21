@@ -54,6 +54,7 @@ function CommentsForm({ formSave, isEditModeOn, userOpinion }: { formSave: FormS
                 <StarSelectInput
                     required
                     label={t('p.addRating')}
+                    disabled={!isEditModeOn}
                     defaultValue={(userOpinion && userOpinion.rating) || 0}
                     {...inputAttributes("value", myForm, dispatchForm)}
                 />
