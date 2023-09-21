@@ -6,7 +6,7 @@ import Popover from 'react-bootstrap/Popover';
 import { Stack } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import MyButton from "../basicUi/MyButton";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import './styles.scss';
 
 function TimeAmountInput({
@@ -15,19 +15,26 @@ function TimeAmountInput({
     placeholder = "",
     disabled = false,
     onChange = initFcn<number>(),
-    defaultValue
+    defaultValue,
+    isValid,
+    highlightValidity = true
 }: {
     name: string,
     label?: string,
     placeholder?: string,
     disabled?: boolean,
     onChange?: Function,
-    defaultValue?: number
+    defaultValue?: number,
+    isValid?: boolean,
+    highlightValidity?: boolean
 }) {
     const VALUE_MIN = 0;
     const HOURS_MAX = 99;
     const MINUTES_MAX = 59;
+    const ERROR_CLASS = "is-invalid"
+    const NO_ERROR_CLASS = "is-valid"
 
+    const inputRef = useRef<HTMLInputElement>(null);
     const [hours, setHours] = useState(0)
     const [minutes, setMinutes] = useState(0)
 
@@ -41,6 +48,18 @@ function TimeAmountInput({
         setHours(Math.floor((defaultValue || 0) / 60));
         setMinutes((defaultValue || 0) % 60);
     }, [defaultValue])
+
+    useEffect(() => {
+        if (highlightValidity) {
+            if (isValid) {
+                inputRef.current?.classList.add(NO_ERROR_CLASS)
+                inputRef.current?.classList.remove(ERROR_CLASS)
+            } else {
+                inputRef.current?.classList.add(ERROR_CLASS)
+                inputRef.current?.classList.remove(NO_ERROR_CLASS)
+            }
+        }
+    }, [isValid])
 
     function updateHours(value: number) {
         setHours(currentHours => getValidValue(currentHours + value, HOURS_MAX));
@@ -74,7 +93,7 @@ function TimeAmountInput({
         <Form.Group className="mb-3 time-amount-input" controlId={name}>
             {label && <Form.Label>{label}</Form.Label>}
             <Stack direction="horizontal">
-                <Form.Control placeholder={placeholder} disabled={true} value={getInputValue()} />
+                <Form.Control placeholder={placeholder} disabled={true} value={getInputValue()} ref={inputRef} />
                 {renderClockButton()}
             </Stack>
         </Form.Group>
