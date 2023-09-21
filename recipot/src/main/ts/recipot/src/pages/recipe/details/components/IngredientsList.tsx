@@ -1,69 +1,42 @@
 import { useTranslation } from "react-i18next";
 import MyCheckbox from "../../../../components/basicUi/MyCheckbox";
-import { Ingredient, Recipe, RecipeIngredient } from "../../../../data/types";
-import { initAs } from "../../../../utils/ObjectUtils";
+import { Recipe, RecipeIngredient } from "../../../../data/types";
+import { useEffect, useState } from "react";
+import { addUniqueValue, removeValue } from "../../../../utils/ListUtils";
 
 function IngredientList({ recipe }: { recipe: Recipe }) {
     const { t } = useTranslation();
-    const ingredients: RecipeIngredient[] =
-        [
-            {
-                id: '1',
-                ingredient: { id: '1', name: "jajek" },
-                amount: 6,
-                unit: "szt",
-                recipe: initAs()
-            },
-            {
-                id: '2',
-                ingredient: { id: '2', name: "buraczki" },
-                amount: 1,
-                unit: "szt",
-                recipe: initAs()
-            },
-            {
-                id: '3',
-                ingredient: { id: '3', name: "roszponki" },
-                amount: 1,
-                unit: "szt",
-                recipe: initAs()
-            },
-            {
-                id: '4',
-                ingredient: { id: '4', name: "sera favita, fety lub sałatkowego" },
-                amount: 100,
-                unit: "g",
-                recipe: initAs()
-            },
-            {
-                id: '5',
-                ingredient: { id: '5', name: "awokado" },
-                amount: 1,
-                unit: "szt",
-                recipe: initAs()
-            },
-            {
-                id: '6',
-                ingredient: { id: '6', name: "majonezu" },
-                amount: 2,
-                unit: "łyżka",
-                recipe: initAs()
-            },
+    const [checkedIngredients, setCheckedIngredients] = useState<string[]>([])
 
-            {
-                id: '7',
-                ingredient: { id: '7', name: "musztardy" },
-                amount: 1,
-                unit: "łyżka",
-                recipe: initAs()
-            },
-            {
-                id: '8',
-                ingredient: { id: '8', name: "soku z cytryny" },
-                amount: 1,
-                unit: "łyżka",
-                recipe: initAs()
-            }];
+    useEffect(() => {
+        setCheckedIngredients(getRecipeCheckedIngredients());
+    }, [recipe])
+
+    function getRecipeCheckedIngredients(): string[] {
+        var recipesIngredients: any = localStorage.getItem("checkedIngredients");
+        if (!recipesIngredients) {
+            recipesIngredients = JSON.stringify({});
+            localStorage.setItem("checkedIngredients", recipesIngredients)
+        }
+        return JSON.parse(recipesIngredients)[recipe.id] || [];
+    }
+
+    function isRecipeIngredientChecked(ingredientId: string) {
+        return checkedIngredients?.indexOf(ingredientId) >= 0;
+    }
+
+    function onRecipeIngredientCheck(value: boolean, ingredientId: string) {
+        var newValue = value ? addUniqueValue(checkedIngredients, ingredientId) : removeValue(checkedIngredients, ingredientId);
+
+        setCheckedIngredients(newValue)
+        updateLocalStorage(newValue)
+    }
+
+    function updateLocalStorage(newValue: any) {
+        var recipesIngredients: any = JSON.parse(localStorage.getItem("checkedIngredients") || "");
+        recipesIngredients[recipe.id] = newValue
+        localStorage.setItem("checkedIngredients", JSON.stringify(recipesIngredients))
+    }
 
     return (
         <div className="mb-5 px-5 ingredients">
@@ -81,15 +54,16 @@ function IngredientList({ recipe }: { recipe: Recipe }) {
         )
     }
     function renderSingleIngredient(singleIngredient: RecipeIngredient) {
+        const ingredientId = singleIngredient.id
         return (
-            <div className="my-3">
+            <div className="my-3" key={ingredientId}>
                 <MyCheckbox
                     required={false}
                     isValid={true}
                     name="ingredient"
                     label={renderIngredientLabel(singleIngredient)}
-                    onChange={(value: boolean) => console.log(value)}
-                    defaultChecked={false} />
+                    onChange={(value: boolean) => onRecipeIngredientCheck(value, ingredientId)}
+                    defaultChecked={isRecipeIngredientChecked(ingredientId)} />
             </div>
         )
     }
