@@ -18,5 +18,5 @@ export function checkListContains(list: any[], checkedValue: any) {
 }
 
 export function getValueIndex(list: any[], checkedValue: any) {
-    return list.map(value => value.label).indexOf(checkedValue.label)
+    return list.map(value => value.label || value).indexOf(checkedValue.label || checkedValue)
 }
