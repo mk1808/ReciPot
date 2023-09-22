@@ -37,11 +37,11 @@ function CategoryCards() {
     }, [])
     return (
         <>
-            {readyCategories.map(readyCategoriesRow => {
+            {readyCategories.map((readyCategoriesRow, index) => {
                 return (
-                    <Stack direction="horizontal" gap={3} className="align-items-stretch justify-content-center my-5 categories-row" >
+                    <Stack direction="horizontal" gap={3} className="align-items-stretch justify-content-center my-5 categories-row" key={index}>
                         {
-                            readyCategoriesRow.map((singleRow: CategoryDto) => { return (<CategoryCard category={singleRow} className="col-4" />) })
+                            readyCategoriesRow.map((singleRow: CategoryDto) => <CategoryCard category={singleRow} className="col-4" key={singleRow.id} />)
                         }
                     </Stack>
                 )

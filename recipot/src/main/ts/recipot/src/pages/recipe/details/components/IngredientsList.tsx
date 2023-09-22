@@ -49,7 +49,7 @@ function IngredientList({ recipe }: { recipe: Recipe }) {
     function renderIngredients() {
         return (
             <>
-                {recipe.recipeIngredients.map(singleIngredient => { return renderSingleIngredient(singleIngredient); })}
+                {recipe.recipeIngredients.map(singleIngredient => renderSingleIngredient(singleIngredient) )}
             </>
         )
     }
