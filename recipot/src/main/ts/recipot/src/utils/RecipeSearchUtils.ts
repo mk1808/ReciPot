@@ -74,3 +74,8 @@ function getValueIdsFromArray(filterValue: any) {
     });
     return result.length > 0 ? result : null;
 }
+
+export function scrollIntoRecipesPage(page: number) {
+    const pageId = "recipesPage_" + page;
+    document.getElementById(pageId)?.scrollIntoView();
+}
