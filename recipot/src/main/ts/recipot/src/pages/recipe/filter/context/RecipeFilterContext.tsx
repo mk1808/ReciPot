@@ -1,9 +1,10 @@
-import { createContext, useEffect, Context, useReducer } from "react";
+import { createContext, useEffect, Context, useReducer, useRef } from "react";
 import { Recipe, RecipeFilter, Response } from "../../../../data/types";
 import savedRecipeFiltersApi from "../../../../api/SavedRecipeFiltersApi";
 import recipesApi from "../../../../api/RecipesApi";
 import { ResponsePage } from "../../../../data/utilTypes";
-import { buildRecipeSearchDto, updatePageUrl } from "../../../../utils/RecipeSearchUtils";
+import { buildRecipeSearchDto, scrollIntoRecipesPage, updatePageUrl } from "../../../../utils/RecipeSearchUtils";
+import { ApiRequestSendManager } from "../../../../utils/ApiRequestSendManager";
 
 type contextStateModel = {
     savedFilters?: RecipeFilter[],
@@ -14,6 +15,7 @@ type contextStateModel = {
 };
 
 const RECIPES_PAGE_SIZE = 4;
+const searchRequestManager = ApiRequestSendManager();
 
 export const RecipeFilterContext: Context<contextStateModel> = createContext({});
 
@@ -26,8 +28,10 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
         savedRecipeFiltersApi.getRecipeFilters((response) => dispatch({ type: 'setSavedFiltersList', value: response.value }));
     }
 
-    function getRecipesByFilter(recipesFilterForm: any, pageNum: number, pageSize: number) {
-        recipesApi.search(buildRecipeSearchDto(recipesFilterForm), { pageNum, pageSize }, onGetRecipesByFilterResponse)
+    function getRecipesByFilter(recipesFilterForm: any, pageNum: number, pageSize: number, responseCallback: any) {
+        searchRequestManager.nextAndLock(() => {
+            recipesApi.search(buildRecipeSearchDto(recipesFilterForm), { pageNum, pageSize }, responseCallback);
+        })
     }
 
     function updateFilterPageUrl(recipesFilterForm: any) {
@@ -35,6 +39,7 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
     }
 
     function onGetRecipesByFilterResponse(response: Response<ResponsePage<Recipe>>) {
+        searchRequestManager.unlock();
         dispatch({
             type: 'onRecipePageLoad',
             recipesPage: response.value
@@ -49,11 +54,33 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
         return contextState.recipesFilterForm
     }
 
+    function loadBetweenPage(contextState: contextStateModel, nextPages: Recipe[][], nextPage: any) {
+        const page = nextPage.number - 1
+        if (page > 0 && typeof nextPages[page] === 'undefined') {
+            getRecipesByFilter(contextState.recipesFilterForm || {}, page, RECIPES_PAGE_SIZE, onGetBetweenRecipesByFilterResponse);
+            return;
+        }
+    }
+
+    function onGetBetweenRecipesByFilterResponse(response: Response<ResponsePage<Recipe>>) {
+        searchRequestManager.unlock();
+        dispatch({
+            type: 'onBetweenRecipePageLoad',
+            recipesPage: response.value
+        });
+    }
+
+    function focusOnRecipesPage(page?: number) {
+        setTimeout(() => {
+            scrollIntoRecipesPage(page || 0);
+        }, 400)
+    }
+
     function recipeFilterReducer(contextState: contextStateModel, action: any): contextStateModel {
         switch (action.type) {
             case 'filterSelect': {
                 const newRecipesFilterFormState = getSelectedFilterFormValue(contextState, action.activeRecipeFilterId)
-                getRecipesByFilter(newRecipesFilterFormState || {}, 0, RECIPES_PAGE_SIZE);
+                getRecipesByFilter(newRecipesFilterFormState || {}, 0, RECIPES_PAGE_SIZE, onGetRecipesByFilterResponse);
                 updateFilterPageUrl(newRecipesFilterFormState);
                 return {
                     ...contextState,
@@ -73,7 +100,7 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
                 };
             }
             case 'filter': {
-                getRecipesByFilter(contextState.recipesFilterForm || {}, 0, RECIPES_PAGE_SIZE);
+                getRecipesByFilter(contextState.recipesFilterForm || {}, 0, RECIPES_PAGE_SIZE, onGetRecipesByFilterResponse);
                 updateFilterPageUrl(contextState.recipesFilterForm);
                 return {
                     ...contextState,
@@ -92,14 +119,25 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
             case 'onRecipePageLoad': {
                 const recipesPages = [...(contextState?.recipesPages || [])]
                 recipesPages[action.recipesPage.number] = action.recipesPage.content
+                loadBetweenPage(contextState, recipesPages, action.recipesPage)
                 return {
                     ...contextState,
                     recipesPages: recipesPages,
                     currentPage: action.recipesPage
                 };
             }
+            case 'onBetweenRecipePageLoad': {
+                const recipesPages = [...(contextState?.recipesPages || [])];
+                recipesPages[action.recipesPage.number] = action.recipesPage.content;
+                loadBetweenPage(contextState, recipesPages, action.recipesPage);
+                focusOnRecipesPage(contextState.currentPage?.number);
+                return {
+                    ...contextState,
+                    recipesPages: recipesPages
+                };
+            }
             case 'loadRecipesPage': {
-                getRecipesByFilter(contextState.recipesFilterForm || {}, action.value, RECIPES_PAGE_SIZE);
+                getRecipesByFilter(contextState.recipesFilterForm || {}, action.value, RECIPES_PAGE_SIZE, onGetRecipesByFilterResponse);
                 return {
                     ...contextState
                 };
