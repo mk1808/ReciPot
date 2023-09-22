@@ -5,13 +5,14 @@ import { RecipeCollectionListContext } from "../context/RecipeCollectionListCont
 import { useTranslation } from "react-i18next";
 import { Recipe } from "../../../../data/types";
 import { useNavigate } from "react-router-dom";
+import { openInBackground } from "../../../../utils/NavigationUtils";
 
 
 function CollectionRecipesColumn() {
     const collectionsContext = useContext(RecipeCollectionListContext);
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const recipeCallback = (recipe: Recipe) => { navigate(`/recipes/${recipe.id}`) }
+    const recipeCallback = (recipe: Recipe, event: any, ) => openInBackground(`/recipes/${recipe.id}`, event, navigate);
 
     return (
         <div>

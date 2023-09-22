@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import recipesApi from "../../api/RecipesApi";
 import statisticsApi from "../../api/StatisticsApi";
+import { openInBackground } from "../../utils/NavigationUtils";
 
 function Main() {
     const { t } = useTranslation();
@@ -30,9 +31,7 @@ function Main() {
         });
     const navigate = useNavigate();
     const recipeCallback = (recipe: Recipe) => { navigate(`/recipes/${recipe.id}`) }
-    const recipeCallbackForSlider = (recipe: Recipe) => {
-        navigate(`/recipes/${recipe.id}`)
-    }
+    const recipeCallbackForSlider = (recipe: Recipe, event: any, ) => openInBackground(`/recipes/${recipe.id}`, event, navigate);
     const [recipes, setRecipes] = useState([]);
     const [statistics, setStatistics] = useState<GeneralStatisticsDto>();
     useEffect(() => {

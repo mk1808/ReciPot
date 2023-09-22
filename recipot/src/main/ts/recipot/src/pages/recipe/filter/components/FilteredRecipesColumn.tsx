@@ -6,6 +6,7 @@ import { RecipeFilterContext, RecipeFilterDispatchContext } from "../context/Rec
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import MyButton from "../../../../components/basicUi/MyButton";
+import { openInBackground } from "../../../../utils/NavigationUtils";
 
 
 function FilteredRecipesColumn() {
@@ -13,8 +14,7 @@ function FilteredRecipesColumn() {
     const recipeFilterDispatchContext = useContext(RecipeFilterDispatchContext);
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const recipeCallback = (recipe: Recipe) => { navigate(`/recipes/${recipe.id}`) }
-
+    const recipeCallback = (recipe: Recipe, event: any) => openInBackground(`/recipes/${recipe.id}`, event, navigate);
     function loadNextPage() {
         recipeFilterDispatchContext({
             type: 'loadRecipesPage',

@@ -6,15 +6,13 @@ import RecipeCard from "../../../../components/complex/RecipeCard";
 import { initAs } from "../../../../utils/ObjectUtils";
 import CategoryCard from "../../../../components/complex/CategoryCard";
 import { useNavigate } from "react-router-dom";
+import { openInBackground } from "../../../../utils/NavigationUtils";
 
 function OtherColumn({ recipes }: { recipes: Recipe[] }) {
     const { t } = useTranslation();
     const [allCategories, setAllCategories] = useState<CategoryDto[]>([]);
     const navigate = useNavigate();
-    const recipeCallback = (recipe: Recipe) => {
-        navigate(`/recipes/${recipe.id}`, { replace: true });
-        //navigate(0);
-    }
+    const recipeCallback = (recipe: Recipe, event: any, ) => openInBackground(`/recipes/${recipe.id}`, event, navigate);
 
     useEffect(() => {
         dictionariesApi.getAllCategories((response: Response<any[]>) => {
