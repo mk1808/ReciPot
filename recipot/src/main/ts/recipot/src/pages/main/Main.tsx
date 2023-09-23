@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import recipesApi from "../../api/RecipesApi";
 import statisticsApi from "../../api/StatisticsApi";
 import { openInBackground } from "../../utils/NavigationUtils";
+import { createUrl, updatePageUrl } from "../../utils/RecipeSearchUtils";
 
 function Main() {
     const { t } = useTranslation();
@@ -31,7 +32,11 @@ function Main() {
         });
     const navigate = useNavigate();
     const recipeCallback = (recipe: Recipe) => { navigate(`/recipes/${recipe.id}`) }
-    const recipeCallbackForSlider = (recipe: Recipe, event: any, ) => openInBackground(`/recipes/${recipe.id}`, event, navigate);
+    const recipeCallbackForSlider = (recipe: Recipe, event: any,) => openInBackground(`/recipes/${recipe.id}`, event, navigate);
+    const moreNewRecipesCallback = () => {
+        let url = createUrl({ recipesSort: { fieldName: 'created', order: 'DESC' } });
+        navigate(`/recipes/filter${url?.search}`)
+    }
     const [recipes, setRecipes] = useState([]);
     const [statistics, setStatistics] = useState<GeneralStatisticsDto>();
     useEffect(() => {
@@ -73,7 +78,7 @@ function Main() {
             <div>
                 <Stack direction="horizontal" gap={3} className='flex-wrap justify-content-center py-3 title'>
                     <h2 className="my-3 display-3">{t('p.newestRecipes')}</h2>
-                    <MyButton.Primary className="mt-4" onClick={() => { }}>{t('p.more')} <FaMagnifyingGlass className="ms-3" /> </MyButton.Primary>
+                    <MyButton.Primary className="mt-4" onClick={moreNewRecipesCallback}>{t('p.more')} <FaMagnifyingGlass className="ms-3" /> </MyButton.Primary>
                 </Stack>
                 <SlidingCards recipes={recipes} goToRecipeCallback={recipeCallbackForSlider}></SlidingCards>
                 <div></div>
