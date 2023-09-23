@@ -30,7 +30,7 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
 
     function getRecipesByFilter(recipesFilterForm: any, pageNum: number, pageSize: number, responseCallback: any) {
         searchRequestManager.nextAndLock(() => {
-            recipesApi.search(buildRecipeSearchDto(recipesFilterForm), { pageNum, pageSize }, responseCallback);
+            recipesApi.search(buildRecipeSearchDto(recipesFilterForm), { pageNum, pageSize }, responseCallback, searchRequestManager.unlock);
         })
     }
 
@@ -140,6 +140,14 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
                 getRecipesByFilter(contextState.recipesFilterForm || {}, action.value, RECIPES_PAGE_SIZE, onGetRecipesByFilterResponse);
                 return {
                     ...contextState
+                };
+            }
+            case 'clearFilterForm': {
+                return {
+                    ...contextState,
+                    recipesFilterForm: {
+                        recipesSort: contextState.recipesFilterForm.recipesSort
+                    }
                 };
             }
             default: {
