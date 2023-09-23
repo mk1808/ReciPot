@@ -38,57 +38,26 @@ public class RecipeSpecification implements Specification<Recipe> {
 
 		switch (Objects.requireNonNull(SearchOperation.getSimpleOperation(searchCriteria.getOperation()))) {
 		case CONTAINS:
-			if (searchCriteria.getFilterKey().equals("name")) {
-				return criteriaBuilder.like(
-						criteriaBuilder.lower(userJoin(root).<String>get(searchCriteria.getFilterKey())),
-						"%" + strToSearch + "%");
-			}
-
 			return criteriaBuilder.like(criteriaBuilder.lower(root.get(searchCriteria.getFilterKey())),
 					"%" + strToSearch + "%");
 
 		case DOES_NOT_CONTAIN:
-			if (searchCriteria.getFilterKey().equals("deptName")) {
-				return criteriaBuilder.notLike(
-						criteriaBuilder.lower(userJoin(root).<String>get(searchCriteria.getFilterKey())),
-						"%" + strToSearch + "%");
-			}
 			return criteriaBuilder.notLike(criteriaBuilder.lower(root.get(searchCriteria.getFilterKey())),
 					"%" + strToSearch + "%");
 
 		case BEGINS_WITH:
-			if (searchCriteria.getFilterKey().equals("deptName")) {
-				return criteriaBuilder.like(
-						criteriaBuilder.lower(userJoin(root).<String>get(searchCriteria.getFilterKey())),
-						strToSearch + "%");
-			}
 			return criteriaBuilder.like(criteriaBuilder.lower(root.get(searchCriteria.getFilterKey())),
 					strToSearch + "%");
 
 		case DOES_NOT_BEGIN_WITH:
-			if (searchCriteria.getFilterKey().equals("deptName")) {
-				return criteriaBuilder.notLike(
-						criteriaBuilder.lower(userJoin(root).<String>get(searchCriteria.getFilterKey())),
-						strToSearch + "%");
-			}
 			return criteriaBuilder.notLike(criteriaBuilder.lower(root.get(searchCriteria.getFilterKey())),
 					strToSearch + "%");
 
 		case ENDS_WITH:
-			if (searchCriteria.getFilterKey().equals("deptName")) {
-				return criteriaBuilder.like(
-						criteriaBuilder.lower(userJoin(root).<String>get(searchCriteria.getFilterKey())),
-						"%" + strToSearch);
-			}
 			return criteriaBuilder.like(criteriaBuilder.lower(root.get(searchCriteria.getFilterKey())),
 					"%" + strToSearch);
 
 		case DOES_NOT_END_WITH:
-			if (searchCriteria.getFilterKey().equals("deptName")) {
-				return criteriaBuilder.notLike(
-						criteriaBuilder.lower(userJoin(root).<String>get(searchCriteria.getFilterKey())),
-						"%" + strToSearch);
-			}
 			return criteriaBuilder.notLike(criteriaBuilder.lower(root.get(searchCriteria.getFilterKey())),
 					"%" + strToSearch);
 
@@ -120,10 +89,6 @@ public class RecipeSpecification implements Specification<Recipe> {
 			return criteriaBuilder.equal(root.get(searchCriteria.getFilterKey()), searchCriteria.getValue());
 
 		case NOT_EQUAL:
-			if (searchCriteria.getFilterKey().equals("deptName")) {
-				return criteriaBuilder.notEqual(userJoin(root).<String>get(searchCriteria.getFilterKey()),
-						searchCriteria.getValue());
-			}
 			return criteriaBuilder.notEqual(root.get(searchCriteria.getFilterKey()), searchCriteria.getValue());
 
 		case NUL:
