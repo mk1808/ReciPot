@@ -390,6 +390,7 @@
         "shareRecipeButton": "Udostępnij",
         "deleteRecipeButton": "Usuń przepis",
         "changeRecipeVisibilityButton": "Zmień widoczność",
-        "loadNextRecipesPage": "Wczytaj następną stronę"
+        "loadNextRecipesPage": "Wczytaj następną stronę",
+        "clearFilters": "Wyczyść filtr"
     }
 }
