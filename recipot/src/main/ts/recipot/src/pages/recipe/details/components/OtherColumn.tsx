@@ -6,7 +6,7 @@ import RecipeCard from "../../../../components/complex/RecipeCard";
 import { initAs } from "../../../../utils/ObjectUtils";
 import CategoryCard from "../../../../components/complex/CategoryCard";
 import { useNavigate } from "react-router-dom";
-import { openInBackground } from "../../../../utils/NavigationUtils";
+import { goToFilters, openInBackground } from "../../../../utils/NavigationUtils";
 import { createUrl } from "../../../../utils/RecipeSearchUtils";
 
 function OtherColumn({ recipes }: { recipes: Recipe[] }) {
@@ -15,8 +15,7 @@ function OtherColumn({ recipes }: { recipes: Recipe[] }) {
     const navigate = useNavigate();
     const recipeCallback = (recipe: Recipe, event: any, ) => openInBackground(`/recipes/${recipe.id}`, event, navigate);
     const onCategoryClick = (category: any) => {
-        let url = createUrl({ categories: [{ value: { id: category.id }, label: category.name }], accessType: 'PUBLIC' });
-        navigate(`/recipes/filter${url?.search}`)
+        goToFilters({ categories: [{ value: { id: category.id }, label: category.name }]}, navigate);
     }
 
     useEffect(() => {

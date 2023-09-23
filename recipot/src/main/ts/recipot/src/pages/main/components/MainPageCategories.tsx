@@ -8,6 +8,7 @@ import MyButton from "../../../components/basicUi/MyButton";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { createUrl } from "../../../utils/RecipeSearchUtils";
 import { useNavigate } from "react-router-dom";
+import { goToFilters } from "../../../utils/NavigationUtils";
 
 function CategoryCards() {
     const [allCategories, setAllCategories] = useState<any[]>([]);
@@ -15,8 +16,7 @@ function CategoryCards() {
     const navigate = useNavigate();
     const numInRow = 3;
     const onCategoryClick = (category: any) => {
-        let url = createUrl({ categories: [{ value: { id: category.id }, label: category.name }], accessType: 'PUBLIC' });
-        navigate(`/recipes/filter${url?.search}`)
+        goToFilters({ categories: [{ value: { id: category.id }, label: category.name }]}, navigate);
     }
     function setCategoriesInRows(categories: Category[]) {
         let newTab = [...readyCategories];

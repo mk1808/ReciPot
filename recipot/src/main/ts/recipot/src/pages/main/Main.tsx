@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import recipesApi from "../../api/RecipesApi";
 import statisticsApi from "../../api/StatisticsApi";
-import { openInBackground } from "../../utils/NavigationUtils";
+import { goToFilters, openInBackground } from "../../utils/NavigationUtils";
 import { createUrl, updatePageUrl } from "../../utils/RecipeSearchUtils";
 
 function Main() {
@@ -34,8 +34,7 @@ function Main() {
     const recipeCallback = (recipe: Recipe) => { navigate(`/recipes/${recipe.id}`) }
     const recipeCallbackForSlider = (recipe: Recipe, event: any,) => openInBackground(`/recipes/${recipe.id}`, event, navigate);
     const moreNewRecipesCallback = () => {
-        let url = createUrl({ recipesSort: { fieldName: 'created', order: 'DESC' }, accessType:'PUBLIC' });
-        navigate(`/recipes/filter${url?.search}`)
+        goToFilters({ recipesSort: { fieldName: 'created', order: 'DESC' }}, navigate);
     }
     const [recipes, setRecipes] = useState([]);
     const [statistics, setStatistics] = useState<GeneralStatisticsDto>();
