@@ -4,27 +4,26 @@ import StatisticCircle from '../../components/complex/StatisticCircle';
 import './styles.scss';
 import { useTranslation } from 'react-i18next';
 import { Stack } from 'react-bootstrap';
-import { UserStatisticsDto } from '../../data/types';
+import { Response, UserStatisticsDto } from '../../data/types';
 import UserDetailsForm from './UserDetailsForm';
 import { getEmptyFormSave } from '../../utils/FormInputUtils';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { UsersContext, UsersDispatchContext } from '../../context/UserContext';
 import usersApi from '../../api/UsersApi';
 import { showErrorAlert, showSuccessAlert } from '../../utils/RestUtils';
 import { AlertsDispatchContext } from '../../context/AlertContext';
+import statisticsApi from '../../api/StatisticsApi';
 
 function UserDetails() {
     const { t } = useTranslation();
     const user = useContext(UsersContext).user;
     const usersDispatchContext = useContext(UsersDispatchContext);
     const alertsDispatchContext = useContext(AlertsDispatchContext);
-    const userStatistics: UserStatisticsDto = {
-        commentedRecipesCount: 12,
-        createdRecipesCount: 20,
-        ratedRecipesCount: 40,
-        recipesInUserRecipeCollectionsCount: 55,
-        userRecipeCollectionsCount: 18
-    };
+    const [userStatistics, setUserStatistics] = useState<UserStatisticsDto>();
+
+    useEffect(() => {
+        statisticsApi.getUserStatistics((response: Response<UserStatisticsDto>) => setUserStatistics(response.value));
+    }, [user])
 
     const formSave: any = getEmptyFormSave();
     formSave.onSubmit = function (userFormValue: any) {
@@ -52,16 +51,16 @@ function UserDetails() {
     function renderUserStatistics() {
         return (
             <Stack direction="horizontal" gap={5} className='flex-wrap justify-content-center'>
-                {renderStatistic(userStatistics.createdRecipesCount, 'p.createdRecipesCount')}
-                {renderStatistic(userStatistics.commentedRecipesCount, 'p.commentedRecipesCount')}
-                {renderStatistic(userStatistics.ratedRecipesCount, 'p.ratedRecipesCount')}
-                {renderStatistic(userStatistics.userRecipeCollectionsCount, 'p.userRecipeCollectionsCount')}
-                {renderStatistic(userStatistics.recipesInUserRecipeCollectionsCount, 'p.recipesInUserRecipeCollectionsCount')}
+                {renderStatistic('p.createdRecipesCount', userStatistics?.createdRecipesCount)}
+                {renderStatistic('p.commentedRecipesCount', userStatistics?.commentedRecipesCount)}
+                {renderStatistic('p.ratedRecipesCount', userStatistics?.ratedRecipesCount)}
+                {renderStatistic('p.userRecipeCollectionsCount', userStatistics?.userRecipeCollectionsCount)}
+                {renderStatistic('p.recipesInUserRecipeCollectionsCount', userStatistics?.recipesInUserRecipeCollectionsCount)}
             </Stack>
         );
     }
 
-    function renderStatistic(value: number, label: string) {
+    function renderStatistic(label: string, value?: number) {
         return <div className='col-3'><StatisticCircle value={String(value)} size={150} ringSize={30} label={t(label)} /></div>
     }
 }
