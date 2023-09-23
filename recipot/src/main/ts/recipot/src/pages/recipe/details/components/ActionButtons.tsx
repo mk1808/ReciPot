@@ -30,7 +30,7 @@ function ActionButtons({ recipe }: { recipe: Recipe }) {
     return (<>
         <Row className="align-center action-buttons">
             <Col md="7"></Col>
-            <Col md="4">
+            <Col md="5">
                 <Row>
                     <Col><Tooltip placement="bottom" title={t('p.addToCollectionButton')}><MyButton.Primary onClick={() => setShowModalAddToCollection(true)} className="round"><BsCollectionFill /></MyButton.Primary></Tooltip></Col>
                     <Col><Tooltip placement="bottom" title={t('p.shareRecipeButton')}><MyButton.Primary onClick={() => setShowModalShare(true)} className="round"><BsShare /></MyButton.Primary></Tooltip></Col>

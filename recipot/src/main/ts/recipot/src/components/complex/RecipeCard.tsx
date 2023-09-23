@@ -8,6 +8,7 @@ import { Recipe } from '../../data/types';
 import { initFcn } from '../../utils/ObjectUtils';
 import { renderRating } from './RecipeCardCommonElements';
 import { getShorterText } from '../../utils/TextUtils';
+import HashTagList from '../basicUi/HashTagList';
 
 function RecipeCard({ recipe, recipeCallback = initFcn<Recipe>() }: { recipe: Recipe, recipeCallback: Function }) {
     const { t } = useTranslation();
@@ -31,15 +32,7 @@ function RecipeCard({ recipe, recipeCallback = initFcn<Recipe>() }: { recipe: Re
     );
 
     function renderHashTags() {
-        return (
-            <Stack direction="horizontal" className='hash-tags'>
-                {
-                    recipe.hashTags.slice(0, 2).map((tag: any) => (
-                        <HashTagBadge text={tag.name} key={tag.id} />)
-                    )
-                }
-            </Stack>
-        )
+        return <HashTagList hashTags={recipe.hashTags.slice(0, 2)} />
     };
 }
 
