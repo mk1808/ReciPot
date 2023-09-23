@@ -1,7 +1,7 @@
 import { createContext, useReducer, useRef, useContext } from "react";
 import { FormSave } from "../data/utilTypes";
 import { getEmptyFormSave } from "../utils/FormInputUtils";
-import { clearIds, convertToObjects, fillOrderNumbers } from "../utils/AddRecipeContextUtil";
+import { clearIds, convertIngredientsToObjects, convertToObjects, fillOrderNumbers } from "../utils/AddRecipeContextUtil";
 import recipesApi from "../api/RecipesApi";
 import { useNavigate } from "react-router-dom";
 import { showErrorAlert, showSuccessAlert } from "../utils/RestUtils";
@@ -31,8 +31,9 @@ function AddRecipeContextProvider({ children }: any) {
         }
         fillOrderNumbers(fields.formValue.steps);
         clearIds(fields.formValue.steps);
-        convertToObjects(fields.formValue.hashTag);
-        convertToObjects(fields.formValue.ingredients);
+        clearIds(fields.formValue.ingredients);
+        fields.formValue.hashTag = convertToObjects(fields.formValue.hashTag);
+        convertIngredientsToObjects(fields.formValue.ingredients);
         if (!wasSaveSend.current) {
             wasSaveSend.current = true;
             recipesApi.postRecipe(fields.formValue, formSave.current.onSuccess, formSave.current.onError)
