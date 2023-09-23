@@ -49,7 +49,7 @@ function UserDetails() {
     );
 
     function renderUserStatistics() {
-        return (
+        return userStatistics && (
             <Stack direction="horizontal" gap={5} className='flex-wrap justify-content-center'>
                 {renderStatistic('p.createdRecipesCount', userStatistics?.createdRecipesCount)}
                 {renderStatistic('p.commentedRecipesCount', userStatistics?.commentedRecipesCount)}
