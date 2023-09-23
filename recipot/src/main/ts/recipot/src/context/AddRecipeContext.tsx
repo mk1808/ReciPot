@@ -1,7 +1,7 @@
 import { createContext, useReducer, useRef, useContext } from "react";
 import { FormSave } from "../data/utilTypes";
 import { getEmptyFormSave } from "../utils/FormInputUtils";
-import { clearIds, convertIngredientsToObjects, convertToObjects, fillOrderNumbers } from "../utils/AddRecipeContextUtil";
+import { clearIds, convertCategoriesToObjects, convertIngredientsToObjects, convertToObjects, fillOrderNumbers } from "../utils/AddRecipeContextUtil";
 import recipesApi from "../api/RecipesApi";
 import { useNavigate } from "react-router-dom";
 import { showErrorAlert, showSuccessAlert } from "../utils/RestUtils";
@@ -26,17 +26,19 @@ function AddRecipeContextProvider({ children }: any) {
         for (const field in fields.formValidity) {
             if (!fields.formValidity[field]) {
                 console.log("invalid fields value")
-              //return false;
+                //return false;
             }
         }
         fillOrderNumbers(fields.formValue.steps);
         clearIds(fields.formValue.steps);
         clearIds(fields.formValue.ingredients);
         fields.formValue.hashTag = convertToObjects(fields.formValue.hashTag);
+        fields.formValue.category = convertCategoriesToObjects(fields.formValue.category);
         convertIngredientsToObjects(fields.formValue.ingredients);
+        console.log('BEFORESAVE', fields.formValue)
         if (!wasSaveSend.current) {
             wasSaveSend.current = true;
-            recipesApi.postRecipe(fields.formValue, formSave.current.onSuccess, formSave.current.onError)
+            //   recipesApi.postRecipe(fields.formValue, formSave.current.onSuccess, formSave.current.onError)
         }
 
         console.log("correct fields value")

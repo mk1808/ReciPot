@@ -33,6 +33,14 @@ export function convertIngredientsToObjects(list: []) {
     }
 }
 
+export function convertCategoriesToObjects(list: []) {
+    if (list) {
+        return list.map((element: any) => element.value ? element.value : element)
+    }
+
+    return [];
+}
+
 export function fillOrderNumbers(steps: []) {
     steps && steps.forEach((step: any, index: number) => { step.order = index + 1; })
 }
