@@ -3,6 +3,8 @@ import { useContext, useEffect } from "react";
 import { RecipeFilterContext, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 import MySelect from "../../../../components/basicUi/MySelect";
 import { inputAttributesForContextWithoutValidity } from "../../../../utils/FormInputUtils";
+import MyButton from "../../../../components/basicUi/MyButton";
+import { Stack } from "react-bootstrap";
 
 function RecipesSortForm() {
     const { t } = useTranslation();
@@ -28,6 +30,12 @@ function RecipesSortForm() {
         return options;
     }
 
+    function handleSearch() {
+        recipeFilterDispatchContext({
+            type: "filter"
+        })
+    };
+
     function onChange(fieldName: string, value: any) {
         recipeFilterDispatchContext({
             type: "filterFormChange",
@@ -37,9 +45,10 @@ function RecipesSortForm() {
     }
 
     return (
-        <div className="p-5 text-start">
+        <Stack className="p-5 text-start" gap={3}>
             {renderSortSelect()}
-        </div>
+            {renderSearchButton()}
+        </Stack>
     )
 
     function renderSortSelect() {
@@ -49,6 +58,10 @@ function RecipesSortForm() {
                 options={getRecipesSortOptions()}
             />
         )
+    }
+
+    function renderSearchButton() {
+        return <MyButton.Primary onClick={handleSearch}>{t('p.search')}</MyButton.Primary >
     }
 }
 
