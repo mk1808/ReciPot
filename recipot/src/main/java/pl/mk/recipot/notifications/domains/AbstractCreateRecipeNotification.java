@@ -25,7 +25,7 @@ public abstract class AbstractCreateRecipeNotification<T extends IRecipeRelated 
 
 	private Notification build() {
 		return Notification.builder()
-				.owner(getOwner())
+				.owner(getOwner(object))
 				.type(getType())
 				.value(getJsonNotificationValue())
 				.build();
@@ -51,7 +51,7 @@ public abstract class AbstractCreateRecipeNotification<T extends IRecipeRelated 
 		return object.getRecipe();
 	}
 
-	private AppUser getOwner() {
+	protected AppUser getOwner(T object) {
 		return getRecipe().getOwner();
 	}
 
