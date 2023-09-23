@@ -18,8 +18,11 @@ export function buildRecipeSearchDto(recipesFilterForm?: any): RecipeSearchDto {
 }
 
 export function updatePageUrl(recipesFilterForm?: any) {
-    const url = new URL(window.location as any);
+    window.history.pushState({}, "", createUrl(recipesFilterForm));
+}
 
+export function createUrl(recipesFilterForm?: any) {
+    const url = new URL(window.location as any);
     for (const filter in recipesFilterForm) {
         const value = recipesFilterForm[filter];
         if (typeof value === 'object') {
@@ -36,8 +39,7 @@ export function updatePageUrl(recipesFilterForm?: any) {
             url.searchParams.set(filter, value);
         }
     }
-
-    window.history.pushState({}, "", url);
+    return url;
 }
 
 function getFilterSearchCriteria(filterKey: string, filterValue: any): SearchCriteriaDto | null {

@@ -9,7 +9,7 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 
 function CategoryCards() {
     const [allCategories, setAllCategories] = useState<any[]>([]);
-    const [readyCategories, setReadyCategorires] = useState<any[]>([[]]);
+    const [readyCategories, setReadyCategorires] = useState<any[]>([]);
     const numInRow = 3;
     function setCategoriesInRows(categories: Category[]) {
         let newTab = [...readyCategories];
@@ -57,7 +57,6 @@ function MainPageCategories() {
         <div className="categories-section">
             <Stack direction="horizontal" gap={3} className='flex-wrap justify-content-center py-3 title'>
                 <h2 className="my-3 display-3">{t('p.categories')}</h2>
-                <MyButton.Primary className="mt-4" onClick={() => { }}>{t('p.more')} <FaMagnifyingGlass className="ms-3" /> </MyButton.Primary>
             </Stack>
             <CategoryCards />
         </div>
