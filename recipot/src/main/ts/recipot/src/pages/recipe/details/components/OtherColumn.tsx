@@ -7,12 +7,17 @@ import { initAs } from "../../../../utils/ObjectUtils";
 import CategoryCard from "../../../../components/complex/CategoryCard";
 import { useNavigate } from "react-router-dom";
 import { openInBackground } from "../../../../utils/NavigationUtils";
+import { createUrl } from "../../../../utils/RecipeSearchUtils";
 
 function OtherColumn({ recipes }: { recipes: Recipe[] }) {
     const { t } = useTranslation();
     const [allCategories, setAllCategories] = useState<CategoryDto[]>([]);
     const navigate = useNavigate();
     const recipeCallback = (recipe: Recipe, event: any, ) => openInBackground(`/recipes/${recipe.id}`, event, navigate);
+    const onCategoryClick = (category: any) => {
+        let url = createUrl({ categories: [{ value: { id: category.id }, label: category.name }], accessType: 'PUBLIC' });
+        navigate(`/recipes/filter${url?.search}`)
+    }
 
     useEffect(() => {
         dictionariesApi.getAllCategories((response: Response<any[]>) => {
@@ -43,7 +48,7 @@ function OtherColumn({ recipes }: { recipes: Recipe[] }) {
     }
     function renderCategory(category: CategoryDto, key: any) {
         return (
-            <CategoryCard category={category} showChildren={false} className="category-no-border" key={key} />
+            <CategoryCard category={category} showChildren={false} className="category-no-border" key={key} onCategorySelect={() => onCategoryClick(category)}/>
         )
     }
     function renderRecipes() {

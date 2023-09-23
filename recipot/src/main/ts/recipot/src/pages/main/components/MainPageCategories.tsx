@@ -6,11 +6,18 @@ import dictionariesApi from "../../../api/DictionariesApi";
 import CategoryCard from "../../../components/complex/CategoryCard";
 import MyButton from "../../../components/basicUi/MyButton";
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import { createUrl } from "../../../utils/RecipeSearchUtils";
+import { useNavigate } from "react-router-dom";
 
 function CategoryCards() {
     const [allCategories, setAllCategories] = useState<any[]>([]);
     const [readyCategories, setReadyCategorires] = useState<any[]>([]);
+    const navigate = useNavigate();
     const numInRow = 3;
+    const onCategoryClick = (category: any) => {
+        let url = createUrl({ categories: [{ value: { id: category.id }, label: category.name }], accessType: 'PUBLIC' });
+        navigate(`/recipes/filter${url?.search}`)
+    }
     function setCategoriesInRows(categories: Category[]) {
         let newTab = [...readyCategories];
         let noOfRows = Math.ceil(categories.length / numInRow);
@@ -41,7 +48,8 @@ function CategoryCards() {
                 return (
                     <Stack direction="horizontal" gap={3} className="align-items-stretch justify-content-center my-5 categories-row" key={index}>
                         {
-                            readyCategoriesRow.map((singleRow: CategoryDto) => <CategoryCard category={singleRow} className="col-4" key={singleRow.id} />)
+                            readyCategoriesRow.map((singleRow: CategoryDto) =>
+                                <CategoryCard category={singleRow} className="col-4" key={singleRow.id} onCategorySelect={() => onCategoryClick(singleRow)} />)
                         }
                     </Stack>
                 )
