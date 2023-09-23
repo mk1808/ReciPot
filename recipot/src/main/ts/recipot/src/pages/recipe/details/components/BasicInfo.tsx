@@ -1,4 +1,4 @@
-import { Col, Row, Tooltip } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { Recipe } from "../../../../data/types";
 import MyButton from "../../../../components/basicUi/MyButton";
@@ -8,11 +8,13 @@ import { MdAccessTime, MdWork } from "react-icons/md";
 import { GiCookingPot } from "react-icons/gi";
 import { VscTools } from "react-icons/vsc";
 import Info from "../../../../components/basicUi/Info";
+import HashTagList from "../../../../components/basicUi/HashTagList";
 
 function BasicInfo({ recipe }: { recipe: Recipe }) {
     const { t } = useTranslation();
     return (
         <div className="mt-3 mb-5 px-5 basic-info">
+            {recipe.hashTags && recipe.hashTags.length > 0 && <HashTagList hashTags={recipe.hashTags} />}
             <div className="my-4">
                 {recipe.description}
             </div>

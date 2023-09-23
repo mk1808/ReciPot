@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Stack } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import './styles.scss';
 import MyImage from "../../../components/basicUi/MyImage";
@@ -85,11 +85,10 @@ function RecipeDetails() {
                 <MyImage src={recipe.image} height="auto" className="main-img" rounded></MyImage>
                 <ActionButtons recipe={recipe} />
                 <MyHeader title={recipe.name}></MyHeader>
-                <Row>
-                    <Col md={5}>{renderBreadcrumps()}</Col>
-                    <Col md={1}></Col>
-                    <Col md={6}><Rating recipe={recipe}></Rating></Col>
-                </Row>
+                <Stack direction="horizontal" className="justify-content-between">
+                    <div>{renderBreadcrumps()}</div>
+                    <div><Rating recipe={recipe} /></div>
+                </Stack>
                 <BasicInfo recipe={recipe} />
                 <hr />
                 <IngredientList recipe={recipe} />

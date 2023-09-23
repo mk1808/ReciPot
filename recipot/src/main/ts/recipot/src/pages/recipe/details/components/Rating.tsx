@@ -1,4 +1,4 @@
-import { Col, Row } from "react-bootstrap";
+import { Stack } from "react-bootstrap";
 import StarSelectInput from "../../../../components/basicUi/StarSelectInput";
 import { Recipe } from "../../../../data/types";
 import { roundToHalf } from "../../../../utils/MathUtils";
@@ -6,9 +6,8 @@ import { t } from "i18next";
 
 function Rating({ recipe }: { recipe: Recipe }) {
     return (
-        <Row className="px-5 rating" gap={1}>
-            <Col></Col>
-            <Col md={4} className="pe-0 star-col">
+        <Stack direction="horizontal" className="px-5 rating" gap={3}>
+            <div className="pe-0 star-col">
                 <StarSelectInput
                     required
                     disabled={true}
@@ -17,12 +16,12 @@ function Rating({ recipe }: { recipe: Recipe }) {
                     isValid={true}
                     onChange={(value: any) => { }}
                 />
-            </Col>
+            </div>
 
-            <Col md={5} className="ps-0">
+            <div className="ps-0">
                 <span>{recipe.averageRating} / 5 ({recipe.ratingsCount} {t('p.ratingsCount')})</span>
-            </Col>
-        </Row>
+            </div>
+        </Stack>
     )
 }
 
