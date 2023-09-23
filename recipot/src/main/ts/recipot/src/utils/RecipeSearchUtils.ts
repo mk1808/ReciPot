@@ -38,8 +38,8 @@ export function createUrl(recipesFilterForm?: any) {
         } else {
             url.searchParams.set(filter, value);
         }
-        return url;
     }
+    return url;
 }
 
 function getFilterSearchCriteria(filterKey: string, filterValue: any): SearchCriteriaDto | null {

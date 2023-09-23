@@ -34,7 +34,7 @@ function Main() {
     const recipeCallback = (recipe: Recipe) => { navigate(`/recipes/${recipe.id}`) }
     const recipeCallbackForSlider = (recipe: Recipe, event: any,) => openInBackground(`/recipes/${recipe.id}`, event, navigate);
     const moreNewRecipesCallback = () => {
-        let url = createUrl({ recipesSort: { fieldName: 'created', order: 'DESC' } });
+        let url = createUrl({ recipesSort: { fieldName: 'created', order: 'DESC' }, accessType:'PUBLIC' });
         navigate(`/recipes/filter${url?.search}`)
     }
     const [recipes, setRecipes] = useState([]);
