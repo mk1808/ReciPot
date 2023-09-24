@@ -28,6 +28,14 @@ export const RecipeCollectionListContextProvider = ({ children }: any) => {
         dispatch({ type: 'onRecipesPageLoad', recipesPage: responsePage });
     }
 
+    function selectDefaultCollection(contextState: contextStateModel, collections: RecipeCollection[]) {
+        if (!contextState.activeCollectionId) {
+            setTimeout(() => {
+                collections.filter(collection => collection.name === 'Favourite')
+                    .forEach((collection) => dispatch({ type: 'collectionSelect', activeCollectionId: collection.id }));
+            })
+        };
+    }
 
     function collectionsReducer(contextState: contextStateModel, action: any): contextStateModel {
         switch (action.type) {
@@ -46,6 +54,7 @@ export const RecipeCollectionListContextProvider = ({ children }: any) => {
                 };
             }
             case 'setSavedCollectionsList': {
+                selectDefaultCollection(contextState, action.value);
                 return {
                     ...contextState,
                     collections: action.value
