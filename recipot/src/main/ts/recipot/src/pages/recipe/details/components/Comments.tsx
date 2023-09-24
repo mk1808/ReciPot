@@ -57,7 +57,7 @@ function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: 
     return (
         <div className="mb-5 px-5 comments">
             <h4 className="my-3 display-4">{t('p.comments')}</h4>
-            {renderForm()}
+            {user && renderForm()}
             {renderPageOfComments()}
         </div>
     )
