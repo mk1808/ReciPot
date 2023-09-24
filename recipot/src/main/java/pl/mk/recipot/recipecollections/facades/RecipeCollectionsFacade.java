@@ -43,4 +43,9 @@ public class RecipeCollectionsFacade implements IRecipeCollectionsFacade {
 		return recipeCollectionsService.getRecipesInUserRecipeCollectionsCount(user);
 	}
 
+	@Override
+	public void deleteRecipeFromCollection(Recipe recipe) {
+		recipeCollectionsService.deleteRecipeFromCollection(recipe);
+	}
+
 }

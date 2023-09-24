@@ -172,4 +172,10 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 		return recipesPage;
 	}
 
+	@Override
+	public void deleteRecipeFromCollection(Recipe recipe) {
+		List<RecipeCollectionItem> existingItems = recipeCollectionsItemRepository.getByRecipe(recipe.getId());
+		recipeCollectionsItemRepository.deleteAll(existingItems);
+	}
+
 }
