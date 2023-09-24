@@ -392,6 +392,7 @@
 		"changeRecipeVisibilityButton": "Change visibility",
 		"loadNextRecipesPage": "Load next page",
 		"clearFilters": "Clear filter",
-		"userTokenTimeout": "User logged out. Log in again!"
+		"userTokenTimeout": "User logged out. Log in again!",
+		"url": "Link"
 	}
 }
