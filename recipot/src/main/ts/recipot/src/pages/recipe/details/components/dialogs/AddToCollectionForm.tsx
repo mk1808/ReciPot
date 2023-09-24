@@ -27,9 +27,13 @@ function AddToCollectionForm({ formSave }: { formSave: FormSave }, ref: any) {
 
     function getAllCollections() {
         recipeCollectionsApi.getUserRecipeCollections((response: Response<RecipeCollection[]>) => {
-            setAllCollections(response.value)
-            setFilteredCollections(mapDictionaryValueToSearchList(response.value))
+            setAllCollections(filterOutDefaultCollections(response.value));
+            setFilteredCollections(mapDictionaryValueToSearchList(response.value));
         })
+    }
+
+    function filterOutDefaultCollections(collections: RecipeCollection[]) {
+        return collections.filter(collection => collection.canDelete);
     }
 
     function onCategorySearchCallback(phrase: string) {
