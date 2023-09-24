@@ -4,6 +4,12 @@
 @import "~bootstrap/scss/mixins";
 
 .recipe-details-page {
+    .details-container {
+        .main-container {
+            width: 1075px;
+        }
+    }
+
     .basic-container-border {}
 
     .main {

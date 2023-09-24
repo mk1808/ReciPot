@@ -55,7 +55,7 @@ function OtherColumn({ recipes }: { recipes: Recipe[] }) {
             <div className="list">
                 {recipes.map((recipe, index) => {
                     return (
-                        <RecipeCard recipe={recipe} recipeCallback={recipeCallback} key={index}></RecipeCard >
+                        <RecipeCard recipe={recipe} recipeCallback={recipeCallback} key={index} className="mx-auto"></RecipeCard >
                     )
                 })}
             </div>
