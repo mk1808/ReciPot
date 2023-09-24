@@ -391,6 +391,7 @@
 		"deleteRecipeButton": "Delete",
 		"changeRecipeVisibilityButton": "Change visibility",
 		"loadNextRecipesPage": "Load next page",
-		"clearFilters": "Clear filter"
+		"clearFilters": "Clear filter",
+		"userTokenTimeout": "User logged out. Log in again!"
 	}
 }
