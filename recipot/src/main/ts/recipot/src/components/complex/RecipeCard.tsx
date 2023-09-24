@@ -10,12 +10,13 @@ import { renderRating } from './RecipeCardCommonElements';
 import { getShorterText } from '../../utils/TextUtils';
 import HashTagList from '../basicUi/HashTagList';
 
-function RecipeCard({ recipe, recipeCallback = initFcn<Recipe>() }: { recipe: Recipe, recipeCallback: Function }) {
+function RecipeCard({ recipe, recipeCallback = initFcn<Recipe>(), className }: { recipe: Recipe, recipeCallback: Function, className?: string }) {
     const { t } = useTranslation();
+    const defaultImage = 'https://violashop.in/wp-content/uploads/2021/07/Viola-Candescent-Cutlery-Set-3.jpg'
 
     return (
-        <Card className="recipe-card mb-2 me-2">
-            <Card.Img variant="top" src={recipe.image} height={180} />
+        <Card className={"recipe-card mb-2 " + (className || "me-2")}>
+            <Card.Img variant="top" src={recipe.image ?? defaultImage} height={180} />
             <Card.Body className="body">
                 <Card.Title> {recipe.name} </Card.Title>
 
@@ -23,7 +24,7 @@ function RecipeCard({ recipe, recipeCallback = initFcn<Recipe>() }: { recipe: Re
                     <h6>{recipe.categories.map(category => category.name)[0]}</h6>
                     {renderHashTags()}
                     {renderRating(recipe, t('p.numberOfRatings'))}
-                    {getShorterText(recipe.description, 60)}
+                    <div className="description"> {getShorterText(recipe.description, 60)}</div>
                 </div>
 
                 <MyButton.Primary onClick={(e: any) => recipeCallback(recipe, e)} className="full-width">{t('p.goToRecipe')}</MyButton.Primary>

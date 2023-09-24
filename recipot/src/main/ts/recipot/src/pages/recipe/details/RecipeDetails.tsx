@@ -60,22 +60,16 @@ function RecipeDetails() {
             {renderColumns()}
         </div>
     );
-
     function renderColumns() {
         return (
-            <Row className='gx-2 m-3'>
-                <Col md={7} className="offset-md-2">
-                    <div className='basic-container-border p-3'>
-                        {isLoaded && renderMainRecipeColumn()}
-                    </div>
-                </Col>
-                <Col md={2}>
-                    <div className='h-100 basic-container-border p-3'>
-                        <OtherColumn recipes={otherRecipes} />
-                    </div>
-                </Col>
-                <Col md={1}></Col>
-            </Row>
+            <Stack direction="horizontal" className="align-items-stretch details-container container" gap={2}>
+                <div className='basic-container-border p-3 main-container'>
+                    {isLoaded && renderMainRecipeColumn()}
+                </div>
+                <div className='basic-container-border p-3'>
+                    <OtherColumn recipes={otherRecipes} />
+                </div>
+            </Stack>
         )
     }
 
