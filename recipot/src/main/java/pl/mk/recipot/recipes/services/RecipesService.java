@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
 import pl.mk.recipot.commons.domains.CheckIfUserIsNotOwner;
@@ -18,6 +19,7 @@ import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.commons.services.IFilterService;
+import pl.mk.recipot.recipecollections.facades.IRecipeCollectionsFacade;
 import pl.mk.recipot.recipes.domains.CheckIfRecipeDoesNotExists;
 import pl.mk.recipot.recipes.domains.CleanRecipe;
 import pl.mk.recipot.recipes.domains.GetPageForSearching;
@@ -38,16 +40,18 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	private IAuthFacade authFacade;
 	private IRecipeStepsRepository recipeStepsRepository;
 	private PersistRecipeService persistRecipeService;
+	private IRecipeCollectionsFacade recipeCollectionsFacade;
 
 	public RecipesService(IRecipesRepository recipesRepository, IAuthFacade authFacade,
 			IRecipeIngredientsRepository recipeIngredientsRepository, IRecipeStepsRepository recipeStepsRepository,
-			PersistRecipeService persistRecipeService) {
+			PersistRecipeService persistRecipeService, IRecipeCollectionsFacade recipeCollectionsFacade) {
 		super();
 		this.recipesRepository = recipesRepository;
 		this.authFacade = authFacade;
 		this.recipeIngredientsRepository = recipeIngredientsRepository;
 		this.recipeStepsRepository = recipeStepsRepository;
 		this.persistRecipeService = persistRecipeService;
+		this.recipeCollectionsFacade = recipeCollectionsFacade;
 	}
 
 	@Override
@@ -83,10 +87,18 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	}
 
 	@Override
+	@Transactional
 	public void delete(UUID id) {
 		Recipe existingRecipe = get(id);
+		new CheckIfRecipeDoesNotExists().execute(existingRecipe);
 		new CheckIfUserIsNotOwner().execute(authFacade.getCurrentUser(), existingRecipe);
-		//recipesRepository.deleteById(id);
+		existingRecipe.getCategories().removeAll(existingRecipe.getCategories());
+		existingRecipe.getHashTags().removeAll(existingRecipe.getHashTags());
+		recipeStepsRepository.deleteByRecipeId(id);
+		recipeIngredientsRepository.deleteByRecipeId(id);
+		recipeCollectionsFacade.deleteRecipeFromCollection(existingRecipe);
+
+		recipesRepository.deleteById(id);
 	}
 
 	@Override

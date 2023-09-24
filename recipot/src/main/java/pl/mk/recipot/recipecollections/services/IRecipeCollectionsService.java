@@ -31,4 +31,6 @@ public interface IRecipeCollectionsService {
 	int getRecipesInUserRecipeCollectionsCount(AppUser user);
 
 	Page<RecipeCollectionItem> findPageByCollection(UUID collectionId, Pageable pageRequest);
+	
+	void deleteRecipeFromCollection(Recipe recipe);
 }

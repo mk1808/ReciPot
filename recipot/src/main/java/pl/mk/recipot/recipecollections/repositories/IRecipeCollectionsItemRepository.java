@@ -27,4 +27,7 @@ public interface IRecipeCollectionsItemRepository extends JpaRepository<RecipeCo
 
 	@Query("SELECT rci FROM RecipeCollectionItem rci WHERE rci.collection.id = :collectionId")
 	Page<RecipeCollectionItem> findPageByCollection(UUID collectionId, Pageable pageable);
+	
+	@Query("SELECT rci FROM RecipeCollectionItem rci LEFT JOIN FETCH rci.recipe " + "where rci.recipe.id = :id")
+	List<RecipeCollectionItem> getByRecipe(UUID id);
 }

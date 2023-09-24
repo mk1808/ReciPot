@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -25,4 +26,8 @@ public interface IRecipeIngredientsRepository extends JpaRepository<RecipeIngred
 	@Query("SELECT ri FROM RecipeIngredient ri " + "LEFT JOIN FETCH ri.recipe " + "LEFT JOIN FETCH ri.ingredient "
 			+ "WHERE ri.recipe = :recipe")
 	List<RecipeIngredient> getByRecipe(Recipe recipe);
+	
+	@Modifying
+	@Query("DELETE FROM RecipeIngredient ri where ri.recipe.id=:recipeId")
+	void deleteByRecipeId(UUID recipeId);
 }

@@ -14,4 +14,6 @@ public interface IRecipeCollectionsFacade {
 	int getUserRecipeCollectionsCount(AppUser user);
 
 	int getRecipesInUserRecipeCollectionsCount(AppUser user);
+	
+	void deleteRecipeFromCollection(Recipe recipe);
 }
