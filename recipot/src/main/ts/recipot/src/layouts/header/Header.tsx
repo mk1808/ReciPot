@@ -26,17 +26,20 @@ function Header() {
   function onLogout() {
     console.log("logout")
     usersDispatchContext({ type: "logout" })
-    
-    navigate("");
-
+    gotToMainPage();
   }
   function getUserName() {
     return user ? ` ${user.login}` : ""
   }
+
+  function gotToMainPage() {
+    navigate("");
+  }
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid>
-        <Navbar.Brand href="#">Recipot</Navbar.Brand>
+        <Navbar.Brand href="#" onClick={gotToMainPage}>Recipot</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         {renderCollapse()}
       </Container>
@@ -47,9 +50,10 @@ function Header() {
     return (
       <Navbar.Collapse id="navbarScroll" className="justify-content-end">
         <Nav
-          className="me-auto my-2 my-lg-0"
+          className="me-auto my-2 my-lg-0 cursor-pointer"
           style={{ maxHeight: '100px' }}
           navbarScroll
+          onClick={gotToMainPage}
         >
           <GiCookingPot className='fs-4' />
         </Nav>
