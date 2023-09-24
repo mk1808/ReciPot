@@ -6,19 +6,30 @@ import { useTranslation } from "react-i18next";
 import { Recipe } from "../../../../data/types";
 import { useNavigate } from "react-router-dom";
 import { openInBackground } from "../../../../utils/NavigationUtils";
+import MyHeader from "../../../../components/basicUi/MyHeader";
 
 
 function CollectionRecipesColumn() {
     const collectionsContext = useContext(RecipeCollectionListContext);
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const recipeCallback = (recipe: Recipe, event: any, ) => openInBackground(`/recipes/${recipe.id}`, event, navigate);
+    const recipeCallback = (recipe: Recipe, event: any,) => openInBackground(`/recipes/${recipe.id}`, event, navigate);
 
     return (
         <div>
+            {renderHeader()}
             {collectionsContext.recipesInCollection?.map(renderRecipesPage)}
         </div>
     );
+
+    function renderHeader() {
+        const activeRecipeCollectionName = collectionsContext.collections?.filter(collection => collection.id === collectionsContext.activeCollectionId)[0]?.name;
+        return (
+            <>
+                <MyHeader title={t('p.recipeCollectionListHeader') + ": " + activeRecipeCollectionName}></MyHeader>
+            </>
+        );
+    }
 
     function renderRecipesPage(recipes: Recipe[], index: number) {
         const pageId = "recipesPage_" + index;
