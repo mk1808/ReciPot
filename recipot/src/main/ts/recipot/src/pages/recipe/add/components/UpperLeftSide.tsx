@@ -22,10 +22,10 @@ function UpperLeftSide() {
     function checkInputValidity(fieldValue: any, fieldName: string) {
         switch (fieldName) {
             case 'name': {
-                return fieldValue && fieldValue.length > 3;
+                return !!(fieldValue && fieldValue.length > 3);
             }
             case 'image': {
-                return fieldValue && fieldValue.length > 3;
+                return !!(fieldValue && fieldValue.length > 3);
             }
             default: {
                 return true;
@@ -40,6 +40,7 @@ function UpperLeftSide() {
             {renderNameInput()}
             {renderDescriptionInput()}
             {renderImageInput()}
+            {renderUrlInput()}
         </div>
     );
     function renderNameInput() {
@@ -71,6 +72,16 @@ function UpperLeftSide() {
                 placeholder={t('p.image')}
                 required={true}
                 {...inputAttributesForContext("image", onChange, getValidity)}
+            />
+        )
+    }
+
+    function renderUrlInput(){
+        return (
+            <MyInput
+                label={t('p.url')}
+                placeholder={t('p.url')}
+                {...inputAttributesForContext("url", onChange, getValidity)}
             />
         )
     }
