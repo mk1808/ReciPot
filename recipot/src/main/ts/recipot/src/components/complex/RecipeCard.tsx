@@ -15,7 +15,7 @@ function RecipeCard({ recipe, recipeCallback = initFcn<Recipe>(), className }: {
     const defaultImage = 'https://violashop.in/wp-content/uploads/2021/07/Viola-Candescent-Cutlery-Set-3.jpg'
 
     return (
-        <Card className={"recipe-card mb-2 " + (className || "me-2")}>
+        <Card className={`recipe-card mb-2 ${(className || "me-2")}`}>
             <Card.Img variant="top" src={recipe.image ?? defaultImage} height={180} />
             <Card.Body className="body">
                 <Card.Title> {recipe.name} </Card.Title>
