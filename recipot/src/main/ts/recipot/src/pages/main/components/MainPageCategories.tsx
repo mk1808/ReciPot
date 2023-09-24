@@ -15,8 +15,8 @@ function CategoryCards() {
     const [readyCategories, setReadyCategorires] = useState<any[]>([]);
     const navigate = useNavigate();
     const numInRow = 3;
-    const onCategoryClick = (category: any) => {
-        goToFilters({ categories: [{ value: { id: category.id }, label: category.name }]}, navigate);
+    const onCategoryClick = (category: CategoryDto) => {
+        goToFilters({ categories: [{ value: { id: category.id }, label: category.name }] }, navigate);
     }
     function setCategoriesInRows(categories: Category[]) {
         let newTab = [...readyCategories];
@@ -49,7 +49,7 @@ function CategoryCards() {
                     <Stack direction="horizontal" gap={3} className="align-items-stretch justify-content-center my-5 categories-row" key={index}>
                         {
                             readyCategoriesRow.map((singleRow: CategoryDto) =>
-                                <CategoryCard category={singleRow} className="col-4" key={singleRow.id} onCategorySelect={() => onCategoryClick(singleRow)} />)
+                                <CategoryCard category={singleRow} className="col-4" key={singleRow.id} onCategorySelect={onCategoryClick} />)
                         }
                     </Stack>
                 )
