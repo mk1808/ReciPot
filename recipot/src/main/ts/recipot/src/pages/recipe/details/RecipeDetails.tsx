@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { Col, Row, Stack } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import './styles.scss';
@@ -32,9 +32,10 @@ function RecipeDetails() {
     const [note, setNote] = useState<any | PrivateNoteT>(initAs());
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
     const [isNoteLoaded, setIsNoteLoaded] = useState<boolean>(false);
+    const [height, setHeight] = useState<boolean>();
     const id: string = params.id ?? "";
     const user = useContext(UsersContext).user;
-
+    const mainRef = useRef<any>(null);
     useEffect(() => {
         console.log(params)
         recipesApi.getRecipe(id, onGetRecipeSuccess)
@@ -46,13 +47,20 @@ function RecipeDetails() {
             privateNotesApi.getPrivateNoteByRecipeId(id, (response) => { setNote(response.value); setIsNoteLoaded(true) }, (errorResponse) => { console.log(errorResponse) });
         }
     }, [user])
+    useEffect(() => {
+        setTimeout(() => {
+            let h = mainRef.current.clientHeight;
+            setHeight(h);
+        }, 1000)
+
+    }, [isLoaded, isNoteLoaded])
     function getOpinions(id: string) {
         opinionsApi.getRecipeOpinions(id, (response) => { setOpinions(response.value) })
     }
     function onGetRecipeSuccess(response: any) {
         setRecipe(response.value);
         setIsLoaded(true);
-        const filter: RecipeSearchDto = buildRecipeSearchDto({ categories: response.value.categories, recipesSort: { fieldName: "created", order: "DESC" } });
+        const filter: RecipeSearchDto = buildRecipeSearchDto({  recipesSort: { fieldName: "created", order: "DESC" } });
         recipesApi.search(filter, { pageNum: 0, pageSize: 10 }, (response) => { setOtherRecipes(response.value.content) });
     }
     return (
@@ -62,12 +70,12 @@ function RecipeDetails() {
     );
     function renderColumns() {
         return (
-            <Stack direction="horizontal" className="align-items-stretch details-container container" gap={2}>
-                <div className='basic-container-border p-3 main-container'>
+            <Stack direction="horizontal" className="align-items-stretch details-container container" gap={2}> {/** align-items-stretch */}
+                <div className='basic-container-border p-3 main-container' ref={mainRef} >
                     {isLoaded && renderMainRecipeColumn()}
                 </div>
                 <div className='basic-container-border p-3'>
-                    <OtherColumn recipes={otherRecipes} />
+                    <OtherColumn recipes={otherRecipes} height={height} />
                 </div>
             </Stack>
         )

@@ -1,5 +1,6 @@
 
 import { Card, Stack } from 'react-bootstrap';
+import {forwardRef } from "react";
 import './styles.scss';
 import HashTagBadge from '../basicUi/HashTagBadge';
 import MyButton from '../basicUi/MyButton';
@@ -10,12 +11,12 @@ import { renderRating } from './RecipeCardCommonElements';
 import { getShorterText } from '../../utils/TextUtils';
 import HashTagList from '../basicUi/HashTagList';
 
-function RecipeCard({ recipe, recipeCallback = initFcn<Recipe>(), className }: { recipe: Recipe, recipeCallback: Function, className?: string }) {
+function RecipeCard({ recipe, recipeCallback = initFcn<Recipe>(), className }: { recipe: Recipe, recipeCallback: Function, className?: string }, ref:any) {
     const { t } = useTranslation();
     const defaultImage = 'https://violashop.in/wp-content/uploads/2021/07/Viola-Candescent-Cutlery-Set-3.jpg'
 
     return (
-        <Card className={`recipe-card mb-2 ${(className || "me-2")}`}>
+        <Card className={`recipe-card mb-2 ${(className || "me-2")}`} ref={ref}>
             <Card.Img variant="top" src={recipe.image ?? defaultImage} height={180} />
             <Card.Body className="body">
                 <Card.Title> {recipe.name} </Card.Title>
@@ -37,4 +38,4 @@ function RecipeCard({ recipe, recipeCallback = initFcn<Recipe>(), className }: {
     };
 }
 
-export default RecipeCard;
+export default forwardRef(RecipeCard);

@@ -77,7 +77,7 @@ export function getNewState(state: any, action: any, value: any, checkInputValid
             [action.type]: checkInputValidity(action, state)
         },
     };
-    console.log(newState)
+   // console.log(newState)
     return newState;
 }
 
