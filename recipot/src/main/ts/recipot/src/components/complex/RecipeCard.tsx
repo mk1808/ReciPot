@@ -1,5 +1,5 @@
 
-import { Card, Stack } from 'react-bootstrap';
+import { Card, Col, Row } from 'react-bootstrap';
 import './styles.scss';
 import HashTagBadge from '../basicUi/HashTagBadge';
 import MyButton from '../basicUi/MyButton';
@@ -10,7 +10,17 @@ import { renderRating } from './RecipeCardCommonElements';
 import { getShorterText } from '../../utils/TextUtils';
 import HashTagList from '../basicUi/HashTagList';
 
-function RecipeCard({ recipe, recipeCallback = initFcn<Recipe>(), className }: { recipe: Recipe, recipeCallback: Function, className?: string }) {
+function RecipeCard({
+    recipe,
+    recipeCallback = initFcn<Recipe>(),
+    className,
+    additionalFunctionElement
+}: {
+    recipe: Recipe,
+    recipeCallback: Function,
+    className?: string,
+    additionalFunctionElement?: any
+}) {
     const { t } = useTranslation();
     const defaultImage = 'https://violashop.in/wp-content/uploads/2021/07/Viola-Candescent-Cutlery-Set-3.jpg'
 
@@ -21,7 +31,7 @@ function RecipeCard({ recipe, recipeCallback = initFcn<Recipe>(), className }: {
                 <Card.Title> {recipe.name} </Card.Title>
 
                 <div className='mb-3'>
-                    <h6>{recipe.categories.map(category => category.name)[0]}</h6>
+                    {renderCategoryRow()}
                     {renderHashTags()}
                     {renderRating(recipe, t('p.numberOfRatings'))}
                     <div className="description"> {getShorterText(recipe.description, 60)}</div>
@@ -31,6 +41,17 @@ function RecipeCard({ recipe, recipeCallback = initFcn<Recipe>(), className }: {
             </Card.Body>
         </Card >
     );
+
+    function renderCategoryRow() {
+        return (
+            <Row>
+                <Col>
+                    <h6>{recipe.categories.map(category => category.name)[0]}</h6>
+                </Col>
+                {additionalFunctionElement && <Col md={3}>{additionalFunctionElement}</Col>}
+            </Row>
+        )
+    }
 
     function renderHashTags() {
         return <HashTagList hashTags={recipe.hashTags.slice(0, 2)} />
