@@ -12,10 +12,13 @@ import { getEmptyFormSave } from '../../../utils/FormInputUtils';
 import FilteredRecipesPagination from './components/FilteredRecipesPagination';
 import { RecipeFilterContextContextProvider } from './context/RecipeFilterContext';
 import RecipesSortForm from './components/RecipesSortForm';
+import { UsersContext } from '../../../context/UserContext';
+import { useContext } from 'react';
 
 function RecipeFilter() {
 
     const { t } = useTranslation();
+    const user = useContext(UsersContext).user;
 
     const formSave: FormSave = getEmptyFormSave();
 
@@ -84,7 +87,7 @@ function RecipeFilter() {
     }
 
     function renderSavedFiltersColumn() {
-        return (
+        return user && (
             <SideOffcanvas title={t('p.savedRecipeFilterHeader')}>
                 <SavedRecipeFilters />
             </SideOffcanvas>
