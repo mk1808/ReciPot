@@ -393,6 +393,10 @@
 		"loadNextRecipesPage": "Load next page",
 		"clearFilters": "Clear filter",
 		"userTokenTimeout": "User logged out. Log in again!",
-		"url": "Link"
+		"url": "Link",
+		"removeFromCollection": "Remove from collection",
+		"recipeRemovedFromCollection": "Removed recipe from collection",
+		"noData": "No data",
+		"recipeUrlButton": "Go to recipe's origin page"
 	}
 }
