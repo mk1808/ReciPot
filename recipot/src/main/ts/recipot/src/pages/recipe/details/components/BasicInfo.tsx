@@ -1,4 +1,4 @@
-import { Col, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { Recipe } from "../../../../data/types";
 import MyButton from "../../../../components/basicUi/MyButton";
@@ -7,6 +7,7 @@ import { useState } from "react";
 import { MdAccessTime, MdWork } from "react-icons/md";
 import { GiCookingPot } from "react-icons/gi";
 import { VscTools } from "react-icons/vsc";
+import { FaInternetExplorer } from "react-icons/fa6";
 import Info from "../../../../components/basicUi/Info";
 import HashTagList from "../../../../components/basicUi/HashTagList";
 
@@ -15,6 +16,7 @@ function BasicInfo({ recipe }: { recipe: Recipe }) {
     return (
         <div className="mt-3 mb-5 px-5 basic-info">
             {recipe.hashTags && recipe.hashTags.length > 0 && <HashTagList hashTags={recipe.hashTags} />}
+            {renderUrlButton()}
             <div className="my-4">
                 {recipe.description}
             </div>
@@ -69,6 +71,14 @@ function BasicInfo({ recipe }: { recipe: Recipe }) {
                 <strong> {t(`p.${label}`)}</strong> <br />
                 {value}
             </>
+        )
+    }
+
+    function renderUrlButton() {
+        return recipe.url && (
+            <div className="text-center my-3">
+                <Button href={recipe.url} target="_blank">{t(`p.recipeUrlButton`)} <FaInternetExplorer /></Button>
+            </div>
         )
     }
 }

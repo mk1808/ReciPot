@@ -1,7 +1,7 @@
 import { Stack } from "react-bootstrap";
 import ComplexListElement from "../../../../components/complex/ComplexListElement";
 import { RecipeFilter } from "../../../../data/types";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { RecipeFilterContext, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 import savedRecipeFiltersApi from "../../../../api/SavedRecipeFiltersApi";
 import { showSuccessAlert } from "../../../../utils/RestUtils";
@@ -14,6 +14,10 @@ function SavedRecipeFilters() {
     const recipeFilterContext = useContext(RecipeFilterContext);
     const recipeFilterDispatchContext = useContext(RecipeFilterDispatchContext);
     const alertsDispatchContext = useContext(AlertsDispatchContext);
+
+    useEffect(() => {
+        recipeFilterDispatchContext({ type: 'refreshFiltersList' })
+    }, []);
 
     function onRecipeFilterDelete(index: number) {
         const recipeFilterId = (recipeFilterContext.savedFilters && recipeFilterContext.savedFilters[index].id) || "";

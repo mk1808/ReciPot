@@ -158,7 +158,6 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
 
     useEffect(() => {
         getFilterFromParams();
-        dispatch({ type: 'refreshFiltersList' })
     }, [])
 
     function getFilterFromParams() {

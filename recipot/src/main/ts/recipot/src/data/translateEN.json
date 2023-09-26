@@ -396,6 +396,7 @@
 		"url": "Link",
 		"removeFromCollection": "Remove from collection",
 		"recipeRemovedFromCollection": "Removed recipe from collection",
-		"noData": "No data"
+		"noData": "No data",
+		"recipeUrlButton": "Go to recipe's origin page"
 	}
 }
