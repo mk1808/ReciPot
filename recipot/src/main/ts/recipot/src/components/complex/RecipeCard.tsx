@@ -1,8 +1,7 @@
 
 import { Card, Stack } from 'react-bootstrap';
-import {forwardRef } from "react";
+import { forwardRef } from "react";
 import './styles.scss';
-import HashTagBadge from '../basicUi/HashTagBadge';
 import MyButton from '../basicUi/MyButton';
 import { useTranslation } from 'react-i18next';
 import { Recipe } from '../../data/types';
@@ -11,7 +10,7 @@ import { renderRating } from './RecipeCardCommonElements';
 import { getShorterText } from '../../utils/TextUtils';
 import HashTagList from '../basicUi/HashTagList';
 
-function RecipeCard({ recipe, recipeCallback = initFcn<Recipe>(), className }: { recipe: Recipe, recipeCallback: Function, className?: string }, ref:any) {
+function RecipeCard({ recipe, recipeCallback = initFcn<Recipe>(), className }: { recipe: Recipe, recipeCallback: Function, className?: string }, ref: any) {
     const { t } = useTranslation();
     const defaultImage = 'https://violashop.in/wp-content/uploads/2021/07/Viola-Candescent-Cutlery-Set-3.jpg'
 

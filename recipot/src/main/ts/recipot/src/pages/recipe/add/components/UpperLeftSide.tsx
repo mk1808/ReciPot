@@ -4,9 +4,8 @@ import MyTextarea from "../../../../components/basicUi/MyTextarea";
 import { AddRecipeContext, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
 import { useContext } from "react";
 import { inputAttributes, inputAttributesForContext } from "../../../../utils/FormInputUtils";
-import MyButton from "../../../../components/basicUi/MyButton";
 
-function UpperLeftSide({handleDelete}:{handleDelete?:Function}) {
+function UpperLeftSide() {
     const { t } = useTranslation();
     const addRecipeDispatchContext = useContext(AddRecipeDispatchContext);
     const formFields = useContext(AddRecipeContext).fields;
@@ -38,7 +37,6 @@ function UpperLeftSide({handleDelete}:{handleDelete?:Function}) {
     }
     return (
         <div className="text-start">
-            {renderDeleteButton()}
             {renderNameInput()}
             {renderDescriptionInput()}
             {renderImageInput()}
@@ -46,14 +44,6 @@ function UpperLeftSide({handleDelete}:{handleDelete?:Function}) {
         </div>
     );
 
-    function renderDeleteButton(){
-        return (
-            <div className="text-center">
-                <MyButton.Outline onClick={handleDelete} >{t('delete')} </MyButton.Outline>
-            </div>
-            
-        )
-    }
     function renderNameInput() {
         return (
             <MyInput
