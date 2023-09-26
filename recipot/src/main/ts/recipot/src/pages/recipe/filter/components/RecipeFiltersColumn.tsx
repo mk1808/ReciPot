@@ -256,10 +256,17 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     function renderButtons() {
         return <>
             <MyButton.Primary onClick={handleSubmit}>{t('p.search')}</MyButton.Primary >
-            <MyButton.Secondary onClick={() => setShowModal(true)} >{t('p.saveRecipeFilter')}</MyButton.Secondary>
-            <AddRecipeFilterDialog showModal={showModal} handleClose={() => setShowModal(false)}></AddRecipeFilterDialog>
+            {renderSaveFilterButton()}
         </>
     }
+
+    function renderSaveFilterButton() {
+        return isUserLogged && (<>
+            <MyButton.Secondary onClick={() => setShowModal(true)} >{t('p.saveRecipeFilter')}</MyButton.Secondary>
+            <AddRecipeFilterDialog showModal={showModal} handleClose={() => setShowModal(false)}></AddRecipeFilterDialog>
+        </>)
+    }
+
     function renderClearFiltersButton() {
         return <>
             <MyButton.Secondary onClick={() => clearFilter()} >{t('p.clearFilters')}</MyButton.Secondary>
