@@ -393,6 +393,8 @@
         "loadNextRecipesPage": "Wczytaj następną stronę",
         "clearFilters": "Wyczyść filtr",
         "userTokenTimeout": "Użytkownik został wylogowany. Zaloguj się ponownie!",
-        "url": "Link"
+        "url": "Link",
+        "removeFromCollection": "Usuń z kolekcji",
+        "recipeRemovedFromCollection": "Usunięto przepis z kolekcji"
     }
 }
