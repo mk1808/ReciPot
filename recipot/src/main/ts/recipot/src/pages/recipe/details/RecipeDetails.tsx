@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { Col, Row, Stack } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import './styles.scss';
@@ -34,9 +34,11 @@ function RecipeDetails() {
     const [isNoteLoaded, setIsNoteLoaded] = useState<boolean>(false);
     const id: string = params.id ?? "";
     const user = useContext(UsersContext).user;
-
+    const mainRef = useRef<any>(null);
     useEffect(() => {
         console.log(params)
+        setIsLoaded(false);
+        setOtherRecipes(otherRecipes.slice(0, 1));
         recipesApi.getRecipe(id, onGetRecipeSuccess)
         getOpinions(id);
 
@@ -63,7 +65,7 @@ function RecipeDetails() {
     function renderColumns() {
         return (
             <Stack direction="horizontal" className="align-items-stretch details-container container" gap={2}>
-                <div className='basic-container-border p-3 main-container'>
+                <div className='basic-container-border p-3 main-container' ref={mainRef} >
                     {isLoaded && renderMainRecipeColumn()}
                 </div>
                 <div className='basic-container-border p-3'>
