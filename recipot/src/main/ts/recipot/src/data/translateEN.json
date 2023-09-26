@@ -395,6 +395,7 @@
 		"userTokenTimeout": "User logged out. Log in again!",
 		"url": "Link",
 		"removeFromCollection": "Remove from collection",
-		"recipeRemovedFromCollection": "Removed recipe from collection"
+		"recipeRemovedFromCollection": "Removed recipe from collection",
+		"recipeUrlButton": "Go to recipe's origin page"
 	}
 }
