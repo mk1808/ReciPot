@@ -18,7 +18,8 @@ import { useContext } from 'react';
 function RecipeFilter() {
 
     const { t } = useTranslation();
-    const user = useContext(UsersContext).user;
+    const userContext = useContext(UsersContext);
+    const isUserLogged = !!userContext.user;
 
     const formSave: FormSave = getEmptyFormSave();
 
@@ -87,7 +88,7 @@ function RecipeFilter() {
     }
 
     function renderSavedFiltersColumn() {
-        return user && (
+        return isUserLogged && (
             <SideOffcanvas title={t('p.savedRecipeFilterHeader')}>
                 <SavedRecipeFilters />
             </SideOffcanvas>

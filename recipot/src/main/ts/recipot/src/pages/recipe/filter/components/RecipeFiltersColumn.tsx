@@ -23,6 +23,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     const recipesFilterForm = useContext(RecipeFilterContext).recipesFilterForm;
     const recipeFilterDispatchContext = useContext(RecipeFilterDispatchContext);
     const userContext = useContext(UsersContext);
+    const isUserLogged = !!userContext.user;
 
     const [filteredHashTags, setFilteredHashTags] = useState<any[]>([]);
     const [filteredIngredients, setFilteredIngredients] = useState<any[]>([]);
@@ -124,7 +125,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     );
 
     function renderUserIsOwnerInput() {
-        return (
+        return isUserLogged && (
             <MyCheckbox
                 {...inputAttributesForContextWithoutValidity("userIsOwner", t("p.userIsOwnerFilter"), onUserIsOwnerChange, recipesFilterForm)}
                 defaultChecked={recipesFilterForm?.userIsOwner || false}
@@ -134,7 +135,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
 
     function renderAccessTypeInput() {
         const accessTypes = getEnum("accessTypes");
-        return (
+        return isUserLogged && (
             <MySelect
                 {...inputAttributesForContextWithoutValidity("accessType", t("p.accessTypeFilter"), onChange, recipesFilterForm)}
                 options={accessTypes}
