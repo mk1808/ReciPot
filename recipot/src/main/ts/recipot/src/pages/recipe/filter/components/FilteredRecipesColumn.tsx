@@ -22,12 +22,16 @@ function FilteredRecipesColumn() {
         })
     }
 
-    return (
-        <div>
-            {recipeFilterContext.recipesPages?.map(renderRecipesPage)}
-            {renderLoadNextPageButton()}
-        </div>
-    );
+    return (recipeFilterContext.currentPage?.totalElements || 0) > 0 ? renderContent() : renderNoData();
+
+    function renderContent() {
+        return (
+            <div>
+                {recipeFilterContext.recipesPages?.map(renderRecipesPage)}
+                {renderLoadNextPageButton()}
+            </div>
+        );
+    }
 
     function renderRecipesPage(recipes: Recipe[], index: number) {
         const pageId = "recipesPage_" + index;
@@ -51,6 +55,14 @@ function FilteredRecipesColumn() {
             )
         }
         return null;
+    }
+
+    function renderNoData() {
+        return (
+            <div className="text-center">
+                <h2>{t("p.noData")}</h2>
+            </div>
+        );
     }
 }
 

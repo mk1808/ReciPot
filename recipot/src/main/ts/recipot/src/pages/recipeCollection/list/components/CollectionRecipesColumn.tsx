@@ -42,10 +42,18 @@ function CollectionRecipesColumn() {
     return (
         <div>
             {renderHeader()}
-            {collectionsContext.recipesInCollection?.map(renderRecipesPage)}
-            {renderLoadNextPageButton()}
+            {(collectionsContext.currentPage?.totalElements || 0) > 0 ? renderContent() : renderNoData()}
         </div>
     );
+
+    function renderContent() {
+        return (
+            <>
+                {collectionsContext.recipesInCollection?.map(renderRecipesPage)}
+                {renderLoadNextPageButton()}
+            </>
+        );
+    }
 
     function renderHeader() {
         return (
@@ -83,6 +91,14 @@ function CollectionRecipesColumn() {
             )
         }
         return null;
+    }
+
+    function renderNoData() {
+        return (
+            <div className="text-center">
+                <h2>{t("p.noData")}</h2>
+            </div>
+        );
     }
 }
 
