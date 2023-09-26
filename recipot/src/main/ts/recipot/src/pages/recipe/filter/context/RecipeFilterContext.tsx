@@ -10,7 +10,7 @@ type contextStateModel = {
     savedFilters?: RecipeFilter[],
     recipesPages?: Recipe[][],
     activeRecipeFilterId?: string,
-    currentPage?: { totalPages: number, number: number },
+    currentPage?: { totalPages: number, number: number, totalElements:number },
     recipesFilterForm?: any
 };
 

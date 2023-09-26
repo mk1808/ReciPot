@@ -5,7 +5,12 @@ import { ResponsePage } from "../../../../data/utilTypes";
 import { scrollIntoRecipesPage } from "../../../../utils/RecipeSearchUtils";
 import { ApiRequestSendManager } from "../../../../utils/ApiRequestSendManager";
 
-type contextStateModel = { collections?: RecipeCollection[], recipesInCollection?: Recipe[][], activeCollectionId?: string, currentPage?: { totalPages: number, number: number } };
+type contextStateModel = {
+    collections?: RecipeCollection[],
+    recipesInCollection?: Recipe[][],
+    activeCollectionId?: string,
+    currentPage?: { totalPages: number, number: number, totalElements: number }
+};
 
 const RECIPES_PAGE_SIZE = 4;
 

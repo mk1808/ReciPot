@@ -395,6 +395,7 @@
         "userTokenTimeout": "Użytkownik został wylogowany. Zaloguj się ponownie!",
         "url": "Link",
         "removeFromCollection": "Usuń z kolekcji",
-        "recipeRemovedFromCollection": "Usunięto przepis z kolekcji"
+        "recipeRemovedFromCollection": "Usunięto przepis z kolekcji",
+        "noData": "Brak danych"
     }
 }
