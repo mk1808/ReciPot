@@ -1,5 +1,3 @@
-
-import { Card, Stack } from 'react-bootstrap';
 import { forwardRef } from "react";
 import { Card, Col, Row } from 'react-bootstrap';
 import './styles.scss';
@@ -21,7 +19,7 @@ function RecipeCard({
     recipeCallback: Function,
     className?: string,
     additionalFunctionElement?: any
-}) {
+}, ref: any) {
     const { t } = useTranslation();
     const defaultImage = 'https://violashop.in/wp-content/uploads/2021/07/Viola-Candescent-Cutlery-Set-3.jpg'
 
