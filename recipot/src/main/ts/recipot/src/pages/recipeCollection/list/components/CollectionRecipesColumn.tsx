@@ -29,6 +29,10 @@ function CollectionRecipesColumn() {
 
     function onDeleteSuccess(index: number) {
         showSuccessAlert(t('p.recipeRemovedFromCollection'), alertDispatch);
+        loadNextPage(index)
+    }
+
+    function loadNextPage(index: number) {
         collectionsDispatchContext({
             type: 'loadRecipesPage',
             value: index
@@ -39,6 +43,7 @@ function CollectionRecipesColumn() {
         <div>
             {renderHeader()}
             {collectionsContext.recipesInCollection?.map(renderRecipesPage)}
+            {renderLoadNextPageButton()}
         </div>
     );
 
@@ -66,6 +71,18 @@ function CollectionRecipesColumn() {
         return activeRecipeCollection?.canDelete && (
             <Tooltip placement="bottom" title={t('p.removeFromCollection')}><MyButton.Primary onClick={() => { deleteRecipeFromCollection(recipe, index) }} className="round"><FaFolderMinus /></MyButton.Primary></Tooltip>
         )
+    }
+
+    function renderLoadNextPageButton() {
+        const currentPage = collectionsContext.currentPage;
+        if (collectionsContext.recipesInCollection?.length !== currentPage?.totalPages) {
+            return (
+                <MyButton.Primary onClick={() => loadNextPage(collectionsContext.recipesInCollection?.length || 0)}>
+                    {t("p.loadNextRecipesPage")}
+                </MyButton.Primary>
+            )
+        }
+        return null;
     }
 }
 
