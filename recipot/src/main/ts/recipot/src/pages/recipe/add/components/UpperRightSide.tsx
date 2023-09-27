@@ -52,14 +52,17 @@ function UpperRightSide() {
 
     function checkInputValidity(fieldValue: any, fieldName: string) {
         switch (fieldName) {
-            case 'timeAmountFrom': {
-                return fieldValue > 0;
+            case 'timeAmount': {
+                return fieldValue != null && fieldValue > 0;
             }
-            case 'name': {
-                return fieldValue && fieldValue.length > 3;
+            case 'numberOfDishes':
+            case 'difficulty':
+            case 'requiredEffort': {
+                return !!fieldValue;
             }
-            case 'image': {
-                return fieldValue && fieldValue.length > 3;
+            case 'hashTags':
+            case 'categories': {
+                return !!fieldValue && fieldValue.length > 0;
             }
             default: {
                 return true;

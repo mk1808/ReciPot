@@ -22,10 +22,10 @@ function UpperLeftSide() {
     function checkInputValidity(fieldValue: any, fieldName: string) {
         switch (fieldName) {
             case 'name': {
-                return !!(fieldValue && fieldValue.length > 3);
+                return !!fieldValue && fieldValue.length > 3;
             }
             case 'image': {
-                return !!(fieldValue && fieldValue.length > 3);
+                return !!fieldValue && fieldValue.length > 3;
             }
             default: {
                 return true;
