@@ -11,7 +11,7 @@ import { initFcn } from '../../utils/ObjectUtils';
 function FilteredSelect({
     label,
     placeholder = "p.selectValue",
-    searchOrNew = "p.searchOrNew",
+    searchPlaceholder,
     options,
     defaultValue,
     disabled = false,
@@ -28,7 +28,7 @@ function FilteredSelect({
 }: {
     label: string,
     placeholder?: string,
-    searchOrNew?: string,
+    searchPlaceholder?: string,
     options: { value: any, label: string, children: any[] }[],
     defaultValue?: any,
     disabled?: boolean,
@@ -139,6 +139,10 @@ function FilteredSelect({
         return styleClasses
     }
 
+    function getSearchPlaceholder() {
+        return searchPlaceholder || allowNew ? "p.searchOrNew" : "p.searchNotNew";
+    }
+
     return (
         <Form.Group className={className}>
             {renderLabel(label)}
@@ -168,7 +172,7 @@ function FilteredSelect({
     }
 
     function renderDropdownContent() {
-        return renderWrappedDropdownContent(t(searchOrNew), renderOptions(options), onSearch, searchInputValue);
+        return renderWrappedDropdownContent(t(getSearchPlaceholder()), renderOptions(options), onSearch, searchInputValue);
     }
 
     function renderOptions(valuesList: any[]) {

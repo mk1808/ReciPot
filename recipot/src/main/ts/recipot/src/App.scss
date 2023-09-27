@@ -99,3 +99,9 @@
     display: block;
   }
 }
+
+@media (max-width: 1000px) {
+  .basic-container {
+    width: 100%;
+  }
+}

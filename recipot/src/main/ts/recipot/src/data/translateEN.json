@@ -256,6 +256,7 @@
 		"account": "Account",
 		"selectValue": "Select value",
 		"searchOrNew": "Search or type new value",
+		"searchNotNew": "Search value",
 		"SHARED_RECIPE": "Shared recipe",
 		"RECIPE_COMMENTED": "Commented recipe",
 		"RECIPE_RATED": "Rated recipe",
@@ -399,6 +400,7 @@
 		"removeFromCollection": "Remove from collection",
 		"recipeRemovedFromCollection": "Removed recipe from collection",
 		"noData": "No data",
-		"recipeUrlButton": "Go to recipe's origin page"
+		"recipeUrlButton": "Go to recipe's origin page",
+        "incorrectFields": "Incorrect values in form fields"
 	}
 }

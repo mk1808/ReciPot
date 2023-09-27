@@ -13,7 +13,7 @@ import { checkInputValidity, dynamicInputAttributesForContext } from "../../../.
 
 function AddSteps() {
     const { t } = useTranslation();
-    const FIELD_NAME = 'steps';
+    const FIELD_NAME = 'recipeSteps';
     const basicStep: any = {
         id: "",
         order: 0,
@@ -55,7 +55,7 @@ function AddSteps() {
     }
 
     function getStepValidity(fieldName: string, index: number) {
-        return formFields?.formValidity && formFields?.formValidity.steps[index] ? formFields?.formValidity.steps[index][fieldName] : false;
+        return formFields?.formValidity && formFields?.formValidity.recipeSteps[index] ? formFields?.formValidity.recipeSteps[index][fieldName] : false;
     }
 
     return (
@@ -63,7 +63,7 @@ function AddSteps() {
             <hr />
             <h4 className="mt-3">{t('p.recipeSteps')}</h4>
             <div className="text-start">
-                {formFields?.formValue?.steps?.map((step: any, index: number) => { return renderSingleRow(step, index) })}
+                {formFields?.formValue?.recipeSteps?.map((step: any, index: number) => { return renderSingleRow(step, index) })}
             </div>
             <MyButton.Primary onClick={onAdd}>{t('p.add')} <BsPlusCircleFill className="mb-1 ms-1" /></MyButton.Primary>
         </div>

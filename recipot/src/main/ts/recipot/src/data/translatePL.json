@@ -256,6 +256,7 @@
         "account": "Konto",
         "selectValue": "Wybierz wartość",
         "searchOrNew": "Wyszukaj lub podaj nową wartość",
+        "searchNotNew": "Wyszukaj wartość",
         "SHARED_RECIPE": "Udostępniono przepis",
         "RECIPE_COMMENTED": "Skomentowano przepis",
         "RECIPE_RATED": "Oceniono przepis",
@@ -399,6 +400,7 @@
         "removeFromCollection": "Usuń z kolekcji",
         "recipeRemovedFromCollection": "Usunięto przepis z kolekcji",
         "noData": "Brak danych",
-        "recipeUrlButton": "Zobacz zewnętrzną stronę przepisu"
+        "recipeUrlButton": "Zobacz zewnętrzną stronę przepisu",
+        "incorrectFields": "Niepoprawne wartości w polach"
     }
 }
