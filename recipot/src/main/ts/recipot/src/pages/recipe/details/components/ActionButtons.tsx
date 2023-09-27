@@ -32,8 +32,10 @@ function ActionButtons({ recipe, isOwner, user }: { recipe: Recipe, isOwner: boo
     return (<>
         <Row className="align-center action-buttons">
             <Col md="7"></Col>
-            <Col md="3">
+            <Col md="5">
                 <Row>
+                    {!isOwner && <Col></Col>}
+                    {!isOwner && <Col></Col>}
                     {isUser &&
                         <Col>
                             <Tooltip placement="bottom" title={t('p.addToCollectionButton')}><MyButton.Primary onClick={() => setShowModalAddToCollection(true)} className="round"><BsCollectionFill /></MyButton.Primary>
@@ -46,10 +48,6 @@ function ActionButtons({ recipe, isOwner, user }: { recipe: Recipe, isOwner: boo
                             </Tooltip>
                         </Col>}
 
-                </Row>
-            </Col>
-            <Col md="2">
-                <Row>
                     {isOwner &&
                         <Col>
                             <Tooltip placement="bottom" title={t('p.deleteRecipeButton')}><MyButton.Primary onClick={() => setShowModalDelete(true)} className="round"><MdDeleteOutline /></MyButton.Primary>
@@ -62,7 +60,6 @@ function ActionButtons({ recipe, isOwner, user }: { recipe: Recipe, isOwner: boo
                             </Tooltip>
                         </Col>}
                 </Row>
-
             </Col>
         </Row>
         {renderDialogs()}
