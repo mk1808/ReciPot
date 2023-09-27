@@ -15,15 +15,8 @@ function RegisterForm({ formSave, defaultValue }: { formSave: FormSave, defaultV
 
 
     function handleSubmit(event: any) {
-        const form = myForm;
-        console.log(form)
-
         if (checkIfAllValid(event, myForm)) {
             formSave.onSubmit(myForm.formValue);
-      
-            console.log('valid')
-        } else {
-            console.log('invalid')
         }
         preventFurtherAction(event);
     };

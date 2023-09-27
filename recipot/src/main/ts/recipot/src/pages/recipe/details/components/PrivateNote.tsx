@@ -23,8 +23,6 @@ function PrivateNote({ recipe, note }: { recipe: Recipe, note: PrivateNoteT }) {
     const formSave: FormSave = getEmptyFormSave();
     formSave.onSubmit = function (formValue: any) {
         if (isEditModeOn) {
-            console.log("btnz");
-            console.log(formValue)
             let note = { ...formValue };
             note.recipe = { id: recipe.id };
             privateNotesApi.createPrivateNote(note, formSave.onSuccess)

@@ -10,14 +10,13 @@ import dictionariesApi from "../../../../api/DictionariesApi";
 import { useContext, useEffect, useState } from "react";
 import { mapCategoriesToSearchList, onFilteredHashTagSearch, onFilteredIngredientSearch, searchCategory } from "../../../../utils/DictionariesUtils";
 import MyButton from "../../../../components/basicUi/MyButton";
-import { FormSave } from "../../../../data/utilTypes";
 import { inputAttributesForContextWithoutValidity } from "../../../../utils/FormInputUtils";
 import AddRecipeFilterDialog from "../dialogs/AddRecipeFilterDialog";
 import { RecipeFilterContext, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 import { EnumDictionaryContext } from "../../../../context/EnumDictionaryContext";
 import { UsersContext } from "../../../../context/UserContext";
 
-function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
+function RecipeFiltersColumn() {
     const { t } = useTranslation();
 
     const recipesFilterForm = useContext(RecipeFilterContext).recipesFilterForm;
@@ -104,7 +103,7 @@ function RecipeFiltersColumn({ formSave }: { formSave: FormSave }) {
     }
 
     return (
-        <Form onSubmit={() => console.log("asd")}>
+        <Form>
             <Stack className="p-5 text-start" gap={3}>
                 {renderClearFiltersButton()}
                 {renderUserIsOwnerInput()}

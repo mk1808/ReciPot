@@ -24,7 +24,6 @@ function Header() {
     )
   }, [])
   function onLogout() {
-    console.log("logout")
     usersDispatchContext({ type: "logout" })
     gotToMainPage();
   }

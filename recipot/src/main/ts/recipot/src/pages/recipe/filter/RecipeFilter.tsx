@@ -7,8 +7,6 @@ import SideOffcanvas from '../../../components/basicUi/SideOffcanvas';
 import RecipeFiltersColumn from './components/RecipeFiltersColumn';
 import FilteredRecipesColumn from './components/FilteredRecipesColumn';
 import SavedRecipeFilters from './components/SavedRecipeFilters';
-import { FormSave } from '../../../data/utilTypes';
-import { getEmptyFormSave } from '../../../utils/FormInputUtils';
 import FilteredRecipesPagination from './components/FilteredRecipesPagination';
 import { RecipeFilterContextContextProvider } from './context/RecipeFilterContext';
 import RecipesSortForm from './components/RecipesSortForm';
@@ -20,20 +18,6 @@ function RecipeFilter() {
     const { t } = useTranslation();
     const userContext = useContext(UsersContext);
     const isUserLogged = !!userContext.user;
-
-    const formSave: FormSave = getEmptyFormSave();
-
-    formSave.onSubmit = function (formValue: any) {
-        console.log(formValue)
-    }
-
-    formSave.onSuccess = function () {
-
-    }
-
-    formSave.onError = function () {
-
-    }
 
     return (
         <RecipeFilterContextContextProvider>
@@ -64,7 +48,7 @@ function RecipeFilter() {
                 <RecipesSortForm />
                 <hr />
                 <h2>{t('p.recipeFilterForm')}</h2>
-                <RecipeFiltersColumn formSave={formSave} />
+                <RecipeFiltersColumn />
             </div>
         );
     }

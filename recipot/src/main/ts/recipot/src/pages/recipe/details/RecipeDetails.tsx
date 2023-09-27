@@ -37,7 +37,6 @@ function RecipeDetails() {
     const user = useContext(UsersContext).user;
     const mainRef = useRef<any>(null);
     useEffect(() => {
-        console.log(params)
         setIsLoaded(false);
         setOtherRecipes(otherRecipes.slice(0, 1));
         recipesApi.getRecipe(id, onGetRecipeSuccess)
@@ -47,7 +46,7 @@ function RecipeDetails() {
     }, [params])
     useEffect(() => {
         if (user) {
-            privateNotesApi.getPrivateNoteByRecipeId(id, (response) => { setNote(response.value); setIsNoteLoaded(true) }, (errorResponse) => { console.log(errorResponse) });
+            privateNotesApi.getPrivateNoteByRecipeId(id, (response) => { setNote(response.value); setIsNoteLoaded(true) }, (errorResponse) => { console.warn(errorResponse) });
         }
     }, [user])
     function getOpinions(id: string) {

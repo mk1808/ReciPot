@@ -13,14 +13,8 @@ function LoginForm({formSave}:{formSave:FormSave}) {
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
 
     function handleSubmit(event: any) {
-        const form = myForm;
-        console.log(form)
-
         if (checkIfAllValid(event, myForm)) {
             formSave.onSubmit(myForm.formValue);
-            console.log('valid')
-        } else {
-            console.log('invalid')
         }
         preventFurtherAction(event);
     };

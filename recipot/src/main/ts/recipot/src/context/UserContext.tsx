@@ -27,7 +27,6 @@ export const UserContextProvider = ({ children }: any) => {
 
     function onSuccessRefresh(response: Response<AppUser>) {
         searchRequestManager.unlock();
-        console.log(response.value);
         let action = { user: response.value, type: 'logged' }
         dispatch(action);
         refreshUser();
@@ -43,7 +42,6 @@ export const UserContextProvider = ({ children }: any) => {
 
     function onSuccessLogout(response: Response<any>) {
         showSuccessAlert(t(response.message), alertsDispatchContext);
-        console.log(response);
     };
 
     function refreshUser() {
