@@ -1,6 +1,6 @@
 import './styles.scss';
 import { useTranslation } from 'react-i18next';
-import { Form } from 'react-bootstrap';
+import { Form, Stack } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -39,23 +39,21 @@ function UserDetailsForm({ formSave, user }: { formSave: FormSave, user: any }) 
     };
 
     return (
-        <Form noValidate validated={true} onSubmit={handleSubmit}>
-            <Container className='edit-form'>
-                <Row>
-                    <Col className='d-flex align-items-center justify-content-center'>
-                        {renderAvatar()}
-                    </Col>
-                    <Col>
-                        {renderUserForm()}
-                    </Col>
-                </Row>
-                {renderButtonsRow()}
-            </Container>
+        <Form noValidate validated={true} onSubmit={handleSubmit} className='px-lg-5 edit-form'>
+            <Row>
+                <Col md={6} className='d-flex align-items-center justify-content-center'>
+                    {renderAvatar()}
+                </Col>
+                <Col md={6}>
+                    {renderUserForm()}
+                </Col>
+            </Row>
+            {renderButtonsRow()}
         </Form>
     );
 
     function renderAvatar() {
-        return <MyImage src={user.avatarImageSrc || "https://cdn-icons-png.flaticon.com/512/1077/1077114.png"} height={200} />
+        return <MyImage src={user.avatarImageSrc || "https://cdn-icons-png.flaticon.com/512/1077/1077114.png"} />
     }
 
     function renderUserForm() {
@@ -114,13 +112,11 @@ function UserDetailsForm({ formSave, user }: { formSave: FormSave, user: any }) 
 
     function renderButtonsRow() {
         return (
-            <Row>
-                <Col></Col>
+            <Stack direction='horizontal' className='justify-content-center'>
                 {renderCancelButton()}
                 {renderSaveButton()}
                 {renderEditButton()}
-                <Col></Col>
-            </Row>
+            </Stack>
         )
     }
 
@@ -138,9 +134,7 @@ function UserDetailsForm({ formSave, user }: { formSave: FormSave, user: any }) 
 
     function renderButton(Button: any, onClick: any, label: string, type?: string) {
         return (
-            <Col md={3}>
-                <Button onClick={onClick} type={type}>{t(label)} </Button>
-            </Col>
+            <Button onClick={onClick} type={type}>{t(label)} </Button>
         )
     }
 }

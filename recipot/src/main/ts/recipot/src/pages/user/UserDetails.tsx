@@ -61,7 +61,7 @@ function UserDetails() {
     }
 
     function renderStatistic(label: string, value?: number) {
-        return <div className='col-3'><StatisticCircle value={String(value)} size={150} ringSize={30} label={t(label)} /></div>
+        return <div className='col-lg-3 col-sm-4 col-8'><StatisticCircle value={String(value)} size={150} ringSize={30} label={t(label)} /></div>
     }
 }
 
