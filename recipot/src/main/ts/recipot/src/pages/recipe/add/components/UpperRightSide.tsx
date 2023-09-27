@@ -53,7 +53,7 @@ function UpperRightSide() {
     function checkInputValidity(fieldValue: any, fieldName: string) {
         switch (fieldName) {
             case 'timeAmount': {
-                return fieldValue != null && fieldValue > 0;
+                return fieldValue != null && fieldValue >= 0;
             }
             case 'numberOfDishes':
             case 'difficulty':
