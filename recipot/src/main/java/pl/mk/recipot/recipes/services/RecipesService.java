@@ -137,4 +137,9 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	public List<Recipe> getRandomRecipes(int pageSize) {
 		return new GetRandomRecipes().execute(getByPredefinedFilter(PredefinedRecipeFilter.NEWEST, 0, 10000), pageSize);
 	}
+	
+	@Override
+	public AppUser getRecipeOwner(UUID recipeId) {
+		return get(recipeId).getOwner();
+	}
 }

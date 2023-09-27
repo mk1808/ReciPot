@@ -389,6 +389,7 @@
         "addToCollectionButton": "Dodaj do kolekcji",
         "shareRecipeButton": "Udostępnij",
         "deleteRecipeButton": "Usuń przepis",
+        "editRecipeButton": "Edytuj przepis",
         "changeRecipeVisibilityButton": "Zmień widoczność",
         "loadNextRecipesPage": "Wczytaj następną stronę",
         "clearFilters": "Wyczyść filtr",

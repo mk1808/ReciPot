@@ -10,7 +10,7 @@ import IngredientList from "./components/IngredientsList";
 import Steps from "./components/Steps";
 import PrivateNote from "./components/PrivateNote";
 import Comments from "./components/Comments";
-import { OpinionDto, PrivateNote as PrivateNoteT, Recipe, RecipeSearchDto } from "../../../data/types";
+import { AppUser, OpinionDto, PrivateNote as PrivateNoteT, Recipe, RecipeSearchDto } from "../../../data/types";
 import { initAs } from "../../../utils/ObjectUtils";
 import { useEffect, useState } from "react";
 import BreadCrumbs from "./components/BreadCrumbs";
@@ -33,6 +33,7 @@ function RecipeDetails() {
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
     const [isNoteLoaded, setIsNoteLoaded] = useState<boolean>(false);
     const id: string = params.id ?? "";
+    const [isOwner, setIsOwner] = useState<boolean>(false);
     const user = useContext(UsersContext).user;
     const mainRef = useRef<any>(null);
     useEffect(() => {
@@ -41,6 +42,7 @@ function RecipeDetails() {
         setOtherRecipes(otherRecipes.slice(0, 1));
         recipesApi.getRecipe(id, onGetRecipeSuccess)
         getOpinions(id);
+        recipesApi.getRecipeOwner(id, onGetRecipeOwnerSuccess);
 
     }, [params])
     useEffect(() => {
@@ -56,6 +58,10 @@ function RecipeDetails() {
         setIsLoaded(true);
         const filter: RecipeSearchDto = buildRecipeSearchDto({ categories: response.value.categories, recipesSort: { fieldName: "created", order: "DESC" } });
         recipesApi.search(filter, { pageNum: 0, pageSize: 10 }, (response) => { setOtherRecipes(response.value.content) });
+    }
+    function onGetRecipeOwnerSuccess(response:any){
+        let owner = response.value;
+        setIsOwner(!!user && owner.id === user?.id);
     }
     return (
         <div className='m-2 recipe-details-page'>
@@ -79,7 +85,7 @@ function RecipeDetails() {
         return (
             <div className="mt-3 main">
                 <MyImage src={recipe.image} height="auto" className="main-img" rounded></MyImage>
-                <ActionButtons recipe={recipe} />
+                <ActionButtons recipe={recipe} isOwner={isOwner} user={user} />
                 <MyHeader title={recipe.name}></MyHeader>
                 <Stack direction="horizontal" className="justify-content-between">
                     <div>{renderBreadcrumps()}</div>

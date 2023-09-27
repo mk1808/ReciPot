@@ -12,19 +12,23 @@ import { MdDeleteOutline } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { BsCollectionFill, BsShare } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
+import { FiEdit3 } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
-function ActionButtons({ recipe }: { recipe: Recipe }) {
+function ActionButtons({ recipe, isOwner, user }: { recipe: Recipe, isOwner: boolean, user: any }) {
     const { t } = useTranslation();
-
+    const navigate = useNavigate();
     const [showModalAddToCollection, setShowModalAddToCollection] = useState(false);
     const [showModalShare, setShowModalShare] = useState(false);
     const [showModalDelete, setShowModalDelete] = useState(false);
     const [showModalChangeVisibility, setShowModalChangeVisibility] = useState(false);
     const [accessType, setAccessType] = useState("PRIVATE");
+    const [isUser, setIsUser] = useState(false);
     const getAccessTypeIcon = () => { return (accessType === "PRIVATE" ? <AiFillEyeInvisible /> : <AiFillEye />) }
 
     useEffect(() => {
         setAccessType(recipe.accessType);
+        setIsUser(!!user);
     }, [])
 
     return (<>
@@ -32,10 +36,31 @@ function ActionButtons({ recipe }: { recipe: Recipe }) {
             <Col md="7"></Col>
             <Col md="5">
                 <Row>
-                    <Col><Tooltip placement="bottom" title={t('p.addToCollectionButton')}><MyButton.Primary onClick={() => setShowModalAddToCollection(true)} className="round"><BsCollectionFill /></MyButton.Primary></Tooltip></Col>
-                    <Col><Tooltip placement="bottom" title={t('p.shareRecipeButton')}><MyButton.Primary onClick={() => setShowModalShare(true)} className="round"><BsShare /></MyButton.Primary></Tooltip></Col>
-                    <Col><Tooltip placement="bottom" title={t('p.deleteRecipeButton')}><MyButton.Primary onClick={() => setShowModalDelete(true)} className="round"><MdDeleteOutline /></MyButton.Primary></Tooltip></Col>
-                    <Col><Tooltip placement="bottom" title={t('p.changeRecipeVisibilityButton')}><MyButton.Primary onClick={() => setShowModalChangeVisibility(true)} className="round" >{getAccessTypeIcon()}</MyButton.Primary></Tooltip></Col>
+                    {!isOwner && <Col></Col>}
+                    {!isOwner && <Col></Col>}
+                    {isUser &&
+                        <Col>
+                            <Tooltip placement="bottom" title={t('p.addToCollectionButton')}><MyButton.Primary onClick={() => setShowModalAddToCollection(true)} className="round"><BsCollectionFill /></MyButton.Primary>
+                            </Tooltip>
+                        </Col>
+                    }
+                    {isUser &&
+                        <Col>
+                            <Tooltip placement="bottom" title={t('p.shareRecipeButton')}><MyButton.Primary onClick={() => setShowModalShare(true)} className="round"><BsShare /></MyButton.Primary>
+                            </Tooltip>
+                        </Col>}
+
+                    {isOwner &&
+                        <Col>
+                            <Tooltip placement="bottom" title={t('p.editRecipeButton')}><MyButton.Primary onClick={() => navigate(`/recipe/add/${recipe.id}`)} className="round"><FiEdit3 /></MyButton.Primary>
+                            </Tooltip>
+                        </Col>}
+
+                    {isOwner &&
+                        <Col>
+                            <Tooltip placement="bottom" title={t('p.changeRecipeVisibilityButton')}><MyButton.Primary onClick={() => setShowModalChangeVisibility(true)} className="round" >{getAccessTypeIcon()}</MyButton.Primary>
+                            </Tooltip>
+                        </Col>}
                 </Row>
             </Col>
         </Row>
@@ -46,7 +71,6 @@ function ActionButtons({ recipe }: { recipe: Recipe }) {
             <>
                 <AddToCollectionDialog showModal={showModalAddToCollection} handleClose={() => setShowModalAddToCollection(false)} data={recipe}></AddToCollectionDialog>
                 <ShareRecipeDialog showModal={showModalShare} handleClose={() => setShowModalShare(false)} data={recipe}></ShareRecipeDialog>
-                <DeleteRecipeDialog showModal={showModalDelete} handleClose={() => setShowModalDelete(false)} data={recipe}></DeleteRecipeDialog>
                 <ChangeVisibilityDialog showModal={showModalChangeVisibility} handleClose={() => setShowModalChangeVisibility(false)} handleSuccess={setAccessType} data={recipe} accessType={accessType}></ChangeVisibilityDialog>
 
             </>
