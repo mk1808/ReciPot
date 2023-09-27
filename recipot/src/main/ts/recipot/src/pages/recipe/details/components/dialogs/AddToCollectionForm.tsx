@@ -67,7 +67,6 @@ function AddToCollectionForm({ formSave }: { formSave: FormSave }, ref: any) {
                 highlightValidity={true}
                 hierarchical={true}
                 className="mb-3"
-                width={400}
                 label={t('p.collectionToChooseOrAdd')}
                 required
                 isValid={true}

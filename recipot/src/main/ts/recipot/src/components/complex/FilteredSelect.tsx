@@ -15,7 +15,6 @@ function FilteredSelect({
     options,
     defaultValue,
     disabled = false,
-    width = 200,
     allowNew = false,
     multiple = false,
     hierarchical = false,
@@ -33,7 +32,6 @@ function FilteredSelect({
     options: { value: any, label: string, children: any[] }[],
     defaultValue?: any,
     disabled?: boolean,
-    width?: number,
     allowNew?: boolean,
     multiple?: boolean,
     hierarchical?: boolean,
@@ -152,7 +150,6 @@ function FilteredSelect({
         return renderDropdownComponent({
             buttonContent: renderButtonContent(),
             dropdownContent: renderDropdownContent(),
-            menuWidth: width,
             className: getDropdownComponentStyleClasses(),
             onDropdownToggle: createNewValueBySearchInput,
             disabled
@@ -161,13 +158,13 @@ function FilteredSelect({
 
     function renderButtonContent() {
         return multiple ?
-            renderButtonComplexContent(selectedValues, width, t(placeholder), onBadgeClick)
+            renderButtonComplexContent(selectedValues, t(placeholder), onBadgeClick)
             : renderButtonText();
     }
 
     function renderButtonText() {
         const text = selected?.label || t(placeholder);
-        return renderButonSimpleText(text, width);
+        return renderButonSimpleText(text);
     }
 
     function renderDropdownContent() {

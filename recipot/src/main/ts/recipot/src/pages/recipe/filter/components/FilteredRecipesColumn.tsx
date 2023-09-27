@@ -26,7 +26,7 @@ function FilteredRecipesColumn() {
 
     function renderContent() {
         return (
-            <div>
+            <div className="px-2">
                 {recipeFilterContext.recipesPages?.map(renderRecipesPage)}
                 {renderLoadNextPageButton()}
             </div>

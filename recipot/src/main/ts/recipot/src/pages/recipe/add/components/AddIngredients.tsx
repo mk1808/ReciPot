@@ -135,7 +135,6 @@ function AddIngredients() {
                 onSearchCallback={(phrase: string) => onFilteredIngredientSearch(phrase, setFilteredIngredients)}
                 highlightValidity={true}
                 allowNew={true}
-                width={150}
                 onSelectCallback={(value: string) => onChange(value, "ingredient", index)}
                 isValid={getIngredientValidity("ingredient", index)}
             />

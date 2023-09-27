@@ -9,38 +9,38 @@ export function renderLabel(label: string) {
     return label && <Form.Label>{label}</Form.Label>;
 }
 
-export function renderDropdownComponent(parameters: { buttonContent: any, dropdownContent: any, onDropdownToggle: any, disabled: boolean, menuWidth: number, className: string }) {
+export function renderDropdownComponent(parameters: { buttonContent: any, dropdownContent: any, onDropdownToggle: any, disabled: boolean, className: string }) {
     return (
         <Dropdown onToggle={parameters.onDropdownToggle}>
             <Dropdown.Toggle disabled={parameters.disabled} className={parameters.className}>
                 {parameters.buttonContent}
             </Dropdown.Toggle>
-            <Dropdown.Menu style={{ minWidth: parameters.menuWidth }}>
+            <Dropdown.Menu>
                 {parameters.dropdownContent}
             </Dropdown.Menu>
         </Dropdown >
     );
 }
 
-export function renderButonSimpleText(text: string, minWidth: number) {
-    return <p style={{ minWidth: minWidth }} className='filtered-select-button-text'>{text}</p>;
+export function renderButonSimpleText(text: string) {
+    return <p className='filtered-select-button-text'>{text}</p>;
 }
 
-export function renderButtonComplexContent(selectedValues: any[], minWidth: number, placeholder: string, onBadgeClick: Function) {
+export function renderButtonComplexContent(selectedValues: any[], placeholder: string, onBadgeClick: Function) {
     if (selectedValues?.length > 0) {
-        return renderBadges(selectedValues, minWidth, onBadgeClick);
+        return renderBadges(selectedValues, onBadgeClick);
     }
-    return renderPlaceholder(minWidth, placeholder);
+    return renderPlaceholder(placeholder);
 }
 
-function renderPlaceholder(minWidth: number, placeholder: string) {
-    return <p style={{ minWidth: minWidth }} className='filtered-select-button-text'>{placeholder}</p>;
+function renderPlaceholder(placeholder: string) {
+    return <p className='filtered-select-button-text'>{placeholder}</p>;
 }
 
-function renderBadges(selectedValues: any[], width: number, onBadgeClick: Function) {
+function renderBadges(selectedValues: any[], onBadgeClick: Function) {
     return (
         <div className='filtered-select-button-text'>
-            <Stack direction="horizontal" className='flex-wrap' style={{ width: width }}>
+            <Stack direction="horizontal" className='flex-wrap'>
                 {selectedValues.map(value => <div key={value.label} onClick={(event) => onBadgeClick(value, event)}><HashTagBadge text={value.label} /></div>)}
             </Stack>
         </div>

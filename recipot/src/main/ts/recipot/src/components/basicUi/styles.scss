@@ -94,3 +94,9 @@
         color: $form-invalid-border-color;
     }
 }
+
+.my-collapse {
+    .accordion-body {
+        padding: 0;
+    }
+}

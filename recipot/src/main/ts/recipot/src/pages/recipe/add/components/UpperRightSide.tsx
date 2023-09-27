@@ -142,7 +142,6 @@ function UpperRightSide() {
             onSearchCallback={(phrase: string) => onFilteredHashTagSearch(phrase, setFilteredHashTags)}
             highlightValidity={true}
             allowNew={true}
-            width={500}
             isValid={getValidity("hashTag")}
             onSelectCallback={(value: string) => onChange(value, "hashTag")}
         />
@@ -157,7 +156,6 @@ function UpperRightSide() {
             onSearchCallback={onCategorySearchCallback}
             highlightValidity={true}
             hierarchical={true}
-            width={500}
             isValid={getValidity("category")}
             onSelectCallback={(value: string) => onChange(value, "category")}
         />
