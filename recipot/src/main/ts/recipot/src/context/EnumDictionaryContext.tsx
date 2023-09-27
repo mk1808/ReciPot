@@ -32,7 +32,6 @@ export const EnumDictionaryContextProvider = ({ children }: any) => {
                 return enums;
             }
             case 'update': {
-                console.log({ ...enums, [action.enumType]: action.singleEnum })
                 return { ...enums, [action.enumType]: action.singleEnum };
             }
 

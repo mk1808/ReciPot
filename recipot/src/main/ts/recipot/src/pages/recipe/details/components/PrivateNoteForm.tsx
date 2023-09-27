@@ -16,16 +16,9 @@ function PrivateNoteForm({ formSave, isEditModeOn, note, setIsEditModeOn }: { fo
         if (!isEditModeOn) {
             setIsEditModeOn(true);
         } else {
-            const form = myForm;
-            console.log(form)
-
             if (checkIfAllValid(event, myForm)) {
                 formSave.onSubmit(myForm.formValue);
-                console.log('valid')
-            } else {
-                console.log('invalid')
             }
-
         }
         preventFurtherAction(event);
     };

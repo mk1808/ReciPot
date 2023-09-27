@@ -21,7 +21,6 @@ function BreadCrumbs({ recipe }: { recipe: Recipe }) {
         }
         categoriesTab.reverse();
         setCategoriesNames(categoriesTab);
-        console.log(categoriesTab)
     }
     return (
         <div className="my-4 breadcrumps">

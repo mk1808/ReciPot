@@ -44,7 +44,6 @@ function AddIngredients() {
     }
 
     function onAdd() {
-        console.log("onAdd")
         basicIngredient.id = Math.random() * 1000;
         addRecipeDispatchContext({
             type: "onAdd",
@@ -54,7 +53,6 @@ function AddIngredients() {
     }
 
     function onDelete(index: number) {
-        console.log("onDelete")
         addRecipeDispatchContext({
             type: "onDelete",
             fieldName: FIELD_NAME,

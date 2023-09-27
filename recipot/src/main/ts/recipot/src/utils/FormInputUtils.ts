@@ -42,7 +42,6 @@ export function dynamicInputAttributesForContext(name: string, onChange: Functio
 }
 
 export function onFormChange(value: any, name: string, dispatchForm: any) {
-    console.log(value);
     dispatchForm({ type: name, value: value });
 }
 
@@ -77,7 +76,6 @@ export function getNewState(state: any, action: any, value: any, checkInputValid
             [action.type]: checkInputValidity(action, state)
         },
     };
-   // console.log(newState)
     return newState;
 }
 

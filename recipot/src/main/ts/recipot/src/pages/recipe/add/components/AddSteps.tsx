@@ -38,7 +38,6 @@ function AddSteps() {
     }
 
     function onAdd() {
-        console.log("onAdd")
         basicStep.id = Math.random() * 1000;
         addRecipeDispatchContext({
             type: "onAdd",
@@ -48,7 +47,6 @@ function AddSteps() {
     }
 
     function onDelete(index: number) {
-        console.log("onDelete")
         addRecipeDispatchContext({
             type: "onDelete",
             fieldName: FIELD_NAME,

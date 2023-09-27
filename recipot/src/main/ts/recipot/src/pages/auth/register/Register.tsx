@@ -20,7 +20,6 @@ function Register() {
     const alertDispatch = useContext(AlertsDispatchContext);
     const [defaultValue, setDefaultValue] = useState<string>("");
     formSave.onSubmit = function (formValue: any) {
-        console.log(formValue);
         authApi.register(formValue, formSave.onSuccess, formSave.onError);
     }
     formSave.onSuccess = function (response: Response<AppUser>) {

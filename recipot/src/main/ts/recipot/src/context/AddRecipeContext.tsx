@@ -25,7 +25,7 @@ function AddRecipeContextProvider({ children }: any) {
     formSave.current.onSubmit = function (fields: any) {
         for (const field in fields.formValidity) {
             if (!fields.formValidity[field]) {
-                console.log("invalid fields value")
+                console.warn("invalid fields value")
                 //return false;
             }
         }
@@ -35,24 +35,18 @@ function AddRecipeContextProvider({ children }: any) {
         fields.formValue.hashTag = convertToObjects(fields.formValue.hashTag);
         fields.formValue.category = convertCategoriesToObjects(fields.formValue.category);
         convertIngredientsToObjects(fields.formValue.ingredients);
-        console.log('BEFORESAVE', fields.formValue)
         if (!wasSaveSend.current) {
             wasSaveSend.current = true;
             //   recipesApi.postRecipe(fields.formValue, formSave.current.onSuccess, formSave.current.onError)
         }
-
-        console.log("correct fields value")
-        console.log(fields.formValue)
     }
     formSave.current.onSuccess = function (response: any) {
         wasSaveSend.current = false;
         let id = response.value.id;
         navigate(`/recipes/${id}`)
-        console.log(response)
         showSuccessAlert(t('p.recipeAddCorrect'), alertDispatch);
     }
     formSave.current.onError = function (response: any) {
-        console.log(response)
         wasSaveSend.current = false;
         showErrorAlert(t(response.message), alertDispatch);
     }

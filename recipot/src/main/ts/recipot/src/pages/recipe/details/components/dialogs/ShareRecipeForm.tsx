@@ -24,9 +24,6 @@ function ShareRecipeForm({ formSave }: { formSave: FormSave }, ref: any) {
 
         if (checkIfAllValid(submitFormEvent, myForm)) {
             formSave.onSubmit(myForm.formValue);
-            console.log('valid')
-        } else {
-            console.log('invalid')
         }
     };
 
