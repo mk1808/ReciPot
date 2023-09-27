@@ -26,7 +26,7 @@ function AddRecipeContextProvider({ children }: any) {
         console.log(fields)
         for (const field in fields.formValidity) {
             if (!fields.formValidity[field]) {
-                // console.warn("invalid fields value")
+                showErrorAlert(t('p.incorrectFields'), alertDispatch);
                 return false;
             }
         }
