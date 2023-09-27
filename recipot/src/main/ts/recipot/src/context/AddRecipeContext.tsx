@@ -27,7 +27,7 @@ function AddRecipeContextProvider({ children }: any) {
         for (const field in fields.formValidity) {
             if (!fields.formValidity[field]) {
                 // console.warn("invalid fields value")
-                //return false;
+                return false;
             }
         }
         fillOrderNumbers(fields.formValue.recipeSteps);
