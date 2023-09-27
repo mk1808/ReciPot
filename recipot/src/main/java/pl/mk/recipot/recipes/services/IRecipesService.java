@@ -27,4 +27,6 @@ public interface IRecipesService {
 	
 	public Recipe getCleanedRecipe(UUID recipeId);
 
+	public AppUser getRecipeOwner(UUID recipeId);
+
 }

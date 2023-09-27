@@ -13,6 +13,7 @@ import pl.mk.recipot.commons.enums.PredefinedRecipeFilter;
 import pl.mk.recipot.commons.factories.CreatedResponseFactory;
 import pl.mk.recipot.commons.factories.OkMessageResponseFactory;
 import pl.mk.recipot.commons.factories.OkResponseFactory;
+import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.models.SharedRecipe;
 import pl.mk.recipot.commons.services.ICrudService;
@@ -85,5 +86,10 @@ public class RecipesController implements IRecipesController {
 	public ResponseEntity<Response<Void>> delete(UUID recipeId) {
 		recipeCrudService.delete(recipeId);
 		return new OkMessageResponseFactory().createResponse("recipes.success.recipeDeleted");
+	}
+
+	@Override
+	public ResponseEntity<Response<AppUser>> getRecipeOwner(UUID recipeId) {
+		return new OkResponseFactory().createResponse(recipesService.getRecipeOwner(recipeId));
 	}
 }

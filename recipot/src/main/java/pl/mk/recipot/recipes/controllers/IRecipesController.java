@@ -19,6 +19,7 @@ import jakarta.validation.Valid;
 import pl.mk.recipot.commons.dtos.RecipeSearchDto;
 import pl.mk.recipot.commons.dtos.Response;
 import pl.mk.recipot.commons.enums.PredefinedRecipeFilter;
+import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.models.SharedRecipe;
 
@@ -57,4 +58,7 @@ public interface IRecipesController {
 	
 	@DeleteMapping("/{recipeId}")
 	ResponseEntity<Response<Void>> delete(@PathVariable UUID recipeId);
+	
+	@GetMapping("/{recipeId}/owner")
+	ResponseEntity<Response<AppUser>> getRecipeOwner(@PathVariable UUID recipeId);
 }
