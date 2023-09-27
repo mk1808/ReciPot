@@ -256,6 +256,7 @@
         "account": "Konto",
         "selectValue": "Wybierz wartość",
         "searchOrNew": "Wyszukaj lub podaj nową wartość",
+        "searchNotNew": "Wyszukaj wartość",
         "SHARED_RECIPE": "Udostępniono przepis",
         "RECIPE_COMMENTED": "Skomentowano przepis",
         "RECIPE_RATED": "Oceniono przepis",

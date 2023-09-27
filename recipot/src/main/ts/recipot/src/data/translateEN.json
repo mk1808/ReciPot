@@ -256,6 +256,7 @@
 		"account": "Account",
 		"selectValue": "Select value",
 		"searchOrNew": "Search or type new value",
+		"searchNotNew": "Search value",
 		"SHARED_RECIPE": "Shared recipe",
 		"RECIPE_COMMENTED": "Commented recipe",
 		"RECIPE_RATED": "Rated recipe",
