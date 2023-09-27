@@ -13,7 +13,7 @@ import { onFilteredIngredientSearch } from "../../../../utils/DictionariesUtils"
 
 function AddIngredients() {
     const { t } = useTranslation();
-    const FIELD_NAME = 'ingredients';
+    const FIELD_NAME = 'recipeIngredients';
     const testOptions = [{ label: "op1", value: { name: "nam1" } }, { label: "op2", value: { name: "nam2" } }, { label: "op3", value: { name: "nam3" } }];
     const basicIngredient: any = {
         id: "",
@@ -72,7 +72,7 @@ function AddIngredients() {
     }
 
     function getIngredientValidity(fieldName: string, index: number) {
-        return formFields?.formValidity && formFields?.formValidity.ingredients[index] ? formFields?.formValidity.ingredients[index][fieldName] : false;
+        return formFields?.formValidity && formFields?.formValidity.recipeIngredients[index] ? formFields?.formValidity.recipeIngredients[index][fieldName] : false;
     }
 
     return (
@@ -80,7 +80,7 @@ function AddIngredients() {
             <hr />
             <h4 className="mt-3">{t('p.ingredients')}</h4>
             <div className="text-start">
-                {formFields.formValue && formFields.formValue.ingredients && formFields.formValue.ingredients.map((ingredient: any, index: number) => { return renderSingleRow(ingredient, index) })}
+                {formFields?.formValue?.recipeIngredients?.map((ingredient: any, index: number) => { return renderSingleRow(ingredient, index) })}
             </div>
             <MyButton.Primary onClick={onAdd}>{t('p.add')} <BsPlusCircleFill className="mb-1 ms-1" /></MyButton.Primary>
         </div>
