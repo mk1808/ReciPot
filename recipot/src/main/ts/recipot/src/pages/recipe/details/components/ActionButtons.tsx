@@ -12,10 +12,12 @@ import { MdDeleteOutline } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { BsCollectionFill, BsShare } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
+import { FiEdit3 } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 function ActionButtons({ recipe, isOwner, user }: { recipe: Recipe, isOwner: boolean, user: any }) {
     const { t } = useTranslation();
-
+    const navigate = useNavigate();
     const [showModalAddToCollection, setShowModalAddToCollection] = useState(false);
     const [showModalShare, setShowModalShare] = useState(false);
     const [showModalDelete, setShowModalDelete] = useState(false);
@@ -50,7 +52,7 @@ function ActionButtons({ recipe, isOwner, user }: { recipe: Recipe, isOwner: boo
 
                     {isOwner &&
                         <Col>
-                            <Tooltip placement="bottom" title={t('p.deleteRecipeButton')}><MyButton.Primary onClick={() => setShowModalDelete(true)} className="round"><MdDeleteOutline /></MyButton.Primary>
+                            <Tooltip placement="bottom" title={t('p.editRecipeButton')}><MyButton.Primary onClick={() => navigate(`/recipe/add/${recipe.id}`)} className="round"><FiEdit3 /></MyButton.Primary>
                             </Tooltip>
                         </Col>}
 
@@ -69,7 +71,6 @@ function ActionButtons({ recipe, isOwner, user }: { recipe: Recipe, isOwner: boo
             <>
                 <AddToCollectionDialog showModal={showModalAddToCollection} handleClose={() => setShowModalAddToCollection(false)} data={recipe}></AddToCollectionDialog>
                 <ShareRecipeDialog showModal={showModalShare} handleClose={() => setShowModalShare(false)} data={recipe}></ShareRecipeDialog>
-                <DeleteRecipeDialog showModal={showModalDelete} handleClose={() => setShowModalDelete(false)} data={recipe}></DeleteRecipeDialog>
                 <ChangeVisibilityDialog showModal={showModalChangeVisibility} handleClose={() => setShowModalChangeVisibility(false)} handleSuccess={setAccessType} data={recipe} accessType={accessType}></ChangeVisibilityDialog>
 
             </>
