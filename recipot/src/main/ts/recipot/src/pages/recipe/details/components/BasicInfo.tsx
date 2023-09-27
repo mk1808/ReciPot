@@ -10,6 +10,7 @@ import { VscTools } from "react-icons/vsc";
 import { FaInternetExplorer } from "react-icons/fa6";
 import Info from "../../../../components/basicUi/Info";
 import HashTagList from "../../../../components/basicUi/HashTagList";
+import { convertToTime } from "../../../../utils/DateUtils";
 
 function BasicInfo({ recipe }: { recipe: Recipe }) {
     const { t } = useTranslation();
@@ -28,7 +29,7 @@ function BasicInfo({ recipe }: { recipe: Recipe }) {
                                 tooltip: "timeInfo",
                                 icon: (className: string) => <MdAccessTime className={className} />,
                                 label: "time",
-                                value: `${recipe.timeAmount} ${t('p.minutesShortcut')}`
+                                value: `${convertToTime(recipe.timeAmount)}`
                             })}
                         </Col>
                         <Col>
