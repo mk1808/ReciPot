@@ -13,7 +13,7 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { BsCollectionFill, BsShare } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
 
-function ActionButtons({ recipe }: { recipe: Recipe }) {
+function ActionButtons({ recipe, isOwner, user }: { recipe: Recipe, isOwner: boolean, user: any }) {
     const { t } = useTranslation();
 
     const [showModalAddToCollection, setShowModalAddToCollection] = useState(false);
@@ -21,22 +21,48 @@ function ActionButtons({ recipe }: { recipe: Recipe }) {
     const [showModalDelete, setShowModalDelete] = useState(false);
     const [showModalChangeVisibility, setShowModalChangeVisibility] = useState(false);
     const [accessType, setAccessType] = useState("PRIVATE");
+    const [isUser, setIsUser] = useState(false);
     const getAccessTypeIcon = () => { return (accessType === "PRIVATE" ? <AiFillEyeInvisible /> : <AiFillEye />) }
 
     useEffect(() => {
         setAccessType(recipe.accessType);
+        setIsUser(!!user);
     }, [])
 
     return (<>
         <Row className="align-center action-buttons">
             <Col md="7"></Col>
-            <Col md="5">
+            <Col md="3">
                 <Row>
-                    <Col><Tooltip placement="bottom" title={t('p.addToCollectionButton')}><MyButton.Primary onClick={() => setShowModalAddToCollection(true)} className="round"><BsCollectionFill /></MyButton.Primary></Tooltip></Col>
-                    <Col><Tooltip placement="bottom" title={t('p.shareRecipeButton')}><MyButton.Primary onClick={() => setShowModalShare(true)} className="round"><BsShare /></MyButton.Primary></Tooltip></Col>
-                    <Col><Tooltip placement="bottom" title={t('p.deleteRecipeButton')}><MyButton.Primary onClick={() => setShowModalDelete(true)} className="round"><MdDeleteOutline /></MyButton.Primary></Tooltip></Col>
-                    <Col><Tooltip placement="bottom" title={t('p.changeRecipeVisibilityButton')}><MyButton.Primary onClick={() => setShowModalChangeVisibility(true)} className="round" >{getAccessTypeIcon()}</MyButton.Primary></Tooltip></Col>
+                    {isUser &&
+                        <Col>
+                            <Tooltip placement="bottom" title={t('p.addToCollectionButton')}><MyButton.Primary onClick={() => setShowModalAddToCollection(true)} className="round"><BsCollectionFill /></MyButton.Primary>
+                            </Tooltip>
+                        </Col>
+                    }
+                    {isUser &&
+                        <Col>
+                            <Tooltip placement="bottom" title={t('p.shareRecipeButton')}><MyButton.Primary onClick={() => setShowModalShare(true)} className="round"><BsShare /></MyButton.Primary>
+                            </Tooltip>
+                        </Col>}
+
                 </Row>
+            </Col>
+            <Col md="2">
+                <Row>
+                    {isOwner &&
+                        <Col>
+                            <Tooltip placement="bottom" title={t('p.deleteRecipeButton')}><MyButton.Primary onClick={() => setShowModalDelete(true)} className="round"><MdDeleteOutline /></MyButton.Primary>
+                            </Tooltip>
+                        </Col>}
+
+                    {isOwner &&
+                        <Col>
+                            <Tooltip placement="bottom" title={t('p.changeRecipeVisibilityButton')}><MyButton.Primary onClick={() => setShowModalChangeVisibility(true)} className="round" >{getAccessTypeIcon()}</MyButton.Primary>
+                            </Tooltip>
+                        </Col>}
+                </Row>
+
             </Col>
         </Row>
         {renderDialogs()}
