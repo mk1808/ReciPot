@@ -11,3 +11,9 @@ export function format(date: any) {
 function addZeroIfNeeded(datePart: any) {
     return datePart < 10 ? `0${datePart}` : datePart;
 }
+
+export function convertToTime(time: number) {
+    let hour = Math.floor(time / 60);
+    let min = time % 60;
+    return `${hour}:${addZeroIfNeeded(min)}`
+}
