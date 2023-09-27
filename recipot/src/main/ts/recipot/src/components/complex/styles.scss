@@ -12,10 +12,15 @@
         .hash-tags {
             height: 41px;
         }
-        .description{
+
+        .description {
             height: 3em;
         }
 
+    }
+
+    .full-width {
+        margin: 0 !important;
     }
 }
 
@@ -45,8 +50,9 @@
 
         }
     }
-    .card-content{
-        font-size:18px;
+
+    .card-content {
+        font-size: 18px;
         min-height: 100px;
     }
 }
@@ -59,7 +65,7 @@
     .pagination-container {
         position: fixed;
         height: 100%;
-        top: 150px;
+        top: 300px;
         display: block;
 
         .page-button {
@@ -77,6 +83,12 @@
             line-height: 20px;
             color: $primary;
             text-align: center;
+        }
+    }
+
+    @media (max-width: 1200px) {
+        .pagination-container {
+            right: 0;
         }
     }
 }
@@ -154,6 +166,7 @@
         display: inline-block;
         margin: 0;
         text-align: left;
+        width: 100%;
     }
 
     &-list {

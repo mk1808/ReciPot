@@ -219,7 +219,6 @@ function RecipeFiltersColumn() {
                 onSelectCallback={onHashTagChange}
                 highlightValidity={false}
                 className="mb-3"
-                width={300}
             />)
     }
 
@@ -233,7 +232,6 @@ function RecipeFiltersColumn() {
                 onSelectCallback={onIngredientsChange}
                 highlightValidity={false}
                 className="mb-3"
-                width={300}
             />)
     }
 
@@ -248,7 +246,6 @@ function RecipeFiltersColumn() {
                 highlightValidity={false}
                 hierarchical={true}
                 className="mb-3"
-                width={300}
             />)
     }
 
