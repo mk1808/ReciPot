@@ -23,21 +23,23 @@ function AddRecipeContextProvider({ children }: any) {
         []
     );
     formSave.current.onSubmit = function (fields: any) {
+        console.log(fields)
         for (const field in fields.formValidity) {
             if (!fields.formValidity[field]) {
-                console.warn("invalid fields value")
-                //return false;
+                showErrorAlert(t('p.incorrectFields'), alertDispatch);
+                return false;
             }
         }
-        fillOrderNumbers(fields.formValue.steps);
-        clearIds(fields.formValue.steps);
-        clearIds(fields.formValue.ingredients);
-        fields.formValue.hashTag = convertToObjects(fields.formValue.hashTag);
-        fields.formValue.category = convertCategoriesToObjects(fields.formValue.category);
-        convertIngredientsToObjects(fields.formValue.ingredients);
+        fillOrderNumbers(fields.formValue.recipeSteps);
+        clearIds(fields.formValue.recipeSteps);
+        clearIds(fields.formValue.recipeIngredients);
+        fields.formValue.hashTags = convertToObjects(fields.formValue.hashTags);
+        fields.formValue.categories = convertCategoriesToObjects(fields.formValue.categories);
+        convertIngredientsToObjects(fields.formValue.recipeIngredients);
+
         if (!wasSaveSend.current) {
             wasSaveSend.current = true;
-            //   recipesApi.postRecipe(fields.formValue, formSave.current.onSuccess, formSave.current.onError)
+            recipesApi.postRecipe(fields.formValue, formSave.current.onSuccess, formSave.current.onError)
         }
     }
     formSave.current.onSuccess = function (response: any) {

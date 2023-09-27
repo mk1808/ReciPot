@@ -35,7 +35,7 @@ export function convertIngredientsToObjects(list: []) {
 
 export function convertCategoriesToObjects(list: []) {
     if (list) {
-        return list.map((element: any) => element.value ? element.value : element)
+        return list.map((element: any) => element.value ? element.value : element).map((element: any) => { return ({ id: element.id }) });
     }
 
     return [];

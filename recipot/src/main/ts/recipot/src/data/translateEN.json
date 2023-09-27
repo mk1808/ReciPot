@@ -399,6 +399,7 @@
 		"removeFromCollection": "Remove from collection",
 		"recipeRemovedFromCollection": "Removed recipe from collection",
 		"noData": "No data",
-		"recipeUrlButton": "Go to recipe's origin page"
+		"recipeUrlButton": "Go to recipe's origin page",
+        "incorrectFields": "Incorrect values in form fields"
 	}
 }

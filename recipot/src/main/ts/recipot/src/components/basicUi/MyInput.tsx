@@ -33,11 +33,12 @@ function MyInput({
 
     useEffect(() => { onChange(inputValue) }, [inputValue])
 
-    useEffect(() => { 
-        if (inputRef.current) { 
-            inputRef.current.value = defaultValue; 
-            setInputValue(defaultValue) } 
-        }, [defaultValue])
+    useEffect(() => {
+        if (inputRef.current) {
+            inputRef.current.value = defaultValue;
+            setInputValue(defaultValue)
+        }
+    }, [defaultValue])
 
     function onChangeCallback(event: any) {
         setInputValue(event.target.value)
@@ -53,7 +54,9 @@ function MyInput({
                 disabled={disabled}
                 onChange={onChangeCallback}
                 defaultValue={defaultValue}
-                ref={inputRef} />
+                ref={inputRef}
+                min={type == "number" ? 0 : undefined}
+            />
         </Form.Group>
     )
 }

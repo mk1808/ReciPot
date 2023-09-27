@@ -52,11 +52,17 @@ function UpperRightSide() {
 
     function checkInputValidity(fieldValue: any, fieldName: string) {
         switch (fieldName) {
-            case 'name': {
-                return fieldValue && fieldValue.length > 3;
+            case 'timeAmount': {
+                return fieldValue != null && fieldValue >= 0;
             }
-            case 'image': {
-                return fieldValue && fieldValue.length > 3;
+            case 'numberOfDishes':
+            case 'difficulty':
+            case 'requiredEffort': {
+                return !!fieldValue;
+            }
+            case 'hashTags':
+            case 'categories': {
+                return !!fieldValue && fieldValue.length > 0;
             }
             default: {
                 return true;
@@ -82,7 +88,7 @@ function UpperRightSide() {
         return (
             <TimeAmountInput
                 label={t('p.timeAmountInputLabel')}
-                {...inputAttributesForContext("timeAmountFrom", onChange, getValidity)}
+                {...inputAttributesForContext("timeAmount", onChange, getValidity)}
             />
         )
     }
@@ -106,7 +112,7 @@ function UpperRightSide() {
                 label={t("p.amountOfDishesFilter")}
                 options={amountOfDishes}
                 emptyOption={t('p.selectValue')}
-                {...inputAttributesForContext("amountOfDishes", onChange, getValidity)}
+                {...inputAttributesForContext("numberOfDishes", onChange, getValidity)}
             />
         )
     }
@@ -117,7 +123,7 @@ function UpperRightSide() {
                 label={t("p.difficultiesFilter")}
                 options={difficulties}
                 emptyOption={t('p.selectValue')}
-                {...inputAttributesForContext("difficulties", onChange, getValidity)}
+                {...inputAttributesForContext("difficulty", onChange, getValidity)}
             />
         )
     }
@@ -143,8 +149,8 @@ function UpperRightSide() {
             highlightValidity={true}
             allowNew={true}
             width={500}
-            isValid={getValidity("hashTag")}
-            onSelectCallback={(value: string) => onChange(value, "hashTag")}
+            isValid={getValidity("hashTags")}
+            onSelectCallback={(value: string) => onChange(value, "hashTags")}
         />
     }
 
@@ -158,8 +164,8 @@ function UpperRightSide() {
             highlightValidity={true}
             hierarchical={true}
             width={500}
-            isValid={getValidity("category")}
-            onSelectCallback={(value: string) => onChange(value, "category")}
+            isValid={getValidity("categories")}
+            onSelectCallback={(value: string) => onChange(value, "categories")}
         />
     }
 }
