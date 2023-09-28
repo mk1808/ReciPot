@@ -112,6 +112,7 @@ function AddIngredients() {
                 required={true}
                 defaultValue="0"
                 type="number"
+                className="simple-input"
                 {...dynamicInputAttributesForContext("amount", onChange, getIngredientValidity, index)}
             />
         )
@@ -121,6 +122,7 @@ function AddIngredients() {
             <MyInput
                 label={t('p.unit')}
                 required={true}
+                className="simple-input"
                 {...dynamicInputAttributesForContext("unit", onChange, getIngredientValidity, index)}
             />
         )
