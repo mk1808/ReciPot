@@ -27,16 +27,15 @@ function RecipeAddForm() {
 
     function renderForm() {
         return (
-            <Container className="my-5">
-                <Row>
-                    <Col className="border-right">
-                        {renderLeftSide()}
-                    </Col>
-                    <Col className="border-left">
-                        {renderRightSide()}
-                    </Col>
-                </Row>
-            </Container>
+            <Row className="my-5">
+                <Col md={6} xs={12} className="border-right">
+                    {renderLeftSide()}
+                </Col>
+                <Col md={6} xs={12} className="border-left">
+                    {renderRightSide()}
+                </Col>
+            </Row>
+
         );
     }
 

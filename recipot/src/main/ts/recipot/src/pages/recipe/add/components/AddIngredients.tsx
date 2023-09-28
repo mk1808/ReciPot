@@ -32,7 +32,7 @@ function AddIngredients() {
     }, [])
     function onChange(fieldValue: any, fieldName: string, index?: number) {
 
-        if (getDefaultValue(fieldValue, index||0, other) !== fieldValue) {
+        if (getDefaultValue(fieldValue, index || 0, other) !== fieldValue) {
             addRecipeDispatchContext({
                 type: "onChange",
                 fieldName: FIELD_NAME,
@@ -84,7 +84,7 @@ function AddIngredients() {
             <div className="text-start">
                 {formFields?.formValue?.recipeIngredients?.map(renderSingleRow)}
             </div>
-            <MyButton.Primary onClick={onAdd}>{t('p.add')} <BsPlusCircleFill className="mb-1 ms-1" /></MyButton.Primary>
+            <MyButton.Primary onClick={onAdd} className="button-width">{t('p.add')} <BsPlusCircleFill className="mb-1 ms-1" /></MyButton.Primary>
         </div>
     );
     function renderSingleRow(ingredient: any, index: number) {
@@ -92,16 +92,16 @@ function AddIngredients() {
             <Card className="my-4" key={ingredient.id}>
                 <Card.Body className="py-1 px-4">
                     <Row className="ingredient-section ">
-                        <Col>
+                        <Col xl={3} xs={6}>
                             {renderAmountInput(index)}
                         </Col>
-                        <Col>
+                        <Col xl={3} xs={6}>
                             {renderUnitInput(index)}
                         </Col>
-                        <Col md={6}>
+                        <Col >
                             {renderIngredientInput(index)}
                         </Col>
-                        <Col className="bin-icon"><MdOutlineDeleteOutline onClick={() => onDelete(index)} /></Col>
+                        <Col className="bin-icon" lg={1} ><MdOutlineDeleteOutline onClick={() => onDelete(index)} /></Col>
                     </Row>
                 </Card.Body>
             </Card>
