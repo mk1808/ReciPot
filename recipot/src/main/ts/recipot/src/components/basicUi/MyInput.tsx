@@ -13,6 +13,7 @@ function MyInput({
     required = false,
     onChange = initFcn<any>(),
     isValid,
+    step,
     className
 }: {
     name: string,
@@ -24,6 +25,7 @@ function MyInput({
     defaultValue?: string,
     required?: boolean,
     isValid?: boolean,
+    step?:number,
     className?: string
 }) {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -45,7 +47,7 @@ function MyInput({
     function onChangeCallback(event: any) {
         setInputValue(event.target.value)
     }
-
+    
     return (
         <Form.Group className="mb-3" controlId={name}>
             {label && <Form.Label>{label}</Form.Label>}
@@ -57,6 +59,7 @@ function MyInput({
                 onChange={onChangeCallback}
                 defaultValue={defaultValue}
                 ref={inputRef}
+                step={step}
                 min={type == "number" ? 0 : undefined}
                 className={className}
             />

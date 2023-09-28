@@ -18,6 +18,7 @@ import UserDetails from './pages/user/UserDetails';
 import AlertContextProvider from './context/AlertContext';
 import ProtectedRoute from './config/ProtectedRoute';
 import { EnumDictionaryContextProvider } from './context/EnumDictionaryContext';
+import RecipeEdit from './pages/recipe/edit/RecipeEdit';
 
 function App() {
   const usersDispatchContext = useContext(UsersDispatchContext);
@@ -40,7 +41,7 @@ function App() {
           <ProtectedRoute element={<RecipeAdd />} />}
         />
         <Route path="/recipes/edit/:id" element={
-          <ProtectedRoute element={<RecipeAdd />} />}
+          <ProtectedRoute element={<RecipeEdit />} />}
         />
         <Route path="/recipes/:id" element={<RecipeDetails />} />
         <Route path="/recipeCollections" element={

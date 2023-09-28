@@ -49,6 +49,12 @@ function UpperRightSide() {
             })
         }
     }
+    
+    function onFilteredSelectChange(value: any[], fieldName: string) {
+        if (!formFields.formValue || value.length !== formFields.formValue[fieldName].length) {
+            onChange(value,fieldName)
+        }
+    }
 
     function checkInputValidity(fieldValue: any, fieldName: string) {
         switch (fieldName) {
@@ -88,7 +94,7 @@ function UpperRightSide() {
         return (
             <TimeAmountInput
                 label={t('p.timeAmountInputLabel')}
-                {...inputAttributesForContext("timeAmount", onChange, getValidity)}
+                {...inputAttributesForContext("timeAmount", onChange, getValidity, undefined, formFields.formValue)}
             />
         )
     }
@@ -99,12 +105,12 @@ function UpperRightSide() {
             <MySelect
                 label={t("p.accessTypeFilter")}
                 options={accessTypes}
-                defaultValue={accessTypes[0].value}
-                {...inputAttributesForContext("accessType", onChange, getValidity)}
+               
+                {...inputAttributesForContext("accessType", onChange, getValidity, undefined, formFields.formValue)}
             />
         )
     }
-
+ //defaultValue={accessTypes[0].value}
     function renderAmountOfDishesInput() {
         const amountOfDishes = getEnum("amountsOfDishes");
         return (
@@ -112,7 +118,7 @@ function UpperRightSide() {
                 label={t("p.amountOfDishesFilter")}
                 options={amountOfDishes}
                 emptyOption={t('p.selectValue')}
-                {...inputAttributesForContext("numberOfDishes", onChange, getValidity)}
+                {...inputAttributesForContext("numberOfDishes", onChange, getValidity, undefined, formFields.formValue)}
             />
         )
     }
@@ -123,7 +129,7 @@ function UpperRightSide() {
                 label={t("p.difficultiesFilter")}
                 options={difficulties}
                 emptyOption={t('p.selectValue')}
-                {...inputAttributesForContext("difficulty", onChange, getValidity)}
+                {...inputAttributesForContext("difficulty", onChange, getValidity, undefined, formFields.formValue)}
             />
         )
     }
@@ -135,7 +141,7 @@ function UpperRightSide() {
                 label={t("p.requiredEffortFilter")}
                 options={requiredEffort}
                 emptyOption={t('p.selectValue')}
-                {...inputAttributesForContext("requiredEffort", onChange, getValidity)}
+                {...inputAttributesForContext("requiredEffort", onChange, getValidity, undefined, formFields.formValue)}
             />)
     }
 
@@ -148,8 +154,9 @@ function UpperRightSide() {
             onSearchCallback={(phrase: string) => onFilteredHashTagSearch(phrase, setFilteredHashTags)}
             highlightValidity={true}
             allowNew={true}
-            isValid={getValidity("hashTag")}
-            onSelectCallback={(value: string) => onChange(value, "hashTag")}
+            isValid={getValidity("hashTags")}
+            onSelectCallback={(value: any) => onFilteredSelectChange(value, "hashTags")}
+            defaultValue={(formFields.formValue && formFields.formValue["hashTags"])}
         />
     }
 
@@ -162,8 +169,9 @@ function UpperRightSide() {
             onSearchCallback={onCategorySearchCallback}
             highlightValidity={true}
             hierarchical={true}
-            isValid={getValidity("category")}
-            onSelectCallback={(value: string) => onChange(value, "category")}
+            isValid={getValidity("categories")}
+            onSelectCallback={(value: any) => onFilteredSelectChange(value, "categories")}
+            defaultValue={(formFields.formValue && formFields.formValue["categories"])}
         />
     }
 }

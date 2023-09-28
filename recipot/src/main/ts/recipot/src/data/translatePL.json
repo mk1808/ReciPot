@@ -360,6 +360,7 @@
         "defaultError": "Wystąpił błąd",
         "recipeFilterSaved": "Zapisano filtr przepisów",
         "recipeAddCorrect": "Przepis został utworzony!",
+        "recipeEditCorrect": "Przepis został zaktualizowany!",
         "recipesCollectionSaved": "Utworzono nową kolekcję przepisów",
         "time": "Czas",
         "timeInfo": "Czas potrzebny na przygotowanie",

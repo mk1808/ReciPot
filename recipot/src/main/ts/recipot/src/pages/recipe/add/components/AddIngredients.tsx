@@ -10,6 +10,7 @@ import { AddRecipeContext, AddRecipeDispatchContext } from "../../../../context/
 import { dynamicInputAttributesForContext } from "../../../../utils/FormInputUtils";
 import FilteredSelect from "../../../../components/complex/FilteredSelect";
 import { onFilteredIngredientSearch } from "../../../../utils/DictionariesUtils";
+import { getDefaultValue } from "../../../../utils/AddRecipeContextUtil";
 
 function AddIngredients() {
     const { t } = useTranslation();
@@ -24,13 +25,14 @@ function AddIngredients() {
     }
     const addRecipeDispatchContext = useContext(AddRecipeDispatchContext);
     const formFields = useContext(AddRecipeContext).fields;
+    const other = { formFields, mainFieldName: FIELD_NAME };
     const [filteredIngredients, setFilteredIngredients] = useState<any[]>([]);
     useEffect(() => {
         onFilteredIngredientSearch('', setFilteredIngredients);
     }, [])
     function onChange(fieldValue: any, fieldName: string, index?: number) {
 
-        if (formFields.formValue && formFields.formValue[fieldName] !== fieldValue) {
+        if (getDefaultValue(fieldValue, index||0, other) !== fieldValue) {
             addRecipeDispatchContext({
                 type: "onChange",
                 fieldName: FIELD_NAME,
@@ -72,7 +74,7 @@ function AddIngredients() {
     }
 
     function getIngredientValidity(fieldName: string, index: number) {
-        return formFields?.formValidity && formFields?.formValidity.recipeIngredients[index] ? formFields?.formValidity.recipeIngredients[index][fieldName] : false;
+        return formFields?.formValidity?.recipeIngredients && formFields?.formValidity.recipeIngredients[index] ? formFields?.formValidity.recipeIngredients[index][fieldName] : false;
     }
 
     return (
@@ -80,7 +82,7 @@ function AddIngredients() {
             <hr />
             <h4 className="mt-3">{t('p.ingredients')}</h4>
             <div className="text-start">
-                {formFields?.formValue?.recipeIngredients?.map((ingredient: any, index: number) => { return renderSingleRow(ingredient, index) })}
+                {formFields?.formValue?.recipeIngredients?.map(renderSingleRow)}
             </div>
             <MyButton.Primary onClick={onAdd}>{t('p.add')} <BsPlusCircleFill className="mb-1 ms-1" /></MyButton.Primary>
         </div>
@@ -109,11 +111,10 @@ function AddIngredients() {
         return (
             <MyInput
                 label={t('p.amount')}
-                required={true}
-                defaultValue="0"
                 type="number"
                 className="simple-input"
-                {...dynamicInputAttributesForContext("amount", onChange, getIngredientValidity, index)}
+                step={0.1}
+                {...dynamicInputAttributesForContext("amount", onChange, getIngredientValidity, index, undefined, getDefaultValue("amount", index, other))}
             />
         )
     }
@@ -123,7 +124,7 @@ function AddIngredients() {
                 label={t('p.unit')}
                 required={true}
                 className="simple-input"
-                {...dynamicInputAttributesForContext("unit", onChange, getIngredientValidity, index)}
+                {...dynamicInputAttributesForContext("unit", onChange, getIngredientValidity, index, undefined, getDefaultValue("unit", index, other))}
             />
         )
     }
@@ -139,6 +140,7 @@ function AddIngredients() {
                 allowNew={true}
                 onSelectCallback={(value: string) => onChange(value, "ingredient", index)}
                 isValid={getIngredientValidity("ingredient", index)}
+                defaultValue={getDefaultValue("ingredient", index, other)}
             />
         )
     }

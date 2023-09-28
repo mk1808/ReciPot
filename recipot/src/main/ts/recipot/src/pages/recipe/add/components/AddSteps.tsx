@@ -10,6 +10,7 @@ import { onAddElementClick, onDeleteElementClick } from "../ListManipulation";
 import { useContext, useEffect } from "react";
 import { AddRecipeContext, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
 import { checkInputValidity, dynamicInputAttributesForContext } from "../../../../utils/FormInputUtils";
+import { getDefaultValue } from "../../../../utils/AddRecipeContextUtil";
 
 function AddSteps() {
     const { t } = useTranslation();
@@ -22,6 +23,7 @@ function AddSteps() {
     }
     const addRecipeDispatchContext = useContext(AddRecipeDispatchContext);
     const formFields = useContext(AddRecipeContext).fields;
+    const other = { formFields, mainFieldName: FIELD_NAME };
     function onChange(fieldValue: any, fieldName: string, index?: number) {
 
         if (formFields.formValue && formFields.formValue[fieldName] !== fieldValue) {
@@ -55,7 +57,7 @@ function AddSteps() {
     }
 
     function getStepValidity(fieldName: string, index: number) {
-        return formFields?.formValidity && formFields?.formValidity.recipeSteps[index] ? formFields?.formValidity.recipeSteps[index][fieldName] : false;
+        return formFields?.formValidity?.recipeSteps && formFields?.formValidity?.recipeSteps[index] ? formFields?.formValidity.recipeSteps[index][fieldName] : false;
     }
 
     return (
@@ -90,7 +92,7 @@ function AddSteps() {
                 label={t('p.step')}
                 placeholder={t('p.step')}
                 rows={4}
-                {...dynamicInputAttributesForContext("description", onChange, getStepValidity, index)}
+                {...dynamicInputAttributesForContext("description", onChange, getStepValidity, index, undefined, getDefaultValue("description", index, other))}
             />
         )
     }
