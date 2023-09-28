@@ -56,4 +56,10 @@ export function convertToForm(tab: any) {
          }) })
 }
 
+export function convertRecipeIngredientsToForm(elements:any[]){
+    return !elements?[]:elements.map(element=>{return{...element, ingredient:{label:element.ingredient.name, value:element.ingredient}}})
+}
 
+export function getDefaultValue(fieldName: string, index: number, {formFields, mainFieldName}:{formFields:any, mainFieldName:any}){
+    return formFields?.formValue &&formFields?.formValue[mainFieldName] && formFields?.formValue[mainFieldName][index] && formFields?.formValue[mainFieldName][index][fieldName];
+}
