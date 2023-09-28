@@ -14,7 +14,7 @@ function RecipesApi() {
         restClient.get(`${PREFIX}/${id}`, onSuccess, onError)
     }
 
-    const putRecipe = (id: string, body: Recipe, onSuccess: (response: Response<Recipe>) => any, onError?: (response: Response<Recipe>) => any) => {
+    const putRecipe = (id: string, body: Recipe, onSuccess: any, onError?: any) => {
         restClient.put(`${PREFIX}/${id}`, body, onSuccess, onError)
     }
 

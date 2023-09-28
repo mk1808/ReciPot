@@ -14,7 +14,7 @@ function RecipeAdd({ recipe }: { recipe?: Recipe | any }) {
                 <Stack className="justify-content-center py-5 recipe-add-page" direction="horizontal">
                     <div className="pt-4 mb-2 basic-container-large basic-container-border">
 
-                        <MyHeader title={t('p.newRecipeHeader')}></MyHeader>
+                        <MyHeader title={recipe ? recipe.name : t('p.newRecipeHeader')}></MyHeader>
                         <RecipeAddForm></RecipeAddForm>
 
                     </div>

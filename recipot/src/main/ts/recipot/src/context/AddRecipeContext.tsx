@@ -37,7 +37,7 @@ function AddRecipeContextProvider({ children, editedRecipe }: { children: any, e
         for (const field in fields.formValidity) {
             if (!fields.formValidity[field]) {
                 showErrorAlert(t('p.incorrectFields'), alertDispatch);
-                //return false;
+                return false;
             }
         }
         let formValue = { ...fields.formValue };
@@ -47,18 +47,25 @@ function AddRecipeContextProvider({ children, editedRecipe }: { children: any, e
         formValue.hashTags = convertToObjects(formValue.hashTags);
         formValue.categories = convertCategoriesToObjects(formValue.categories);
         formValue.recipeIngredients = convertIngredientsToObjects(formValue.recipeIngredients);
-        console.log("formValue", formValue)
-        return false;
         if (!wasSaveSend.current) {
+            saveOrEditRecipe(formValue);
             wasSaveSend.current = true;
-            recipesApi.postRecipe(fields.formValue, formSave.current.onSuccess, formSave.current.onError)
         }
+    }
+    function saveOrEditRecipe(formValue: any) {
+        if (editedRecipe) {
+            recipesApi.putRecipe(editedRecipe.id, formValue, formSave.current.onSuccess, formSave.current.onError)
+            return;
+        }
+
+        recipesApi.postRecipe(formValue, formSave.current.onSuccess, formSave.current.onError)
     }
     formSave.current.onSuccess = function (response: any) {
         wasSaveSend.current = false;
         let id = response.value.id;
         navigate(`/recipes/${id}`)
-        showSuccessAlert(t('p.recipeAddCorrect'), alertDispatch);
+        let alert = editedRecipe ? 'p.recipeEditCorrect' : 'p.recipeAddCorrect';
+        showSuccessAlert(t(alert), alertDispatch);
     }
     formSave.current.onError = function (response: any) {
         wasSaveSend.current = false;
