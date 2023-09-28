@@ -19,15 +19,17 @@ export function convertToObjects(list: []) {
 
 export function convertIngredientsToObjects(list: []) {
     if (list) {
-        return list.map((recipeIngredient: any) => {
-            recipeIngredient = { ...recipeIngredient }
+        return list.map((element: any) => {
+            let recipeIngredient = { ...element }
             let ingredient = recipeIngredient.ingredient;
             if (ingredient.value && typeof ingredient.value != 'object') {
                 let newIngredient = { id: null, name: ingredient.value };
                 recipeIngredient.ingredient = newIngredient;
             }
             else {
-                recipeIngredient.ingredient = ingredient.value || ingredient;
+                let prevIngredient = ingredient.value ? { ...ingredient.value } : ingredient;
+                let newIngredient = { id: prevIngredient.id, name: prevIngredient.name };
+                recipeIngredient.ingredient = newIngredient;
             }
             return recipeIngredient
         })
@@ -48,7 +50,7 @@ export function fillOrderNumbers(steps: any[]) {
 }
 
 export function clearIds(elements: any[]) {
-    return !elements ? [] : elements.map((element: any) => { return { ...element, id: null } })
+    return !elements ? [] : elements.map((element: any) => { return { ...element, id: typeof element.id === "number" ? null : element.id } })
 }
 
 export function convertToForm(tab: any) {
