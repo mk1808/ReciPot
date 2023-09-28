@@ -1,42 +1,54 @@
-import { createContext, useReducer, useRef, useContext } from "react";
+import { createContext, useReducer, useRef, useContext, useEffect } from "react";
 import { FormSave } from "../data/utilTypes";
 import { getEmptyFormSave } from "../utils/FormInputUtils";
-import { clearIds, convertCategoriesToObjects, convertIngredientsToObjects, convertToObjects, fillOrderNumbers } from "../utils/AddRecipeContextUtil";
+import { clearIds, convertToForm, convertCategoriesToObjects, convertIngredientsToObjects, convertToObjects, fillOrderNumbers } from "../utils/AddRecipeContextUtil";
 import recipesApi from "../api/RecipesApi";
 import { useNavigate } from "react-router-dom";
 import { showErrorAlert, showSuccessAlert } from "../utils/RestUtils";
 import { useTranslation } from "react-i18next";
 import { AlertsDispatchContext } from "./AlertContext";
+import { Recipe } from "../data/types";
 
 export const AddRecipeContext = createContext<any>([]);
 
 export const AddRecipeDispatchContext = createContext<Function>(() => { });
 
-function AddRecipeContextProvider({ children }: any) {
+function AddRecipeContextProvider({ children, editedRecipe }: { children: any, editedRecipe?: Recipe | any }) {
     const navigate = useNavigate();
     const formSave = useRef<FormSave>(getEmptyFormSave());
     const wasSaveSend = useRef<boolean>(false);
     const { t } = useTranslation();
     const alertDispatch = useContext(AlertsDispatchContext);
+    useEffect(() => {
+        if (editedRecipe) {
+            let correctRecipe = { ...editedRecipe };
+            correctRecipe.hashTags = convertToForm(correctRecipe.hashTags);
+            correctRecipe.categories = convertToForm(correctRecipe.categories)
+
+            //todo
+            fields.formValue = correctRecipe;
+        }
+    }, [editedRecipe])
     const [fields, dispatch]: [any, Function] = useReducer(
         addRecipeReducer,
         []
     );
     formSave.current.onSubmit = function (fields: any) {
-        console.log(fields)
         for (const field in fields.formValidity) {
             if (!fields.formValidity[field]) {
                 showErrorAlert(t('p.incorrectFields'), alertDispatch);
-                return false;
+                //return false;
             }
         }
-        fillOrderNumbers(fields.formValue.recipeSteps);
-        clearIds(fields.formValue.recipeSteps);
-        clearIds(fields.formValue.recipeIngredients);
-        fields.formValue.hashTags = convertToObjects(fields.formValue.hashTags);
-        fields.formValue.categories = convertCategoriesToObjects(fields.formValue.categories);
-        convertIngredientsToObjects(fields.formValue.recipeIngredients);
-
+        let formValue = { ...fields.formValue };
+        formValue.recipeSteps = fillOrderNumbers(formValue.recipeSteps);
+        formValue.recipeSteps = clearIds(formValue.recipeSteps);
+        formValue.recipeIngredients = clearIds(formValue.recipeIngredients);
+        formValue.hashTags = convertToObjects(formValue.hashTags);
+        formValue.categories = convertCategoriesToObjects(formValue.categories);
+        formValue.recipeIngredients = convertIngredientsToObjects(formValue.recipeIngredients);
+        console.log("formValue", formValue)
+        return false;
         if (!wasSaveSend.current) {
             wasSaveSend.current = true;
             recipesApi.postRecipe(fields.formValue, formSave.current.onSuccess, formSave.current.onError)
@@ -54,6 +66,7 @@ function AddRecipeContextProvider({ children }: any) {
     }
 
     function addRecipeReducer(fields: any, action: any) {
+        console.log(fields)
         switch (action.type) {
             case 'onChange': {
                 if (action.isIngredientOrStep) {
@@ -134,6 +147,10 @@ function AddRecipeContextProvider({ children }: any) {
                         [action.fieldName]: elValid
                     },
                 };
+            }
+            case 'onRecipeLoaded': {
+                console.log(action.recipe);
+                return;
             }
             default: {
                 throw Error('Unknown action: ' + action.type);

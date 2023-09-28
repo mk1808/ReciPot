@@ -35,6 +35,10 @@ function UpperLeftSide() {
     function getValidity(fieldName: string) {
         return formFields?.formValidity ? formFields?.formValidity[fieldName] : false;
     }
+
+    function getValuesForEdited(fieldName: string){
+        return formFields?.formValue && formFields?.formValue[fieldName];
+    }
     return (
         <div className="text-start">
             {renderNameInput()}
@@ -50,7 +54,7 @@ function UpperLeftSide() {
                 label={t('p.name')}
                 placeholder={t('p.name')}
                 required={true}
-                {...inputAttributesForContext("name", onChange, getValidity)}
+                {...inputAttributesForContext("name", onChange, getValidity, undefined, formFields.formValue)}
             />
         )
     }
@@ -61,7 +65,7 @@ function UpperLeftSide() {
                 label={t('p.description')}
                 placeholder={t('p.description')}
                 rows={5}
-                {...inputAttributesForContext("description", onChange, getValidity)}
+                {...inputAttributesForContext("description", onChange, getValidity, undefined, formFields.formValue)}
             />
         )
     }
@@ -72,7 +76,7 @@ function UpperLeftSide() {
                 label={t('p.image')}
                 placeholder={t('p.image')}
                 required={true}
-                {...inputAttributesForContext("image", onChange, getValidity)}
+                {...inputAttributesForContext("image", onChange, getValidity, undefined, formFields.formValue)}
             />
         )
     }
@@ -82,7 +86,7 @@ function UpperLeftSide() {
             <MyInput
                 label={t('p.url')}
                 placeholder={t('p.url')}
-                {...inputAttributesForContext("url", onChange, getValidity)}
+                {...inputAttributesForContext("url", onChange, getValidity, undefined, formFields.formValue)}
             />
         )
     }

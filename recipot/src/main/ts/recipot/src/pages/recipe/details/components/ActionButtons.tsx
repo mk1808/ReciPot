@@ -25,7 +25,6 @@ function ActionButtons({ recipe, favCollection, isOwner, user }: { recipe: Recip
     const alertDispatch = useContext(AlertsDispatchContext);
     const [showModalAddToCollection, setShowModalAddToCollection] = useState(false);
     const [showModalShare, setShowModalShare] = useState(false);
-    const [showModalDelete, setShowModalDelete] = useState(false);
     const [showModalChangeVisibility, setShowModalChangeVisibility] = useState(false);
     const [accessType, setAccessType] = useState("PRIVATE");
     const [isUser, setIsUser] = useState(false);
@@ -88,7 +87,7 @@ function ActionButtons({ recipe, favCollection, isOwner, user }: { recipe: Recip
                     {isOwner &&
                         <Col>
                             <Tooltip placement="bottom" title={t('p.editRecipeButton')}>
-                                <MyButton.Primary onClick={() => navigate(`/recipe/add/${recipe.id}`)} className="round"><FiEdit3 /></MyButton.Primary>
+                                <MyButton.Primary onClick={() => navigate(`/recipes/edit/${recipe.id}`)} className="round"><FiEdit3 /></MyButton.Primary>
                             </Tooltip>
                         </Col>}
 
