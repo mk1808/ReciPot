@@ -67,7 +67,7 @@ function AddSteps() {
             <div className="text-start">
                 {formFields?.formValue?.recipeSteps?.map((step: any, index: number) => { return renderSingleRow(step, index) })}
             </div>
-            <MyButton.Primary onClick={onAdd}>{t('p.add')} <BsPlusCircleFill className="mb-1 ms-1" /></MyButton.Primary>
+            <MyButton.Primary onClick={onAdd} className="button-width">{t('p.add')} <BsPlusCircleFill className="mb-1 ms-1" /></MyButton.Primary>
         </div>
     );
 
