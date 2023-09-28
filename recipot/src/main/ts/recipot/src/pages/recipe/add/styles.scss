@@ -21,14 +21,8 @@
     }
 
     .ingredient-section {
-
-
-        &>* {
-            margin-bottom: 0px !important;
-
-            input {
-                width: 90px;
-            }
+        .simple-input {
+            width: 85px;
         }
     }
 

@@ -13,7 +13,8 @@ function MyInput({
     required = false,
     onChange = initFcn<any>(),
     isValid,
-    step
+    step,
+    className
 }: {
     name: string,
     label?: string,
@@ -24,7 +25,8 @@ function MyInput({
     defaultValue?: string,
     required?: boolean,
     isValid?: boolean,
-    step?:number
+    step?:number,
+    className?: string
 }) {
     const inputRef = useRef<HTMLInputElement>(null);
     const [inputValue, setInputValue] = useState(defaultValue)
@@ -59,6 +61,7 @@ function MyInput({
                 ref={inputRef}
                 step={step}
                 min={type == "number" ? 0 : undefined}
+                className={className}
             />
         </Form.Group>
     )
