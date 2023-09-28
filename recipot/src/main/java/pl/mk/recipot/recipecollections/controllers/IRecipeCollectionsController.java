@@ -36,7 +36,7 @@ public interface IRecipeCollectionsController {
 
 	@GetMapping("/{collectionId}/recipes")
 	ResponseEntity<Response<Page<RecipeCollectionItem>>> getRecipeCollectionRecipes(
-			@PathVariable UUID collectionId, 
+			@PathVariable UUID collectionId,
 			@RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
 			@RequestParam(name = "pageSize", defaultValue = "10") int pageSize);
 
@@ -45,5 +45,8 @@ public interface IRecipeCollectionsController {
 
 	@DeleteMapping("/{collectionId}")
 	ResponseEntity<Response<Void>> delete(@PathVariable UUID collectionId);
+
+	@GetMapping("/byName/{name}")
+	ResponseEntity<Response<RecipeCollection>> getUserCollectionByName(@PathVariable String name);
 
 }

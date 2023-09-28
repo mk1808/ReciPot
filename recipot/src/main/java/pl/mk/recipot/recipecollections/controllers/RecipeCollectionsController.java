@@ -73,4 +73,9 @@ public class RecipeCollectionsController implements IRecipeCollectionsController
 				.createResponse(recipeCollectionsService.findPageByCollection(collectionId, pageRequest));
 	}
 
+	@Override
+	public ResponseEntity<Response<RecipeCollection>> getUserCollectionByName(String name) {
+		return new OkResponseFactory().createResponse(recipeCollectionsService.getUserCollectionByName(name));
+	}
+
 }
