@@ -33,4 +33,6 @@ public interface IRecipeCollectionsService {
 	Page<RecipeCollectionItem> findPageByCollection(UUID collectionId, Pageable pageRequest);
 	
 	void deleteRecipeFromCollection(Recipe recipe);
+
+	RecipeCollection getUserCollectionByName(String name);
 }

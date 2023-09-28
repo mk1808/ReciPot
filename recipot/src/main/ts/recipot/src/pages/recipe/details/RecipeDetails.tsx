@@ -22,6 +22,7 @@ import privateNotesApi from "../../../api/PrivateNotes";
 import Rating from "./components/Rating";
 import { buildRecipeSearchDto } from "../../../utils/RecipeSearchUtils";
 import { UsersContext } from "../../../context/UserContext";
+import recipeCollectionsApi from "../../../api/RecipeCollectionsApi";
 
 function RecipeDetails() {
     const { t } = useTranslation();
@@ -32,6 +33,7 @@ function RecipeDetails() {
     const [note, setNote] = useState<any | PrivateNoteT>(initAs());
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
     const [isNoteLoaded, setIsNoteLoaded] = useState<boolean>(false);
+    const [favRecipeCollection, setFavRecipeCollection] = useState<any>();
     const id: string = params.id ?? "";
     const [isOwner, setIsOwner] = useState<boolean>(false);
     const user = useContext(UsersContext).user;
@@ -42,6 +44,7 @@ function RecipeDetails() {
         recipesApi.getRecipe(id, onGetRecipeSuccess)
         getOpinions(id);
         recipesApi.getRecipeOwner(id, onGetRecipeOwnerSuccess);
+        recipeCollectionsApi.getUserCollectionByName('Favourite', onGetUserCollectionByNameSuccess)
 
     }, [params])
     useEffect(() => {
@@ -62,6 +65,10 @@ function RecipeDetails() {
         let owner = response.value;
         setIsOwner(!!user && owner.id === user?.id);
     }
+    function onGetUserCollectionByNameSuccess(response:any){
+        setFavRecipeCollection(response.value);
+    }
+
     return (
         <div className='m-2 recipe-details-page'>
             {renderColumns()}
@@ -84,7 +91,7 @@ function RecipeDetails() {
         return (
             <div className="mt-3 main">
                 <MyImage src={recipe.image} height="auto" className="main-img" rounded></MyImage>
-                <ActionButtons recipe={recipe} isOwner={isOwner} user={user} />
+                <ActionButtons recipe={recipe} isOwner={isOwner} user={user} favCollection={favRecipeCollection}/>
                 <MyHeader title={recipe.name}></MyHeader>
                 <Stack direction="horizontal" className="justify-content-between">
                     <div>{renderBreadcrumps()}</div>

@@ -178,4 +178,15 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 		recipeCollectionsItemRepository.deleteAll(existingItems);
 	}
 
+	@Override
+	public RecipeCollection getUserCollectionByName(String name) {
+		AppUser user = authFacade.getCurrentUser();
+		RecipeCollection existingRecipeCollection = recipeCollectionsRepository.getOwnByNameAndUser(name, user.getId());
+		new CheckIfCollectionNotFound().execute(existingRecipeCollection);
+		List<RecipeCollectionItem> recipesList = recipeCollectionsItemRepository.getByCollection(existingRecipeCollection.getId());
+		recipesList.forEach(new CleanRecipeCollectionItem()::execute);
+		existingRecipeCollection.setRecipeCollectionItems(recipesList);
+		return existingRecipeCollection;
+	}
+
 }

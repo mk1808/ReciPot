@@ -389,6 +389,8 @@
 		"step": "Step",
 		"timeAmountInputLabel": "Time amount required to prepare",
 		"addToCollectionButton": "Add to collection",
+		"addToFavouriteButton": "Add to favourites",
+		"removeFromFavouriteButton": "Remove from favourites",
 		"shareRecipeButton": "Share to",
 		"deleteRecipeButton": "Delete",
 		"editRecipeButton": "Edit",
@@ -401,6 +403,6 @@
 		"recipeRemovedFromCollection": "Removed recipe from collection",
 		"noData": "No data",
 		"recipeUrlButton": "Go to recipe's origin page",
-        "incorrectFields": "Incorrect values in form fields"
+		"incorrectFields": "Incorrect values in form fields"
 	}
 }
