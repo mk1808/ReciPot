@@ -21,32 +21,33 @@
 
     .recipes-list,
     .categories {
-        
+
         .title {
             height: 140px;
         }
     }
-    .recipes-list{
+
+    .recipes-list {
         height: 690px;
-        padding-left: 400px;
-        padding-right: 400px;
     }
+
     .categories {
         height: auto;
-        padding-left: 300px;
-        padding-right: 300px;
-        .categories-row{
+
+        .categories-row {
             margin: auto;
-            width: 1200px;
+            max-width: 1500px;
         }
     }
 
     .statistics {
         width: 100%;
         background-color: $secondary-bg-subtle;
-        padding-left: 400px;
-        padding-right: 400px;
         height: auto;
+
+        .main-container {
+            width: 1000px;
+        }
     }
 
     .categories-section {

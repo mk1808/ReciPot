@@ -34,7 +34,7 @@ function Main() {
     const recipeCallback = (recipe: Recipe) => { navigate(`/recipes/${recipe.id}`) }
     const recipeCallbackForSlider = (recipe: Recipe, event: any,) => openInBackground(`/recipes/${recipe.id}`, event, navigate);
     const moreNewRecipesCallback = () => {
-        goToFilters({ recipesSort: { fieldName: 'created', order: 'DESC' }}, navigate);
+        goToFilters({ recipesSort: { fieldName: 'created', order: 'DESC' } }, navigate);
     }
     const [recipes, setRecipes] = useState([]);
     const [statistics, setStatistics] = useState<GeneralStatisticsDto>();
@@ -60,7 +60,6 @@ function Main() {
                 </Row>
                 <Row className="categories">
                     <MainPageCategories></MainPageCategories>
-
                 </Row>
             </Col>
         </div>
@@ -87,18 +86,13 @@ function Main() {
 
     function renderStatistics() {
         return (
-            <div className="my-4">
-                <Stack direction="horizontal" gap={5} className='flex-wrap justify-content-center py-3'>
-                    <div className='col-3'><StatisticCircle value={statistics?.recipesCount ?? 0} size={150} ringSize={30} label={t('p.recipesCount')} /></div>
-                    <div className='col-3'><StatisticCircle value={statistics?.usersCount ?? 0} size={150} ringSize={30} label={t('p.usersCount')} /></div>
-                    <div className='col-3'><StatisticCircle value={statistics?.allRecipeCollectionsCount ?? 0} size={150} ringSize={30} label={t('p.allRecipeCollectionsCount')} /></div>
-                </Stack>
-
+            <div className='d-flex flex-md-row flex-column flex-wrap g-5 justify-content-center py-3 main-container my-4 mx-auto'>
+                <StatisticCircle value={statistics?.recipesCount ?? 0} size={150} ringSize={30} label={t('p.recipesCount')} />
+                <StatisticCircle value={statistics?.usersCount ?? 0} size={150} ringSize={30} label={t('p.usersCount')} />
+                <StatisticCircle value={statistics?.allRecipeCollectionsCount ?? 0} size={150} ringSize={30} label={t('p.allRecipeCollectionsCount')} />
             </div>
         )
     }
-
-
 }
 
 export default Main;
