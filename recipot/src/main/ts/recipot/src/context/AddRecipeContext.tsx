@@ -1,7 +1,7 @@
 import { createContext, useReducer, useRef, useContext, useEffect } from "react";
 import { FormSave } from "../data/utilTypes";
 import { getEmptyFormSave } from "../utils/FormInputUtils";
-import { clearIds, convertToForm, convertCategoriesToObjects, convertIngredientsToObjects, convertToObjects, fillOrderNumbers, convertRecipeIngredientsToForm } from "../utils/AddRecipeContextUtil";
+import { clearIds, convertToForm, convertCategoriesToObjects, convertIngredientsToObjects, convertToObjects, fillOrderNumbers, convertRecipeIngredientsToForm, getDefaultValidityForEdit } from "../utils/AddRecipeContextUtil";
 import recipesApi from "../api/RecipesApi";
 import { useNavigate } from "react-router-dom";
 import { showErrorAlert, showSuccessAlert } from "../utils/RestUtils";
@@ -25,7 +25,7 @@ function AddRecipeContextProvider({ children, editedRecipe }: { children: any, e
             correctRecipe.hashTags = convertToForm(correctRecipe.hashTags);
             correctRecipe.categories = convertToForm(correctRecipe.categories)
             correctRecipe.recipeIngredients = convertRecipeIngredientsToForm(correctRecipe.recipeIngredients)
-            //todo
+            fields.formValidity = getDefaultValidityForEdit(fields.formValidity);
             fields.formValue = correctRecipe;
         }
     }, [editedRecipe])
@@ -72,11 +72,11 @@ function AddRecipeContextProvider({ children, editedRecipe }: { children: any, e
                 if (action.isIngredientOrStep) {
                     if (fields.formValue[action.fieldName][action.index]) {
                         fields.formValue[action.fieldName][action.index][action.subFieldName] = action.fieldValue;
-                        if(!fields.formValidity[action.fieldName]){
-                            fields.formValidity[action.fieldName]=[]
+                        if (!fields.formValidity[action.fieldName]) {
+                            fields.formValidity[action.fieldName] = []
                         }
-                        if(!fields.formValidity[action.fieldName][action.index]){
-                            fields.formValidity[action.fieldName][action.index]={}
+                        if (!fields.formValidity[action.fieldName][action.index]) {
+                            fields.formValidity[action.fieldName][action.index] = {}
                         }
                         fields.formValidity[action.fieldName][action.index][action.subFieldName] = action.fieldValidity;
                     }
