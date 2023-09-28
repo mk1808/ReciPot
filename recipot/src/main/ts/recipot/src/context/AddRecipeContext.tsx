@@ -156,7 +156,7 @@ function AddRecipeContextProvider({ children, editedRecipe }: { children: any, e
                         [action.fieldName]: el
                     },
                     formValidity: {
-                        ...fields.formValue,
+                        ...fields.formValidity,
                         [action.fieldName]: elValid
                     },
                 };
