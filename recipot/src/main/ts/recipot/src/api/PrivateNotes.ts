@@ -8,7 +8,7 @@ function PrivateNotesApi() {
         restClient.post(`${PREFIX}`, body, onSuccess, onError)
     }
 
-    const deletePrivateNote = (privateNoteId: string, onSuccess: (response: Response<any>) => any, onError?: (response: Response<any>) => any) => {
+    const deletePrivateNote = (privateNoteId: string, onSuccess: any, onError?: (response: Response<any>) => any) => {
         restClient.delete(`${PREFIX}/${privateNoteId}`, onSuccess, onError)
     }
 

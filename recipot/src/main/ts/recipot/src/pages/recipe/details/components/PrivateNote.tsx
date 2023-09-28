@@ -23,20 +23,29 @@ function PrivateNote({ recipe, note }: { recipe: Recipe, note: PrivateNoteT }) {
     const formSave: FormSave = getEmptyFormSave();
     formSave.onSubmit = function (formValue: any) {
         if (isEditModeOn) {
-            let note = { ...formValue };
-            note.recipe = { id: recipe.id };
-            privateNotesApi.createPrivateNote(note, formSave.onSuccess)
+            if (formValue.content && formValue.content.trim()) {
+                return saveNote(formValue);
+            }
+            deleteNote();
         }
-
     }
     formSave.onSuccess = function (response: any) {
-
         setIsEditModeOn(!isEditModeOn);
-        showSuccessAlert(t("p.noteSaved"), alertsDispatchContext);
-
+        if (response.message) {
+            showSuccessAlert(t(response.message), alertsDispatchContext);
+        }
+        else {
+            showSuccessAlert(t("p.noteSaved"), alertsDispatchContext);
+        }
     }
-    formSave.onError = function () {
-
+    formSave.onError = function () {}
+    function saveNote(formValue: any) {
+        let note = { ...formValue };
+        note.recipe = { id: recipe.id };
+        privateNotesApi.createPrivateNote(note, formSave.onSuccess)
+    }
+    function deleteNote() {
+        privateNotesApi.deletePrivateNote(note.id, formSave.onSuccess);
     }
     return (
         <div className="mb-5 px-5 private-note">
