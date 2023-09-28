@@ -389,6 +389,8 @@
         "step": "Krok",
         "timeAmountInputLabel": "Ilość czasu na przygotowanie",
         "addToCollectionButton": "Dodaj do kolekcji",
+        "addToFavouriteButton": "Dodaj do ulubionych",
+        "removeFromFavouriteButton": "Usuń z ulubionych",
         "shareRecipeButton": "Udostępnij",
         "deleteRecipeButton": "Usuń przepis",
         "editRecipeButton": "Edytuj przepis",

@@ -35,7 +35,11 @@ function RecipeCollectionsApi() {
         restClient.delete(`${PREFIX}/${collectionId}`, onSuccess, onError)
     }
 
-    return { createCollection, addCollectionItem, getCollection, getUserRecipeCollections, deleteRecipeFromCollection, deleteCollection, getRecipeCollectionRecipes }
+    const getUserCollectionByName = (name: string, onSuccess: any, onError?: (response: Response<any>) => any) => {
+        restClient.get(`${PREFIX}/byName/${name}`, onSuccess, onError)
+    }
+
+    return { createCollection, addCollectionItem, getCollection, getUserRecipeCollections, deleteRecipeFromCollection, deleteCollection, getRecipeCollectionRecipes, getUserCollectionByName }
 }
 
 const recipeCollectionsApi = RecipeCollectionsApi();
