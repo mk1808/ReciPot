@@ -61,11 +61,11 @@ function RecipeDetails() {
         const filter: RecipeSearchDto = buildRecipeSearchDto({ categories: response.value.categories, recipesSort: { fieldName: "created", order: "DESC" } });
         recipesApi.search(filter, { pageNum: 0, pageSize: 10 }, (response) => { setOtherRecipes(response.value.content) });
     }
-    function onGetRecipeOwnerSuccess(response:any){
+    function onGetRecipeOwnerSuccess(response: any) {
         let owner = response.value;
         setIsOwner(!!user && owner.id === user?.id);
     }
-    function onGetUserCollectionByNameSuccess(response:any){
+    function onGetUserCollectionByNameSuccess(response: any) {
         setFavRecipeCollection(response.value);
     }
 
@@ -76,14 +76,14 @@ function RecipeDetails() {
     );
     function renderColumns() {
         return (
-            <Stack direction="horizontal" className="align-items-stretch details-container container" gap={2}>
+            <div className='d-flex flex-lg-row flex-column align-items-stretch details-container justify-content-center gy-2'>
                 <div className='basic-container-border p-3 main-container' ref={mainRef} >
                     {isLoaded && renderMainRecipeColumn()}
                 </div>
-                <div className='basic-container-border p-3'>
+                <div className='basic-container-border p-3 ms-md-2'>
                     <OtherColumn recipes={otherRecipes} />
                 </div>
-            </Stack>
+            </div>
         )
     }
 
@@ -91,7 +91,7 @@ function RecipeDetails() {
         return (
             <div className="mt-3 main">
                 <MyImage src={recipe.image} height="auto" className="main-img" rounded></MyImage>
-                <ActionButtons recipe={recipe} isOwner={isOwner} user={user} favCollection={favRecipeCollection}/>
+                <ActionButtons recipe={recipe} isOwner={isOwner} user={user} favCollection={favRecipeCollection} />
                 <MyHeader title={recipe.name}></MyHeader>
                 <Stack direction="horizontal" className="justify-content-between">
                     <div>{renderBreadcrumps()}</div>
@@ -108,7 +108,7 @@ function RecipeDetails() {
                 </>
                 }
                 <hr />
-                <Comments recipe={recipe} opinions={opinions} getOpinions={getOpinions} />
+                <Comments recipe={recipe} opinions={opinions} getOpinions={getOpinions} />   {/** */}
 
             </div>
         )

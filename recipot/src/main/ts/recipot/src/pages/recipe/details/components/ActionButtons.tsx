@@ -1,4 +1,4 @@
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Stack } from "react-bootstrap";
 import AddToCollectionDialog from "./dialogs/AddToCollectionDialog";
 import ShareRecipeDialog from "./dialogs/ShareRecipeDialog";
 import DeleteRecipeDialog from "./dialogs/DeleteRecipeDialog";
@@ -56,50 +56,47 @@ function ActionButtons({ recipe, favCollection, isOwner, user }: { recipe: Recip
     }, [])
 
     return (<>
-        <Row className="align-center action-buttons">
-            <Col md="6"></Col>
-            <Col md="6">
-                <Row>
-                    {!isOwner && <Col></Col>}
-                    {!isOwner && <Col></Col>}
-                    {!isOwner && <Col></Col>}
-                    {isUser &&
-                        <Col>
-                            <Tooltip placement="bottom" title={t(getAddToFavText())}>
-                                <MyButton.Primary onClick={addOrRemoveFromFavourites} className="round">{getAddToFavIcon()}</MyButton.Primary>
-                            </Tooltip>
-                        </Col>
-                    }
-                    {isUser &&
-                        <Col>
-                            <Tooltip placement="bottom" title={t('p.addToCollectionButton')}>
-                                <MyButton.Primary onClick={() => setShowModalAddToCollection(true)} className="round"><BsCollectionFill /></MyButton.Primary>
-                            </Tooltip>
-                        </Col>
-                    }
-                    {isUser &&
-                        <Col>
-                            <Tooltip placement="bottom" title={t('p.shareRecipeButton')}>
-                                <MyButton.Primary onClick={() => setShowModalShare(true)} className="round"><BsShare /></MyButton.Primary>
-                            </Tooltip>
-                        </Col>}
+        <Stack direction="horizontal" className="align-center action-buttons justify-content-end">
 
-                    {isOwner &&
-                        <Col>
-                            <Tooltip placement="bottom" title={t('p.editRecipeButton')}>
-                                <MyButton.Primary onClick={() => navigate(`/recipes/edit/${recipe.id}`)} className="round"><FiEdit3 /></MyButton.Primary>
-                            </Tooltip>
-                        </Col>}
 
-                    {isOwner &&
-                        <Col>
-                            <Tooltip placement="bottom" title={t('p.changeRecipeVisibilityButton')}>
-                                <MyButton.Primary onClick={() => setShowModalChangeVisibility(true)} className="round" >{getAccessTypeIcon()}</MyButton.Primary>
-                            </Tooltip>
-                        </Col>}
-                </Row>
-            </Col>
-        </Row>
+
+            {isUser &&
+                <div>
+                    <Tooltip placement="bottom" title={t(getAddToFavText())}>
+                        <MyButton.Primary onClick={addOrRemoveFromFavourites} className="round mx-4">{getAddToFavIcon()}</MyButton.Primary>
+                    </Tooltip>
+                </div>
+            }
+            {isUser &&
+                <div>
+                    <Tooltip placement="bottom" title={t('p.addToCollectionButton')}>
+                        <MyButton.Primary onClick={() => setShowModalAddToCollection(true)} className="round mx-4"><BsCollectionFill /></MyButton.Primary>
+                    </Tooltip>
+                </div>
+            }
+            {isUser &&
+                <div>
+                    <Tooltip placement="bottom" title={t('p.shareRecipeButton')}>
+                        <MyButton.Primary onClick={() => setShowModalShare(true)} className="round mx-4"><BsShare /></MyButton.Primary>
+                    </Tooltip>
+                </div>}
+
+            {isOwner &&
+                <div>
+                    <Tooltip placement="bottom" title={t('p.editRecipeButton')}>
+                        <MyButton.Primary onClick={() => navigate(`/recipes/edit/${recipe.id}`)} className="round mx-4"><FiEdit3 /></MyButton.Primary>
+                    </Tooltip>
+                </div>}
+
+            {isOwner &&
+                <div>
+                    <Tooltip placement="bottom" title={t('p.changeRecipeVisibilityButton')}>
+                        <MyButton.Primary onClick={() => setShowModalChangeVisibility(true)} className="round mx-4" >{getAccessTypeIcon()}</MyButton.Primary>
+                    </Tooltip>
+                </div>}
+
+
+        </Stack>
         {renderDialogs()}
     </>)
     function renderDialogs() {
