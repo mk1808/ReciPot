@@ -39,22 +39,16 @@ function CategoryCards() {
             let categories = prepareCategories(response);
 
             setCategoriesInRows(categories);
-            //setAllCategories(response.value);
         })
     }, [])
     return (
-        <>
-            {readyCategories.map((readyCategoriesRow, index) => {
-                return (
-                    <Stack direction="horizontal" gap={3} className="align-items-stretch justify-content-center my-5 categories-row" key={index}>
-                        {
-                            readyCategoriesRow.map((singleRow: CategoryDto) =>
-                                <CategoryCard category={singleRow} className="col-4" key={singleRow.id} onCategorySelect={onCategoryClick} />)
-                        }
-                    </Stack>
-                )
-            })}
-        </>
+        <Stack direction="horizontal" className=" flex-wrap align-items-stretch justify-content-center my-5 categories-row" >
+            {allCategories.map((singleRow: CategoryDto) =>
+                <div className="col-lg-4 col-md-6 col-12 p-2" key={singleRow.id}>
+                    <CategoryCard category={singleRow} className="h-100" key={singleRow.id} onCategorySelect={onCategoryClick} />
+                </div>
+            )}
+        </Stack>
     )
 }
 
