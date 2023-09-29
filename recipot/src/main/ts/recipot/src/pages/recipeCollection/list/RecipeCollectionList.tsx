@@ -7,6 +7,7 @@ import CollectionList from './components/CollectionList';
 import NewCollectionForm from './components/NewCollectionForm';
 import { RecipeCollectionListContextProvider } from './context/RecipeCollectionListContext';
 import CollectionRecipesPagination from './components/CollectionRecipesPagination';
+import MyCollapse from '../../../components/basicUi/MyCollapse';
 
 function RecipeCollectionList() {
     const { t } = useTranslation();
@@ -23,20 +24,31 @@ function RecipeCollectionList() {
     function renderColumns() {
         return (
             <Row className='gx-2 m-3'>
-                <Col sm={3}>
-                    <div className='h-100 basic-container-border p-3'>{renderCollectionsColumn()}</div>
+                <Col xs={12} md={3} className='collections-column'>
+                    <div className='h-100 basic-container-border p-3'>{renderCollectionsColumnOrCollapse()}</div>
                 </Col>
-                <Col sm={9}>
+                <Col>
                     <div className='h-100 container-fluid basic-container-border'>{renderContent()}</div>
                 </Col>
             </Row>
         )
     }
 
+    function renderCollectionsColumnOrCollapse() {
+        return (
+            <>
+                <div className='h-100 basic-container-border p-3 hide-md'>
+                    <h2>{t('p.savedCollections')}</h2>
+                    <br />
+                    {renderCollectionsColumn()}
+                </div>
+                <div className="show-md"><MyCollapse header={t("p.savedCollections")}>{renderCollectionsColumn()}</MyCollapse></div>
+            </>
+        )
+    }
+
     function renderCollectionsColumn() {
         return (<>
-            <h2>{t('p.savedCollections')}</h2>
-            <br />
             <CollectionList />
             <hr />
             <NewCollectionForm />
