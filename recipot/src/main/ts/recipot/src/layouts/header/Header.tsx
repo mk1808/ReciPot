@@ -38,16 +38,18 @@ function Header() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid>
-        <Navbar.Brand href="#" onClick={gotToMainPage}>Recipot</Navbar.Brand>
+        {renderRecipotLogo()}
+        {renderNotifications()}
         <Navbar.Toggle aria-controls="navbarScroll" />
         {renderCollapse()}
       </Container>
     </Navbar>
   );
 
-  function renderCollapse() {
+  function renderRecipotLogo() {
     return (
-      <Navbar.Collapse id="navbarScroll" className="justify-content-end">
+      <>
+        <Navbar.Brand href="#" onClick={gotToMainPage}>Recipot</Navbar.Brand>
         <Nav
           className="me-auto my-2 my-lg-0 cursor-pointer"
           style={{ maxHeight: '100px' }}
@@ -56,6 +58,13 @@ function Header() {
         >
           <GiCookingPot className='fs-4' />
         </Nav>
+      </>
+    );
+  }
+
+  function renderCollapse() {
+    return (
+      <Navbar.Collapse id="navbarScroll" className="justify-content-end">
         {renderRightSide()}
       </Navbar.Collapse>
     )
@@ -86,9 +95,12 @@ function Header() {
             </>
           }
         </NavDropdown>
-        {isLogged() && <NotificationManager />}
       </Nav>
     )
+  }
+
+  function renderNotifications() {
+    return isLogged() && <div className='mx-3'><NotificationManager /></div>
   }
 }
 
