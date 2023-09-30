@@ -48,8 +48,7 @@ function UpperLeftSide() {
     }
     return (
         <div className="text-start">
-            {editedRecipe && renderDeleteButton()}
-            {editedRecipe && renderModal()}
+            {editedRecipe && renderDeleteButtonModal()}
             {renderNameInput()}
             {renderDescriptionInput()}
             {renderImageInput()}
@@ -57,10 +56,11 @@ function UpperLeftSide() {
         </div>
     );
 
-    function renderDeleteButton() {
+    function renderDeleteButtonModal() {
         return (
             <div className="text-center delete-button">
                 <MyButton.Outline onClick={() => setShowModalDelete(true)}> <MdOutlineDeleteOutline /> {t('p.deleteRecipeButton')}</MyButton.Outline>
+                {renderModal()}
             </div>
         )
     }
