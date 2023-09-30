@@ -6,7 +6,7 @@
 .recipe-details-page {
     .details-container {
         .main-container {
-            width: 1075px;
+            max-width: 1075px;
         }
     }
 
@@ -27,20 +27,22 @@
         .action-buttons {
             position: relative;
 
-            .row {
+            div {
                 position: relative;
-                top: -50%;
 
                 button {
+                    position: relative;
+                    top: -38px;
                     font-size: 20px;
-                    width: 50px;
-                    height: 50px;
+                    width: 60px;
+                    height: 60px;
                     box-shadow: 0px 0px 34px 0px rgba(34, 42, 134, 1);
                 }
             }
         }
 
         .basic-info {
+            clear: both;
             text-align: start;
             font-size: 19px;
 
@@ -49,17 +51,22 @@
             }
         }
 
-        .rating {
-            font-size: 22px;
-            height: 100%;
-            align-items: center;
-            text-align: right;
+        .rating-section {
+            float: right;
 
-            .star-col {
-                margin-top: 7px;
-                padding-left: 50px
+            .rating {
+                font-size: 22px;
+                height: 100%;
+                align-items: center;
+                text-align: right;
+
+                .star-col {
+                    margin-top: 7px;
+                    padding-left: 50px
+                }
             }
         }
+
 
 
 
@@ -75,13 +82,19 @@
                 font-size: 35px;
             }
 
-            .col {
+            .icon-col {
                 text-align: center;
                 border-right: 1px dashed $secondary;
             }
 
-            :last-child {
+            >:last-child {
                 border-right: 0px dashed $secondary;
+            }
+
+            @media (max-width: 768px) {
+                >:last-child {
+                    border-right: 1px dashed $secondary;
+                }
             }
         }
 
@@ -98,6 +111,10 @@
         }
 
         .steps {
+            .step-text {
+                padding-left: 2rem;
+            }
+
             .list {
                 text-align: start;
             }
@@ -123,7 +140,8 @@
                     min-height: 50px;
                     background-color: rgb(250, 248, 248);
                     text-align: start;
-                    width: 850px;
+                    width: 100%;
+                    ;
                     padding: 6px;
                 }
             }
@@ -141,7 +159,6 @@
         }
 
         .recipes {
-          //  height: 100%;
             .list {
                 text-align: start;
             }

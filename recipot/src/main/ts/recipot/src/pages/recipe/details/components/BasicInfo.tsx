@@ -23,8 +23,8 @@ function BasicInfo({ recipe }: { recipe: Recipe }) {
             </div>
             <Row className="mb-5">
                 <Col>
-                    <Row className="align-center icon-info">
-                        <Col>
+                    <Row className="align-center icon-info ">
+                        <Col className="icon-col" xs={6} md={3}>
                             {renderSingleInfoIcon({
                                 tooltip: "timeInfo",
                                 icon: (className: string) => <MdAccessTime className={className} />,
@@ -32,7 +32,7 @@ function BasicInfo({ recipe }: { recipe: Recipe }) {
                                 value: `${convertToTime(recipe.timeAmount)}`
                             })}
                         </Col>
-                        <Col>
+                        <Col className="icon-col" xs={6} md={3}>
                             {renderSingleInfoIcon({
                                 tooltip: "amountOfDishesInfo",
                                 icon: (className: string) => <GiCookingPot className={className} />,
@@ -41,7 +41,7 @@ function BasicInfo({ recipe }: { recipe: Recipe }) {
                             })}
 
                         </Col>
-                        <Col>
+                        <Col className="icon-col" xs={6} md={3}>
                             {renderSingleInfoIcon({
                                 tooltip: "effortInfo",
                                 icon: (className: string) => <MdWork className={className} />,
@@ -50,7 +50,7 @@ function BasicInfo({ recipe }: { recipe: Recipe }) {
                             })}
 
                         </Col>
-                        <Col>
+                        <Col className="icon-col" xs={6} md={3}>
                             {renderSingleInfoIcon({
                                 tooltip: "difficultyInfo",
                                 icon: (className: string) => <VscTools className={className} />,

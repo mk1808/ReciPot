@@ -12,7 +12,7 @@ function Steps({ recipe }: { recipe: Recipe }) {
     { description: stepText }, { description: stepText }, { description: stepText }, { description: stepText }, { description: stepText }, { description: stepText }, { description: stepText }]
     )
     return (
-        <div className="mb-5 px-5 steps">
+        <div className="mb-5 px-xl-5 px-2 steps">
             <h4 className="my-3 display-4">{t('p.recipeSteps')}</h4>
             <div className="list">
                 {renderSteps()}
