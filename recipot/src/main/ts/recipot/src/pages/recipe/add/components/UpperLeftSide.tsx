@@ -2,13 +2,20 @@ import { useTranslation } from "react-i18next";
 import MyInput from "../../../../components/basicUi/MyInput";
 import MyTextarea from "../../../../components/basicUi/MyTextarea";
 import { AddRecipeContext, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { inputAttributes, inputAttributesForContext } from "../../../../utils/FormInputUtils";
+import MyButton from "../../../../components/basicUi/MyButton";
+import DeleteRecipeDialog from "../../details/components/dialogs/DeleteRecipeDialog";
+import { Recipe } from "../../../../data/types";
+import { initAs } from "../../../../utils/ObjectUtils";
+import { MdOutlineDeleteOutline } from "react-icons/md";
 
 function UpperLeftSide() {
     const { t } = useTranslation();
     const addRecipeDispatchContext = useContext(AddRecipeDispatchContext);
     const formFields = useContext(AddRecipeContext).fields;
+    const [showModalDelete, setShowModalDelete] = useState(false);
+    const editedRecipe = useContext(AddRecipeContext).editedRecipe;
 
     function onChange(fieldValue: any, fieldName: string) {
         addRecipeDispatchContext({
@@ -36,11 +43,12 @@ function UpperLeftSide() {
         return formFields?.formValidity ? formFields?.formValidity[fieldName] : false;
     }
 
-    function getValuesForEdited(fieldName: string){
+    function getValuesForEdited(fieldName: string) {
         return formFields?.formValue && formFields?.formValue[fieldName];
     }
     return (
         <div className="text-start">
+            {editedRecipe && renderDeleteButtonModal()}
             {renderNameInput()}
             {renderDescriptionInput()}
             {renderImageInput()}
@@ -48,6 +56,14 @@ function UpperLeftSide() {
         </div>
     );
 
+    function renderDeleteButtonModal() {
+        return (
+            <div className="text-center delete-button">
+                <MyButton.Outline onClick={() => setShowModalDelete(true)}> <MdOutlineDeleteOutline /> {t('p.deleteRecipeButton')}</MyButton.Outline>
+                {renderModal()}
+            </div>
+        )
+    }
     function renderNameInput() {
         return (
             <MyInput
@@ -81,7 +97,7 @@ function UpperLeftSide() {
         )
     }
 
-    function renderUrlInput(){
+    function renderUrlInput() {
         return (
             <MyInput
                 label={t('p.url')}
@@ -89,6 +105,10 @@ function UpperLeftSide() {
                 {...inputAttributesForContext("url", onChange, getValidity, undefined, formFields.formValue)}
             />
         )
+    }
+
+    function renderModal() {
+        return <DeleteRecipeDialog showModal={showModalDelete} handleClose={() => setShowModalDelete(false)} data={editedRecipe || initAs()}></DeleteRecipeDialog>;
     }
 }
 
