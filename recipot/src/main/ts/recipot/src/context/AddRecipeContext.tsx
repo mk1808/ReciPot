@@ -172,7 +172,7 @@ function AddRecipeContextProvider({ children, editedRecipe }: { children: any, e
     }
 
     return (
-        <AddRecipeContext.Provider value={{ fields }}>
+        <AddRecipeContext.Provider value={{ fields, editedRecipe }}>
             <AddRecipeDispatchContext.Provider value={dispatch}>
                 {children}
             </AddRecipeDispatchContext.Provider>
