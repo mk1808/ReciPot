@@ -106,7 +106,7 @@ function RecipeDetails() {
                 </>
                 }
                 <hr />
-                <Comments recipe={recipe} opinions={opinions} getOpinions={getOpinions} />   {/** */}
+                <Comments recipe={recipe} opinions={opinions} getOpinions={getOpinions} />
 
             </div>
         )
