@@ -93,10 +93,8 @@ function RecipeDetails() {
                 <MyImage src={recipe.image} height="auto" className="main-img" rounded></MyImage>
                 <ActionButtons recipe={recipe} isOwner={isOwner} user={user} favCollection={favRecipeCollection} />
                 <MyHeader title={recipe.name}></MyHeader>
-                <Stack direction="horizontal" className="justify-content-between">
-                    <div>{renderBreadcrumps()}</div>
-                    <div><Rating recipe={recipe} /></div>
-                </Stack>
+                <div>{renderBreadcrumps()}</div>
+                <div className="rating-section"><Rating recipe={recipe} /></div>
                 <BasicInfo recipe={recipe} />
                 <hr />
                 <IngredientList recipe={recipe} />

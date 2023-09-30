@@ -42,6 +42,7 @@
         }
 
         .basic-info {
+            clear: both;
             text-align: start;
             font-size: 19px;
 
@@ -50,17 +51,22 @@
             }
         }
 
-        .rating {
-            font-size: 22px;
-            height: 100%;
-            align-items: center;
-            text-align: right;
+        .rating-section {
+            float: right;
 
-            .star-col {
-                margin-top: 7px;
-                padding-left: 50px
+            .rating {
+                font-size: 22px;
+                height: 100%;
+                align-items: center;
+                text-align: right;
+
+                .star-col {
+                    margin-top: 7px;
+                    padding-left: 50px
+                }
             }
         }
+
 
 
 
@@ -76,13 +82,19 @@
                 font-size: 35px;
             }
 
-            .col {
+            .icon-col {
                 text-align: center;
                 border-right: 1px dashed $secondary;
             }
 
-            :last-child {
+            >:last-child {
                 border-right: 0px dashed $secondary;
+            }
+
+            @media (max-width: 768px) {
+                >:last-child {
+                    border-right: 1px dashed $secondary;
+                }
             }
         }
 
@@ -99,6 +111,10 @@
         }
 
         .steps {
+            .step-text {
+                padding-left: 2rem;
+            }
+
             .list {
                 text-align: start;
             }
