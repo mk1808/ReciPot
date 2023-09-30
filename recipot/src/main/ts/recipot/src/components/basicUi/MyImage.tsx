@@ -1,4 +1,6 @@
 import { Image } from "react-bootstrap";
+import { initFcn } from "../../utils/ObjectUtils";
+import { onImageLoadError } from "../../utils/RestUtils";
 
 function MyImage({
     src = "",
@@ -6,18 +8,27 @@ function MyImage({
     width = "auto",
     rounded = false,
     className = "m-3",
-    roundedCircle = false
+    roundedCircle = false,
+    onClick = initFcn<any>()
 }: {
     src: string,
     height?: number | string,
     width?: number | string,
     rounded?: boolean,
     className?: string,
-    roundedCircle?: boolean
+    roundedCircle?: boolean,
+    onClick?: any
 }) {
-
     return (
-        <Image className={className} src={src} rounded={rounded} roundedCircle={roundedCircle} height={height} width={width} />
+        <Image
+            className={className}
+            src={src}
+            rounded={rounded}
+            roundedCircle={roundedCircle}
+            height={height}
+            width={width}
+            onClick={onClick}
+            onError={onImageLoadError} />
     );
 }
 
