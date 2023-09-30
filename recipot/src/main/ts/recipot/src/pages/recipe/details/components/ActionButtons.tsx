@@ -53,7 +53,7 @@ function ActionButtons({ recipe, favCollection, isOwner, user }: { recipe: Recip
         setAccessType(recipe.accessType);
         setIsUser(!!user);
         checkFavourite();
-    }, [])
+    }, [user])
 
     return (<>
         <Stack direction="horizontal" className="align-center action-buttons justify-content-end">
