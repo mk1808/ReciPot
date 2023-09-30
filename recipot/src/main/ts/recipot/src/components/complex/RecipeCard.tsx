@@ -8,6 +8,7 @@ import { initFcn } from '../../utils/ObjectUtils';
 import { renderRating } from './RecipeCardCommonElements';
 import { getShorterText } from '../../utils/TextUtils';
 import HashTagList from '../basicUi/HashTagList';
+import { onImageLoadError } from "../../utils/RestUtils";
 
 function RecipeCard({
     recipe,
@@ -21,11 +22,10 @@ function RecipeCard({
     additionalFunctionElement?: any
 }, ref: any) {
     const { t } = useTranslation();
-    const defaultImage = 'https://violashop.in/wp-content/uploads/2021/07/Viola-Candescent-Cutlery-Set-3.jpg'
 
     return (
         <Card className={`recipe-card mb-2 ${(className || "me-2")}`} ref={ref}>
-            <Card.Img variant="top" src={recipe.image ?? defaultImage} height={180} />
+            <Card.Img variant="top" src={recipe.image} height={180} onError={onImageLoadError} />
             <Card.Body className="body">
                 <Card.Title> {recipe.name} </Card.Title>
 

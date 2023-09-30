@@ -1,5 +1,7 @@
 import { Response } from "../data/types";
 
+const DEFAULT_IMAGE = 'https://violashop.in/wp-content/uploads/2021/07/Viola-Candescent-Cutlery-Set-3.jpg';
+
 export function createPathParams(params: any) {
     var pathParams = "";
     for (const param in params) {
@@ -34,4 +36,9 @@ export function onShowAlertOnErrorResponse(response: Response<any>, alertDispatc
     } catch (e) {
         showErrorAlert(t(response.message), alertDispatchContest);
     }
+}
+
+export const onImageLoadError = ({ currentTarget }: any) => {
+    currentTarget.onerror = null;
+    currentTarget.src = DEFAULT_IMAGE;
 }
