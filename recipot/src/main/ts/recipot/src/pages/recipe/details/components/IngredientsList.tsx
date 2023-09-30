@@ -38,18 +38,27 @@ function IngredientList({ recipe }: { recipe: Recipe }) {
         localStorage.setItem("checkedIngredients", JSON.stringify(recipesIngredients))
     }
 
-    return (
-        <div className="mb-5 px-5 ingredients">
-            <h4 className="my-3 display-4">{t('p.ingredients')}</h4>
-            <div className="px-3 list ">
-                {renderIngredients()}
+    function shouldRenderIngredients() {
+        return recipe?.recipeIngredients && recipe.recipeIngredients.length > 0;
+    }
+
+    if (shouldRenderIngredients()) {
+        return (<>
+            <div className="mb-5 px-5 ingredients">
+                <h4 className="my-3 display-4">{t('p.ingredients')}</h4>
+                <div className="px-3 list ">
+                    {renderIngredients()}
+                </div>
             </div>
-        </div>
-    )
+            <hr />
+        </>);
+    }
+    return (<></>);
+
     function renderIngredients() {
         return (
             <>
-                {recipe.recipeIngredients.map(singleIngredient => renderSingleIngredient(singleIngredient) )}
+                {recipe.recipeIngredients.map(singleIngredient => renderSingleIngredient(singleIngredient))}
             </>
         )
     }
