@@ -372,6 +372,7 @@
         "difficultyInfo": "Określa, czy przepis wymaga dużych umiejętności",
         "noteSaved": "Notatka została zapisana!",
         "noComment": "Brak komentarza",
+        "noCommentsPresents": "Nie ma jeszcze komentarzy do tego przepisu. Zaloguj się, aby dodać pierwszy komentarz!",
         "rating": "Ocena",
         "publishDate": "Data opublikowania",
         "ratingAddSuccess": "Ocena została dodana!",

@@ -372,6 +372,7 @@
 		"difficultyInfo": "Shows if recipe requires advanced cooking skills",
 		"noteSaved": "Private note has been saved successfully!",
 		"noComment": "No comment",
+		"noCommentsPresents": "There is no comments for this recipe. Log in to add first comment!",
 		"rating": "Rating",
 		"publishDate": "Publish date",
 		"ratingAddSuccess": "Rating has been added successfully!",

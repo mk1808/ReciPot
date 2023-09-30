@@ -15,6 +15,7 @@ import opinionsApi from "../../../../api/OpinionsApi";
 import { showSuccessAlert } from "../../../../utils/RestUtils";
 import { AlertsDispatchContext } from "../../../../context/AlertContext";
 import { UsersContext } from "../../../../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: Recipe, getOpinions: any }) {
     const { t } = useTranslation();
@@ -23,7 +24,8 @@ function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: 
     const [userOpinion, setUserOpinion] = useState<any>(false);
     const alertsDispatchContext = useContext(AlertsDispatchContext);
     const user = useContext(UsersContext).user;
-    const content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut consectetur sem ut nisl bibendum, sed iaculis sem accumsan. Phasellus viverra malesuada tincidunt."
+    const navigate = useNavigate();
+
     useEffect(() => {
         setIsEditModeOn(true);
         if (user) {
@@ -52,20 +54,18 @@ function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: 
         }
     }
 
-    function shouldRenderComments() {
-        return user || (opinions && opinions.length > 0);
+    function areCommentsEmpty() {
+        return !user && (!opinions || opinions.length == 0);
     }
 
-    if (shouldRenderComments()) {
-        return (
-            <div className="mb-5 px-5 comments">
-                <h4 className="my-3 display-4">{t('p.comments')}</h4>
-                {user && renderForm()}
-                {renderPageOfComments()}
-            </div>
-        )
-    }
-    return (<></>);
+    return (
+        <div className="mb-5 px-5 comments">
+            <h4 className="my-3 display-4">{t('p.comments')}</h4>
+            {user && renderForm()}
+            {renderPageOfComments()}
+            {areCommentsEmpty() && renderCommentsEmpty()}
+        </div>
+    )
 
     function renderForm() {
         return (
@@ -74,9 +74,9 @@ function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: 
     }
 
     function renderPageOfComments() {
-        return <>
+        return (<>
             {opinions.map((comment: any, index: number) => { return (renderComments(comment, index)); })}
-        </>
+        </>)
     }
     function renderComments(comment: any, index: number) {
         return (
@@ -110,6 +110,19 @@ function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: 
             </Stack>
         );
 
+    }
+    function renderCommentsEmpty() {
+        return (
+            <div>
+                <h3>{t('p.noCommentsPresents')}</h3>
+                <br />
+
+                <MyButton.Primary className="button-400" onClick={() => navigate('/login')}>
+                    {t('p.login')}
+                </MyButton.Primary>
+
+            </div>
+        )
     }
 }
 
