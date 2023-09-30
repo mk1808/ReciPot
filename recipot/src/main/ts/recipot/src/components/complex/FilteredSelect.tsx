@@ -144,7 +144,7 @@ function FilteredSelect({
     }
 
     return (
-        <Form.Group className={className}>
+        <Form.Group className={className + " filtered-select"}>
             {renderLabel(label)}
             {renderDropdown()}
         </Form.Group>
