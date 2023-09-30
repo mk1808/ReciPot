@@ -36,6 +36,11 @@ function RecipesApi() {
         restClient.get(`${PREFIX}/predefinedFilter?${pathParams}`, onSuccess, onError)
     }
 
+    const getRandom = (params: { number: number }, onSuccess: (response: Response<Recipe>) => any, onError?: (response: Response<Recipe>) => any) => {
+        let pathParams = createPathParams(params);
+        restClient.get(`${PREFIX}/random?${pathParams}`, onSuccess, onError)
+    }
+
     const deleteRecipe = (id: string, onSuccess: (response: Response<any>) => any, onError?: (response: Response<any>) => any) => {
         restClient.delete(`${PREFIX}/${id}`, onSuccess, onError)
     }
@@ -44,7 +49,7 @@ function RecipesApi() {
         restClient.get(`${PREFIX}/${id}/owner`, onSuccess, onError)
     }
 
-    return { postRecipe, getRecipe, putRecipe, changeVisibility, share, search, getPredefinedFilter, deleteRecipe, getRecipeOwner }
+    return { postRecipe, getRecipe, putRecipe, changeVisibility, share, search, getPredefinedFilter, getRandom, deleteRecipe, getRecipeOwner }
 }
 
 const recipesApi = RecipesApi();
