@@ -14,7 +14,7 @@ import { convertToTime } from "../../../../utils/DateUtils";
 
 function BasicInfo({ recipe }: { recipe: Recipe }) {
     const { t } = useTranslation();
-    return (
+    return (<>
         <div className="mt-3 mb-5 px-5 basic-info">
             {recipe.hashTags && recipe.hashTags.length > 0 && <HashTagList hashTags={recipe.hashTags} />}
             {renderUrlButton()}
@@ -63,7 +63,8 @@ function BasicInfo({ recipe }: { recipe: Recipe }) {
                 </Col>
             </Row>
         </div>
-    )
+        <hr />
+    </>);
 
     function renderSingleInfoIcon({ tooltip, icon, label, value }: { tooltip: any, icon: any, label: any, value: any }) {
         return (

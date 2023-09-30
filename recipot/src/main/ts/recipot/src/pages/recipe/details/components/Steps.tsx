@@ -11,14 +11,24 @@ function Steps({ recipe }: { recipe: Recipe }) {
     const recipeSteps = initAs<RecipeStep[]>([{ description: stepText }, { description: stepText }, { description: stepText }, { description: stepText }, { description: stepText },
     { description: stepText }, { description: stepText }, { description: stepText }, { description: stepText }, { description: stepText }, { description: stepText }, { description: stepText }]
     )
-    return (
-        <div className="mb-5 px-xl-5 px-2 steps">
-            <h4 className="my-3 display-4">{t('p.recipeSteps')}</h4>
-            <div className="list">
-                {renderSteps()}
-            </div>   
-        </div>
-    )
+
+    function shouldRenderSteps() {
+        return recipe?.recipeSteps && recipe.recipeSteps.length > 0;
+    }
+
+    if (shouldRenderSteps()) {
+        return (<>
+            <div className="mb-5 px-xl-5 px-2 steps">
+                <h4 className="my-3 display-4">{t('p.recipeSteps')}</h4>
+                <div className="list">
+                    {renderSteps()}
+                </div>
+            </div>
+            <hr />
+        </>);
+    }
+    return (<></>);
+
     function renderSteps() {
         return (
             <RecipeStepsNumbers steps={recipe.recipeSteps}></RecipeStepsNumbers>

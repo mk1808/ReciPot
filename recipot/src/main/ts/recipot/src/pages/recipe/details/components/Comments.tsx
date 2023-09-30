@@ -52,15 +52,21 @@ function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: 
         }
     }
 
+    function shouldRenderComments() {
+        return user || (opinions && opinions.length > 0);
+    }
 
+    if (shouldRenderComments()) {
+        return (
+            <div className="mb-5 px-5 comments">
+                <h4 className="my-3 display-4">{t('p.comments')}</h4>
+                {user && renderForm()}
+                {renderPageOfComments()}
+            </div>
+        )
+    }
+    return (<></>);
 
-    return (
-        <div className="mb-5 px-5 comments">
-            <h4 className="my-3 display-4">{t('p.comments')}</h4>
-            {user && renderForm()}
-            {renderPageOfComments()}
-        </div>
-    )
     function renderForm() {
         return (
             <CommentsForm formSave={formSave} isEditModeOn={isEditModeOn} userOpinion={userOpinion}></CommentsForm>

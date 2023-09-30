@@ -96,16 +96,9 @@ function RecipeDetails() {
                 <div>{renderBreadcrumps()}</div>
                 <div className="rating-section"><Rating recipe={recipe} /></div>
                 <BasicInfo recipe={recipe} />
-                <hr />
                 <IngredientList recipe={recipe} />
-                <hr />
                 <Steps recipe={recipe} />
-                {isNoteLoaded && <>
-                    <hr />
-                    <PrivateNote recipe={recipe} note={note} />
-                </>
-                }
-                <hr />
+                {isNoteLoaded && <PrivateNote recipe={recipe} note={note} />}
                 <Comments recipe={recipe} opinions={opinions} getOpinions={getOpinions} />
 
             </div>

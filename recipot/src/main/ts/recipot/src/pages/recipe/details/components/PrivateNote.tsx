@@ -38,7 +38,7 @@ function PrivateNote({ recipe, note }: { recipe: Recipe, note: PrivateNoteT }) {
             showSuccessAlert(t("p.noteSaved"), alertsDispatchContext);
         }
     }
-    formSave.onError = function () {}
+    formSave.onError = function () { }
     function saveNote(formValue: any) {
         let note = { ...formValue };
         note.recipe = { id: recipe.id };
@@ -47,12 +47,15 @@ function PrivateNote({ recipe, note }: { recipe: Recipe, note: PrivateNoteT }) {
     function deleteNote() {
         privateNotesApi.deletePrivateNote(note.id, formSave.onSuccess);
     }
-    return (
+
+    return (<>
         <div className="mb-5 px-5 private-note">
             {renderHeaderWithInfo()}
             {renderForm()}
         </div>
-    )
+        <hr />
+    </>)
+
     function renderHeaderWithInfo() {
         return (
             <Stack direction="horizontal" gap={3} className='flex-wrap justify-content-center align-items-center py-3 title'>
