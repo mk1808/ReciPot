@@ -4,8 +4,9 @@ import MyButton from "../basicUi/MyButton";
 import RecipeCard from "./RecipeCard";
 import { Recipe } from "../../data/types";
 import { initFcn } from "../../utils/ObjectUtils";
+import useWindowSize from "../../hooks/useWindowSize";
 
-function SlidingElements({ recipes, getSingleElement, size = 3 }: { recipes: Recipe[], getSingleElement: Function, size?: number }) {
+function SlidingElements({ recipes, getSingleElement, size }: { recipes: Recipe[], getSingleElement: Function, size: number }) {
 
     const [counter, setCounter] = useState(0);
     const [slicedRecipes, setSlicedRecipes] = useState<any[] | undefined>([]);
@@ -13,7 +14,7 @@ function SlidingElements({ recipes, getSingleElement, size = 3 }: { recipes: Rec
 
     useEffect(() => {
         sliceTab();
-    }, [counter, recipes]);
+    }, [counter, recipes, size]);
 
     function clickSlide(counterValue: number) {
         setCounter(counterValue);
@@ -50,14 +51,20 @@ function SlidingElements({ recipes, getSingleElement, size = 3 }: { recipes: Rec
 }
 
 function SlidingCards({ recipes = [], goToRecipeCallback = initFcn<Recipe>() }: { recipes: Recipe[], goToRecipeCallback: Function }) {
+    const [width, height] = useWindowSize();
+
+    function getSliderSize() {
+        return width > 1000 ? 3 : (width > 720 ? 2 : 1);
+    }
 
     function renderSingleCard(element: any, index: number) {
-        return <RecipeCard  key={index} recipe={element} recipeCallback={goToRecipeCallback}></RecipeCard > 
+        return <RecipeCard key={index} recipe={element} recipeCallback={goToRecipeCallback}></RecipeCard >
     }
 
     return (
         <div className="mt-4 mb-5">
-            <SlidingElements recipes={recipes} getSingleElement={renderSingleCard}></SlidingElements>
+            <SlidingElements recipes={recipes} getSingleElement={renderSingleCard} size={getSliderSize()}></SlidingElements>
+
         </div>
     );
 }
