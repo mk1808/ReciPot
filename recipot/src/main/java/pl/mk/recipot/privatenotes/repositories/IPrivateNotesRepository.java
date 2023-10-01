@@ -17,5 +17,8 @@ public interface IPrivateNotesRepository extends JpaRepository<PrivateNote, UUID
 
 	@Query("SELECT pn FROM PrivateNote pn WHERE pn.author = :user and pn.recipe.id = :recipeId")
 	PrivateNote findByUserAndRecipeId(AppUser user, UUID recipeId);
+	
+	@Query("SELECT pn FROM PrivateNote pn WHERE pn.recipe.id = :recipeId")
+	List<PrivateNote> findByRecipe(UUID recipeId);
 
 }
