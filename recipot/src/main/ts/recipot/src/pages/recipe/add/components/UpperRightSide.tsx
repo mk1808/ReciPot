@@ -105,12 +105,10 @@ function UpperRightSide() {
             <MySelect
                 label={t("p.accessTypeFilter")}
                 options={accessTypes}
-               
-                {...inputAttributesForContext("accessType", onChange, getValidity, undefined, formFields.formValue)}
+                {...inputAttributesForContext("accessType", onChange, getValidity, undefined, formFields.formValue, accessTypes[0].value)}
             />
         )
     }
- //defaultValue={accessTypes[0].value}
     function renderAmountOfDishesInput() {
         const amountOfDishes = getEnum("amountsOfDishes");
         return (
