@@ -403,6 +403,7 @@
         "url": "Link",
         "removeFromCollection": "Usuń z kolekcji",
         "recipeRemovedFromCollection": "Usunięto przepis z kolekcji",
+        "deleteRecipeFromCollectionQuestion": "Czy na pewno chcesz usunąć z kolekcji przepis",
         "noData": "Brak danych",
         "recipeUrlButton": "Zobacz zewnętrzną stronę przepisu",
         "incorrectFields": "Niepoprawne wartości w polach"
