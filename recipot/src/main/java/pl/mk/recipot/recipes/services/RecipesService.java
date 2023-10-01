@@ -43,15 +43,11 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	private IRecipeStepsRepository recipeStepsRepository;
 	private PersistRecipeService persistRecipeService;
 	private DeleteRecipeService deleteRecipeService;
-	private IRecipeCollectionsFacade recipeCollectionsFacade;
-	private IPrivateNotesFacade privateNotesFacade;
-	private IOpinionsFacade opinionsFacade;
 
 
 	public RecipesService(IRecipesRepository recipesRepository, IAuthFacade authFacade,
 			IRecipeIngredientsRepository recipeIngredientsRepository, IRecipeStepsRepository recipeStepsRepository,
-			PersistRecipeService persistRecipeService, DeleteRecipeService deleteRecipeService, IRecipeCollectionsFacade recipeCollectionsFacade, IPrivateNotesFacade privateNotesFacade,
-			IOpinionsFacade opinionsFacade) {
+			PersistRecipeService persistRecipeService, DeleteRecipeService deleteRecipeService) {
 		super();
 		this.recipesRepository = recipesRepository;
 		this.authFacade = authFacade;
@@ -59,9 +55,6 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		this.recipeStepsRepository = recipeStepsRepository;
 		this.persistRecipeService = persistRecipeService;
 		this.deleteRecipeService = deleteRecipeService;
-		this.recipeCollectionsFacade = recipeCollectionsFacade;
-		this.privateNotesFacade = privateNotesFacade;
-		this.opinionsFacade = opinionsFacade;
 		
 	}
 
@@ -101,17 +94,7 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	@Transactional
 	public void delete(UUID id) {
 		Recipe existingRecipe = get(id);
-		new CheckIfRecipeDoesNotExists().execute(existingRecipe);
-		new CheckIfUserIsNotOwner().execute(authFacade.getCurrentUser(), existingRecipe);
-		existingRecipe.getCategories().removeAll(existingRecipe.getCategories());
-		existingRecipe.getHashTags().removeAll(existingRecipe.getHashTags());
-		recipeStepsRepository.deleteByRecipeId(id);
-		recipeIngredientsRepository.deleteByRecipeId(id);
-		recipeCollectionsFacade.deleteRecipeFromCollection(existingRecipe);
-		privateNotesFacade.deletePrivateNotesByRecipe(id);
-		opinionsFacade.deleteOpinionsByRecipe(id);
-		
-		recipesRepository.deleteById(id);
+		deleteRecipeService.delete(existingRecipe);
 	}
 
 	@Override
