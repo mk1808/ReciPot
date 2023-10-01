@@ -82,4 +82,9 @@ public class PrivateNotesService implements IPrivateNotesService, ICrudService<P
 		return note;
 	}
 
+	@Override
+	public void deleteByRecipe(UUID recipeId) {
+		privateNotesRepository.deleteByRecipeId(recipeId);
+	}
+
 }

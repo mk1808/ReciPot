@@ -1,5 +1,7 @@
 package pl.mk.recipot.recipes.services;
 
+import java.util.UUID;
+
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
@@ -75,5 +77,10 @@ public class ShareRecipeService implements IShareRecipeService {
 		new CheckIfUserIsOwner().execute(sharedRecipe.getReceiverUser(), sharedRecipe);
 		new CheckIfRecipeWasSharedWithUser().execute(sharedRecipesRepository
 				.findRecipesSharedWithUser(sharedRecipe.getRecipe(), sharedRecipe.getReceiverUser()));
+	}
+	
+	@Override
+	public void deleteSharingByRecipeId(UUID recipeId) {
+		sharedRecipesRepository.deleteSharingByRecipeId(recipeId);
 	}
 }

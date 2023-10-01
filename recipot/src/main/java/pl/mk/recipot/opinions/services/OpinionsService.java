@@ -41,4 +41,10 @@ public class OpinionsService implements IOpinionsService {
 		return commentRepository.getUserCommentedRecipesCount(user);
 	}
 
+	@Override
+	public void deleteOpinionsByRecipe(UUID id) {
+		ratingsRepository.deleteByRecipeId(id);
+		commentRepository.deleteByRecipeId(id);
+	}
+
 }

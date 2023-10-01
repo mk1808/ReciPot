@@ -1,5 +1,7 @@
 package pl.mk.recipot.opinions.facades;
 
+import java.util.UUID;
+
 import org.springframework.stereotype.Component;
 
 import pl.mk.recipot.commons.models.AppUser;
@@ -22,6 +24,12 @@ public class OpinionsFacade implements IOpinionsFacade {
 	@Override
 	public int getUserCommentedRecipesCount(AppUser user) {
 		return opinionService.getUserCommentedRecipesCount(user);
+	}
+
+	@Override
+	public void deleteOpinionsByRecipe(UUID id) {
+		opinionService.deleteOpinionsByRecipe(id);
+		
 	}
 
 }

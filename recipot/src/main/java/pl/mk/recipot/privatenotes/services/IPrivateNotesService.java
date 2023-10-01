@@ -7,4 +7,6 @@ import pl.mk.recipot.commons.models.PrivateNote;
 public interface IPrivateNotesService {
 
 	public PrivateNote getByRecipe(UUID recipeId);
+
+	public void deleteByRecipe(UUID recipeId);
 }

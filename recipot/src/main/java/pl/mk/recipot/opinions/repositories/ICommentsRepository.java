@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import pl.mk.recipot.commons.models.AppUser;
@@ -20,4 +21,8 @@ public interface ICommentsRepository extends JpaRepository<Comment, UUID> {
 
 	@Query("SELECT count(c) FROM Comment c where c.author = :user ")
 	int getUserCommentedRecipesCount(AppUser user);
+	
+	@Modifying
+	@Query("DELETE FROM Comment c WHERE c.recipe.id = :recipeId")
+	void deleteByRecipeId(UUID recipeId);
 }
