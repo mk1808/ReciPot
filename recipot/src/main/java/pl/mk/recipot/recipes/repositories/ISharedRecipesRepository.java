@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import pl.mk.recipot.commons.models.AppUser;
@@ -14,4 +15,8 @@ public interface ISharedRecipesRepository extends JpaRepository<SharedRecipe, UU
 
 	@Query("SELECT sr FROM SharedRecipe sr where sr.recipe = :recipe and sr.receiverUser = :user")
 	public List<SharedRecipe> findRecipesSharedWithUser(Recipe recipe, AppUser user);
+	
+	@Modifying
+	@Query("DELETE FROM SharedRecipe sr where sr.recipe.id = :recipeId")
+	public List<SharedRecipe> deleteSharingByRecipeId(UUID recipeId);
 }

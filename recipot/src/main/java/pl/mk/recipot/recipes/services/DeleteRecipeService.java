@@ -2,6 +2,7 @@ package pl.mk.recipot.recipes.services;
 
 import java.util.UUID;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.facades.IAuthFacade;
@@ -24,13 +25,21 @@ public class DeleteRecipeService {
 	private IRecipeCollectionsFacade recipeCollectionsFacade;
 	private IPrivateNotesFacade privateNotesFacade;
 	private IOpinionsFacade opinionsFacade;
+	private IShareRecipeService shareRecipeService;
 
-	public DeleteRecipeService(IRecipeCollectionsFacade recipeCollectionsFacade, IPrivateNotesFacade privateNotesFacade,
-			IOpinionsFacade opinionsFacade) {
+	public DeleteRecipeService(IRecipesRepository recipesRepository,
+			IRecipeIngredientsRepository recipeIngredientsRepository, IAuthFacade authFacade,
+			IRecipeStepsRepository recipeStepsRepository, IRecipeCollectionsFacade recipeCollectionsFacade,
+			IPrivateNotesFacade privateNotesFacade, IOpinionsFacade opinionsFacade, @Lazy IShareRecipeService shareRecipeService) {
 		super();
+		this.recipesRepository = recipesRepository;
+		this.recipeIngredientsRepository = recipeIngredientsRepository;
+		this.authFacade = authFacade;
+		this.recipeStepsRepository = recipeStepsRepository;
 		this.recipeCollectionsFacade = recipeCollectionsFacade;
 		this.privateNotesFacade = privateNotesFacade;
 		this.opinionsFacade = opinionsFacade;
+		this.shareRecipeService = shareRecipeService;
 	}
 
 	public void delete(Recipe existingRecipe) {
@@ -44,7 +53,9 @@ public class DeleteRecipeService {
 		recipeCollectionsFacade.deleteRecipeFromCollection(existingRecipe);
 		privateNotesFacade.deletePrivateNotesByRecipe(id);
 		opinionsFacade.deleteOpinionsByRecipe(id);
+		shareRecipeService.deleteSharingByRecipeId(id);
 
 		recipesRepository.deleteById(id);
 	}
+
 }
