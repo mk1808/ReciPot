@@ -45,10 +45,12 @@ function RecipeDetails() {
         getOpinions(id);
         recipesApi.getRecipeOwner(id, onGetRecipeOwnerSuccess);
         recipeCollectionsApi.getUserCollectionByName('Favourite', onGetUserCollectionByNameSuccess)
-
+        setOpinions([]);
+        setNote({});
     }, [params])
     useEffect(() => {
         if (user) {
+            recipesApi.getRecipeOwner(id, onGetRecipeOwnerSuccess);
             privateNotesApi.getPrivateNoteByRecipeId(id, (response) => { setNote(response.value); setIsNoteLoaded(true) }, (errorResponse) => { console.warn(errorResponse) });
         }
     }, [user])
