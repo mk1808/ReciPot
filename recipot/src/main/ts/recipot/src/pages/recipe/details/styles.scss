@@ -6,6 +6,7 @@
 .recipe-details-page {
     .details-container {
         .main-container {
+            width: 100%;
             max-width: 1075px;
         }
     }
@@ -27,12 +28,12 @@
         .action-buttons {
             position: relative;
 
-            div {
+            >div {
                 position: relative;
+                top: -38px;
 
                 button {
-                    position: relative;
-                    top: -38px;
+
                     font-size: 20px;
                     width: 60px;
                     height: 60px;

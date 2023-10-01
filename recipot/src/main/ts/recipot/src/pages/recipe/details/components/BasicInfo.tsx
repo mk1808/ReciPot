@@ -69,7 +69,7 @@ function BasicInfo({ recipe }: { recipe: Recipe }) {
     function renderSingleInfoIcon({ tooltip, icon, label, value }: { tooltip: any, icon: any, label: any, value: any }) {
         return (
             <>
-                <Info value={t(`p.${tooltip}`)} className="icon" renderIcon={icon} /><br />
+                <Info value={t(`p.${tooltip}`)} className="icon" renderIcon={icon} placement = "top"/><br />
                 <strong> {t(`p.${label}`)}</strong> <br />
                 {value}
             </>

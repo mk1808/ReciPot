@@ -34,7 +34,7 @@ function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: 
             setUserOpinion(opinion);
         }
 
-    }, [user])
+    }, [user, opinions])
     const formSave: FormSave = getEmptyFormSave();
     formSave.onSubmit = function (formValue: any) {
         let recipeObj = { recipe: { id: recipe.id } };
