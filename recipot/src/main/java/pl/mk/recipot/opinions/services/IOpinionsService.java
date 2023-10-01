@@ -12,4 +12,6 @@ public interface IOpinionsService {
 	int getUserRatedRecipesCount(AppUser user);
 
 	int getUserCommentedRecipesCount(AppUser user);
+
+	void deleteOpinionsByRecipe(UUID id);
 }

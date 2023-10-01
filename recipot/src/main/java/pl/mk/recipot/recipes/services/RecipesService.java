@@ -19,6 +19,7 @@ import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.commons.services.IFilterService;
+import pl.mk.recipot.opinions.facades.IOpinionsFacade;
 import pl.mk.recipot.privatenotes.facades.IPrivateNotesFacade;
 import pl.mk.recipot.recipecollections.facades.IRecipeCollectionsFacade;
 import pl.mk.recipot.recipes.domains.CheckIfRecipeDoesNotExists;
@@ -41,20 +42,27 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	private IAuthFacade authFacade;
 	private IRecipeStepsRepository recipeStepsRepository;
 	private PersistRecipeService persistRecipeService;
+	private DeleteRecipeService deleteRecipeService;
 	private IRecipeCollectionsFacade recipeCollectionsFacade;
 	private IPrivateNotesFacade privateNotesFacade;
+	private IOpinionsFacade opinionsFacade;
+
 
 	public RecipesService(IRecipesRepository recipesRepository, IAuthFacade authFacade,
 			IRecipeIngredientsRepository recipeIngredientsRepository, IRecipeStepsRepository recipeStepsRepository,
-			PersistRecipeService persistRecipeService, IRecipeCollectionsFacade recipeCollectionsFacade, IPrivateNotesFacade privateNotesFacade) {
+			PersistRecipeService persistRecipeService, DeleteRecipeService deleteRecipeService, IRecipeCollectionsFacade recipeCollectionsFacade, IPrivateNotesFacade privateNotesFacade,
+			IOpinionsFacade opinionsFacade) {
 		super();
 		this.recipesRepository = recipesRepository;
 		this.authFacade = authFacade;
 		this.recipeIngredientsRepository = recipeIngredientsRepository;
 		this.recipeStepsRepository = recipeStepsRepository;
 		this.persistRecipeService = persistRecipeService;
+		this.deleteRecipeService = deleteRecipeService;
 		this.recipeCollectionsFacade = recipeCollectionsFacade;
 		this.privateNotesFacade = privateNotesFacade;
+		this.opinionsFacade = opinionsFacade;
+		
 	}
 
 	@Override
@@ -101,7 +109,8 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		recipeIngredientsRepository.deleteByRecipeId(id);
 		recipeCollectionsFacade.deleteRecipeFromCollection(existingRecipe);
 		privateNotesFacade.deletePrivateNotesByRecipe(id);
-
+		opinionsFacade.deleteOpinionsByRecipe(id);
+		
 		recipesRepository.deleteById(id);
 	}
 
