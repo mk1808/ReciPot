@@ -19,6 +19,7 @@ import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.services.ICrudService;
 import pl.mk.recipot.commons.services.IFilterService;
+import pl.mk.recipot.privatenotes.facades.IPrivateNotesFacade;
 import pl.mk.recipot.recipecollections.facades.IRecipeCollectionsFacade;
 import pl.mk.recipot.recipes.domains.CheckIfRecipeDoesNotExists;
 import pl.mk.recipot.recipes.domains.CleanRecipe;
@@ -41,10 +42,11 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	private IRecipeStepsRepository recipeStepsRepository;
 	private PersistRecipeService persistRecipeService;
 	private IRecipeCollectionsFacade recipeCollectionsFacade;
+	private IPrivateNotesFacade privateNotesFacade;
 
 	public RecipesService(IRecipesRepository recipesRepository, IAuthFacade authFacade,
 			IRecipeIngredientsRepository recipeIngredientsRepository, IRecipeStepsRepository recipeStepsRepository,
-			PersistRecipeService persistRecipeService, IRecipeCollectionsFacade recipeCollectionsFacade) {
+			PersistRecipeService persistRecipeService, IRecipeCollectionsFacade recipeCollectionsFacade, IPrivateNotesFacade privateNotesFacade) {
 		super();
 		this.recipesRepository = recipesRepository;
 		this.authFacade = authFacade;
@@ -52,6 +54,7 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		this.recipeStepsRepository = recipeStepsRepository;
 		this.persistRecipeService = persistRecipeService;
 		this.recipeCollectionsFacade = recipeCollectionsFacade;
+		this.privateNotesFacade = privateNotesFacade;
 	}
 
 	@Override
@@ -97,6 +100,7 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 		recipeStepsRepository.deleteByRecipeId(id);
 		recipeIngredientsRepository.deleteByRecipeId(id);
 		recipeCollectionsFacade.deleteRecipeFromCollection(existingRecipe);
+		privateNotesFacade.deletePrivateNotesByRecipe(id);
 
 		recipesRepository.deleteById(id);
 	}
