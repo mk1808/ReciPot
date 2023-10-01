@@ -1,5 +1,4 @@
 import { useContext, useRef } from "react";
-import { Col, Row, Stack } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import './styles.scss';
 import MyImage from "../../../components/basicUi/MyImage";
@@ -10,7 +9,7 @@ import IngredientList from "./components/IngredientsList";
 import Steps from "./components/Steps";
 import PrivateNote from "./components/PrivateNote";
 import Comments from "./components/Comments";
-import { AppUser, OpinionDto, PrivateNote as PrivateNoteT, Recipe, RecipeSearchDto } from "../../../data/types";
+import { OpinionDto, PrivateNote as PrivateNoteT, Recipe, RecipeSearchDto } from "../../../data/types";
 import { initAs } from "../../../utils/ObjectUtils";
 import { useEffect, useState } from "react";
 import BreadCrumbs from "./components/BreadCrumbs";
@@ -23,6 +22,7 @@ import Rating from "./components/Rating";
 import { buildRecipeSearchDto } from "../../../utils/RecipeSearchUtils";
 import { UsersContext } from "../../../context/UserContext";
 import recipeCollectionsApi from "../../../api/RecipeCollectionsApi";
+import MySpinner from "../../../components/basicUi/MySpinner";
 
 function RecipeDetails() {
     const { t } = useTranslation();
@@ -80,6 +80,7 @@ function RecipeDetails() {
         return (
             <div className='d-flex flex-lg-row flex-column align-items-stretch details-container justify-content-center gy-2'>
                 <div className='basic-container-border p-3 main-container' ref={mainRef} >
+                    {!isLoaded && <MySpinner/>}
                     {isLoaded && renderMainRecipeColumn()}
                 </div>
                 <div className='basic-container-border p-3 ms-md-2'>
