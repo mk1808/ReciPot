@@ -43,8 +43,8 @@ public class OpinionsService implements IOpinionsService {
 
 	@Override
 	public void deleteOpinionsByRecipe(UUID id) {
-		ratingsRepository.deleteAll(ratingsRepository.findByRecipeId(id));
-		commentRepository.deleteAll(commentRepository.findByRecipeId(id));
+		ratingsRepository.deleteByRecipeId(id);
+		commentRepository.deleteByRecipeId(id);
 	}
 
 }

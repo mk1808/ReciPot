@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import pl.mk.recipot.commons.models.AppUser;
@@ -27,4 +28,8 @@ public interface IRatingsRepository extends JpaRepository<Rating, UUID> {
 
 	@Query("SELECT count(r) as ratingsCount, avg(r.value) as averageRating FROM Rating r where r.recipe = :recipe ")
 	RecipeAverageRating getRecipeAverageRating(Recipe recipe);
+	
+	@Modifying
+	@Query("DELETE FROM Rating r WHERE r.recipe.id = :recipeId")
+	void deleteByRecipeId(UUID recipeId);
 }
