@@ -11,12 +11,18 @@ import { FaInternetExplorer } from "react-icons/fa6";
 import Info from "../../../../components/basicUi/Info";
 import HashTagList from "../../../../components/basicUi/HashTagList";
 import { convertToTime } from "../../../../utils/DateUtils";
+import { useNavigate } from "react-router-dom";
+import { goToFilters } from "../../../../utils/NavigationUtils";
 
 function BasicInfo({ recipe }: { recipe: Recipe }) {
     const { t } = useTranslation();
+    const navigate = useNavigate();
+    function onHashTagClick(hashTag: any) {
+        goToFilters({ hashTags: [{ label: hashTag.name, value: hashTag }] }, navigate);
+    }
     return (<>
         <div className="mt-3 mb-5 px-5 basic-info">
-            {recipe.hashTags && recipe.hashTags.length > 0 && <HashTagList hashTags={recipe.hashTags} />}
+            {recipe.hashTags && recipe.hashTags.length > 0 && <HashTagList hashTags={recipe.hashTags} onClick={onHashTagClick} />}
             {renderUrlButton()}
             <div className="my-4">
                 {recipe.description}
@@ -69,7 +75,7 @@ function BasicInfo({ recipe }: { recipe: Recipe }) {
     function renderSingleInfoIcon({ tooltip, icon, label, value }: { tooltip: any, icon: any, label: any, value: any }) {
         return (
             <>
-                <Info value={t(`p.${tooltip}`)} className="icon" renderIcon={icon} placement = "top"/><br />
+                <Info value={t(`p.${tooltip}`)} className="icon" renderIcon={icon} placement="top" /><br />
                 <strong> {t(`p.${label}`)}</strong> <br />
                 {value}
             </>
