@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import RecipeCard from "../../../../components/complex/RecipeCard";
 import { Stack } from "react-bootstrap";
 import { RecipeCollectionListContext, RecipeCollectionListDispatchContext } from "../context/RecipeCollectionListContext";
@@ -13,6 +13,8 @@ import { FaFolderMinus } from "react-icons/fa6";
 import recipeCollectionsApi from "../../../../api/RecipeCollectionsApi";
 import { AlertsDispatchContext } from "../../../../context/AlertContext";
 import { showSuccessAlert } from "../../../../utils/RestUtils";
+import DeleteFromCollectionDialog from "../dialogs/DeleteFromCollectionDialog";
+import { initAs } from "../../../../utils/ObjectUtils";
 
 function CollectionRecipesColumn() {
     const collectionsContext = useContext(RecipeCollectionListContext);
@@ -20,11 +22,20 @@ function CollectionRecipesColumn() {
     const alertDispatch = useContext(AlertsDispatchContext);
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const [showModalDelete, setShowModalDelete] = useState(false);
+    const [nextPageIndex, setNextPageIndex] = useState(0);
+    const [recipeToDelete, setRecipeToDelete] = useState<Recipe | any>();
     const recipeCallback = (recipe: Recipe, event: any,) => openInBackground(`/recipes/${recipe.id}`, event, navigate);
     const activeRecipeCollection: RecipeCollection | undefined = collectionsContext.collections?.filter(collection => collection.id === collectionsContext.activeCollectionId)[0];
 
-    function deleteRecipeFromCollection(recipe: Recipe, index: number) {
-        recipeCollectionsApi.deleteRecipeFromCollection(activeRecipeCollection?.id || "", recipe.id, () => onDeleteSuccess(index))
+    function deleteRecipeShowModal(recipe: Recipe, index: number) {
+        setShowModalDelete(true);
+        setRecipeToDelete(recipe);
+        setNextPageIndex(index);
+    }
+
+    function deleteRecipeFromCollection() {
+        recipeCollectionsApi.deleteRecipeFromCollection(activeRecipeCollection?.id || "", recipeToDelete.id, () => onDeleteSuccess(nextPageIndex))
     }
 
     function onDeleteSuccess(index: number) {
@@ -77,7 +88,12 @@ function CollectionRecipesColumn() {
 
     function renderDeleteFromCollection(recipe: Recipe, index: number) {
         return activeRecipeCollection?.canDelete && (
-            <Tooltip placement="bottom" title={t('p.removeFromCollection')}><MyButton.Primary onClick={() => { deleteRecipeFromCollection(recipe, index) }} className="round"><FaFolderMinus /></MyButton.Primary></Tooltip>
+            <>
+                <Tooltip placement="bottom" title={t('p.removeFromCollection')}>
+                    <MyButton.Primary onClick={() => { deleteRecipeShowModal(recipe, index) }} className="round"><FaFolderMinus /></MyButton.Primary>
+                </Tooltip>
+                {renderModal()}
+            </>
         )
     }
 
@@ -99,6 +115,14 @@ function CollectionRecipesColumn() {
                 <h2>{t("p.noData")}</h2>
             </div>
         );
+    }
+
+    function renderModal() {
+        return <DeleteFromCollectionDialog
+            showModal={showModalDelete}
+            handleClose={() => setShowModalDelete(false)}
+            handleSubmit={deleteRecipeFromCollection}
+            data={recipeToDelete || initAs()} />
     }
 }
 
