@@ -4,6 +4,11 @@
 @import "~bootstrap/scss/mixins";
 
 .login-page {
+
+    >div {
+        width: 1000px;
+    }
+
     h6 {
         margin-bottom: 60px
     }

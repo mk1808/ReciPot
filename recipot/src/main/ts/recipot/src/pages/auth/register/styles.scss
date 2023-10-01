@@ -4,6 +4,11 @@
 @import "~bootstrap/scss/mixins";
 
 .register-page {
+
+    >div {
+        width: 1000px;
+    }
+
     h6 {
         margin-bottom: 60px
     }
@@ -20,7 +25,8 @@
             text-align: start;
             margin: auto;
         }
-        hr{
+
+        hr {
             margin-top: 20px;
             margin-bottom: 20px;
         }
