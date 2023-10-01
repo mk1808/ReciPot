@@ -30,14 +30,14 @@ function NotificationManager() {
         setNotifications([...notificationsClosure.current, ...response.value]);
     }
 
-    function onCheck(notification: Notification) {
+    function onConfirm(notification: Notification) {
         notificationsApi.deleteNotification(notification.id, () => {
             setNotifications(removeValue(notificationsClosure.current, notification))
         });
 
     }
 
-    return <Notifications notifications={notifications} onCheck={onCheck} />
+    return <Notifications notifications={notifications} onConfirm={onConfirm} />
 }
 
 export default NotificationManager;

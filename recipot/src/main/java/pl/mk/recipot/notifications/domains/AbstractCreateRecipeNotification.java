@@ -44,6 +44,7 @@ public abstract class AbstractCreateRecipeNotification<T extends IRecipeRelated 
 				.senderUser(getSender().getLogin())
 				.recipeName(getRecipe().getName())
 				.value(getValue(object))
+				.recipeId(object.getRecipe().getId())
 				.build();
 	}
 

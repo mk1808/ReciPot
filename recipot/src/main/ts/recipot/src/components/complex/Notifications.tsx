@@ -1,4 +1,4 @@
-import { FaBell, FaRegBell, FaCheck } from "react-icons/fa6";
+import { FaBell, FaRegBell, FaCheck, FaAnglesRight } from "react-icons/fa6";
 import './styles.scss';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
@@ -6,15 +6,24 @@ import { useTranslation } from "react-i18next";
 import Badge from 'react-bootstrap/Badge';
 import { Notification } from "../../data/types";
 import { parseNotificationContent } from "../../utils/NotificationUtils";
+import { Stack } from "react-bootstrap";
+import Tooltip from "../basicUi/Tooltip";
+import { useNavigate } from "react-router-dom";
 
 function Notifications({
     notifications,
-    onCheck
+    onConfirm
 }: {
     notifications: Notification[],
-    onCheck: (parameter: Notification) => void
+    onConfirm: (parameter: Notification) => void
 }) {
     const { t } = useTranslation();
+    const navigate = useNavigate();
+
+    function goToRecipe(notification: Notification) {
+        const value = JSON.parse(notification.value);
+        navigate(`/recipes/${value.recipeId}`)
+    }
 
     return (
         <div className="notifications">
@@ -56,8 +65,17 @@ function Notifications({
                     <p className="title">{t('p.' + notification.type)}</p>
                     <p className="content">{parseNotificationContent(notification, t)}</p>
                 </div>
-                <FaCheck className="icon" onClick={e => onCheck(notification)} />
+                {renderActionButtons(notification)}
             </div>
+        )
+    }
+
+    function renderActionButtons(notification: Notification) {
+        return (
+            <Stack className="align-self-center">
+                <Tooltip placement="bottom" title={t('p.confirmNotification')}><FaCheck className="icon" onClick={e => onConfirm(notification)} /></Tooltip>
+                <Tooltip placement="bottom" title={t('p.goToRecipe')}><FaAnglesRight className="mt-3 icon" onClick={e => goToRecipe(notification)} /></Tooltip>
+            </Stack>
         )
     }
 }

@@ -1,5 +1,7 @@
 package pl.mk.recipot.notifications.dtos;
 
+import java.util.UUID;
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -8,5 +10,6 @@ import lombok.Data;
 public class RecipeNotificationValuesDto {
 	String senderUser;
 	String recipeName;
+	UUID recipeId;
 	Object value;
 }
