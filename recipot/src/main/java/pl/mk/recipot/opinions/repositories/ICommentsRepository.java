@@ -24,5 +24,5 @@ public interface ICommentsRepository extends JpaRepository<Comment, UUID> {
 	
 	@Modifying
 	@Query("DELETE FROM Comment c WHERE c.recipe.id = :recipeId")
-	List<Comment> deleteByRecipeId(UUID recipeId);
+	void deleteByRecipeId(UUID recipeId);
 }

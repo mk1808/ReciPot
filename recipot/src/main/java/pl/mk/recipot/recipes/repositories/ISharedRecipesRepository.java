@@ -18,5 +18,5 @@ public interface ISharedRecipesRepository extends JpaRepository<SharedRecipe, UU
 	
 	@Modifying
 	@Query("DELETE FROM SharedRecipe sr where sr.recipe.id = :recipeId")
-	public List<SharedRecipe> deleteSharingByRecipeId(UUID recipeId);
+	public void deleteSharingByRecipeId(UUID recipeId);
 }
