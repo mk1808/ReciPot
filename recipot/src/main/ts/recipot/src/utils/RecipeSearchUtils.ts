@@ -1,4 +1,4 @@
-import { RecipeSearchDto, SearchCriteriaDto } from "../data/types";
+import { CategoryDto, RecipeSearchDto, SearchCriteriaDto } from "../data/types";
 
 export function buildRecipeSearchDto(recipesFilterForm?: any): RecipeSearchDto {
     const searchCriteriaList: SearchCriteriaDto[] = [];
@@ -55,7 +55,7 @@ function getFilterSearchCriteria(filterKey: string, filterValue: any): SearchCri
         case "averageRating": return filter("averageRating", "ge", () => filterValue);
         case "hashTags": return filter("hashTags", "in", () => getValueIdsFromArray(filterValue));
         case "ingredients": return filter("ingredients", "in", () => getValueIdsFromArray(filterValue));
-        case "categories": return filter("categories", "in", () => getValueIdsFromArray(filterValue));
+        case "categories": return filter("categories", "in", () => getValueForCategory(filterValue));
         default: return null;
     }
 }
@@ -75,6 +75,12 @@ function getValueIdsFromArray(filterValue: any) {
         result.push(element.id || element.value.id)
     });
     return result.length > 0 ? result : null;
+}
+
+function getValueForCategory(categories: CategoryDto[]): any[] {
+    const mainCategoriesIds = getValueIdsFromArray(categories) || [];
+    const childrenCategoriesIds = categories.flatMap(category => getValueForCategory(category.children));
+    return [...mainCategoriesIds, ...childrenCategoriesIds];
 }
 
 export function scrollIntoRecipesPage(page: number) {
