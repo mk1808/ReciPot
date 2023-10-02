@@ -50,7 +50,6 @@ public class Recipe implements IUserRelated, IWithDate {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "owner_id")
-	@JsonIgnore
 	private AppUser owner;
 
 	@Temporal(TemporalType.TIMESTAMP)

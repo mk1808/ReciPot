@@ -1,4 +1,4 @@
-import { Button, Col, Row } from "react-bootstrap";
+import { Button, Col, Row, Stack } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { Recipe } from "../../../../data/types";
 import MyButton from "../../../../components/basicUi/MyButton";
@@ -10,7 +10,7 @@ import { VscTools } from "react-icons/vsc";
 import { FaInternetExplorer } from "react-icons/fa6";
 import Info from "../../../../components/basicUi/Info";
 import HashTagList from "../../../../components/basicUi/HashTagList";
-import { convertToTime } from "../../../../utils/DateUtils";
+import { convertToTime, format } from "../../../../utils/DateUtils";
 import { useNavigate } from "react-router-dom";
 import { goToFilters } from "../../../../utils/NavigationUtils";
 
@@ -27,6 +27,7 @@ function BasicInfo({ recipe }: { recipe: Recipe }) {
             <div className="my-4">
                 {recipe.description}
             </div>
+            {renderAuthorAndCreationDate()}
             <Row className="mb-5">
                 <Col>
                     <Row className="align-center icon-info ">
@@ -88,6 +89,15 @@ function BasicInfo({ recipe }: { recipe: Recipe }) {
                 <Button href={recipe.url} target="_blank">{t(`p.recipeUrlButton`)} <FaInternetExplorer /></Button>
             </div>
         )
+    }
+
+    function renderAuthorAndCreationDate() {
+        return (
+            <Stack direction="horizontal" className="my-3">
+                <div className="me-5"><strong>{t("p.author")}:</strong> {recipe.owner.login}</div>
+                <div><strong>{t("p.createdDate")}:</strong> {format(recipe.created)}</div>
+            </Stack>
+        );
     }
 }
 
