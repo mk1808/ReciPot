@@ -27,6 +27,10 @@ function CollectionRecipesColumn() {
     const [recipeToDelete, setRecipeToDelete] = useState<Recipe | any>();
     const recipeCallback = (recipe: Recipe, event: any,) => openInBackground(`/recipes/${recipe.id}`, event, navigate);
     const activeRecipeCollection: RecipeCollection | undefined = collectionsContext.collections?.filter(collection => collection.id === collectionsContext.activeCollectionId)[0];
+    const getActiveCollectionName = (collection: any) => {
+        let name = collection?.name;
+        return collection?.canDelete ? name : t("enums.DefaultRecipeCollections." + name?.toUpperCase())
+    };
 
     function deleteRecipeShowModal(recipe: Recipe, index: number) {
         setShowModalDelete(true);
@@ -69,7 +73,7 @@ function CollectionRecipesColumn() {
     function renderHeader() {
         return (
             <>
-                <MyHeader title={t('p.recipeCollectionListHeader') + ": " + activeRecipeCollection?.name}></MyHeader>
+                <MyHeader title={`${t('p.recipeCollectionListHeader')}: ${t(getActiveCollectionName(activeRecipeCollection))}`}></MyHeader>
             </>
         );
     }
