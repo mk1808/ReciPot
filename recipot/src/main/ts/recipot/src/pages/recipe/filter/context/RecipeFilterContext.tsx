@@ -5,12 +5,13 @@ import recipesApi from "../../../../api/RecipesApi";
 import { ResponsePage } from "../../../../data/utilTypes";
 import { buildRecipeSearchDto, scrollIntoRecipesPage, updatePageUrl } from "../../../../utils/RecipeSearchUtils";
 import { ApiRequestSendManager } from "../../../../utils/ApiRequestSendManager";
+import { useSearchParams } from "react-router-dom";
 
 type contextStateModel = {
     savedFilters?: RecipeFilter[],
     recipesPages?: Recipe[][],
     activeRecipeFilterId?: string,
-    currentPage?: { totalPages: number, number: number, totalElements:number },
+    currentPage?: { totalPages: number, number: number, totalElements: number },
     recipesFilterForm?: any
 };
 
@@ -23,6 +24,7 @@ export const RecipeFilterDispatchContext = createContext<Function>(() => { });
 
 export const RecipeFilterContextContextProvider = ({ children }: any) => {
     const [contextState, dispatch]: [contextStateModel, Function] = useReducer(recipeFilterReducer, {});
+    const [searchParams, setSearchParams] = useSearchParams();
 
     function getSavedFilters() {
         savedRecipeFiltersApi.getRecipeFilters((response) => dispatch({ type: 'setSavedFiltersList', value: response.value }));
@@ -158,7 +160,7 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
 
     useEffect(() => {
         getFilterFromParams();
-    }, [])
+    }, [searchParams])
 
     function getFilterFromParams() {
         setTimeout(() => {
