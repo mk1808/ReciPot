@@ -15,6 +15,7 @@ import { AlertsDispatchContext } from "../../../../context/AlertContext";
 import { showSuccessAlert } from "../../../../utils/RestUtils";
 import DeleteFromCollectionDialog from "../dialogs/DeleteFromCollectionDialog";
 import { initAs } from "../../../../utils/ObjectUtils";
+import { getCollectionName } from "../../../../utils/TextUtils";
 
 function CollectionRecipesColumn() {
     const collectionsContext = useContext(RecipeCollectionListContext);
@@ -69,7 +70,7 @@ function CollectionRecipesColumn() {
     function renderHeader() {
         return (
             <>
-                <MyHeader title={t('p.recipeCollectionListHeader') + ": " + activeRecipeCollection?.name}></MyHeader>
+                <MyHeader title={`${t('p.recipeCollectionListHeader')}: ${t(getCollectionName(activeRecipeCollection, t))}`}></MyHeader>
             </>
         );
     }

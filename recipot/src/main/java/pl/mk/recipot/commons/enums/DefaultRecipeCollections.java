@@ -1,7 +1,7 @@
 package pl.mk.recipot.commons.enums;
 
 public enum DefaultRecipeCollections {
-	CREATED("Created"), NOTED("Noted"), COMMENTED("Commented"), SHARED_WITH_USER("Shared with you"),
+	CREATED("Created"), NOTED("Noted"), COMMENTED("Commented"), SHARED_WITH_YOU("Shared with you"),
 	FAVOURITE("Favourite");
 
 	private String name;
