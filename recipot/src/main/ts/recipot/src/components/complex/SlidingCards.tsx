@@ -54,7 +54,8 @@ function SlidingCards({ recipes = [], goToRecipeCallback = initFcn<Recipe>() }: 
     const [width, height] = useWindowSize();
 
     function getSliderSize() {
-        return width > 1000 ? 3 : (width > 720 ? 2 : 1);
+        return width > 1550 ? 5 : width > 1000 ? 3 : (width > 720 ? 2 : 1);
+
     }
 
     function renderSingleCard(element: any, index: number) {
