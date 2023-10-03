@@ -89,7 +89,7 @@
 		"DefaultRecipeCollections": {
 			"NOTED": "Noted",
 			"COMMENTED": "Commented",
-			"SHARED_WITH_USER": "Shared with user",
+			"SHARED WITH YOU": "Shared with user",
 			"FAVOURITE": "Favourite",
 			"CREATED": "Created"
 		},

@@ -89,7 +89,7 @@
         "DefaultRecipeCollections": {
             "NOTED": "Z dodaną notatką",
             "COMMENTED": "Skomentowane",
-            "SHARED_WITH_USER": "Udostępnione",
+            "SHARED WITH YOU": "Udostępnione",
             "FAVOURITE": "Ulubione",
             "CREATED": "Własne"
         },

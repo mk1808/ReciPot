@@ -51,7 +51,7 @@ public class ShareRecipeService implements IShareRecipeService {
 		checkReceiverUserCanReceiveSharing(sharedRecipe);
 		SharedRecipe savedSharedRecipe = sharedRecipesRepository.save(sharedRecipe);
 		recipeCollectionsFacade.addRecipeToUserDefaultCollection(sharedRecipe.getReceiverUser(),
-				DefaultRecipeCollections.SHARED_WITH_USER, sharedRecipe.getRecipe());
+				DefaultRecipeCollections.SHARED_WITH_YOU, sharedRecipe.getRecipe());
 		notificationFacade.notifySharedRecipe(savedSharedRecipe);
 		return savedSharedRecipe;
 	}
