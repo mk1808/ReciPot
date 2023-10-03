@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -31,16 +33,20 @@ public class AppUser {
 	@GeneratedValue
 	@UuidGenerator
 	private UUID id;
-
+	
+	@JsonIgnore
 	@Email(message = "models.AppUser.errors.emailInvalid")
 	private String email;
 	@NotBlank(message = "models.AppUser.errors.loginBlank")
 	private String login;
+	@JsonIgnore
 	private String password;
+	@JsonIgnore
 	private Boolean verified = false;
 	private String avatarImageSrc;
 	private String selfDescription;
 
+	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "app_users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();

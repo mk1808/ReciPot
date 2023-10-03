@@ -363,6 +363,8 @@
         "recipeAddCorrect": "Przepis został utworzony!",
         "recipeEditCorrect": "Przepis został zaktualizowany!",
         "recipesCollectionSaved": "Utworzono nową kolekcję przepisów",
+        "author": "Autor",
+        "createdDate": "Data utworzenia",
         "time": "Czas",
         "timeInfo": "Czas potrzebny na przygotowanie",
         "amountOfDishes": "Ilość naczyń",
