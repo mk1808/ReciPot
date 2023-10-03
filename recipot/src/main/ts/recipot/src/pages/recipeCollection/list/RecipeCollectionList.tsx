@@ -37,7 +37,7 @@ function RecipeCollectionList() {
     function renderCollectionsColumnOrCollapse() {
         return (
             <>
-                <div className='h-100 basic-container-border p-3 hide-md'>
+                <div className='h-100 p-3 hide-md'>
                     <h2>{t('p.savedCollections')}</h2>
                     <br />
                     {renderCollectionsColumn()}
