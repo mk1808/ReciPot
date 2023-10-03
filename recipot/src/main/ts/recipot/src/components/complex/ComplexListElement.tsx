@@ -2,21 +2,25 @@ import { Stack } from 'react-bootstrap';
 import './styles.scss';
 import { FaTrashCan, FaCheck, FaBan } from "react-icons/fa6";
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function ComplexListElement({
     element,
     index,
     isActive = false,
     onDeleteCallback,
-    onSelectCallback
+    onSelectCallback,
+    getElementName
 }: {
     element: { name: string, id: string, canDelete?: boolean },
     index: number,
     isActive?: boolean,
     onDeleteCallback: (index: number) => any,
-    onSelectCallback: (index: number) => any
+    onSelectCallback: (index: number) => any,
+    getElementName?: (element: any, t:any) => any,
 }) {
     const [isDeleteMode, setDeleteMode] = useState(false);
+    const { t } = useTranslation();
 
     function onSelect() {
         onSelectCallback(index);
@@ -53,7 +57,7 @@ function ComplexListElement({
     );
 
     function renderElementName() {
-        return <span>{element.name}</span>
+        return <span>{getElementName != null ? getElementName(element, t) : element.name}</span>
     }
 
     function renderActions() {

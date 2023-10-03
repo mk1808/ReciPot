@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import recipeCollectionsApi from "../../../../api/RecipeCollectionsApi";
 import { showSuccessAlert } from "../../../../utils/RestUtils";
 import { AlertsDispatchContext } from "../../../../context/AlertContext";
+import { getCollectionName } from "../../../../utils/TextUtils";
 
 function CollectionList() {
     const collectionsContext = useContext(RecipeCollectionListContext);
@@ -45,6 +46,7 @@ function CollectionList() {
                 onDeleteCallback={onCollectionDeleteCallback}
                 element={collection}
                 isActive={collection.id === collectionsContext.activeCollectionId}
+                getElementName={getCollectionName}
             />);
     }
 
