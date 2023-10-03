@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import NotificationManager from './components/NotificationManager';
 import { UsersContext, UsersDispatchContext } from '../../context/UserContext';
 import { AppUser } from '../../data/types';
+import recipotIcon from '../../assets/images/recipot.png';
 
 function Header() {
   const { t } = useTranslation();
@@ -56,7 +57,7 @@ function Header() {
           navbarScroll
           onClick={gotToMainPage}
         >
-          <GiCookingPot className='fs-4' />
+          <img src={recipotIcon} alt="Recipot logo" height={30} />
         </Nav>
       </>
     );
