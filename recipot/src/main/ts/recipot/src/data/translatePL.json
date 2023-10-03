@@ -409,6 +409,8 @@
         "deleteRecipeFromCollectionQuestion": "Czy na pewno chcesz usunąć z kolekcji przepis",
         "noData": "Brak danych",
         "recipeUrlButton": "Zobacz zewnętrzną stronę przepisu",
-        "incorrectFields": "Niepoprawne wartości w polach"
+        "incorrectFields": "Niepoprawne wartości w polach",
+        "authors":"Autorzy",
+        "githubProfile": "Profil na GitHub"
     }
 }
