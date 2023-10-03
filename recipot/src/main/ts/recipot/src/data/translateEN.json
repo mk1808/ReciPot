@@ -407,6 +407,8 @@
 		"deleteRecipeFromCollectionQuestion": "Are you sure about deleting from collection recipe",
 		"noData": "No data",
 		"recipeUrlButton": "Go to recipe's origin page",
-		"incorrectFields": "Incorrect values in form fields"
+		"incorrectFields": "Incorrect values in form fields",
+		"authors": "Authors",
+		"githubProfile": "GitHub profile"
 	}
 }
