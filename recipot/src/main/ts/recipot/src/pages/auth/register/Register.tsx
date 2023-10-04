@@ -13,12 +13,15 @@ import { AppUser, Response } from "../../../data/types";
 import { onShowAlertOnErrorResponse, showSuccessAlert } from "../../../utils/RestUtils";
 import { useContext, useState } from "react";
 import { AlertsDispatchContext } from "../../../context/AlertContext";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
     const { t } = useTranslation();
     const formSave: FormSave = getEmptyFormSave();
     const alertDispatch = useContext(AlertsDispatchContext);
     const [defaultValue, setDefaultValue] = useState<string>("");
+    const navigate = useNavigate();
+
     formSave.onSubmit = function (formValue: any) {
         authApi.register(formValue, formSave.onSuccess, formSave.onError);
     }
@@ -26,6 +29,7 @@ function Register() {
         setDefaultValue(" ");
         setTimeout(() => { setDefaultValue(""); }, 100)
         showSuccessAlert(t('p.userRegisterCorrect'), alertDispatch);
+        navigate('/login');
     }
     formSave.onError = function (response: any) {
         onShowAlertOnErrorResponse(response, alertDispatch, t);
