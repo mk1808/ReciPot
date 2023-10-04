@@ -83,9 +83,33 @@ function RecipeFiltersColumn() {
     }
 
     function onCategoriesChange(value: CategoryDto[]) {
-        if (!recipesFilterForm || value.length !== recipesFilterForm.categories?.length) {
-            onChange("categories", value)
+        const matchedCategories = matchCategories(value);
+        if (areCategoriesDifferent(matchedCategories)) {
+            onChange("categories", matchedCategories)
         }
+    }
+
+    function matchCategories(categories: any[]) {
+        return categories.map(category => {
+            if (!!category.children) {
+                return category;
+            }
+            const optionCategory = allCategories.filter(optionCategory => optionCategory.name === category.label);
+            return optionCategory.length > 0 ? mapCategoriesToSearchList(optionCategory)[0] : category;
+        })
+    }
+
+    function areCategoriesDifferent(matchedCategories: any[]) {
+        if (!recipesFilterForm || matchedCategories.length !== recipesFilterForm.categories?.length) {
+            return false;
+        }
+        for (let category of recipesFilterForm.categories) {
+            const previousCategory = matchedCategories.filter(mCategory => mCategory.label === category.label);
+            if (previousCategory.length !== 0 && previousCategory[0].children?.length !== category.children?.length) {
+                return true
+            }
+        }
+        return false;
     }
 
     function onUserIsOwnerChange(fieldName: string, value: boolean) {

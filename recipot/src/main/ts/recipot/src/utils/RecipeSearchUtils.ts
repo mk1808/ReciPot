@@ -77,10 +77,11 @@ function getValueIdsFromArray(filterValue: any) {
     return result.length > 0 ? result : null;
 }
 
-function getValueForCategory(categories: CategoryDto[]): any[] {
+function getValueForCategory(categories: CategoryDto[]): any[] | null {
     const mainCategoriesIds = getValueIdsFromArray(categories) || [];
-    const childrenCategoriesIds = categories.flatMap(category => getValueForCategory(category.children));
-    return [...mainCategoriesIds, ...childrenCategoriesIds];
+    const childrenCategoriesIds = categories.flatMap(category => getValueForCategory(category.children || []));
+    const allCategories = [...mainCategoriesIds, ...childrenCategoriesIds].filter(id => !!id);
+    return allCategories.length > 0 ? allCategories : null;
 }
 
 export function scrollIntoRecipesPage(page: number) {
