@@ -50,7 +50,7 @@ function UserDetails() {
 
     function renderUserStatistics() {
         return userStatistics && (
-            <Stack direction="horizontal" gap={5} className='flex-wrap justify-content-center'>
+            <Stack direction="horizontal" gap={5} className='flex-wrap justify-content-center my-5 align-items-start'>
                 {renderStatistic('p.createdRecipesCount', userStatistics?.createdRecipesCount)}
                 {renderStatistic('p.commentedRecipesCount', userStatistics?.commentedRecipesCount)}
                 {renderStatistic('p.ratedRecipesCount', userStatistics?.ratedRecipesCount)}

@@ -204,10 +204,11 @@
         border: 15px solid $primary;
         border-radius: 50%;
         z-index: 1;
+        box-shadow: inset 4px 3px 5px 2px;
     }
 
     &-value {
-        font-size: larger;
+        font-size: 36px;
         position: absolute;
         top: 0;
         left: 0;
@@ -217,7 +218,8 @@
     }
 
     &-label {
-        font-size: large;
+        font-size: 20px;
+        margin-top:10px;
     }
 
     @keyframes ring-clipper {
