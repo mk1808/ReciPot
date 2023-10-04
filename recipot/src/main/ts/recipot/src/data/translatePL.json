@@ -269,6 +269,7 @@
         "withRate": "na",
         "cancel": "Anuluj",
         "confirm": "Potwierdź",
+        "delete": "Usuń",
         "goToRecipe": "Zobacz przepis",
         "numberOfRatings": "Liczba ocen",
         "loginHeader": "Logowanie",
@@ -410,7 +411,7 @@
         "noData": "Brak danych",
         "recipeUrlButton": "Zobacz zewnętrzną stronę przepisu",
         "incorrectFields": "Niepoprawne wartości w polach",
-        "authors":"Autorzy",
+        "authors": "Autorzy",
         "githubProfile": "Profil na GitHub"
     }
 }

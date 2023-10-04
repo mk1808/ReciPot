@@ -3,6 +3,7 @@ import './styles.scss';
 import { FaTrashCan, FaCheck, FaBan } from "react-icons/fa6";
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Tooltip from '../basicUi/Tooltip';
 
 function ComplexListElement({
     element,
@@ -17,7 +18,7 @@ function ComplexListElement({
     isActive?: boolean,
     onDeleteCallback: (index: number) => any,
     onSelectCallback: (index: number) => any,
-    getElementName?: (element: any, t:any) => any,
+    getElementName?: (element: any, t: any) => any,
 }) {
     const [isDeleteMode, setDeleteMode] = useState(false);
     const { t } = useTranslation();
@@ -66,14 +67,14 @@ function ComplexListElement({
 
     function renderDeleteAction() {
         const canDelete = element.canDelete !== false;
-        return canDelete && <FaTrashCan onClick={onDeleteClick} className="action-icon" />;
+        return canDelete && <Tooltip placement="bottom" title={t('p.delete')}><FaTrashCan onClick={onDeleteClick} className="action-icon" /></Tooltip>;
     }
 
     function renderConfirmActions() {
         return (
             <div>
-                <FaCheck onClick={onConfirmClick} className="action-icon" />
-                <FaBan onClick={onCancelClick} className="action-icon" />
+                <Tooltip placement="bottom" title={t('p.confirm')}><FaCheck onClick={onConfirmClick} className="danger-color" /></Tooltip>
+                <Tooltip placement="bottom" title={t('p.cancel')}><FaBan onClick={onCancelClick} className="action-icon" /></Tooltip>
             </div>
         );
     }
