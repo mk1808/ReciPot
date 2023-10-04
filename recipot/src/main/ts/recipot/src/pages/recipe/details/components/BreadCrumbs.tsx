@@ -8,22 +8,24 @@ import { goToFilters } from "../../../../utils/NavigationUtils";
 function BreadCrumbs({ recipe }: { recipe: Recipe }) {
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const [categories, setCategories] = useState<Category[]>([]);
+    const [categories, setCategories] = useState<Category[][]>([]);
 
     useEffect(() => {
         createCategories();
     }, []);
 
     function createCategories() {
-        let current = recipe.categories[0],
-            categoriesTab: Category[] = [];
-        categoriesTab.push(current);
-        while (current.parentCategory != null) {
-            categoriesTab.push(current.parentCategory);
-            current = current.parentCategory;
-        }
-        categoriesTab.reverse();
-        setCategories(categoriesTab);
+        const allCategories: Category[][] = [];
+        recipe.categories.forEach(category => {
+            const categoriesTab: Category[] = [category];
+            while (category.parentCategory != null) {
+                categoriesTab.push(category.parentCategory);
+                category = category.parentCategory;
+            }
+            categoriesTab.reverse();
+            allCategories.push(categoriesTab);
+        })
+        setCategories(allCategories);
     }
 
     function goToMainPage() {
@@ -36,13 +38,21 @@ function BreadCrumbs({ recipe }: { recipe: Recipe }) {
 
     return (
         <div className="my-4 breadcrumps">
-            <Breadcrumb>
-                <Breadcrumb.Item active onClick={goToMainPage} className="cursor-pointer">{t("p.breadCrumbsMain")}</Breadcrumb.Item>
-                {categories.map((category) => { return <Breadcrumb.Item active key={category.name} className="cursor-pointer" onClick={() => goToCategoryFilter(category)}>{category.name}</Breadcrumb.Item> })}
-                <Breadcrumb.Item active className="cursor-default">{recipe.name}</Breadcrumb.Item>
-            </Breadcrumb>
+            {categories.map(renderCategoryRow)}
         </div>
     )
+
+    function renderCategoryRow(categoryRow: Category[], index: number) {
+        return (
+            <div className="my-4 breadcrumps" key={index}>
+                <Breadcrumb>
+                    <Breadcrumb.Item active onClick={goToMainPage} className="cursor-pointer">{t("p.breadCrumbsMain")}</Breadcrumb.Item>
+                    {categoryRow.map((category) => { return <Breadcrumb.Item active key={category.name} className="cursor-pointer" onClick={() => goToCategoryFilter(category)}>{category.name}</Breadcrumb.Item> })}
+                    <Breadcrumb.Item active className="cursor-default">{recipe.name}</Breadcrumb.Item>
+                </Breadcrumb>
+            </div>
+        )
+    }
 }
 
 export default BreadCrumbs;
