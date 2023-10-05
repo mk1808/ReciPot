@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 import NotificationManager from './components/NotificationManager';
 import { UsersContext, UsersDispatchContext } from '../../context/UserContext';
 import { AppUser } from '../../data/types';
-import recipotIcon from '../../assets/images/recipot.png';
+import recipotIcon from '../../assets/images/logo2.png';
 
 function Header() {
   const { t } = useTranslation();
@@ -36,7 +36,7 @@ function Header() {
   }
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" className="bg-body-tertiary" >
       <Container fluid>
         {renderRecipotLogo()}
         {renderNotifications()}
@@ -49,14 +49,14 @@ function Header() {
   function renderRecipotLogo() {
     return (
       <>
-        <Navbar.Brand href="#" onClick={gotToMainPage}>Recipot</Navbar.Brand>
+        <Navbar.Brand href="#" onClick={gotToMainPage}></Navbar.Brand>
         <Nav
           className="me-auto my-2 my-lg-0 cursor-pointer"
           style={{ maxHeight: '100px' }}
           navbarScroll
           onClick={gotToMainPage}
         >
-          <img src={recipotIcon} alt="Recipot logo" height={30} />
+          <img src={recipotIcon} alt="Recipot logo" height={45} />
         </Nav>
       </>
     );
