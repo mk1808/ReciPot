@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { BsArrowLeft } from 'react-icons/bs';
+import { FaArrowLeftLong } from 'react-icons/fa6';
 import './styles.scss';
 
 function SideOffcanvas({ title = "", children }: { title: string, children: any }) {
@@ -12,7 +12,7 @@ function SideOffcanvas({ title = "", children }: { title: string, children: any 
     return (
         <>
             <Button variant="primary" onClick={handleShow} className="side-offcanvas-button">
-                <BsArrowLeft />
+                <FaArrowLeftLong />
             </Button>
 
             <Offcanvas

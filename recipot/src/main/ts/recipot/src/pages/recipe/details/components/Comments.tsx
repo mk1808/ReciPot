@@ -4,7 +4,7 @@ import MyTextarea from "../../../../components/basicUi/MyTextarea";
 import MyButton from "../../../../components/basicUi/MyButton";
 import { Card, Stack } from "react-bootstrap";
 import MyImage from "../../../../components/basicUi/MyImage";
-import { AiFillStar } from "react-icons/ai";
+import { BsStarFill } from "react-icons/bs";
 import StarSelectInput from "../../../../components/basicUi/StarSelectInput";
 import CommentsForm from "./CommentsForm";
 import { FormSave } from "../../../../data/utilTypes";
@@ -89,7 +89,7 @@ function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: 
                                 <div className="mb-3">
                                     <div className="h6">
                                         {t('p.rating')}:&nbsp;
-                                        <AiFillStar /> {comment.rating ?? '-'}/5  &nbsp;
+                                        <BsStarFill className="mb-1" /> {comment.rating ?? '-'}/5  &nbsp;
                                         <div className="vr"></div>
                                         &nbsp;{t('p.publishDate')}:&nbsp;{format(comment.created)}
                                     </div>

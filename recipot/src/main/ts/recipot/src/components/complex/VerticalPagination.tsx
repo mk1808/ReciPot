@@ -1,6 +1,6 @@
 import { getPageNumbers } from "../../utils/VerticalPaginationUtils";
 import MyButton from "../basicUi/MyButton";
-import { BsThreeDotsVertical } from "react-icons/bs";
+import { FaEllipsisVertical } from "react-icons/fa6";
 import './styles.scss';
 
 function VerticalPagination({
@@ -29,7 +29,7 @@ function VerticalPagination({
 
     function renderPageButton(pageNumber: number) {
         if (pageNumber < 0) {
-            return <div className="empty-page-button" key={pageNumber}><BsThreeDotsVertical /></div>
+            return <div className="empty-page-button" key={pageNumber}><FaEllipsisVertical /></div>
         }
         return <MyButton.Primary key={pageNumber} className="page-button" disabled={getIsCurrentPage(pageNumber)} onClick={() => onPageSelect(pageNumber)}>{pageNumber + 1}</MyButton.Primary>
     }

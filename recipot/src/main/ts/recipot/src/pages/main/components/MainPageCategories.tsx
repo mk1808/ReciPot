@@ -5,7 +5,6 @@ import { Category, CategoryDto, Response } from "../../../data/types";
 import dictionariesApi from "../../../api/DictionariesApi";
 import CategoryCard from "../../../components/complex/CategoryCard";
 import MyButton from "../../../components/basicUi/MyButton";
-import { FaMagnifyingGlass } from "react-icons/fa6";
 import { createUrl } from "../../../utils/RecipeSearchUtils";
 import { useNavigate } from "react-router-dom";
 import { goToFilters } from "../../../utils/NavigationUtils";
