@@ -410,6 +410,8 @@
 		"recipeUrlButton": "Go to recipe's origin page",
 		"incorrectFields": "Incorrect values in form fields",
 		"authors": "Authors",
-		"githubProfile": "GitHub profile"
+		"githubProfile": "GitHub profile",
+		"noElementsInSearch": "There are no recipes matching given criteria.",
+		"noElementsInCollection": "This collection does not have any elements yet."
 	}
 }

@@ -412,6 +412,8 @@
         "recipeUrlButton": "Zobacz zewnętrzną stronę przepisu",
         "incorrectFields": "Niepoprawne wartości w polach",
         "authors": "Autorzy",
-        "githubProfile": "Profil na GitHub"
+        "githubProfile": "Profil na GitHub",
+        "noElementsInSearch": "Nie znaleziono przepisów spełniających podane kryteria.",
+        "noElementsInCollection": "Wybrana kolekcja nie posiada jeszcze żadnych przepisów."
     }
 }

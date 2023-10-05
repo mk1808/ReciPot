@@ -16,6 +16,7 @@ import { showSuccessAlert } from "../../../../utils/RestUtils";
 import DeleteFromCollectionDialog from "../dialogs/DeleteFromCollectionDialog";
 import { initAs } from "../../../../utils/ObjectUtils";
 import { getCollectionName } from "../../../../utils/TextUtils";
+import NoContent from "../../../../components/complex/NoContent";
 
 function CollectionRecipesColumn() {
     const collectionsContext = useContext(RecipeCollectionListContext);
@@ -112,9 +113,7 @@ function CollectionRecipesColumn() {
 
     function renderNoData() {
         return (
-            <div className="text-center">
-                <h2>{t("p.noData")}</h2>
-            </div>
+            <NoContent text={t('p.noElementsInCollection')}/>
         );
     }
 

@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import MyButton from "../../../../components/basicUi/MyButton";
 import { openInBackground } from "../../../../utils/NavigationUtils";
+import NoContent from "../../../../components/complex/NoContent";
 
 
 function FilteredRecipesColumn() {
@@ -59,9 +60,7 @@ function FilteredRecipesColumn() {
 
     function renderNoData() {
         return (
-            <div className="text-center">
-                <h2>{t("p.noData")}</h2>
-            </div>
+            <NoContent text={t('p.noElementsInSearch')}/>
         );
     }
 }
