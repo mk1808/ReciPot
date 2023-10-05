@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { FaCopyright, FaGithub } from 'react-icons/fa6';
 import Tooltip from '../../components/basicUi/Tooltip';
 import { Stack } from 'react-bootstrap';
+import recipotIcon from '../../assets/images/logo2.png';
+import './../styles.scss';
 
 function Footer() {
   const { t } = useTranslation();
@@ -12,9 +14,9 @@ function Footer() {
   }
 
   return (
-    <Card>
+    <Card className='footer'>
       <Card.Body>
-        <Stack direction='horizontal' className='justify-content-center fs-5 my-2'>
+        <Stack direction='horizontal' className='justify-content-center align-items-center fs-5'>
           {renderCopyright()}
           {renderAuthors()}
         </Stack >
@@ -24,10 +26,11 @@ function Footer() {
 
   function renderCopyright() {
     return (
-      <div>
-        <FaCopyright className='mx-2 mb-1' />
-        Recipot {getYear()}
-      </div>
+      <>
+        <img src={recipotIcon} alt="Recipot logo" height={60} className='recipot-logo' />
+        <FaCopyright className='mx-2' />
+        {getYear()}
+      </>
     )
   }
 
