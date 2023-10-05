@@ -12,7 +12,8 @@ type contextStateModel = {
     recipesPages?: Recipe[][],
     activeRecipeFilterId?: string,
     currentPage?: { totalPages: number, number: number, totalElements: number },
-    recipesFilterForm?: any
+    recipesFilterForm?: any,
+    isLoaded?: boolean
 };
 
 const RECIPES_PAGE_SIZE = 4;
@@ -88,7 +89,8 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
                     ...contextState,
                     activeRecipeFilterId: action.activeRecipeFilterId,
                     recipesPages: [],
-                    recipesFilterForm: newRecipesFilterFormState
+                    recipesFilterForm: newRecipesFilterFormState,
+                    isLoaded: false
                 };
             }
             case 'refreshFiltersList': {
@@ -106,7 +108,8 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
                 updateFilterPageUrl(contextState.recipesFilterForm);
                 return {
                     ...contextState,
-                    recipesPages: []
+                    recipesPages: [],
+                    isLoaded: false
                 };
             }
             case 'filterFormChange': {
@@ -119,13 +122,15 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
                 }
             }
             case 'onRecipePageLoad': {
-                const recipesPages = [...(contextState?.recipesPages || [])]
-                recipesPages[action.recipesPage.number] = action.recipesPage.content
-                loadBetweenPage(contextState, recipesPages, action.recipesPage)
+                const recipesPages = [...(contextState?.recipesPages || [])];
+                recipesPages[action.recipesPage.number] = action.recipesPage.content;
+                loadBetweenPage(contextState, recipesPages, action.recipesPage);
+
                 return {
                     ...contextState,
                     recipesPages: recipesPages,
-                    currentPage: action.recipesPage
+                    currentPage: action.recipesPage,
+                    isLoaded: true
                 };
             }
             case 'onBetweenRecipePageLoad': {

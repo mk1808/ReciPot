@@ -7,11 +7,14 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import MyButton from "../../../../components/basicUi/MyButton";
 import { openInBackground } from "../../../../utils/NavigationUtils";
+import NoContent from "../../../../components/complex/NoContent";
+import MySpinner from "../../../../components/basicUi/MySpinner";
 
 
 function FilteredRecipesColumn() {
     const recipeFilterContext = useContext(RecipeFilterContext);
     const recipeFilterDispatchContext = useContext(RecipeFilterDispatchContext);
+    const isLoaded = recipeFilterContext.isLoaded;
     const { t } = useTranslation();
     const navigate = useNavigate();
     const recipeCallback = (recipe: Recipe, event: any) => openInBackground(`/recipes/${recipe.id}`, event, navigate);
@@ -22,7 +25,13 @@ function FilteredRecipesColumn() {
         })
     }
 
-    return (recipeFilterContext.currentPage?.totalElements || 0) > 0 ? renderContent() : renderNoData();
+    return (
+        <>
+            {!isLoaded && <MySpinner />}
+            {isLoaded && (recipeFilterContext.currentPage?.totalElements || 0 > 0 ? renderContent() : renderNoData())}
+
+        </>
+    )
 
     function renderContent() {
         return (
@@ -59,9 +68,7 @@ function FilteredRecipesColumn() {
 
     function renderNoData() {
         return (
-            <div className="text-center">
-                <h2>{t("p.noData")}</h2>
-            </div>
+            <NoContent text={t('p.noElementsInSearch')} />
         );
     }
 }
