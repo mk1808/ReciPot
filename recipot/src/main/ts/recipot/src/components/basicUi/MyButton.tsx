@@ -9,8 +9,12 @@ function SecondaryButton(props: any) {
     return <MyButton variant="secondary" {...props}>{props.children}</MyButton>
 }
 
-function OutlineButton(props: any) {
+function OutlinePrimaryButton(props: any) {
     return <MyButton variant="outline-primary" {...props}>{props.children}</MyButton>
+}
+
+function OutlineDangerButton(props: any) {
+    return <MyButton variant="outline-danger" {...props}>{props.children}</MyButton>
 }
 
 function MyButton({ variant, children, onClick = initFcn<any>(), className = "", disabled = false, type = "button" }:
@@ -28,6 +32,7 @@ function MyButton({ variant, children, onClick = initFcn<any>(), className = "",
 }
 MyButton.Primary = PrimaryButton;
 MyButton.Secondary = SecondaryButton;
-MyButton.Outline = OutlineButton;
+MyButton.OutlinePrimary = OutlinePrimaryButton;
+MyButton.OutlineDanger = OutlineDangerButton;
 
 export default MyButton;
