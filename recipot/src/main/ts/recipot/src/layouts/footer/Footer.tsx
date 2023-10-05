@@ -1,6 +1,6 @@
 import Card from 'react-bootstrap/Card';
 import { useTranslation } from 'react-i18next';
-import { FaGithub } from 'react-icons/fa6';
+import { FaCopyright, FaGithub } from 'react-icons/fa6';
 import Tooltip from '../../components/basicUi/Tooltip';
 import { Stack } from 'react-bootstrap';
 
@@ -25,7 +25,7 @@ function Footer() {
   function renderCopyright() {
     return (
       <div>
-        <span className='mx-1'>&#169;</span>
+        <FaCopyright className='mx-2 mb-1' />
         Recipot {getYear()}
       </div>
     )

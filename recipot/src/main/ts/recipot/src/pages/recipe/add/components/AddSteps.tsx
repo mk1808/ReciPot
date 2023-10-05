@@ -3,7 +3,7 @@ import MyButton from "../../../../components/basicUi/MyButton";
 import { useTranslation } from "react-i18next";
 import MyTextarea from "../../../../components/basicUi/MyTextarea";
 import { Col, Row } from "react-bootstrap";
-import { MdOutlineDeleteOutline } from "react-icons/md";
+import { FaTrashCan } from "react-icons/fa6";
 import { RecipeStep } from "../../../../data/types";
 import { useState } from "react";
 import { onAddElementClick, onDeleteElementClick } from "../ListManipulation";
@@ -80,7 +80,7 @@ function AddSteps() {
                 <Col >
                     {renderStepInput(step, index)}
                 </Col>
-                <Col md={1} className="bin-icon"><MdOutlineDeleteOutline onClick={() => onDelete(index)} /></Col>
+                <Col md={1} className="bin-icon"><FaTrashCan onClick={() => onDelete(index)} /></Col>
             </Row>
         );
     }

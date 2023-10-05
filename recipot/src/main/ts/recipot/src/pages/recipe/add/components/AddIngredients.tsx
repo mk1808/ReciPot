@@ -4,7 +4,7 @@ import { BsPlusCircleFill } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
 import MyInput from "../../../../components/basicUi/MyInput";
 import MySelect from "../../../../components/basicUi/MySelect";
-import { MdOutlineDeleteOutline } from "react-icons/md";
+import { FaTrashCan } from "react-icons/fa6";
 import { useContext, useEffect, useState } from "react";
 import { AddRecipeContext, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
 import { dynamicInputAttributesForContext } from "../../../../utils/FormInputUtils";
@@ -101,7 +101,7 @@ function AddIngredients() {
                         <Col >
                             {renderIngredientInput(index)}
                         </Col>
-                        <Col className="bin-icon" lg={1} ><MdOutlineDeleteOutline onClick={() => onDelete(index)} /></Col>
+                        <Col className="bin-icon" lg={1} ><FaTrashCan onClick={() => onDelete(index)} /></Col>
                     </Row>
                 </Card.Body>
             </Card>

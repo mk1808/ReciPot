@@ -2,7 +2,6 @@ import { Button, Col, Row, Stack } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { Recipe } from "../../../../data/types";
 import MyButton from "../../../../components/basicUi/MyButton";
-import { FaPlus } from "react-icons/fa6";
 import { useState } from "react";
 import { MdAccessTime, MdWork } from "react-icons/md";
 import { GiCookingPot } from "react-icons/gi";

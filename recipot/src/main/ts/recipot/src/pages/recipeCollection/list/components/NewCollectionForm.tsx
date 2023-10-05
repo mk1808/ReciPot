@@ -1,4 +1,4 @@
-import { FaPlus } from "react-icons/fa6";
+import { BsPlusCircleFill } from "react-icons/bs";
 import { Stack, Form } from "react-bootstrap";
 import MyButton from "../../../../components/basicUi/MyButton";
 import MyInput from "../../../../components/basicUi/MyInput";
@@ -20,7 +20,7 @@ function NewCollectionForm() {
 
     function renderAddButton() {
         return <>
-            <MyButton.Primary onClick={()=>setShowModal(true)}><FaPlus /></MyButton.Primary>
+            <MyButton.Primary onClick={() => setShowModal(true)}><BsPlusCircleFill /></MyButton.Primary>
             <AddCollectionDialog showModal={showModal} handleClose={() => setShowModal(false)}></AddCollectionDialog>
         </>
     }

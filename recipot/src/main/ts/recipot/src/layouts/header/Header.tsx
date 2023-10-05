@@ -5,7 +5,6 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { GiCookingPot } from 'react-icons/gi';
 import { useTranslation } from "react-i18next";
 import NotificationManager from './components/NotificationManager';
 import { UsersContext, UsersDispatchContext } from '../../context/UserContext';

@@ -5,6 +5,7 @@ import RecipeCard from "./RecipeCard";
 import { Recipe } from "../../data/types";
 import { initFcn } from "../../utils/ObjectUtils";
 import useWindowSize from "../../hooks/useWindowSize";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 function SlidingElements({ recipes, getSingleElement, size }: { recipes: Recipe[], getSingleElement: Function, size: number }) {
 
@@ -30,13 +31,13 @@ function SlidingElements({ recipes, getSingleElement, size }: { recipes: Recipe[
     return (
         <Stack direction="horizontal" className="justify-content-center">
             <MyButton.Primary onClick={() => clickSlide(counter === 0 ? 0 : counter - 1)}>
-                &#10094;
+                <FaChevronLeft />
             </MyButton.Primary>
 
             {renderContent()}
 
             <MyButton.Primary onClick={() => clickSlide(counter === lastIndex ? lastIndex : counter + 1)}>
-                &#10095;
+                <FaChevronRight />
             </MyButton.Primary>
         </Stack>
     );

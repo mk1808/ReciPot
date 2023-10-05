@@ -8,7 +8,7 @@ import MyButton from "../../../../components/basicUi/MyButton";
 import DeleteRecipeDialog from "../../details/components/dialogs/DeleteRecipeDialog";
 import { Recipe } from "../../../../data/types";
 import { initAs } from "../../../../utils/ObjectUtils";
-import { MdOutlineDeleteOutline } from "react-icons/md";
+import { FaTrashCan } from "react-icons/fa6";
 
 function UpperLeftSide() {
     const { t } = useTranslation();
@@ -59,7 +59,7 @@ function UpperLeftSide() {
     function renderDeleteButtonModal() {
         return (
             <div className="text-center delete-button">
-                <MyButton.Outline onClick={() => setShowModalDelete(true)}> <MdOutlineDeleteOutline /> {t('p.deleteRecipeButton')}</MyButton.Outline>
+                <MyButton.Outline onClick={() => setShowModalDelete(true)}> <FaTrashCan /> {t('p.deleteRecipeButton')}</MyButton.Outline>
                 {renderModal()}
             </div>
         )
