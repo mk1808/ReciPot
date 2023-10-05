@@ -171,7 +171,7 @@ function Test() {
 
                 <Tooltip title={"Tekst tooltip right-start"} placement={"right-start"} ><MyButton.Primary onClick={() => { console.log("btnz") }} className="button-400" disabled={false}>Zapisz</MyButton.Primary></Tooltip>
                 <Tooltip title={"Tekst tooltip bottom-start"} placement={"bottom-start"} ><MyButton.Secondary onClick={() => { console.log("btna") }}>Anuluj</MyButton.Secondary></Tooltip>
-                <Tooltip title={"Tekst tooltip left-end"} placement={"left-end"} ><MyButton.Outline onClick={() => { console.log("btni") }}>Inna opcja</MyButton.Outline></Tooltip>
+                <Tooltip title={"Tekst tooltip left-end"} placement={"left-end"} ><MyButton.OutlinePrimary onClick={() => { console.log("btni") }}>Inna opcja</MyButton.OutlinePrimary></Tooltip>
 
 
                 <button onClick={() => {

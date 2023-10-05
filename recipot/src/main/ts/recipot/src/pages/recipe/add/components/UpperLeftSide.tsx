@@ -59,7 +59,7 @@ function UpperLeftSide() {
     function renderDeleteButtonModal() {
         return (
             <div className="text-center delete-button">
-                <MyButton.Outline onClick={() => setShowModalDelete(true)}> <FaTrashCan /> {t('p.deleteRecipeButton')}</MyButton.Outline>
+                <MyButton.OutlineDanger onClick={() => setShowModalDelete(true)}> <FaTrashCan /> {t('p.deleteRecipeButton')}</MyButton.OutlineDanger>
                 {renderModal()}
             </div>
         )
