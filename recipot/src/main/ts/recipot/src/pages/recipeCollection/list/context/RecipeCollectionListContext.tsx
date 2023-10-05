@@ -9,7 +9,8 @@ type contextStateModel = {
     collections?: RecipeCollection[],
     recipesInCollection?: Recipe[][],
     activeCollectionId?: string,
-    currentPage?: { totalPages: number, number: number, totalElements: number }
+    currentPage?: { totalPages: number, number: number, totalElements: number },
+    isLoaded?: boolean
 };
 
 const RECIPES_PAGE_SIZE = 4;
@@ -82,7 +83,8 @@ export const RecipeCollectionListContextProvider = ({ children }: any) => {
                 return {
                     ...contextState,
                     recipesInCollection: [],
-                    activeCollectionId: action.activeCollectionId
+                    activeCollectionId: action.activeCollectionId,
+                    isLoaded: false
                 };
             }
             case 'refreshCollectionsList': {
@@ -105,7 +107,8 @@ export const RecipeCollectionListContextProvider = ({ children }: any) => {
                 return {
                     ...contextState,
                     recipesInCollection: recipesInCollection,
-                    currentPage: action.recipesPage
+                    currentPage: action.recipesPage,
+                    isLoaded: true
                 };
             }
             case 'onBetweenRecipePageLoad': {

@@ -17,6 +17,7 @@ import DeleteFromCollectionDialog from "../dialogs/DeleteFromCollectionDialog";
 import { initAs } from "../../../../utils/ObjectUtils";
 import { getCollectionName } from "../../../../utils/TextUtils";
 import NoContent from "../../../../components/complex/NoContent";
+import MySpinner from "../../../../components/basicUi/MySpinner";
 
 function CollectionRecipesColumn() {
     const collectionsContext = useContext(RecipeCollectionListContext);
@@ -29,7 +30,7 @@ function CollectionRecipesColumn() {
     const [recipeToDelete, setRecipeToDelete] = useState<Recipe | any>();
     const recipeCallback = (recipe: Recipe, event: any,) => openInBackground(`/recipes/${recipe.id}`, event, navigate);
     const activeRecipeCollection: RecipeCollection | undefined = collectionsContext.collections?.filter(collection => collection.id === collectionsContext.activeCollectionId)[0];
-
+    const isLoaded = collectionsContext.isLoaded;
     function deleteRecipeShowModal(recipe: Recipe, index: number) {
         setShowModalDelete(true);
         setRecipeToDelete(recipe);
@@ -55,7 +56,10 @@ function CollectionRecipesColumn() {
     return (
         <div>
             {renderHeader()}
-            {(collectionsContext.currentPage?.totalElements || 0) > 0 ? renderContent() : renderNoData()}
+            <>
+                {!isLoaded && <MySpinner />}
+                {isLoaded && (collectionsContext.currentPage?.totalElements || 0 > 0 ? renderContent() : renderNoData())}
+            </>
         </div>
     );
 
@@ -113,7 +117,7 @@ function CollectionRecipesColumn() {
 
     function renderNoData() {
         return (
-            <NoContent text={t('p.noElementsInCollection')}/>
+            <NoContent text={t('p.noElementsInCollection')} />
         );
     }
 
