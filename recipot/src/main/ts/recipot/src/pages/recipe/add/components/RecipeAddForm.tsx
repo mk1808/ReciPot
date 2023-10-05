@@ -7,15 +7,21 @@ import UpperRightSide from "./UpperRightSide";
 import AddSteps from "./AddSteps";
 import ConfirmCancelButtons from "../../../../components/basicUi/ConfirmCancelButtons";
 import { AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
+import { useNavigate } from "react-router-dom";
 
 function RecipeAddForm() {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const addRecipeDispatchContext = useContext(AddRecipeDispatchContext);
 
     function onSubmit() {
         addRecipeDispatchContext({
             type: "onSubmit"
         })
+    }
+
+    function onCancel() {
+        navigate(-1);
     }
 
     return (
@@ -63,7 +69,7 @@ function RecipeAddForm() {
                 <hr />
                 <ConfirmCancelButtons
                     handleConfirm={onSubmit}
-                    handleCancel={() => { }}
+                    handleCancel={onCancel}
                     className="justify-content-center"
                 />
             </div>
