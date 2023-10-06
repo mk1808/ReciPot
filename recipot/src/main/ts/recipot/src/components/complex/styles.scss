@@ -24,6 +24,15 @@
     }
 }
 
+.recipe-card,
+.circle-card-container {
+
+    .rating {
+        color: #666;
+        margin-top: 10px;
+    }
+}
+
 .hash-tags {
     .badge {
         cursor: pointer;
