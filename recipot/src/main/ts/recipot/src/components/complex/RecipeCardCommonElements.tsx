@@ -3,7 +3,7 @@ import { Recipe } from '../../data/types';
 
 export function renderRating(recipe: Recipe, text: string) {
     return (
-        <div className="h6">
+        <div className="h6 rating">
             <BsStarFill className='mb-1' /> {recipe.averageRating}/5  &nbsp;
             <div className="vr"></div>
             &nbsp; {text}: {recipe.ratingsCount}
