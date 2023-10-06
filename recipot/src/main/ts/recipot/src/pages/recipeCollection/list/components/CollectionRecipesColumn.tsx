@@ -19,6 +19,7 @@ import { getCollectionName } from "../../../../utils/TextUtils";
 import NoContent from "../../../../components/complex/NoContent";
 import MySpinner from "../../../../components/basicUi/MySpinner";
 import PageDivider from "../../../../components/basicUi/PageDivider";
+import MorePagesButton from "../../../../components/basicUi/MorePagesButton";
 
 function CollectionRecipesColumn() {
     const collectionsContext = useContext(RecipeCollectionListContext);
@@ -107,11 +108,7 @@ function CollectionRecipesColumn() {
     function renderLoadNextPageButton() {
         const currentPage = collectionsContext.currentPage;
         if (collectionsContext.recipesInCollection?.length !== currentPage?.totalPages) {
-            return (
-                <MyButton.Primary onClick={() => loadNextPage(collectionsContext.recipesInCollection?.length || 0)}>
-                    {t("p.loadNextRecipesPage")}
-                </MyButton.Primary>
-            )
+            return <MorePagesButton text={t("p.loadNextRecipesPage")} loadNextPage={() => loadNextPage(collectionsContext.recipesInCollection?.length || 0)} />
         }
         return null;
     }
