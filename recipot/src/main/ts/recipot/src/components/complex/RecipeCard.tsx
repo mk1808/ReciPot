@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { Card, Col, Row } from 'react-bootstrap';
+import { Card, Col, Row, Stack } from 'react-bootstrap';
 import './styles.scss';
 import MyButton from '../basicUi/MyButton';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +11,7 @@ import HashTagList from '../basicUi/HashTagList';
 import { onImageLoadError } from "../../utils/RestUtils";
 import { useNavigate } from "react-router-dom";
 import { goToFilters } from "../../utils/NavigationUtils";
+import Tooltip from "../basicUi/Tooltip";
 
 function RecipeCard({
     recipe,
@@ -28,6 +29,18 @@ function RecipeCard({
 
     function onHashTagClick(hashTag: any) {
         goToFilters({ hashTags: [{ label: hashTag.name, value: hashTag }] }, navigate);
+    }
+
+    function getMoreNumber(list?: any[]) {
+        const listLength = list?.length || 1;
+        return listLength - 1;
+    }
+
+    function getMoreList(list?: any[]) {
+        if (list?.length && list.length > 0) {
+            return list.slice(1, list.length).map(element => element.name).join(", ");
+        }
+        return "";
     }
 
     return (
@@ -52,7 +65,12 @@ function RecipeCard({
         return (
             <Row>
                 <Col>
-                    <h6>{recipe.categories.map(category => category.name)[0]}</h6>
+                    <Stack direction="horizontal">
+                        <h6>
+                            {recipe.categories.map(category => category.name)[0]}
+                        </h6>
+                        {renderMore(recipe.categories)}
+                    </Stack>
                 </Col>
                 {additionalFunctionElement && <Col md={3}>{additionalFunctionElement}</Col>}
             </Row>
@@ -60,7 +78,21 @@ function RecipeCard({
     }
 
     function renderHashTags() {
-        return <HashTagList hashTags={recipe.hashTags.slice(0, 2)} onClick={onHashTagClick} />
+        return (
+            <Stack direction="horizontal">
+                <HashTagList hashTags={recipe.hashTags.slice(0, 1)} onClick={onHashTagClick} />
+                {renderMore(recipe.hashTags)}
+            </Stack>
+        )
+    };
+
+    function renderMore(list?: any[]) {
+        const elementsNumber = getMoreNumber(list);
+        return elementsNumber > 0 && (
+            <Tooltip placement={"bottom"} title={getMoreList(list)}>
+                <h6 className="ms-2 cursor-pointer">{`(+${elementsNumber})`}</h6>
+            </Tooltip>
+        );
     };
 }
 
