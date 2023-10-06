@@ -25,18 +25,10 @@ function CategoryCards() {
         }
         setReadyCategorires(newTab);
     }
-    function prepareCategories(response: Response<Category[]>) {
-        let categories = response.value;
-        categories.push(categories[0]);
-        categories.push(categories[1]);
-        categories.push(categories[2]);
-        setAllCategories(categories);
-        return categories;
-    }
     useEffect(() => {
         dictionariesApi.getAllCategories((response: Response<any[]>) => {
-            let categories = prepareCategories(response);
-
+            let categories = response.value;
+            setAllCategories(categories);
             setCategoriesInRows(categories);
         })
     }, [])
