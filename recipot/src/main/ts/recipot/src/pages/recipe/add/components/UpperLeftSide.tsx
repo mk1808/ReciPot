@@ -9,6 +9,9 @@ import DeleteRecipeDialog from "../../details/components/dialogs/DeleteRecipeDia
 import { Recipe } from "../../../../data/types";
 import { initAs } from "../../../../utils/ObjectUtils";
 import { FaTrashCan } from "react-icons/fa6";
+import MyFileInput from "../../../../components/basicUi/MyFileInput";
+import MyImage from "../../../../components/basicUi/MyImage";
+import { Stack } from "react-bootstrap";
 
 function UpperLeftSide() {
     const { t } = useTranslation();
@@ -31,8 +34,8 @@ function UpperLeftSide() {
             case 'name': {
                 return !!fieldValue && fieldValue.length > 3;
             }
-            case 'image': {
-                return !!fieldValue && fieldValue.length > 3;
+            case 'imageFile': {
+                return !!editedRecipe || !!fieldValue;
             }
             default: {
                 return true;
@@ -88,13 +91,20 @@ function UpperLeftSide() {
 
     function renderImageInput() {
         return (
-            <MyInput
-                label={t('p.image')}
-                placeholder={t('p.image')}
-                required={true}
-                {...inputAttributesForContext("image", onChange, getValidity, undefined, formFields.formValue)}
-            />
+            <Stack direction="horizontal">
+                {renderCurrentImage()}
+                <MyFileInput
+                    className="full-width"
+                    label={formFields.formValue?.image ? t('p.changeImage') : t('p.image')}
+                    required={!editedRecipe}
+                    {...inputAttributesForContext("imageFile", onChange, getValidity, undefined, formFields.formValue)}
+                />
+            </Stack>
         )
+    }
+
+    function renderCurrentImage() {
+        return formFields.formValue?.image && <MyImage src={formFields.formValue.image} height={100} />
     }
 
     function renderUrlInput() {

@@ -8,15 +8,18 @@ import { showErrorAlert, showSuccessAlert } from "../utils/RestUtils";
 import { useTranslation } from "react-i18next";
 import { AlertsDispatchContext } from "./AlertContext";
 import { Recipe } from "../data/types";
+import { ApiRequestSendManager } from "../utils/ApiRequestSendManager";
+import filesApi from "../api/FilesApi";
 
 export const AddRecipeContext = createContext<any>([]);
 
 export const AddRecipeDispatchContext = createContext<Function>(() => { });
 
+const saveRecipeRequestManager = ApiRequestSendManager();
+
 function AddRecipeContextProvider({ children, editedRecipe }: { children: any, editedRecipe?: Recipe | any }) {
     const navigate = useNavigate();
     const formSave = useRef<FormSave>(getEmptyFormSave());
-    const wasSaveSend = useRef<boolean>(false);
     const { t } = useTranslation();
     const alertDispatch = useContext(AlertsDispatchContext);
     useEffect(() => {
@@ -47,11 +50,24 @@ function AddRecipeContextProvider({ children, editedRecipe }: { children: any, e
         formValue.hashTags = convertToObjects(formValue.hashTags);
         formValue.categories = convertCategoriesToObjects(formValue.categories);
         formValue.recipeIngredients = convertIngredientsToObjects(formValue.recipeIngredients);
-        if (!wasSaveSend.current) {
-            saveOrEditRecipe(formValue);
-            wasSaveSend.current = true;
-        }
+        saveImageFile(formValue);
     }
+
+    function saveImageFile(formValue: any) {
+        saveRecipeRequestManager.nextAndLock(() => {
+            if (formValue.imageFile) {
+                filesApi.saveFile(formValue.imageFile, response => onFileSaved(formValue, response), formSave.current.onError)
+            } else {
+                saveOrEditRecipe(formValue);
+            }
+        })
+    }
+
+    function onFileSaved(formValue: any, response: any) {
+        formValue.image = response.value; //assumed value contains image URI
+        saveOrEditRecipe(formValue);
+    }
+
     function saveOrEditRecipe(formValue: any) {
         if (editedRecipe) {
             recipesApi.putRecipe(editedRecipe.id, formValue, formSave.current.onSuccess, formSave.current.onError)
@@ -61,19 +77,18 @@ function AddRecipeContextProvider({ children, editedRecipe }: { children: any, e
         recipesApi.postRecipe(formValue, formSave.current.onSuccess, formSave.current.onError)
     }
     formSave.current.onSuccess = function (response: any) {
-        wasSaveSend.current = false;
+        saveRecipeRequestManager.unlock();
         let id = response.value.id;
         navigate(`/recipes/${id}`)
         let alert = editedRecipe ? 'p.recipeEditCorrect' : 'p.recipeAddCorrect';
         showSuccessAlert(t(alert), alertDispatch);
     }
     formSave.current.onError = function (response: any) {
-        wasSaveSend.current = false;
+        saveRecipeRequestManager.unlock();
         showErrorAlert(t(response.message), alertDispatch);
     }
 
     function addRecipeReducer(fields: any, action: any) {
-        console.log(fields)
         switch (action.type) {
             case 'onChange': {
                 if (action.isIngredientOrStep) {

@@ -57,7 +57,25 @@ function RestClient() {
         apiCallWithBody('PATCH', path, body, onSuccess, onError)
     }
 
-    return { get: _get, delete: _delete, put: _put, post: _post, patch: _patch }
+    const _postFile = <T>(path: string, file: any, onSuccess: (response: Response<T>) => any, onError?: (response: Response<T>) => any) => {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        fetch(`${URL}${path}`, {
+            method: 'POST',
+            body: formData
+        })
+            .then((response: any) => {
+                if (!response.ok) {
+                    return Promise.reject(response);
+                }
+                return response.json();
+            })
+            .then(onSuccess)
+            .catch((response) => response.json().then(onError).catch(onError));
+    }
+
+    return { get: _get, delete: _delete, put: _put, post: _post, patch: _patch, postFile: _postFile }
 }
 
 const restClient = RestClient();

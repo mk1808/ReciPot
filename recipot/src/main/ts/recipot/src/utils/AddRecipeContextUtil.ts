@@ -70,6 +70,5 @@ export function getDefaultValue(fieldName: string, index: number, { formFields, 
 }
 
 export function getDefaultValidityForEdit(formValidity: any) {
-    console.log({ categories: true, difficulty: true, hashTags: true, numberOfDishes: true, requiredEffort: true, ...formValidity })
-    return { ...formValidity, categories: true, difficulty: true, hashTags: true, numberOfDishes: true, requiredEffort: true };
+    return { ...formValidity, categories: true, difficulty: true, imageFile: true, hashTags: true, numberOfDishes: true, requiredEffort: true };
 }

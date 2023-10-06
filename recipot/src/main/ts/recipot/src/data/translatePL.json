@@ -357,6 +357,7 @@
         "name": "Nazwa",
         "description": "Opis",
         "image": "Zdjęcie",
+        "changeImage": "Wskaż nowe zdjęcie",
         "userRegisterCorrect": "Konto zostało utworzone!",
         "userSuccessfullyEdited": "Użytkownik poprawnie edytowany",
         "defaultError": "Wystąpił błąd",
