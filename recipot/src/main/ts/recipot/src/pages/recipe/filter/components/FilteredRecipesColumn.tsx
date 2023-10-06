@@ -9,6 +9,7 @@ import MyButton from "../../../../components/basicUi/MyButton";
 import { openInBackground } from "../../../../utils/NavigationUtils";
 import NoContent from "../../../../components/complex/NoContent";
 import MySpinner from "../../../../components/basicUi/MySpinner";
+import PageDivider from "../../../../components/basicUi/PageDivider";
 
 
 function FilteredRecipesColumn() {
@@ -46,7 +47,7 @@ function FilteredRecipesColumn() {
         const pageId = "recipesPage_" + index;
         return (
             <div key={pageId} id={pageId}>
-                <h3>-------------- {t('p.page')} {index + 1} --------------</h3>
+                <PageDivider text={`${t('p.page')} ${index + 1}`} />
                 <Stack direction="horizontal" className="flex-wrap justify-content-center" gap={3}>
                     {recipes?.map(recipe => <RecipeCard key={recipe.id} recipe={recipe} recipeCallback={recipeCallback}></RecipeCard >)}
                 </Stack>
