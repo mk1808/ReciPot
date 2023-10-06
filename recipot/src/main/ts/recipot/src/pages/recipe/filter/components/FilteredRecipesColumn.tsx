@@ -5,11 +5,11 @@ import { Stack } from "react-bootstrap";
 import { RecipeFilterContext, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import MyButton from "../../../../components/basicUi/MyButton";
 import { openInBackground } from "../../../../utils/NavigationUtils";
 import NoContent from "../../../../components/complex/NoContent";
 import MySpinner from "../../../../components/basicUi/MySpinner";
-
+import PageDivider from "../../../../components/basicUi/PageDivider";
+import MorePagesButton from "../../../../components/basicUi/MorePagesButton";
 
 function FilteredRecipesColumn() {
     const recipeFilterContext = useContext(RecipeFilterContext);
@@ -46,7 +46,7 @@ function FilteredRecipesColumn() {
         const pageId = "recipesPage_" + index;
         return (
             <div key={pageId} id={pageId}>
-                <h3>-------------- {t('p.page')} {index + 1} --------------</h3>
+                <PageDivider text={`${t('p.page')} ${index + 1}`} />
                 <Stack direction="horizontal" className="flex-wrap justify-content-center" gap={3}>
                     {recipes?.map(recipe => <RecipeCard key={recipe.id} recipe={recipe} recipeCallback={recipeCallback}></RecipeCard >)}
                 </Stack>
@@ -57,11 +57,7 @@ function FilteredRecipesColumn() {
     function renderLoadNextPageButton() {
         const currentPage = recipeFilterContext.currentPage;
         if (recipeFilterContext.recipesPages?.length !== currentPage?.totalPages) {
-            return (
-                <MyButton.Primary onClick={loadNextPage}>
-                    {t("p.loadNextRecipesPage")}
-                </MyButton.Primary>
-            )
+            return <MorePagesButton text={t("p.loadNextRecipesPage")} loadNextPage={loadNextPage} />
         }
         return null;
     }

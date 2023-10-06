@@ -18,6 +18,8 @@ import { initAs } from "../../../../utils/ObjectUtils";
 import { getCollectionName } from "../../../../utils/TextUtils";
 import NoContent from "../../../../components/complex/NoContent";
 import MySpinner from "../../../../components/basicUi/MySpinner";
+import PageDivider from "../../../../components/basicUi/PageDivider";
+import MorePagesButton from "../../../../components/basicUi/MorePagesButton";
 
 function CollectionRecipesColumn() {
     const collectionsContext = useContext(RecipeCollectionListContext);
@@ -84,7 +86,7 @@ function CollectionRecipesColumn() {
         const pageId = "recipesPage_" + index;
         return (
             <div key={pageId} id={pageId}>
-                <h3>-------------- {t('p.page')} {index + 1} --------------</h3>
+                <PageDivider text={`${t('p.page')} ${index + 1}`} />
                 <Stack direction="horizontal" className="flex-wrap justify-content-center" gap={3}>
                     {recipes?.map(recipe => <RecipeCard key={recipe.id} recipe={recipe} recipeCallback={recipeCallback} additionalFunctionElement={renderDeleteFromCollection(recipe, index)}></RecipeCard >)}
                 </Stack>
@@ -106,11 +108,7 @@ function CollectionRecipesColumn() {
     function renderLoadNextPageButton() {
         const currentPage = collectionsContext.currentPage;
         if (collectionsContext.recipesInCollection?.length !== currentPage?.totalPages) {
-            return (
-                <MyButton.Primary onClick={() => loadNextPage(collectionsContext.recipesInCollection?.length || 0)}>
-                    {t("p.loadNextRecipesPage")}
-                </MyButton.Primary>
-            )
+            return <MorePagesButton text={t("p.loadNextRecipesPage")} loadNextPage={() => loadNextPage(collectionsContext.recipesInCollection?.length || 0)} />
         }
         return null;
     }
