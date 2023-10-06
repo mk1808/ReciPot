@@ -66,6 +66,20 @@
   border-radius: 50%;
 }
 
+
+
+.nav-link {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  font-size: 18px;
+
+  &.active {
+    color: #fff !important;
+    background: black !important;
+    border-left: 7px solid #8fad88;
+  }
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
