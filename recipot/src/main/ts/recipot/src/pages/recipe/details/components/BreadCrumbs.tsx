@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Breadcrumb } from "react-bootstrap";
+import { Breadcrumb, Stack } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { Category, Recipe } from "../../../../data/types";
 import { useNavigate } from "react-router-dom";
 import { goToFilters } from "../../../../utils/NavigationUtils";
+import { FaArrowRight } from "react-icons/fa";
 
 function BreadCrumbs({ recipe }: { recipe: Recipe }) {
     const { t } = useTranslation();
@@ -37,20 +38,21 @@ function BreadCrumbs({ recipe }: { recipe: Recipe }) {
     }
 
     return (
-        <div className="my-4 breadcrumps">
+        <div className="mt-4 breadcrumps">
             {categories.map(renderCategoryRow)}
         </div>
     )
 
     function renderCategoryRow(categoryRow: Category[], index: number) {
         return (
-            <div className="my-4 breadcrumps" key={index}>
-                <Breadcrumb>
+            <Stack direction="horizontal" gap={3} key={index}>
+                <FaArrowRight />
+                <Breadcrumb className="mb-1">
                     <Breadcrumb.Item active onClick={goToMainPage} className="cursor-pointer">{t("p.breadCrumbsMain")}</Breadcrumb.Item>
                     {categoryRow.map((category) => { return <Breadcrumb.Item active key={category.name} className="cursor-pointer" onClick={() => goToCategoryFilter(category)}>{category.name}</Breadcrumb.Item> })}
                     <Breadcrumb.Item active className="cursor-default">{recipe.name}</Breadcrumb.Item>
                 </Breadcrumb>
-            </div>
+            </Stack>
         )
     }
 }

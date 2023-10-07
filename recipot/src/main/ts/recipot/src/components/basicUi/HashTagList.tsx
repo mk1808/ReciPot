@@ -6,8 +6,10 @@ function HashTagList({ hashTags = [], onClick }: { hashTags: Array<any>, onClick
         <Stack direction="horizontal" className='hash-tags'>
             {
                 hashTags.map((tag: any) => (
-                    <HashTagBadge text={tag.name} key={tag.id} onClick={() => onClick(tag)} />)
-                )
+                    <div className="me-2" key={tag.id}>
+                        <HashTagBadge text={tag.name} onClick={() => onClick(tag)} />
+                    </div>
+                ))
             }
         </Stack>
     )
