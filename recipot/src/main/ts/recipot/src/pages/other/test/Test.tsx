@@ -32,6 +32,7 @@ import TimeAmountInput from "../../../components/complex/TimeAmountInput";
 import { mapCategoriesToSearchList, onFilteredHashTagSearch, searchCategory } from "../../../utils/DictionariesUtils";
 import StarSelectInput from "../../../components/basicUi/StarSelectInput";
 import { inputAttributes } from "../../../utils/FormInputUtils";
+import filesApi from "../../../api/FilesApi";
 
 const omitNull = (obj: any) => {
     Object.keys(obj).filter(k => obj[k] === null).forEach(k => delete (obj[k]))
@@ -296,6 +297,8 @@ function Test() {
         <CategoryCardExample />
 
         <VerticalPagination totalPages={100} actualPage={testPagiatorActualPage} pageButtonsToShow={6} onPageSelect={setTestPagiatorActualPage} />
+
+        <FileSendTest />
     </>
     );
 }
@@ -429,6 +432,24 @@ function CategoryCardExample() {
         {allCategories.length > 1 && <CategoryCard category={allCategories[1]} className="col-4" />}
         {allCategories.length > 2 && <CategoryCard category={allCategories[2]} className="col-4" />}
     </Stack>
+}
+
+function FileSendTest() {
+    const [selectedFile, setSelectedFile] = useState<any>(null);
+
+    function sendFile() {
+        filesApi.saveFile(selectedFile, console.log, console.log);
+    }
+
+    return (
+        <div className="file-send-test">
+            <h2>File send test</h2>
+            <div>
+                <MyFileInput required={true} name="imageFile" label="Test image input" placeholder="Select image to send" onChange={setSelectedFile} />
+                <button onClick={sendFile}>Send file</button>
+            </div>
+        </div>
+    )
 }
 
 export default Test;

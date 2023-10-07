@@ -357,6 +357,7 @@
 		"name": "Name",
 		"description": "Description",
 		"image": "Image",
+		"changeImage": "Select new image",
 		"userRegisterCorrect": "Account created!",
 		"userSuccessfullyEdited": "User successfully edited",
 		"defaultError": "Error occurred",
