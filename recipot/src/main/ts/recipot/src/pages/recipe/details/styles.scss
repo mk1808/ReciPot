@@ -13,15 +13,26 @@
 
     .basic-container-border {}
 
+    .author-date {
+        font-size: 19px;
+    }
+
     .main {
         .main-img {
             width: calc(100% - 2rem);
         }
 
         .breadcrumps {
+            margin-bottom: 33px;
+
             &>* {
                 text-align: start;
                 font-size: 20px;
+
+                ol {
+                    margin-bottom: 0px !important;
+                }
+
             }
         }
 
@@ -50,10 +61,24 @@
             .test {
                 height: 130px;
             }
+
+            .description {
+                padding-top: 20px;
+                padding-bottom: 20px;
+                /* border: 1px solid black; */
+                /* border-radius: 15px; */
+                /* background-color: #ccc; */
+                /* box-shadow: 0 0 5px 10px #ccc; */
+                border-left: 6px solid #666;
+                padding-left: 30px;
+                border-radius: 0px;
+            }
         }
 
         .rating-section {
-            float: right;
+            .position {
+                padding-right: 0px !important;
+            }
 
             .rating {
                 font-size: 22px;
@@ -63,7 +88,7 @@
 
                 .star-col {
                     margin-top: 7px;
-                    padding-left: 50px
+
                 }
             }
         }

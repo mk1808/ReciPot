@@ -23,6 +23,10 @@ import { buildRecipeSearchDto } from "../../../utils/RecipeSearchUtils";
 import { UsersContext } from "../../../context/UserContext";
 import recipeCollectionsApi from "../../../api/RecipeCollectionsApi";
 import MySpinner from "../../../components/basicUi/MySpinner";
+import { FaUser } from "react-icons/fa";
+import { FaRegCalendarDays } from "react-icons/fa6";
+import { Stack } from "react-bootstrap";
+import { format } from "../../../utils/DateUtils";
 
 function RecipeDetails() {
     const { t } = useTranslation();
@@ -80,7 +84,7 @@ function RecipeDetails() {
         return (
             <div className='d-flex flex-lg-row flex-column align-items-stretch details-container justify-content-center gy-2'>
                 <div className='basic-container-border p-3 main-container' ref={mainRef} >
-                    {!isLoaded && <MySpinner/>}
+                    {!isLoaded && <MySpinner />}
                     {isLoaded && renderMainRecipeColumn()}
                 </div>
                 <div className='basic-container-border p-3 ms-md-2'>
@@ -96,14 +100,13 @@ function RecipeDetails() {
                 <MyImage src={recipe.image} height="auto" className="main-img" rounded></MyImage>
                 <ActionButtons recipe={recipe} isOwner={isOwner} user={user} favCollection={favRecipeCollection} />
                 <MyHeader title={recipe.name}></MyHeader>
+                {renderAuthorAndCreationDate()}
                 <div>{renderBreadcrumps()}</div>
-                <div className="rating-section"><Rating recipe={recipe} /></div>
                 <BasicInfo recipe={recipe} />
                 <IngredientList recipe={recipe} />
                 <Steps recipe={recipe} />
                 {isNoteLoaded && <PrivateNote recipe={recipe} note={note} />}
                 <Comments recipe={recipe} opinions={opinions} getOpinions={getOpinions} />
-
             </div>
         )
     }
@@ -115,6 +118,16 @@ function RecipeDetails() {
             </div>
 
         )
+    }
+
+    function renderAuthorAndCreationDate() {
+        return (
+            <Stack direction="horizontal" className="my-3 px-5 author-date">
+                <div className="me-5"><strong><FaUser /></strong> {recipe.owner.login}</div>
+                <div><strong><FaRegCalendarDays /></strong> {format(recipe.created)}</div>
+                <div className="rating-section ms-auto"><Rating recipe={recipe} className="position" /></div>
+            </Stack>
+        );
     }
 
 }

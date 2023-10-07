@@ -21,12 +21,7 @@ function BasicInfo({ recipe }: { recipe: Recipe }) {
     }
     return (<>
         <div className="mt-3 mb-5 px-5 basic-info">
-            {recipe.hashTags && recipe.hashTags.length > 0 && <HashTagList hashTags={recipe.hashTags} onClick={onHashTagClick} />}
-            {renderUrlButton()}
-            <div className="my-4">
-                {recipe.description}
-            </div>
-            {renderAuthorAndCreationDate()}
+            {renderOtherInfo()}
             <Row className="mb-5">
                 <Col>
                     <Row className="align-center icon-info ">
@@ -82,21 +77,24 @@ function BasicInfo({ recipe }: { recipe: Recipe }) {
         )
     }
 
+    function renderOtherInfo() {
+        return (
+            <div className="mb-5">
+                {recipe.hashTags && recipe.hashTags.length > 0 && <HashTagList hashTags={recipe.hashTags} onClick={onHashTagClick} />}
+                {renderUrlButton()}
+                <div className="my-4 description">
+                    {recipe.description}
+                </div>
+            </div>
+        )
+    }
+
     function renderUrlButton() {
         return recipe.url && (
             <div className="text-center my-3">
                 <Button href={recipe.url} target="_blank">{t(`p.recipeUrlButton`)} <FaInternetExplorer /></Button>
             </div>
         )
-    }
-
-    function renderAuthorAndCreationDate() {
-        return (
-            <Stack direction="horizontal" className="my-3">
-                <div className="me-5"><strong>{t("p.author")}:</strong> {recipe.owner.login}</div>
-                <div><strong>{t("p.createdDate")}:</strong> {format(recipe.created)}</div>
-            </Stack>
-        );
     }
 }
 
