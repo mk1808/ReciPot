@@ -7,7 +7,6 @@
     .main-column {
         &>* {
             height: 200px;
-border-bottom: 1px solid black;
             margin-right: 0;
             margin-left: 0;
         }
@@ -40,7 +39,7 @@ border-bottom: 1px solid black;
 
     .statistics {
         width: 100%;
-        background-color: $secondary-bg-subtle;
+        background-color: v.$background-beige;
         height: auto;
 
         .main-container {

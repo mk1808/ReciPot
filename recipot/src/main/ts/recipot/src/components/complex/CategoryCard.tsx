@@ -28,7 +28,7 @@ function CategoryCard({
             <div className="col" key={key} onClick={() => onCategorySelect(category)}>
                 <MyImage src={category.image} roundedCircle={true} rounded={true} height={CATEGORY_IMAGE_SIZES_HIERARCHY[level]} className="m-1 cursor-pointer" />
                 <br />
-                <span className="cursor-pointer">{category.name}</span>
+                <span className={`cursor-pointer ${level === 0? 'main-category':''}`}>{category.name}</span>
             </div>
         )
     }
