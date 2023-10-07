@@ -10,6 +10,7 @@ import NotificationManager from './components/NotificationManager';
 import { UsersContext, UsersDispatchContext } from '../../context/UserContext';
 import { AppUser } from '../../data/types';
 import recipotIcon from '../../assets/images/logo2.png';
+import LanguageSelect from './components/LanguageSelect';
 
 function Header() {
   const { t } = useTranslation();
@@ -36,7 +37,7 @@ function Header() {
   }
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary" >
+    <Navbar expand={isLogged() ? "xl" : "lg"} className="bg-body-tertiary" >
       <Container fluid>
         {renderRecipotLogo()}
         {renderNotifications()}
@@ -95,6 +96,7 @@ function Header() {
             </>
           }
         </NavDropdown>
+        <LanguageSelect />
       </Nav>
     )
   }

@@ -120,7 +120,7 @@
         padding: 10px;
         padding-top: 80px;
         background-image: v.$circle-card-image-url;
-        background-position: 0px -630px;
+        background-position: 0px 80%;
         background-size: 100% auto;
         width: 100%;
 
@@ -156,6 +156,12 @@
                 transform: scale(1.5);
                 transition-duration: 1s;
             }
+        }
+    }
+
+    @media (max-width: 750px) {
+        .circle-container {
+            background-size: auto 100%;
         }
     }
 }
