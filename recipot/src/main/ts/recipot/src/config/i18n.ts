@@ -21,6 +21,14 @@ i18n
     });
 i18n.changeLanguage("pl");
 
+export function useLangPL() {
+    i18n.changeLanguage("pl");
+}
+
+export function useLangEN() {
+    i18n.changeLanguage("en");
+}
+
 export default i18n;
 
 
