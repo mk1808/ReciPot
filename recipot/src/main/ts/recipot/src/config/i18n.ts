@@ -21,12 +21,28 @@ i18n
     });
 i18n.changeLanguage("pl");
 
-export function useLangPL() {
-    i18n.changeLanguage("pl");
+function setDefaultLanguage() {
+    var selectedLang: any = localStorage.getItem("selectedLang");
+    if (selectedLang) {
+        switch (selectedLang) {
+            case 'pl': setLangPL(); break;
+            case 'en': setLangEN(); break;
+        }
+    }
+}
+setDefaultLanguage();
+
+function setLang(lang: string) {
+    i18n.changeLanguage(lang);
+    localStorage.setItem("selectedLang", lang)
 }
 
-export function useLangEN() {
-    i18n.changeLanguage("en");
+export function setLangPL() {
+    setLang("pl");
+}
+
+export function setLangEN() {
+    setLang("en");
 }
 
 export default i18n;

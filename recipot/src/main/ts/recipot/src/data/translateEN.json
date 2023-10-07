@@ -365,6 +365,8 @@
 		"recipeAddCorrect": "Recipe created!",
 		"recipeEditCorrect": "Recipe updated!",
 		"recipesCollectionSaved": "Created recipes collection",
+		"author": "Author",
+		"createdDate": "Creation date",
 		"time": "Time",
 		"timeInfo": "Time needed to prepare",
 		"amountOfDishes": "Amount of dishes",
