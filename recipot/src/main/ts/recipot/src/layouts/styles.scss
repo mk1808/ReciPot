@@ -1,7 +1,39 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
 .footer {
     .recipot-logo {
         position: relative;
         top: -14px;
         margin-top: 15px;
+    }
+}
+
+.language-select {
+    width: 56px;
+    height: 22px;
+    position: relative;
+    background-color: $secondary;
+    top: 10px;
+    margin-bottom: 10px;
+
+    .plIcon,
+    .enIcon {
+        height: 20px;
+        width: 40px;
+        position: absolute;
+        top: 1px;
+        cursor: pointer;
+    }
+
+    .plIcon {
+        clip-path: polygon(0% 0%, 75% 0%, 50% 100%, 0% 100%);
+        left: 1px;
+    }
+
+    .enIcon {
+        clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 25% 100%);
+        right: 1px;
     }
 }
