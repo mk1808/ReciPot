@@ -1,7 +1,5 @@
 @use "../../assets/variables"as v;
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins";
+@import "../../assets/bootstrapCustomTheme.scss";
 
 .main-page {
     text-align: center;
@@ -9,7 +7,7 @@
     .main-column {
         &>* {
             height: 200px;
-            border-bottom: 1px solid black;
+border-bottom: 1px solid black;
             margin-right: 0;
             margin-left: 0;
         }

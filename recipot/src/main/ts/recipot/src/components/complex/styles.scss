@@ -1,7 +1,5 @@
 @use "../../assets/variables"as v;
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins";
+@import "../../assets/bootstrapCustomTheme.scss";
 
 .recipe-card {
     width: 18rem;
@@ -313,7 +311,7 @@
 .category-card {
     border: 1px solid $card-border-color;
     padding: 10px;
-
+    
     img {
         transition-duration: .4s;
 
