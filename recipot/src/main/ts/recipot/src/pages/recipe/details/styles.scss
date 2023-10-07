@@ -15,6 +15,18 @@
 
     .author-date {
         font-size: 19px;
+
+        .owner-login {
+            width: 250px;
+        }
+
+        .recipe-creation-time {
+            width: 160px;
+        }
+
+        .rating-section {
+            width: 400px;
+        }
     }
 
     .main {
@@ -89,6 +101,14 @@
                 .star-col {
                     margin-top: 7px;
 
+                }
+            }
+
+            @media (max-width: 1380px) {
+                margin-left: 0px !important;
+
+                .rating {
+                    padding-left: 0px !important;
                 }
             }
         }

@@ -26,7 +26,7 @@ import MySpinner from "../../../components/basicUi/MySpinner";
 import { FaUser } from "react-icons/fa";
 import { FaRegCalendarDays } from "react-icons/fa6";
 import { Stack } from "react-bootstrap";
-import { format } from "../../../utils/DateUtils";
+import { formatNoTime } from "../../../utils/DateUtils";
 
 function RecipeDetails() {
     const { t } = useTranslation();
@@ -122,9 +122,9 @@ function RecipeDetails() {
 
     function renderAuthorAndCreationDate() {
         return (
-            <Stack direction="horizontal" className="my-3 px-5 author-date">
-                <div className="me-5"><strong><FaUser /></strong> {recipe.owner.login}</div>
-                <div><strong><FaRegCalendarDays /></strong> {format(recipe.created)}</div>
+            <Stack direction="horizontal" className="flex-wrap my-3 px-5 author-date">
+                <div className="me-5 owner-login"><strong><FaUser /></strong> {recipe.owner.login}</div>
+                <div className="recipe-creation-time"><strong><FaRegCalendarDays /></strong> {formatNoTime(recipe.created)}</div>
                 <div className="rating-section ms-auto"><Rating recipe={recipe} className="position" /></div>
             </Stack>
         );
