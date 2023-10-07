@@ -75,8 +75,8 @@
 
   &.active {
     color: #fff !important;
-    background: black !important;
-    border-left: 7px solid #8fad88;
+    background: $secondary !important;
+    border-left: 7px solid $primary;
   }
 }
 
