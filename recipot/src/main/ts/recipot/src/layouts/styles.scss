@@ -1,6 +1,5 @@
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins";
+@use "../assets/variables"as v;
+@import "../assets/bootstrapCustomTheme.scss";
 
 .footer {
     .recipot-logo {
