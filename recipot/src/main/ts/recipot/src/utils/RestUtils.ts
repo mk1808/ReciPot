@@ -1,4 +1,3 @@
-import { Response } from "../data/types";
 
 const DEFAULT_IMAGE = 'https://violashop.in/wp-content/uploads/2021/07/Viola-Candescent-Cutlery-Set-3.jpg';
 

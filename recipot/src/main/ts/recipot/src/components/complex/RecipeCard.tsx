@@ -11,7 +11,6 @@ import HashTagList from '../basicUi/HashTagList';
 import { onImageLoadError } from "../../utils/RestUtils";
 import { useNavigate } from "react-router-dom";
 import { goToFilters } from "../../utils/NavigationUtils";
-import Tooltip from "../basicUi/Tooltip";
 
 function RecipeCard({
     recipe,

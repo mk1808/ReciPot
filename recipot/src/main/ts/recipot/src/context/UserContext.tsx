@@ -1,4 +1,4 @@
-import { createContext, useEffect, Context, useReducer, useContext, useRef } from "react";
+import { createContext, useEffect, useReducer } from "react";
 import authApi from "../api/AuthApi";
 import { AppUser, Response } from "../data/types";
 import { useTranslation } from "react-i18next";

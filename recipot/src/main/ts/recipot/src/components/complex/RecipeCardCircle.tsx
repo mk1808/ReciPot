@@ -1,12 +1,11 @@
 import { Card } from 'react-bootstrap';
-import Image from 'react-bootstrap/Image';
-import { renderCategories, renderMore, renderRating } from './RecipeCardCommonElements';
+import { renderCategories, renderRating } from './RecipeCardCommonElements';
 import { useTranslation } from 'react-i18next';
 import { Recipe } from '../../data/types';
 import { getShorterText } from '../../utils/TextUtils';
 import MyImage from '../basicUi/MyImage';
 
-function RecipeCardCircle({ recipe, recipeCallback }: {recipe:Recipe, recipeCallback:(recipe:Recipe)=>void}) {
+function RecipeCardCircle({ recipe, recipeCallback }: { recipe: Recipe, recipeCallback: (recipe: Recipe) => void }) {
     const { t } = useTranslation();
 
     return (
@@ -20,7 +19,7 @@ function RecipeCardCircle({ recipe, recipeCallback }: {recipe:Recipe, recipeCall
                         {getShorterText(recipe.description, 85)}
                     </Card.Body>
                 </Card>
-                <MyImage className="img" src={recipe.image} roundedCircle onClick={()=>recipeCallback(recipe)} />
+                <MyImage className="img" src={recipe.image} roundedCircle onClick={() => recipeCallback(recipe)} />
             </div>
         </div>
     );

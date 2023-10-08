@@ -1,14 +1,14 @@
 import { useTranslation } from "react-i18next";
 import MySelect from "../../../../components/basicUi/MySelect";
 import TimeAmountInput from "../../../../components/complex/TimeAmountInput";
-import { getAccessTypes, getAmountOfDishes, getDifficulties, getRequiredEfforts, mapCategoriesToSearchList, onFilteredHashTagSearch, onFilteredIngredientSearch, searchCategory } from "../../../../utils/DictionariesUtils";
+import { mapCategoriesToSearchList, onFilteredHashTagSearch, searchCategory } from "../../../../utils/DictionariesUtils";
 import FilteredSelect from "../../../../components/complex/FilteredSelect";
 import { useContext, useEffect, useState } from "react";
 import dictionariesApi from "../../../../api/DictionariesApi";
 import { CategoryDto, Response } from "../../../../data/types";
 import { AddRecipeContext, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
 import { inputAttributesForContext } from "../../../../utils/FormInputUtils";
-import { EnumDictionaryContext, EnumDictionaryDispatchContext } from "../../../../context/EnumDictionaryContext";
+import { EnumDictionaryContext } from "../../../../context/EnumDictionaryContext";
 
 function UpperRightSide() {
     const { t } = useTranslation();

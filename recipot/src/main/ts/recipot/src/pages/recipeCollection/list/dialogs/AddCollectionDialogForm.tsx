@@ -1,9 +1,9 @@
 import { Form } from "react-bootstrap";
 import MyInput from "../../../../components/basicUi/MyInput";
 import { useTranslation } from 'react-i18next';
-import { forwardRef, useImperativeHandle, useReducer, useRef, useState } from "react";
+import { forwardRef, useImperativeHandle, useReducer, useRef } from "react";
 import { FormSave, MyForm } from "../../../../data/utilTypes";
-import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewState, inputAttributes, preventFurtherAction } from "../../../../utils/FormInputUtils";
+import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewState, inputAttributes } from "../../../../utils/FormInputUtils";
 import { RecipeCollection } from "../../../../data/types";
 
 function AddCollectionDialogForm({ formSave }: { formSave: FormSave<RecipeCollection> }, ref: any) {

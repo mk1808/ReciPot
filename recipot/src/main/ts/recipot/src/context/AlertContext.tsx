@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from 'react';
+import { createContext, useReducer } from 'react';
 import MyAlert from '../components/basicUi/MyAlert';
 
 export const AlertsContext = createContext<any[]>([]);

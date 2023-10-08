@@ -4,8 +4,6 @@ import { useTranslation } from "react-i18next";
 import { Category, CategoryDto, Response } from "../../../data/types";
 import dictionariesApi from "../../../api/DictionariesApi";
 import CategoryCard from "../../../components/complex/CategoryCard";
-import MyButton from "../../../components/basicUi/MyButton";
-import { createUrl } from "../../../utils/RecipeSearchUtils";
 import { useNavigate } from "react-router-dom";
 import { goToFilters } from "../../../utils/NavigationUtils";
 import MyHeader from "../../../components/basicUi/MyHeader";

@@ -3,11 +3,9 @@ import { useTranslation } from "react-i18next";
 import dictionariesApi from "../../../../api/DictionariesApi";
 import { CategoryDto, Recipe, Response } from "../../../../data/types";
 import RecipeCard from "../../../../components/complex/RecipeCard";
-import { initAs } from "../../../../utils/ObjectUtils";
 import CategoryCard from "../../../../components/complex/CategoryCard";
 import { useNavigate } from "react-router-dom";
 import { goToFilters, openInBackground } from "../../../../utils/NavigationUtils";
-import { createUrl } from "../../../../utils/RecipeSearchUtils";
 import { forwardRef } from "react";
 import MyHeader from "../../../../components/basicUi/MyHeader";
 
