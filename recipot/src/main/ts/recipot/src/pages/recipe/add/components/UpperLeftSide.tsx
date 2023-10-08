@@ -45,9 +45,6 @@ function UpperLeftSide() {
         return formFields?.formValidity ? formFields?.formValidity[fieldName] : false;
     }
 
-    function getValuesForEdited(fieldName: string) {
-        return formFields?.formValue && formFields?.formValue[fieldName];
-    }
     return (
         <div className="text-start">
             {editedRecipe && renderDeleteButtonModal()}

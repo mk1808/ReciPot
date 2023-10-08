@@ -25,7 +25,6 @@ function Main() {
     const moreNewRecipesCallback = () => {
         nav.goToFilters({ recipesSort: { fieldName: 'created', order: 'DESC' } });
     }
-    const [isRandomLoaded, setIsRandomLoaded] = useState(false);
     const [randomRecipe, setRandomRecipe] = useState(initAs<Recipe>());
     const [recipes, setRecipes] = useState([]);
     const [statistics, setStatistics] = useState<GeneralStatisticsDto>();
@@ -41,8 +40,6 @@ function Main() {
         statisticsApi.getGeneralStatistics((response) => { setStatistics(response.value) })
 
     }, [])
-
-
 
     return (
         <div className=" main-page">

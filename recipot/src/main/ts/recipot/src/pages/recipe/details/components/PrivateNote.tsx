@@ -21,7 +21,6 @@ function PrivateNote({
 
     const { t } = useTranslation();
     const alerts = useAlerts();
-    const isNotePresent = false;
     const [isEditModeOn, setIsEditModeOn] = useState<any>(false);
     useEffect(() => {
         setIsEditModeOn(note == null);

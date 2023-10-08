@@ -14,7 +14,6 @@ import { getDefaultValue } from "../../../../utils/AddRecipeContextUtil";
 function AddIngredients() {
     const { t } = useTranslation();
     const FIELD_NAME = 'recipeIngredients';
-    const testOptions = [{ label: "op1", value: { name: "nam1" } }, { label: "op2", value: { name: "nam2" } }, { label: "op3", value: { name: "nam3" } }];
     const basicIngredient: any = {
         id: "",
         ingredient: "",

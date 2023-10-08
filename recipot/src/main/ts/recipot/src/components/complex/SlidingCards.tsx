@@ -70,7 +70,7 @@ function SlidingCards({
     goToRecipeCallback
 }: SlidingCardsProps) {
 
-    const [width, height] = useWindowSize();
+    const [width] = useWindowSize();
 
     function getSliderSize() {
         return width > 1550 ? 5 : width > 1000 ? 3 : (width > 720 ? 2 : 1);

@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import RecipeAdd from "../add/RecipeAdd";
 import { useState, useEffect } from "react";
 import recipesApi from "../../../api/RecipesApi";
@@ -7,7 +6,6 @@ import { Recipe } from "../../../data/types";
 import { initAs } from "../../../utils/ObjectUtils";
 
 function RecipeEdit() {
-    const { t } = useTranslation();
     const params = useParams();
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
     const [recipe, setRecipe] = useState<any | Recipe>(initAs());

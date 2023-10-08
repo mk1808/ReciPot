@@ -5,8 +5,6 @@ function NotFound() {
     return (
         <h1>{t('p.notFound')}</h1>
     );
-
-
 }
 
 export default NotFound;

@@ -27,7 +27,6 @@ function Comments({
 }: Props) {
 
     const { t } = useTranslation();
-    const isNotePresent = false;
     const [isEditModeOn, setIsEditModeOn] = useState<any>(false);
     const [userOpinion, setUserOpinion] = useState<any>(false);
     const alerts = useAlerts();
@@ -37,7 +36,7 @@ function Comments({
     useEffect(() => {
         setIsEditModeOn(true);
         if (user) {
-            let opinion = opinions.filter((opinion: any) => opinion.authorLogin == user?.login);
+            let opinion = opinions.filter((opinion: any) => opinion.authorLogin === user?.login);
             opinion = opinion.length > 0 ? opinion[0] : null;
             setUserOpinion(opinion);
         }
@@ -46,14 +45,14 @@ function Comments({
     const formSave = initFormSave<Comment>();
     formSave.onSubmit = function (formValue: any) {
         let recipeObj = { recipe: { id: recipe.id } };
-        if (formValue.content != "") {
+        if (formValue.content !== "") {
             let commentObj: any = { ...recipeObj, content: formValue.content };
             opinionsApi.createComment(commentObj, (response) => {
                 alerts.showSuccessAlert(t('p.commentAddSuccess'));
                 getOpinions(recipe.id);
             });
         }
-        if (formValue.value != 0) {
+        if (formValue.value !== 0) {
             let ratingObj: any = { ...recipeObj, value: formValue.value };
             opinionsApi.createRating(ratingObj, (response) => {
                 alerts.showSuccessAlert(t('p.ratingAddSuccess'));
@@ -63,7 +62,7 @@ function Comments({
     }
 
     function areCommentsEmpty() {
-        return !user && (!opinions || opinions.length == 0);
+        return !user && (!opinions || opinions.length === 0); 
     }
 
     return (

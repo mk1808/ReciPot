@@ -18,7 +18,7 @@ function DictionariesApi() {
         restClient.post(`${PREFIX}/hashTags`, body, onSuccess, onError)
     }
 
-    function getHashTags(params: { name?: string, page?: number, size?: number }, onSuccess: (response: Response<HashTag[]>) => any, onError?: (response: Response<HashTag[]>) => any) {
+    const getHashTags = (params: { name?: string, page?: number, size?: number }, onSuccess: (response: Response<HashTag[]>) => any, onError?: (response: Response<HashTag[]>) => any) => {
         var pathParams = createPathParams(params);
         restClient.get(`${PREFIX}/hashTags?${pathParams}`, onSuccess, onError)
     }

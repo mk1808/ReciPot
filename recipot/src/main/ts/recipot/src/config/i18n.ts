@@ -3,8 +3,6 @@ import { initReactI18next } from "react-i18next";
 import translateEN from "../data/translateEN.json"
 import translatePL from "../data/translatePL.json"
 
-const languages = ["en", "pl"];
-
 i18n
     .use(initReactI18next)
     .init({

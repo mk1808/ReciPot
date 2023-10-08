@@ -67,7 +67,6 @@ function AddToCollectionDialog({
     function renderContent() {
         return <AddToCollectionForm formSave={formSave} ref={form} />
     }
-
 }
 
 export default AddToCollectionDialog;
