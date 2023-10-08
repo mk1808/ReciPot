@@ -12,7 +12,7 @@ function RecipeAdd({ recipe }: { recipe?: Recipe | any }) {
         <AddRecipeContextProvider editedRecipe={recipe}>
             <Form noValidate validated={true}>
                 <Stack className="justify-content-center py-5 recipe-add-page" direction="horizontal">
-                    <div className="pt-4 mb-2 basic-container-large basic-container-border">
+                    <div className="mb-2 basic-container-large basic-container-border">
 
                         <MyHeader title={recipe ? recipe.name : t('p.newRecipeHeader')}></MyHeader>
                         <RecipeAddForm></RecipeAddForm>

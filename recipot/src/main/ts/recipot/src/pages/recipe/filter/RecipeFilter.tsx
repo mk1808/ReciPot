@@ -53,11 +53,11 @@ function RecipeFilter() {
 
     function renderFiltersColumn() {
         return (
-            <div className='pt-5 basic-container-border full-height'>
-                <h2>{t('p.recipesSort')}</h2>
+            <div className='basic-container-border full-height'>
+                <MyHeader title={t('p.recipesSort')} level="6" className='mt-6' />
                 <RecipesSortForm />
                 <hr />
-                <h2>{t('p.recipeFilterForm')}</h2>
+                <MyHeader title={t('p.recipeFilterForm')} level="6" className='mt-6' />
                 <RecipeFiltersColumn />
             </div>
         );
@@ -74,11 +74,7 @@ function RecipeFilter() {
     }
 
     function renderHeader() {
-        return (
-            <>
-                <MyHeader title={t('p.recipeFilterHeader')}></MyHeader>
-            </>
-        );
+        return <MyHeader title={t('p.recipeFilterHeader')} />
     }
 
     function renderSavedFiltersColumnOrCollapse() {
