@@ -7,7 +7,6 @@ import { RecipeCollection, Response } from "../../../../../data/types";
 import recipeCollectionsApi from "../../../../../api/RecipeCollectionsApi";
 import { mapDictionaryValueToSearchList } from "../../../../../utils/DictionariesUtils";
 
-
 function AddToCollectionForm({ formSave }: { formSave: FormSave<RecipeCollection> }, ref: any) {
     const { t } = useTranslation();
     const [filteredCollections, setFilteredCollections] = useState<any[]>([]);

@@ -29,7 +29,6 @@ import { Stack } from "react-bootstrap";
 import { formatNoTime } from "../../../utils/DateUtils";
 
 function RecipeDetails() {
-    const { t } = useTranslation();
     const params = useParams();
     const [recipe, setRecipe] = useState<any | Recipe>(initAs());
     const [otherRecipes, setOtherRecipes] = useState<Recipe[]>([]);
