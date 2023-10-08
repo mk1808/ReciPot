@@ -2,8 +2,8 @@ import { useTranslation } from "react-i18next";
 import MyModal from "./MyModal";
 
 type Props = {
-    onClose: () => void,
-    onSubmit: () => void,
+    onClose: () => any,
+    onSubmit: () => any,
     shouldShow: boolean,
     children?: any,
     title?: string

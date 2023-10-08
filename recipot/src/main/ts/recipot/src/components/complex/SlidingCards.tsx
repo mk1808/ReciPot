@@ -3,13 +3,12 @@ import { Stack } from "react-bootstrap";
 import MyButton from "../basicUi/MyButton";
 import RecipeCard from "./RecipeCard";
 import { Recipe } from "../../data/types";
-import { initFcn } from "../../utils/ObjectUtils";
 import useWindowSize from "../../hooks/useWindowSize";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 type SlidingElementsProps = {
     recipes: Recipe[],
-    getSingleElement: Function,
+    getSingleElement: (recipe: Recipe, index: number) => any,
     size: number
 };
 
@@ -67,8 +66,8 @@ function SlidingElements({
 }
 
 function SlidingCards({
-    recipes = [],
-    goToRecipeCallback = initFcn<Recipe>()
+    recipes,
+    goToRecipeCallback
 }: SlidingCardsProps) {
 
     const [width, height] = useWindowSize();
@@ -78,8 +77,8 @@ function SlidingCards({
 
     }
 
-    function renderSingleCard(element: any, index: number) {
-        return <RecipeCard key={index} recipe={element} onGoToRecipe={goToRecipeCallback} />
+    function renderSingleCard(recipe: Recipe, index: number) {
+        return <RecipeCard key={index} recipe={recipe} onGoToRecipe={goToRecipeCallback} />
     }
 
     return (

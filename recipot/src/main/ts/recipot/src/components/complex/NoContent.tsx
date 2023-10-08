@@ -4,7 +4,10 @@ import { GiKnifeFork } from "react-icons/gi";
 
 type Props = { text: string };
 
-function NoContent({ text = "" }: Props) {
+function NoContent({
+    text
+}: Props) {
+
     const { t } = useTranslation();
     return (
         <div className="text-center no-content">

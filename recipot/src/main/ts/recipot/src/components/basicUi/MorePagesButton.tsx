@@ -3,7 +3,7 @@ import MyButton from "./MyButton";
 
 type Params = {
     text: string,
-    loadNextPage: any
+    loadNextPage: () => any
 };
 
 function MorePagesButton({

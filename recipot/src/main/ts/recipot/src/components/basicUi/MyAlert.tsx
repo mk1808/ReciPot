@@ -8,7 +8,7 @@ type AlertProps = {
 
 type MyAlertProps = {
     children: any,
-    onClose?: () => void,
+    onClose?: () => any,
     variant?: string
 };
 

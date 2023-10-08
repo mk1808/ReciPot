@@ -5,9 +5,9 @@ import { checkValidity } from '../../utils/FormInputUtils';
 type Props = {
     name: string,
     label: string,
+    onChange: (file: any) => any,
     placeholder?: string,
     disabled?: boolean,
-    onChange: any,
     defaultValue?: string,
     required?: boolean,
     isValid?: boolean,
@@ -17,9 +17,9 @@ type Props = {
 function MyFileInput({
     name,
     label,
+    onChange,
     placeholder,
     disabled = false,
-    onChange = () => { },
     defaultValue = "",
     required,
     isValid,

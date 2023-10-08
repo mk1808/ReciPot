@@ -4,7 +4,10 @@ type Props = {
     text: string
 };
 
-function PageDivider({ text }: Props) {
+function PageDivider({
+    text
+}: Props) {
+
     return (
         <div className="page-divider">
             <div className="shadow"></div>

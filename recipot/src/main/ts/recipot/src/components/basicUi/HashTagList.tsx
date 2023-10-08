@@ -1,9 +1,10 @@
 import { Stack } from "react-bootstrap";
 import HashTagBadge from "./HashTagBadge";
+import { HashTag } from "../../data/types";
 
 type Props = {
-    hashTags: Array<any>,
-    onClick: (tag: any) => any
+    hashTags: HashTag[],
+    onClick: (tag: HashTag) => any
 };
 
 function HashTagList({

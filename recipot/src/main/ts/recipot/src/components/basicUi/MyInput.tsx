@@ -1,6 +1,7 @@
 import Form from 'react-bootstrap/Form';
 import { useEffect, useState, useRef } from 'react';
 import { checkValidity } from '../../utils/FormInputUtils';
+import { initFcn } from '../../utils/ObjectUtils';
 
 type Props = {
     name: string,
@@ -8,7 +9,7 @@ type Props = {
     type?: string,
     placeholder?: string,
     disabled?: boolean,
-    onChange?: Function,
+    onChange?: (value: string) => any,
     defaultValue?: string,
     required?: boolean,
     isValid?: boolean,
@@ -22,9 +23,9 @@ function MyInput({
     type = "text",
     placeholder = "",
     disabled = false,
+    onChange = initFcn(),
     defaultValue = "",
     required = false,
-    onChange = () => { },
     isValid,
     step,
     className

@@ -20,7 +20,7 @@ function StarSelectInput({
     disabled = false,
     defaultValue = 0,
     required = false,
-    onChange = initFcn<number>(),
+    onChange = initFcn(),
     isValid = true,
     scope = 5
 }: Props) {

@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { StackDirection } from 'react-bootstrap/esm/Stack';
 
 type Props = {
-    onCancel: () => void,
-    onConfirm: () => void,
+    onCancel: () => any,
+    onConfirm: () => any,
     buttonCancelText?: string,
     buttonSubmitText?: string,
     submitButtonType?: string,
