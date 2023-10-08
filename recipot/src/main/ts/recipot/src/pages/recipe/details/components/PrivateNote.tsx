@@ -11,6 +11,7 @@ import privateNotesApi from "../../../../api/PrivateNotes";
 import { Recipe, PrivateNote as PrivateNoteT } from "../../../../data/types";
 import { AlertsDispatchContext } from "../../../../context/AlertContext";
 import { showSuccessAlert } from "../../../../utils/RestUtils";
+import MyHeader from "../../../../components/basicUi/MyHeader";
 
 function PrivateNote({ recipe, note }: { recipe: Recipe, note: PrivateNoteT }) {
     const { t } = useTranslation();
@@ -58,9 +59,9 @@ function PrivateNote({ recipe, note }: { recipe: Recipe, note: PrivateNoteT }) {
 
     function renderHeaderWithInfo() {
         return (
-            <Stack direction="horizontal" gap={3} className='flex-wrap justify-content-center align-items-center py-3 title'>
-                <h4 className="my-3 display-4">{t('p.privateNote')}</h4>
-                <div className="mt-2">
+            <Stack direction="horizontal" gap={3} className='flex-wrap justify-content-center align-items-center title'>
+                <MyHeader title={t('p.privateNote')} level="4" className="mb-4" />
+                <div className="title-info">
                     <Info value={t('p.privateNoteInfo')} />
                 </div>
             </Stack>

@@ -3,6 +3,7 @@ import MyCheckbox from "../../../../components/basicUi/MyCheckbox";
 import { Recipe, RecipeIngredient } from "../../../../data/types";
 import { useEffect, useState } from "react";
 import { addUniqueValue, removeValue } from "../../../../utils/ListUtils";
+import MyHeader from "../../../../components/basicUi/MyHeader";
 
 function IngredientList({ recipe }: { recipe: Recipe }) {
     const { t } = useTranslation();
@@ -45,7 +46,7 @@ function IngredientList({ recipe }: { recipe: Recipe }) {
     if (shouldRenderIngredients()) {
         return (<>
             <div className="mb-5 px-5 ingredients">
-                <h4 className="my-3 display-4">{t('p.ingredients')}</h4>
+                <MyHeader title={t('p.ingredients')} level="4" />
                 <div className="px-3 list ">
                     {renderIngredients()}
                 </div>
