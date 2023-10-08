@@ -4,16 +4,17 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 import NotificationManager from './components/NotificationManager';
 import { UsersContext, UsersDispatchContext } from '../../context/UserContext';
 import recipotIcon from '../../assets/images/logo2.png';
 import LanguageSelect from './components/LanguageSelect';
+import useMyNav from '../../hooks/useMyNav';
 
 function Header() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const nav = useMyNav();
   const user = useContext(UsersContext);
   const usersDispatchContext = useContext(UsersDispatchContext);
   const isLogged = () => { return user != null }
@@ -32,7 +33,7 @@ function Header() {
   }
 
   function gotToMainPage() {
-    navigate("");
+    nav.toMain();
   }
 
   return (

@@ -49,3 +49,8 @@ export interface SelectOption<T> {
     label: string,
     value: T
 }
+
+export interface NavOpen {
+    id?: string,
+    url?: string
+}

@@ -8,14 +8,13 @@ import { FaInternetExplorer } from "react-icons/fa6";
 import Info from "../../../../components/basicUi/Info";
 import HashTagList from "../../../../components/basicUi/HashTagList";
 import { convertToTime } from "../../../../utils/DateUtils";
-import { useNavigate } from "react-router-dom";
-import { goToFilters } from "../../../../utils/NavigationUtils";
+import useMyNav from "../../../../hooks/useMyNav";
 
 function BasicInfo({ recipe }: { recipe: Recipe }) {
     const { t } = useTranslation();
-    const navigate = useNavigate();
+    const nav = useMyNav();
     function onHashTagClick(hashTag: any) {
-        goToFilters({ hashTags: [{ label: hashTag.name, value: hashTag }] }, navigate);
+        nav.goToFilters({ hashTags: [{ label: hashTag.name, value: hashTag }] });
     }
     return (
         <>
