@@ -6,13 +6,12 @@ import AddCollectionDialogForm from "./AddCollectionDialogForm";
 import { RecipeCollectionListDispatchContext } from "../context/RecipeCollectionListContext";
 import recipeCollectionsApi from "../../../../api/RecipeCollectionsApi";
 import { RecipeCollection, Response } from "../../../../data/types";
-import { AlertsDispatchContext } from "../../../../context/AlertContext";
-import { onShowAlertOnErrorResponse, showSuccessAlert } from "../../../../utils/RestUtils";
+import useAlerts from "../../../../hooks/useAlerts";
 
 function AddCollectionDialog({ showModal, handleClose }: { showModal: boolean, handleClose: any }) {
     const { t } = useTranslation();
     const collectionsDispatchContext = useContext(RecipeCollectionListDispatchContext);
-    const alertsDispatchContext = useContext(AlertsDispatchContext);
+    const alerts = useAlerts();  
 
     const formSave: any = getEmptyFormSave();
     const form = useRef<any>();
@@ -22,12 +21,12 @@ function AddCollectionDialog({ showModal, handleClose }: { showModal: boolean, h
         recipeCollectionsApi.createCollection(newCollection, formSave.onSuccess, formSave.onError)
     }
     formSave.onSuccess = function () {
-        showSuccessAlert(t("p.recipesCollectionSaved"), alertsDispatchContext);
+        alerts.showSuccessAlert(t("p.recipesCollectionSaved"));
         collectionsDispatchContext({ type: 'refreshCollectionsList' });
         handleClose();
     }
     formSave.onError = function (response: Response<any>) {
-        onShowAlertOnErrorResponse(response, alertsDispatchContext, t);
+        alerts.onShowAlertOnErrorResponse(response);
     }
 
     function myHandleSubmit() {

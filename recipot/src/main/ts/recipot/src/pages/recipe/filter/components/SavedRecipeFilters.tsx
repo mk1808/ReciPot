@@ -4,16 +4,15 @@ import { RecipeFilter } from "../../../../data/types";
 import { useContext, useEffect } from "react";
 import { RecipeFilterContext, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 import savedRecipeFiltersApi from "../../../../api/SavedRecipeFiltersApi";
-import { showSuccessAlert } from "../../../../utils/RestUtils";
-import { AlertsDispatchContext } from "../../../../context/AlertContext";
 import { useTranslation } from "react-i18next";
+import useAlerts from "../../../../hooks/useAlerts";
 
 function SavedRecipeFilters() {
     const { t } = useTranslation();
+    const alerts = useAlerts();  
 
     const recipeFilterContext = useContext(RecipeFilterContext);
     const recipeFilterDispatchContext = useContext(RecipeFilterDispatchContext);
-    const alertsDispatchContext = useContext(AlertsDispatchContext);
 
     useEffect(() => {
         recipeFilterDispatchContext({ type: 'refreshFiltersList' })
@@ -25,7 +24,7 @@ function SavedRecipeFilters() {
     }
 
     function onRecipeFilterDeleteResponse(response: any) {
-        showSuccessAlert(t(response.message), alertsDispatchContext);
+        alerts.showSuccessAlert(t(response.message));
         recipeFilterDispatchContext({ type: 'refreshFiltersList' })
     }
 

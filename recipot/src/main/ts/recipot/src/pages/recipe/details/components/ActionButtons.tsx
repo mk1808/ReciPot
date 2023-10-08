@@ -14,13 +14,12 @@ import { FiEdit3 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import recipeCollectionsApi from "../../../../api/RecipeCollectionsApi";
 import { initAs } from "../../../../utils/ObjectUtils";
-import { AlertsDispatchContext } from "../../../../context/AlertContext";
-import { showSuccessAlert } from "../../../../utils/RestUtils";
+import useAlerts from "../../../../hooks/useAlerts";
 
 function ActionButtons({ recipe, favCollection, isOwner, user }: { recipe: Recipe, favCollection: RecipeCollection, isOwner: boolean, user: any }) {
     const { t } = useTranslation();
+    const alerts = useAlerts(); 
     const navigate = useNavigate();
-    const alertDispatch = useContext(AlertsDispatchContext);
     const [showModalAddToCollection, setShowModalAddToCollection] = useState(false);
     const [showModalShare, setShowModalShare] = useState(false);
     const [showModalChangeVisibility, setShowModalChangeVisibility] = useState(false);
@@ -38,13 +37,13 @@ function ActionButtons({ recipe, favCollection, isOwner, user }: { recipe: Recip
     const addOrRemoveFromFavourites = () => {
         if (isInFavCollection) {
             recipeCollectionsApi.deleteRecipeFromCollection(favCollection.id, recipe.id,
-                () => { showSuccessAlert(t('p.recipeRemovedFromCollection'), alertDispatch); setIsInFavCollection(false); })
+                () => { alerts.showSuccessAlert(t('p.recipeRemovedFromCollection')); setIsInFavCollection(false); })
 
             return;
         }
         const recipeCollectionItem: RecipeCollectionItem = initAs<RecipeCollectionItem>({ recipe: recipe })
         recipeCollectionsApi.addCollectionItem(favCollection.id, recipeCollectionItem,
-            () => { showSuccessAlert(t('p.addedToCollection'), alertDispatch); setIsInFavCollection(true); });
+            () => { alerts.showSuccessAlert(t('p.addedToCollection')); setIsInFavCollection(true); });
     }
 
     useEffect(() => {

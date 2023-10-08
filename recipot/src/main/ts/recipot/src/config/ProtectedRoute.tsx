@@ -5,12 +5,12 @@ import { UsersContext, UsersDispatchContext } from '../context/UserContext';
 import MySpinner from '../components/basicUi/MySpinner';
 
 const ProtectedRoute = ({ element }: any) => {
-    const usersContext: any = useContext(UsersContext);
+    const user: any = useContext(UsersContext);
     const usersDispatchContext: any = useContext(UsersDispatchContext);
-    const [waitingForUser, setWaitingForUser] = useState(!usersContext.user)
+    const [waitingForUser, setWaitingForUser] = useState(!user)
 
     useEffect(() => {
-        if (!usersContext.user) {
+        if (!user) {
             usersDispatchContext(
                 { type: "refresh" }
             )
@@ -24,7 +24,7 @@ const ProtectedRoute = ({ element }: any) => {
         return <MySpinner/>
     }
 
-    if (!usersContext.user) {
+    if (!user) {
         return <Navigate to="/noAccess" replace />;
     }
     return element;

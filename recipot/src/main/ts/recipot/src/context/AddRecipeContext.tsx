@@ -4,12 +4,11 @@ import { getEmptyFormSave } from "../utils/FormInputUtils";
 import { clearIds, convertToForm, convertCategoriesToObjects, convertIngredientsToObjects, convertToObjects, fillOrderNumbers, convertRecipeIngredientsToForm, getDefaultValidityForEdit } from "../utils/AddRecipeContextUtil";
 import recipesApi from "../api/RecipesApi";
 import { useNavigate } from "react-router-dom";
-import { showErrorAlert, showSuccessAlert } from "../utils/RestUtils";
 import { useTranslation } from "react-i18next";
-import { AlertsDispatchContext } from "./AlertContext";
 import { Recipe } from "../data/types";
 import { ApiRequestSendManager } from "../utils/ApiRequestSendManager";
 import filesApi from "../api/FilesApi";
+import useAlerts from "../hooks/useAlerts";
 
 export const AddRecipeContext = createContext<any>([]);
 
@@ -19,9 +18,9 @@ const saveRecipeRequestManager = ApiRequestSendManager();
 
 function AddRecipeContextProvider({ children, editedRecipe }: { children: any, editedRecipe?: Recipe | any }) {
     const navigate = useNavigate();
+    const alerts = useAlerts();
     const formSave = useRef<FormSave>(getEmptyFormSave());
     const { t } = useTranslation();
-    const alertDispatch = useContext(AlertsDispatchContext);
     useEffect(() => {
         if (editedRecipe) {
             let correctRecipe = { ...editedRecipe };
@@ -39,7 +38,7 @@ function AddRecipeContextProvider({ children, editedRecipe }: { children: any, e
     formSave.current.onSubmit = function (fields: any) {
         for (const field in fields.formValidity) {
             if (!fields.formValidity[field]) {
-                showErrorAlert(t('p.incorrectFields'), alertDispatch);
+                alerts.showErrorAlert(t('p.incorrectFields'));
                 return false;
             }
         }
@@ -81,11 +80,11 @@ function AddRecipeContextProvider({ children, editedRecipe }: { children: any, e
         let id = response.value.id;
         navigate(`/recipes/${id}`)
         let alert = editedRecipe ? 'p.recipeEditCorrect' : 'p.recipeAddCorrect';
-        showSuccessAlert(t(alert), alertDispatch);
+        alerts.showSuccessAlert(t(alert));
     }
     formSave.current.onError = function (response: any) {
         saveRecipeRequestManager.unlock();
-        showErrorAlert(t(response.message), alertDispatch);
+        alerts.showErrorAlert(t(response.message));
     }
 
     function addRecipeReducer(fields: any, action: any) {

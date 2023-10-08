@@ -5,14 +5,13 @@ import { RecipeCollectionListContext, RecipeCollectionListDispatchContext } from
 import { RecipeCollection } from "../../../../data/types";
 import { useTranslation } from "react-i18next";
 import recipeCollectionsApi from "../../../../api/RecipeCollectionsApi";
-import { showSuccessAlert } from "../../../../utils/RestUtils";
-import { AlertsDispatchContext } from "../../../../context/AlertContext";
 import { getCollectionName } from "../../../../utils/TextUtils";
+import useAlerts from "../../../../hooks/useAlerts";
 
 function CollectionList() {
     const collectionsContext = useContext(RecipeCollectionListContext);
     const collectionsDispatchContext = useContext(RecipeCollectionListDispatchContext);
-    const alertsDispatchContext = useContext(AlertsDispatchContext);
+    const alerts = useAlerts();   
     const { t } = useTranslation();
 
     function onCollectionSelectCallback(index: number) {
@@ -27,7 +26,7 @@ function CollectionList() {
     }
 
     function onCollectionDeleteResponse(response: any) {
-        showSuccessAlert(t(response.message), alertsDispatchContext);
+        alerts.showSuccessAlert(t(response.message));
         collectionsDispatchContext({ type: 'refreshCollectionsList' })
     }
 

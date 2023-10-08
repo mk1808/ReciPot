@@ -9,16 +9,16 @@ import { useContext, useEffect } from 'react';
 import { UsersContext, UsersDispatchContext } from '../../../context/UserContext';
 import authApi from '../../../api/AuthApi';
 import { useNavigate } from 'react-router-dom';
-import { AlertsDispatchContext } from '../../../context/AlertContext';
-import { onShowAlertOnErrorResponse } from '../../../utils/RestUtils';
+import useAlerts from '../../../hooks/useAlerts';
 
 function Login() {
     const { t } = useTranslation();
+    const navigate = useNavigate();    
     const usersDispatchContext = useContext(UsersDispatchContext);
-    const navigate = useNavigate();
-    const user = useContext(UsersContext).user;
+    const user = useContext(UsersContext);
+    const alerts = useAlerts();    
     const formSave: FormSave = getEmptyFormSave();
-    const dispatch = useContext(AlertsDispatchContext);
+
     useEffect(() => {
         if (user != null) {
             navigate('/user');
@@ -33,7 +33,7 @@ function Login() {
         usersDispatchContext({ type: "refresh" });
     }
     formSave.onError = function (response: any) {
-        onShowAlertOnErrorResponse(response, dispatch, t);
+        alerts.onShowAlertOnErrorResponse(response);
     }
 
     return (

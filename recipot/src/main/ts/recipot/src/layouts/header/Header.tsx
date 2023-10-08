@@ -15,7 +15,7 @@ import LanguageSelect from './components/LanguageSelect';
 function Header() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const user = useContext(UsersContext).user;
+  const user = useContext(UsersContext);
   const usersDispatchContext = useContext(UsersDispatchContext);
   const isLogged = () => { return user != null }
 

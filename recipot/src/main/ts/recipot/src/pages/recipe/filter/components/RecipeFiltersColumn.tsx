@@ -21,8 +21,8 @@ function RecipeFiltersColumn() {
 
     const recipesFilterForm = useContext(RecipeFilterContext).recipesFilterForm;
     const recipeFilterDispatchContext = useContext(RecipeFilterDispatchContext);
-    const userContext = useContext(UsersContext);
-    const isUserLogged = !!userContext.user;
+    const user = useContext(UsersContext);
+    const isUserLogged = !!user;
 
     const [filteredHashTags, setFilteredHashTags] = useState<any[]>([]);
     const [filteredIngredients, setFilteredIngredients] = useState<any[]>([]);
@@ -113,7 +113,7 @@ function RecipeFiltersColumn() {
     }
 
     function onUserIsOwnerChange(fieldName: string, value: boolean) {
-        onChange(fieldName, (value && userContext.user?.login) || null);
+        onChange(fieldName, (value && user?.login) || null);
     }
 
     function getEnum(enumName: string) {

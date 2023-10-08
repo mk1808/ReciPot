@@ -3,19 +3,17 @@ import CustomModal from "../../../../../components/basicUi/CustomModal";
 import AddToCollectionForm from "./AddToCollectionForm";
 import { useTranslation } from "react-i18next";
 import { getEmptyFormSave } from "../../../../../utils/FormInputUtils";
-import { FormSave } from "../../../../../data/utilTypes";
 import { Recipe, RecipeCollection, RecipeCollectionItem, Response, SharedRecipe } from "../../../../../data/types";
 import { initAs } from "../../../../../utils/ObjectUtils";
-import { onShowAlertOnErrorResponse, showSuccessAlert } from "../../../../../utils/RestUtils";
-import { AlertsDispatchContext } from "../../../../../context/AlertContext";
 import recipeCollectionsApi from "../../../../../api/RecipeCollectionsApi";
+import useAlerts from "../../../../../hooks/useAlerts";
 
 
 function AddToCollectionDialog({ showModal, handleClose, data }: { showModal: boolean, handleClose: any, data: Recipe }) {
     const { t } = useTranslation();
+    const alerts = useAlerts();
     const formSave: any = getEmptyFormSave();
     const form = useRef<any>();
-    const alertDispatch = useContext(AlertsDispatchContext);
 
     formSave.onSubmit = function (formValue: any) {
         if (typeof formValue === 'string') {
@@ -31,7 +29,7 @@ function AddToCollectionDialog({ showModal, handleClose, data }: { showModal: bo
     }
 
     function onNewCollectionCreated(response: Response<RecipeCollection>) {
-        showSuccessAlert(t("p.recipesCollectionSaved"), alertDispatch);
+        alerts.showSuccessAlert(t("p.recipesCollectionSaved"));
         addRecipeToCollection(response.value)
     }
 
@@ -41,11 +39,11 @@ function AddToCollectionDialog({ showModal, handleClose, data }: { showModal: bo
     }
 
     formSave.onSuccess = function (response: Response<SharedRecipe>) {
-        showSuccessAlert(t('p.addedToCollection'), alertDispatch);
+        alerts.showSuccessAlert(t('p.addedToCollection'));
         handleClose();
     }
     formSave.onError = function (response: Response<any>) {
-        onShowAlertOnErrorResponse(response, alertDispatch, t);
+        alerts.onShowAlertOnErrorResponse(response);
     }
     async function myHandleSubmit() {
         form.current.submitForm();

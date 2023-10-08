@@ -1,22 +1,20 @@
-import { useRef, useContext } from "react";
+import { useRef } from "react";
 import CustomModal from "../../../../../components/basicUi/CustomModal";
 import ShareRecipeForm from "./ShareRecipeForm";
 import { useTranslation } from "react-i18next";
 import { getEmptyFormSave } from "../../../../../utils/FormInputUtils";
 import { FormSave } from "../../../../../data/utilTypes";
 import { Recipe, Response, SharedRecipe } from "../../../../../data/types";
-import { AlertsDispatchContext } from "../../../../../context/AlertContext";
 import { initAs } from "../../../../../utils/ObjectUtils";
 import recipesApi from "../../../../../api/RecipesApi";
-import { onShowAlertOnErrorResponse, showSuccessAlert } from "../../../../../utils/RestUtils";
+import useAlerts from "../../../../../hooks/useAlerts";
 
 
 function ShareRecipeDialog({ showModal, handleClose, data }: { showModal: boolean, handleClose: any, data: Recipe }) {
     const { t } = useTranslation();
+    const alerts = useAlerts(); 
     const formSave: any = getEmptyFormSave();
     const form = useRef<any>();
-
-    const alertDispatch = useContext(AlertsDispatchContext);
 
     formSave.onSubmit = function (formValue: any) {
         const sharedRecipe: SharedRecipe = initAs<SharedRecipe>({
@@ -29,11 +27,11 @@ function ShareRecipeDialog({ showModal, handleClose, data }: { showModal: boolea
         recipesApi.share(sharedRecipe, formSave.onSuccess, formSave.onError);
     }
     formSave.onSuccess = function (response: Response<SharedRecipe>) {
-        showSuccessAlert(t('p.SHARED_RECIPE'), alertDispatch);
+        alerts.showSuccessAlert(t('p.SHARED_RECIPE')); 
         handleClose();
     }
     formSave.onError = function (response: Response<any>) {
-        onShowAlertOnErrorResponse(response, alertDispatch, t);
+        alerts.onShowAlertOnErrorResponse(response);
     }
 
     async function myHandleSubmit() {

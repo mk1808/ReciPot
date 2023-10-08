@@ -1,17 +1,14 @@
 import { useState, useContext, useEffect } from "react";
 import CustomModal from "../../../../../components/basicUi/CustomModal";
 import { useTranslation } from "react-i18next";
-import { Recipe, RecipeAccessType } from "../../../../../data/types";
-import { AlertsDispatchContext } from "../../../../../context/AlertContext";
-import { useNavigate } from "react-router-dom";
+import { Recipe } from "../../../../../data/types";
 import recipesApi from "../../../../../api/RecipesApi";
-import { showSuccessAlert } from "../../../../../utils/RestUtils";
-
+import useAlerts from "../../../../../hooks/useAlerts";
 
 function ChangeVisibilityDialog({ showModal, handleClose, handleSuccess, data, accessType }: { showModal: boolean, handleClose: any, handleSuccess: any, data: Recipe, accessType: string }) {
     const { t } = useTranslation();
+    const alerts = useAlerts(); 
     const ACCESS_TYPE_PREFIX = "enums.RecipeAccessType."
-    const alertDispatch = useContext(AlertsDispatchContext);
     const [newType, setNewType] = useState("");
     function myHandleSubmit() {
         handleClose();
@@ -23,7 +20,7 @@ function ChangeVisibilityDialog({ showModal, handleClose, handleSuccess, data, a
     }, [accessType])
 
     function onSuccess(response: any) {
-        showSuccessAlert(t(response.message), alertDispatch)
+        alerts.showSuccessAlert(t(response.message))
         handleSuccess(newType);
     }
     function getQuestionText() {

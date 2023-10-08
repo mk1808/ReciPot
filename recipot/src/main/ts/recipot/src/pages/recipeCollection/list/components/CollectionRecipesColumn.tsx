@@ -11,8 +11,6 @@ import Tooltip from "../../../../components/basicUi/Tooltip";
 import MyButton from "../../../../components/basicUi/MyButton";
 import { FaFolderMinus } from "react-icons/fa6";
 import recipeCollectionsApi from "../../../../api/RecipeCollectionsApi";
-import { AlertsDispatchContext } from "../../../../context/AlertContext";
-import { showSuccessAlert } from "../../../../utils/RestUtils";
 import DeleteFromCollectionDialog from "../dialogs/DeleteFromCollectionDialog";
 import { initAs } from "../../../../utils/ObjectUtils";
 import { getCollectionName } from "../../../../utils/TextUtils";
@@ -20,11 +18,12 @@ import NoContent from "../../../../components/complex/NoContent";
 import MySpinner from "../../../../components/basicUi/MySpinner";
 import PageDivider from "../../../../components/basicUi/PageDivider";
 import MorePagesButton from "../../../../components/basicUi/MorePagesButton";
+import useAlerts from "../../../../hooks/useAlerts";
 
 function CollectionRecipesColumn() {
     const collectionsContext = useContext(RecipeCollectionListContext);
     const collectionsDispatchContext = useContext(RecipeCollectionListDispatchContext);
-    const alertDispatch = useContext(AlertsDispatchContext);
+    const alerts = useAlerts(); 
     const { t } = useTranslation();
     const navigate = useNavigate();
     const [showModalDelete, setShowModalDelete] = useState(false);
@@ -44,7 +43,7 @@ function CollectionRecipesColumn() {
     }
 
     function onDeleteSuccess(index: number) {
-        showSuccessAlert(t('p.recipeRemovedFromCollection'), alertDispatch);
+        alerts.showSuccessAlert(t('p.recipeRemovedFromCollection'));
         loadNextPage(index)
     }
 

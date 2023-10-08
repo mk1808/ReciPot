@@ -17,8 +17,8 @@ import MyCollapse from '../../../components/basicUi/MyCollapse';
 function RecipeFilter() {
 
     const { t } = useTranslation();
-    const userContext = useContext(UsersContext);
-    const isUserLogged = !!userContext.user;
+    const user = useContext(UsersContext);
+    const isUserLogged = !!user;
 
     return (
         <RecipeFilterContextContextProvider>

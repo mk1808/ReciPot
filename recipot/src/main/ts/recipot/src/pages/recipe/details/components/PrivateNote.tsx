@@ -1,21 +1,18 @@
 import { useTranslation } from "react-i18next";
-import MyTextarea from "../../../../components/basicUi/MyTextarea";
 import { Stack } from "react-bootstrap";
-import MyButton from "../../../../components/basicUi/MyButton";
 import Info from "../../../../components/basicUi/Info";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PrivateNoteForm from "./PrivateNoteForm";
 import { FormSave } from "../../../../data/utilTypes";
 import { getEmptyFormSave } from "../../../../utils/FormInputUtils";
 import privateNotesApi from "../../../../api/PrivateNotes";
 import { Recipe, PrivateNote as PrivateNoteT } from "../../../../data/types";
-import { AlertsDispatchContext } from "../../../../context/AlertContext";
-import { showSuccessAlert } from "../../../../utils/RestUtils";
 import MyHeader from "../../../../components/basicUi/MyHeader";
+import useAlerts from "../../../../hooks/useAlerts";
 
 function PrivateNote({ recipe, note }: { recipe: Recipe, note: PrivateNoteT }) {
     const { t } = useTranslation();
-    const alertsDispatchContext = useContext(AlertsDispatchContext);
+    const alerts = useAlerts();   
     const isNotePresent = false;
     const [isEditModeOn, setIsEditModeOn] = useState<any>(false);
     useEffect(() => {
@@ -33,10 +30,10 @@ function PrivateNote({ recipe, note }: { recipe: Recipe, note: PrivateNoteT }) {
     formSave.onSuccess = function (response: any) {
         setIsEditModeOn(!isEditModeOn);
         if (response.message) {
-            showSuccessAlert(t(response.message), alertsDispatchContext);
+            alerts.showSuccessAlert(t(response.message));
         }
         else {
-            showSuccessAlert(t("p.noteSaved"), alertsDispatchContext);
+            alerts.showSuccessAlert(t("p.noteSaved"));
         }
     }
     formSave.onError = function () { }

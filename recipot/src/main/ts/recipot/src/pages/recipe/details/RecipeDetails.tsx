@@ -40,7 +40,7 @@ function RecipeDetails() {
     const [favRecipeCollection, setFavRecipeCollection] = useState<any>();
     const id: string = params.id ?? "";
     const [isOwner, setIsOwner] = useState<boolean>(false);
-    const user = useContext(UsersContext).user;
+    const user = useContext(UsersContext);
     const mainRef = useRef<any>(null);
     useEffect(() => {
         setIsLoaded(false);

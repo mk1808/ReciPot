@@ -10,15 +10,14 @@ import { getEmptyFormSave } from '../../utils/FormInputUtils';
 import { useContext, useEffect, useState } from 'react';
 import { UsersContext, UsersDispatchContext } from '../../context/UserContext';
 import usersApi from '../../api/UsersApi';
-import { showErrorAlert, showSuccessAlert } from '../../utils/RestUtils';
-import { AlertsDispatchContext } from '../../context/AlertContext';
 import statisticsApi from '../../api/StatisticsApi';
+import useAlerts from '../../hooks/useAlerts';
 
 function UserDetails() {
     const { t } = useTranslation();
-    const user = useContext(UsersContext).user;
+    const user = useContext(UsersContext);
     const usersDispatchContext = useContext(UsersDispatchContext);
-    const alertsDispatchContext = useContext(AlertsDispatchContext);
+    const alerts = useAlerts();  
     const [userStatistics, setUserStatistics] = useState<UserStatisticsDto>();
 
     useEffect(() => {
@@ -30,13 +29,13 @@ function UserDetails() {
         usersApi.updateUser(user?.id || "", userFormValue, formSave.onSuccess, formSave.onError);
     }
     formSave.onSuccess = function (response: any) {
-        showSuccessAlert(t("p.userSuccessfullyEdited"), alertsDispatchContext);
+        alerts.showSuccessAlert(t("p.userSuccessfullyEdited"));
         usersDispatchContext(
             { type: "refresh" }
         )
     }
     formSave.onError = function () {
-        showErrorAlert(t("p.defaultError"), alertsDispatchContext);
+        alerts.showErrorAlert(t("p.defaultError"));
     }
 
     return (
