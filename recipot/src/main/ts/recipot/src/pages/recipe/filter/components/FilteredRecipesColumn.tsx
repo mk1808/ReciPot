@@ -62,9 +62,7 @@ function FilteredRecipesColumn() {
     }
 
     function renderNoData() {
-        return (
-            <NoContent text={t('p.noElementsInSearch')} />
-        );
+        return <NoContent text={t('p.noElementsInSearch')} />
     }
 }
 

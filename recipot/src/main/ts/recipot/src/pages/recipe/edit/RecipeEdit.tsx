@@ -22,9 +22,7 @@ function RecipeEdit() {
         recipesApi.getRecipe(id, onGetRecipeSuccess);
 
     }, [])
-    return (
-        <RecipeAdd recipe = {recipe}/>
-    );
+    return <RecipeAdd recipe = {recipe}/>
 }
 
 export default RecipeEdit;

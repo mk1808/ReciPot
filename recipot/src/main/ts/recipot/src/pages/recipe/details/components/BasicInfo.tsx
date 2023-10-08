@@ -19,53 +19,55 @@ function BasicInfo({ recipe }: { recipe: Recipe }) {
     function onHashTagClick(hashTag: any) {
         goToFilters({ hashTags: [{ label: hashTag.name, value: hashTag }] }, navigate);
     }
-    return (<>
-        <div className="mt-3 mb-5 px-5 basic-info">
-            {renderOtherInfo()}
-            <Row className="mb-5">
-                <Col>
-                    <Row className="align-center icon-info ">
-                        <Col className="icon-col" xs={6} md={3}>
-                            {renderSingleInfoIcon({
-                                tooltip: "timeInfo",
-                                icon: (className: string) => <MdAccessTime className={className} />,
-                                label: "time",
-                                value: `${convertToTime(recipe.timeAmount)}`
-                            })}
-                        </Col>
-                        <Col className="icon-col" xs={6} md={3}>
-                            {renderSingleInfoIcon({
-                                tooltip: "amountOfDishesInfo",
-                                icon: (className: string) => <GiCookingPot className={className} />,
-                                label: "amountOfDishes",
-                                value: t(`enums.RecipeAmountOfDishes.${recipe.numberOfDishes}`)
-                            })}
+    return (
+        <>
+            <div className="mt-3 mb-5 px-5 basic-info">
+                {renderOtherInfo()}
+                <Row className="mb-5">
+                    <Col>
+                        <Row className="align-center icon-info ">
+                            <Col className="icon-col" xs={6} md={3}>
+                                {renderSingleInfoIcon({
+                                    tooltip: "timeInfo",
+                                    icon: (className: string) => <MdAccessTime className={className} />,
+                                    label: "time",
+                                    value: `${convertToTime(recipe.timeAmount)}`
+                                })}
+                            </Col>
+                            <Col className="icon-col" xs={6} md={3}>
+                                {renderSingleInfoIcon({
+                                    tooltip: "amountOfDishesInfo",
+                                    icon: (className: string) => <GiCookingPot className={className} />,
+                                    label: "amountOfDishes",
+                                    value: t(`enums.RecipeAmountOfDishes.${recipe.numberOfDishes}`)
+                                })}
 
-                        </Col>
-                        <Col className="icon-col" xs={6} md={3}>
-                            {renderSingleInfoIcon({
-                                tooltip: "effortInfo",
-                                icon: (className: string) => <MdWork className={className} />,
-                                label: "effort",
-                                value: t(`enums.RecipeRequiredEffort.${recipe.requiredEffort}`)
-                            })}
+                            </Col>
+                            <Col className="icon-col" xs={6} md={3}>
+                                {renderSingleInfoIcon({
+                                    tooltip: "effortInfo",
+                                    icon: (className: string) => <MdWork className={className} />,
+                                    label: "effort",
+                                    value: t(`enums.RecipeRequiredEffort.${recipe.requiredEffort}`)
+                                })}
 
-                        </Col>
-                        <Col className="icon-col" xs={6} md={3}>
-                            {renderSingleInfoIcon({
-                                tooltip: "difficultyInfo",
-                                icon: (className: string) => <VscTools className={className} />,
-                                label: "difficulty",
-                                value: t(`enums.RecipeDifficulty.${recipe.difficulty}`)
-                            })}
+                            </Col>
+                            <Col className="icon-col" xs={6} md={3}>
+                                {renderSingleInfoIcon({
+                                    tooltip: "difficultyInfo",
+                                    icon: (className: string) => <VscTools className={className} />,
+                                    label: "difficulty",
+                                    value: t(`enums.RecipeDifficulty.${recipe.difficulty}`)
+                                })}
 
-                        </Col>
-                    </Row>
-                </Col>
-            </Row>
-        </div>
-        <hr />
-    </>);
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
+            </div>
+            <hr />
+        </>
+    );
 
     function renderSingleInfoIcon({ tooltip, icon, label, value }: { tooltip: any, icon: any, label: any, value: any }) {
         return (

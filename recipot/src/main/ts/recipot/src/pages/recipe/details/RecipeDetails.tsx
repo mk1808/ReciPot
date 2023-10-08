@@ -116,7 +116,6 @@ function RecipeDetails() {
             <div className="px-5">
                 <BreadCrumbs recipe={recipe} />
             </div>
-
         )
     }
 

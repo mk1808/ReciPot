@@ -169,7 +169,7 @@ function RecipeFiltersColumn() {
 
     function renderNameContainsInput() {
         return (
-            < MyInput
+            <MyInput
                 {...inputAttributesForContextWithoutValidity("recipeName", t("p.recipeNameFilter"), onChange, recipesFilterForm)}
                 placeholder={t("p.recipeNameFilter")}
             />
@@ -274,22 +274,26 @@ function RecipeFiltersColumn() {
     }
 
     function renderButtons() {
-        return <>
-            <MyButton.Primary onClick={handleSubmit}>{t('p.search')}</MyButton.Primary >
-            {renderSaveFilterButton()}
-        </>
+        return (
+            <>
+                <MyButton.Primary onClick={handleSubmit}>{t('p.search')}</MyButton.Primary >
+                {renderSaveFilterButton()}
+            </>
+        )
     }
 
     function renderSaveFilterButton() {
-        return isUserLogged && (<>
-            <MyButton.Secondary onClick={() => setShowModal(true)} >{t('p.saveRecipeFilter')}</MyButton.Secondary>
-            <AddRecipeFilterDialog showModal={showModal} handleClose={() => setShowModal(false)}></AddRecipeFilterDialog>
-        </>)
+        return isUserLogged && (
+            <>
+                <MyButton.Secondary onClick={() => setShowModal(true)} >{t('p.saveRecipeFilter')}</MyButton.Secondary>
+                <AddRecipeFilterDialog showModal={showModal} handleClose={() => setShowModal(false)}></AddRecipeFilterDialog>
+            </>
+        )
     }
 
     function renderClearFiltersButton() {
         return <MyButton.Secondary onClick={() => clearFilter()} >{t('p.clearFilters')}</MyButton.Secondary>
-       
+
     }
 }
 

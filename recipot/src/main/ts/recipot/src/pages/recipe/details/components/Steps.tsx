@@ -11,22 +11,22 @@ function Steps({ recipe }: { recipe: Recipe }) {
     }
 
     if (shouldRenderSteps()) {
-        return (<>
-            <div className="mb-5 px-xl-5 px-2 steps">
-                <MyHeader title={t('p.recipeSteps')} level="4" />
-                <div className="list mt-4">
-                    {renderSteps()}
+        return (
+            <>
+                <div className="mb-5 px-xl-5 px-2 steps">
+                    <MyHeader title={t('p.recipeSteps')} level="4" />
+                    <div className="list mt-4">
+                        {renderSteps()}
+                    </div>
                 </div>
-            </div>
-            <hr />
-        </>);
+                <hr />
+            </>
+        );
     }
     return (<></>);
 
     function renderSteps() {
-        return (
-            <RecipeStepsNumbers steps={recipe.recipeSteps}/>
-        );
+        return <RecipeStepsNumbers steps={recipe.recipeSteps} />
     }
 }
 

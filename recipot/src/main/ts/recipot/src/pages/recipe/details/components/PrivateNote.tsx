@@ -4,14 +4,14 @@ import Info from "../../../../components/basicUi/Info";
 import { useEffect, useState } from "react";
 import PrivateNoteForm from "./PrivateNoteForm";
 import privateNotesApi from "../../../../api/PrivateNotes";
-import { Recipe, PrivateNote as PrivateNoteT  } from "../../../../data/types";
+import { Recipe, PrivateNote as PrivateNoteT } from "../../../../data/types";
 import MyHeader from "../../../../components/basicUi/MyHeader";
 import useAlerts from "../../../../hooks/useAlerts";
 import { initFormSave } from "../../../../utils/FormInputUtils";
 
 function PrivateNote({ recipe, note }: { recipe: Recipe, note: PrivateNoteT }) {
     const { t } = useTranslation();
-    const alerts = useAlerts();   
+    const alerts = useAlerts();
     const isNotePresent = false;
     const [isEditModeOn, setIsEditModeOn] = useState<any>(false);
     useEffect(() => {
@@ -45,13 +45,15 @@ function PrivateNote({ recipe, note }: { recipe: Recipe, note: PrivateNoteT }) {
         privateNotesApi.deletePrivateNote(note.id, formSave.onSuccess);
     }
 
-    return (<>
-        <div className="mb-5 px-5 private-note">
-            {renderHeaderWithInfo()}
-            {renderForm()}
-        </div>
-        <hr />
-    </>)
+    return (
+        <>
+            <div className="mb-5 px-5 private-note">
+                {renderHeaderWithInfo()}
+                {renderForm()}
+            </div>
+            <hr />
+        </>
+    )
 
     function renderHeaderWithInfo() {
         return (
@@ -66,7 +68,7 @@ function PrivateNote({ recipe, note }: { recipe: Recipe, note: PrivateNoteT }) {
 
     function renderForm() {
         return (
-            <PrivateNoteForm formSave={formSave} isEditModeOn={isEditModeOn} note={note} setIsEditModeOn={setIsEditModeOn}/>
+            <PrivateNoteForm formSave={formSave} isEditModeOn={isEditModeOn} note={note} setIsEditModeOn={setIsEditModeOn} />
         );
     }
 }

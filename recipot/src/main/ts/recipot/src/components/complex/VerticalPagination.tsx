@@ -31,7 +31,11 @@ function VerticalPagination({
         if (pageNumber < 0) {
             return <div className="empty-page-button" key={pageNumber}><FaEllipsisVertical /></div>
         }
-        return <MyButton.Primary key={pageNumber} className="page-button" disabled={getIsCurrentPage(pageNumber)} onClick={() => onPageSelect(pageNumber)}>{pageNumber + 1}</MyButton.Primary>
+        return (
+            <MyButton.Primary key={pageNumber} className="page-button" disabled={getIsCurrentPage(pageNumber)} onClick={() => onPageSelect(pageNumber)}>
+                {pageNumber + 1}
+            </MyButton.Primary>
+        )
     }
 }
 

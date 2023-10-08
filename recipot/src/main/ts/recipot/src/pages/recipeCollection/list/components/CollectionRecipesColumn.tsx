@@ -109,17 +109,17 @@ function CollectionRecipesColumn() {
     }
 
     function renderNoData() {
-        return (
-            <NoContent text={t('p.noElementsInCollection')} />
-        );
+        return <NoContent text={t('p.noElementsInCollection')} />
     }
 
     function renderModal() {
-        return <DeleteFromCollectionDialog
-            showModal={showModalDelete}
-            handleClose={() => setShowModalDelete(false)}
-            handleSubmit={deleteRecipeFromCollection}
-            data={recipeToDelete || initAs()} />
+        return (
+            <DeleteFromCollectionDialog
+                showModal={showModalDelete}
+                handleClose={() => setShowModalDelete(false)}
+                handleSubmit={deleteRecipeFromCollection}
+                data={recipeToDelete || initAs()} />
+        )
     }
 }
 

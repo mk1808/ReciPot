@@ -17,7 +17,7 @@ function UserDetails() {
     const { t } = useTranslation();
     const user = useContext(UsersContext);
     const usersDispatchContext = useContext(UsersDispatchContext);
-    const alerts = useAlerts();  
+    const alerts = useAlerts();
     const [userStatistics, setUserStatistics] = useState<UserStatisticsDto>();
 
     useEffect(() => {
@@ -40,7 +40,7 @@ function UserDetails() {
 
     return (
         <div className='mx-auto my-5 px-4 pb-4 user-details-page basic-container basic-container-border'>
-            <MyHeader title={t('p.userDetailsHeader')}/>
+            <MyHeader title={t('p.userDetailsHeader')} />
             {renderUserStatistics()}
             <hr />
             <UserDetailsForm formSave={formSave} user={user} />
@@ -60,7 +60,11 @@ function UserDetails() {
     }
 
     function renderStatistic(label: string, value?: number) {
-        return <div className='col-lg-3 col-sm-4 col-8'><StatisticCircle value={String(value)} size={150} ringSize={30} label={t(label)} /></div>
+        return (
+            <div className='col-lg-3 col-sm-4 col-8'>
+                <StatisticCircle value={String(value)} size={150} ringSize={30} label={t(label)} />
+            </div>
+        )
     }
 }
 

@@ -67,15 +67,19 @@ function ComplexListElement({
 
     function renderDeleteAction() {
         const canDelete = element.canDelete !== false;
-        return canDelete && <Tooltip placement="bottom" title={t('p.delete')}><FaTrashCan onClick={onDeleteClick} className="action-icon" /></Tooltip>;
+        return canDelete && (
+            <Tooltip placement="bottom" title={t('p.delete')}>
+                <FaTrashCan onClick={onDeleteClick} className="action-icon" />
+            </Tooltip>
+        );
     }
 
     function renderConfirmActions() {
         return (
-            <div>
+            <>
                 <Tooltip placement="bottom" title={t('p.confirm')}><FaCheck onClick={onConfirmClick} className="danger-color" /></Tooltip>
                 <Tooltip placement="bottom" title={t('p.cancel')}><FaBan onClick={onCancelClick} className="action-icon" /></Tooltip>
-            </div>
+            </>
         );
     }
 }

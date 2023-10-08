@@ -11,7 +11,7 @@ import { initFormSave } from "../../../../../utils/FormInputUtils";
 
 function ShareRecipeDialog({ showModal, handleClose, data }: { showModal: boolean, handleClose: any, data: Recipe }) {
     const { t } = useTranslation();
-    const alerts = useAlerts(); 
+    const alerts = useAlerts();
     const formSave = initFormSave<SharedRecipe>();
     const form = useRef<any>();
 
@@ -26,7 +26,7 @@ function ShareRecipeDialog({ showModal, handleClose, data }: { showModal: boolea
         recipesApi.share(sharedRecipe, formSave.onSuccess, formSave.onError);
     }
     formSave.onSuccess = function (response: Response<SharedRecipe>) {
-        alerts.showSuccessAlert(t('p.SHARED_RECIPE')); 
+        alerts.showSuccessAlert(t('p.SHARED_RECIPE'));
         handleClose();
     }
     formSave.onError = function (response: Response<any>) {
@@ -43,10 +43,11 @@ function ShareRecipeDialog({ showModal, handleClose, data }: { showModal: boolea
     );
 
     function renderContent() {
-        return (<>
-            <span>{t('p.shareRecipeInfo')}</span>
-            <ShareRecipeForm formSave={formSave} ref={form}/>
-        </>
+        return (
+            <>
+                <span>{t('p.shareRecipeInfo')}</span>
+                <ShareRecipeForm formSave={formSave} ref={form} />
+            </>
         )
     }
 

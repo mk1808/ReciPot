@@ -58,13 +58,15 @@ function UserDetailsForm({ formSave, user }: { formSave: FormSave<AppUser>, user
     }
 
     function renderUserForm() {
-        return (<>
-            {renderEmailInput()}
-            {renderLoginInput()}
+        return (
+            <>
+                {renderEmailInput()}
+                {renderLoginInput()}
 
-            {renderAvatarImageInput()}
-            {renderSelfDescriptionInput()}
-        </>)
+                {renderAvatarImageInput()}
+                {renderSelfDescriptionInput()}
+            </>
+        )
     }
 
     function renderEmailInput() {
@@ -86,7 +88,8 @@ function UserDetailsForm({ formSave, user }: { formSave: FormSave<AppUser>, user
                 placeholder={t('p.loginInputPlaceholder')}
                 defaultValue={user.login}
                 disabled={true}
-            />);
+            />
+        );
     }
 
     function renderAvatarImageInput() {
@@ -97,7 +100,8 @@ function UserDetailsForm({ formSave, user }: { formSave: FormSave<AppUser>, user
                 placeholder={t('p.avatarInputPlaceholder')}
                 disabled={!isEditMode}
                 defaultValue={user.avatarImageSrc}
-            />);
+            />
+        );
     }
 
     function renderSelfDescriptionInput() {
@@ -108,7 +112,8 @@ function UserDetailsForm({ formSave, user }: { formSave: FormSave<AppUser>, user
                 placeholder={t('p.selfDescriptionInputPlaceholder')}
                 defaultValue={user.selfDescription}
                 disabled={!isEditMode}
-            />);
+            />
+        );
     }
 
     function renderButtonsRow() {
@@ -134,9 +139,7 @@ function UserDetailsForm({ formSave, user }: { formSave: FormSave<AppUser>, user
     }
 
     function renderButton(Button: any, onClick: any, label: string, type?: string) {
-        return (
-            <Button onClick={onClick} type={type}>{t(label)} </Button>
-        )
+        return <Button onClick={onClick} type={type}>{t(label)} </Button>
     }
 }
 

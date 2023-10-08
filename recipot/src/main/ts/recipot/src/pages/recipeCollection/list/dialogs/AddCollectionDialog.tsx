@@ -40,9 +40,7 @@ function AddCollectionDialog({ showModal, handleClose }: { showModal: boolean, h
     );
 
     function renderContent() {
-        return (
-            <AddCollectionDialogForm formSave={formSave} ref={form} />
-        )
+        return <AddCollectionDialogForm formSave={formSave} ref={form} />
     }
 
 }

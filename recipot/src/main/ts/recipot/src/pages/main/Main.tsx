@@ -66,9 +66,7 @@ function Main() {
     );
 
     function renderRecipeCardCircle() {
-        return (
-            <RecipeCardCircle recipe={randomRecipe} recipeCallback={() => recipeCallback(randomRecipe)}/>
-        )
+        return <RecipeCardCircle recipe={randomRecipe} recipeCallback={() => recipeCallback(randomRecipe)}/>
     }
 
     function renderRecipesList() {

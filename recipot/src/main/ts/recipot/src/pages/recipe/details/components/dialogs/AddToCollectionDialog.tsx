@@ -55,9 +55,7 @@ function AddToCollectionDialog({ showModal, handleClose, data }: { showModal: bo
     );
 
     function renderContent() {
-        return (
-            <AddToCollectionForm formSave={formSave} ref={form}/>
-        )
+        return <AddToCollectionForm formSave={formSave} ref={form}/>
     }
 
 }

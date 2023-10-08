@@ -19,7 +19,7 @@ function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: 
     const isNotePresent = false;
     const [isEditModeOn, setIsEditModeOn] = useState<any>(false);
     const [userOpinion, setUserOpinion] = useState<any>(false);
-    const alerts = useAlerts(); 
+    const alerts = useAlerts();
     const user = useContext(UsersContext);
     const navigate = useNavigate();
 
@@ -65,15 +65,15 @@ function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: 
     )
 
     function renderForm() {
-        return (
-            <CommentsForm formSave={formSave} isEditModeOn={isEditModeOn} userOpinion={userOpinion}/>
-        );
+        return <CommentsForm formSave={formSave} isEditModeOn={isEditModeOn} userOpinion={userOpinion} />
     }
 
     function renderPageOfComments() {
-        return (<>
-            {opinions.map((comment: any, index: number) => { return (renderComments(comment, index)); })}
-        </>)
+        return (
+            <>
+                {opinions.map((comment: any, index: number) => { return (renderComments(comment, index)); })}
+            </>
+        )
     }
     function renderComments(comment: any, index: number) {
         return (
@@ -87,7 +87,7 @@ function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: 
                                     <div className="h6">
                                         {t('p.rating')}:&nbsp;
                                         <BsStarFill className="mb-1" /> {comment.rating ?? '-'}/5  &nbsp;
-                                        <div className="vr"/>
+                                        <div className="vr" />
                                         &nbsp;{t('p.publishDate')}:&nbsp;{format(comment.created)}
                                     </div>
                                 </div>
@@ -106,7 +106,6 @@ function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: 
                 <div>{comment.authorLogin}</div>
             </Stack>
         );
-
     }
     function renderCommentsEmpty() {
         return (
@@ -117,7 +116,6 @@ function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: 
                 <MyButton.Primary className="button-400" onClick={() => navigate('/login')}>
                     {t('p.login')}
                 </MyButton.Primary>
-
             </div>
         )
     }

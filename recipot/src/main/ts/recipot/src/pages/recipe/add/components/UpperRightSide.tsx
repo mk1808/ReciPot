@@ -49,10 +49,10 @@ function UpperRightSide() {
             })
         }
     }
-    
+
     function onFilteredSelectChange(value: any[], fieldName: string) {
         if (!formFields.formValue || value.length !== formFields.formValue[fieldName].length) {
-            onChange(value,fieldName)
+            onChange(value, fieldName)
         }
     }
 
@@ -140,37 +140,42 @@ function UpperRightSide() {
                 options={requiredEffort}
                 emptyOption={t('p.selectValue')}
                 {...inputAttributesForContext("requiredEffort", onChange, getValidity, undefined, formFields.formValue)}
-            />)
+            />
+        )
     }
 
     function renderHashTagInput() {
-        return <FilteredSelect
-            multiple={true}
-            className="mb-3"
-            label={t("p.hashTagFilter")}
-            options={filteredHashTags}
-            onSearchCallback={(phrase: string) => onFilteredHashTagSearch(phrase, setFilteredHashTags)}
-            highlightValidity={true}
-            allowNew={true}
-            isValid={getValidity("hashTags")}
-            onSelectCallback={(value: any) => onFilteredSelectChange(value, "hashTags")}
-            defaultValue={(formFields.formValue && formFields.formValue["hashTags"])}
-        />
+        return (
+            <FilteredSelect
+                multiple={true}
+                className="mb-3"
+                label={t("p.hashTagFilter")}
+                options={filteredHashTags}
+                onSearchCallback={(phrase: string) => onFilteredHashTagSearch(phrase, setFilteredHashTags)}
+                highlightValidity={true}
+                allowNew={true}
+                isValid={getValidity("hashTags")}
+                onSelectCallback={(value: any) => onFilteredSelectChange(value, "hashTags")}
+                defaultValue={(formFields.formValue && formFields.formValue["hashTags"])}
+            />
+        )
     }
 
     function renderCategoryInput() {
-        return <FilteredSelect
-            multiple={true}
-            className="mb-3"
-            label={t("p.categoryFilter")}
-            options={filteredCategories}
-            onSearchCallback={onCategorySearchCallback}
-            highlightValidity={true}
-            hierarchical={true}
-            isValid={getValidity("categories")}
-            onSelectCallback={(value: any) => onFilteredSelectChange(value, "categories")}
-            defaultValue={(formFields.formValue && formFields.formValue["categories"])}
-        />
+        return (
+            <FilteredSelect
+                multiple={true}
+                className="mb-3"
+                label={t("p.categoryFilter")}
+                options={filteredCategories}
+                onSearchCallback={onCategorySearchCallback}
+                highlightValidity={true}
+                hierarchical={true}
+                isValid={getValidity("categories")}
+                onSelectCallback={(value: any) => onFilteredSelectChange(value, "categories")}
+                defaultValue={(formFields.formValue && formFields.formValue["categories"])}
+            />
+        )
     }
 }
 
