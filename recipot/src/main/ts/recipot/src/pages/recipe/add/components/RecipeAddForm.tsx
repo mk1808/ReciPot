@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import { useContext } from "react";
 import { Col, Row } from "react-bootstrap";
 import UpperLeftSide from "./UpperLeftSide";
@@ -10,7 +9,6 @@ import { AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
 import useMyNav from "../../../../hooks/useMyNav";
 
 function RecipeAddForm() {
-    const { t } = useTranslation();
     const nav = useMyNav();
     const addRecipeDispatchContext = useContext(AddRecipeDispatchContext);
 

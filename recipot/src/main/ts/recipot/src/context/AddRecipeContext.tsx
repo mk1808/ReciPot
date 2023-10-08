@@ -63,7 +63,7 @@ function AddRecipeContextProvider({ children, editedRecipe }: { children: any, e
     }
 
     function onFileSaved(formValue: any, response: any) {
-        formValue.image = response.value; //assumed value contains image URI
+        formValue.image = response.value;
         saveOrEditRecipe(formValue);
     }
 

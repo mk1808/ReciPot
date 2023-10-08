@@ -12,7 +12,6 @@ import { initFormSave } from "../../../../utils/FormInputUtils";
 function PrivateNote({ recipe, note }: { recipe: Recipe, note: PrivateNoteT }) {
     const { t } = useTranslation();
     const alerts = useAlerts();
-    const isNotePresent = false;
     const [isEditModeOn, setIsEditModeOn] = useState<any>(false);
     useEffect(() => {
         setIsEditModeOn(note == null);

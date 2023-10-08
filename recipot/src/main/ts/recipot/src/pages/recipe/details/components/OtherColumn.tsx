@@ -32,7 +32,7 @@ function OtherColumn({ recipes }: { recipes: Recipe[] }) {
     }, [])
 
     useEffect(() => {
-        if (!recipeCardHeight && recipeCardRef.current || recipeCardRef.current?.clientHeight > recipeCardHeight) {
+        if ((!recipeCardHeight && recipeCardRef.current) || recipeCardRef.current?.clientHeight > recipeCardHeight) {
             setRecipeCardHeight(recipeCardRef.current?.clientHeight)
         }
     }, [recipeCardRef.current])

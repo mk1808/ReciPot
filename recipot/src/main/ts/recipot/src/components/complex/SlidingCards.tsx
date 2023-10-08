@@ -52,7 +52,7 @@ function SlidingElements({ recipes, getSingleElement, size }: { recipes: Recipe[
 }
 
 function SlidingCards({ recipes = [], goToRecipeCallback = initFcn<Recipe>() }: { recipes: Recipe[], goToRecipeCallback: Function }) {
-    const [width, height] = useWindowSize();
+    const [width] = useWindowSize();
 
     function getSliderSize() {
         return width > 1550 ? 5 : width > 1000 ? 3 : (width > 720 ? 2 : 1);

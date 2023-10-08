@@ -60,7 +60,7 @@ function MyInput({
                 defaultValue={defaultValue}
                 ref={inputRef}
                 step={step}
-                min={type == "number" ? 0 : undefined}
+                min={type === "number" ? 0 : undefined}
                 className={className}
             />
         </Form.Group>
