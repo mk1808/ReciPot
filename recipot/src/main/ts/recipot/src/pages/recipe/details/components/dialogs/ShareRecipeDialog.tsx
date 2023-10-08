@@ -2,18 +2,17 @@ import { useRef } from "react";
 import CustomModal from "../../../../../components/basicUi/CustomModal";
 import ShareRecipeForm from "./ShareRecipeForm";
 import { useTranslation } from "react-i18next";
-import { getEmptyFormSave } from "../../../../../utils/FormInputUtils";
-import { FormSave } from "../../../../../data/utilTypes";
 import { Recipe, Response, SharedRecipe } from "../../../../../data/types";
 import { initAs } from "../../../../../utils/ObjectUtils";
 import recipesApi from "../../../../../api/RecipesApi";
 import useAlerts from "../../../../../hooks/useAlerts";
+import { initFormSave } from "../../../../../utils/FormInputUtils";
 
 
 function ShareRecipeDialog({ showModal, handleClose, data }: { showModal: boolean, handleClose: any, data: Recipe }) {
     const { t } = useTranslation();
     const alerts = useAlerts(); 
-    const formSave: any = getEmptyFormSave();
+    const formSave = initFormSave<SharedRecipe>();
     const form = useRef<any>();
 
     formSave.onSubmit = function (formValue: any) {

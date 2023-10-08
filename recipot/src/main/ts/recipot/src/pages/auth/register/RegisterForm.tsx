@@ -8,8 +8,9 @@ import { checkIfAllValid, getEmptyForm, getNewState, inputAttributes, preventFur
 import MyTextarea from "../../../components/basicUi/MyTextarea";
 import { validateEmail } from '../../../utils/RegexUtils';
 import { FormSave, MyForm } from '../../../data/utilTypes';
+import { UserRegisterDto } from '../../../data/types';
 
-function RegisterForm({ formSave, defaultValue }: { formSave: FormSave, defaultValue:string }) {
+function RegisterForm({ formSave, defaultValue }: { formSave: FormSave<UserRegisterDto>, defaultValue:string }) {
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
 

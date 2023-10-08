@@ -1,6 +1,4 @@
 import { createContext, useReducer, useRef, useContext, useEffect } from "react";
-import { FormSave } from "../data/utilTypes";
-import { getEmptyFormSave } from "../utils/FormInputUtils";
 import { clearIds, convertToForm, convertCategoriesToObjects, convertIngredientsToObjects, convertToObjects, fillOrderNumbers, convertRecipeIngredientsToForm, getDefaultValidityForEdit } from "../utils/AddRecipeContextUtil";
 import recipesApi from "../api/RecipesApi";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +7,8 @@ import { Recipe } from "../data/types";
 import { ApiRequestSendManager } from "../utils/ApiRequestSendManager";
 import filesApi from "../api/FilesApi";
 import useAlerts from "../hooks/useAlerts";
+import { FormSave } from "../data/utilTypes";
+import { initFormSave } from "../utils/FormInputUtils";
 
 export const AddRecipeContext = createContext<any>([]);
 
@@ -19,7 +19,7 @@ const saveRecipeRequestManager = ApiRequestSendManager();
 function AddRecipeContextProvider({ children, editedRecipe }: { children: any, editedRecipe?: Recipe | any }) {
     const navigate = useNavigate();
     const alerts = useAlerts();
-    const formSave = useRef<FormSave>(getEmptyFormSave());
+    const formSave = useRef<FormSave<any>>(initFormSave<any>());
     const { t } = useTranslation();
     useEffect(() => {
         if (editedRecipe) {

@@ -3,12 +3,11 @@ import { Stack } from "react-bootstrap";
 import Info from "../../../../components/basicUi/Info";
 import { useEffect, useState } from "react";
 import PrivateNoteForm from "./PrivateNoteForm";
-import { FormSave } from "../../../../data/utilTypes";
-import { getEmptyFormSave } from "../../../../utils/FormInputUtils";
 import privateNotesApi from "../../../../api/PrivateNotes";
-import { Recipe, PrivateNote as PrivateNoteT } from "../../../../data/types";
+import { Recipe, PrivateNote as PrivateNoteT  } from "../../../../data/types";
 import MyHeader from "../../../../components/basicUi/MyHeader";
 import useAlerts from "../../../../hooks/useAlerts";
+import { initFormSave } from "../../../../utils/FormInputUtils";
 
 function PrivateNote({ recipe, note }: { recipe: Recipe, note: PrivateNoteT }) {
     const { t } = useTranslation();
@@ -18,7 +17,7 @@ function PrivateNote({ recipe, note }: { recipe: Recipe, note: PrivateNoteT }) {
     useEffect(() => {
         setIsEditModeOn(note == null);
     }, [])
-    const formSave: FormSave = getEmptyFormSave();
+    const formSave = initFormSave<PrivateNoteT>();
     formSave.onSubmit = function (formValue: any) {
         if (isEditModeOn) {
             if (formValue.content && formValue.content.trim()) {

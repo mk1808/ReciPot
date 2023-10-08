@@ -1,11 +1,12 @@
 import { useReducer, useRef, useImperativeHandle, forwardRef } from "react";
 import MyInput from "../../../../components/basicUi/MyInput";
-import { checkIfAllValid, checkInputValidity, getEmptyForm, getEmptyFormSave, getNewState, inputAttributes, preventFurtherAction } from "../../../../utils/FormInputUtils";
+import { checkIfAllValid, checkInputValidity, getEmptyForm, getNewState, inputAttributes, preventFurtherAction } from "../../../../utils/FormInputUtils";
 import { Form } from "react-bootstrap";
-import { FormSave, MyForm } from "../../../../data/utilTypes";
 import { useTranslation } from "react-i18next";
+import { FormSave, MyForm } from "../../../../data/utilTypes";
+import { RecipeFilter } from "../../../../data/types";
 
-function AddRecipeFilterForm({ formSave }: { formSave: FormSave }, ref: any) {
+function AddRecipeFilterForm({ formSave }: { formSave: FormSave<RecipeFilter> }, ref: any) {
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
     const form = useRef<any>();

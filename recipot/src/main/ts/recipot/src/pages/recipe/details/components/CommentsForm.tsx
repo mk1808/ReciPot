@@ -6,8 +6,9 @@ import MyTextarea from "../../../../components/basicUi/MyTextarea";
 import { Form, Stack } from "react-bootstrap";
 import StarSelectInput from "../../../../components/basicUi/StarSelectInput";
 import MyButton from "../../../../components/basicUi/MyButton";
+import { Comment } from "../../../../data/types";
 
-function CommentsForm({ formSave, isEditModeOn, userOpinion }: { formSave: FormSave, isEditModeOn: boolean, userOpinion: any }) {
+function CommentsForm({ formSave, isEditModeOn, userOpinion }: { formSave: FormSave<Comment>, isEditModeOn: boolean, userOpinion: any }) {
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
 

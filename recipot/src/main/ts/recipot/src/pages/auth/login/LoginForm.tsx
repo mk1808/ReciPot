@@ -6,9 +6,10 @@ import MyButton from '../../../components/basicUi/MyButton';
 import {useReducer } from 'react';
 import { checkIfAllValid, checkInputValidity, getEmptyForm, getNewState, inputAttributes, preventFurtherAction } from '../../../utils/FormInputUtils';
 import { FormSave, MyForm } from '../../../data/utilTypes';
+import { UserLoginDto } from '../../../data/types';
 
 
-function LoginForm({formSave}:{formSave:FormSave}) {
+function LoginForm({formSave}:{formSave:FormSave<UserLoginDto>}) {
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
 

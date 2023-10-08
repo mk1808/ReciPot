@@ -1,11 +1,12 @@
 import { useContext, useRef } from "react";
 import CustomModal from "../../../../components/basicUi/CustomModal";
-import { getEmptyFormSave } from "../../../../utils/FormInputUtils";
 import { useTranslation } from "react-i18next";
 import AddRecipeFilterForm from "./AddRecipeFilterForm";
 import { RecipeFilterContext, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 import savedRecipeFiltersApi from "../../../../api/SavedRecipeFiltersApi";
 import useAlerts from "../../../../hooks/useAlerts";
+import { initFormSave } from "../../../../utils/FormInputUtils";
+import { RecipeFilter } from "../../../../data/types";
 
 function AddRecipeFilterDialog({ showModal, handleClose }: { showModal: boolean, handleClose: any }) {
     const { t } = useTranslation();
@@ -14,7 +15,7 @@ function AddRecipeFilterDialog({ showModal, handleClose }: { showModal: boolean,
     const recipeFilterDispatchContext = useContext(RecipeFilterDispatchContext);
     const alerts = useAlerts(); 
 
-    const formSave: any = getEmptyFormSave();
+    const formSave = initFormSave<RecipeFilter>();
     const form = useRef<any>();
 
     formSave.onSubmit = function (formValue: any) {

@@ -11,8 +11,9 @@ import MyButton from '../../components/basicUi/MyButton';
 import { useReducer, useState } from 'react';
 import { checkIfAllValid, checkInputValidity, getEmptyForm, getNewState, inputAttributes, preventFurtherAction } from '../../utils/FormInputUtils';
 import { MyForm, FormSave } from '../../data/utilTypes';
+import { AppUser } from '../../data/types';
 
-function UserDetailsForm({ formSave, user }: { formSave: FormSave, user: any }) {
+function UserDetailsForm({ formSave, user }: { formSave: FormSave<AppUser>, user: any }) {
     const { t } = useTranslation();
 
     const [isEditMode, setEditMode] = useState(false);

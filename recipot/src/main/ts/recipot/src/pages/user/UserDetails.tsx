@@ -4,14 +4,14 @@ import StatisticCircle from '../../components/complex/StatisticCircle';
 import './styles.scss';
 import { useTranslation } from 'react-i18next';
 import { Stack } from 'react-bootstrap';
-import { Response, UserStatisticsDto } from '../../data/types';
+import { AppUser, Response, UserStatisticsDto } from '../../data/types';
 import UserDetailsForm from './UserDetailsForm';
-import { getEmptyFormSave } from '../../utils/FormInputUtils';
 import { useContext, useEffect, useState } from 'react';
 import { UsersContext, UsersDispatchContext } from '../../context/UserContext';
 import usersApi from '../../api/UsersApi';
 import statisticsApi from '../../api/StatisticsApi';
 import useAlerts from '../../hooks/useAlerts';
+import { initFormSave } from '../../utils/FormInputUtils';
 
 function UserDetails() {
     const { t } = useTranslation();
@@ -24,7 +24,7 @@ function UserDetails() {
         statisticsApi.getUserStatistics((response: Response<UserStatisticsDto>) => setUserStatistics(response.value));
     }, [user])
 
-    const formSave: any = getEmptyFormSave();
+    const formSave = initFormSave<AppUser>();
     formSave.onSubmit = function (userFormValue: any) {
         usersApi.updateUser(user?.id || "", userFormValue, formSave.onSuccess, formSave.onError);
     }

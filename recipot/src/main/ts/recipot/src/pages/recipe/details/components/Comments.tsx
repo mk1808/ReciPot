@@ -5,15 +5,14 @@ import { Card, Stack } from "react-bootstrap";
 import MyImage from "../../../../components/basicUi/MyImage";
 import { BsStarFill } from "react-icons/bs";
 import CommentsForm from "./CommentsForm";
-import { FormSave } from "../../../../data/utilTypes";
-import { getEmptyFormSave } from "../../../../utils/FormInputUtils";
 import { format } from "../../../../utils/DateUtils";
-import { Recipe } from "../../../../data/types";
+import { Comment, Recipe } from "../../../../data/types";
 import opinionsApi from "../../../../api/OpinionsApi";
 import { UsersContext } from "../../../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import MyHeader from "../../../../components/basicUi/MyHeader";
 import useAlerts from "../../../../hooks/useAlerts";
+import { initFormSave } from "../../../../utils/FormInputUtils";
 
 function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: Recipe, getOpinions: any }) {
     const { t } = useTranslation();
@@ -33,7 +32,7 @@ function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: 
         }
 
     }, [user, opinions])
-    const formSave: FormSave = getEmptyFormSave();
+    const formSave = initFormSave<Comment>();
     formSave.onSubmit = function (formValue: any) {
         let recipeObj = { recipe: { id: recipe.id } };
         if (formValue.content != "") {

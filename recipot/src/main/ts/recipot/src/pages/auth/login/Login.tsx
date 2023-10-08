@@ -3,13 +3,13 @@ import './styles.scss';
 import MyHeader from '../../../components/basicUi/MyHeader';
 import { useTranslation } from 'react-i18next';
 import LoginForm from './LoginForm';
-import { FormSave } from '../../../data/utilTypes';
-import { getEmptyFormSave } from '../../../utils/FormInputUtils';
+import { initFormSave } from '../../../utils/FormInputUtils';
 import { useContext, useEffect } from 'react';
 import { UsersContext, UsersDispatchContext } from '../../../context/UserContext';
 import authApi from '../../../api/AuthApi';
 import { useNavigate } from 'react-router-dom';
 import useAlerts from '../../../hooks/useAlerts';
+import { Response, UserLoginDto } from '../../../data/types';
 
 function Login() {
     const { t } = useTranslation();
@@ -17,7 +17,7 @@ function Login() {
     const usersDispatchContext = useContext(UsersDispatchContext);
     const user = useContext(UsersContext);
     const alerts = useAlerts();    
-    const formSave: FormSave = getEmptyFormSave();
+    const formSave = initFormSave<UserLoginDto>();
 
     useEffect(() => {
         if (user != null) {
@@ -27,12 +27,11 @@ function Login() {
 
     formSave.onSubmit = function (formValue: any) {
         authApi.login(formValue, formSave.onSuccess, formSave.onError);
-
     }
-    formSave.onSuccess = function (response: any) {
+    formSave.onSuccess = function (response: Response<any>) {
         usersDispatchContext({ type: "refresh" });
     }
-    formSave.onError = function (response: any) {
+    formSave.onError = function (response: Response<any>) {
         alerts.onShowAlertOnErrorResponse(response);
     }
 

@@ -3,18 +3,17 @@ import { useTranslation } from "react-i18next";
 import MyHeader from "../../../components/basicUi/MyHeader";
 import './styles.scss';
 import RegisterForm from "./RegisterForm";
-import { FormSave } from "../../../data/utilTypes";
-import { getEmptyFormSave } from "../../../utils/FormInputUtils";
 import authApi from "../../../api/AuthApi";
-import { AppUser, Response } from "../../../data/types";
+import { AppUser, Response, UserRegisterDto } from "../../../data/types";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAlerts from "../../../hooks/useAlerts";
+import { initFormSave } from "../../../utils/FormInputUtils";
 
 function Register() {
     const { t } = useTranslation();
     const alerts = useAlerts();
-    const formSave: FormSave = getEmptyFormSave();
+    const formSave = initFormSave<UserRegisterDto>();
     const [defaultValue, setDefaultValue] = useState<string>("");
     const navigate = useNavigate();
 

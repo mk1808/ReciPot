@@ -2,17 +2,17 @@ import { useRef, useContext } from "react";
 import CustomModal from "../../../../../components/basicUi/CustomModal";
 import AddToCollectionForm from "./AddToCollectionForm";
 import { useTranslation } from "react-i18next";
-import { getEmptyFormSave } from "../../../../../utils/FormInputUtils";
 import { Recipe, RecipeCollection, RecipeCollectionItem, Response, SharedRecipe } from "../../../../../data/types";
 import { initAs } from "../../../../../utils/ObjectUtils";
 import recipeCollectionsApi from "../../../../../api/RecipeCollectionsApi";
 import useAlerts from "../../../../../hooks/useAlerts";
+import { initFormSave } from "../../../../../utils/FormInputUtils";
 
 
 function AddToCollectionDialog({ showModal, handleClose, data }: { showModal: boolean, handleClose: any, data: Recipe }) {
     const { t } = useTranslation();
     const alerts = useAlerts();
-    const formSave: any = getEmptyFormSave();
+    const formSave = initFormSave<RecipeCollection>();
     const form = useRef<any>();
 
     formSave.onSubmit = function (formValue: any) {

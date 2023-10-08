@@ -8,7 +8,7 @@ import StarSelectInput from "../../../../components/basicUi/StarSelectInput";
 import MyButton from "../../../../components/basicUi/MyButton";
 import { PrivateNote } from "../../../../data/types";
 
-function PrivateNoteForm({ formSave, isEditModeOn, note, setIsEditModeOn }: { formSave: FormSave, isEditModeOn: boolean, note: PrivateNote, setIsEditModeOn: any }) {
+function PrivateNoteForm({ formSave, isEditModeOn, note, setIsEditModeOn }: { formSave: FormSave<PrivateNote>, isEditModeOn: boolean, note: PrivateNote, setIsEditModeOn: any }) {
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
 

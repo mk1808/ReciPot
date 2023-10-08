@@ -7,8 +7,9 @@ import ConfirmCancelButtons from "../../../../components/basicUi/ConfirmCancelBu
 import { FormSave, MyForm } from "../../../../data/utilTypes";
 import { checkIfAllValid, checkInputValidity, getEmptyForm, getNewState, inputAttributes, preventFurtherAction } from "../../../../utils/FormInputUtils";
 import AddCollectionDialog from "../dialogs/AddCollectionDialog";
+import { RecipeCollection } from "../../../../data/types";
 
-function AddCollectionDialogForm({ formSave }: { formSave: FormSave }, ref: any) {
+function AddCollectionDialogForm({ formSave }: { formSave: FormSave<RecipeCollection> }, ref: any) {
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
     const form = useRef<any>();
