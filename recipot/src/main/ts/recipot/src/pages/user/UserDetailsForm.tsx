@@ -9,7 +9,7 @@ import MyInput from '../../components/basicUi/MyInput';
 import MyTextarea from '../../components/basicUi/MyTextarea';
 import MyButton from '../../components/basicUi/MyButton';
 import { useReducer, useState } from 'react';
-import { checkIfAllValid, checkInputValidity, getEmptyForm, getNewState, inputAttributes, preventFurtherAction } from '../../utils/FormInputUtils';
+import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewState, inputAttributes, preventFurtherAction } from '../../utils/FormInputUtils';
 import { MyForm, FormSave } from '../../data/utilTypes';
 import { AppUser } from '../../data/types';
 
@@ -17,7 +17,7 @@ function UserDetailsForm({ formSave, user }: { formSave: FormSave<AppUser>, user
     const { t } = useTranslation();
 
     const [isEditMode, setEditMode] = useState(false);
-    const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
+    const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, initEmptyForm());
 
     function handleSubmit(event: any) {
         if (checkIfAllValid(event, myForm)) {

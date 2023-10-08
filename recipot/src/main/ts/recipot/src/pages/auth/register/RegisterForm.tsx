@@ -3,8 +3,8 @@ import './styles.scss';
 import { useTranslation } from 'react-i18next';
 import MyInput from '../../../components/basicUi/MyInput';
 import MyButton from '../../../components/basicUi/MyButton';
-import { useReducer, useState } from 'react';
-import { checkIfAllValid, getEmptyForm, getNewState, inputAttributes, preventFurtherAction } from '../../../utils/FormInputUtils';
+import { useReducer } from 'react';
+import { checkIfAllValid, initEmptyForm, getNewState, inputAttributes, preventFurtherAction } from '../../../utils/FormInputUtils';
 import MyTextarea from "../../../components/basicUi/MyTextarea";
 import { validateEmail } from '../../../utils/RegexUtils';
 import { FormSave, MyForm } from '../../../data/utilTypes';
@@ -12,7 +12,7 @@ import { UserRegisterDto } from '../../../data/types';
 
 function RegisterForm({ formSave, defaultValue }: { formSave: FormSave<UserRegisterDto>, defaultValue:string }) {
     const { t } = useTranslation();
-    const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
+    const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, initEmptyForm());
 
 
     function handleSubmit(event: any) {

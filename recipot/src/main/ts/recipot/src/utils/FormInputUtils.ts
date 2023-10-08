@@ -55,7 +55,7 @@ export function checkIfAllValid(event: any, myForm: MyForm) {
     return event.currentTarget.checkValidity() === true;
 };
 
-export function getEmptyForm(): MyForm {
+export function initEmptyForm(): MyForm {
     return { formValue: {}, formValidity: {} };
 }
 
