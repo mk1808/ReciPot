@@ -44,3 +44,8 @@ export interface ResponsePage<T> {
     numberOfElements: 1,
     empty: false
 }
+
+export interface NavOpen {
+    id?: string, 
+    url?: string
+}

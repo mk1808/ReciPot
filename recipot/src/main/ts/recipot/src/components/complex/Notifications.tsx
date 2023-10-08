@@ -8,7 +8,7 @@ import { Notification } from "../../data/types";
 import { parseNotificationContent } from "../../utils/NotificationUtils";
 import { Stack } from "react-bootstrap";
 import Tooltip from "../basicUi/Tooltip";
-import { useNavigate } from "react-router-dom";
+import useMyNav from "../../hooks/useMyNav";
 
 function Notifications({
     notifications,
@@ -18,11 +18,11 @@ function Notifications({
     onConfirm: (parameter: Notification) => void
 }) {
     const { t } = useTranslation();
-    const navigate = useNavigate();
+    const nav = useMyNav();
 
     function goToRecipe(notification: Notification) {
         const value = JSON.parse(notification.value);
-        navigate(`/recipes/${value.recipeId}`)
+        nav.toRecipe(value.recipeId);
     }
 
     return (

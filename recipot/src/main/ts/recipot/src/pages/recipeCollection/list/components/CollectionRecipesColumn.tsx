@@ -4,8 +4,6 @@ import { Stack } from "react-bootstrap";
 import { RecipeCollectionListContext, RecipeCollectionListDispatchContext } from "../context/RecipeCollectionListContext";
 import { useTranslation } from "react-i18next";
 import { Recipe, RecipeCollection } from "../../../../data/types";
-import { useNavigate } from "react-router-dom";
-import { openInBackground } from "../../../../utils/NavigationUtils";
 import MyHeader from "../../../../components/basicUi/MyHeader";
 import Tooltip from "../../../../components/basicUi/Tooltip";
 import MyButton from "../../../../components/basicUi/MyButton";
@@ -19,17 +17,18 @@ import MySpinner from "../../../../components/basicUi/MySpinner";
 import PageDivider from "../../../../components/basicUi/PageDivider";
 import MorePagesButton from "../../../../components/basicUi/MorePagesButton";
 import useAlerts from "../../../../hooks/useAlerts";
+import useMyNav from "../../../../hooks/useMyNav";
 
 function CollectionRecipesColumn() {
     const collectionsContext = useContext(RecipeCollectionListContext);
     const collectionsDispatchContext = useContext(RecipeCollectionListDispatchContext);
     const alerts = useAlerts();
     const { t } = useTranslation();
-    const navigate = useNavigate();
+    const nav = useMyNav();
     const [showModalDelete, setShowModalDelete] = useState(false);
     const [nextPageIndex, setNextPageIndex] = useState(0);
     const [recipeToDelete, setRecipeToDelete] = useState<Recipe | any>();
-    const recipeCallback = (recipe: Recipe, event: any,) => openInBackground(`/recipes/${recipe.id}`, event, navigate);
+    const recipeCallback = (recipe: Recipe, event: any,) => nav.openInBackground({ id: recipe.id }, event);
     const activeRecipeCollection: RecipeCollection | undefined = collectionsContext.collections?.filter(collection => collection.id === collectionsContext.activeCollectionId)[0];
     const isLoaded = collectionsContext.isLoaded;
     function deleteRecipeShowModal(recipe: Recipe, index: number) {

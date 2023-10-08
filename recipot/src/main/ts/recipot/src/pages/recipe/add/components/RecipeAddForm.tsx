@@ -7,11 +7,11 @@ import UpperRightSide from "./UpperRightSide";
 import AddSteps from "./AddSteps";
 import ConfirmCancelButtons from "../../../../components/basicUi/ConfirmCancelButtons";
 import { AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
-import { useNavigate } from "react-router-dom";
+import useMyNav from "../../../../hooks/useMyNav";
 
 function RecipeAddForm() {
     const { t } = useTranslation();
-    const navigate = useNavigate();
+    const nav = useMyNav();
     const addRecipeDispatchContext = useContext(AddRecipeDispatchContext);
 
     function onSubmit() {
@@ -21,7 +21,7 @@ function RecipeAddForm() {
     }
 
     function onCancel() {
-        navigate(-1);
+        nav.toBack();
     }
 
     return (

@@ -4,18 +4,16 @@ import { useTranslation } from "react-i18next";
 import { Category, CategoryDto, Response } from "../../../data/types";
 import dictionariesApi from "../../../api/DictionariesApi";
 import CategoryCard from "../../../components/complex/CategoryCard";
-import { useNavigate } from "react-router-dom";
-import { goToFilters } from "../../../utils/NavigationUtils";
 import MyHeader from "../../../components/basicUi/MyHeader";
+import useMyNav from "../../../hooks/useMyNav";
 
 function CategoryCards() {
     const [allCategories, setAllCategories] = useState<any[]>([]);
     const [readyCategories, setReadyCategorires] = useState<any[]>([]);
-    const navigate = useNavigate();
+    const nav = useMyNav();
     const numInRow = 3;
-    const onCategoryClick = (category: CategoryDto) => {
-        goToFilters({ categories: [{ value: { id: category.id }, label: category.name }] }, navigate);
-    }
+    const onCategoryClick = (category: CategoryDto) => nav.goToCategoryFilters(category);
+    
     function setCategoriesInRows(categories: Category[]) {
         let newTab = [...readyCategories];
         let noOfRows = Math.ceil(categories.length / numInRow);

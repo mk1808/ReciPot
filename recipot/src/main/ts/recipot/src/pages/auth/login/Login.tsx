@@ -7,13 +7,13 @@ import { initFormSave } from '../../../utils/FormInputUtils';
 import { useContext, useEffect } from 'react';
 import { UsersContext, UsersDispatchContext } from '../../../context/UserContext';
 import authApi from '../../../api/AuthApi';
-import { useNavigate } from 'react-router-dom';
 import useAlerts from '../../../hooks/useAlerts';
 import { Response, UserLoginDto } from '../../../data/types';
+import useMyNav from '../../../hooks/useMyNav';
 
 function Login() {
     const { t } = useTranslation();
-    const navigate = useNavigate();    
+    const nav = useMyNav();    
     const usersDispatchContext = useContext(UsersDispatchContext);
     const user = useContext(UsersContext);
     const alerts = useAlerts();    
@@ -21,7 +21,7 @@ function Login() {
 
     useEffect(() => {
         if (user != null) {
-            navigate('/user');
+            nav.toUser();
         }
     }, [user])
 

@@ -60,7 +60,7 @@ export function initEmptyForm(): MyForm {
 }
 
 export function initFormSave<T>() {
-    return initAs<FormSave<T>>();
+    return initAs<FormSave<T>>({ onSubmit: null, onSuccess: null, onError: null })
 }
 
 export function getNewState(state: any, action: any, value: any, checkInputValidity: any) {

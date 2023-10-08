@@ -6,16 +6,16 @@ import RegisterForm from "./RegisterForm";
 import authApi from "../../../api/AuthApi";
 import { AppUser, Response, UserRegisterDto } from "../../../data/types";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import useAlerts from "../../../hooks/useAlerts";
 import { initFormSave } from "../../../utils/FormInputUtils";
+import useMyNav from "../../../hooks/useMyNav";
 
 function Register() {
     const { t } = useTranslation();
     const alerts = useAlerts();
     const formSave = initFormSave<UserRegisterDto>();
     const [defaultValue, setDefaultValue] = useState<string>("");
-    const navigate = useNavigate();
+    const nav = useMyNav();
 
     formSave.onSubmit = function (formValue: any) {
         authApi.register(formValue, formSave.onSuccess, formSave.onError);
@@ -24,7 +24,7 @@ function Register() {
         setDefaultValue(" ");
         setTimeout(() => { setDefaultValue(""); }, 100)
         alerts.showSuccessAlert(t('p.userRegisterCorrect'));
-        navigate('/login');
+        nav.toLogin();
     }
     formSave.onError = function (response: any) {
         alerts.onShowAlertOnErrorResponse(response);
