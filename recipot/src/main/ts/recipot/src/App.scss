@@ -1,4 +1,5 @@
-@import "./assets/bootstrapCustomTheme.scss";
+@use "./assets/bootstrapCustomTheme.scss"as*;
+@use "./assets/variables"as v;
 
 .App {
   text-align: center;
@@ -46,7 +47,7 @@
 }
 
 .info-icon {
-  color: $primary;
+  color: v.$primary;
   margin: 5px;
   cursor: pointer;
 
@@ -75,8 +76,8 @@
 
   &.active {
     color: #fff !important;
-    background: $secondary !important;
-    border-left: 7px solid $primary;
+    background: v.$secondary !important;
+    border-left: 7px solid v.$primary;
   }
 }
 

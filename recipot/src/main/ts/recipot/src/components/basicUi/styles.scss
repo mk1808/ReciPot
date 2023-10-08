@@ -1,5 +1,7 @@
 @use "../../assets/variables"as v;
-@import "../../assets/bootstrapCustomTheme.scss";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
 
 .side-offcanvas {
     &-button {
@@ -46,7 +48,7 @@
         bottom: 3px;
         left: 50%;
         margin-left: -14px;
-        background-color: $primary;
+        background-color: v.$primary;
     }
 
     h1:after {
@@ -58,7 +60,7 @@
         margin-top: 25px;
         left: 50%;
         margin-left: -50px;
-        background-color: $primary;
+        background-color: v.$primary;
     }
 }
 
@@ -151,7 +153,8 @@
 
 .round-button {
     border-radius: 100%;
-    height: 187px;
+    height: 200px;
+    width: 200px;
 
     div {
         margin-top: 33px;
