@@ -23,7 +23,7 @@ import useAlerts from "../../../../hooks/useAlerts";
 function CollectionRecipesColumn() {
     const collectionsContext = useContext(RecipeCollectionListContext);
     const collectionsDispatchContext = useContext(RecipeCollectionListDispatchContext);
-    const alerts = useAlerts(); 
+    const alerts = useAlerts();
     const { t } = useTranslation();
     const navigate = useNavigate();
     const [showModalDelete, setShowModalDelete] = useState(false);
@@ -57,10 +57,8 @@ function CollectionRecipesColumn() {
     return (
         <div>
             {renderHeader()}
-            <>
-                {!isLoaded && <MySpinner />}
-                {isLoaded && (collectionsContext.currentPage?.totalElements || 0 > 0 ? renderContent() : renderNoData())}
-            </>
+            {!isLoaded && <MySpinner />}
+            {isLoaded && (collectionsContext.currentPage?.totalElements || 0 > 0 ? renderContent() : renderNoData())}
         </div>
     );
 
@@ -75,9 +73,7 @@ function CollectionRecipesColumn() {
 
     function renderHeader() {
         return (
-            <>
-                <MyHeader title={`${t('p.recipeCollectionListHeader')}: ${t(getCollectionName(activeRecipeCollection, t))}`}/>
-            </>
+            <MyHeader title={`${t('p.recipeCollectionListHeader')}: ${t(getCollectionName(activeRecipeCollection, t))}`} />
         );
     }
 
@@ -87,7 +83,7 @@ function CollectionRecipesColumn() {
             <div key={pageId} id={pageId}>
                 <PageDivider text={`${t('p.page')} ${index + 1}`} />
                 <Stack direction="horizontal" className="flex-wrap justify-content-center" gap={3}>
-                    {recipes?.map(recipe => <RecipeCard key={recipe.id} recipe={recipe} recipeCallback={recipeCallback} additionalFunctionElement={renderDeleteFromCollection(recipe, index)}/>)}
+                    {recipes?.map(recipe => <RecipeCard key={recipe.id} recipe={recipe} recipeCallback={recipeCallback} additionalFunctionElement={renderDeleteFromCollection(recipe, index)} />)}
                 </Stack>
             </div>
         );

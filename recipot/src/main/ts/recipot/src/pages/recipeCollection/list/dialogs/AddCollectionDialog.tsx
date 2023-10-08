@@ -11,7 +11,7 @@ import { initFormSave } from "../../../../utils/FormInputUtils";
 function AddCollectionDialog({ showModal, handleClose }: { showModal: boolean, handleClose: any }) {
     const { t } = useTranslation();
     const collectionsDispatchContext = useContext(RecipeCollectionListDispatchContext);
-    const alerts = useAlerts();  
+    const alerts = useAlerts();
 
     const formSave = initFormSave<RecipeCollection>();
     const form = useRef<any>();
@@ -41,10 +41,7 @@ function AddCollectionDialog({ showModal, handleClose }: { showModal: boolean, h
 
     function renderContent() {
         return (
-            <>
-                <AddCollectionDialogForm formSave={formSave} ref={form}/>
-
-            </>
+            <AddCollectionDialogForm formSave={formSave} ref={form} />
         )
     }
 

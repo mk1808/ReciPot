@@ -288,9 +288,8 @@ function RecipeFiltersColumn() {
     }
 
     function renderClearFiltersButton() {
-        return <>
-            <MyButton.Secondary onClick={() => clearFilter()} >{t('p.clearFilters')}</MyButton.Secondary>
-        </>
+        return <MyButton.Secondary onClick={() => clearFilter()} >{t('p.clearFilters')}</MyButton.Secondary>
+       
     }
 }
 
