@@ -160,7 +160,7 @@ function Test() {
                     <HashTagBadge text="Zdrowe" />
                     <HashTagBadge text="Wegetariańskie" />
                 </Stack>
-                <div className="mt-5"> <RecipeCard recipe={recipe} recipeCallback={recipeCallback}></RecipeCard ></div>
+                <div className="mt-5"> <RecipeCard recipe={recipe} onGoToRecipe={recipeCallback}></RecipeCard ></div>
 
                 <Form.Check></Form.Check>
 
@@ -209,7 +209,7 @@ function Test() {
                 </div>
 
                 <div>
-                    <RecipeCardCircle recipe={recipe} recipeCallback={recipeCallback}></RecipeCardCircle>
+                    <RecipeCardCircle recipe={recipe} onGoToRecipe={recipeCallback}></RecipeCardCircle>
                 </div>
                 <div>
                     <TimeAmountInput

@@ -78,7 +78,7 @@ function OtherColumn({ recipes }: { recipes: Recipe[] }) {
             <div className="list mt-1">
                 {(newRecipes.length > 0 ? newRecipes : recipes.slice(0, 1)).map((recipe, index) => {
                     return (
-                        <RecipeCard recipe={recipe} recipeCallback={recipeCallback} key={index} className="mx-auto mb-3" ref={recipeCardRef} />
+                        <RecipeCard recipe={recipe} onGoToRecipe={recipeCallback} key={index} className="mx-auto mb-3" ref={recipeCardRef} />
                     )
                 })}
             </div>
@@ -87,4 +87,4 @@ function OtherColumn({ recipes }: { recipes: Recipe[] }) {
 
 }
 
-export default forwardRef(OtherColumn);
+export default OtherColumn;

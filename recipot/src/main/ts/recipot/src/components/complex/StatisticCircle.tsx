@@ -1,7 +1,19 @@
 import Stack from 'react-bootstrap/Stack';
 import './styles.scss';
 
-function StatisticCircle({ value, label, size = 100, ringSize = 20 }: { value: string | number, label: string, size?: number, ringSize?: number }) {
+type Props = {
+    value: string | number,
+    label: string,
+    size?: number,
+    ringSize?: number
+};
+
+function StatisticCircle({
+    value,
+    label,
+    size = 100,
+    ringSize = 20
+}: Props) {
 
     return (
         <Stack className="align-items-center">
@@ -14,7 +26,7 @@ function StatisticCircle({ value, label, size = 100, ringSize = 20 }: { value: s
     );
 
     function renderRing() {
-        return <div className="statistic-circle-ring" style={{ width: size, height: size, borderWidth: ringSize }}/>
+        return <div className="statistic-circle-ring" style={{ width: size, height: size, borderWidth: ringSize }} />
     }
 
     function renderValue() {

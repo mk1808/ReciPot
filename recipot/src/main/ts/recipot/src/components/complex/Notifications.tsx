@@ -10,13 +10,16 @@ import { Stack } from "react-bootstrap";
 import Tooltip from "../basicUi/Tooltip";
 import useMyNav from "../../hooks/useMyNav";
 
+type Props = {
+    notifications: Notification[],
+    onConfirm: (parameter: Notification) => void
+};
+
 function Notifications({
     notifications,
     onConfirm
-}: {
-    notifications: Notification[],
-    onConfirm: (parameter: Notification) => void
-}) {
+}: Props) {
+
     const { t } = useTranslation();
     const nav = useMyNav();
 

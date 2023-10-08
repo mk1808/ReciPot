@@ -4,22 +4,27 @@ import { FaTrashCan, FaCheck, FaBan } from "react-icons/fa6";
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Tooltip from '../basicUi/Tooltip';
+import { ComplexListElementType } from '../../data/utilTypes';
+import { initAs } from '../../utils/ObjectUtils';
+
+type Props = {
+    element: ComplexListElementType,
+    index: number,
+    onDeleteCallback: (index: number) => any,
+    onSelectCallback: (index: number) => any,
+    isActive?: boolean,
+    getElementName?: (element: any, t: any) => any,
+};
 
 function ComplexListElement({
     element,
     index,
-    isActive = false,
     onDeleteCallback,
     onSelectCallback,
-    getElementName
-}: {
-    element: { name: string, id: string, canDelete?: boolean },
-    index: number,
-    isActive?: boolean,
-    onDeleteCallback: (index: number) => any,
-    onSelectCallback: (index: number) => any,
-    getElementName?: (element: any, t: any) => any,
-}) {
+    isActive = false,
+    getElementName = initAs()
+}: Props) {
+
     const [isDeleteMode, setDeleteMode] = useState(false);
     const { t } = useTranslation();
 

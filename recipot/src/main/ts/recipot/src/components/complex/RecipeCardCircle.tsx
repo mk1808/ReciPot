@@ -5,7 +5,16 @@ import { Recipe } from '../../data/types';
 import { getShorterText } from '../../utils/TextUtils';
 import MyImage from '../basicUi/MyImage';
 
-function RecipeCardCircle({ recipe, recipeCallback }: { recipe: Recipe, recipeCallback: (recipe: Recipe) => void }) {
+type Props = {
+    recipe: Recipe,
+    onGoToRecipe: (recipe: Recipe) => void
+};
+
+function RecipeCardCircle({
+    recipe,
+    onGoToRecipe
+}: Props) {
+
     const { t } = useTranslation();
 
     return (
@@ -19,7 +28,7 @@ function RecipeCardCircle({ recipe, recipeCallback }: { recipe: Recipe, recipeCa
                         {getShorterText(recipe.description, 85)}
                     </Card.Body>
                 </Card>
-                <MyImage className="img" src={recipe.image} roundedCircle onClick={() => recipeCallback(recipe)} />
+                <MyImage className="img" src={recipe.image} roundedCircle onClick={() => onGoToRecipe(recipe)} />
             </div>
         </div>
     );

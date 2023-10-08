@@ -3,17 +3,19 @@ import MyButton from "../basicUi/MyButton";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import './styles.scss';
 
+type Props = {
+    totalPages: number,
+    actualPage: number,
+    pageButtonsToShow: number,
+    onPageSelect: (page: number) => void
+};
+
 function VerticalPagination({
     totalPages,
     actualPage,
     pageButtonsToShow,
     onPageSelect
-}: {
-    totalPages: number,
-    actualPage: number,
-    pageButtonsToShow: number,
-    onPageSelect: (page: number) => void
-}) {
+}: Props) {
 
     function getIsCurrentPage(pageNumber: number) {
         return pageNumber === actualPage;

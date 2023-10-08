@@ -7,12 +7,34 @@ import { renderButonSimpleText, renderButtonComplexContent, renderCheck, renderD
 import { addUniqueValue, checkListContains, removeValue } from '../../utils/ListUtils';
 import { canCreateNewValue, createNewValue, stopEventPropagation } from '../../utils/FilteredSelectUtils';
 import { initFcn } from '../../utils/ObjectUtils';
+import { SelectOption } from '../../data/utilTypes';
 
-function FilteredSelect({
+type Props<T> = {
+    label: string,
+    options: SelectOption<T>[],
+    onSearchCallback: (phrase: string) => any,
+    onSelectCallback: (value: any) => any,
+    placeholder?: string,
+    searchPlaceholder?: string,
+    defaultValue?: T,
+    disabled?: boolean,
+    allowNew?: boolean,
+    multiple?: boolean,
+    hierarchical?: boolean,
+    required?: boolean,
+    isValid?: boolean,
+    highlightValidity?: boolean,
+    className?: string,
+    onNewValueCallback?: (value: any | any[]) => any
+};
+
+function FilteredSelect<T>({
     label,
+    options,
+    onSearchCallback,
+    onSelectCallback,
     placeholder = "p.selectValue",
     searchPlaceholder,
-    options,
     defaultValue,
     disabled = false,
     allowNew = false,
@@ -22,29 +44,10 @@ function FilteredSelect({
     isValid,
     highlightValidity = true,
     className = '',
-    onSearchCallback,
-    onSelectCallback,
     onNewValueCallback = initFcn()
-}: {
-    label: string,
-    placeholder?: string,
-    searchPlaceholder?: string,
-    options: { value: any, label: string, children: any[] }[],
-    defaultValue?: any,
-    disabled?: boolean,
-    allowNew?: boolean,
-    multiple?: boolean,
-    hierarchical?: boolean,
-    required?: boolean,
-    isValid?: boolean,
-    highlightValidity?: boolean,
-    className?: string,
-    onSearchCallback: (phrase: string) => any,
-    onSelectCallback: (value: any | any[]) => any,
-    onNewValueCallback?: (value: any | any[]) => any
-}) {
+}: Props<T>) {
 
-    const [selectedValues, setSelectedValues] = useState<any[]>(defaultValue || []);
+    const [selectedValues, setSelectedValues] = useState<T[] | any>(defaultValue || []);
     const [createdValues, setCreatedValues] = useState<any[]>([]);
     const [selected, setSelected] = useState<any>(defaultValue);
     const [searchInputValue, setSearchInputValue] = useState<string>('');

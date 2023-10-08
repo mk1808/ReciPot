@@ -47,10 +47,17 @@ export interface ResponsePage<T> {
 
 export interface SelectOption<T> {
     label: string,
-    value: T
+    value: T,
+    children?: T[]
 }
 
 export interface NavOpen {
     id?: string,
     url?: string
+}
+
+export interface ComplexListElementType {
+    name: string,
+    id: string,
+    canDelete?: boolean
 }
