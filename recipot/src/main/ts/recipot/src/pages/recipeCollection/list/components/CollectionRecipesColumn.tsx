@@ -76,7 +76,7 @@ function CollectionRecipesColumn() {
     function renderHeader() {
         return (
             <>
-                <MyHeader title={`${t('p.recipeCollectionListHeader')}: ${t(getCollectionName(activeRecipeCollection, t))}`}></MyHeader>
+                <MyHeader title={`${t('p.recipeCollectionListHeader')}: ${t(getCollectionName(activeRecipeCollection, t))}`}/>
             </>
         );
     }
@@ -87,7 +87,7 @@ function CollectionRecipesColumn() {
             <div key={pageId} id={pageId}>
                 <PageDivider text={`${t('p.page')} ${index + 1}`} />
                 <Stack direction="horizontal" className="flex-wrap justify-content-center" gap={3}>
-                    {recipes?.map(recipe => <RecipeCard key={recipe.id} recipe={recipe} recipeCallback={recipeCallback} additionalFunctionElement={renderDeleteFromCollection(recipe, index)}></RecipeCard >)}
+                    {recipes?.map(recipe => <RecipeCard key={recipe.id} recipe={recipe} recipeCallback={recipeCallback} additionalFunctionElement={renderDeleteFromCollection(recipe, index)}/>)}
                 </Stack>
             </div>
         );

@@ -16,7 +16,7 @@ function NewCollectionForm() {
     function renderAddButton() {
         return <>
             <MyButton.Primary onClick={() => setShowModal(true)}><BsPlusCircleFill /></MyButton.Primary>
-            <AddCollectionDialog showModal={showModal} handleClose={() => setShowModal(false)}></AddCollectionDialog>
+            <AddCollectionDialog showModal={showModal} handleClose={() => setShowModal(false)}/>
         </>
     }
 }

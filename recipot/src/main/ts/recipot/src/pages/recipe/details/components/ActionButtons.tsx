@@ -99,10 +99,9 @@ function ActionButtons({ recipe, favCollection, isOwner, user }: { recipe: Recip
     function renderDialogs() {
         return (
             <>
-                <AddToCollectionDialog showModal={showModalAddToCollection} handleClose={() => setShowModalAddToCollection(false)} data={recipe}></AddToCollectionDialog>
-                <ShareRecipeDialog showModal={showModalShare} handleClose={() => setShowModalShare(false)} data={recipe}></ShareRecipeDialog>
-                <ChangeVisibilityDialog showModal={showModalChangeVisibility} handleClose={() => setShowModalChangeVisibility(false)} handleSuccess={setAccessType} data={recipe} accessType={accessType}></ChangeVisibilityDialog>
-
+                <AddToCollectionDialog showModal={showModalAddToCollection} handleClose={() => setShowModalAddToCollection(false)} data={recipe}/>
+                <ShareRecipeDialog showModal={showModalShare} handleClose={() => setShowModalShare(false)} data={recipe}/>
+                <ChangeVisibilityDialog showModal={showModalChangeVisibility} handleClose={() => setShowModalChangeVisibility(false)} handleSuccess={setAccessType} data={recipe} accessType={accessType}/>
             </>
         )
     }

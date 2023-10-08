@@ -45,7 +45,7 @@ function ShareRecipeDialog({ showModal, handleClose, data }: { showModal: boolea
     function renderContent() {
         return (<>
             <span>{t('p.shareRecipeInfo')}</span>
-            <ShareRecipeForm formSave={formSave} ref={form}></ShareRecipeForm>
+            <ShareRecipeForm formSave={formSave} ref={form}/>
         </>
         )
     }

@@ -61,11 +61,11 @@ function App() {
   const renderApp = () => {
     return (
       <div className="App">
-        <Header></Header>
+        <Header/>
         <div className="main">
           {routes()}
         </div>
-        <Footer></Footer>
+        <Footer/>
       </div>
     )
   }

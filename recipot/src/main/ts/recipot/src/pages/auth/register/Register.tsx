@@ -32,7 +32,7 @@ function Register() {
     return (
         <Stack className="justify-content-center py-5 mx-2 full-height-page register-page" direction="horizontal">
             <div className="p-4 mb-2 basic-container-border">
-                <MyHeader title={t('p.registerHeader')}></MyHeader>
+                <MyHeader title={t('p.registerHeader')}/>
                 {renderForm()}
             </div>
         </Stack>
@@ -42,7 +42,7 @@ function Register() {
         return (
             <div>
                 <h6 className="display-6">{t('p.fillRegisterPageInfo')}</h6>
-                <RegisterForm formSave={formSave} defaultValue={defaultValue}></RegisterForm>
+                <RegisterForm formSave={formSave} defaultValue={defaultValue}/>
             </div>
         )
     }

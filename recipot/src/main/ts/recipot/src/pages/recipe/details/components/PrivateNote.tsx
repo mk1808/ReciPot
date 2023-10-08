@@ -66,7 +66,7 @@ function PrivateNote({ recipe, note }: { recipe: Recipe, note: PrivateNoteT }) {
 
     function renderForm() {
         return (
-            <PrivateNoteForm formSave={formSave} isEditModeOn={isEditModeOn} note={note} setIsEditModeOn={setIsEditModeOn}></PrivateNoteForm>
+            <PrivateNoteForm formSave={formSave} isEditModeOn={isEditModeOn} note={note} setIsEditModeOn={setIsEditModeOn}/>
         );
     }
 }

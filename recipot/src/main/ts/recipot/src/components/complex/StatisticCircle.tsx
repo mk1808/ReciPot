@@ -14,7 +14,7 @@ function StatisticCircle({ value, label, size = 100, ringSize = 20 }: { value: s
     );
 
     function renderRing() {
-        return <div className="statistic-circle-ring" style={{ width: size, height: size, borderWidth: ringSize }}></div>
+        return <div className="statistic-circle-ring" style={{ width: size, height: size, borderWidth: ringSize }}/>
     }
 
     function renderValue() {

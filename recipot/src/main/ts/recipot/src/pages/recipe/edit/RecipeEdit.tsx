@@ -23,7 +23,7 @@ function RecipeEdit() {
 
     }, [])
     return (
-        <RecipeAdd recipe = {recipe}></RecipeAdd>
+        <RecipeAdd recipe = {recipe}/>
     );
 }
 

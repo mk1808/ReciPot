@@ -66,7 +66,7 @@ function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: 
 
     function renderForm() {
         return (
-            <CommentsForm formSave={formSave} isEditModeOn={isEditModeOn} userOpinion={userOpinion}></CommentsForm>
+            <CommentsForm formSave={formSave} isEditModeOn={isEditModeOn} userOpinion={userOpinion}/>
         );
     }
 
@@ -87,7 +87,7 @@ function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: 
                                     <div className="h6">
                                         {t('p.rating')}:&nbsp;
                                         <BsStarFill className="mb-1" /> {comment.rating ?? '-'}/5  &nbsp;
-                                        <div className="vr"></div>
+                                        <div className="vr"/>
                                         &nbsp;{t('p.publishDate')}:&nbsp;{format(comment.created)}
                                     </div>
                                 </div>

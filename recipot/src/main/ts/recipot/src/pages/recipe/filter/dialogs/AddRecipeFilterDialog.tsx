@@ -50,7 +50,7 @@ function AddRecipeFilterDialog({ showModal, handleClose }: { showModal: boolean,
         return (
             <>
                 <span>{t('p.recipeFilterSaveInfo')}</span>
-                <AddRecipeFilterForm formSave={formSave} ref={form}></AddRecipeFilterForm>
+                <AddRecipeFilterForm formSave={formSave} ref={form}/>
             </>
         )
     }

@@ -7,7 +7,7 @@ export function renderRating(recipe: Recipe, text: string) {
     return (
         <div className="h6 rating">
             <BsStarFill className='mb-1' /> {recipe.averageRating}/5  &nbsp;
-            <div className="vr"></div>
+            <div className="vr"/>
             &nbsp; {text}: {recipe.ratingsCount}
         </div>
     )

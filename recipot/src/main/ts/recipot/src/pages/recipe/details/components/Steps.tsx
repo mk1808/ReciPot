@@ -25,7 +25,7 @@ function Steps({ recipe }: { recipe: Recipe }) {
 
     function renderSteps() {
         return (
-            <RecipeStepsNumbers steps={recipe.recipeSteps}></RecipeStepsNumbers>
+            <RecipeStepsNumbers steps={recipe.recipeSteps}/>
         );
     }
 }
