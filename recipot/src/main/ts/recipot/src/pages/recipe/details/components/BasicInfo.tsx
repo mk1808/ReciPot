@@ -1,15 +1,13 @@
-import { Button, Col, Row, Stack } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { Recipe } from "../../../../data/types";
-import MyButton from "../../../../components/basicUi/MyButton";
-import { useState } from "react";
 import { MdAccessTime, MdWork } from "react-icons/md";
 import { GiCookingPot } from "react-icons/gi";
 import { VscTools } from "react-icons/vsc";
 import { FaInternetExplorer } from "react-icons/fa6";
 import Info from "../../../../components/basicUi/Info";
 import HashTagList from "../../../../components/basicUi/HashTagList";
-import { convertToTime, format } from "../../../../utils/DateUtils";
+import { convertToTime } from "../../../../utils/DateUtils";
 import { useNavigate } from "react-router-dom";
 import { goToFilters } from "../../../../utils/NavigationUtils";
 

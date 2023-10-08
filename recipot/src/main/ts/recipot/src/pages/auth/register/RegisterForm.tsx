@@ -5,7 +5,6 @@ import MyInput from '../../../components/basicUi/MyInput';
 import MyButton from '../../../components/basicUi/MyButton';
 import { useReducer } from 'react';
 import { checkIfAllValid, initEmptyForm, getNewState, inputAttributes, preventFurtherAction } from '../../../utils/FormInputUtils';
-import MyTextarea from "../../../components/basicUi/MyTextarea";
 import { validateEmail } from '../../../utils/RegexUtils';
 import { FormSave, MyForm } from '../../../data/utilTypes';
 import { UserRegisterDto } from '../../../data/types';

@@ -4,7 +4,7 @@ import { useContext, useEffect, useState, useReducer } from "react";
 import './styles.scss';
 import FilteredSelect from "../../../components/complex/FilteredSelect";
 import dictionariesApi from "../../../api/DictionariesApi";
-import { Category, CategoryDto, HashTag, Response, RecipeStep, Recipe } from "../../../data/types";
+import { CategoryDto, Response, RecipeStep, Recipe } from "../../../data/types";
 import HashTagBadge from "../../../components/basicUi/HashTagBadge";
 import SideOffcanvas from "../../../components/basicUi/SideOffcanvas";
 import StatisticCircle from "../../../components/complex/StatisticCircle";

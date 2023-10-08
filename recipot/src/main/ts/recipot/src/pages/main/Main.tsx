@@ -1,4 +1,4 @@
-import { Col, Container, Row, Stack } from "react-bootstrap";
+import { Col, Row, Stack } from "react-bootstrap";
 import './styles.scss';
 import MyHeader from "../../components/basicUi/MyHeader";
 import { useTranslation } from "react-i18next";
@@ -15,7 +15,6 @@ import { useEffect, useState } from "react";
 import recipesApi from "../../api/RecipesApi";
 import statisticsApi from "../../api/StatisticsApi";
 import { goToFilters, openInBackground } from "../../utils/NavigationUtils";
-import { createUrl, updatePageUrl } from "../../utils/RecipeSearchUtils";
 import { ApiRequestSendManager } from "../../utils/ApiRequestSendManager";
 
 const getRandomRequestManager = ApiRequestSendManager();

@@ -5,7 +5,7 @@ import './styles.scss';
 import RegisterForm from "./RegisterForm";
 import authApi from "../../../api/AuthApi";
 import { AppUser, Response, UserRegisterDto } from "../../../data/types";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAlerts from "../../../hooks/useAlerts";
 import { initFormSave } from "../../../utils/FormInputUtils";

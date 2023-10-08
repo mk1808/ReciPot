@@ -1,8 +1,6 @@
 import MyHeader from '../../../components/basicUi/MyHeader';
 import './styles.scss';
 import { useTranslation } from 'react-i18next';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import SideOffcanvas from '../../../components/basicUi/SideOffcanvas';
 import RecipeFiltersColumn from './components/RecipeFiltersColumn';
 import FilteredRecipesColumn from './components/FilteredRecipesColumn';

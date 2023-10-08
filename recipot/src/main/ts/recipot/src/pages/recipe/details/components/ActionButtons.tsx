@@ -1,10 +1,9 @@
-import { Col, Row, Stack } from "react-bootstrap";
+import { Stack } from "react-bootstrap";
 import AddToCollectionDialog from "./dialogs/AddToCollectionDialog";
 import ShareRecipeDialog from "./dialogs/ShareRecipeDialog";
-import DeleteRecipeDialog from "./dialogs/DeleteRecipeDialog";
 import ChangeVisibilityDialog from "./dialogs/ChangeVisibilityDialog";
 import MyButton from "../../../../components/basicUi/MyButton";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { Recipe, RecipeCollection, RecipeCollectionItem } from "../../../../data/types";
 import Tooltip from "../../../../components/basicUi/Tooltip";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";

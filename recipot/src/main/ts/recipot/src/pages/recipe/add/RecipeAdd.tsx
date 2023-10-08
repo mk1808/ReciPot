@@ -1,4 +1,4 @@
-import { Col, Container, Form, Row, Stack } from "react-bootstrap";
+import { Form, Stack } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import MyHeader from "../../../components/basicUi/MyHeader";
 import './styles.scss';

@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { useContext, useRef } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { useContext } from "react";
+import { Col, Row } from "react-bootstrap";
 import UpperLeftSide from "./UpperLeftSide";
 import AddIngredients from "./AddIngredients";
 import UpperRightSide from "./UpperRightSide";

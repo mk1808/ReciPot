@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -8,7 +8,6 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 import NotificationManager from './components/NotificationManager';
 import { UsersContext, UsersDispatchContext } from '../../context/UserContext';
-import { AppUser } from '../../data/types';
 import recipotIcon from '../../assets/images/logo2.png';
 import LanguageSelect from './components/LanguageSelect';
 

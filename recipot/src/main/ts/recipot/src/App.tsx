@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.scss';
 import Header from './layouts/header/Header';
@@ -12,7 +12,7 @@ import RecipeAdd from './pages/recipe/add/RecipeAdd';
 import NoAccess from './pages/other/noAccess/NoAccess';
 import RecipeCollectionList from './pages/recipeCollection/list/RecipeCollectionList';
 import RecipeFilter from './pages/recipe/filter/RecipeFilter';
-import { UserContextProvider, UsersContext, UsersDispatchContext } from './context/UserContext';
+import { UserContextProvider, UsersDispatchContext } from './context/UserContext';
 import Test from './pages/other/test/Test';
 import UserDetails from './pages/user/UserDetails';
 import AlertContextProvider from './context/AlertContext';

@@ -4,7 +4,7 @@ import { Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { FormSave, MyForm } from "../../../../../data/utilTypes";
 import MyInput from "../../../../../components/basicUi/MyInput";
-import { checkIfAllValid, checkInputValidity, initEmptyForm, inputAttributes, getNewState, preventFurtherAction } from "../../../../../utils/FormInputUtils";
+import { checkIfAllValid, checkInputValidity, initEmptyForm, inputAttributes, getNewState } from "../../../../../utils/FormInputUtils";
 import MyTextarea from "../../../../../components/basicUi/MyTextarea";
 import { SharedRecipe } from "../../../../../data/types";
 
