@@ -9,10 +9,10 @@ import { format } from "../../../../utils/DateUtils";
 import { Comment, Recipe } from "../../../../data/types";
 import opinionsApi from "../../../../api/OpinionsApi";
 import { UsersContext } from "../../../../context/UserContext";
-import { useNavigate } from "react-router-dom";
 import MyHeader from "../../../../components/basicUi/MyHeader";
 import useAlerts from "../../../../hooks/useAlerts";
 import { initFormSave } from "../../../../utils/FormInputUtils";
+import useMyNav from "../../../../hooks/useMyNav";
 
 function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: Recipe, getOpinions: any }) {
     const { t } = useTranslation();
@@ -21,7 +21,7 @@ function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: 
     const [userOpinion, setUserOpinion] = useState<any>(false);
     const alerts = useAlerts();
     const user = useContext(UsersContext);
-    const navigate = useNavigate();
+    const nav = useMyNav();
 
     useEffect(() => {
         setIsEditModeOn(true);
@@ -113,7 +113,7 @@ function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: 
                 <h3>{t('p.noCommentsPresents')}</h3>
                 <br />
 
-                <MyButton.Primary className="button-400" onClick={() => navigate('/login')}>
+                <MyButton.Primary className="button-400" onClick={() => nav.toLogin()}>
                     {t('p.login')}
                 </MyButton.Primary>
             </div>

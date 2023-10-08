@@ -9,8 +9,7 @@ import { renderCategories, renderMore, renderRating } from './RecipeCardCommonEl
 import { getShorterText } from '../../utils/TextUtils';
 import HashTagList from '../basicUi/HashTagList';
 import { onImageLoadError } from "../../utils/RestUtils";
-import { useNavigate } from "react-router-dom";
-import { goToFilters } from "../../utils/NavigationUtils";
+import useMyNav from "../../hooks/useMyNav";
 
 function RecipeCard({
     recipe,
@@ -24,10 +23,10 @@ function RecipeCard({
     additionalFunctionElement?: any
 }, ref: any) {
     const { t } = useTranslation();
-    const navigate = useNavigate();
+    const nav = useMyNav();
 
     function onHashTagClick(hashTag: any) {
-        goToFilters({ hashTags: [{ label: hashTag.name, value: hashTag }] }, navigate);
+        nav.goToFilters({ hashTags: [{ label: hashTag.name, value: hashTag }] });
     }
 
     return (

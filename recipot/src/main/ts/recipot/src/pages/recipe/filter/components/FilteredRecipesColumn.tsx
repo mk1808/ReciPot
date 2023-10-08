@@ -4,20 +4,19 @@ import { Recipe } from "../../../../data/types";
 import { Stack } from "react-bootstrap";
 import { RecipeFilterContext, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import { openInBackground } from "../../../../utils/NavigationUtils";
 import NoContent from "../../../../components/complex/NoContent";
 import MySpinner from "../../../../components/basicUi/MySpinner";
 import PageDivider from "../../../../components/basicUi/PageDivider";
 import MorePagesButton from "../../../../components/basicUi/MorePagesButton";
+import useMyNav from "../../../../hooks/useMyNav";
 
 function FilteredRecipesColumn() {
     const recipeFilterContext = useContext(RecipeFilterContext);
     const recipeFilterDispatchContext = useContext(RecipeFilterDispatchContext);
     const isLoaded = recipeFilterContext.isLoaded;
     const { t } = useTranslation();
-    const navigate = useNavigate();
-    const recipeCallback = (recipe: Recipe, event: any) => openInBackground(`/recipes/${recipe.id}`, event, navigate);
+    const nav = useMyNav();
+    const recipeCallback = (recipe: Recipe, event: any) => nav.openInBackground({ id: recipe.id }, event);
     function loadNextPage() {
         recipeFilterDispatchContext({
             type: 'loadRecipesPage',

@@ -1,7 +1,6 @@
 import { createContext, useReducer, useRef, useEffect } from "react";
 import { clearIds, convertToForm, convertCategoriesToObjects, convertIngredientsToObjects, convertToObjects, fillOrderNumbers, convertRecipeIngredientsToForm, getDefaultValidityForEdit } from "../utils/AddRecipeContextUtil";
 import recipesApi from "../api/RecipesApi";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Recipe } from "../data/types";
 import { ApiRequestSendManager } from "../utils/ApiRequestSendManager";
@@ -9,6 +8,7 @@ import filesApi from "../api/FilesApi";
 import useAlerts from "../hooks/useAlerts";
 import { FormSave } from "../data/utilTypes";
 import { initFormSave } from "../utils/FormInputUtils";
+import useMyNav from "../hooks/useMyNav";
 
 export const AddRecipeContext = createContext<any>([]);
 
@@ -17,7 +17,7 @@ export const AddRecipeDispatchContext = createContext<Function>(() => { });
 const saveRecipeRequestManager = ApiRequestSendManager();
 
 function AddRecipeContextProvider({ children, editedRecipe }: { children: any, editedRecipe?: Recipe | any }) {
-    const navigate = useNavigate();
+    const nav = useMyNav();
     const alerts = useAlerts();
     const formSave = useRef<FormSave<any>>(initFormSave<any>());
     const { t } = useTranslation();
@@ -78,7 +78,7 @@ function AddRecipeContextProvider({ children, editedRecipe }: { children: any, e
     formSave.current.onSuccess = function (response: any) {
         saveRecipeRequestManager.unlock();
         let id = response.value.id;
-        navigate(`/recipes/${id}`)
+        nav.toRecipe(id);
         let alert = editedRecipe ? 'p.recipeEditCorrect' : 'p.recipeAddCorrect';
         alerts.showSuccessAlert(t(alert));
     }

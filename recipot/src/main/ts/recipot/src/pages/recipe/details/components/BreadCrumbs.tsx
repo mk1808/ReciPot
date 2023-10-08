@@ -2,13 +2,12 @@ import { useEffect, useState } from "react";
 import { Breadcrumb, Stack } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { Category, Recipe } from "../../../../data/types";
-import { useNavigate } from "react-router-dom";
-import { goToFilters } from "../../../../utils/NavigationUtils";
 import { FaArrowRight } from "react-icons/fa";
+import useMyNav from "../../../../hooks/useMyNav";
 
 function BreadCrumbs({ recipe }: { recipe: Recipe }) {
     const { t } = useTranslation();
-    const navigate = useNavigate();
+    const nav = useMyNav();
     const [categories, setCategories] = useState<Category[][]>([]);
 
     useEffect(() => {
@@ -30,11 +29,11 @@ function BreadCrumbs({ recipe }: { recipe: Recipe }) {
     }
 
     function goToMainPage() {
-        navigate("/");
+        nav.toMain();
     }
 
     function goToCategoryFilter(category: Category) {
-        goToFilters({ categories: [{ value: { id: category.id }, label: category.name }] }, navigate);
+        nav.goToCategoryFilters(category);
     }
 
     return (

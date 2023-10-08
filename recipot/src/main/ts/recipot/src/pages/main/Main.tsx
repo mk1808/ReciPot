@@ -10,21 +10,20 @@ import RecipeCardCircle from "../../components/complex/RecipeCardCircle";
 import { GeneralStatisticsDto, Recipe } from "../../data/types";
 import { initAs } from "../../utils/ObjectUtils";
 import SlidingCards from "../../components/complex/SlidingCards";
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import recipesApi from "../../api/RecipesApi";
 import statisticsApi from "../../api/StatisticsApi";
-import { goToFilters, openInBackground } from "../../utils/NavigationUtils";
 import { ApiRequestSendManager } from "../../utils/ApiRequestSendManager";
+import useMyNav from "../../hooks/useMyNav";
 
 const getRandomRequestManager = ApiRequestSendManager();
 function Main() {
     const { t } = useTranslation();
-    const navigate = useNavigate();
-    const recipeCallback = (recipe: Recipe) => { navigate(`/recipes/${recipe.id}`) }
-    const recipeCallbackForSlider = (recipe: Recipe, event: any,) => openInBackground(`/recipes/${recipe.id}`, event, navigate);
+    const nav = useMyNav();
+    const recipeCallback = (recipe: Recipe) => { nav.toRecipe(recipe.id) }
+    const recipeCallbackForSlider = (recipe: Recipe, event: any) => nav.openInBackground({ id: recipe.id }, event);
     const moreNewRecipesCallback = () => {
-        goToFilters({ recipesSort: { fieldName: 'created', order: 'DESC' } }, navigate);
+        nav.goToFilters({ recipesSort: { fieldName: 'created', order: 'DESC' } });
     }
     const [isRandomLoaded, setIsRandomLoaded] = useState(false);
     const [randomRecipe, setRandomRecipe] = useState(initAs<Recipe>());

@@ -10,15 +10,15 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { BsBalloonHeart, BsBalloonHeartFill, BsCollectionFill, BsShare } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
 import { FiEdit3 } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
 import recipeCollectionsApi from "../../../../api/RecipeCollectionsApi";
 import { initAs } from "../../../../utils/ObjectUtils";
 import useAlerts from "../../../../hooks/useAlerts";
+import useMyNav from "../../../../hooks/useMyNav";
 
 function ActionButtons({ recipe, favCollection, isOwner, user }: { recipe: Recipe, favCollection: RecipeCollection, isOwner: boolean, user: any }) {
     const { t } = useTranslation();
     const alerts = useAlerts();
-    const navigate = useNavigate();
+    const nav = useMyNav();
     const [showModalAddToCollection, setShowModalAddToCollection] = useState(false);
     const [showModalShare, setShowModalShare] = useState(false);
     const [showModalChangeVisibility, setShowModalChangeVisibility] = useState(false);
@@ -78,7 +78,7 @@ function ActionButtons({ recipe, favCollection, isOwner, user }: { recipe: Recip
                 {isOwner &&
                     <div>
                         <Tooltip placement="bottom" title={t('p.editRecipeButton')}>
-                            <MyButton.Primary onClick={() => navigate(`/recipes/edit/${recipe.id}`)} className="round mx-4"><FiEdit3 /></MyButton.Primary>
+                            <MyButton.Primary onClick={() => nav.toRecipeEdit(recipe.id)} className="round mx-4"><FiEdit3 /></MyButton.Primary>
                         </Tooltip>
                     </div>}
 
