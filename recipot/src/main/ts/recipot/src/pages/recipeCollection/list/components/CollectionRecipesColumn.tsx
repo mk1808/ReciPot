@@ -115,7 +115,7 @@ function CollectionRecipesColumn() {
         return (
             <DeleteFromCollectionDialog
                 showModal={showModalDelete}
-                handleClose={() => setShowModalDelete(false)}
+                onClose={() => setShowModalDelete(false)}
                 handleSubmit={deleteRecipeFromCollection}
                 data={recipeToDelete || initAs()} />
         )

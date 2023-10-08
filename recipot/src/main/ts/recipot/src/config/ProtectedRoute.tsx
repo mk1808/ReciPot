@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 import { UsersContext, UsersDispatchContext } from '../context/UserContext';
 import MySpinner from '../components/basicUi/MySpinner';
 
-const ProtectedRoute = ({ element }: any) => {
+const ProtectedRoute = ({ element }: { element: any }) => {
     const user: any = useContext(UsersContext);
     const usersDispatchContext: any = useContext(UsersDispatchContext);
     const [waitingForUser, setWaitingForUser] = useState(!user)
@@ -21,7 +21,7 @@ const ProtectedRoute = ({ element }: any) => {
     }, [])
 
     if (waitingForUser) {
-        return <MySpinner/>
+        return <MySpinner />
     }
 
     if (!user) {

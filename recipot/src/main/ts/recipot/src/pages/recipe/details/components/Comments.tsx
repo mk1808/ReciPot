@@ -14,7 +14,18 @@ import useAlerts from "../../../../hooks/useAlerts";
 import { initFormSave } from "../../../../utils/FormInputUtils";
 import useMyNav from "../../../../hooks/useMyNav";
 
-function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: Recipe, getOpinions: any }) {
+type Props = {
+    opinions: any[],
+    recipe: Recipe,
+    getOpinions: any
+};
+
+function Comments({
+    opinions,
+    recipe,
+    getOpinions
+}: Props) {
+
     const { t } = useTranslation();
     const isNotePresent = false;
     const [isEditModeOn, setIsEditModeOn] = useState<any>(false);

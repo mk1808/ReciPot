@@ -4,7 +4,16 @@ import { Recipe } from "../../../../data/types";
 import { roundToHalf } from "../../../../utils/MathUtils";
 import { t } from "i18next";
 
-function Rating({ recipe, className }: { recipe: Recipe, className?: string }) {
+type Props = {
+    recipe: Recipe,
+    className?: string
+};
+
+function Rating({
+    recipe,
+    className
+}: Props) {
+
     return (
         <Stack direction="horizontal" className={`px-5 rating ${className}`} gap={3}>
             <div className="pe-0 star-col">

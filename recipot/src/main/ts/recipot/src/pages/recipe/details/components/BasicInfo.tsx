@@ -10,7 +10,14 @@ import HashTagList from "../../../../components/basicUi/HashTagList";
 import { convertToTime } from "../../../../utils/DateUtils";
 import useMyNav from "../../../../hooks/useMyNav";
 
-function BasicInfo({ recipe }: { recipe: Recipe }) {
+type Props = {
+    recipe: Recipe
+};
+
+function BasicInfo({
+    recipe
+}: Props) {
+
     const { t } = useTranslation();
     const nav = useMyNav();
     function onHashTagClick(hashTag: any) {

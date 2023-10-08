@@ -15,7 +15,20 @@ import { initAs } from "../../../../utils/ObjectUtils";
 import useAlerts from "../../../../hooks/useAlerts";
 import useMyNav from "../../../../hooks/useMyNav";
 
-function ActionButtons({ recipe, favCollection, isOwner, user }: { recipe: Recipe, favCollection: RecipeCollection, isOwner: boolean, user: any }) {
+type Props = {
+    recipe: Recipe,
+    favCollection: RecipeCollection,
+    isOwner: boolean,
+    user: any
+};
+
+function ActionButtons({
+    recipe,
+    favCollection,
+    isOwner,
+    user
+}: Props) {
+
     const { t } = useTranslation();
     const alerts = useAlerts();
     const nav = useMyNav();
@@ -95,9 +108,9 @@ function ActionButtons({ recipe, favCollection, isOwner, user }: { recipe: Recip
     function renderDialogs() {
         return (
             <>
-                <AddToCollectionDialog showModal={showModalAddToCollection} handleClose={() => setShowModalAddToCollection(false)} data={recipe} />
-                <ShareRecipeDialog showModal={showModalShare} handleClose={() => setShowModalShare(false)} data={recipe} />
-                <ChangeVisibilityDialog showModal={showModalChangeVisibility} handleClose={() => setShowModalChangeVisibility(false)} handleSuccess={setAccessType} data={recipe} accessType={accessType} />
+                <AddToCollectionDialog showModal={showModalAddToCollection} onClose={() => setShowModalAddToCollection(false)} data={recipe} />
+                <ShareRecipeDialog showModal={showModalShare} onClose={() => setShowModalShare(false)} data={recipe} />
+                <ChangeVisibilityDialog showModal={showModalChangeVisibility} onClose={() => setShowModalChangeVisibility(false)} handleSuccess={setAccessType} data={recipe} accessType={accessType} />
             </>
         )
     }

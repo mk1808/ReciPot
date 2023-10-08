@@ -7,7 +7,20 @@ import { Form, Stack } from "react-bootstrap";
 import MyButton from "../../../../components/basicUi/MyButton";
 import { PrivateNote } from "../../../../data/types";
 
-function PrivateNoteForm({ formSave, isEditModeOn, note, setIsEditModeOn }: { formSave: FormSave<PrivateNote>, isEditModeOn: boolean, note: PrivateNote, setIsEditModeOn: any }) {
+type Props = {
+    formSave: FormSave<PrivateNote>,
+    isEditModeOn: boolean,
+    note: PrivateNote,
+    setIsEditModeOn: any
+};
+
+function PrivateNoteForm({
+    formSave,
+    isEditModeOn,
+    note,
+    setIsEditModeOn
+}: Props) {
+
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, initEmptyForm());
 

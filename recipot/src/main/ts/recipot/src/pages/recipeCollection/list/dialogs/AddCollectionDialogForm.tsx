@@ -6,7 +6,15 @@ import { FormSave, MyForm } from "../../../../data/utilTypes";
 import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewState, inputAttributes } from "../../../../utils/FormInputUtils";
 import { RecipeCollection } from "../../../../data/types";
 
-function AddCollectionDialogForm({ formSave }: { formSave: FormSave<RecipeCollection> }, ref: any) {
+type Props = {
+    formSave: FormSave<RecipeCollection>
+};
+
+function AddCollectionDialogForm({
+    formSave
+}: Props,
+    ref: any) {
+
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, initEmptyForm());
     const form = useRef<any>();
@@ -28,12 +36,12 @@ function AddCollectionDialogForm({ formSave }: { formSave: FormSave<RecipeCollec
     function formReducer(state: any, action: any) {
         return getNewState(state, action, action.value, checkInputValidity);
     };
-        return (
-            <Form noValidate validated={true} className="mt-3 text-start" ref={form}>
-                {renderCollectionNameInput()}
-           </Form>
-        )
-    
+    return (
+        <Form noValidate validated={true} className="mt-3 text-start" ref={form}>
+            {renderCollectionNameInput()}
+        </Form>
+    )
+
 
     function renderCollectionNameInput() {
         return (

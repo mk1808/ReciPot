@@ -8,8 +8,18 @@ import recipesApi from "../../../../../api/RecipesApi";
 import useAlerts from "../../../../../hooks/useAlerts";
 import { initFormSave } from "../../../../../utils/FormInputUtils";
 
+type Props = {
+    showModal: boolean,
+    onClose: any,
+    data: Recipe
+};
 
-function ShareRecipeDialog({ showModal, handleClose, data }: { showModal: boolean, handleClose: any, data: Recipe }) {
+function ShareRecipeDialog({
+    showModal,
+    onClose,
+    data }
+    : Props) {
+
     const { t } = useTranslation();
     const alerts = useAlerts();
     const formSave = initFormSave<SharedRecipe>();
@@ -27,7 +37,7 @@ function ShareRecipeDialog({ showModal, handleClose, data }: { showModal: boolea
     }
     formSave.onSuccess = function (response: Response<SharedRecipe>) {
         alerts.showSuccessAlert(t('p.SHARED_RECIPE'));
-        handleClose();
+        onClose();
     }
     formSave.onError = function (response: Response<any>) {
         alerts.onShowAlertOnErrorResponse(response);
@@ -37,7 +47,7 @@ function ShareRecipeDialog({ showModal, handleClose, data }: { showModal: boolea
         form.current.submitForm();
     }
     return (
-        <CustomModal shouldShow={showModal} onClose={handleClose} onSubmit={myHandleSubmit} title={t("p.recipeSharing")}>
+        <CustomModal shouldShow={showModal} onClose={onClose} onSubmit={myHandleSubmit} title={t("p.recipeSharing")}>
             {renderContent()}
         </CustomModal>
     );

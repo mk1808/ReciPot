@@ -8,12 +8,21 @@ import useAlerts from "../../../../hooks/useAlerts";
 import { initFormSave } from "../../../../utils/FormInputUtils";
 import { RecipeFilter } from "../../../../data/types";
 
-function AddRecipeFilterDialog({ showModal, handleClose }: { showModal: boolean, handleClose: any }) {
+type Props = {
+    showModal: boolean,
+    onClose: () => any
+};
+
+function AddRecipeFilterDialog({
+    showModal,
+    onClose
+}: Props) {
+
     const { t } = useTranslation();
 
     const recipeFilterContext = useContext(RecipeFilterContext);
     const recipeFilterDispatchContext = useContext(RecipeFilterDispatchContext);
-    const alerts = useAlerts(); 
+    const alerts = useAlerts();
 
     const formSave = initFormSave<RecipeFilter>();
     const form = useRef<any>();
@@ -30,7 +39,7 @@ function AddRecipeFilterDialog({ showModal, handleClose }: { showModal: boolean,
         recipeFilterDispatchContext({
             type: "refreshFiltersList"
         })
-        handleClose();
+        onClose();
     }
     formSave.onError = function (response: any) {
         alerts.onShowAlertOnErrorResponse(response);
@@ -40,7 +49,7 @@ function AddRecipeFilterDialog({ showModal, handleClose }: { showModal: boolean,
     }
 
     return (
-        <CustomModal shouldShow={showModal} onClose={handleClose} title={'p.recipeFilterSave'}
+        <CustomModal shouldShow={showModal} onClose={onClose} title={'p.recipeFilterSave'}
             onSubmit={myHandleSubmit}>
             {renderContent()}
         </CustomModal>
@@ -50,7 +59,7 @@ function AddRecipeFilterDialog({ showModal, handleClose }: { showModal: boolean,
         return (
             <>
                 <span>{t('p.recipeFilterSaveInfo')}</span>
-                <AddRecipeFilterForm formSave={formSave} ref={form}/>
+                <AddRecipeFilterForm formSave={formSave} ref={form} />
             </>
         )
     }

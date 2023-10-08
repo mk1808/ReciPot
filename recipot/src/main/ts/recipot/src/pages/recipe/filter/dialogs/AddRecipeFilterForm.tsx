@@ -6,7 +6,15 @@ import { useTranslation } from "react-i18next";
 import { FormSave, MyForm } from "../../../../data/utilTypes";
 import { RecipeFilter } from "../../../../data/types";
 
-function AddRecipeFilterForm({ formSave }: { formSave: FormSave<RecipeFilter> }, ref: any) {
+type Props = {
+    formSave: FormSave<RecipeFilter>
+};
+
+function AddRecipeFilterForm({
+    formSave
+}: Props,
+    ref: any) {
+
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, initEmptyForm());
     const form = useRef<any>();

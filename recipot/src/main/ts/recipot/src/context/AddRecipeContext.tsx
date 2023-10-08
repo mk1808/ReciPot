@@ -10,13 +10,22 @@ import { FormSave } from "../data/utilTypes";
 import { initFormSave } from "../utils/FormInputUtils";
 import useMyNav from "../hooks/useMyNav";
 
+type Props = {
+    children: any,
+    editedRecipe?: Recipe | any
+};
+
 export const AddRecipeContext = createContext<any>([]);
 
 export const AddRecipeDispatchContext = createContext<Function>(() => { });
 
 const saveRecipeRequestManager = ApiRequestSendManager();
 
-function AddRecipeContextProvider({ children, editedRecipe }: { children: any, editedRecipe?: Recipe | any }) {
+function AddRecipeContextProvider({
+    children,
+    editedRecipe
+}: Props) {
+
     const nav = useMyNav();
     const alerts = useAlerts();
     const formSave = useRef<FormSave<any>>(initFormSave<any>());

@@ -5,7 +5,14 @@ import { useEffect, useState } from "react";
 import { addUniqueValue, removeValue } from "../../../../utils/ListUtils";
 import MyHeader from "../../../../components/basicUi/MyHeader";
 
-function IngredientList({ recipe }: { recipe: Recipe }) {
+type Props = {
+    recipe: Recipe
+};
+
+function IngredientList({
+    recipe
+}: Props) {
+
     const { t } = useTranslation();
     const [checkedIngredients, setCheckedIngredients] = useState<string[]>([])
 

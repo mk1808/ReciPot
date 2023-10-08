@@ -4,11 +4,17 @@ import dictionariesApi from "../../../../api/DictionariesApi";
 import { CategoryDto, Recipe, Response } from "../../../../data/types";
 import RecipeCard from "../../../../components/complex/RecipeCard";
 import CategoryCard from "../../../../components/complex/CategoryCard";
-import { forwardRef } from "react";
 import MyHeader from "../../../../components/basicUi/MyHeader";
 import useMyNav from "../../../../hooks/useMyNav";
 
-function OtherColumn({ recipes }: { recipes: Recipe[] }) {
+type Props =  { 
+    recipes:     Recipe[] 
+};
+
+function OtherColumn({ 
+    recipes 
+}: Props) {
+    
     const { t } = useTranslation();
     const [allCategories, setAllCategories] = useState<CategoryDto[]>([]);
     const [loaded, setloaded] = useState<any>(false);

@@ -5,7 +5,14 @@ import { Category, Recipe } from "../../../../data/types";
 import { FaArrowRight } from "react-icons/fa";
 import useMyNav from "../../../../hooks/useMyNav";
 
-function BreadCrumbs({ recipe }: { recipe: Recipe }) {
+type Props = {
+    recipe: Recipe
+};
+
+function BreadCrumbs({
+    recipe
+}: Props) {
+
     const { t } = useTranslation();
     const nav = useMyNav();
     const [categories, setCategories] = useState<Category[][]>([]);

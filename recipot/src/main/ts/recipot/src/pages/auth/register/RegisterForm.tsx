@@ -9,7 +9,16 @@ import { validateEmail } from '../../../utils/RegexUtils';
 import { FormSave, MyForm } from '../../../data/utilTypes';
 import { UserRegisterDto } from '../../../data/types';
 
-function RegisterForm({ formSave, defaultValue }: { formSave: FormSave<UserRegisterDto>, defaultValue:string }) {
+type Props = {
+    formSave: FormSave<UserRegisterDto>,
+    defaultValue: string
+};
+
+function RegisterForm({
+    formSave,
+    defaultValue
+}: Props) {
+
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, initEmptyForm());
 

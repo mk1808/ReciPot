@@ -5,21 +5,31 @@ import recipesApi from "../../../../../api/RecipesApi";
 import useAlerts from "../../../../../hooks/useAlerts";
 import useMyNav from "../../../../../hooks/useMyNav";
 
+type Props = {
+    showModal: boolean,
+    onClose: () => any,
+    data: Recipe
+};
 
-function DeleteRecipeDialog({ showModal, handleClose, data }: { showModal: boolean, handleClose: any, data: Recipe }) {
+function DeleteRecipeDialog({
+    showModal,
+    onClose,
+    data
+}: Props) {
+
     const { t } = useTranslation();
-    const alerts = useAlerts();  
+    const alerts = useAlerts();
     const nav = useMyNav();
     function myHandleSubmit() {
-        handleClose();
+        onClose();
         recipesApi.deleteRecipe(data.id, onSuccess)
     }
     function onSuccess(response: any) {
         nav.toUser();
-        setTimeout(() =>  alerts.showSuccessAlert(t(response.message)), 1000)
+        setTimeout(() => alerts.showSuccessAlert(t(response.message)), 1000)
     }
     return (
-        <CustomModal shouldShow={showModal} onClose={handleClose} onSubmit={myHandleSubmit}>
+        <CustomModal shouldShow={showModal} onClose={onClose} onSubmit={myHandleSubmit}>
             {renderContent()}
         </CustomModal>
     );

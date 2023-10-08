@@ -7,8 +7,15 @@ import { RecipeCollection, Response } from "../../../../../data/types";
 import recipeCollectionsApi from "../../../../../api/RecipeCollectionsApi";
 import { mapDictionaryValueToSearchList } from "../../../../../utils/DictionariesUtils";
 
+type Props = {
+    formSave: FormSave<RecipeCollection>
+};
 
-function AddToCollectionForm({ formSave }: { formSave: FormSave<RecipeCollection> }, ref: any) {
+function AddToCollectionForm({
+    formSave
+}: Props,
+    ref: any) {
+
     const { t } = useTranslation();
     const [filteredCollections, setFilteredCollections] = useState<any[]>([]);
     const [allCollections, setAllCollections] = useState<any[]>([]);

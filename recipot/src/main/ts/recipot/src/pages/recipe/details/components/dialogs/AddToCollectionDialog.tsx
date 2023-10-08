@@ -8,8 +8,18 @@ import recipeCollectionsApi from "../../../../../api/RecipeCollectionsApi";
 import useAlerts from "../../../../../hooks/useAlerts";
 import { initFormSave } from "../../../../../utils/FormInputUtils";
 
+type Props = {
+    showModal: boolean,
+    onClose: () => any,
+    data: Recipe
+};
 
-function AddToCollectionDialog({ showModal, handleClose, data }: { showModal: boolean, handleClose: any, data: Recipe }) {
+function AddToCollectionDialog({
+    showModal,
+    onClose,
+    data
+}: Props) {
+
     const { t } = useTranslation();
     const alerts = useAlerts();
     const formSave = initFormSave<RecipeCollection>();
@@ -40,7 +50,7 @@ function AddToCollectionDialog({ showModal, handleClose, data }: { showModal: bo
 
     formSave.onSuccess = function (response: Response<SharedRecipe>) {
         alerts.showSuccessAlert(t('p.addedToCollection'));
-        handleClose();
+        onClose();
     }
     formSave.onError = function (response: Response<any>) {
         alerts.onShowAlertOnErrorResponse(response);
@@ -49,13 +59,13 @@ function AddToCollectionDialog({ showModal, handleClose, data }: { showModal: bo
         form.current.submitForm();
     }
     return (
-        <CustomModal shouldShow={showModal} onClose={handleClose} onSubmit={myHandleSubmit} title={t("p.addingToCollection")}>
+        <CustomModal shouldShow={showModal} onClose={onClose} onSubmit={myHandleSubmit} title={t("p.addingToCollection")}>
             {renderContent()}
         </CustomModal>
     );
 
     function renderContent() {
-        return <AddToCollectionForm formSave={formSave} ref={form}/>
+        return <AddToCollectionForm formSave={formSave} ref={form} />
     }
 
 }
