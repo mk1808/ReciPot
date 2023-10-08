@@ -1,5 +1,7 @@
 @use "../../../assets/variables"as v;
-@import "../../../assets/bootstrapCustomTheme.scss";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
 
 .recipe-details-page {
     .details-container {
@@ -118,22 +120,22 @@
             }
 
             .icon {
-                color: $primary;
+                color: v.$primary;
                 font-size: 35px;
             }
 
             .icon-col {
                 text-align: center;
-                border-right: 1px dashed $secondary;
+                border-right: 1px dashed v.$secondary;
             }
 
             >:last-child {
-                border-right: 0px dashed $secondary;
+                border-right: 0px dashed v.$secondary;
             }
 
             @media (max-width: 768px) {
                 >:last-child {
-                    border-right: 1px dashed $secondary;
+                    border-right: 1px dashed v.$secondary;
                 }
             }
         }

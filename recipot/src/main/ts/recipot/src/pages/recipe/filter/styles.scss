@@ -1,5 +1,7 @@
 @use "../../../assets/variables"as v;
-@import "../../../assets/bootstrapCustomTheme.scss";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
 
 .recipe-filter-page {
     .content-column {
