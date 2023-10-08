@@ -16,6 +16,7 @@ import { showSuccessAlert } from "../../../../utils/RestUtils";
 import { AlertsDispatchContext } from "../../../../context/AlertContext";
 import { UsersContext } from "../../../../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import MyHeader from "../../../../components/basicUi/MyHeader";
 
 function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: Recipe, getOpinions: any }) {
     const { t } = useTranslation();
@@ -60,7 +61,7 @@ function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: 
 
     return (
         <div className="mb-5 px-5 comments">
-            <h4 className="my-3 display-4">{t('p.comments')}</h4>
+            <MyHeader title={t('p.comments')} level="3" dispLevel="4" className="mb-4" />
             {user && renderForm()}
             {renderPageOfComments()}
             {areCommentsEmpty() && renderCommentsEmpty()}
@@ -80,7 +81,7 @@ function Comments({ opinions, recipe, getOpinions }: { opinions: any[], recipe: 
     }
     function renderComments(comment: any, index: number) {
         return (
-            <div className="my-5 single-comment" key={index}>
+            <div className="mt-4 mb-5 single-comment" key={index}>
                 <Card>
                     <Card.Body className="py-3 px-4">
                         <Stack direction="horizontal" className="" gap={3}>

@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { goToFilters, openInBackground } from "../../../../utils/NavigationUtils";
 import { createUrl } from "../../../../utils/RecipeSearchUtils";
 import { forwardRef } from "react";
+import MyHeader from "../../../../components/basicUi/MyHeader";
 
 function OtherColumn({ recipes }: { recipes: Recipe[] }) {
     const { t } = useTranslation();
@@ -34,14 +35,14 @@ function OtherColumn({ recipes }: { recipes: Recipe[] }) {
         })
         setTimeout(() => { setloaded(true) }, 1000)
     }, [])
-    
-    useEffect(()=>{
-        if(!recipeCardHeight && recipeCardRef.current || recipeCardRef.current?.clientHeight > recipeCardHeight){
+
+    useEffect(() => {
+        if (!recipeCardHeight && recipeCardRef.current || recipeCardRef.current?.clientHeight > recipeCardHeight) {
             setRecipeCardHeight(recipeCardRef.current?.clientHeight)
         }
-    },[recipeCardRef.current])
+    }, [recipeCardRef.current])
 
-    useEffect(() => {    
+    useEffect(() => {
         let recipesContainerHeight = height - categoriesRef.current.clientHeight;
         let numOfRecipes = Math.floor(recipesContainerHeight / recipeCardHeight);
 
@@ -53,12 +54,12 @@ function OtherColumn({ recipes }: { recipes: Recipe[] }) {
     return (
         <div className="h-100 other" ref={containerRef}>
             <div className="py-4 categories" ref={categoriesRef}>
-                <h4 className="my-3 display-4">{t('p.categories')}</h4>
+                <MyHeader title={t('p.categories')} level="3" dispLevel="4" />
                 {renderCategories()}
             </div>
             <hr></hr>
             <div className="py-4 recipes" >
-                <h4 className="my-3 display-4">{t('p.recipes')}</h4>
+                <MyHeader title={t('p.recipes')} level="3" dispLevel="4" />
                 {renderRecipes()}
             </div>
         </div>
@@ -79,10 +80,10 @@ function OtherColumn({ recipes }: { recipes: Recipe[] }) {
     }
     function renderRecipes() {
         return (
-            <div className="list">
+            <div className="list mt-1">
                 {(newRecipes.length > 0 ? newRecipes : recipes.slice(0, 1)).map((recipe, index) => {
                     return (
-                        <RecipeCard recipe={recipe} recipeCallback={recipeCallback} key={index} className="mx-auto" ref={recipeCardRef} />
+                        <RecipeCard recipe={recipe} recipeCallback={recipeCallback} key={index} className="mx-auto mb-3" ref={recipeCardRef} />
                     )
                 })}
             </div>
