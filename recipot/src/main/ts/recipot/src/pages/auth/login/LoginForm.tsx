@@ -8,7 +8,14 @@ import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewState, inputA
 import { FormSave, MyForm } from '../../../data/utilTypes';
 import { UserLoginDto } from '../../../data/types';
 
-function LoginForm({ formSave }: { formSave: FormSave<UserLoginDto> }) {
+type Props = {
+    formSave: FormSave<UserLoginDto>
+};
+
+function LoginForm({
+    formSave
+}: Props) {
+
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, initEmptyForm());
 

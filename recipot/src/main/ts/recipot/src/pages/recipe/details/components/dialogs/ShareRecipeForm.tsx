@@ -8,8 +8,15 @@ import { checkIfAllValid, checkInputValidity, initEmptyForm, inputAttributes, ge
 import MyTextarea from "../../../../../components/basicUi/MyTextarea";
 import { SharedRecipe } from "../../../../../data/types";
 
+type Props = {
+    formSave: FormSave<SharedRecipe>
+};
 
-function ShareRecipeForm({ formSave }: { formSave: FormSave<SharedRecipe> }, ref: any) {
+function ShareRecipeForm({
+    formSave
+}: Props,
+    ref: any) {
+
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, initEmptyForm());
     const form = useRef<any>();

@@ -1,34 +1,37 @@
 import { Form, Stack, Row, Col } from 'react-bootstrap';
-import { initFcn } from '../../utils/ObjectUtils';
 import { useEffect, useState } from 'react';
 import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
+import { initFcn } from '../../utils/ObjectUtils';
 
-function StarSelectInput({
-    name = "inputName",
-    label = "",
-    disabled = false,
-    defaultValue = 0,
-    required = false,
-    onChange = initFcn<any>(),
-    isValid = true,
-    scope = 5
-}: {
+type Props = {
     name: string,
     label?: string,
     disabled?: boolean,
-    onChange?: Function,
+    onChange?: (value: number) => any,
     defaultValue?: number,
     required?: boolean,
     isValid?: boolean,
     scope?: number
-}) {
+};
+
+function StarSelectInput({
+    name,
+    label = "",
+    disabled = false,
+    defaultValue = 0,
+    required = false,
+    onChange = initFcn(),
+    isValid = true,
+    scope = 5
+}: Props) {
+
     const [inputValue, setInputValue] = useState(defaultValue);
     const [currentValue, setCurrentValue] = useState(defaultValue);
 
-    useEffect(() => { 
-            setInputValue(defaultValue) 
-            setCurrentValue(defaultValue);
-        }, [defaultValue])
+    useEffect(() => {
+        setInputValue(defaultValue)
+        setCurrentValue(defaultValue);
+    }, [defaultValue])
 
     useEffect(() => { onChange(inputValue) }, [inputValue])
 

@@ -1,14 +1,28 @@
 import { useTranslation } from "react-i18next";
 import MyModal from "./MyModal";
 
-function CustomModal({ shouldShow, handleClose, handleSubmit, title = "p.confirmation", children }:
-    { shouldShow: boolean, handleClose: () => void, handleSubmit: () => void, title?: string, children?: any }) {
+type Props = {
+    onClose: () => any,
+    onSubmit: () => any,
+    shouldShow: boolean,
+    children?: any,
+    title?: string
+};
+
+function CustomModal({
+    onClose,
+    onSubmit,
+    shouldShow,
+    children,
+    title = "p.confirmation"
+}: Props) {
+
     const { t } = useTranslation();
     return (
         <MyModal
             title={t(title)}
-            handleClose={handleClose}
-            handleSubmit={handleSubmit}
+            onClose={onClose}
+            onSubmit={onSubmit}
             show={shouldShow}
             buttonCloseText='p.cancel'
             buttonSubmitText='p.confirm'

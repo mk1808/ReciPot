@@ -286,7 +286,7 @@ function RecipeFiltersColumn() {
         return isUserLogged && (
             <>
                 <MyButton.Secondary onClick={() => setShowModal(true)} >{t('p.saveRecipeFilter')}</MyButton.Secondary>
-                <AddRecipeFilterDialog showModal={showModal} handleClose={() => setShowModal(false)}></AddRecipeFilterDialog>
+                <AddRecipeFilterDialog showModal={showModal} onClose={() => setShowModal(false)}></AddRecipeFilterDialog>
             </>
         )
     }

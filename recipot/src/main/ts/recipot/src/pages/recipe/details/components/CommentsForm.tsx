@@ -8,7 +8,18 @@ import StarSelectInput from "../../../../components/basicUi/StarSelectInput";
 import MyButton from "../../../../components/basicUi/MyButton";
 import { Comment } from "../../../../data/types";
 
-function CommentsForm({ formSave, isEditModeOn, userOpinion }: { formSave: FormSave<Comment>, isEditModeOn: boolean, userOpinion: any }) {
+type Props = {
+    formSave: FormSave<Comment>,
+    isEditModeOn: boolean,
+    userOpinion: any
+};
+
+function CommentsForm({
+    formSave,
+    isEditModeOn,
+    userOpinion
+}: Props) {
+
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, initEmptyForm());
 

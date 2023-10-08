@@ -12,7 +12,16 @@ import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewState, inputA
 import { MyForm, FormSave } from '../../data/utilTypes';
 import { AppUser } from '../../data/types';
 
-function UserDetailsForm({ formSave, user }: { formSave: FormSave<AppUser>, user: any }) {
+type Props = {
+    formSave: FormSave<AppUser>,
+    user: any
+};
+
+function UserDetailsForm({
+    formSave,
+    user
+}: Props) {
+
     const { t } = useTranslation();
 
     const [isEditMode, setEditMode] = useState(false);

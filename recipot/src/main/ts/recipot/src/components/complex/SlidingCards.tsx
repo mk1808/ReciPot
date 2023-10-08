@@ -3,11 +3,25 @@ import { Stack } from "react-bootstrap";
 import MyButton from "../basicUi/MyButton";
 import RecipeCard from "./RecipeCard";
 import { Recipe } from "../../data/types";
-import { initFcn } from "../../utils/ObjectUtils";
 import useWindowSize from "../../hooks/useWindowSize";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
-function SlidingElements({ recipes, getSingleElement, size }: { recipes: Recipe[], getSingleElement: Function, size: number }) {
+type SlidingElementsProps = {
+    recipes: Recipe[],
+    getSingleElement: (recipe: Recipe, index: number) => any,
+    size: number
+};
+
+type SlidingCardsProps = {
+    recipes: Recipe[],
+    goToRecipeCallback: (value: Recipe, event?: any) => any
+};
+
+function SlidingElements({
+    recipes,
+    getSingleElement,
+    size
+}: SlidingElementsProps) {
 
     const [counter, setCounter] = useState(0);
     const [slicedRecipes, setSlicedRecipes] = useState<any[] | undefined>([]);
@@ -51,7 +65,11 @@ function SlidingElements({ recipes, getSingleElement, size }: { recipes: Recipe[
     }
 }
 
-function SlidingCards({ recipes = [], goToRecipeCallback = initFcn<Recipe>() }: { recipes: Recipe[], goToRecipeCallback: Function }) {
+function SlidingCards({
+    recipes,
+    goToRecipeCallback
+}: SlidingCardsProps) {
+
     const [width] = useWindowSize();
 
     function getSliderSize() {
@@ -59,13 +77,13 @@ function SlidingCards({ recipes = [], goToRecipeCallback = initFcn<Recipe>() }: 
 
     }
 
-    function renderSingleCard(element: any, index: number) {
-        return <RecipeCard key={index} recipe={element} recipeCallback={goToRecipeCallback}/>
+    function renderSingleCard(recipe: Recipe, index: number) {
+        return <RecipeCard key={index} recipe={recipe} onGoToRecipe={goToRecipeCallback} />
     }
 
     return (
         <div className="mt-4 mb-5">
-            <SlidingElements recipes={recipes} getSingleElement={renderSingleCard} size={getSliderSize()}/>
+            <SlidingElements recipes={recipes} getSingleElement={renderSingleCard} size={getSliderSize()} />
         </div>
     );
 }

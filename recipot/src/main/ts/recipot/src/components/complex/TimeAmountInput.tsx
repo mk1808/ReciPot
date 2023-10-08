@@ -9,25 +9,28 @@ import MyButton from "../basicUi/MyButton";
 import { useEffect, useRef, useState } from "react";
 import './styles.scss';
 
-function TimeAmountInput({
-    name = "",
-    label = "",
-    placeholder = "",
-    disabled = false,
-    onChange = initFcn<number>(),
-    defaultValue,
-    isValid,
-    highlightValidity = false
-}: {
+type Props = {
     name: string,
     label?: string,
     placeholder?: string,
     disabled?: boolean,
-    onChange?: Function,
     defaultValue?: number,
     isValid?: boolean,
+    onChange?: (value: number) => any,
     highlightValidity?: boolean
-}) {
+};
+
+function TimeAmountInput({
+    name,
+    label = "",
+    placeholder = "",
+    disabled = false,
+    defaultValue,
+    isValid,
+    onChange = initFcn<number>(),
+    highlightValidity = false
+}: Props) {
+
     const VALUE_MIN = 0;
     const HOURS_MAX = 99;
     const MINUTES_MAX = 59;

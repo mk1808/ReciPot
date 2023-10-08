@@ -15,7 +15,20 @@ import { initAs } from "../../../../utils/ObjectUtils";
 import useAlerts from "../../../../hooks/useAlerts";
 import useMyNav from "../../../../hooks/useMyNav";
 
-function ActionButtons({ recipe, favCollection, isOwner, user }: { recipe: Recipe, favCollection: RecipeCollection, isOwner: boolean, user: any }) {
+type Props = {
+    recipe: Recipe,
+    favCollection: RecipeCollection,
+    isOwner: boolean,
+    user: any
+};
+
+function ActionButtons({
+    recipe,
+    favCollection,
+    isOwner,
+    user
+}: Props) {
+
     const { t } = useTranslation();
     const alerts = useAlerts();
     const nav = useMyNav();
@@ -56,35 +69,35 @@ function ActionButtons({ recipe, favCollection, isOwner, user }: { recipe: Recip
             <Stack direction="horizontal" className="align-center action-buttons justify-content-end">
                 {isUser &&
                     <div>
-                        <Tooltip placement="bottom" title={t(getAddToFavText())}>
+                        <Tooltip title={t(getAddToFavText())}>
                             <MyButton.Primary onClick={addOrRemoveFromFavourites} className="round mx-4">{getAddToFavIcon()}</MyButton.Primary>
                         </Tooltip>
                     </div>
                 }
                 {isUser &&
                     <div>
-                        <Tooltip placement="bottom" title={t('p.addToCollectionButton')}>
+                        <Tooltip title={t('p.addToCollectionButton')}>
                             <MyButton.Primary onClick={() => setShowModalAddToCollection(true)} className="round mx-4"><BsCollectionFill /></MyButton.Primary>
                         </Tooltip>
                     </div>
                 }
                 {isUser &&
                     <div>
-                        <Tooltip placement="bottom" title={t('p.shareRecipeButton')}>
+                        <Tooltip title={t('p.shareRecipeButton')}>
                             <MyButton.Primary onClick={() => setShowModalShare(true)} className="round mx-4"><BsShare /></MyButton.Primary>
                         </Tooltip>
                     </div>}
 
                 {isOwner &&
                     <div>
-                        <Tooltip placement="bottom" title={t('p.editRecipeButton')}>
+                        <Tooltip title={t('p.editRecipeButton')}>
                             <MyButton.Primary onClick={() => nav.toRecipeEdit(recipe.id)} className="round mx-4"><FiEdit3 /></MyButton.Primary>
                         </Tooltip>
                     </div>}
 
                 {isOwner &&
                     <div>
-                        <Tooltip placement="bottom" title={t('p.changeRecipeVisibilityButton')}>
+                        <Tooltip title={t('p.changeRecipeVisibilityButton')}>
                             <MyButton.Primary onClick={() => setShowModalChangeVisibility(true)} className="round mx-4" >{getAccessTypeIcon()}</MyButton.Primary>
                         </Tooltip>
                     </div>}
@@ -95,9 +108,9 @@ function ActionButtons({ recipe, favCollection, isOwner, user }: { recipe: Recip
     function renderDialogs() {
         return (
             <>
-                <AddToCollectionDialog showModal={showModalAddToCollection} handleClose={() => setShowModalAddToCollection(false)} data={recipe} />
-                <ShareRecipeDialog showModal={showModalShare} handleClose={() => setShowModalShare(false)} data={recipe} />
-                <ChangeVisibilityDialog showModal={showModalChangeVisibility} handleClose={() => setShowModalChangeVisibility(false)} handleSuccess={setAccessType} data={recipe} accessType={accessType} />
+                <AddToCollectionDialog showModal={showModalAddToCollection} onClose={() => setShowModalAddToCollection(false)} data={recipe} />
+                <ShareRecipeDialog showModal={showModalShare} onClose={() => setShowModalShare(false)} data={recipe} />
+                <ChangeVisibilityDialog showModal={showModalChangeVisibility} onClose={() => setShowModalChangeVisibility(false)} handleSuccess={setAccessType} data={recipe} accessType={accessType} />
             </>
         )
     }

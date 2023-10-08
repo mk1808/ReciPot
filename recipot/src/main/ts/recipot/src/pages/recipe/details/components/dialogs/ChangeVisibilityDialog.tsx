@@ -5,13 +5,28 @@ import { Recipe } from "../../../../../data/types";
 import recipesApi from "../../../../../api/RecipesApi";
 import useAlerts from "../../../../../hooks/useAlerts";
 
-function ChangeVisibilityDialog({ showModal, handleClose, handleSuccess, data, accessType }: { showModal: boolean, handleClose: any, handleSuccess: any, data: Recipe, accessType: string }) {
+type Props = {
+    showModal: boolean,
+    onClose: () => any,
+    handleSuccess: any,
+    data: Recipe,
+    accessType: string
+};
+
+function ChangeVisibilityDialog({
+    showModal,
+    onClose,
+    handleSuccess,
+    data,
+    accessType
+}: Props) {
+
     const { t } = useTranslation();
-    const alerts = useAlerts(); 
+    const alerts = useAlerts();
     const ACCESS_TYPE_PREFIX = "enums.RecipeAccessType."
     const [newType, setNewType] = useState("");
     function myHandleSubmit() {
-        handleClose();
+        onClose();
         recipesApi.changeVisibility(data.id, onSuccess)
     }
 
@@ -28,7 +43,7 @@ function ChangeVisibilityDialog({ showModal, handleClose, handleSuccess, data, a
     }
 
     return (
-        <CustomModal shouldShow={showModal} handleClose={handleClose} handleSubmit={myHandleSubmit}>
+        <CustomModal shouldShow={showModal} onClose={onClose} onSubmit={myHandleSubmit}>
             {renderContent()}
         </CustomModal>
     );

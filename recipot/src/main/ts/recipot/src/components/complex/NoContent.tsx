@@ -2,7 +2,12 @@ import './styles.scss';
 import { useTranslation } from "react-i18next";
 import { GiKnifeFork } from "react-icons/gi";
 
-function NoContent({ text = "" }: { text: string }) {
+type Props = { text: string };
+
+function NoContent({
+    text
+}: Props) {
+
     const { t } = useTranslation();
     return (
         <div className="text-center no-content">

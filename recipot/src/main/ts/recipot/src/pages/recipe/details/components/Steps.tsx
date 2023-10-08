@@ -3,7 +3,14 @@ import { Recipe } from "../../../../data/types";
 import RecipeStepsNumbers from "../../../../components/complex/RecipeStepsNumbers";
 import MyHeader from "../../../../components/basicUi/MyHeader";
 
-function Steps({ recipe }: { recipe: Recipe }) {
+type Props = {
+    recipe: Recipe
+};
+
+function Steps({
+    recipe
+}: Props) {
+
     const { t } = useTranslation();
     function shouldRenderSteps() {
         return recipe?.recipeSteps && recipe.recipeSteps.length > 0;

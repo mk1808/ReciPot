@@ -9,7 +9,16 @@ import MyHeader from "../../../../components/basicUi/MyHeader";
 import useAlerts from "../../../../hooks/useAlerts";
 import { initFormSave } from "../../../../utils/FormInputUtils";
 
-function PrivateNote({ recipe, note }: { recipe: Recipe, note: PrivateNoteT }) {
+type Props = {
+    recipe: Recipe,
+    note: PrivateNoteT
+};
+
+function PrivateNote({
+    recipe,
+    note
+}: Props) {
+
     const { t } = useTranslation();
     const alerts = useAlerts();
     const [isEditModeOn, setIsEditModeOn] = useState<any>(false);

@@ -8,7 +8,16 @@ import { RecipeCollection, Response } from "../../../../data/types";
 import useAlerts from "../../../../hooks/useAlerts";
 import { initFormSave } from "../../../../utils/FormInputUtils";
 
-function AddCollectionDialog({ showModal, handleClose }: { showModal: boolean, handleClose: any }) {
+type Props = {
+    showModal: boolean,
+    onClose: any
+};
+
+function AddCollectionDialog({
+    showModal,
+    onClose
+}: Props) {
+
     const { t } = useTranslation();
     const collectionsDispatchContext = useContext(RecipeCollectionListDispatchContext);
     const alerts = useAlerts();
@@ -23,7 +32,7 @@ function AddCollectionDialog({ showModal, handleClose }: { showModal: boolean, h
     formSave.onSuccess = function () {
         alerts.showSuccessAlert(t("p.recipesCollectionSaved"));
         collectionsDispatchContext({ type: 'refreshCollectionsList' });
-        handleClose();
+        onClose();
     }
     formSave.onError = function (response: Response<any>) {
         alerts.onShowAlertOnErrorResponse(response);
@@ -34,7 +43,7 @@ function AddCollectionDialog({ showModal, handleClose }: { showModal: boolean, h
     }
 
     return (
-        <CustomModal shouldShow={showModal} handleClose={handleClose} handleSubmit={myHandleSubmit} title={'p.addingNewCollection'}>
+        <CustomModal shouldShow={showModal} onClose={onClose} onSubmit={myHandleSubmit} title={'p.addingNewCollection'}>
             {renderContent()}
         </CustomModal>
     );

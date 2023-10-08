@@ -1,25 +1,27 @@
 import Form from 'react-bootstrap/Form';
-import { initFcn } from '../../utils/ObjectUtils';
 import { useEffect, useRef, useState } from 'react';
 import { checkValidity } from '../../utils/FormInputUtils';
 
-function MySwitch({
-    name = "inputName",
-    label = "",
-    disabled = false,
-    defaultChecked = true,
-    onChange = initFcn<boolean>(),
-    required,
-    isValid
-}: {
+type Props = {
     name: string,
+    onChange: (value: boolean) => any,
     label?: string,
     disabled?: boolean,
-    onChange: Function,
     defaultChecked?: boolean,
     required?: boolean,
     isValid?: boolean
-}) {
+};
+
+function MySwitch({
+    name,
+    onChange,
+    label = "",
+    disabled = false,
+    defaultChecked = true,
+    required,
+    isValid
+}: Props) {
+
     const inputRef = useRef<HTMLInputElement>(null);
 
     const [isChecked, setChecked] = useState(defaultChecked)

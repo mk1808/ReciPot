@@ -4,7 +4,16 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import { FaArrowLeftLong } from 'react-icons/fa6';
 import './styles.scss';
 
-function SideOffcanvas({ title = "", children }: { title: string, children: any }) {
+type Props = {
+    title: string,
+    children: any
+};
+
+function SideOffcanvas({
+    title,
+    children
+}: Props) {
+
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);

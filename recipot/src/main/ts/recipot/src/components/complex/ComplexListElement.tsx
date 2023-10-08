@@ -4,22 +4,27 @@ import { FaTrashCan, FaCheck, FaBan } from "react-icons/fa6";
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Tooltip from '../basicUi/Tooltip';
+import { ComplexListElementType } from '../../data/utilTypes';
+import { initAs } from '../../utils/ObjectUtils';
+
+type Props = {
+    element: ComplexListElementType,
+    index: number,
+    onDeleteCallback: (index: number) => any,
+    onSelectCallback: (index: number) => any,
+    isActive?: boolean,
+    getElementName?: (element: any, t: any) => any,
+};
 
 function ComplexListElement({
     element,
     index,
-    isActive = false,
     onDeleteCallback,
     onSelectCallback,
-    getElementName
-}: {
-    element: { name: string, id: string, canDelete?: boolean },
-    index: number,
-    isActive?: boolean,
-    onDeleteCallback: (index: number) => any,
-    onSelectCallback: (index: number) => any,
-    getElementName?: (element: any, t: any) => any,
-}) {
+    isActive = false,
+    getElementName = initAs()
+}: Props) {
+
     const [isDeleteMode, setDeleteMode] = useState(false);
     const { t } = useTranslation();
 
@@ -68,7 +73,7 @@ function ComplexListElement({
     function renderDeleteAction() {
         const canDelete = element.canDelete !== false;
         return canDelete && (
-            <Tooltip placement="bottom" title={t('p.delete')}>
+            <Tooltip title={t('p.delete')}>
                 <FaTrashCan onClick={onDeleteClick} className="action-icon" />
             </Tooltip>
         );
@@ -77,8 +82,8 @@ function ComplexListElement({
     function renderConfirmActions() {
         return (
             <>
-                <Tooltip placement="bottom" title={t('p.confirm')}><FaCheck onClick={onConfirmClick} className="danger-color" /></Tooltip>
-                <Tooltip placement="bottom" title={t('p.cancel')}><FaBan onClick={onCancelClick} className="action-icon" /></Tooltip>
+                <Tooltip title={t('p.confirm')}><FaCheck onClick={onConfirmClick} className="danger-color" /></Tooltip>
+                <Tooltip title={t('p.cancel')}><FaBan onClick={onCancelClick} className="action-icon" /></Tooltip>
             </>
         );
     }

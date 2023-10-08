@@ -1,6 +1,14 @@
 import Accordion from 'react-bootstrap/Accordion';
 
-function MyCollapse({ header, children }: { header: any, children: any }) {
+type Props = {
+    header: any,
+    children: any
+};
+
+function MyCollapse({
+    header,
+    children
+}: Props) {
 
     return (
         <Accordion className='my-collapse'>

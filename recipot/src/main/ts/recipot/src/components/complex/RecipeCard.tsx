@@ -4,24 +4,27 @@ import './styles.scss';
 import MyButton from '../basicUi/MyButton';
 import { useTranslation } from 'react-i18next';
 import { Recipe } from '../../data/types';
-import { initFcn } from '../../utils/ObjectUtils';
 import { renderCategories, renderMore, renderRating } from './RecipeCardCommonElements';
 import { getShorterText } from '../../utils/TextUtils';
 import HashTagList from '../basicUi/HashTagList';
 import { onImageLoadError } from "../../utils/RestUtils";
 import useMyNav from "../../hooks/useMyNav";
 
-function RecipeCard({
-    recipe,
-    recipeCallback = initFcn<Recipe>(),
-    className,
-    additionalFunctionElement
-}: {
+type Props = {
     recipe: Recipe,
-    recipeCallback: Function,
+    onGoToRecipe: (recipe: Recipe, event?: any) => any,
     className?: string,
     additionalFunctionElement?: any
-}, ref: any) {
+};
+
+function RecipeCard({
+    recipe,
+    onGoToRecipe,
+    className,
+    additionalFunctionElement
+}: Props,
+    ref: any) {
+
     const { t } = useTranslation();
     const nav = useMyNav();
 
@@ -42,7 +45,7 @@ function RecipeCard({
                     <div className="description"> {getShorterText(recipe.description, 60)}</div>
                 </div>
 
-                <MyButton.Primary onClick={(e: any) => recipeCallback(recipe, e)} className="full-width">{t('p.goToRecipe')}</MyButton.Primary>
+                <MyButton.Primary onClick={() => onGoToRecipe(recipe)} className="full-width">{t('p.goToRecipe')}</MyButton.Primary>
             </Card.Body>
         </Card >
     );

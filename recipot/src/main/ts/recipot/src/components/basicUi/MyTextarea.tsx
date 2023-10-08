@@ -1,29 +1,31 @@
 import Form from 'react-bootstrap/Form';
-import { initFcn } from '../../utils/ObjectUtils';
 import { useEffect, useRef, useState } from 'react';
 import { checkValidity } from '../../utils/FormInputUtils';
 
-function MyTextarea({
-    name = "inputName",
-    label = "",
-    placeholder = "",
-    disabled = false,
-    onChange = initFcn<any>(),
-    rows = 3,
-    defaultValue = "",
-    required = false,
-    isValid
-}: {
+type Props = {
     name: string,
+    onChange: (value: string) => any,
+    placeholder?: string,
     label?: string,
-    placeholder: string,
     disabled?: boolean,
-    onChange: Function,
     rows?: number,
     defaultValue?: string,
     required?: boolean,
     isValid?: boolean
-}) {
+};
+
+function MyTextarea({
+    name,
+    onChange,
+    placeholder = "",
+    label = "",
+    disabled = false,
+    rows = 3,
+    defaultValue = "",
+    required = false,
+    isValid
+}: Props) {
+
     const inputRef = useRef<HTMLTextAreaElement>(null);
 
     const [inputValue, setInputValue] = useState(defaultValue)

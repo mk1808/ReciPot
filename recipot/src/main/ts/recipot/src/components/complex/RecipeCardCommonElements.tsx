@@ -28,7 +28,7 @@ export function renderMore(list?: any[]) {
     }
     const elementsNumber = getMoreNumber(list);
     return elementsNumber > 0 && (
-        <Tooltip placement={"bottom"} title={getMoreList(list)}>
+        <Tooltip title={getMoreList(list)}>
             <h6 className="ms-2 cursor-pointer">{`(+${elementsNumber})`}</h6>
         </Tooltip>
     );

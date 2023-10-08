@@ -1,6 +1,13 @@
 import './styles.scss';
 
-function PageDivider({ text }: { text: string }) {
+type Props = {
+    text: string
+};
+
+function PageDivider({
+    text
+}: Props) {
+
     return (
         <div className="page-divider">
             <div className="shadow"></div>

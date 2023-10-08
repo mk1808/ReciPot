@@ -1,29 +1,31 @@
 import Form from 'react-bootstrap/Form';
-import { initFcn } from '../../utils/ObjectUtils';
 import { useEffect, useRef } from 'react';
 import { checkValidity } from '../../utils/FormInputUtils';
 
-function MyFileInput({
-    name = "inputName",
-    label = "",
-    placeholder = "",
-    disabled = false,
-    onChange = initFcn<any>(),
-    defaultValue = "",
-    required,
-    isValid,
-    className = ""
-}: {
+type Props = {
     name: string,
     label: string,
+    onChange: (file: any) => any,
     placeholder?: string,
     disabled?: boolean,
-    onChange: any,
     defaultValue?: string,
     required?: boolean,
     isValid?: boolean,
     className?: string
-}) {
+};
+
+function MyFileInput({
+    name,
+    label,
+    onChange,
+    placeholder,
+    disabled = false,
+    defaultValue = "",
+    required,
+    isValid,
+    className = ""
+}: Props) {
+
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {

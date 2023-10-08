@@ -82,7 +82,7 @@ function CollectionRecipesColumn() {
             <div key={pageId} id={pageId}>
                 <PageDivider text={`${t('p.page')} ${index + 1}`} />
                 <Stack direction="horizontal" className="flex-wrap justify-content-center" gap={3}>
-                    {recipes?.map(recipe => <RecipeCard key={recipe.id} recipe={recipe} recipeCallback={recipeCallback} additionalFunctionElement={renderDeleteFromCollection(recipe, index)} />)}
+                    {recipes?.map(recipe => <RecipeCard key={recipe.id} recipe={recipe} onGoToRecipe={recipeCallback} additionalFunctionElement={renderDeleteFromCollection(recipe, index)} />)}
                 </Stack>
             </div>
         );
@@ -91,7 +91,7 @@ function CollectionRecipesColumn() {
     function renderDeleteFromCollection(recipe: Recipe, index: number) {
         return activeRecipeCollection?.canDelete && (
             <>
-                <Tooltip placement="bottom" title={t('p.removeFromCollection')}>
+                <Tooltip title={t('p.removeFromCollection')}>
                     <MyButton.Primary onClick={() => { deleteRecipeShowModal(recipe, index) }} className="round"><FaFolderMinus /></MyButton.Primary>
                 </Tooltip>
                 {renderModal()}
@@ -115,7 +115,7 @@ function CollectionRecipesColumn() {
         return (
             <DeleteFromCollectionDialog
                 showModal={showModalDelete}
-                handleClose={() => setShowModalDelete(false)}
+                onClose={() => setShowModalDelete(false)}
                 handleSubmit={deleteRecipeFromCollection}
                 data={recipeToDelete || initAs()} />
         )

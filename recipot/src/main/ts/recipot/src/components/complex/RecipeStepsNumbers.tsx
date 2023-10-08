@@ -2,7 +2,18 @@ import { useState, useEffect, useRef } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { RecipeStep } from "../../data/types";
 
-function RecipeStepsNumbers({ steps = [], size = 100, scrollHeight = 300 }: { steps: RecipeStep[], size?: number, scrollHeight?: number }) {
+type Props = {
+  steps: RecipeStep[],
+  size?: number,
+  scrollHeight?: number
+};
+
+function RecipeStepsNumbers({
+  steps,
+  size = 100,
+  scrollHeight = 300
+}: Props) {
+
   const [scrollTop, setScrollTop] = useState(0);
   const circleElements = useRef<any[]>([]);
 

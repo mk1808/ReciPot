@@ -4,11 +4,17 @@ import dictionariesApi from "../../../../api/DictionariesApi";
 import { CategoryDto, Recipe, Response } from "../../../../data/types";
 import RecipeCard from "../../../../components/complex/RecipeCard";
 import CategoryCard from "../../../../components/complex/CategoryCard";
-import { forwardRef } from "react";
 import MyHeader from "../../../../components/basicUi/MyHeader";
 import useMyNav from "../../../../hooks/useMyNav";
 
-function OtherColumn({ recipes }: { recipes: Recipe[] }) {
+type Props =  { 
+    recipes:     Recipe[] 
+};
+
+function OtherColumn({ 
+    recipes 
+}: Props) {
+    
     const { t } = useTranslation();
     const [allCategories, setAllCategories] = useState<CategoryDto[]>([]);
     const [loaded, setloaded] = useState<any>(false);
@@ -78,7 +84,7 @@ function OtherColumn({ recipes }: { recipes: Recipe[] }) {
             <div className="list mt-1">
                 {(newRecipes.length > 0 ? newRecipes : recipes.slice(0, 1)).map((recipe, index) => {
                     return (
-                        <RecipeCard recipe={recipe} recipeCallback={recipeCallback} key={index} className="mx-auto mb-3" ref={recipeCardRef} />
+                        <RecipeCard recipe={recipe} onGoToRecipe={recipeCallback} key={index} className="mx-auto mb-3" ref={recipeCardRef} />
                     )
                 })}
             </div>
@@ -87,4 +93,4 @@ function OtherColumn({ recipes }: { recipes: Recipe[] }) {
 
 }
 
-export default forwardRef(OtherColumn);
+export default OtherColumn;
