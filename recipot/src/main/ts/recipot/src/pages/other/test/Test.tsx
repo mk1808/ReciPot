@@ -33,6 +33,7 @@ import { mapCategoriesToSearchList, onFilteredHashTagSearch, searchCategory } fr
 import StarSelectInput from "../../../components/basicUi/StarSelectInput";
 import { inputAttributes } from "../../../utils/FormInputUtils";
 import filesApi from "../../../api/FilesApi";
+import { SelectOption } from "../../../data/utilTypes";
 
 const omitNull = (obj: any) => {
     Object.keys(obj).filter(k => obj[k] === null).forEach(k => delete (obj[k]))
@@ -64,7 +65,7 @@ function Test() {
     const [testPagiatorActualPage, setTestPagiatorActualPage] = useState(20);
     const [isValid, setIsValid] = useState(false);
 
-    const testOptions = [{ label: "op1", value: { name: "nam1" } }, { label: "op2", value: { name: "nam2" } }, { label: "op3", value: { name: "nam3" } }];
+    const testOptions: SelectOption<{ name: string }>[] = [{ label: "op1", value: { name: "nam1" } }, { label: "op2", value: { name: "nam2" } }, { label: "op3", value: { name: "nam3" } }];
     const stepText = `      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dui mi, mattis sit amet felis quis, faucibus varius enim. Cras faucibus odio nec nisl pharetra, eu convallis orci viverra. Phasellus lobortis quis ex vitae porta. Donec a est elementum, convallis lorem a, efficitur enim. Curabitur dapibus id tortor a placerat. Suspendisse felis libero, suscipit a ipsum nec, interdum blandit risus. Donec mollis nec tortor nec volutpat. Ut feugiat nunc ac elementum tincidunt.
 
     Donec eu orci ullamcorper, vestibulum tortor eget, faucibus augue. Nunc in est maximus, finibus dui nec, vehicula elit. Nam ullamcorper dictum lacus, nec gravida massa egestas in. Praesent in hendrerit metus. Duis a nisl volutpat nunc consequat finibus nec a velit. Duis non luctus massa. Morbi faucibus neque non diam venenatis, vel congue neque euismod. In et nisi ligula. Suspendisse ac odio sagittis, elementum sem id, elementum felis. Ut sed enim mauris. Sed rutrum, nulla nec elementum consectetur, est felis semper orci, nec porta neque metus sodales odio. Vestibulum a quam ac lectus tincidunt blandit vel vitae mauris. 
@@ -170,9 +171,9 @@ function Test() {
                     {show && <MyAlert.Error >This is a danger alert—check it out!</MyAlert.Error>}
                 </div>
 
-                <Tooltip title={"Tekst tooltip right-start"} placement={"right-start"} ><MyButton.Primary onClick={() => { console.log("btnz") }} className="button-400" disabled={false}>Zapisz</MyButton.Primary></Tooltip>
-                <Tooltip title={"Tekst tooltip bottom-start"} placement={"bottom-start"} ><MyButton.Secondary onClick={() => { console.log("btna") }}>Anuluj</MyButton.Secondary></Tooltip>
-                <Tooltip title={"Tekst tooltip left-end"} placement={"left-end"} ><MyButton.OutlinePrimary onClick={() => { console.log("btni") }}>Inna opcja</MyButton.OutlinePrimary></Tooltip>
+                <Tooltip title={"Tekst tooltip right-start"} placement="right-start" ><MyButton.Primary onClick={() => { console.log("btnz") }} className="button-400" disabled={false}>Zapisz</MyButton.Primary></Tooltip>
+                <Tooltip title={"Tekst tooltip bottom-start"} placement="bottom-start" ><MyButton.Secondary onClick={() => { console.log("btna") }}>Anuluj</MyButton.Secondary></Tooltip>
+                <Tooltip title={"Tekst tooltip left-end"} placement="left-end" ><MyButton.OutlinePrimary onClick={() => { console.log("btni") }}>Inna opcja</MyButton.OutlinePrimary></Tooltip>
 
 
                 <button onClick={() => {
@@ -204,7 +205,7 @@ function Test() {
                     <MyButton.Primary onClick={handleShow}>
                         Pokaż modal
                     </MyButton.Primary>
-                    <CustomModal shouldShow={showModal} handleClose={handleClose} handleSubmit={handleSubmit}></CustomModal>
+                    <CustomModal shouldShow={showModal} onClose={handleClose} onSubmit={handleSubmit}></CustomModal>
                 </div>
 
                 <div>
@@ -253,7 +254,7 @@ function Test() {
                 <MyInput isValid={isValid} name="test3" label="Test trzy" onChange={(value: string) => console.log(value)} />
                 <MyTextarea defaultValue={"default" + defaultValueIndex} required={true} isValid={isValid} name="test4" label="Test textarea" placeholder="Input test 1" rows={5} onChange={(value: string) => console.log(value)} />
                 <MyCheckbox required={true} isValid={isValid} name="test5" label="Test checkbox" onChange={(value: boolean) => console.log(value)} defaultChecked={defaultValueIndex % 2 == 0} />
-                <MySelect required={true} isValid={isValid} name="test6" label="Test select" emptyOption="Pusta wartość" options={testOptions} defaultValue={testOptions[defaultValueIndex % 2].value} onChange={(value: string) => console.log(value)} />
+                <MySelect required={true} isValid={isValid} name="test6" label="Test select" emptyOption="Pusta wartość" options={testOptions} defaultValue={testOptions[defaultValueIndex % 2].value} onChange={value => console.log(value)} />
                 <MyFileInput required={true} isValid={isValid} name="test7" label="Test file" placeholder="Select file" onChange={(value: string) => console.log(value)} />
                 <MySwitch required={true} isValid={true} name="test8" label="Test switch" onChange={setIsValid} defaultChecked={defaultValueIndex % 2 == 0} />
                 <StarSelectInput required={true} isValid={true} name="test9" label="Test star select" onChange={(value: number) => console.log(value)} defaultValue={defaultValueIndex % 5} />

@@ -56,35 +56,35 @@ function ActionButtons({ recipe, favCollection, isOwner, user }: { recipe: Recip
             <Stack direction="horizontal" className="align-center action-buttons justify-content-end">
                 {isUser &&
                     <div>
-                        <Tooltip placement="bottom" title={t(getAddToFavText())}>
+                        <Tooltip title={t(getAddToFavText())}>
                             <MyButton.Primary onClick={addOrRemoveFromFavourites} className="round mx-4">{getAddToFavIcon()}</MyButton.Primary>
                         </Tooltip>
                     </div>
                 }
                 {isUser &&
                     <div>
-                        <Tooltip placement="bottom" title={t('p.addToCollectionButton')}>
+                        <Tooltip title={t('p.addToCollectionButton')}>
                             <MyButton.Primary onClick={() => setShowModalAddToCollection(true)} className="round mx-4"><BsCollectionFill /></MyButton.Primary>
                         </Tooltip>
                     </div>
                 }
                 {isUser &&
                     <div>
-                        <Tooltip placement="bottom" title={t('p.shareRecipeButton')}>
+                        <Tooltip title={t('p.shareRecipeButton')}>
                             <MyButton.Primary onClick={() => setShowModalShare(true)} className="round mx-4"><BsShare /></MyButton.Primary>
                         </Tooltip>
                     </div>}
 
                 {isOwner &&
                     <div>
-                        <Tooltip placement="bottom" title={t('p.editRecipeButton')}>
+                        <Tooltip title={t('p.editRecipeButton')}>
                             <MyButton.Primary onClick={() => navigate(`/recipes/edit/${recipe.id}`)} className="round mx-4"><FiEdit3 /></MyButton.Primary>
                         </Tooltip>
                     </div>}
 
                 {isOwner &&
                     <div>
-                        <Tooltip placement="bottom" title={t('p.changeRecipeVisibilityButton')}>
+                        <Tooltip title={t('p.changeRecipeVisibilityButton')}>
                             <MyButton.Primary onClick={() => setShowModalChangeVisibility(true)} className="round mx-4" >{getAccessTypeIcon()}</MyButton.Primary>
                         </Tooltip>
                     </div>}

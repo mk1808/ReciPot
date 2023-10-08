@@ -37,7 +37,7 @@ function ShareRecipeDialog({ showModal, handleClose, data }: { showModal: boolea
         form.current.submitForm();
     }
     return (
-        <CustomModal shouldShow={showModal} handleClose={handleClose} handleSubmit={myHandleSubmit} title={t("p.recipeSharing")}>
+        <CustomModal shouldShow={showModal} onClose={handleClose} onSubmit={myHandleSubmit} title={t("p.recipeSharing")}>
             {renderContent()}
         </CustomModal>
     );

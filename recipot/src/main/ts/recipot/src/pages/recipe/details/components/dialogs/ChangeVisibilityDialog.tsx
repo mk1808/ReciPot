@@ -28,7 +28,7 @@ function ChangeVisibilityDialog({ showModal, handleClose, handleSuccess, data, a
     }
 
     return (
-        <CustomModal shouldShow={showModal} handleClose={handleClose} handleSubmit={myHandleSubmit}>
+        <CustomModal shouldShow={showModal} onClose={handleClose} onSubmit={myHandleSubmit}>
             {renderContent()}
         </CustomModal>
     );

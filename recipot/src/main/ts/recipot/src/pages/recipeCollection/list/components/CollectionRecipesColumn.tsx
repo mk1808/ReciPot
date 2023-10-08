@@ -92,7 +92,7 @@ function CollectionRecipesColumn() {
     function renderDeleteFromCollection(recipe: Recipe, index: number) {
         return activeRecipeCollection?.canDelete && (
             <>
-                <Tooltip placement="bottom" title={t('p.removeFromCollection')}>
+                <Tooltip title={t('p.removeFromCollection')}>
                     <MyButton.Primary onClick={() => { deleteRecipeShowModal(recipe, index) }} className="round"><FaFolderMinus /></MyButton.Primary>
                 </Tooltip>
                 {renderModal()}

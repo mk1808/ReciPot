@@ -1,7 +1,16 @@
 import { Stack } from "react-bootstrap";
 import HashTagBadge from "./HashTagBadge";
 
-function HashTagList({ hashTags = [], onClick }: { hashTags: Array<any>, onClick: (tag: any) => any }) {
+type Props = {
+    hashTags: Array<any>,
+    onClick: (tag: any) => any
+};
+
+function HashTagList({
+    hashTags,
+    onClick
+}: Props) {
+
     return (
         <Stack direction="horizontal" className='hash-tags'>
             {

@@ -9,7 +9,7 @@ function DeleteFromCollectionDialog({ showModal, handleClose, handleSubmit, data
         handleSubmit();
     }
     return (
-        <CustomModal shouldShow={showModal} handleClose={handleClose} handleSubmit={myHandleSubmit}>
+        <CustomModal shouldShow={showModal} onClose={handleClose} onSubmit={myHandleSubmit}>
             {renderContent()}
         </CustomModal>
     );

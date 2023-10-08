@@ -1,24 +1,26 @@
 import { Image } from "react-bootstrap";
-import { initFcn } from "../../utils/ObjectUtils";
 import { onImageLoadError } from "../../utils/RestUtils";
 
-function MyImage({
-    src = "",
-    height = 200,
-    width = "auto",
-    rounded = false,
-    className = "m-3",
-    roundedCircle = false,
-    onClick = initFcn<any>()
-}: {
+type Props = {
     src: string,
     height?: number | string,
     width?: number | string,
     rounded?: boolean,
     className?: string,
     roundedCircle?: boolean,
-    onClick?: any
-}) {
+    onClick?: () => any
+};
+
+function MyImage({
+    src,
+    height = 200,
+    width = "auto",
+    rounded = false,
+    className = "m-3",
+    roundedCircle = false,
+    onClick = () => { }
+}: Props) {
+
     return (
         <Image
             className={className}

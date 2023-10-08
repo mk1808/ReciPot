@@ -4,27 +4,31 @@ import MyButton from './MyButton';
 import { useTranslation } from 'react-i18next';
 import { StackDirection } from 'react-bootstrap/esm/Stack';
 
+type Props = {
+    onCancel: () => void,
+    onConfirm: () => void,
+    buttonCancelText?: string,
+    buttonSubmitText?: string,
+    submitButtonType?: string,
+    direction?: StackDirection,
+    className?: string
+};
+
 function ConfirmCancelButtons({
-    handleCancel,
-    handleConfirm,
-    buttonCancelText = 'p.cancel',
-    buttonSubmitText = 'p.save',
-    className,
+    onCancel,
+    onConfirm,
+    buttonCancelText = "p.cancel",
+    buttonSubmitText = "p.save",
     submitButtonType = "button",
-    direction = "horizontal" }: {
-        handleCancel: () => void,
-        handleConfirm: () => void,
-        buttonCancelText?: string,
-        buttonSubmitText?: string,
-        className?: string,
-        submitButtonType?: string,
-        direction?: StackDirection
-    }) {
+    direction = "horizontal",
+    className = ""
+}: Props) {
+
     const { t } = useTranslation();
     return (
         <Stack direction={direction} className={className}>
-            <MyButton.Secondary onClick={handleCancel} className="button-width">{t(buttonCancelText)} </MyButton.Secondary>
-            <MyButton.Primary onClick={handleConfirm} type={submitButtonType} className="button-width">{t(buttonSubmitText)} </MyButton.Primary>
+            <MyButton.Secondary onClick={onCancel} className="button-width">{t(buttonCancelText)} </MyButton.Secondary>
+            <MyButton.Primary onClick={onConfirm} type={submitButtonType} className="button-width">{t(buttonSubmitText)} </MyButton.Primary>
         </Stack>
     );
 }

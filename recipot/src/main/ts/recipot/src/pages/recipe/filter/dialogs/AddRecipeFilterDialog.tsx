@@ -40,8 +40,8 @@ function AddRecipeFilterDialog({ showModal, handleClose }: { showModal: boolean,
     }
 
     return (
-        <CustomModal shouldShow={showModal} handleClose={handleClose} title={'p.recipeFilterSave'}
-            handleSubmit={myHandleSubmit}>
+        <CustomModal shouldShow={showModal} onClose={handleClose} title={'p.recipeFilterSave'}
+            onSubmit={myHandleSubmit}>
             {renderContent()}
         </CustomModal>
     );

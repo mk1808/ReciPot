@@ -1,21 +1,8 @@
 import Form from 'react-bootstrap/Form';
-import { initFcn } from '../../utils/ObjectUtils';
 import { useEffect, useState, useRef } from 'react';
 import { checkValidity } from '../../utils/FormInputUtils';
 
-function MyInput({
-    name = "inputName",
-    label = "",
-    type = "text",
-    placeholder = "",
-    disabled = false,
-    defaultValue = "",
-    required = false,
-    onChange = initFcn<any>(),
-    isValid,
-    step,
-    className
-}: {
+type Props = {
     name: string,
     label?: string,
     type?: string,
@@ -25,9 +12,24 @@ function MyInput({
     defaultValue?: string,
     required?: boolean,
     isValid?: boolean,
-    step?:number,
+    step?: number,
     className?: string
-}) {
+};
+
+function MyInput({
+    name,
+    label = "",
+    type = "text",
+    placeholder = "",
+    disabled = false,
+    defaultValue = "",
+    required = false,
+    onChange = () => { },
+    isValid,
+    step,
+    className
+}: Props) {
+
     const inputRef = useRef<HTMLInputElement>(null);
     const [inputValue, setInputValue] = useState(defaultValue)
 
@@ -47,7 +49,7 @@ function MyInput({
     function onChangeCallback(event: any) {
         setInputValue(event.target.value)
     }
-    
+
     return (
         <Form.Group className="mb-3" controlId={name}>
             {label && <Form.Label>{label}</Form.Label>}

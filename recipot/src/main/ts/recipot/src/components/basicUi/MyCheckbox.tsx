@@ -1,26 +1,28 @@
 import Form from 'react-bootstrap/Form';
-import { initFcn } from '../../utils/ObjectUtils';
 import { useEffect, useRef, useState } from 'react';
 import { checkValidity } from '../../utils/FormInputUtils';
 
+type Props = {
+    name: string,
+    label: string | any,
+    onChange: (value: boolean) => any,
+    disabled?: boolean,
+    defaultChecked?: boolean,
+    required?: boolean,
+    isValid?: boolean
+};
+
 function MyCheckbox(
     {
-        name = "inputName",
-        label = "",
+        name,
+        label,
+        onChange,
         disabled = false,
         defaultChecked = true,
-        onChange = initFcn<boolean>(),
-        required,
-        isValid
-    }: {
-        name: string,
-        label: string | any,
-        disabled?: boolean,
-        defaultChecked?: boolean,
-        onChange: any,
-        required?: boolean,
-        isValid?: boolean
-    }) {
+        required = false,
+        isValid = true
+    }: Props) {
+
     const inputRef = useRef<HTMLInputElement>(null);
 
     const [isChecked, setChecked] = useState(defaultChecked)

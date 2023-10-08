@@ -68,8 +68,8 @@ function RecipeAddForm() {
             <div className="bottom-part">
                 <hr />
                 <ConfirmCancelButtons
-                    handleConfirm={onSubmit}
-                    handleCancel={onCancel}
+                    onConfirm={onSubmit}
+                    onCancel={onCancel}
                     className="justify-content-center"
                 />
             </div>

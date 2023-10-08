@@ -1,29 +1,33 @@
 import Form from 'react-bootstrap/Form';
-import { asHash, initFcn } from '../../utils/ObjectUtils';
+import { asHash } from '../../utils/ObjectUtils';
 import { useEffect, useRef, useState } from 'react';
 import { checkValidity } from '../../utils/FormInputUtils';
+import { SelectOption } from '../../data/utilTypes'
 
-function MySelect({
-    name = "inputName",
-    label = "",
-    emptyOption = "",
-    disabled = false,
-    options = [],
-    defaultValue = "",
-    onChange = initFcn<any>(),
-    required,
-    isValid
-}: {
+type Props<T> = {
     name: string,
+    options: SelectOption<T>[],
+    onChange: (value: T | undefined) => any,
     label?: string,
     emptyOption?: string,
     disabled?: boolean,
-    onChange: Function,
-    defaultValue?: any,
-    options: any,
+    defaultValue?: T,
     required?: boolean,
     isValid?: boolean
-}) {
+};
+
+function MySelect<T>({
+    name,
+    options,
+    onChange,
+    label = "",
+    emptyOption = "",
+    disabled = false,
+    defaultValue,
+    required,
+    isValid
+}: Props<T>) {
+
     const inputRef = useRef<HTMLSelectElement>(null);
     const [selected, setSelected] = useState(defaultValue);
 
@@ -39,7 +43,7 @@ function MySelect({
         const newValue = getDefaultValue(defaultValue);
         if (inputRef.current && inputRef.current.value !== newValue) {
             inputRef.current.value = newValue;
-            setSelected(options[newValue]?.value)
+            setSelected(options[Number(newValue)]?.value)
         }
     }, [defaultValue, options])
 

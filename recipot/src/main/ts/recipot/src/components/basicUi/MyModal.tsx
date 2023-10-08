@@ -2,27 +2,30 @@ import { Modal } from "react-bootstrap";
 import MyButton from "./MyButton";
 import { useTranslation } from "react-i18next";
 
+type Props = {
+    title: string,
+    show: boolean,
+    children: any,
+    onClose: () => any,
+    onSubmit: () => any,
+    buttonCloseText?: string,
+    buttonSubmitText?: string
+};
+
 function MyModal({
     title,
     show,
-    handleClose,
-    handleSubmit,
+    children,
+    onClose,
+    onSubmit,
     buttonCloseText = 'p.cancel',
-    buttonSubmitText = 'p.confirm',
-    children }: {
-        title: string,
-        show: boolean,
-        handleClose: () => void,
-        handleSubmit: () => void,
-        buttonCloseText?: string,
-        buttonSubmitText?: string,
-        children: any
-    }) {
+    buttonSubmitText = 'p.confirm'
+}: Props) {
 
     const { t } = useTranslation();
     return (
         <div>
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={onClose}>
                 {renderHeader()}
                 {renderBody()}
                 {renderFooter()}
@@ -45,10 +48,10 @@ function MyModal({
     function renderFooter() {
         return (
             <Modal.Footer>
-                <MyButton.Secondary onClick={handleClose}>
+                <MyButton.Secondary onClick={onClose}>
                     {t(buttonCloseText)}
                 </MyButton.Secondary>
-                <MyButton.Primary onClick={handleSubmit}>
+                <MyButton.Primary onClick={onSubmit}>
                     {t(buttonSubmitText)}
                 </MyButton.Primary>
             </Modal.Footer>

@@ -1,6 +1,19 @@
 import './styles.scss';
 
-function MyHeader({ title = "", level = "1", dispLevel, className="" }: { title: string, level?: string, dispLevel?: string, className?: string }) {
+type Props = {
+    title: string,
+    level?: string,
+    dispLevel?: string,
+    className?: string
+};
+
+function MyHeader({
+    title,
+    level = "1",
+    dispLevel,
+    className = ""
+}: Props) {
+
     const CustomTag = `h${level}` as keyof JSX.IntrinsicElements;
     const customClass = `display-${dispLevel ?? level}`;
     return (

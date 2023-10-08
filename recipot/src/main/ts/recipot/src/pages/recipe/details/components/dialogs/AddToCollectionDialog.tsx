@@ -49,7 +49,7 @@ function AddToCollectionDialog({ showModal, handleClose, data }: { showModal: bo
         form.current.submitForm();
     }
     return (
-        <CustomModal shouldShow={showModal} handleClose={handleClose} handleSubmit={myHandleSubmit} title={t("p.addingToCollection")}>
+        <CustomModal shouldShow={showModal} onClose={handleClose} onSubmit={myHandleSubmit} title={t("p.addingToCollection")}>
             {renderContent()}
         </CustomModal>
     );

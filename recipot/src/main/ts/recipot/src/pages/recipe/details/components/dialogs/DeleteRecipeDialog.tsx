@@ -19,7 +19,7 @@ function DeleteRecipeDialog({ showModal, handleClose, data }: { showModal: boole
         setTimeout(() =>  alerts.showSuccessAlert(t(response.message)), 1000)
     }
     return (
-        <CustomModal shouldShow={showModal} handleClose={handleClose} handleSubmit={myHandleSubmit}>
+        <CustomModal shouldShow={showModal} onClose={handleClose} onSubmit={myHandleSubmit}>
             {renderContent()}
         </CustomModal>
     );

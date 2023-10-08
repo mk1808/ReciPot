@@ -34,7 +34,7 @@ function AddCollectionDialog({ showModal, handleClose }: { showModal: boolean, h
     }
 
     return (
-        <CustomModal shouldShow={showModal} handleClose={handleClose} handleSubmit={myHandleSubmit} title={'p.addingNewCollection'}>
+        <CustomModal shouldShow={showModal} onClose={handleClose} onSubmit={myHandleSubmit} title={'p.addingNewCollection'}>
             {renderContent()}
         </CustomModal>
     );
