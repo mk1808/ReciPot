@@ -8,6 +8,7 @@ import NewCollectionForm from './components/NewCollectionForm';
 import { RecipeCollectionListContextProvider } from './context/RecipeCollectionListContext';
 import CollectionRecipesPagination from './components/CollectionRecipesPagination';
 import MyCollapse from '../../../components/basicUi/MyCollapse';
+import MyHeader from '../../../components/basicUi/MyHeader';
 
 function RecipeCollectionList() {
     const { t } = useTranslation();
@@ -25,7 +26,7 @@ function RecipeCollectionList() {
         return (
             <Row className='gx-2 m-3'>
                 <Col xs={12} md={3} className='collections-column'>
-                    <div className='h-100 basic-container-border p-3'>{renderCollectionsColumnOrCollapse()}</div>
+                    <div className='h-100 basic-container-border pb-3 px-3'>{renderCollectionsColumnOrCollapse()}</div>
                 </Col>
                 <Col>
                     <div className='h-100 container-fluid basic-container-border'>{renderContent()}</div>
@@ -37,8 +38,8 @@ function RecipeCollectionList() {
     function renderCollectionsColumnOrCollapse() {
         return (
             <>
-                <div className='h-100 p-3 hide-md'>
-                    <h2>{t('p.savedCollections')}</h2>
+                <div className='h-100 pb-3 px-3 hide-md'>
+                    <MyHeader title={t('p.savedCollections')} level="6" className='mt-6' />
                     <br />
                     {renderCollectionsColumn()}
                 </div>

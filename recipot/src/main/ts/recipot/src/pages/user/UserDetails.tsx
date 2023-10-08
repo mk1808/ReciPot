@@ -40,7 +40,7 @@ function UserDetails() {
     }
 
     return (
-        <div className='mx-auto my-5 p-4 user-details-page basic-container basic-container-border'>
+        <div className='mx-auto my-5 px-4 pb-4 user-details-page basic-container basic-container-border'>
             <MyHeader title={t('p.userDetailsHeader')}></MyHeader>
             {renderUserStatistics()}
             <hr />

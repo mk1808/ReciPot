@@ -8,6 +8,7 @@ import MyButton from "../../../components/basicUi/MyButton";
 import { createUrl } from "../../../utils/RecipeSearchUtils";
 import { useNavigate } from "react-router-dom";
 import { goToFilters } from "../../../utils/NavigationUtils";
+import MyHeader from "../../../components/basicUi/MyHeader";
 
 function CategoryCards() {
     const [allCategories, setAllCategories] = useState<any[]>([]);
@@ -49,7 +50,7 @@ function MainPageCategories() {
     return (
         <div className="categories-section">
             <Stack direction="horizontal" gap={3} className='flex-wrap justify-content-center py-3 title'>
-                <h2 className="my-3 display-3">{t('p.categories')}</h2>
+                <MyHeader title={t('p.categories')} level="2" dispLevel="3" />
             </Stack>
             <CategoryCards />
         </div>

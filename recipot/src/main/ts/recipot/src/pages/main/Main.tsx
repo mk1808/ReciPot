@@ -32,7 +32,7 @@ function Main() {
     const [recipes, setRecipes] = useState([]);
     const [statistics, setStatistics] = useState<GeneralStatisticsDto>();
     const onGetRandomSuccess = (response: any) => { setRandomRecipe(response.value && response.value[0]); getRandomRequestManager.unlock() }
-    
+
     useEffect(() => {
         getRandomRequestManager.nextAndLock(() => {
             recipesApi.getRandom({ number: 1 }, onGetRandomSuccess)
@@ -75,8 +75,8 @@ function Main() {
         return (
             <div>
                 <Stack direction="horizontal" gap={3} className='flex-wrap justify-content-center py-3 title'>
-                    <h2 className="my-3 display-3">{t('p.newestRecipes')}</h2>
-                    <MyButton.Primary className="mt-4" onClick={moreNewRecipesCallback}>{t('p.more')} <FaMagnifyingGlass className="ms-3" /> </MyButton.Primary>
+                    <MyHeader title={t('p.newestRecipes')} level="2" dispLevel="3" />
+                    <MyButton.Primary onClick={moreNewRecipesCallback}>{t('p.more')} <FaMagnifyingGlass className="ms-3" /> </MyButton.Primary>
                 </Stack>
                 <SlidingCards recipes={recipes} goToRecipeCallback={recipeCallbackForSlider}></SlidingCards>
                 <div></div>

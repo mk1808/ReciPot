@@ -1,9 +1,11 @@
 import './styles.scss';
 
-function MyHeader({ title = "" }: { title: string }) {
+function MyHeader({ title = "", level = "1", dispLevel, className }: { title: string, level?: string, dispLevel?: string, className?: string }) {
+    const CustomTag = `h${level}` as keyof JSX.IntrinsicElements;
+    const customClass = `display-${dispLevel ?? level}`;
     return (
         <div className="my-header my-3">
-            <h1 className="display-1">{title}</h1>
+            <CustomTag className={"h-tag " + customClass}>{title}</CustomTag>
         </div>
     );
 }

@@ -1,5 +1,7 @@
-/*@use "~bootstrap/scss/variables"as *;
-@use "../../assets/variables"as *;
+@use "../../assets/variables"as v;
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
 
 .main-page {
     text-align: center;
@@ -20,7 +22,7 @@
     .categories {
 
         .title {
-            height: 140px;
+            height: 150px;
         }
     }
 
@@ -57,8 +59,3 @@
         }
     }
 }
-
-/*
-        -webkit-box-shadow: 0px -21px 23px 1px $secondary-bg-subtle;
--moz-box-shadow: 0px -21px 23px 1px $secondary-bg-subtle;
-box-shadow: 0px -21px 23px 1px $secondary-bg-subtle;*/
