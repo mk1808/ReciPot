@@ -4,13 +4,14 @@ import { Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { FormSave, MyForm } from "../../../../../data/utilTypes";
 import MyInput from "../../../../../components/basicUi/MyInput";
-import { checkIfAllValid, checkInputValidity, getEmptyForm, inputAttributes, getNewState, preventFurtherAction } from "../../../../../utils/FormInputUtils";
+import { checkIfAllValid, checkInputValidity, initEmptyForm, inputAttributes, getNewState, preventFurtherAction } from "../../../../../utils/FormInputUtils";
 import MyTextarea from "../../../../../components/basicUi/MyTextarea";
+import { SharedRecipe } from "../../../../../data/types";
 
 
-function ShareRecipeForm({ formSave }: { formSave: FormSave }, ref: any) {
+function ShareRecipeForm({ formSave }: { formSave: FormSave<SharedRecipe> }, ref: any) {
     const { t } = useTranslation();
-    const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
+    const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, initEmptyForm());
     const form = useRef<any>();
 
     useImperativeHandle(ref, () => ({

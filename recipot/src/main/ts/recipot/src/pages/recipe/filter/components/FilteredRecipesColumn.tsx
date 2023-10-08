@@ -29,7 +29,6 @@ function FilteredRecipesColumn() {
         <>
             {!isLoaded && <MySpinner />}
             {isLoaded && (recipeFilterContext.currentPage?.totalElements || 0 > 0 ? renderContent() : renderNoData())}
-
         </>
     )
 
@@ -48,7 +47,7 @@ function FilteredRecipesColumn() {
             <div key={pageId} id={pageId}>
                 <PageDivider text={`${t('p.page')} ${index + 1}`} />
                 <Stack direction="horizontal" className="flex-wrap justify-content-center" gap={3}>
-                    {recipes?.map(recipe => <RecipeCard key={recipe.id} recipe={recipe} recipeCallback={recipeCallback}></RecipeCard >)}
+                    {recipes?.map(recipe => <RecipeCard key={recipe.id} recipe={recipe} recipeCallback={recipeCallback}/>)}
                 </Stack>
             </div>
         );
@@ -63,9 +62,7 @@ function FilteredRecipesColumn() {
     }
 
     function renderNoData() {
-        return (
-            <NoContent text={t('p.noElementsInSearch')} />
-        );
+        return <NoContent text={t('p.noElementsInSearch')} />
     }
 }
 

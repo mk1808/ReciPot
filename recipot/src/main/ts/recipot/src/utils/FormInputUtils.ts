@@ -1,4 +1,5 @@
-import { MyForm } from "../data/utilTypes";
+import { FormSave, MyForm } from "../data/utilTypes";
+import { initAs } from "./ObjectUtils";
 
 export function checkValidity(input?: any, isValid?: boolean) {
     if (isValid) {
@@ -39,7 +40,7 @@ export function dynamicInputAttributesForContext(name: string, onChange: Functio
         name: name,
         isValid: getValidity(name, index),
         onChange: (value: string) => onChange(value, name, index),
-        defaultValue: (formObject && formObject[name])  || defaultValue
+        defaultValue: (formObject && formObject[name]) || defaultValue
     }
 }
 
@@ -54,16 +55,12 @@ export function checkIfAllValid(event: any, myForm: MyForm) {
     return event.currentTarget.checkValidity() === true;
 };
 
-export function getEmptyForm(): MyForm {
+export function initEmptyForm(): MyForm {
     return { formValue: {}, formValidity: {} };
 }
 
-export function getEmptyFormSave() {
-    return {
-        onSubmit: Function,
-        onSuccess: Function,
-        onError: Function
-    };
+export function initFormSave<T>() {
+    return initAs<FormSave<T>>();
 }
 
 export function getNewState(state: any, action: any, value: any, checkInputValidity: any) {

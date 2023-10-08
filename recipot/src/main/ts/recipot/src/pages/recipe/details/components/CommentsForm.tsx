@@ -1,15 +1,16 @@
 import { useTranslation } from "react-i18next";
 import { FormSave, MyForm } from "../../../../data/utilTypes";
-import { useReducer, useState } from "react";
-import { checkIfAllValid, checkInputValidity, getEmptyForm, getNewState, inputAttributes, preventFurtherAction } from "../../../../utils/FormInputUtils";
+import { useReducer } from "react";
+import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewState, inputAttributes, preventFurtherAction } from "../../../../utils/FormInputUtils";
 import MyTextarea from "../../../../components/basicUi/MyTextarea";
 import { Form, Stack } from "react-bootstrap";
 import StarSelectInput from "../../../../components/basicUi/StarSelectInput";
 import MyButton from "../../../../components/basicUi/MyButton";
+import { Comment } from "../../../../data/types";
 
-function CommentsForm({ formSave, isEditModeOn, userOpinion }: { formSave: FormSave, isEditModeOn: boolean, userOpinion: any }) {
+function CommentsForm({ formSave, isEditModeOn, userOpinion }: { formSave: FormSave<Comment>, isEditModeOn: boolean, userOpinion: any }) {
     const { t } = useTranslation();
-    const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
+    const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, initEmptyForm());
 
     function handleSubmit(event: any) {
         if (checkIfAllValid(event, myForm)) {

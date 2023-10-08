@@ -48,8 +48,8 @@ function RecipeAddForm() {
     function renderLeftSide() {
         return (
             <>
-                <UpperLeftSide ></UpperLeftSide>
-                <AddIngredients  ></AddIngredients>
+                <UpperLeftSide />
+                <AddIngredients />
             </>
         )
     }
@@ -57,8 +57,8 @@ function RecipeAddForm() {
     function renderRightSide() {
         return (
             <>
-                <UpperRightSide ></UpperRightSide>
-                <AddSteps ></AddSteps>
+                <UpperRightSide />
+                <AddSteps />
             </>
         )
     }

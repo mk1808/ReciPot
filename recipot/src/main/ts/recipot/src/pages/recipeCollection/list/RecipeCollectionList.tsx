@@ -49,11 +49,13 @@ function RecipeCollectionList() {
     }
 
     function renderCollectionsColumn() {
-        return (<>
-            <CollectionList />
-            <hr />
-            <NewCollectionForm />
-        </>);
+        return (
+            <>
+                <CollectionList />
+                <hr />
+                <NewCollectionForm />
+            </>
+        );
     }
 
     function renderContent() {

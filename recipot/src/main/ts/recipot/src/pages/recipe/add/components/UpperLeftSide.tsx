@@ -118,7 +118,7 @@ function UpperLeftSide() {
     }
 
     function renderModal() {
-        return <DeleteRecipeDialog showModal={showModalDelete} handleClose={() => setShowModalDelete(false)} data={editedRecipe || initAs()}></DeleteRecipeDialog>;
+        return <DeleteRecipeDialog showModal={showModalDelete} handleClose={() => setShowModalDelete(false)} data={editedRecipe || initAs()}/>;
     }
 }
 

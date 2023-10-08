@@ -59,16 +59,14 @@ function Main() {
                     {renderStatistics()}
                 </Row>
                 <Row className="categories">
-                    <MainPageCategories></MainPageCategories>
+                    <MainPageCategories/>
                 </Row>
             </Col>
         </div>
     );
 
     function renderRecipeCardCircle() {
-        return (
-            <RecipeCardCircle recipe={randomRecipe} recipeCallback={() => recipeCallback(randomRecipe)}></RecipeCardCircle>
-        )
+        return <RecipeCardCircle recipe={randomRecipe} recipeCallback={() => recipeCallback(randomRecipe)}/>
     }
 
     function renderRecipesList() {
@@ -78,8 +76,8 @@ function Main() {
                     <MyHeader title={t('p.newestRecipes')} level="2" dispLevel="3" />
                     <MyButton.Primary onClick={moreNewRecipesCallback}>{t('p.more')} <FaMagnifyingGlass className="ms-3" /> </MyButton.Primary>
                 </Stack>
-                <SlidingCards recipes={recipes} goToRecipeCallback={recipeCallbackForSlider}></SlidingCards>
-                <div></div>
+                <SlidingCards recipes={recipes} goToRecipeCallback={recipeCallbackForSlider}/>
+                <div/>
             </div>
         )
     }

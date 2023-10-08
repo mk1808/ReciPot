@@ -40,7 +40,7 @@ function RecipeDetails() {
     const [favRecipeCollection, setFavRecipeCollection] = useState<any>();
     const id: string = params.id ?? "";
     const [isOwner, setIsOwner] = useState<boolean>(false);
-    const user = useContext(UsersContext).user;
+    const user = useContext(UsersContext);
     const mainRef = useRef<any>(null);
     useEffect(() => {
         setIsLoaded(false);
@@ -97,9 +97,9 @@ function RecipeDetails() {
     function renderMainRecipeColumn() {
         return (
             <div className="mt-3 main">
-                <MyImage src={recipe.image} height="auto" className="main-img" rounded></MyImage>
+                <MyImage src={recipe.image} height="auto" className="main-img" rounded />
                 <ActionButtons recipe={recipe} isOwner={isOwner} user={user} favCollection={favRecipeCollection} />
-                <MyHeader title={recipe.name}></MyHeader>
+                <MyHeader title={recipe.name} />
                 {renderAuthorAndCreationDate()}
                 <div>{renderBreadcrumps()}</div>
                 <BasicInfo recipe={recipe} />
@@ -114,9 +114,8 @@ function RecipeDetails() {
     function renderBreadcrumps() {
         return (
             <div className="px-5">
-                <BreadCrumbs recipe={recipe}></BreadCrumbs>
+                <BreadCrumbs recipe={recipe} />
             </div>
-
         )
     }
 

@@ -9,14 +9,15 @@ import MyInput from '../../components/basicUi/MyInput';
 import MyTextarea from '../../components/basicUi/MyTextarea';
 import MyButton from '../../components/basicUi/MyButton';
 import { useReducer, useState } from 'react';
-import { checkIfAllValid, checkInputValidity, getEmptyForm, getNewState, inputAttributes, preventFurtherAction } from '../../utils/FormInputUtils';
+import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewState, inputAttributes, preventFurtherAction } from '../../utils/FormInputUtils';
 import { MyForm, FormSave } from '../../data/utilTypes';
+import { AppUser } from '../../data/types';
 
-function UserDetailsForm({ formSave, user }: { formSave: FormSave, user: any }) {
+function UserDetailsForm({ formSave, user }: { formSave: FormSave<AppUser>, user: any }) {
     const { t } = useTranslation();
 
     const [isEditMode, setEditMode] = useState(false);
-    const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
+    const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, initEmptyForm());
 
     function handleSubmit(event: any) {
         if (checkIfAllValid(event, myForm)) {
@@ -57,13 +58,15 @@ function UserDetailsForm({ formSave, user }: { formSave: FormSave, user: any }) 
     }
 
     function renderUserForm() {
-        return (<>
-            {renderEmailInput()}
-            {renderLoginInput()}
+        return (
+            <>
+                {renderEmailInput()}
+                {renderLoginInput()}
 
-            {renderAvatarImageInput()}
-            {renderSelfDescriptionInput()}
-        </>)
+                {renderAvatarImageInput()}
+                {renderSelfDescriptionInput()}
+            </>
+        )
     }
 
     function renderEmailInput() {
@@ -85,7 +88,8 @@ function UserDetailsForm({ formSave, user }: { formSave: FormSave, user: any }) 
                 placeholder={t('p.loginInputPlaceholder')}
                 defaultValue={user.login}
                 disabled={true}
-            />);
+            />
+        );
     }
 
     function renderAvatarImageInput() {
@@ -96,7 +100,8 @@ function UserDetailsForm({ formSave, user }: { formSave: FormSave, user: any }) 
                 placeholder={t('p.avatarInputPlaceholder')}
                 disabled={!isEditMode}
                 defaultValue={user.avatarImageSrc}
-            />);
+            />
+        );
     }
 
     function renderSelfDescriptionInput() {
@@ -107,7 +112,8 @@ function UserDetailsForm({ formSave, user }: { formSave: FormSave, user: any }) 
                 placeholder={t('p.selfDescriptionInputPlaceholder')}
                 defaultValue={user.selfDescription}
                 disabled={!isEditMode}
-            />);
+            />
+        );
     }
 
     function renderButtonsRow() {
@@ -133,9 +139,7 @@ function UserDetailsForm({ formSave, user }: { formSave: FormSave, user: any }) 
     }
 
     function renderButton(Button: any, onClick: any, label: string, type?: string) {
-        return (
-            <Button onClick={onClick} type={type}>{t(label)} </Button>
-        )
+        return <Button onClick={onClick} type={type}>{t(label)} </Button>
     }
 }
 

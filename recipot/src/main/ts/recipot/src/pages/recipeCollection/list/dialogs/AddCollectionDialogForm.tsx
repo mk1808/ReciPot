@@ -1,16 +1,14 @@
-import { Stack, Form } from "react-bootstrap";
-import MyButton from "../../../../components/basicUi/MyButton";
+import { Form } from "react-bootstrap";
 import MyInput from "../../../../components/basicUi/MyInput";
 import { useTranslation } from 'react-i18next';
 import { forwardRef, useImperativeHandle, useReducer, useRef, useState } from "react";
-import ConfirmCancelButtons from "../../../../components/basicUi/ConfirmCancelButtons";
 import { FormSave, MyForm } from "../../../../data/utilTypes";
-import { checkIfAllValid, checkInputValidity, getEmptyForm, getNewState, inputAttributes, preventFurtherAction } from "../../../../utils/FormInputUtils";
-import AddCollectionDialog from "../dialogs/AddCollectionDialog";
+import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewState, inputAttributes, preventFurtherAction } from "../../../../utils/FormInputUtils";
+import { RecipeCollection } from "../../../../data/types";
 
-function AddCollectionDialogForm({ formSave }: { formSave: FormSave }, ref: any) {
+function AddCollectionDialogForm({ formSave }: { formSave: FormSave<RecipeCollection> }, ref: any) {
     const { t } = useTranslation();
-    const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, getEmptyForm());
+    const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, initEmptyForm());
     const form = useRef<any>();
 
     useImperativeHandle(ref, () => ({

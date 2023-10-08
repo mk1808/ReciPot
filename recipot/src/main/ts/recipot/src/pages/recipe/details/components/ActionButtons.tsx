@@ -14,13 +14,12 @@ import { FiEdit3 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import recipeCollectionsApi from "../../../../api/RecipeCollectionsApi";
 import { initAs } from "../../../../utils/ObjectUtils";
-import { AlertsDispatchContext } from "../../../../context/AlertContext";
-import { showSuccessAlert } from "../../../../utils/RestUtils";
+import useAlerts from "../../../../hooks/useAlerts";
 
 function ActionButtons({ recipe, favCollection, isOwner, user }: { recipe: Recipe, favCollection: RecipeCollection, isOwner: boolean, user: any }) {
     const { t } = useTranslation();
+    const alerts = useAlerts();
     const navigate = useNavigate();
-    const alertDispatch = useContext(AlertsDispatchContext);
     const [showModalAddToCollection, setShowModalAddToCollection] = useState(false);
     const [showModalShare, setShowModalShare] = useState(false);
     const [showModalChangeVisibility, setShowModalChangeVisibility] = useState(false);
@@ -38,13 +37,13 @@ function ActionButtons({ recipe, favCollection, isOwner, user }: { recipe: Recip
     const addOrRemoveFromFavourites = () => {
         if (isInFavCollection) {
             recipeCollectionsApi.deleteRecipeFromCollection(favCollection.id, recipe.id,
-                () => { showSuccessAlert(t('p.recipeRemovedFromCollection'), alertDispatch); setIsInFavCollection(false); })
+                () => { alerts.showSuccessAlert(t('p.recipeRemovedFromCollection')); setIsInFavCollection(false); })
 
             return;
         }
         const recipeCollectionItem: RecipeCollectionItem = initAs<RecipeCollectionItem>({ recipe: recipe })
         recipeCollectionsApi.addCollectionItem(favCollection.id, recipeCollectionItem,
-            () => { showSuccessAlert(t('p.addedToCollection'), alertDispatch); setIsInFavCollection(true); });
+            () => { alerts.showSuccessAlert(t('p.addedToCollection')); setIsInFavCollection(true); });
     }
 
     useEffect(() => {
@@ -53,57 +52,53 @@ function ActionButtons({ recipe, favCollection, isOwner, user }: { recipe: Recip
         checkFavourite();
     }, [user])
 
-    return (<>
-        <Stack direction="horizontal" className="align-center action-buttons justify-content-end">
+    return (
+        <>
+            <Stack direction="horizontal" className="align-center action-buttons justify-content-end">
+                {isUser &&
+                    <div>
+                        <Tooltip placement="bottom" title={t(getAddToFavText())}>
+                            <MyButton.Primary onClick={addOrRemoveFromFavourites} className="round mx-4">{getAddToFavIcon()}</MyButton.Primary>
+                        </Tooltip>
+                    </div>
+                }
+                {isUser &&
+                    <div>
+                        <Tooltip placement="bottom" title={t('p.addToCollectionButton')}>
+                            <MyButton.Primary onClick={() => setShowModalAddToCollection(true)} className="round mx-4"><BsCollectionFill /></MyButton.Primary>
+                        </Tooltip>
+                    </div>
+                }
+                {isUser &&
+                    <div>
+                        <Tooltip placement="bottom" title={t('p.shareRecipeButton')}>
+                            <MyButton.Primary onClick={() => setShowModalShare(true)} className="round mx-4"><BsShare /></MyButton.Primary>
+                        </Tooltip>
+                    </div>}
 
+                {isOwner &&
+                    <div>
+                        <Tooltip placement="bottom" title={t('p.editRecipeButton')}>
+                            <MyButton.Primary onClick={() => navigate(`/recipes/edit/${recipe.id}`)} className="round mx-4"><FiEdit3 /></MyButton.Primary>
+                        </Tooltip>
+                    </div>}
 
-
-            {isUser &&
-                <div>
-                    <Tooltip placement="bottom" title={t(getAddToFavText())}>
-                        <MyButton.Primary onClick={addOrRemoveFromFavourites} className="round mx-4">{getAddToFavIcon()}</MyButton.Primary>
-                    </Tooltip>
-                </div>
-            }
-            {isUser &&
-                <div>
-                    <Tooltip placement="bottom" title={t('p.addToCollectionButton')}>
-                        <MyButton.Primary onClick={() => setShowModalAddToCollection(true)} className="round mx-4"><BsCollectionFill /></MyButton.Primary>
-                    </Tooltip>
-                </div>
-            }
-            {isUser &&
-                <div>
-                    <Tooltip placement="bottom" title={t('p.shareRecipeButton')}>
-                        <MyButton.Primary onClick={() => setShowModalShare(true)} className="round mx-4"><BsShare /></MyButton.Primary>
-                    </Tooltip>
-                </div>}
-
-            {isOwner &&
-                <div>
-                    <Tooltip placement="bottom" title={t('p.editRecipeButton')}>
-                        <MyButton.Primary onClick={() => navigate(`/recipes/edit/${recipe.id}`)} className="round mx-4"><FiEdit3 /></MyButton.Primary>
-                    </Tooltip>
-                </div>}
-
-            {isOwner &&
-                <div>
-                    <Tooltip placement="bottom" title={t('p.changeRecipeVisibilityButton')}>
-                        <MyButton.Primary onClick={() => setShowModalChangeVisibility(true)} className="round mx-4" >{getAccessTypeIcon()}</MyButton.Primary>
-                    </Tooltip>
-                </div>}
-
-
-        </Stack>
-        {renderDialogs()}
-    </>)
+                {isOwner &&
+                    <div>
+                        <Tooltip placement="bottom" title={t('p.changeRecipeVisibilityButton')}>
+                            <MyButton.Primary onClick={() => setShowModalChangeVisibility(true)} className="round mx-4" >{getAccessTypeIcon()}</MyButton.Primary>
+                        </Tooltip>
+                    </div>}
+            </Stack>
+            {renderDialogs()}
+        </>
+    )
     function renderDialogs() {
         return (
             <>
-                <AddToCollectionDialog showModal={showModalAddToCollection} handleClose={() => setShowModalAddToCollection(false)} data={recipe}></AddToCollectionDialog>
-                <ShareRecipeDialog showModal={showModalShare} handleClose={() => setShowModalShare(false)} data={recipe}></ShareRecipeDialog>
-                <ChangeVisibilityDialog showModal={showModalChangeVisibility} handleClose={() => setShowModalChangeVisibility(false)} handleSuccess={setAccessType} data={recipe} accessType={accessType}></ChangeVisibilityDialog>
-
+                <AddToCollectionDialog showModal={showModalAddToCollection} handleClose={() => setShowModalAddToCollection(false)} data={recipe} />
+                <ShareRecipeDialog showModal={showModalShare} handleClose={() => setShowModalShare(false)} data={recipe} />
+                <ChangeVisibilityDialog showModal={showModalChangeVisibility} handleClose={() => setShowModalChangeVisibility(false)} handleSuccess={setAccessType} data={recipe} accessType={accessType} />
             </>
         )
     }

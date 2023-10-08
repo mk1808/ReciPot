@@ -1,12 +1,11 @@
 import { createContext, useEffect, Context, useReducer, useContext, useRef } from "react";
 import authApi from "../api/AuthApi";
 import { AppUser, Response } from "../data/types";
-import { showErrorAlert, showSuccessAlert } from "../utils/RestUtils";
 import { useTranslation } from "react-i18next";
-import { AlertsDispatchContext } from "./AlertContext";
 import { ApiRequestSendManager } from "../utils/ApiRequestSendManager";
+import useAlerts from "../hooks/useAlerts";
 
-export const UsersContext: Context<{ user?: AppUser }> = createContext({});
+export const UsersContext = createContext<AppUser | undefined>(undefined);
 
 export const UsersDispatchContext = createContext<Function>(() => { });
 
@@ -14,7 +13,7 @@ const searchRequestManager = ApiRequestSendManager();
 
 export const UserContextProvider = ({ children }: any) => {
     const { t } = useTranslation();
-    const alertsDispatchContext = useContext(AlertsDispatchContext);
+    const alerts = useAlerts(); 
     const [user, dispatch]: [any, Function] = useReducer(
         usersReducer, null
     );
@@ -35,13 +34,13 @@ export const UserContextProvider = ({ children }: any) => {
     function onError(response: any) {
         searchRequestManager.unlock();
         if (user) {
-            showErrorAlert(t("p.userTokenTimeout"), alertsDispatchContext);
+            alerts.showErrorAlert(t("p.userTokenTimeout"));
         }
         dispatch({ user: null, type: 'logged' });
     };
 
     function onSuccessLogout(response: Response<any>) {
-        showSuccessAlert(t(response.message), alertsDispatchContext);
+        alerts.showSuccessAlert(t(response.message));
     };
 
     function refreshUser() {
@@ -74,7 +73,7 @@ export const UserContextProvider = ({ children }: any) => {
     }, [])
 
     return (
-        <UsersContext.Provider value={{ user }}>
+        <UsersContext.Provider value={user}>
             <UsersDispatchContext.Provider value={dispatch}>
                 {children}
             </UsersDispatchContext.Provider>

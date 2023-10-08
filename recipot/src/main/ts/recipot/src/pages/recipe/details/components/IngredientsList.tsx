@@ -44,15 +44,17 @@ function IngredientList({ recipe }: { recipe: Recipe }) {
     }
 
     if (shouldRenderIngredients()) {
-        return (<>
-            <div className="mb-5 px-5 ingredients">
-                <MyHeader title={t('p.ingredients')} level="4" />
-                <div className="px-3 list ">
-                    {renderIngredients()}
+        return (
+            <>
+                <div className="mb-5 px-5 ingredients">
+                    <MyHeader title={t('p.ingredients')} level="4" />
+                    <div className="px-3 list ">
+                        {renderIngredients()}
+                    </div>
                 </div>
-            </div>
-            <hr />
-        </>);
+                <hr />
+            </>
+        );
     }
     return (<></>);
 

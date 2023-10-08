@@ -1,20 +1,19 @@
 import { useContext, useRef } from "react";
 import CustomModal from "../../../../components/basicUi/CustomModal";
-import { getEmptyFormSave } from "../../../../utils/FormInputUtils";
 import { useTranslation } from "react-i18next";
 import AddCollectionDialogForm from "./AddCollectionDialogForm";
 import { RecipeCollectionListDispatchContext } from "../context/RecipeCollectionListContext";
 import recipeCollectionsApi from "../../../../api/RecipeCollectionsApi";
 import { RecipeCollection, Response } from "../../../../data/types";
-import { AlertsDispatchContext } from "../../../../context/AlertContext";
-import { onShowAlertOnErrorResponse, showSuccessAlert } from "../../../../utils/RestUtils";
+import useAlerts from "../../../../hooks/useAlerts";
+import { initFormSave } from "../../../../utils/FormInputUtils";
 
 function AddCollectionDialog({ showModal, handleClose }: { showModal: boolean, handleClose: any }) {
     const { t } = useTranslation();
     const collectionsDispatchContext = useContext(RecipeCollectionListDispatchContext);
-    const alertsDispatchContext = useContext(AlertsDispatchContext);
+    const alerts = useAlerts();
 
-    const formSave: any = getEmptyFormSave();
+    const formSave = initFormSave<RecipeCollection>();
     const form = useRef<any>();
 
     formSave.onSubmit = function (formValue: any) {
@@ -22,12 +21,12 @@ function AddCollectionDialog({ showModal, handleClose }: { showModal: boolean, h
         recipeCollectionsApi.createCollection(newCollection, formSave.onSuccess, formSave.onError)
     }
     formSave.onSuccess = function () {
-        showSuccessAlert(t("p.recipesCollectionSaved"), alertsDispatchContext);
+        alerts.showSuccessAlert(t("p.recipesCollectionSaved"));
         collectionsDispatchContext({ type: 'refreshCollectionsList' });
         handleClose();
     }
     formSave.onError = function (response: Response<any>) {
-        onShowAlertOnErrorResponse(response, alertsDispatchContext, t);
+        alerts.onShowAlertOnErrorResponse(response);
     }
 
     function myHandleSubmit() {
@@ -41,12 +40,7 @@ function AddCollectionDialog({ showModal, handleClose }: { showModal: boolean, h
     );
 
     function renderContent() {
-        return (
-            <>
-                <AddCollectionDialogForm formSave={formSave} ref={form}></AddCollectionDialogForm>
-
-            </>
-        )
+        return <AddCollectionDialogForm formSave={formSave} ref={form} />
     }
 
 }

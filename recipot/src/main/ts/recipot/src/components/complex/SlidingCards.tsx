@@ -60,13 +60,12 @@ function SlidingCards({ recipes = [], goToRecipeCallback = initFcn<Recipe>() }: 
     }
 
     function renderSingleCard(element: any, index: number) {
-        return <RecipeCard key={index} recipe={element} recipeCallback={goToRecipeCallback}></RecipeCard >
+        return <RecipeCard key={index} recipe={element} recipeCallback={goToRecipeCallback}/>
     }
 
     return (
         <div className="mt-4 mb-5">
-            <SlidingElements recipes={recipes} getSingleElement={renderSingleCard} size={getSliderSize()}></SlidingElements>
-
+            <SlidingElements recipes={recipes} getSingleElement={renderSingleCard} size={getSliderSize()}/>
         </div>
     );
 }

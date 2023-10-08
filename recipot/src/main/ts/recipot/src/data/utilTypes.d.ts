@@ -3,10 +3,10 @@ export interface MyForm {
     formValidity: any;
 }
 
-export interface FormSave {
-    onSubmit: Function;
-    onSuccess: Function;
-    onError: Function;
+export interface FormSave<T> {
+    onSubmit: (t: T) => any;
+    onSuccess: (t: Response<T>) => any;
+    onError: (t: Response<T>) => any;
 }
 
 export interface Enums {
