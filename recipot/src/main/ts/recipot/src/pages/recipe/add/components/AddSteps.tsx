@@ -85,7 +85,7 @@ function AddSteps() {
     function renderStepInput(step: any, index: number) {
         return (
             <MyTextarea
-                required={true}
+                required
                 label={t('p.step')}
                 placeholder={t('p.step')}
                 rows={4}

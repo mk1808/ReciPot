@@ -42,7 +42,7 @@ function MyFileInput({
             <Form.Control
                 required={required}
                 ref={inputRef}
-                type={"file"}
+                type="file"
                 placeholder={placeholder}
                 disabled={disabled}
                 onChange={onChangeCallback}

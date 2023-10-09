@@ -17,7 +17,7 @@ function RecipeAdd({
     const { t } = useTranslation();
     return (
         <AddRecipeContextProvider editedRecipe={recipe}>
-            <Form noValidate validated={true}>
+            <Form noValidate validated>
                 <Stack className="justify-content-center py-5 recipe-add-page" direction="horizontal">
                     <div className="mb-2 basic-container-large basic-container-border">
 

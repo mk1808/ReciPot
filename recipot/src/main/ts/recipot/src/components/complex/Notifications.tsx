@@ -30,7 +30,7 @@ function Notifications({
 
     return (
         <div className="notifications">
-            <OverlayTrigger trigger="click" placement="bottom" overlay={renderPopover()} rootClose={true}>
+            <OverlayTrigger trigger="click" placement="bottom" overlay={renderPopover()} rootClose>
                 <div className="icon">
                     {renderIcon()}
                 </div>

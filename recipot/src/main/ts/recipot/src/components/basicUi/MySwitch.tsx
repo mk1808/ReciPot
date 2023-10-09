@@ -39,7 +39,7 @@ function MySwitch({
         <Form.Check
             required={required}
             ref={inputRef}
-            type={'switch'}
+            type='switch'
             id={name}
             label={label}
             disabled={disabled}

@@ -40,7 +40,7 @@ function ShareRecipeForm({
     };
 
     return (
-        <Form noValidate validated={true} className="mt-3 text-start" ref={form}>
+        <Form noValidate validated className="mt-3 text-start" ref={form}>
             {renderFilterNameInput()}
             {renderCommentInput()}
         </Form>

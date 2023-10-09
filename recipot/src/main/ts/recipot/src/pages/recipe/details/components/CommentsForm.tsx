@@ -34,7 +34,7 @@ function CommentsForm({
         return getNewState(state, action, action.value, checkInputValidity);
     }
     return (
-        <Form noValidate validated={true} onSubmit={handleSubmit}>
+        <Form noValidate validated onSubmit={handleSubmit}>
             {renderTextArea()}
             {renderButton()}
         </Form>
@@ -64,7 +64,7 @@ function CommentsForm({
                     defaultValue={(userOpinion && userOpinion.rating) || 0}
                     {...inputAttributes("value", myForm, dispatchForm)}
                 />
-                <MyButton.Primary type="submit" className="button-400 save-btn" disabled={false}>
+                <MyButton.Primary type="submit" className="button-400 save-btn" >
                     {t('p.saveComment')}
                 </MyButton.Primary>
             </Stack>

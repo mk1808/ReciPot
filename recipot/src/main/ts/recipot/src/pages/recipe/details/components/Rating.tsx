@@ -19,10 +19,10 @@ function Rating({
             <div className="pe-0 star-col">
                 <StarSelectInput
                     required
-                    disabled={true}
+                    disabled
                     defaultValue={roundToHalf(recipe.averageRating)}
                     name=""
-                    isValid={true}
+                    isValid
                     onChange={(value: any) => { }}
                 />
             </div>

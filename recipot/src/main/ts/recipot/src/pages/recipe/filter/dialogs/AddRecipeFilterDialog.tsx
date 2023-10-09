@@ -49,7 +49,7 @@ function AddRecipeFilterDialog({
     }
 
     return (
-        <CustomModal shouldShow={showModal} onClose={onClose} title={'p.recipeFilterSave'}
+        <CustomModal shouldShow={showModal} onClose={onClose} title='p.recipeFilterSave'
             onSubmit={myHandleSubmit}>
             {renderContent()}
         </CustomModal>

@@ -31,7 +31,7 @@ function LoginForm({
     };
 
     return (
-        <Form noValidate validated={true} onSubmit={handleSubmit}>
+        <Form noValidate validated onSubmit={handleSubmit}>
             <Col className="main-column">
                 <Row className="row">
                     {renderInputs()}

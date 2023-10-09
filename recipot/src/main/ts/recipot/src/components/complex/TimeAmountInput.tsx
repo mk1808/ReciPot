@@ -96,7 +96,7 @@ function TimeAmountInput({
         <Form.Group className="mb-3 time-amount-input" controlId={name}>
             {label && <Form.Label>{label}</Form.Label>}
             <Stack direction="horizontal">
-                <Form.Control placeholder={placeholder} disabled={true} value={getInputValue()} ref={inputRef} />
+                <Form.Control placeholder={placeholder} disabled value={getInputValue()} ref={inputRef} />
                 {renderClockButton()}
             </Stack>
         </Form.Group>

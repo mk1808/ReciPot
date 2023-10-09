@@ -68,7 +68,7 @@ function UpperLeftSide() {
             <MyInput
                 label={t('p.name')}
                 placeholder={t('p.name')}
-                required={true}
+                required
                 {...inputAttributesForContext("name", onChange, getValidity, undefined, formFields.formValue)}
             />
         )
