@@ -66,7 +66,6 @@ function AddToCollectionForm({
     function renderCollectionInput() {
         return (
             <FilteredSelect
-                multiple={false}
                 allowNew
                 options={filteredCollections}
                 onSearchCallback={onCategorySearchCallback}

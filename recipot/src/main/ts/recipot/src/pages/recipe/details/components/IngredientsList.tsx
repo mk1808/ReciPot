@@ -77,7 +77,6 @@ function IngredientList({
         return (
             <div className="my-3" key={ingredientId}>
                 <MyCheckbox
-                    required={false}
                     isValid
                     name="ingredient"
                     label={renderIngredientLabel(singleIngredient)}

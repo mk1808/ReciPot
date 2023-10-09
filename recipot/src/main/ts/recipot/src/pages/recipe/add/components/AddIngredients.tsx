@@ -129,7 +129,6 @@ function AddIngredients() {
     function renderIngredientInput(index: number) {
         return (
             <FilteredSelect
-                multiple={false}
                 className="mb-3"
                 label={t("p.ingredient")}
                 options={filteredIngredients}

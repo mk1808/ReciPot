@@ -50,7 +50,6 @@ function PrivateNoteForm({
         return (
             <div className="field">
                 <MyTextarea
-                    required={false}
                     label=""
                     placeholder={t('p.addPrivateNote')}
                     rows={5}
@@ -64,7 +63,7 @@ function PrivateNoteForm({
     function renderButton() {
         return (
             <Stack direction="horizontal" className="justify-content-end">
-                <MyButton.Primary type="submit" className="button-400 edit-save-btn" disabled={false}>
+                <MyButton.Primary type="submit" className="button-400 edit-save-btn" >
                     {isEditModeOn && t('p.savePrivateNote')}
                     {!isEditModeOn && t('p.editPrivateNote')}
                 </MyButton.Primary>
