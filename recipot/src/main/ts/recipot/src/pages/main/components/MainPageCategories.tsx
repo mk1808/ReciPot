@@ -9,18 +9,18 @@ import useMyNav from "../../../hooks/useMyNav";
 
 function CategoryCards() {
     const [allCategories, setAllCategories] = useState<any[]>([]);
-    const [readyCategories, setReadyCategorires] = useState<any[]>([]);
+    const [readyCategories, setReadyCategories] = useState<any[]>([]);
     const nav = useMyNav();
     const numInRow = 3;
     const onCategoryClick = (category: CategoryDto) => nav.goToCategoryFilters(category);
-    
+
     function setCategoriesInRows(categories: Category[]) {
         let newTab = [...readyCategories];
         let noOfRows = Math.ceil(categories.length / numInRow);
         for (let i = 0; i < noOfRows; i++) {
             newTab.push(categories.slice(i * numInRow, i * numInRow + numInRow));
         }
-        setReadyCategorires(newTab);
+        setReadyCategories(newTab);
     }
     useEffect(() => {
         dictionariesApi.getAllCategories((response: Response<any[]>) => {
