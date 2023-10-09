@@ -131,13 +131,13 @@ function TimeAmountInput({
         );
     }
 
-    function renderValuePicker(value: string, max: number, callbackUp: () => void, callbackDown: () => void, callbackInput: (value: number) => void) {
-        const onChange = (event: any) => callbackInput(getValidValue(Number(event.target.value) || 0, max))
+    function renderValuePicker(value: string, max: number, onUp: () => void, onDown: () => void, onChange: (value: number) => void) {
+        const onValueChange = (event: any) => onChange(getValidValue(Number(event.target.value) || 0, max))
         return (
             <Stack className="justify-content-center value-picker">
-                <MyButton.Secondary onClick={callbackUp}><FaAngleUp /></MyButton.Secondary>
-                <Form.Control onChange={onChange} value={value} className="mx-auto" />
-                <MyButton.Secondary onClick={callbackDown}><FaAngleDown /></MyButton.Secondary>
+                <MyButton.Secondary onClick={onUp}><FaAngleUp /></MyButton.Secondary>
+                <Form.Control onChange={onValueChange} value={value} className="mx-auto" />
+                <MyButton.Secondary onClick={onDown}><FaAngleDown /></MyButton.Secondary>
             </Stack>
         );
     }

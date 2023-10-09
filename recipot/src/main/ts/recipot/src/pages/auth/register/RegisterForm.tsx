@@ -22,8 +22,7 @@ function RegisterForm({
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, initEmptyForm());
 
-
-    function handleSubmit(event: any) {
+    function onSubmit(event: any) {
         if (checkIfAllValid(event, myForm)) {
             formSave.onSubmit(myForm.formValue);
         }
@@ -55,7 +54,7 @@ function RegisterForm({
     }
 
     return (
-        <Form noValidate validated onSubmit={handleSubmit}>
+        <Form noValidate validated onSubmit={onSubmit}>
             <Col className="main-column">
                 <Row className="row">
                     <MyInput

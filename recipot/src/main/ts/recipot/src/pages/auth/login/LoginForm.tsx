@@ -23,7 +23,7 @@ function LoginForm({
         return getNewState(state, action, action.value, checkInputValidity);
     }
 
-    function handleSubmit(event: any) {
+    function onSubmit(event: any) {
         if (checkIfAllValid(event, myForm)) {
             formSave.onSubmit(myForm.formValue);
         }
@@ -31,7 +31,7 @@ function LoginForm({
     };
 
     return (
-        <Form noValidate validated onSubmit={handleSubmit}>
+        <Form noValidate validated onSubmit={onSubmit}>
             <Col className="main-column">
                 <Row className="row">
                     {renderInputs()}

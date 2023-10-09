@@ -21,8 +21,8 @@ function Main() {
     const { t } = useTranslation();
     const nav = useMyNav();
     const recipeCallback = (recipe: Recipe) => { nav.toRecipe(recipe.id) }
-    const recipeCallbackForSlider = (recipe: Recipe, event: any) => nav.openInBackground({ id: recipe.id }, event);
-    const moreNewRecipesCallback = () => {
+    const onGoToRecipe = (recipe: Recipe, event: any) => nav.openInBackground({ id: recipe.id }, event);
+    const onMoreNewRecipes = () => {
         nav.goToFilters({ recipesSort: { fieldName: 'created', order: 'DESC' } });
     }
     const [randomRecipe, setRandomRecipe] = useState(initAs<Recipe>());
@@ -69,9 +69,9 @@ function Main() {
             <div>
                 <Stack direction="horizontal" gap={3} className='flex-wrap justify-content-center py-3 title'>
                     <MyHeader title={t('p.newestRecipes')} level="2" dispLevel="3" />
-                    <MyButton.Primary onClick={moreNewRecipesCallback}>{t('p.more')} <FaMagnifyingGlass className="ms-3" /> </MyButton.Primary>
+                    <MyButton.Primary onClick={onMoreNewRecipes}>{t('p.more')} <FaMagnifyingGlass className="ms-3" /> </MyButton.Primary>
                 </Stack>
-                <SlidingCards recipes={recipes} goToRecipeCallback={recipeCallbackForSlider} />
+                <SlidingCards recipes={recipes} onGoToRecipe={onGoToRecipe} />
                 <div />
             </div>
         )

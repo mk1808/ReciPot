@@ -46,7 +46,7 @@ function ActionButtons({
         let isInFav = items && items.length > 0 && items.filter((item) => item.recipe.id === recipe.id).length > 0;
         setIsInFavCollection(isInFav);
     }
-    const addOrRemoveFromFavourites = () => {
+    const onToggleFavourites = () => {
         if (isInFavCollection) {
             recipeCollectionsApi.deleteRecipeFromCollection(favCollection.id, recipe.id,
                 () => { alerts.showSuccessAlert(t('p.recipeRemovedFromCollection')); setIsInFavCollection(false); })
@@ -70,7 +70,7 @@ function ActionButtons({
                 {isUser &&
                     <div>
                         <Tooltip title={t(getAddToFavText())}>
-                            <MyButton.Primary onClick={addOrRemoveFromFavourites} className="round mx-4">{getAddToFavIcon()}</MyButton.Primary>
+                            <MyButton.Primary onClick={onToggleFavourites} className="round mx-4">{getAddToFavIcon()}</MyButton.Primary>
                         </Tooltip>
                     </div>
                 }

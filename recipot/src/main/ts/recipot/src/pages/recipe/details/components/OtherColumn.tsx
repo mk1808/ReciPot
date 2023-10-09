@@ -7,14 +7,14 @@ import CategoryCard from "../../../../components/complex/CategoryCard";
 import MyHeader from "../../../../components/basicUi/MyHeader";
 import useMyNav from "../../../../hooks/useMyNav";
 
-type Props =  { 
-    recipes:     Recipe[] 
+type Props = {
+    recipes: Recipe[]
 };
 
-function OtherColumn({ 
-    recipes 
+function OtherColumn({
+    recipes
 }: Props) {
-    
+
     const { t } = useTranslation();
     const [allCategories, setAllCategories] = useState<CategoryDto[]>([]);
     const [loaded, setloaded] = useState<any>(false);
@@ -27,7 +27,7 @@ function OtherColumn({
     const categoriesRef = useRef<any>(null);
     const height = containerRef.current?.clientHeight
 
-    const recipeCallback = (recipe: Recipe, event: any,) => nav.openInBackground({ id: recipe.id }, event);
+    const onGoToRecipe = (recipe: Recipe, event: any,) => nav.openInBackground({ id: recipe.id }, event);
     const onCategoryClick = (category: any) => nav.goToCategoryFilters(category);
 
     useEffect(() => {
@@ -84,7 +84,7 @@ function OtherColumn({
             <div className="list mt-1">
                 {(newRecipes.length > 0 ? newRecipes : recipes.slice(0, 1)).map((recipe, index) => {
                     return (
-                        <RecipeCard recipe={recipe} onGoToRecipe={recipeCallback} key={index} className="mx-auto mb-3" ref={recipeCardRef} />
+                        <RecipeCard recipe={recipe} onGoToRecipe={onGoToRecipe} key={index} className="mx-auto mb-3" ref={recipeCardRef} />
                     )
                 })}
             </div>

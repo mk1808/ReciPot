@@ -16,8 +16,8 @@ function FilteredRecipesColumn() {
     const isLoaded = recipeFilterContext.isLoaded;
     const { t } = useTranslation();
     const nav = useMyNav();
-    const recipeCallback = (recipe: Recipe, event: any) => nav.openInBackground({ id: recipe.id }, event);
-    function loadNextPage() {
+    const onGoToRecipe = (recipe: Recipe, event: any) => nav.openInBackground({ id: recipe.id }, event);
+    function onLoadNextPage() {
         recipeFilterDispatchContext({
             type: 'loadRecipesPage',
             value: (recipeFilterContext.currentPage?.number || 0) + 1
@@ -46,7 +46,7 @@ function FilteredRecipesColumn() {
             <div key={pageId} id={pageId}>
                 <PageDivider text={`${t('p.page')} ${index + 1}`} />
                 <Stack direction="horizontal" className="flex-wrap justify-content-center" gap={3}>
-                    {recipes?.map(recipe => <RecipeCard key={recipe.id} recipe={recipe} onGoToRecipe={recipeCallback}/>)}
+                    {recipes?.map(recipe => <RecipeCard key={recipe.id} recipe={recipe} onGoToRecipe={onGoToRecipe} />)}
                 </Stack>
             </div>
         );
@@ -55,7 +55,7 @@ function FilteredRecipesColumn() {
     function renderLoadNextPageButton() {
         const currentPage = recipeFilterContext.currentPage;
         if (recipeFilterContext.recipesPages?.length !== currentPage?.totalPages) {
-            return <MorePagesButton text={t("p.loadNextRecipesPage")} loadNextPage={loadNextPage} />
+            return <MorePagesButton text={t("p.loadNextRecipesPage")} onLoadNextPage={onLoadNextPage} />
         }
         return null;
     }

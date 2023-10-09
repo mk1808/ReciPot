@@ -57,12 +57,16 @@ function MyAlert({
         return () => { clearTimeout(timeout); };
     }, []);
 
+    function onAlertClose() {
+        setShow(false);
+    }
+
     return (
         <>
             {show &&
                 <Alert
                     variant={variant}
-                    onClose={() => setShow(false)}
+                    onClose={onAlertClose}
                     dismissible
                 >
                     {children}

@@ -10,7 +10,7 @@ function NoAccess() {
             <h1>{t('p.noAccess')}</h1>
             <br />
 
-            <MyButton.Primary className="button-400" onClick={() => nav.toLogin()}>
+            <MyButton.Primary className="button-400" onClick={nav.toLogin}>
                 {t('p.login')}
             </MyButton.Primary>
         </>

@@ -30,7 +30,7 @@ function RecipesSortForm() {
         return options;
     }
 
-    function handleSearch() {
+    function onSearch() {
         recipeFilterDispatchContext({
             type: "filter"
         })
@@ -61,7 +61,7 @@ function RecipesSortForm() {
     }
 
     function renderSearchButton() {
-        return <MyButton.Primary onClick={handleSearch}>{t('p.search')}</MyButton.Primary >
+        return <MyButton.Primary onClick={onSearch}>{t('p.search')}</MyButton.Primary >
     }
 }
 

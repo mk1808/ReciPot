@@ -15,18 +15,18 @@ function SideOffcanvas({
 }: Props) {
 
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const onClose = () => setShow(false);
+    const onShow = () => setShow(true);
 
     return (
         <>
-            <Button variant="primary" onClick={handleShow} className="side-offcanvas-button">
+            <Button variant="primary" onClick={onShow} className="side-offcanvas-button">
                 <FaArrowLeftLong />
             </Button>
 
             <Offcanvas
                 show={show}
-                onHide={handleClose}
+                onHide={onClose}
                 scroll
                 backdrop={false}
                 placement="end"

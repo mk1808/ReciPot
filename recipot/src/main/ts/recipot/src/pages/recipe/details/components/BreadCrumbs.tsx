@@ -35,11 +35,11 @@ function BreadCrumbs({
         setCategories(allCategories);
     }
 
-    function goToMainPage() {
+    function onGoToMainPage() {
         nav.toMain();
     }
 
-    function goToCategoryFilter(category: Category) {
+    function onGoToCategoryFilter(category: Category) {
         nav.goToCategoryFilters(category);
     }
 
@@ -54,8 +54,8 @@ function BreadCrumbs({
             <Stack direction="horizontal" gap={3} key={index}>
                 <FaArrowRight />
                 <Breadcrumb className="mb-1">
-                    <Breadcrumb.Item active onClick={goToMainPage} className="cursor-pointer">{t("p.breadCrumbsMain")}</Breadcrumb.Item>
-                    {categoryRow.map((category) => { return <Breadcrumb.Item active key={category.name} className="cursor-pointer" onClick={() => goToCategoryFilter(category)}>{category.name}</Breadcrumb.Item> })}
+                    <Breadcrumb.Item active onClick={onGoToMainPage} className="cursor-pointer">{t("p.breadCrumbsMain")}</Breadcrumb.Item>
+                    {categoryRow.map((category) => { return <Breadcrumb.Item active key={category.name} className="cursor-pointer" onClick={() => onGoToCategoryFilter(category)}>{category.name}</Breadcrumb.Item> })}
                     <Breadcrumb.Item active className="cursor-default">{recipe.name}</Breadcrumb.Item>
                 </Breadcrumb>
             </Stack>

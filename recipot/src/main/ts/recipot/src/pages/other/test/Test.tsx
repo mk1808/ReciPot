@@ -195,7 +195,7 @@ function Test() {
                     <RecipeStepsNumbers steps={recipeSteps}></RecipeStepsNumbers>
                 </div>
                 <div>
-                    <SlidingCards recipes={recipes} goToRecipeCallback={recipeCallbackForSlider}></SlidingCards>
+                    <SlidingCards recipes={recipes} onGoToRecipe={recipeCallbackForSlider}></SlidingCards>
                 </div>
 
                 <div>

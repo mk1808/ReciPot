@@ -93,7 +93,7 @@ function FilteredSelect<T>({
         setCreatedValues(removeValue(createdValues, value));
     }
 
-    function createNewValueBySearchInput() {
+    function onDropdownToggle() {
         if (canCreateNewValue(allowNew, options, searchInputValue)) {
             if (multiple) {
                 createForMultipleMode();
@@ -158,7 +158,7 @@ function FilteredSelect<T>({
             buttonContent: renderButtonContent(),
             dropdownContent: renderDropdownContent(),
             className: getDropdownComponentStyleClasses(),
-            onDropdownToggle: createNewValueBySearchInput,
+            onDropdownToggle: onDropdownToggle,
             disabled
         })
     }

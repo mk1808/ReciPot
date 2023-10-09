@@ -9,7 +9,7 @@ import useAlerts from "../../../../hooks/useAlerts";
 
 function SavedRecipeFilters() {
     const { t } = useTranslation();
-    const alerts = useAlerts();  
+    const alerts = useAlerts();
 
     const recipeFilterContext = useContext(RecipeFilterContext);
     const recipeFilterDispatchContext = useContext(RecipeFilterDispatchContext);
@@ -47,8 +47,8 @@ function SavedRecipeFilters() {
             <ComplexListElement
                 key={recipeFilter.id}
                 index={index}
-                onSelectCallback={onFilterSelect}
-                onDeleteCallback={onRecipeFilterDelete}
+                onSelect={onFilterSelect}
+                onDelete={onRecipeFilterDelete}
                 element={recipeFilter}
                 isActive={recipeFilter.id === recipeFilterContext.activeRecipeFilterId}
             />);

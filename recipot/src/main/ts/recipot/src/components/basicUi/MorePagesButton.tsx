@@ -3,16 +3,16 @@ import MyButton from "./MyButton";
 
 type Params = {
     text: string,
-    loadNextPage: () => any
+    onLoadNextPage: () => any
 };
 
 function MorePagesButton({
     text,
-    loadNextPage
+    onLoadNextPage
 }: Params) {
 
     return (
-        <MyButton.OutlinePrimary onClick={loadNextPage} className="round-button my-5">
+        <MyButton.OutlinePrimary onClick={onLoadNextPage} className="round-button my-5">
             <div className="mb-3">{text}</div>
             <FaArrowDown />
         </MyButton.OutlinePrimary>

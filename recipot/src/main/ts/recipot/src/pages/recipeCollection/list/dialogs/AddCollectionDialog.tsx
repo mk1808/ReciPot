@@ -38,12 +38,12 @@ function AddCollectionDialog({
         alerts.onShowAlertOnErrorResponse(response);
     }
 
-    function myHandleSubmit() {
+    function onSubmit() {
         form.current.submitForm();
     }
 
     return (
-        <CustomModal shouldShow={showModal} onClose={onClose} onSubmit={myHandleSubmit} title='p.addingNewCollection'>
+        <CustomModal shouldShow={showModal} onClose={onClose} onSubmit={onSubmit} title='p.addingNewCollection'>
             {renderContent()}
         </CustomModal>
     );
