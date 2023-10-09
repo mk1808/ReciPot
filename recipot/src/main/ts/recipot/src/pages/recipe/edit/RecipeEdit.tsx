@@ -7,7 +7,7 @@ import { initAs } from "../../../utils/ObjectUtils";
 
 function RecipeEdit() {
     const params = useParams();
-    const [isLoaded, setIsLoaded] = useState<boolean>(false);
+    const [, setIsLoaded] = useState<boolean>(false);
     const [recipe, setRecipe] = useState<any | Recipe>(initAs());
     const id: string = params.id ?? "";
     function onGetRecipeSuccess(response: any) {
@@ -19,7 +19,7 @@ function RecipeEdit() {
         recipesApi.getRecipe(id, onGetRecipeSuccess);
 
     }, [])
-    return <RecipeAdd recipe = {recipe}/>
+    return <RecipeAdd recipe={recipe} />
 }
 
 export default RecipeEdit;

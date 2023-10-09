@@ -14,7 +14,7 @@ function RecipeStepsNumbers({
   scrollHeight = 300
 }: Props) {
 
-  const [scrollTop, setScrollTop] = useState(0);
+  const [, setScrollTop] = useState(0);
   const circleElements = useRef<any[]>([]);
 
   useEffect(() => {
