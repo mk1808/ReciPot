@@ -237,7 +237,7 @@ function RecipeFiltersColumn() {
         return (
             <FilteredSelect
                 {...inputAttributesForContextWithoutValidity("hashTags", t("p.hashTagFilter"), onChange, recipesFilterForm)}
-                multiple={true}
+                multiple
                 options={filteredHashTags}
                 onSearchCallback={(phrase: string) => onFilteredHashTagSearch(phrase, setFilteredHashTags)}
                 onSelectCallback={onHashTagChange}
@@ -249,7 +249,7 @@ function RecipeFiltersColumn() {
     function renderIngredientInput() {
         return (
             <FilteredSelect
-                multiple={true}
+                multiple
                 {...inputAttributesForContextWithoutValidity("ingredients", t("p.ingredientFilter"), onChange, recipesFilterForm)}
                 options={filteredIngredients}
                 onSearchCallback={(phrase: string) => onFilteredIngredientSearch(phrase, setFilteredIngredients)}
@@ -263,12 +263,12 @@ function RecipeFiltersColumn() {
         return (
             <FilteredSelect
                 {...inputAttributesForContextWithoutValidity("categories", t("p.categoryFilter"), onChange, recipesFilterForm)}
-                multiple={true}
+                multiple
                 options={filteredCategories}
                 onSearchCallback={onCategorySearchCallback}
                 onSelectCallback={onCategoriesChange}
                 highlightValidity={false}
-                hierarchical={true}
+                hierarchical
                 className="mb-3"
             />)
     }
@@ -292,7 +292,7 @@ function RecipeFiltersColumn() {
     }
 
     function renderClearFiltersButton() {
-        return <MyButton.Secondary onClick={() => clearFilter()} >{t('p.clearFilters')}</MyButton.Secondary>
+        return <MyButton.Secondary onClick={clearFilter} >{t('p.clearFilters')}</MyButton.Secondary>
 
     }
 }

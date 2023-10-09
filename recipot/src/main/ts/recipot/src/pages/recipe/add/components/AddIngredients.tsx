@@ -120,7 +120,7 @@ function AddIngredients() {
         return (
             <MyInput
                 label={t('p.unit')}
-                required={true}
+                required
                 className="simple-input"
                 {...dynamicInputAttributesForContext("unit", onChange, getIngredientValidity, index, undefined, getDefaultValue("unit", index, other))}
             />
@@ -134,8 +134,8 @@ function AddIngredients() {
                 label={t("p.ingredient")}
                 options={filteredIngredients}
                 onSearchCallback={(phrase: string) => onFilteredIngredientSearch(phrase, setFilteredIngredients)}
-                highlightValidity={true}
-                allowNew={true}
+                highlightValidity
+                allowNew
                 onSelectCallback={(value: string) => onChange(value, "ingredient", index)}
                 isValid={getIngredientValidity("ingredient", index)}
                 defaultValue={getDefaultValue("ingredient", index, other)}

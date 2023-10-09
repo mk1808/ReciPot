@@ -40,7 +40,7 @@ function PrivateNoteForm({
     };
 
     return (
-        <Form noValidate validated={true} onSubmit={handleSubmit}>
+        <Form noValidate validated onSubmit={handleSubmit}>
             {renderTextArea()}
             {renderButton()}
         </Form>

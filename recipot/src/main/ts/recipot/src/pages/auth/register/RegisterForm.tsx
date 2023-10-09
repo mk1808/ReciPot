@@ -55,31 +55,31 @@ function RegisterForm({
     }
 
     return (
-        <Form noValidate validated={true} onSubmit={handleSubmit}>
+        <Form noValidate validated onSubmit={handleSubmit}>
             <Col className="main-column">
                 <Row className="row">
                     <MyInput
-                        required={true}
+                        required
                         label={t('p.username')}
                         placeholder={t('p.username')}
                         defaultValue={defaultValue}
                         {...inputAttributes("login", myForm, dispatchForm)} />
                     <MyInput
-                        required={true}
+                        required
                         label={t('p.mail')}
                         placeholder={t('p.mail')}
                         defaultValue={defaultValue}
                         {...inputAttributes("email", myForm, dispatchForm)} />
                     <MyInput
                         type="password"
-                        required={true}
+                        required
                         label={t('p.password')}
                         placeholder={t('p.password')}
                         defaultValue={defaultValue}
                         {...inputAttributes("password", myForm, dispatchForm)} />
                     <MyInput
                         type="password"
-                        required={true}
+                        required
                         label={t('p.passwordRepeat')}
                         placeholder={t('p.passwordRepeat')}
                         defaultValue={defaultValue}

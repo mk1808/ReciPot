@@ -78,7 +78,7 @@ function IngredientList({
             <div className="my-3" key={ingredientId}>
                 <MyCheckbox
                     required={false}
-                    isValid={true}
+                    isValid
                     name="ingredient"
                     label={renderIngredientLabel(singleIngredient)}
                     onChange={(value: boolean) => onRecipeIngredientCheck(value, ingredientId)}

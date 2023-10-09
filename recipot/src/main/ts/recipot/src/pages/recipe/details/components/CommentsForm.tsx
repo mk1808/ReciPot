@@ -34,7 +34,7 @@ function CommentsForm({
         return getNewState(state, action, action.value, checkInputValidity);
     }
     return (
-        <Form noValidate validated={true} onSubmit={handleSubmit}>
+        <Form noValidate validated onSubmit={handleSubmit}>
             {renderTextArea()}
             {renderButton()}
         </Form>

@@ -48,7 +48,7 @@ function UserDetailsForm({
     };
 
     return (
-        <Form noValidate validated={true} onSubmit={handleSubmit} className='px-lg-5 edit-form'>
+        <Form noValidate validated onSubmit={handleSubmit} className='px-lg-5 edit-form'>
             <Row>
                 <Col md={6} className='d-flex align-items-center justify-content-center'>
                     {renderAvatar()}
@@ -84,7 +84,7 @@ function UserDetailsForm({
                 label={t('p.emailInputLabel')}
                 placeholder={t('p.emailInputPlaceholder')}
                 defaultValue={user.email}
-                disabled={true}
+                disabled
             />);
     }
 
@@ -95,7 +95,7 @@ function UserDetailsForm({
                 label={t('p.loginInputLabel')}
                 placeholder={t('p.loginInputPlaceholder')}
                 defaultValue={user.login}
-                disabled={true}
+                disabled
             />
         );
     }

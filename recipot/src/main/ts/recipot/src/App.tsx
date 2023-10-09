@@ -27,7 +27,6 @@ function App() {
     usersDispatchContext(
       { type: "refresh" }
     )
-    //authApi.login({ username: "randomuser1234567", password: "Password1!" }, () => { }, () => { })
   }, [])
 
   const routes = () => {

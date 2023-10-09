@@ -47,7 +47,7 @@ function MyCheckbox(
         <Form.Check
             required={required}
             ref={inputRef}
-            type={'checkbox'}
+            type='checkbox'
             id={name}
             label={label}
             disabled={disabled}

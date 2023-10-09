@@ -27,7 +27,7 @@ function SideOffcanvas({
             <Offcanvas
                 show={show}
                 onHide={handleClose}
-                scroll={true}
+                scroll
                 backdrop={false}
                 placement="end"
                 className="side-offcanvas-panel"

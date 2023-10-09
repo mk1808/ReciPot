@@ -58,7 +58,7 @@ function AddToCollectionForm({
     };
 
     return (
-        <Form noValidate validated={true} className="mt-3 text-start" ref={form}>
+        <Form noValidate validated className="mt-3 text-start" ref={form}>
             {renderCollectionInput()}
         </Form>
     )
@@ -67,16 +67,16 @@ function AddToCollectionForm({
         return (
             <FilteredSelect
                 multiple={false}
-                allowNew={true}
+                allowNew
                 options={filteredCollections}
                 onSearchCallback={onCategorySearchCallback}
                 onSelectCallback={setSelectedCategory}
-                highlightValidity={true}
-                hierarchical={true}
+                highlightValidity
+                hierarchical
                 className="mb-3"
                 label={t('p.collectionToChooseOrAdd')}
                 required
-                isValid={true}
+                isValid
             />
         )
     }

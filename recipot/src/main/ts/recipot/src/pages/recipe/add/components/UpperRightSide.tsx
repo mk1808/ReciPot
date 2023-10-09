@@ -147,13 +147,13 @@ function UpperRightSide() {
     function renderHashTagInput() {
         return (
             <FilteredSelect
-                multiple={true}
+                multiple
                 className="mb-3"
                 label={t("p.hashTagFilter")}
                 options={filteredHashTags}
                 onSearchCallback={(phrase: string) => onFilteredHashTagSearch(phrase, setFilteredHashTags)}
-                highlightValidity={true}
-                allowNew={true}
+                highlightValidity
+                allowNew
                 isValid={getValidity("hashTags")}
                 onSelectCallback={(value: any) => onFilteredSelectChange(value, "hashTags")}
                 defaultValue={(formFields.formValue && formFields.formValue["hashTags"])}
@@ -164,13 +164,13 @@ function UpperRightSide() {
     function renderCategoryInput() {
         return (
             <FilteredSelect
-                multiple={true}
+                multiple
                 className="mb-3"
                 label={t("p.categoryFilter")}
                 options={filteredCategories}
                 onSearchCallback={onCategorySearchCallback}
-                highlightValidity={true}
-                hierarchical={true}
+                highlightValidity
+                hierarchical
                 isValid={getValidity("categories")}
                 onSelectCallback={(value: any) => onFilteredSelectChange(value, "categories")}
                 defaultValue={(formFields.formValue && formFields.formValue["categories"])}
