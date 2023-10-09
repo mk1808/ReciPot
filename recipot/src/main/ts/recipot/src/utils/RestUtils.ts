@@ -1,5 +1,4 @@
-
-const DEFAULT_IMAGE = 'https://violashop.in/wp-content/uploads/2021/07/Viola-Candescent-Cutlery-Set-3.jpg';
+import defaultRecipeImage from '../assets/images/default_recipe_image.png';
 
 export function createPathParams(params: any) {
     var pathParams = "";
@@ -14,5 +13,5 @@ export function createPathParams(params: any) {
 
 export const onImageLoadError = ({ currentTarget }: any) => {
     currentTarget.onerror = null;
-    currentTarget.src = DEFAULT_IMAGE;
+    currentTarget.src = defaultRecipeImage;
 }

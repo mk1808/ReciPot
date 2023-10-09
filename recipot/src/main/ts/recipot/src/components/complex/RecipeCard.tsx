@@ -45,7 +45,7 @@ function RecipeCard({
                     <div className="description"> {getShorterText(recipe.description, 60)}</div>
                 </div>
 
-                <MyButton.Primary onClick={() => onGoToRecipe(recipe)} className="full-width">{t('p.goToRecipe')}</MyButton.Primary>
+                <MyButton.Primary onClick={(event: any) => onGoToRecipe(recipe, event)} className="full-width">{t('p.goToRecipe')}</MyButton.Primary>
             </Card.Body>
         </Card >
     );

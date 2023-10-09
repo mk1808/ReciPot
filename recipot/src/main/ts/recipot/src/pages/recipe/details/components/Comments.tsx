@@ -13,6 +13,7 @@ import MyHeader from "../../../../components/basicUi/MyHeader";
 import useAlerts from "../../../../hooks/useAlerts";
 import { initFormSave } from "../../../../utils/FormInputUtils";
 import useMyNav from "../../../../hooks/useMyNav";
+import defaultUserAvatar from '../../../../assets/images/default_user_avatar.png';
 
 type Props = {
     opinions: any[],
@@ -112,7 +113,7 @@ function Comments({
     function renderAvatar(comment: any) {
         return (
             <Stack direction="vertical">
-                <MyImage src={comment.authorAvatarImageSrc ?? "https://cdn-icons-png.flaticon.com/512/1077/1077114.png"} height={80} width={80} />
+                <MyImage src={comment.authorAvatarImageSrc ?? defaultUserAvatar} height={80} width={80} />
                 <div>{comment.authorLogin}</div>
             </Stack>
         );

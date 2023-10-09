@@ -11,6 +11,7 @@ import { useReducer, useState } from 'react';
 import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewState, inputAttributes, preventFurtherAction } from '../../utils/FormInputUtils';
 import { MyForm, FormSave } from '../../data/utilTypes';
 import { AppUser } from '../../data/types';
+import defaultUserAvatar from '../../assets/images/default_user_avatar.png';
 
 type Props = {
     formSave: FormSave<AppUser>,
@@ -62,7 +63,7 @@ function UserDetailsForm({
     );
 
     function renderAvatar() {
-        return <MyImage src={user.avatarImageSrc || "https://cdn-icons-png.flaticon.com/512/1077/1077114.png"} />
+        return <MyImage src={user.avatarImageSrc || defaultUserAvatar} />
     }
 
     function renderUserForm() {
