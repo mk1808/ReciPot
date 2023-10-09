@@ -20,12 +20,12 @@ function CategoryCard({
     const CATEGORY_IMAGE_SIZES_HIERARCHY = [160, 100, 60, 40]
     return (
         <div className={"category-card " + className}>
-            {renderCategory(category, 0)}
+            {renderCategory(category, 0, category.id)}
             {renderChildren(category.children, 1)}
         </div>
     )
 
-    function renderCategory(category: CategoryDto, level: number, key?: any) {
+    function renderCategory(category: CategoryDto, level: number, key: any) {
         return (
             <div className="col" key={key} onClick={() => onCategorySelect(category)}>
                 <MyImage src={category.image} roundedCircle rounded height={CATEGORY_IMAGE_SIZES_HIERARCHY[level]} className="m-1 cursor-pointer" />

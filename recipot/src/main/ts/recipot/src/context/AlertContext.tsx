@@ -55,23 +55,22 @@ function AlertContextProvider({ children }: any) {
 }
 
 function AlertManager({ alerts = [], onClose }: any) {
-
+    const commonProps = (alert: any) => ({
+        key: alert.id,
+        onClose: () => onClose(alert)
+    })
     function getAlert(alert: any): any {
         switch (alert.alertType) {
-            case 'primary':
-                return (<MyAlert.Primary key={alert.id} onClose={() => onClose(alert)}>{alert.message}</MyAlert.Primary>)
-            case 'success': return (<MyAlert.Success key={alert.id} onClose={() => onClose(alert)} >{alert.message}</MyAlert.Success>)
-            case 'danger': return (<MyAlert.Error key={alert.id} onClose={() => onClose(alert)} >{alert.message}</MyAlert.Error>)
+            case 'primary': return <MyAlert.Primary {...commonProps(alert)}>{alert.message}</MyAlert.Primary>
+            case 'success': return <MyAlert.Success {...commonProps(alert)}>{alert.message}</MyAlert.Success>
+            case 'danger': return <MyAlert.Error {...commonProps(alert)}>{alert.message}</MyAlert.Error>
         }
     }
 
-    return (<div className="alert-container">
-        {alerts.map((alert: any) => {
-
-            return (getAlert(alert));
-        })
-        }
-    </div>
+    return (
+        <div className="alert-container">
+            {alerts.map((alert: any) => (getAlert(alert)))}
+        </div>
     )
 }
 

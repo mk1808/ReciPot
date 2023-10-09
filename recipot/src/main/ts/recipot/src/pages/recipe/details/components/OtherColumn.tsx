@@ -68,23 +68,23 @@ function OtherColumn({
     function renderCategories() {
         return (
             <>
-                {allCategories.map((category: CategoryDto, index) => {
-                    return renderCategory(category, index)
+                {allCategories.map((category: CategoryDto) => {
+                    return renderCategory(category)
                 })}
             </>
         )
     }
-    function renderCategory(category: CategoryDto, key: any) {
+    function renderCategory(category: CategoryDto) {
         return (
-            <CategoryCard category={category} showChildren={false} className="category-no-border" key={key} onCategorySelect={() => onCategoryClick(category)} />
+            <CategoryCard category={category} showChildren={false} className="category-no-border" key={category.id} onCategorySelect={() => onCategoryClick(category)} />
         )
     }
     function renderRecipes() {
         return (
             <div className="list mt-1">
-                {(newRecipes.length > 0 ? newRecipes : recipes.slice(0, 1)).map((recipe, index) => {
+                {(newRecipes.length > 0 ? newRecipes : recipes.slice(0, 1)).map((recipe) => {
                     return (
-                        <RecipeCard recipe={recipe} onGoToRecipe={onGoToRecipe} key={index} className="mx-auto mb-3" ref={recipeCardRef} />
+                        <RecipeCard recipe={recipe} onGoToRecipe={onGoToRecipe} key={recipe.id} className="mx-auto mb-3" ref={recipeCardRef} />
                     )
                 })}
             </div>
