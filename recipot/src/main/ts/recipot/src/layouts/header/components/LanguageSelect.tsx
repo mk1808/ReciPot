@@ -6,8 +6,8 @@ function LanguageSelect() {
 
     return (
         <div className='mx-auto language-select'>
-            <img src={plIcon} className='plIcon' onClick={setLangPL} />
-            <img src={enIcon} className='enIcon' onClick={setLangEN} />
+            <img src={plIcon} className='plIcon' alt="plFlag" onClick={setLangPL} />
+            <img src={enIcon} className='enIcon' alt="enFlag" onClick={setLangEN} />
         </div>
     )
 }

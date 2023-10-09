@@ -25,7 +25,7 @@ export const RecipeFilterDispatchContext = createContext<Function>(() => { });
 
 export const RecipeFilterContextContextProvider = ({ children }: any) => {
     const [contextState, dispatch]: [contextStateModel, Function] = useReducer(recipeFilterReducer, {});
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams,] = useSearchParams();
 
     function getSavedFilters() {
         savedRecipeFiltersApi.getRecipeFilters((response) => dispatch({ type: 'setSavedFiltersList', value: response.value }));

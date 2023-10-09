@@ -35,10 +35,6 @@ import { inputAttributes } from "../../../utils/FormInputUtils";
 import filesApi from "../../../api/FilesApi";
 import { SelectOption } from "../../../data/utilTypes";
 
-const omitNull = (obj: any) => {
-    Object.keys(obj).filter(k => obj[k] === null).forEach(k => delete (obj[k]))
-    return obj
-}
 function Test() {
     const recipe = initAs<Recipe>(
         {
@@ -253,10 +249,10 @@ function Test() {
                 <MyInput required={true} isValid={isValid} name="test2" placeholder="Input test 2" onChange={(value: string) => console.log(value)} />
                 <MyInput isValid={isValid} name="test3" label="Test trzy" onChange={(value: string) => console.log(value)} />
                 <MyTextarea defaultValue={"default" + defaultValueIndex} required={true} isValid={isValid} name="test4" label="Test textarea" placeholder="Input test 1" rows={5} onChange={(value: string) => console.log(value)} />
-                <MyCheckbox required={true} isValid={isValid} name="test5" label="Test checkbox" onChange={(value: boolean) => console.log(value)} defaultChecked={defaultValueIndex % 2 == 0} />
+                <MyCheckbox required={true} isValid={isValid} name="test5" label="Test checkbox" onChange={(value: boolean) => console.log(value)} defaultChecked={defaultValueIndex % 2 === 0} />
                 <MySelect required={true} isValid={isValid} name="test6" label="Test select" emptyOption="Pusta wartość" options={testOptions} defaultValue={testOptions[defaultValueIndex % 2].value} onChange={value => console.log(value)} />
                 <MyFileInput required={true} isValid={isValid} name="test7" label="Test file" placeholder="Select file" onChange={(value: string) => console.log(value)} />
-                <MySwitch required={true} isValid={true} name="test8" label="Test switch" onChange={setIsValid} defaultChecked={defaultValueIndex % 2 == 0} />
+                <MySwitch required={true} isValid={true} name="test8" label="Test switch" onChange={setIsValid} defaultChecked={defaultValueIndex % 2 === 0} />
                 <StarSelectInput required={true} isValid={true} name="test9" label="Test star select" onChange={(value: number) => console.log(value)} defaultValue={defaultValueIndex % 5} />
                 <TimeAmountInput name="timeAmountFrom1" label={"Z walidacją"} onChange={() => { }} isValid={isValid} />
                 <TimeAmountInput name="timeAmountFrom2" label={"bez walidacji"} onChange={() => { }} isValid={isValid} highlightValidity={false} />

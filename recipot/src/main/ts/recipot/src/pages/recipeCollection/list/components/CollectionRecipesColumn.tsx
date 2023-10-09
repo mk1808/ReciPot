@@ -57,7 +57,7 @@ function CollectionRecipesColumn() {
         <div>
             {renderHeader()}
             {!isLoaded && <MySpinner />}
-            {isLoaded && (collectionsContext.currentPage?.totalElements || 0 > 0 ? renderContent() : renderNoData())}
+            {isLoaded && ((collectionsContext.currentPage?.totalElements || 0) > 0 ? renderContent() : renderNoData())}
         </div>
     );
 

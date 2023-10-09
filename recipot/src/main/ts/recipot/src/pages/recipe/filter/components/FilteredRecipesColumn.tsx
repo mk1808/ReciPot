@@ -27,7 +27,7 @@ function FilteredRecipesColumn() {
     return (
         <>
             {!isLoaded && <MySpinner />}
-            {isLoaded && (recipeFilterContext.currentPage?.totalElements || 0 > 0 ? renderContent() : renderNoData())}
+            {isLoaded && ((recipeFilterContext.currentPage?.totalElements || 0) > 0 ? renderContent() : renderNoData())}
         </>
     )
 
