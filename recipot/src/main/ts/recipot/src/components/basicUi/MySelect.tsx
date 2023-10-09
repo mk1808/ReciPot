@@ -64,7 +64,7 @@ function MySelect<T>({
             {label && <Form.Label>{label}</Form.Label>}
             <Form.Select disabled={disabled} onChange={onChangeCallback} required={required} ref={inputRef}>
                 {emptyOption && <option value="">{emptyOption}</option>}
-                {options.map((optionElement: any, index: number) => <option key={index} value={index}>{optionElement.label}</option>)}
+                {options.map((optionElement: any, index: number) => <option key={optionElement.value} value={index}>{optionElement.label}</option>)}
             </Form.Select>
         </Form.Group>
     )

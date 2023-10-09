@@ -37,7 +37,7 @@ function RecipeStepsNumbers({
   return (
     <div>
       {steps.map((element: any, index: number) => {
-        return renderCircleWithText(element, getColor(index), index);
+        return renderCircleWithText(element, getColor(index), element.id);
       })}
     </div>
   );

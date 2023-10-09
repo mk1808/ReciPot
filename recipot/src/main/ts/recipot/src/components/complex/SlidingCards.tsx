@@ -12,11 +12,6 @@ type SlidingElementsProps = {
     size: number
 };
 
-type SlidingCardsProps = {
-    recipes: Recipe[],
-    onGoToRecipe: (value: Recipe, event?: any) => any
-};
-
 function SlidingElements({
     recipes,
     getSingleElement,
@@ -59,11 +54,17 @@ function SlidingElements({
     function renderContent() {
         return (
             <>
-                {slicedRecipes?.map((element, index) => { return getSingleElement(element, index) })}
+                {slicedRecipes?.map((element, index) => { return getSingleElement(element, element.id) })}
             </>
         )
     }
 }
+
+
+type SlidingCardsProps = {
+    recipes: Recipe[],
+    onGoToRecipe: (value: Recipe, event?: any) => any
+};
 
 function SlidingCards({
     recipes,
@@ -74,11 +75,10 @@ function SlidingCards({
 
     function getSliderSize() {
         return width > 1550 ? 5 : width > 1000 ? 3 : (width > 720 ? 2 : 1);
-
     }
 
-    function renderSingleCard(recipe: Recipe, index: number) {
-        return <RecipeCard key={index} recipe={recipe} onGoToRecipe={onGoToRecipe} />
+    function renderSingleCard(recipe: Recipe, key: number) {
+        return <RecipeCard key={key} recipe={recipe} onGoToRecipe={onGoToRecipe} />
     }
 
     return (
