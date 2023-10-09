@@ -44,13 +44,13 @@ function AddRecipeFilterDialog({
     formSave.onError = function (response: any) {
         alerts.onShowAlertOnErrorResponse(response);
     }
-    async function myHandleSubmit() {
+    async function onSubmit() {
         form.current.submitForm();
     }
 
     return (
         <CustomModal shouldShow={showModal} onClose={onClose} title='p.recipeFilterSave'
-            onSubmit={myHandleSubmit}>
+            onSubmit={onSubmit}>
             {renderContent()}
         </CustomModal>
     );

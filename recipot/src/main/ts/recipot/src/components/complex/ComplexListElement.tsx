@@ -10,8 +10,8 @@ import { initAs } from '../../utils/ObjectUtils';
 type Props = {
     element: ComplexListElementType,
     index: number,
-    onDeleteCallback: (index: number) => any,
-    onSelectCallback: (index: number) => any,
+    onDelete: (index: number) => any,
+    onSelect: (index: number) => any,
     isActive?: boolean,
     getElementName?: (element: any, t: any) => any,
 };
@@ -19,8 +19,8 @@ type Props = {
 function ComplexListElement({
     element,
     index,
-    onDeleteCallback,
-    onSelectCallback,
+    onDelete,
+    onSelect,
     isActive = false,
     getElementName = initAs()
 }: Props) {
@@ -28,8 +28,8 @@ function ComplexListElement({
     const [isDeleteMode, setDeleteMode] = useState(false);
     const { t } = useTranslation();
 
-    function onSelect() {
-        onSelectCallback(index);
+    function onSelectCallback() {
+        onSelect(index);
     }
 
     function onDeleteClick(event: any) {
@@ -39,7 +39,7 @@ function ComplexListElement({
 
     function onConfirmClick(event: any) {
         event.stopPropagation();
-        onDeleteCallback(index);
+        onDelete(index);
     }
 
     function onCancelClick(event: any) {
@@ -56,7 +56,7 @@ function ComplexListElement({
     }
 
     return (
-        <Stack direction="horizontal" className={getElementStyleClasses()} onClick={onSelect}>
+        <Stack direction="horizontal" className={getElementStyleClasses()} onClick={onSelectCallback}>
             {renderElementName()}
             {renderActions()}
         </Stack>

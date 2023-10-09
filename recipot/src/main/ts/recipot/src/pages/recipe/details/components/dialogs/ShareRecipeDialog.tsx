@@ -43,11 +43,11 @@ function ShareRecipeDialog({
         alerts.onShowAlertOnErrorResponse(response);
     }
 
-    async function myHandleSubmit() {
+    async function onSubmit() {
         form.current.submitForm();
     }
     return (
-        <CustomModal shouldShow={showModal} onClose={onClose} onSubmit={myHandleSubmit} title={t("p.recipeSharing")}>
+        <CustomModal shouldShow={showModal} onClose={onClose} onSubmit={onSubmit} title={t("p.recipeSharing")}>
             {renderContent()}
         </CustomModal>
     );

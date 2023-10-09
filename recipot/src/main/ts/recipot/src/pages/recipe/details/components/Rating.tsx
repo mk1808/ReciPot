@@ -23,7 +23,6 @@ function Rating({
                     defaultValue={roundToHalf(recipe.averageRating)}
                     name=""
                     isValid
-                    onChange={(value: any) => { }}
                 />
             </div>
 

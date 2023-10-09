@@ -43,7 +43,7 @@ function StarSelectInput({
         changeCurrentValue(inputValue);
     }
 
-    function confirmInputValue() {
+    function onConfirmInputValue() {
         setInputValue(currentValue);
     }
 
@@ -73,7 +73,7 @@ function StarSelectInput({
 
     function renderStars() {
         return (
-            <Stack direction='horizontal' onMouseLeave={onMouseLeave} onClick={confirmInputValue} gap={1}>
+            <Stack direction='horizontal' onMouseLeave={onMouseLeave} onClick={onConfirmInputValue} gap={1}>
                 {renderZeroSpace()}
                 {getStarsIndexes().map(renderStar)}
             </Stack>

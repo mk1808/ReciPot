@@ -28,7 +28,7 @@ function CollectionRecipesColumn() {
     const [showModalDelete, setShowModalDelete] = useState(false);
     const [nextPageIndex, setNextPageIndex] = useState(0);
     const [recipeToDelete, setRecipeToDelete] = useState<Recipe | any>();
-    const recipeCallback = (recipe: Recipe, event: any,) => nav.openInBackground({ id: recipe.id }, event);
+    const onGoToRecipe = (recipe: Recipe, event: any,) => nav.openInBackground({ id: recipe.id }, event);
     const activeRecipeCollection: RecipeCollection | undefined = collectionsContext.collections?.filter(collection => collection.id === collectionsContext.activeCollectionId)[0];
     const isLoaded = collectionsContext.isLoaded;
     function deleteRecipeShowModal(recipe: Recipe, index: number) {
@@ -82,7 +82,7 @@ function CollectionRecipesColumn() {
             <div key={pageId} id={pageId}>
                 <PageDivider text={`${t('p.page')} ${index + 1}`} />
                 <Stack direction="horizontal" className="flex-wrap justify-content-center" gap={3}>
-                    {recipes?.map(recipe => <RecipeCard key={recipe.id} recipe={recipe} onGoToRecipe={recipeCallback} additionalFunctionElement={renderDeleteFromCollection(recipe, index)} />)}
+                    {recipes?.map(recipe => <RecipeCard key={recipe.id} recipe={recipe} onGoToRecipe={onGoToRecipe} additionalFunctionElement={renderDeleteFromCollection(recipe, index)} />)}
                 </Stack>
             </div>
         );
@@ -102,7 +102,7 @@ function CollectionRecipesColumn() {
     function renderLoadNextPageButton() {
         const currentPage = collectionsContext.currentPage;
         if (collectionsContext.recipesInCollection?.length !== currentPage?.totalPages) {
-            return <MorePagesButton text={t("p.loadNextRecipesPage")} loadNextPage={() => loadNextPage(collectionsContext.recipesInCollection?.length || 0)} />
+            return <MorePagesButton text={t("p.loadNextRecipesPage")} onLoadNextPage={() => loadNextPage(collectionsContext.recipesInCollection?.length || 0)} />
         }
         return null;
     }
@@ -116,7 +116,7 @@ function CollectionRecipesColumn() {
             <DeleteFromCollectionDialog
                 showModal={showModalDelete}
                 onClose={() => setShowModalDelete(false)}
-                handleSubmit={deleteRecipeFromCollection}
+                onSubmit={deleteRecipeFromCollection}
                 data={recipeToDelete || initAs()} />
         )
     }

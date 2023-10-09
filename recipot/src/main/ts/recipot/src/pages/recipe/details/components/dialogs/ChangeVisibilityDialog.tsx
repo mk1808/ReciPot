@@ -25,7 +25,7 @@ function ChangeVisibilityDialog({
     const alerts = useAlerts();
     const ACCESS_TYPE_PREFIX = "enums.RecipeAccessType."
     const [newType, setNewType] = useState("");
-    function myHandleSubmit() {
+    function onSubmit() {
         onClose();
         recipesApi.changeVisibility(data.id, onSuccess)
     }
@@ -43,7 +43,7 @@ function ChangeVisibilityDialog({
     }
 
     return (
-        <CustomModal shouldShow={showModal} onClose={onClose} onSubmit={myHandleSubmit}>
+        <CustomModal shouldShow={showModal} onClose={onClose} onSubmit={onSubmit}>
             {renderContent()}
         </CustomModal>
     );

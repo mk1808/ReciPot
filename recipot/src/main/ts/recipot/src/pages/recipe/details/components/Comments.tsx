@@ -62,7 +62,7 @@ function Comments({
     }
 
     function areCommentsEmpty() {
-        return !user && (!opinions || opinions.length === 0); 
+        return !user && (!opinions || opinions.length === 0);
     }
 
     return (
@@ -123,7 +123,7 @@ function Comments({
                 <h3>{t('p.noCommentsPresents')}</h3>
                 <br />
 
-                <MyButton.Primary className="button-400" onClick={() => nav.toLogin()}>
+                <MyButton.Primary className="button-400" onClick={nav.toLogin}>
                     {t('p.login')}
                 </MyButton.Primary>
             </div>

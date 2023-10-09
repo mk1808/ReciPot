@@ -23,7 +23,7 @@ function Notifications({
     const { t } = useTranslation();
     const nav = useMyNav();
 
-    function goToRecipe(notification: Notification) {
+    function onGoToRecipe(notification: Notification) {
         const value = JSON.parse(notification.value);
         nav.toRecipe(value.recipeId);
     }
@@ -76,8 +76,8 @@ function Notifications({
     function renderActionButtons(notification: Notification) {
         return (
             <Stack className="align-self-center">
-                <Tooltip title={t('p.confirmNotification')}><FaCheck className="icon" onClick={e => onConfirm(notification)} /></Tooltip>
-                <Tooltip title={t('p.goToRecipe')}><FaAnglesRight className="mt-3 icon" onClick={e => goToRecipe(notification)} /></Tooltip>
+                <Tooltip title={t('p.confirmNotification')}><FaCheck className="icon" onClick={() => onConfirm(notification)} /></Tooltip>
+                <Tooltip title={t('p.goToRecipe')}><FaAnglesRight className="mt-3 icon" onClick={() => onGoToRecipe(notification)} /></Tooltip>
             </Stack>
         )
     }

@@ -5,24 +5,24 @@ import CustomModal from "../../../../components/basicUi/CustomModal";
 type Props = {
     showModal: boolean,
     onClose: any,
-    handleSubmit: any,
+    onSubmit: any,
     data: Recipe
 };
 
 function DeleteFromCollectionDialog({
     showModal,
     onClose,
-    handleSubmit,
+    onSubmit,
     data
 }: Props) {
 
     const { t } = useTranslation();
-    function myHandleSubmit() {
+    function onSubmitCallback() {
         onClose();
-        handleSubmit();
+        onSubmit();
     }
     return (
-        <CustomModal shouldShow={showModal} onClose={onClose} onSubmit={myHandleSubmit}>
+        <CustomModal shouldShow={showModal} onClose={onClose} onSubmit={onSubmitCallback}>
             {renderContent()}
         </CustomModal>
     );

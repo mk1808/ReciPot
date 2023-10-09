@@ -14,14 +14,14 @@ function CollectionList() {
     const alerts = useAlerts();   
     const { t } = useTranslation();
 
-    function onCollectionSelectCallback(index: number) {
+    function onCollectionSelect(index: number) {
         collectionsDispatchContext({
             type: 'collectionSelect',
             activeCollectionId: (collectionsContext.collections || [])[index].id
         });
     }
 
-    function onCollectionDeleteCallback(index: number) {
+    function onCollectionDelete(index: number) {
         recipeCollectionsApi.deleteCollection((collectionsContext.collections || [])[index].id, onCollectionDeleteResponse);
     }
 
@@ -41,8 +41,8 @@ function CollectionList() {
             <ComplexListElement
                 key={collection.id}
                 index={index}
-                onSelectCallback={onCollectionSelectCallback}
-                onDeleteCallback={onCollectionDeleteCallback}
+                onSelect={onCollectionSelect}
+                onDelete={onCollectionDelete}
                 element={collection}
                 isActive={collection.id === collectionsContext.activeCollectionId}
                 getElementName={getCollectionName}

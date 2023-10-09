@@ -14,7 +14,7 @@ type SlidingElementsProps = {
 
 type SlidingCardsProps = {
     recipes: Recipe[],
-    goToRecipeCallback: (value: Recipe, event?: any) => any
+    onGoToRecipe: (value: Recipe, event?: any) => any
 };
 
 function SlidingElements({
@@ -31,7 +31,7 @@ function SlidingElements({
         sliceTab();
     }, [counter, recipes, size]);
 
-    function clickSlide(counterValue: number) {
+    function onClickSlide(counterValue: number) {
         setCounter(counterValue);
     };
 
@@ -44,13 +44,13 @@ function SlidingElements({
 
     return (
         <Stack direction="horizontal" className="justify-content-center">
-            <MyButton.Primary onClick={() => clickSlide(counter === 0 ? 0 : counter - 1)}>
+            <MyButton.Primary onClick={() => onClickSlide(counter === 0 ? 0 : counter - 1)}>
                 <FaChevronLeft />
             </MyButton.Primary>
 
             {renderContent()}
 
-            <MyButton.Primary onClick={() => clickSlide(counter === lastIndex ? lastIndex : counter + 1)}>
+            <MyButton.Primary onClick={() => onClickSlide(counter === lastIndex ? lastIndex : counter + 1)}>
                 <FaChevronRight />
             </MyButton.Primary>
         </Stack>
@@ -67,7 +67,7 @@ function SlidingElements({
 
 function SlidingCards({
     recipes,
-    goToRecipeCallback
+    onGoToRecipe
 }: SlidingCardsProps) {
 
     const [width] = useWindowSize();
@@ -78,7 +78,7 @@ function SlidingCards({
     }
 
     function renderSingleCard(recipe: Recipe, index: number) {
-        return <RecipeCard key={index} recipe={recipe} onGoToRecipe={goToRecipeCallback} />
+        return <RecipeCard key={index} recipe={recipe} onGoToRecipe={onGoToRecipe} />
     }
 
     return (

@@ -20,7 +20,7 @@ function DeleteRecipeDialog({
     const { t } = useTranslation();
     const alerts = useAlerts();
     const nav = useMyNav();
-    function myHandleSubmit() {
+    function onSubmit() {
         onClose();
         recipesApi.deleteRecipe(data.id, onSuccess)
     }
@@ -29,7 +29,7 @@ function DeleteRecipeDialog({
         setTimeout(() => alerts.showSuccessAlert(t(response.message)), 1000)
     }
     return (
-        <CustomModal shouldShow={showModal} onClose={onClose} onSubmit={myHandleSubmit}>
+        <CustomModal shouldShow={showModal} onClose={onClose} onSubmit={onSubmit}>
             {renderContent()}
         </CustomModal>
     );

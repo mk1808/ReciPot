@@ -23,7 +23,7 @@ function CommentsForm({
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, initEmptyForm());
 
-    function handleSubmit(event: any) {
+    function onSubmit(event: any) {
         if (checkIfAllValid(event, myForm)) {
             formSave.onSubmit(myForm.formValue);
         }
@@ -34,7 +34,7 @@ function CommentsForm({
         return getNewState(state, action, action.value, checkInputValidity);
     }
     return (
-        <Form noValidate validated onSubmit={handleSubmit}>
+        <Form noValidate validated onSubmit={onSubmit}>
             {renderTextArea()}
             {renderButton()}
         </Form>
