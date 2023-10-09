@@ -1,5 +1,4 @@
 import { useContext, useRef } from "react";
-import { useTranslation } from "react-i18next";
 import './styles.scss';
 import MyImage from "../../../components/basicUi/MyImage";
 import MyHeader from "../../../components/basicUi/MyHeader";

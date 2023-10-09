@@ -30,7 +30,7 @@ function MySwitch({
         checkValidity(inputRef.current, isValid);
     }, [isValid])
 
-    function onChangeCallback(event: any) {
+    function onChangeCallback() {
         onChange(!isChecked)
         setChecked(!isChecked)
     }
