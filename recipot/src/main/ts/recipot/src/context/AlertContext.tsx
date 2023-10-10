@@ -1,14 +1,25 @@
 import { createContext, useReducer } from 'react';
 import MyAlert from '../components/basicUi/MyAlert';
 
+type ReducerActionProps = {
+    type: AlertsContextType,
+    message: any,
+    alertType: any,
+    id: any
+}
+
+export enum AlertsContextType {
+    Added = "added",
+    Deleted = "deleted"
+};
+
 export const AlertsContext = createContext<any[]>([]);
 
 export const AlertsDispatchContext = createContext<Function>(() => { });
 
-
-function alertsReducer(alerts: any[], action: any) {
+function alertsReducer(alerts: any[], action: ReducerActionProps) {
     switch (action.type) {
-        case 'added': {
+        case AlertsContextType.Added: {
             if (alerts.filter(alert => alert.message === action.message).length > 0) {
                 return alerts;
             }
@@ -19,7 +30,7 @@ function alertsReducer(alerts: any[], action: any) {
                 alertType: action.alertType
             }];
         }
-        case 'deleted': {
+        case AlertsContextType.Deleted: {
             return alerts.filter(alert => alert.id !== action.id);
         }
         default: {
@@ -36,11 +47,10 @@ function AlertContextProvider({ children }: any) {
 
     function onAlertClose(alert: any) {
         dispatch({
-            type: "deleted",
+            type: AlertsContextType.Deleted,
             id: alert.id
         })
     }
-
 
     return (
         <AlertsContext.Provider value={alerts}>
@@ -50,8 +60,6 @@ function AlertContextProvider({ children }: any) {
             </AlertsDispatchContext.Provider>
         </AlertsContext.Provider>
     );
-
-
 }
 
 function AlertManager({ alerts = [], onClose }: any) {
@@ -73,6 +81,5 @@ function AlertManager({ alerts = [], onClose }: any) {
         </div>
     )
 }
-
 
 export default AlertContextProvider;

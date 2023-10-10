@@ -1,4 +1,4 @@
-import { AlertsDispatchContext } from "../context/AlertContext";
+import { AlertsContextType, AlertsDispatchContext } from "../context/AlertContext";
 import { useContext } from 'react';
 import { Response } from "../data/types";
 import { useTranslation } from "react-i18next";
@@ -9,7 +9,7 @@ function useAlerts() {
 
     function showErrorAlert(message: string) {
         alertDispatchContext({
-            type: 'added',
+            type: AlertsContextType.Added,
             message: message,
             alertType: "danger"
         })
@@ -17,7 +17,7 @@ function useAlerts() {
 
     function showSuccessAlert(message: string) {
         alertDispatchContext({
-            type: 'added',
+            type: AlertsContextType.Added,
             message: message,
             alertType: "success"
         })
