@@ -12,7 +12,7 @@ import { mapCategoriesToSearchList, onFilteredHashTagSearch, onFilteredIngredien
 import MyButton from "../../../../components/basicUi/MyButton";
 import { inputAttributesForContextWithoutValidity } from "../../../../utils/FormInputUtils";
 import AddRecipeFilterDialog from "../dialogs/AddRecipeFilterDialog";
-import { RecipeFilterContext, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
+import { RecipeFilterContext, RecipeFilterContextType, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 import { EnumDictionaryContext } from "../../../../context/EnumDictionaryContext";
 import { UsersContext } from "../../../../context/UserContext";
 
@@ -58,13 +58,13 @@ function RecipeFiltersColumn() {
 
     function handleSubmit(event: any) {
         recipeFilterDispatchContext({
-            type: "filter"
+            type: RecipeFilterContextType.Filter
         })
     };
 
     function onChange(fieldName: string, value: any) {
         recipeFilterDispatchContext({
-            type: "filterFormChange",
+            type: RecipeFilterContextType.FilterFormChange,
             fieldName,
             value
         })
@@ -122,7 +122,7 @@ function RecipeFiltersColumn() {
 
     function clearFilter() {
         recipeFilterDispatchContext({
-            type: "clearFilterForm"
+            type: RecipeFilterContextType.ClearFilterForm
         })
     }
 

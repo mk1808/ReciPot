@@ -2,7 +2,7 @@ import { useContext, useRef } from "react";
 import CustomModal from "../../../../components/basicUi/CustomModal";
 import { useTranslation } from "react-i18next";
 import AddRecipeFilterForm from "./AddRecipeFilterForm";
-import { RecipeFilterContext, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
+import { RecipeFilterContext, RecipeFilterContextType, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 import savedRecipeFiltersApi from "../../../../api/SavedRecipeFiltersApi";
 import useAlerts from "../../../../hooks/useAlerts";
 import { initFormSave } from "../../../../utils/FormInputUtils";
@@ -37,7 +37,7 @@ function AddRecipeFilterDialog({
     formSave.onSuccess = function () {
         alerts.showSuccessAlert(t("p.recipeFilterSaved"));
         recipeFilterDispatchContext({
-            type: "refreshFiltersList"
+            type:RecipeFilterContextType.RefreshFiltersList 
         })
         onClose();
     }
