@@ -10,7 +10,7 @@ export function renderRating(recipe: Recipe, text: string) {
             <div className="vr"/>
             &nbsp; {text}: {recipe.ratingsCount}
         </div>
-    )
+    );
 };
 
 export function renderMore(list?: any[]) {
@@ -26,7 +26,9 @@ export function renderMore(list?: any[]) {
         }
         return "";
     }
+
     const elementsNumber = getMoreNumber(list);
+
     return elementsNumber > 0 && (
         <Tooltip title={getMoreList(list)}>
             <h6 className="ms-2 cursor-pointer">{`(+${elementsNumber})`}</h6>
@@ -42,5 +44,5 @@ export function renderCategories(recipe: Recipe) {
             </h6>
             {renderMore(recipe.categories)}
         </Stack>
-    )
+    );
 }

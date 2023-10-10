@@ -20,18 +20,33 @@ function RecipeCardCircle({
     return (
         <div className='circle-card-container'>
             <div className="circle-container">
-                <Card className='p-3'>
-                    <Card.Title className="big-title pb-3 mb-3"> {recipe.name} </Card.Title>
-                    <Card.Body className="body">
-                        <h6>{renderCategories(recipe)}</h6>
-                        {renderRating(recipe, t('p.numberOfRatings'))}
-                        {getShorterText(recipe.description, 85)}
-                    </Card.Body>
-                </Card>
-                <MyImage className="img" src={recipe.image} roundedCircle onClick={() => onGoToRecipe(recipe)} />
+                {renderCard()}
+                {renderImage()}
             </div>
         </div>
     );
+
+    function renderCard() {
+        return (
+            <Card className='p-3'>
+                <Card.Title className="big-title pb-3 mb-3"> {recipe.name} </Card.Title>
+                <Card.Body className="body">
+                    <h6>{renderCategories(recipe)}</h6>
+                    {renderRating(recipe, t('p.numberOfRatings'))}
+                    {getShorterText(recipe.description, 85)}
+                </Card.Body>
+            </Card>
+        );
+    }
+
+    function renderImage() {
+        return <MyImage
+            className="img"
+            src={recipe.image}
+            roundedCircle
+            onClick={() => onGoToRecipe(recipe)}
+        />
+    }
 }
 
 export default RecipeCardCircle;

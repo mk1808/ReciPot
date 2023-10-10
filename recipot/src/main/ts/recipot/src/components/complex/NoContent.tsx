@@ -9,6 +9,7 @@ function NoContent({
 }: Props) {
 
     const { t } = useTranslation();
+    
     return (
         <div className="text-center no-content">
             <GiKnifeFork />

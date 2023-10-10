@@ -16,9 +16,10 @@ function MyHeader({
 
     const CustomTag = `h${level}` as keyof JSX.IntrinsicElements;
     const customClass = `display-${dispLevel ?? level}`;
+
     return (
         <div className={"my-header my-3 " + className}>
-            <CustomTag className={"h-tag " + customClass}>{title}</CustomTag>
+            <CustomTag className={"h-tag " + customClass}> {title} </CustomTag>
         </div>
     );
 }

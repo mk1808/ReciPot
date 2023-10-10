@@ -4,7 +4,7 @@ import { useContext, useEffect, useState, useReducer } from "react";
 import './styles.scss';
 import FilteredSelect from "../../../components/complex/FilteredSelect";
 import dictionariesApi from "../../../api/DictionariesApi";
-import { CategoryDto, Response, RecipeStep, Recipe } from "../../../data/types";
+import { CategoryDto, Response, RecipeStep, Recipe, HashTag } from "../../../data/types";
 import HashTagBadge from "../../../components/basicUi/HashTagBadge";
 import SideOffcanvas from "../../../components/basicUi/SideOffcanvas";
 import StatisticCircle from "../../../components/complex/StatisticCircle";
@@ -336,15 +336,15 @@ function FilteredSelectTest({ required, isValid, defaultValueIndex }: any) {
 }
 
 function FilteredMultiSelectTest({ required, isValid, defaultValueIndex }: any) {
-    const [filteredHashTags, setFilteredHashTags] = useState<any[]>([]);
-    const [defaultValues, setDefaultValues] = useState<any[]>([]);
+    const [filteredHashTags, setFilteredHashTags] = useState<SelectOption<HashTag>[]>([]);
+    const [defaultValues, setDefaultValues] = useState<SelectOption<HashTag>[]>([]);
 
     useEffect(() => {
         onFilteredHashTagSearch('', setFilteredHashTags);
     }, [])
 
     useEffect(() => {
-        setDefaultValues([{ label: "test123" + defaultValueIndex }, { label: "abc_111" }])
+        setDefaultValues([{ label: "test123" + defaultValueIndex }, { label: "abc_111" }] as SelectOption<HashTag>[])
     }, [defaultValueIndex])
 
     function onSelectCallback(value: any) {

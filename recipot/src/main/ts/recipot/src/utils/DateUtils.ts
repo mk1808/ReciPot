@@ -8,7 +8,7 @@ export function format(date: any) {
     return `${addZeroIfNeeded(day)}-${addZeroIfNeeded(month)}-${year} ${addZeroIfNeeded(hour)}:${addZeroIfNeeded(minute)}`
 }
 
-function addZeroIfNeeded(datePart: any) {
+export function addZeroIfNeeded(datePart: any) {
     return datePart < 10 ? `0${datePart}` : datePart;
 }
 
@@ -25,3 +25,4 @@ export function convertToTime(time: number) {
     let min = time % 60;
     return `${hour}:${addZeroIfNeeded(min)}`
 }
+

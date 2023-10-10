@@ -12,19 +12,17 @@ type Props = {
     isValid?: boolean
 };
 
-function MyCheckbox(
-    {
-        name,
-        label,
-        onChange,
-        disabled = false,
-        defaultChecked = true,
-        required = false,
-        isValid = true
-    }: Props) {
+function MyCheckbox({
+    name,
+    label,
+    onChange,
+    disabled = false,
+    defaultChecked = true,
+    required = false,
+    isValid = true
+}: Props) {
 
     const inputRef = useRef<HTMLInputElement>(null);
-
     const [isChecked, setChecked] = useState(defaultChecked)
 
     useEffect(() => {
@@ -54,7 +52,7 @@ function MyCheckbox(
             checked={isChecked}
             onChange={onChangeCallback}
         />
-    )
+    );
 }
 
 export default MyCheckbox;

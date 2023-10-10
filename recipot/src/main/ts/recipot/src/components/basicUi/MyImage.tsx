@@ -30,7 +30,8 @@ function MyImage({
             height={height}
             width={width}
             onClick={onClick}
-            onError={onImageLoadError} />
+            onError={onImageLoadError}
+        />
     );
 }
 

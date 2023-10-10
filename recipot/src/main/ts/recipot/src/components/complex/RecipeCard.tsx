@@ -26,6 +26,7 @@ function RecipeCard({
     ref: any) {
 
     const { t } = useTranslation();
+
     const nav = useMyNav();
 
     function onHashTagClick(hashTag: any) {
@@ -36,19 +37,39 @@ function RecipeCard({
         <Card className={`recipe-card mb-2 ${(className || "me-2")}`} ref={ref}>
             <Card.Img variant="top" src={recipe.image} height={180} onError={onImageLoadError} />
             <Card.Body className="body">
-                <Card.Title> {recipe.name} </Card.Title>
-
-                <div className='mb-3'>
-                    {renderCategoryRow()}
-                    {renderHashTags()}
-                    {renderRating(recipe, t('p.numberOfRatings'))}
-                    <div className="description"> {getShorterText(recipe.description, 60)}</div>
-                </div>
-
-                <MyButton.Primary onClick={(event: any) => onGoToRecipe(recipe, event)} className="full-width">{t('p.goToRecipe')}</MyButton.Primary>
+                {renderCardBody()}
             </Card.Body>
         </Card >
     );
+
+    function renderCardBody() {
+        return (
+            <>
+                {renderTitle()}
+                {renderContent()}
+                {renderFooter()}
+            </>
+        );
+    }
+
+    function renderTitle() {
+        return <Card.Title> {recipe.name} </Card.Title>
+    }
+
+    function renderContent() {
+        return (
+            <div className='mb-3'>
+                {renderCategoryRow()}
+                {renderHashTags()}
+                {renderRating(recipe, t('p.numberOfRatings'))}
+                <div className="description"> {getShorterText(recipe.description, 60)} </div>
+            </div>
+        );
+    }
+
+    function renderFooter() {
+        return <MyButton.Primary onClick={(event: any) => onGoToRecipe(recipe, event)} className="full-width">{t('p.goToRecipe')}</MyButton.Primary>;
+    }
 
     function renderCategoryRow() {
         return (
@@ -56,7 +77,7 @@ function RecipeCard({
                 <Col>
                     {renderCategories(recipe)}
                 </Col>
-                {additionalFunctionElement && <Col md={3}>{additionalFunctionElement}</Col>}
+                {renderAdditionalFunctionElement()}
             </Row>
         )
     }
@@ -69,6 +90,10 @@ function RecipeCard({
             </Stack>
         )
     };
+
+    function renderAdditionalFunctionElement() {
+        return additionalFunctionElement && <Col md={3}>{additionalFunctionElement}</Col>;
+    }
 }
 
 export default forwardRef(RecipeCard);

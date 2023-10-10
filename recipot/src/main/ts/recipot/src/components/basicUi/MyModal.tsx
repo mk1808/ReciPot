@@ -1,6 +1,5 @@
 import { Modal } from "react-bootstrap";
-import MyButton from "./MyButton";
-import { useTranslation } from "react-i18next";
+import ConfirmCancelButtons from "./ConfirmCancelButtons";
 
 type Props = {
     title: string,
@@ -22,15 +21,12 @@ function MyModal({
     buttonSubmitText = 'p.confirm'
 }: Props) {
 
-    const { t } = useTranslation();
     return (
-        <div>
-            <Modal show={show} onHide={onClose}>
-                {renderHeader()}
-                {renderBody()}
-                {renderFooter()}
-            </Modal>
-        </div>
+        <Modal show={show} onHide={onClose}>
+            {renderHeader()}
+            {renderBody()}
+            {renderFooter()}
+        </Modal>
     );
 
     function renderHeader() {
@@ -38,22 +34,24 @@ function MyModal({
             <Modal.Header closeButton>
                 <Modal.Title>{title}</Modal.Title>
             </Modal.Header>
-        )
+        );
     }
+
     function renderBody() {
         return (
             <Modal.Body>{children}</Modal.Body>
-        )
+        );
     }
+
     function renderFooter() {
         return (
             <Modal.Footer>
-                <MyButton.Secondary onClick={onClose}>
-                    {t(buttonCloseText)}
-                </MyButton.Secondary>
-                <MyButton.Primary onClick={onSubmit}>
-                    {t(buttonSubmitText)}
-                </MyButton.Primary>
+                <ConfirmCancelButtons
+                    onCancel={onClose}
+                    onConfirm={onSubmit}
+                    buttonCancelText={buttonCloseText}
+                    buttonSubmitText={buttonSubmitText}
+                />
             </Modal.Footer>
         )
     }

@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
-import Form from 'react-bootstrap/Form';
 import { useTranslation } from "react-i18next";
 import './styles.scss';
-import { renderButonSimpleText, renderButtonComplexContent, renderCheck, renderDropdownComponent, renderLabel, renderWrappedDropdownContent } from './FilteredSelectCommonElements';
+import { renderButonSimpleText, renderButtonComplexContent, renderCheck, renderDropdownComponent, renderWrappedDropdownContent } from './FilteredSelectCommonElements';
 import { addUniqueValue, checkListContains, removeValue } from '../../utils/ListUtils';
 import { canCreateNewValue, createNewValue, stopEventPropagation } from '../../utils/FilteredSelectUtils';
 import { initFcn } from '../../utils/ObjectUtils';
 import { SelectOption } from '../../data/utilTypes';
+import { renderFormGroup } from '../basicUi/CommonInputElements';
 
 type Props<T> = {
     label: string,
@@ -16,7 +16,7 @@ type Props<T> = {
     onSelectCallback: (value: any) => any,
     placeholder?: string,
     searchPlaceholder?: string,
-    defaultValue?: T,
+    defaultValue?: SelectOption<T> | any,
     disabled?: boolean,
     allowNew?: boolean,
     multiple?: boolean,
@@ -47,10 +47,11 @@ function FilteredSelect<T>({
     onNewValueCallback = initFcn()
 }: Props<T>) {
 
-    const [selectedValues, setSelectedValues] = useState<T[] | any>(defaultValue || []);
+    const [selectedValues, setSelectedValues] = useState<SelectOption<T>[] | any>(defaultValue || []);
     const [createdValues, setCreatedValues] = useState<any[]>([]);
-    const [selected, setSelected] = useState<any>(defaultValue);
+    const [selected, setSelected] = useState<SelectOption<T> | undefined>(defaultValue);
     const [searchInputValue, setSearchInputValue] = useState<string>('');
+
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -71,16 +72,16 @@ function FilteredSelect<T>({
         setSearchInputValue(event.target.value);
     }
 
-    function onSelect(value: any, event?: any) {
+    function onSelect(value: SelectOption<T>, event?: any) {
+        stopEventPropagation(event);
         if (multiple) {
-            stopEventPropagation(event);
             onSelectMultiple(value);
         } else {
             setSelected(value);
         }
     }
 
-    function onSelectMultiple(value: any) {
+    function onSelectMultiple(value: SelectOption<T>) {
         if (checkListContains(selectedValues, value)) {
             removeElement(value);
         } else {
@@ -88,7 +89,7 @@ function FilteredSelect<T>({
         }
     }
 
-    function removeElement(value: any) {
+    function removeElement(value: SelectOption<T>) {
         setSelectedValues(removeValue(selectedValues, value));
         setCreatedValues(removeValue(createdValues, value));
     }
@@ -113,24 +114,23 @@ function FilteredSelect<T>({
     }
 
     function createForSingleMode() {
-        const newValue = createNewValue(searchInputValue);
+        const newValue = createNewValue(searchInputValue) as SelectOption<T>;
         setSelected(newValue);
         onNewValueCallback(newValue);
     }
-
 
     function clearSearch() {
         setSearchInputValue('');
         onSearchCallback('');
     }
 
-    function onBadgeClick(value: any, event?: any) {
+    function onBadgeClick(value: SelectOption<T>, event?: any) {
         stopEventPropagation(event);
         removeElement(value);
     }
 
     function getDropdownComponentStyleClasses() {
-        var styleClasses = 'form-control filtered-select-toggle d-flex align-items-center '
+        var styleClasses = 'form-control filtered-select-toggle d-flex align-items-center ';
         if (highlightValidity) {
             const isEmpty = multiple ? selectedValues.length === 0 : selected === undefined;
             if (!isValid || (required && isEmpty)) {
@@ -139,19 +139,14 @@ function FilteredSelect<T>({
                 styleClasses += " is-valid ";
             }
         }
-        return styleClasses
+        return styleClasses;
     }
 
     function getSearchPlaceholder() {
         return searchPlaceholder || allowNew ? "p.searchOrNew" : "p.searchNotNew";
     }
 
-    return (
-        <Form.Group className={className + " filtered-select"}>
-            {renderLabel(label)}
-            {renderDropdown()}
-        </Form.Group>
-    );
+    return renderFormGroup(label, label, renderDropdown, className + " filtered-select");
 
     function renderDropdown() {
         return renderDropdownComponent({
@@ -160,7 +155,7 @@ function FilteredSelect<T>({
             className: getDropdownComponentStyleClasses(),
             onDropdownToggle: onDropdownToggle,
             disabled
-        })
+        });
     }
 
     function renderButtonContent() {
@@ -178,24 +173,33 @@ function FilteredSelect<T>({
         return renderWrappedDropdownContent(t(getSearchPlaceholder()), renderOptions(options), onSearch, searchInputValue);
     }
 
-    function renderOptions(valuesList: any[]) {
-        return multiple ?
-            renderMultiselectOptions(valuesList)
-            : renderSingleOptions(valuesList);
+    function renderOptions(options: SelectOption<T>[]) {
+        return multiple ? renderMultiselectOptions(options) : renderSingleOptions(options);
     }
 
-    function renderMultiselectOptions(valuesList: any[]) {
-        return (valuesList as { children: any[], label: string }[]).map(value =>
-            <div key={value.label} onClick={(event) => onSelect(value, event)} className={hierarchical ? "ms-3 mb-2" : ""}>
-                {renderCheck(checkListContains(selectedValues, value))}{value.label}
-                {value?.children && renderMultiselectOptions(value.children)}
+    function renderMultiselectOptions(options?: SelectOption<T>[]) {
+        return options && options.map(renderMultiselectOption);
+    }
+
+    function renderMultiselectOption(option: SelectOption<T>) {
+        return (
+            <div
+                key={option.label}
+                onClick={(event) => onSelect(option, event)}
+                className={hierarchical ? "ms-3 mb-2" : ""}
+            >
+                {renderCheck(checkListContains(selectedValues, option))}
+                {option.label}
+                {renderMultiselectOptions(option.children)}
             </div>
-        )
+        );
     }
 
-    function renderSingleOptions(valuesList: any[]) {
-        return (valuesList as { label: string }[])?.map(value =>
-            <Dropdown.Item key={value.label} onClick={() => onSelect(value)}>{value.label}</Dropdown.Item>
+    function renderSingleOptions(options: SelectOption<T>[]) {
+        return options?.map(option =>
+            <Dropdown.Item key={option.label} onClick={() => onSelect(option)}>
+                {option.label}
+            </Dropdown.Item>
         )
     }
 }

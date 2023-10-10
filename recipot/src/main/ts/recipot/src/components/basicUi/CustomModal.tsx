@@ -18,6 +18,7 @@ function CustomModal({
 }: Props) {
 
     const { t } = useTranslation();
+
     return (
         <MyModal
             title={t(title)}
@@ -29,7 +30,7 @@ function CustomModal({
         >
             {children}
         </MyModal>
-    )
+    );
 }
 
 export default CustomModal;

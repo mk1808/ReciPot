@@ -63,7 +63,8 @@ function ComplexListElement({
     );
 
     function renderElementName() {
-        return <span>{getElementName != null ? getElementName(element, t) : element.name}</span>
+        const elementName = getElementName ? getElementName(element, t) : element.name;
+        return <span>{elementName}</span>;
     }
 
     function renderActions() {
@@ -81,10 +82,14 @@ function ComplexListElement({
 
     function renderConfirmActions() {
         return (
-            <>
-                <Tooltip title={t('p.confirm')}><FaCheck onClick={onConfirmClick} className="danger-color" /></Tooltip>
-                <Tooltip title={t('p.cancel')}><FaBan onClick={onCancelClick} className="action-icon" /></Tooltip>
-            </>
+            <div>
+                <Tooltip title={t('p.confirm')}>
+                    <FaCheck onClick={onConfirmClick} className="danger-color" />
+                </Tooltip>
+                <Tooltip title={t('p.cancel')}>
+                    <FaBan onClick={onCancelClick} className="action-icon" />
+                </Tooltip>
+            </div>
         );
     }
 }

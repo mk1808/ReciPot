@@ -189,7 +189,7 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
 
     function getFilterFromParams() {
         setTimeout(() => {
-            const queryParams: any = new URLSearchParams(window.location.search)
+            const queryParams: any = new URLSearchParams(window.location.search);
             for (const [fieldName, value] of queryParams) {
                 let parsedValue = value;
                 try {

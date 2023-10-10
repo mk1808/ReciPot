@@ -40,7 +40,7 @@ function MyButton({
             className={className + " m-2"}
             onClick={onClick}
             disabled={disabled}
-            type={type}>
+            type={type} >
             {children}
         </Button>
     );
