@@ -1,6 +1,7 @@
 import Form from 'react-bootstrap/Form';
 import { useEffect, useRef } from 'react';
 import { checkValidity } from '../../utils/FormInputUtils';
+import { renderFormGroup } from './CommonInputElements';
 
 type Props = {
     name: string,
@@ -33,23 +34,23 @@ function MyFileInput({
     }, [isValid])
 
     function onChangeCallback(event: any) {
-        onChange(event.target.files?.length > 0 ? event.target.files[0] : null);
+        const file = event.target.files?.length > 0 ? event.target.files[0] : null;
+        onChange(file);
     }
 
-    return (
-        <Form.Group className={"mb-3 " + className} controlId={name}>
-            {label && <Form.Label>{label}</Form.Label>}
-            <Form.Control
-                required={required}
-                ref={inputRef}
-                type="file"
-                placeholder={placeholder}
-                disabled={disabled}
-                onChange={onChangeCallback}
-                defaultValue={defaultValue}
-            />
-        </Form.Group>
-    )
+    return renderFormGroup(name, label, renderControl, "mb-3 " + className);
+
+    function renderControl() {
+        return <Form.Control
+            required={required}
+            ref={inputRef}
+            type="file"
+            placeholder={placeholder}
+            disabled={disabled}
+            onChange={onChangeCallback}
+            defaultValue={defaultValue}
+        />
+    }
 }
 
 

@@ -13,7 +13,7 @@ function HashTagBadge({
 
     return (
         <span className="my-2 h5">
-            <Badge bg="primary" className="pe-3 ps-3" onClick={onClick}>{text}</Badge>
+            <Badge bg="primary" className="pe-3 ps-3" onClick={onClick}> {text} </Badge>
         </span>
     );
 }

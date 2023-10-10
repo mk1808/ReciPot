@@ -21,6 +21,7 @@ function Notifications({
 }: Props) {
 
     const { t } = useTranslation();
+
     const nav = useMyNav();
 
     function onGoToRecipe(notification: Notification) {
@@ -41,10 +42,8 @@ function Notifications({
     function renderPopover() {
         return (
             <Popover id="notifications-popover" >
-                <Popover.Header as="h3">{t('p.notifications')}</Popover.Header>
-                <Popover.Body>
-                    {notifications.map(renderNotification)}
-                </Popover.Body>
+                <Popover.Header as="h3"> {t('p.notifications')} </Popover.Header>
+                <Popover.Body> {notifications.map(renderNotification)} </Popover.Body>
             </Popover>
         );
     }

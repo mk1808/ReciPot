@@ -14,12 +14,6 @@ function Tooltip({
     placement = "bottom"
 }: Props) {
 
-    const renderTooltip = (props: any) => (
-        <BootstrapTooltip  {...props}>
-            {title}
-        </BootstrapTooltip>
-    );
-
     return (
         <OverlayTrigger
             placement={placement}
@@ -29,6 +23,14 @@ function Tooltip({
             <div className='tooltip-trigger-children'>{children}</div>
         </OverlayTrigger>
     );
+
+    function renderTooltip(props: any) {
+        return (
+            <BootstrapTooltip {...props}>
+                {title}
+            </BootstrapTooltip>
+        );
+    }
 
 }
 

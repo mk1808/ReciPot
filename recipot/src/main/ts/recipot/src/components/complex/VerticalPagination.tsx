@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { getPageNumbers } from "../../utils/VerticalPaginationUtils";
 import MyButton from "../basicUi/MyButton";
 import { FaEllipsisVertical } from "react-icons/fa6";
@@ -17,6 +18,10 @@ function VerticalPagination({
     onPageSelect
 }: Props) {
 
+    const pageNumbers = useMemo(() => {
+        return getPageNumbers(totalPages, actualPage, pageButtonsToShow)
+    }, [totalPages, actualPage])
+
     function getIsCurrentPage(pageNumber: number) {
         return pageNumber === actualPage;
     }
@@ -24,17 +29,26 @@ function VerticalPagination({
     return (
         <div className="vertical-pagination">
             <div className="pagination-container">
-                {getPageNumbers(totalPages, actualPage, pageButtonsToShow,).map((pageNumber) => renderPageButton(pageNumber))}
+                {renderPageButtons()}
             </div>
         </div>
     )
+
+    function renderPageButtons() {
+        return pageNumbers.map((pageNumber) => renderPageButton(pageNumber))
+    }
 
     function renderPageButton(pageNumber: number) {
         if (pageNumber < 0) {
             return <div className="empty-page-button" key={pageNumber}><FaEllipsisVertical /></div>
         }
         return (
-            <MyButton.Primary key={pageNumber} className="page-button" disabled={getIsCurrentPage(pageNumber)} onClick={() => onPageSelect(pageNumber)}>
+            <MyButton.Primary
+                key={pageNumber}
+                className="page-button"
+                disabled={getIsCurrentPage(pageNumber)}
+                onClick={() => onPageSelect(pageNumber)}
+            >
                 {pageNumber + 1}
             </MyButton.Primary>
         )

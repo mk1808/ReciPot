@@ -48,7 +48,7 @@ export interface ResponsePage<T> {
 export interface SelectOption<T> {
     label: string,
     value: T,
-    children?: T[]
+    children?: SelectOption<T>[]
 }
 
 export interface NavOpen {

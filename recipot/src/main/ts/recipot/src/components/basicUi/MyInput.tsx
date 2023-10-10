@@ -2,6 +2,7 @@ import Form from 'react-bootstrap/Form';
 import { useEffect, useState, useRef } from 'react';
 import { checkValidity } from '../../utils/FormInputUtils';
 import { initFcn } from '../../utils/ObjectUtils';
+import { renderFormGroup } from './CommonInputElements';
 
 type Props = {
     name: string,
@@ -38,7 +39,9 @@ function MyInput({
         checkValidity(inputRef.current, isValid);
     }, [isValid])
 
-    useEffect(() => { onChange(inputValue) }, [inputValue])
+    useEffect(() => {
+        onChange(inputValue)
+    }, [inputValue])
 
     useEffect(() => {
         if (inputRef.current) {
@@ -51,23 +54,22 @@ function MyInput({
         setInputValue(event.target.value)
     }
 
-    return (
-        <Form.Group className="mb-3" controlId={name}>
-            {label && <Form.Label>{label}</Form.Label>}
-            <Form.Control
-                required={required}
-                type={type}
-                placeholder={placeholder}
-                disabled={disabled}
-                onChange={onChangeCallback}
-                defaultValue={defaultValue}
-                ref={inputRef}
-                step={step}
-                min={type === "number" ? 0 : undefined}
-                className={className}
-            />
-        </Form.Group>
-    )
+    return renderFormGroup(name, label, renderControl);
+
+    function renderControl() {
+        return <Form.Control
+            required={required}
+            type={type}
+            placeholder={placeholder}
+            disabled={disabled}
+            onChange={onChangeCallback}
+            defaultValue={defaultValue}
+            ref={inputRef}
+            step={step}
+            min={type === "number" ? 0 : undefined}
+            className={className}
+        />
+    }
 }
 
 

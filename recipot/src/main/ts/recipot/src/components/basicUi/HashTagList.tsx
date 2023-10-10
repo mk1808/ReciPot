@@ -14,15 +14,17 @@ function HashTagList({
 
     return (
         <Stack direction="horizontal" className='hash-tags'>
-            {
-                hashTags.map((tag: any) => (
-                    <div className="me-2" key={tag.id}>
-                        <HashTagBadge text={tag.name} onClick={() => onClick(tag)} />
-                    </div>
-                ))
-            }
+            {renderHashTags()}
         </Stack>
     )
+
+    function renderHashTags() {
+        return hashTags.map((tag: any) => (
+            <div className="me-2" key={tag.id}>
+                <HashTagBadge text={tag.name} onClick={() => onClick(tag)} />
+            </div>
+        ));
+    }
 }
 
 export default HashTagList;

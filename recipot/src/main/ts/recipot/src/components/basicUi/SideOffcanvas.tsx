@@ -15,15 +15,27 @@ function SideOffcanvas({
 }: Props) {
 
     const [show, setShow] = useState(false);
+
     const onClose = () => setShow(false);
     const onShow = () => setShow(true);
 
     return (
         <>
+            {renderTriggerButton()}
+            {renderOffcanvas()}
+        </>
+    );
+
+    function renderTriggerButton() {
+        return (
             <Button variant="primary" onClick={onShow} className="side-offcanvas-button">
                 <FaArrowLeftLong />
             </Button>
+        );
+    }
 
+    function renderOffcanvas() {
+        return (
             <Offcanvas
                 show={show}
                 onHide={onClose}
@@ -32,12 +44,11 @@ function SideOffcanvas({
                 placement="end"
                 className="side-offcanvas-panel"
             >
-
                 {renderContent()}
-
             </Offcanvas>
-        </>
-    );
+        );
+    }
+
     function renderContent() {
         return (
             <>
@@ -48,7 +59,7 @@ function SideOffcanvas({
                     {children}
                 </Offcanvas.Body>
             </>
-        )
+        );
     }
 }
 

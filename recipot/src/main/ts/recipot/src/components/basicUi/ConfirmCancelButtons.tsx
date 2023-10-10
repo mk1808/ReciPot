@@ -25,10 +25,11 @@ function ConfirmCancelButtons({
 }: Props) {
 
     const { t } = useTranslation();
+
     return (
         <Stack direction={direction} className={className}>
-            <MyButton.Secondary onClick={onCancel} className="button-width">{t(buttonCancelText)} </MyButton.Secondary>
-            <MyButton.Primary onClick={onConfirm} type={submitButtonType} className="button-width">{t(buttonSubmitText)} </MyButton.Primary>
+            <MyButton.Secondary onClick={onCancel} className="button-width"> {t(buttonCancelText)} </MyButton.Secondary>
+            <MyButton.Primary onClick={onConfirm} type={submitButtonType} className="button-width"> {t(buttonSubmitText)} </MyButton.Primary>
         </Stack>
     );
 }

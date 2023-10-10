@@ -20,6 +20,7 @@ function SlidingElements({
 
     const [counter, setCounter] = useState(0);
     const [slicedRecipes, setSlicedRecipes] = useState<any[] | undefined>([]);
+
     const lastIndex = recipes.length - size;
 
     useEffect(() => {
@@ -37,26 +38,32 @@ function SlidingElements({
         }
     };
 
+    function onPrev() {
+        onClickSlide(counter === 0 ? 0 : counter - 1)
+    }
+
+    function onNext() {
+        onClickSlide(counter === lastIndex ? lastIndex : counter + 1)
+    }
+
     return (
         <Stack direction="horizontal" className="justify-content-center">
-            <MyButton.Primary onClick={() => onClickSlide(counter === 0 ? 0 : counter - 1)}>
-                <FaChevronLeft />
-            </MyButton.Primary>
-
+            {renderNavButton(onPrev, <FaChevronLeft />)}
             {renderContent()}
-
-            <MyButton.Primary onClick={() => onClickSlide(counter === lastIndex ? lastIndex : counter + 1)}>
-                <FaChevronRight />
-            </MyButton.Primary>
+            {renderNavButton(onNext, <FaChevronRight />)}
         </Stack>
     );
 
-    function renderContent() {
+    function renderNavButton(onClick: any, icon: any) {
         return (
-            <>
-                {slicedRecipes?.map((element, index) => { return getSingleElement(element, element.id) })}
-            </>
-        )
+            <MyButton.Primary onClick={onClick}>
+                {icon}
+            </MyButton.Primary>
+        );
+    }
+
+    function renderContent() {
+        return slicedRecipes?.map((element) => getSingleElement(element, element.id));
     }
 }
 

@@ -25,7 +25,9 @@ export function createUrl(recipesFilterForm?: any) {
     const url = new URL(window.location as any);
     for (const filter in recipesFilterForm) {
         const value = recipesFilterForm[filter];
-        if (typeof value === 'object') {
+        if (typeof value === 'undefined') {
+            continue;
+        } else if (typeof value === 'object') {
             if (typeof value.children !== 'undefined') {
                 value.children = null;
             }

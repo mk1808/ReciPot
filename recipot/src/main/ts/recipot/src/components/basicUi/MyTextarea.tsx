@@ -1,6 +1,7 @@
 import Form from 'react-bootstrap/Form';
 import { useEffect, useRef, useState } from 'react';
 import { checkValidity } from '../../utils/FormInputUtils';
+import { renderFormGroup } from './CommonInputElements';
 
 type Props = {
     name: string,
@@ -27,7 +28,6 @@ function MyTextarea({
 }: Props) {
 
     const inputRef = useRef<HTMLTextAreaElement>(null);
-
     const [inputValue, setInputValue] = useState(defaultValue)
 
     useEffect(() => {
@@ -37,22 +37,32 @@ function MyTextarea({
     useEffect(() => {
         if (inputRef.current) {
             inputRef.current.value = defaultValue;
-            setInputValue(defaultValue)
+            setInputValue(defaultValue);
         }
     }, [defaultValue])
 
-    useEffect(() => { onChange(inputValue) }, [inputValue])
+    useEffect(() => {
+        onChange(inputValue);
+    }, [inputValue])
 
     function onChangeCallback(event: any) {
-        setInputValue(event.target.value)
+        setInputValue(event.target.value);
     }
 
-    return (
-        <Form.Group className="mb-3" controlId={name}>
-            {label && <Form.Label>{label}</Form.Label>}
-            <Form.Control required={required} ref={inputRef} placeholder={placeholder} disabled={disabled} onChange={onChangeCallback} as="textarea" rows={rows} defaultValue={defaultValue} />
-        </Form.Group>
-    )
+    return renderFormGroup(name, label, renderControl);
+
+    function renderControl() {
+        return <Form.Control
+            required={required}
+            ref={inputRef}
+            placeholder={placeholder}
+            disabled={disabled}
+            onChange={onChangeCallback}
+            as="textarea"
+            rows={rows}
+            defaultValue={defaultValue}
+        />;
+    }
 }
 
 export default MyTextarea;

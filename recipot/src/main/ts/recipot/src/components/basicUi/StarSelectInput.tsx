@@ -1,7 +1,8 @@
-import { Form, Stack, Row, Col } from 'react-bootstrap';
+import { Stack, Row, Col } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
 import { initFcn } from '../../utils/ObjectUtils';
+import { renderFormGroup } from './CommonInputElements';
 
 type Props = {
     name: string,
@@ -33,7 +34,9 @@ function StarSelectInput({
         setCurrentValue(defaultValue);
     }, [defaultValue])
 
-    useEffect(() => { onChange(inputValue) }, [inputValue])
+    useEffect(() => {
+        onChange(inputValue)
+    }, [inputValue])
 
     function getStarsIndexes() {
         return Array.from(Array(scope).keys());
@@ -64,16 +67,16 @@ function StarSelectInput({
         return classNames;
     }
 
-    return (
-        <Form.Group className={getClass()} controlId={name}>
-            {label && <Form.Label>{label}</Form.Label>}
-            {renderStars()}
-        </Form.Group>
-    )
+    return renderFormGroup(name, label, renderStars, getClass());
 
     function renderStars() {
         return (
-            <Stack direction='horizontal' onMouseLeave={onMouseLeave} onClick={onConfirmInputValue} gap={1}>
+            <Stack
+                direction='horizontal'
+                onMouseLeave={onMouseLeave}
+                onClick={onConfirmInputValue}
+                gap={1}
+            >
                 {renderZeroSpace()}
                 {getStarsIndexes().map(renderStar)}
             </Stack>
@@ -89,15 +92,15 @@ function StarSelectInput({
             <div className='star-container' key={index}>
                 {renderStarIcon(index)}
                 <Row className='star-hover g-0' >
-                    <Col onMouseEnter={() => changeCurrentValue(index + 0.5)}></Col>
-                    <Col onMouseEnter={() => changeCurrentValue(index + 1)}></Col>
+                    <Col onMouseEnter={() => changeCurrentValue(index + 0.5)} />
+                    <Col onMouseEnter={() => changeCurrentValue(index + 1)} />
                 </Row>
             </div>
-        )
+        );
     }
 
     function renderStarIcon(index: number) {
-        const starValue = index + 1
+        const starValue = index + 1;
         if (currentValue >= starValue) {
             return < BsStarFill className='gold' />;
         } else if (currentValue === starValue - 0.5) {

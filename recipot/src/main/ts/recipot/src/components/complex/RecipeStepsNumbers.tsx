@@ -18,14 +18,15 @@ function RecipeStepsNumbers({
   const circleElements = useRef<any[]>([]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollTop(window.scrollY);
-    };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', onScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', onScroll);
     };
   }, [])
+
+  function onScroll() {
+    setScrollTop(window.scrollY);
+  }
 
   function getColor(index: number): string {
     let element: any = circleElements.current[index],
@@ -36,25 +37,25 @@ function RecipeStepsNumbers({
 
   return (
     <div>
-      {steps.map((element: any, index: number) => {
-        return renderCircleWithText(element, getColor(index), element.id);
-      })}
+      {steps.map(renderCircleWithText)}
     </div>
   );
 
-  function renderCircleWithText(element: any, backgroundClass: string, key: number) {
+  function renderCircleWithText(element: any, index: number) {
     return (
-      <Row className="mb-3 steps" key={key} >
-        <div ref={circleElement => circleElements.current[key] = circleElement} className={"step-circle mb-5 " + backgroundClass}   >
-          {renderValue(key + 1)}
-        </div>
-        <Col className="step-text">
-          <Card>
-            <Card.Body className="py-3 px-4 card-content">{element.description} </Card.Body>
-          </Card>
-        </Col>
+      <Row className="mb-3 steps" key={element.id} >
+        {renderCircle(index)}
+        {renderText(element)}
       </Row>
     )
+  }
+
+  function renderCircle(index: number) {
+    return (
+      <div ref={circleElement => circleElements.current[index] = circleElement} className={"step-circle mb-5 " + getColor(index)} >
+        {renderValue(index + 1)}
+      </div>
+    );
   }
 
   function renderValue(value: number) {
@@ -62,7 +63,17 @@ function RecipeStepsNumbers({
       <div style={{ width: size, height: size }} className="value" >
         <span>{value}</span>
       </div>
-    )
+    );
+  }
+
+  function renderText(element: any) {
+    return (
+      <Col className="step-text">
+        <Card>
+          <Card.Body className="py-3 px-4 card-content">{element.description} </Card.Body>
+        </Card>
+      </Col>
+    );
   }
 }
 export default RecipeStepsNumbers;

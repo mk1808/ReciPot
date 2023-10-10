@@ -13,13 +13,11 @@ function MyCollapse({
     return (
         <Accordion className='my-collapse'>
             <Accordion.Item eventKey="0">
-                <Accordion.Header>{header}</Accordion.Header>
-                <Accordion.Body>
-                    {children}
-                </Accordion.Body>
+                <Accordion.Header> {header} </Accordion.Header>
+                <Accordion.Body> {children} </Accordion.Body>
             </Accordion.Item>
         </Accordion>
-    )
+    );
 }
 
 export default MyCollapse;

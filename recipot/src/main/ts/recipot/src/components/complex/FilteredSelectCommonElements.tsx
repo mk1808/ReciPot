@@ -5,10 +5,6 @@ import { BsCheckSquareFill, BsSquare } from 'react-icons/bs';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
 
-export function renderLabel(label: string) {
-    return label && <Form.Label>{label}</Form.Label>;
-}
-
 export function renderDropdownComponent(parameters: { buttonContent: any, dropdownContent: any, onDropdownToggle: any, disabled: boolean, className: string }) {
     return (
         <Dropdown onToggle={parameters.onDropdownToggle}>
@@ -41,8 +37,19 @@ function renderBadges(selectedValues: any[], onBadgeClick: Function) {
     return (
         <div className='filtered-select-button-text'>
             <Stack direction="horizontal" className='flex-wrap'>
-                {selectedValues.map(value => <div key={value.label} onClick={(event) => onBadgeClick(value, event)}><HashTagBadge text={value.label} /></div>)}
+                {selectedValues.map(value => renderBadge(value, onBadgeClick))}
             </Stack>
+        </div>
+    );
+}
+
+function renderBadge(value: any, onBadgeClick: Function) {
+    return (
+        <div
+            key={value.label}
+            onClick={(event) => onBadgeClick(value, event)}
+        >
+            <HashTagBadge text={value.label} />
         </div>
     );
 }

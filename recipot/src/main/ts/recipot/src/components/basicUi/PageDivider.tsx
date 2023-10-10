@@ -11,7 +11,9 @@ function PageDivider({
     return (
         <div className="page-divider">
             <div className="shadow"></div>
-            <div className="text"><i>{text}</i></div>
+            <div className="text">
+                <i>{text}</i>
+            </div>
         </div>
     );
 }

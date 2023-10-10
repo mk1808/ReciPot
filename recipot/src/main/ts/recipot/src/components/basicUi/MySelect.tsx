@@ -3,6 +3,7 @@ import { asHash } from '../../utils/ObjectUtils';
 import { useEffect, useRef, useState } from 'react';
 import { checkValidity } from '../../utils/FormInputUtils';
 import { SelectOption } from '../../data/utilTypes'
+import { renderFormGroup } from './CommonInputElements';
 
 type Props<T> = {
     name: string,
@@ -59,15 +60,34 @@ function MySelect<T>({
         return emptyOption ? "" : "0";
     }
 
-    return (
-        <Form.Group className="mb-3" controlId={name}>
-            {label && <Form.Label>{label}</Form.Label>}
-            <Form.Select disabled={disabled} onChange={onChangeCallback} required={required} ref={inputRef}>
-                {emptyOption && <option value="">{emptyOption}</option>}
-                {options.map((optionElement: any, index: number) => <option key={optionElement.value} value={index}>{optionElement.label}</option>)}
+    return renderFormGroup(name, label, renderControl);
+
+    function renderControl() {
+        return (
+            <Form.Select
+                disabled={disabled}
+                onChange={onChangeCallback}
+                required={required}
+                ref={inputRef}
+            >
+                {renderEmptyOption()}
+                {renderOptions()}
             </Form.Select>
-        </Form.Group>
-    )
+        );
+    }
+
+    function renderEmptyOption() {
+        return emptyOption && <option value=""> {emptyOption} </option>;
+    }
+
+    function renderOptions() {
+        return options.map(renderOption);
+    }
+
+    function renderOption(optionElement: any, index: number) {
+        return <option key={optionElement.value.id || optionElement.label} value={index}> {optionElement.label} </option>;
+    }
+
 }
 
 export default MySelect;

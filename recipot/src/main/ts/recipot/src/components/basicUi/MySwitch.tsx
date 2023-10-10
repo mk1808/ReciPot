@@ -23,7 +23,6 @@ function MySwitch({
 }: Props) {
 
     const inputRef = useRef<HTMLInputElement>(null);
-
     const [isChecked, setChecked] = useState(defaultChecked)
 
     useEffect(() => {
@@ -31,8 +30,8 @@ function MySwitch({
     }, [isValid])
 
     function onChangeCallback() {
-        onChange(!isChecked)
-        setChecked(!isChecked)
+        onChange(!isChecked);
+        setChecked(!isChecked);
     }
 
     return (
@@ -46,7 +45,7 @@ function MySwitch({
             checked={isChecked}
             onChange={onChangeCallback}
         />
-    )
+    );
 }
 
 export default MySwitch;

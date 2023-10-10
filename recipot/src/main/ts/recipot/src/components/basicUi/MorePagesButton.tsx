@@ -13,10 +13,10 @@ function MorePagesButton({
 
     return (
         <MyButton.OutlinePrimary onClick={onLoadNextPage} className="round-button my-5">
-            <div className="mb-3">{text}</div>
+            <div className="mb-3"> {text} </div>
             <FaArrowDown />
         </MyButton.OutlinePrimary>
-    )
+    );
 }
 
 export default MorePagesButton;

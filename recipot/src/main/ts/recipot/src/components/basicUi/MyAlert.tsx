@@ -17,7 +17,7 @@ function PrimaryAlert({
     onClose
 }: AlertProps) {
 
-    return <MyAlert variant="primary" onClose={onClose}>{children}</MyAlert>
+    return <MyAlert variant="primary" onClose={onClose}> {children} </MyAlert>
 }
 
 function SuccessAlert({
@@ -25,7 +25,7 @@ function SuccessAlert({
     onClose
 }: AlertProps) {
 
-    return <MyAlert variant="success" onClose={onClose}>{children}</MyAlert>
+    return <MyAlert variant="success" onClose={onClose}> {children} </MyAlert>
 }
 
 function ErrorAlert({
@@ -33,7 +33,7 @@ function ErrorAlert({
     onClose
 }: AlertProps) {
 
-    return <MyAlert variant="danger" onClose={onClose}>{children}</MyAlert>
+    return <MyAlert variant="danger" onClose={onClose}> {children} </MyAlert>
 }
 
 function MyAlert({
@@ -61,21 +61,23 @@ function MyAlert({
         setShow(false);
     }
 
-    return (
-        <>
-            {show &&
-                <Alert
-                    variant={variant}
-                    onClose={onAlertClose}
-                    dismissible
-                >
-                    {children}
-                </Alert>
-            }
-        </>
-    );
+    if (show) {
+        return (
+            <Alert
+                variant={variant}
+                onClose={onAlertClose}
+                dismissible
+            >
+                {children}
+            </Alert>
+        );
+    }
+
+    return (<></>);
 }
+
 MyAlert.Primary = PrimaryAlert;
 MyAlert.Success = SuccessAlert;
 MyAlert.Error = ErrorAlert;
+
 export default MyAlert;

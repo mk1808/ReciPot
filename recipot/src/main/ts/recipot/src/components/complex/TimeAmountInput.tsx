@@ -8,6 +8,8 @@ import { useTranslation } from "react-i18next";
 import MyButton from "../basicUi/MyButton";
 import { useEffect, useRef, useState } from "react";
 import './styles.scss';
+import { addZeroIfNeeded } from "../../utils/DateUtils";
+import { renderFormGroup } from "../basicUi/CommonInputElements";
 
 type Props = {
     name: string,
@@ -64,6 +66,11 @@ function TimeAmountInput({
         }
     }, [isValid])
 
+    const incHours = () => { updateHours(1) }
+    const decHours = () => { updateHours(-1) }
+    const incMinutes = () => { updateMinutes(1) }
+    const decMinutes = () => { updateMinutes(-1) }
+
     function updateHours(value: number) {
         setHours(currentHours => getValidValue(currentHours + value, HOURS_MAX));
     }
@@ -82,52 +89,59 @@ function TimeAmountInput({
     }
 
     function getInputValue() {
-        return getAsTwoDigits(hours) + ":" + getAsTwoDigits(minutes);
+        return addZeroIfNeeded(hours) + ":" + addZeroIfNeeded(minutes);
     }
 
-    function getAsTwoDigits(value: number): string {
-        if (value < 10) {
-            return '0' + value;
-        }
-        return String(value);
-    }
+    return renderFormGroup(name, label, renderControl, "mb-3 time-amount-input");
 
-    return (
-        <Form.Group className="mb-3 time-amount-input" controlId={name}>
-            {label && <Form.Label>{label}</Form.Label>}
+    function renderControl() {
+        return (
             <Stack direction="horizontal">
-                <Form.Control placeholder={placeholder} disabled value={getInputValue()} ref={inputRef} />
+                <Form.Control
+                    placeholder={placeholder}
+                    disabled
+                    value={getInputValue()}
+                    ref={inputRef}
+                />
                 {renderClockButton()}
             </Stack>
-        </Form.Group>
-    );
+        );
+    }
 
     function renderClockButton() {
         const iconClass = "info-icon" + (disabled ? " disabled" : "");
         return (
-            <OverlayTrigger trigger="click" placement="bottom" overlay={renderTimePicker()} rootClose>
-                <div><FaRegClock className={iconClass} /></div>
+            <OverlayTrigger
+                trigger="click"
+                placement="bottom"
+                overlay={renderTimePicker()}
+                rootClose
+            >
+                <div>
+                    <FaRegClock className={iconClass} />
+                </div>
             </OverlayTrigger>
         );
     }
 
     function renderTimePicker() {
-        const incHours = () => { updateHours(1) }
-        const decHours = () => { updateHours(-1) }
-        const incMinutes = () => { updateMinutes(1) }
-        const decMinutes = () => { updateMinutes(-1) }
-
         return (
             <Popover className="time-amount-input-picker-popover">
                 <Popover.Header as="h3">{t("p.timeAmountPickerHeader")}</Popover.Header>
                 <Popover.Body>
-                    <Stack direction="horizontal">
-                        {renderValuePicker(getAsTwoDigits(hours), HOURS_MAX, incHours, decHours, setHours)}
-                        <span> : </span>
-                        {renderValuePicker(getAsTwoDigits(minutes), MINUTES_MAX, incMinutes, decMinutes, setMinutes)}
-                    </Stack>
+                    {renderTimePickerBody()}
                 </Popover.Body>
             </Popover>
+        );
+    }
+
+    function renderTimePickerBody() {
+        return (
+            <Stack direction="horizontal">
+                {renderValuePicker(addZeroIfNeeded(hours), HOURS_MAX, incHours, decHours, setHours)}
+                <span> : </span>
+                {renderValuePicker(addZeroIfNeeded(minutes), MINUTES_MAX, incMinutes, decMinutes, setMinutes)}
+            </Stack>
         );
     }
 
