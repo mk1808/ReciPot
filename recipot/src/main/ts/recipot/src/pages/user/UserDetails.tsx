@@ -7,7 +7,7 @@ import { Stack } from 'react-bootstrap';
 import { AppUser, Response, UserStatisticsDto } from '../../data/types';
 import UserDetailsForm from './UserDetailsForm';
 import { useContext, useEffect, useState } from 'react';
-import { UsersContext, UsersDispatchContext } from '../../context/UserContext';
+import { UserContextType, UsersContext, UsersDispatchContext } from '../../context/UserContext';
 import usersApi from '../../api/UsersApi';
 import statisticsApi from '../../api/StatisticsApi';
 import useAlerts from '../../hooks/useAlerts';
@@ -31,7 +31,7 @@ function UserDetails() {
     formSave.onSuccess = function (response: any) {
         alerts.showSuccessAlert(t("p.userSuccessfullyEdited"));
         usersDispatchContext(
-            { type: "refresh" }
+            { type: UserContextType.Refresh }
         )
     }
     formSave.onError = function () {

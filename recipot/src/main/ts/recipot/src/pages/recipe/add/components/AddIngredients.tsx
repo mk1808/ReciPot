@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import MyInput from "../../../../components/basicUi/MyInput";
 import { FaTrashCan } from "react-icons/fa6";
 import { useContext, useEffect, useState } from "react";
-import { AddRecipeContext, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
+import { AddRecipeContext, AddRecipeContextType, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
 import { dynamicInputAttributesForContext } from "../../../../utils/FormInputUtils";
 import FilteredSelect from "../../../../components/complex/FilteredSelect";
 import { onFilteredIngredientSearch } from "../../../../utils/DictionariesUtils";
@@ -32,7 +32,7 @@ function AddIngredients() {
 
         if (getDefaultValue(fieldValue, index || 0, other) !== fieldValue) {
             addRecipeDispatchContext({
-                type: "onChange",
+                type: AddRecipeContextType.OnChange,
                 fieldName: FIELD_NAME,
                 fieldValue,
                 fieldValidity: checkInputValidity(fieldValue, fieldName),
@@ -46,7 +46,7 @@ function AddIngredients() {
     function onAdd() {
         basicIngredient.id = Math.random() * 1000;
         addRecipeDispatchContext({
-            type: "onAdd",
+            type: AddRecipeContextType.OnAdd,
             basicObj: basicIngredient,
             fieldName: FIELD_NAME
         })
@@ -54,7 +54,7 @@ function AddIngredients() {
 
     function onDelete(index: number) {
         addRecipeDispatchContext({
-            type: "onDelete",
+            type: AddRecipeContextType.OnDelete, 
             fieldName: FIELD_NAME,
             index
         })

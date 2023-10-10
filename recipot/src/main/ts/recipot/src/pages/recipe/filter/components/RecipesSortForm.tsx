@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useContext, useEffect } from "react";
-import { RecipeFilterContext, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
+import { RecipeFilterContext, RecipeFilterContextType, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 import MySelect from "../../../../components/basicUi/MySelect";
 import { inputAttributesForContextWithoutValidity } from "../../../../utils/FormInputUtils";
 import MyButton from "../../../../components/basicUi/MyButton";
@@ -32,13 +32,13 @@ function RecipesSortForm() {
 
     function onSearch() {
         recipeFilterDispatchContext({
-            type: "filter"
+            type: RecipeFilterContextType.Filter
         })
     };
 
     function onChange(fieldName: string, value: any) {
         recipeFilterDispatchContext({
-            type: "filterFormChange",
+            type: RecipeFilterContextType.FilterFormChange,
             fieldName,
             value
         })

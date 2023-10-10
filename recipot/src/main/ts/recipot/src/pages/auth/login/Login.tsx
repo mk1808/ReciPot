@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import LoginForm from './LoginForm';
 import { initFormSave } from '../../../utils/FormInputUtils';
 import { useContext, useEffect } from 'react';
-import { UsersContext, UsersDispatchContext } from '../../../context/UserContext';
+import { UserContextType, UsersContext, UsersDispatchContext } from '../../../context/UserContext';
 import authApi from '../../../api/AuthApi';
 import useAlerts from '../../../hooks/useAlerts';
 import { Response, UserLoginDto } from '../../../data/types';
@@ -30,7 +30,7 @@ function Login() {
     }
 
     formSave.onSuccess = function (response: Response<any>) {
-        usersDispatchContext({ type: "refresh" });
+        usersDispatchContext({ type: UserContextType.Refresh });
     }
 
     formSave.onError = function (response: Response<any>) {

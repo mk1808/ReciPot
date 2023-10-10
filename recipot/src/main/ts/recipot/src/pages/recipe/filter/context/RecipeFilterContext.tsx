@@ -16,19 +16,39 @@ type contextStateModel = {
     isLoaded?: boolean
 };
 
+type ReducerActionProps = {
+    type: RecipeFilterContextType,
+    activeRecipeFilterId?: any,
+    value?: any,
+    fieldName?: any,
+    recipesPage?: any
+};
+
+export enum RecipeFilterContextType {
+    FilterSelect = "filterSelect",
+    RefreshFiltersList = "refreshFiltersList",
+    SetSavedFiltersList = "setSavedFiltersList",
+    Filter = "filter",
+    FilterFormChange = "filterFormChange",
+    OnRecipePageLoad = "onRecipePageLoad",
+    OnBetweenRecipePageLoad = "onBetweenRecipePageLoad",
+    LoadRecipesPage = "loadRecipesPage",
+    ClearFilterForm = "clearFilterForm"
+};
+
 const RECIPES_PAGE_SIZE = 4;
 const searchRequestManager = ApiRequestSendManager();
 
 export const RecipeFilterContext: Context<contextStateModel> = createContext({});
 
-export const RecipeFilterDispatchContext = createContext<Function>(() => { });
+export const RecipeFilterDispatchContext = createContext<(action:ReducerActionProps) => any>((action:ReducerActionProps) => {});
 
 export const RecipeFilterContextContextProvider = ({ children }: any) => {
-    const [contextState, dispatch]: [contextStateModel, Function] = useReducer(recipeFilterReducer, {});
+    const [contextState, dispatch]: [contextStateModel, (action:ReducerActionProps) => any] = useReducer(recipeFilterReducer, {});
     const [searchParams,] = useSearchParams();
 
     function getSavedFilters() {
-        savedRecipeFiltersApi.getRecipeFilters((response) => dispatch({ type: 'setSavedFiltersList', value: response.value }));
+        savedRecipeFiltersApi.getRecipeFilters((response) => dispatch({ type: RecipeFilterContextType.SetSavedFiltersList, value: response.value }));
     }
 
     function getRecipesByFilter(recipesFilterForm: any, pageNum: number, pageSize: number, responseCallback: any) {
@@ -44,7 +64,7 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
     function onGetRecipesByFilterResponse(response: Response<ResponsePage<Recipe>>) {
         searchRequestManager.unlock();
         dispatch({
-            type: 'onRecipePageLoad',
+            type: RecipeFilterContextType.OnRecipePageLoad,
             recipesPage: response.value
         });
     }
@@ -68,7 +88,7 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
     function onGetBetweenRecipesByFilterResponse(response: Response<ResponsePage<Recipe>>) {
         searchRequestManager.unlock();
         dispatch({
-            type: 'onBetweenRecipePageLoad',
+            type: RecipeFilterContextType.OnBetweenRecipePageLoad,
             recipesPage: response.value
         });
     }
@@ -79,9 +99,9 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
         }, 400)
     }
 
-    function recipeFilterReducer(contextState: contextStateModel, action: any): contextStateModel {
+    function recipeFilterReducer(contextState: contextStateModel, action: ReducerActionProps): contextStateModel {
         switch (action.type) {
-            case 'filterSelect': {
+            case RecipeFilterContextType.FilterSelect: {
                 const newRecipesFilterFormState = getSelectedFilterFormValue(contextState, action.activeRecipeFilterId)
                 getRecipesByFilter(newRecipesFilterFormState || {}, 0, RECIPES_PAGE_SIZE, onGetRecipesByFilterResponse);
                 updateFilterPageUrl(newRecipesFilterFormState);
@@ -93,17 +113,17 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
                     isLoaded: false
                 };
             }
-            case 'refreshFiltersList': {
+            case RecipeFilterContextType.RefreshFiltersList: {
                 getSavedFilters();
                 return contextState;
             }
-            case 'setSavedFiltersList': {
+            case RecipeFilterContextType.SetSavedFiltersList: {
                 return {
                     ...contextState,
                     savedFilters: action.value
                 };
             }
-            case 'filter': {
+            case RecipeFilterContextType.Filter: {
                 getRecipesByFilter(contextState.recipesFilterForm || {}, 0, RECIPES_PAGE_SIZE, onGetRecipesByFilterResponse);
                 updateFilterPageUrl(contextState.recipesFilterForm);
                 return {
@@ -112,7 +132,7 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
                     isLoaded: false
                 };
             }
-            case 'filterFormChange': {
+            case RecipeFilterContextType.FilterFormChange: {
                 return {
                     ...contextState,
                     recipesFilterForm: {
@@ -121,7 +141,7 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
                     }
                 }
             }
-            case 'onRecipePageLoad': {
+            case RecipeFilterContextType.OnRecipePageLoad: {
                 const recipesPages = [...(contextState?.recipesPages || [])];
                 recipesPages[action.recipesPage.number] = action.recipesPage.content;
                 loadBetweenPage(contextState, recipesPages, action.recipesPage);
@@ -133,7 +153,7 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
                     isLoaded: true
                 };
             }
-            case 'onBetweenRecipePageLoad': {
+            case RecipeFilterContextType.OnBetweenRecipePageLoad: {
                 const recipesPages = [...(contextState?.recipesPages || [])];
                 recipesPages[action.recipesPage.number] = action.recipesPage.content;
                 loadBetweenPage(contextState, recipesPages, action.recipesPage);
@@ -143,13 +163,13 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
                     recipesPages: recipesPages
                 };
             }
-            case 'loadRecipesPage': {
+            case RecipeFilterContextType.LoadRecipesPage: {
                 getRecipesByFilter(contextState.recipesFilterForm || {}, action.value, RECIPES_PAGE_SIZE, onGetRecipesByFilterResponse);
                 return {
                     ...contextState
                 };
             }
-            case 'clearFilterForm': {
+            case RecipeFilterContextType.ClearFilterForm: {
                 return {
                     ...contextState,
                     recipesFilterForm: {
@@ -177,13 +197,13 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
                 } catch (e) { }
 
                 dispatch({
-                    type: "filterFormChange",
+                    type: RecipeFilterContextType.FilterFormChange,
                     fieldName,
                     value: parsedValue
                 })
             }
             setTimeout(() => {
-                dispatch({ type: 'filter' })
+                dispatch({ type: RecipeFilterContextType.Filter })
             }, 100)
         }, 100)
     }

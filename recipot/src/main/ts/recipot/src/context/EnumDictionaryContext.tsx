@@ -4,13 +4,24 @@ import { useTranslation } from "react-i18next";
 import dictionariesApi from "../api/DictionariesApi";
 import { getConverters } from "../utils/DictionariesUtils";
 
+type ReducerActionProps = {
+    type: EnumContextType,
+    enumType?: any,
+    singleEnum?: any
+}
+
+export enum EnumContextType {
+    Refresh = "refresh",
+    Update = "update"
+};
+
 export const EnumDictionaryContext: Context<any> = createContext({});
 
-export const EnumDictionaryDispatchContext = createContext<Function>(() => { });
+export const EnumDictionaryDispatchContext = createContext<(action:ReducerActionProps) => any>((action:ReducerActionProps) => {});
 
 export const EnumDictionaryContextProvider = ({ children }: any) => {
     const { t } = useTranslation();
-    const [enums, dispatch]: [any, Function] = useReducer(
+    const [enums, dispatch]: [any, (action:ReducerActionProps) => any] = useReducer(
         enumsReducer, {}
     );
 
@@ -18,20 +29,20 @@ export const EnumDictionaryContextProvider = ({ children }: any) => {
         let converter = getConverters();
         type ObjectKey = keyof typeof converter;
         let singleConverter: any = converter[enumType as ObjectKey];
-        let action = { singleEnum: singleConverter(t, response.value), type: 'update', enumType: enumType }
+        let action = { singleEnum: singleConverter(t, response.value), type: EnumContextType.Update, enumType: enumType }
         dispatch(action);
     };
 
-    function enumsReducer(enums: {}, action: any) {
+    function enumsReducer(enums: {}, action: ReducerActionProps) {
         switch (action.type) {
-            case 'refresh': {
+            case EnumContextType.Refresh: {
                 dictionariesApi.getAllDifficulties((response) => onSuccessRefresh(response, "difficulties"), () => { })
                 dictionariesApi.getAllRequiredEfforts((response) => onSuccessRefresh(response, "requiredEfforts"), () => { })
                 dictionariesApi.getAllAmountsOfDishes((response) => onSuccessRefresh(response, "amountsOfDishes"), () => { })
                 dictionariesApi.getAllAccessTypes((response) => onSuccessRefresh(response, "accessTypes"), () => { })
                 return enums;
             }
-            case 'update': {
+            case EnumContextType.Update: {
                 return { ...enums, [action.enumType]: action.singleEnum };
             }
 
@@ -41,7 +52,7 @@ export const EnumDictionaryContextProvider = ({ children }: any) => {
         }
     }
     useEffect(() => {
-        dispatch({ type: 'refresh' })
+        dispatch({ type: EnumContextType.Refresh })
     }, [])
 
     return (

@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import RecipeCard from "../../../../components/complex/RecipeCard";
 import { Stack } from "react-bootstrap";
-import { RecipeCollectionListContext, RecipeCollectionListDispatchContext } from "../context/RecipeCollectionListContext";
+import { RecipeCollectionListContext, RecipeCollectionListContextType, RecipeCollectionListDispatchContext } from "../context/RecipeCollectionListContext";
 import { useTranslation } from "react-i18next";
 import { Recipe, RecipeCollection } from "../../../../data/types";
 import MyHeader from "../../../../components/basicUi/MyHeader";
@@ -48,7 +48,7 @@ function CollectionRecipesColumn() {
 
     function loadNextPage(index: number) {
         collectionsDispatchContext({
-            type: 'loadRecipesPage',
+            type: RecipeCollectionListContextType.LoadRecipesPage,
             value: index
         })
     }
