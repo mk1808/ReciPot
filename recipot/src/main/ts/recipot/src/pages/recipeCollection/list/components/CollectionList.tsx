@@ -1,7 +1,7 @@
 import { Stack } from "react-bootstrap";
 import ComplexListElement from "../../../../components/complex/ComplexListElement";
 import { useContext } from "react";
-import { RecipeCollectionListContext, RecipeCollectionListDispatchContext } from "../context/RecipeCollectionListContext";
+import { RecipeCollectionListContext, RecipeCollectionListContextType, RecipeCollectionListDispatchContext } from "../context/RecipeCollectionListContext";
 import { RecipeCollection } from "../../../../data/types";
 import { useTranslation } from "react-i18next";
 import recipeCollectionsApi from "../../../../api/RecipeCollectionsApi";
@@ -16,7 +16,7 @@ function CollectionList() {
 
     function onCollectionSelect(index: number) {
         collectionsDispatchContext({
-            type: 'collectionSelect',
+            type: RecipeCollectionListContextType.CollectionSelect,
             activeCollectionId: (collectionsContext.collections || [])[index].id
         });
     }
@@ -27,7 +27,7 @@ function CollectionList() {
 
     function onCollectionDeleteResponse(response: any) {
         alerts.showSuccessAlert(t(response.message));
-        collectionsDispatchContext({ type: 'refreshCollectionsList' })
+        collectionsDispatchContext({ type: RecipeCollectionListContextType.RefreshCollectionsList })
     }
 
     return (

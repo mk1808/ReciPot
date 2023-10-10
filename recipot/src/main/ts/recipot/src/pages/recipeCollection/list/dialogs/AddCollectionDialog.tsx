@@ -2,7 +2,7 @@ import { useContext, useRef } from "react";
 import CustomModal from "../../../../components/basicUi/CustomModal";
 import { useTranslation } from "react-i18next";
 import AddCollectionDialogForm from "./AddCollectionDialogForm";
-import { RecipeCollectionListDispatchContext } from "../context/RecipeCollectionListContext";
+import { RecipeCollectionListContextType, RecipeCollectionListDispatchContext } from "../context/RecipeCollectionListContext";
 import recipeCollectionsApi from "../../../../api/RecipeCollectionsApi";
 import { RecipeCollection, Response } from "../../../../data/types";
 import useAlerts from "../../../../hooks/useAlerts";
@@ -31,7 +31,7 @@ function AddCollectionDialog({
     }
     formSave.onSuccess = function () {
         alerts.showSuccessAlert(t("p.recipesCollectionSaved"));
-        collectionsDispatchContext({ type: 'refreshCollectionsList' });
+        collectionsDispatchContext({ type: RecipeCollectionListContextType.RefreshCollectionsList });
         onClose();
     }
     formSave.onError = function (response: Response<any>) {
