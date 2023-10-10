@@ -1,8 +1,20 @@
 import { createContext, useEffect, Context, useReducer } from "react";
-import { Response } from "../data/types";
+import { CategoryDto, RecipeAccessType, RecipeAmountOfDishes, RecipeDifficulty, RecipeRequiredEffort, Response } from "../data/types";
 import { useTranslation } from "react-i18next";
 import dictionariesApi from "../api/DictionariesApi";
 import { getConverters } from "../utils/DictionariesUtils";
+import { SelectOption } from "../data/utilTypes";
+
+type contextStateModel = { 
+   enums:enumsStateModel
+};
+
+export type enumsStateModel={
+    difficulties:SelectOption<RecipeDifficulty>[],
+    requiredEfforts: SelectOption<RecipeRequiredEffort>[],
+    amountsOfDishes:SelectOption<RecipeAmountOfDishes>[],
+    accessTypes:SelectOption<RecipeAccessType>[]
+}
 
 type ReducerActionProps = {
     type: EnumContextType,
@@ -15,14 +27,14 @@ export enum EnumContextType {
     Update = "update"
 };
 
-export const EnumDictionaryContext: Context<any> = createContext({});
+export const EnumDictionaryContext = createContext<contextStateModel>({enums:{} as enumsStateModel});
 
 export const EnumDictionaryDispatchContext = createContext<(action:ReducerActionProps) => any>((action:ReducerActionProps) => {});
 
 export const EnumDictionaryContextProvider = ({ children }: any) => {
     const { t } = useTranslation();
-    const [enums, dispatch]: [any, (action:ReducerActionProps) => any] = useReducer(
-        enumsReducer, {}
+    const [enums, dispatch]: [enumsStateModel, (action:ReducerActionProps) => any] = useReducer(
+        enumsReducer, {} as enumsStateModel
     );
 
     function onSuccessRefresh(response: Response<any>, enumType: any) {
@@ -33,7 +45,7 @@ export const EnumDictionaryContextProvider = ({ children }: any) => {
         dispatch(action);
     };
 
-    function enumsReducer(enums: {}, action: ReducerActionProps) {
+    function enumsReducer(enums:enumsStateModel, action: ReducerActionProps):enumsStateModel {
         switch (action.type) {
             case EnumContextType.Refresh: {
                 dictionariesApi.getAllDifficulties((response) => onSuccessRefresh(response, "difficulties"), () => { })
