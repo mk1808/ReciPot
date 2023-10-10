@@ -5,9 +5,11 @@ import { useTranslation } from "react-i18next";
 import { ApiRequestSendManager } from "../utils/ApiRequestSendManager";
 import useAlerts from "../hooks/useAlerts";
 
-type ReducerActionProps = { 
-    user?: any, 
-    type: UserContextType 
+type contextStateModel = AppUser | undefined | null;
+
+type ReducerActionProps = {
+    user?: any,
+    type: UserContextType
 }
 
 export enum UserContextType {
@@ -16,16 +18,16 @@ export enum UserContextType {
     Refresh = "refresh"
 };
 
-export const UsersContext = createContext<AppUser | undefined>(undefined);
+export const UsersContext = createContext<contextStateModel>(undefined);
 
-export const UsersDispatchContext = createContext<(action:ReducerActionProps) => any>((action:ReducerActionProps) => {});
+export const UsersDispatchContext = createContext<(action: ReducerActionProps) => any>((action: ReducerActionProps) => { });
 
 const searchRequestManager = ApiRequestSendManager();
 
 export const UserContextProvider = ({ children }: any) => {
     const { t } = useTranslation();
-    const alerts = useAlerts(); 
-    const [user, dispatch]: [any, (action:ReducerActionProps) => any] = useReducer(
+    const alerts = useAlerts();
+    const [user, dispatch]: [contextStateModel, (action: ReducerActionProps) => any] = useReducer(
         usersReducer, null
     );
 
@@ -61,7 +63,7 @@ export const UserContextProvider = ({ children }: any) => {
         }, intervalTime);
     }
 
-    function usersReducer(user: any, action: ReducerActionProps) {
+    function usersReducer(user: contextStateModel, action: ReducerActionProps): contextStateModel {
         switch (action.type) {
             case UserContextType.Logged: {
                 return action.user;
