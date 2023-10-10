@@ -18,10 +18,10 @@ type contextStateModel = {
 
 type ReducerActionProps = {
     type: RecipeFilterContextType,
-    activeRecipeFilterId: any,
-    value: any,
-    fieldName: any,
-    recipesPage: any
+    activeRecipeFilterId?: any,
+    value?: any,
+    fieldName?: any,
+    recipesPage?: any
 };
 
 export enum RecipeFilterContextType {
@@ -41,10 +41,10 @@ const searchRequestManager = ApiRequestSendManager();
 
 export const RecipeFilterContext: Context<contextStateModel> = createContext({});
 
-export const RecipeFilterDispatchContext = createContext<Function>(() => { });
+export const RecipeFilterDispatchContext = createContext<(action:ReducerActionProps) => any>((action:ReducerActionProps) => {});
 
 export const RecipeFilterContextContextProvider = ({ children }: any) => {
-    const [contextState, dispatch]: [contextStateModel, Function] = useReducer(recipeFilterReducer, {});
+    const [contextState, dispatch]: [contextStateModel, (action:ReducerActionProps) => any] = useReducer(recipeFilterReducer, {});
     const [searchParams,] = useSearchParams();
 
     function getSavedFilters() {

@@ -5,6 +5,11 @@ import { useTranslation } from "react-i18next";
 import { ApiRequestSendManager } from "../utils/ApiRequestSendManager";
 import useAlerts from "../hooks/useAlerts";
 
+type ReducerActionProps = { 
+    user?: any, 
+    type: UserContextType 
+}
+
 export enum UserContextType {
     Logged = "logged",
     Logout = "logout",
@@ -13,14 +18,14 @@ export enum UserContextType {
 
 export const UsersContext = createContext<AppUser | undefined>(undefined);
 
-export const UsersDispatchContext = createContext<Function>(() => { });
+export const UsersDispatchContext = createContext<(action:ReducerActionProps) => any>((action:ReducerActionProps) => {});
 
 const searchRequestManager = ApiRequestSendManager();
 
 export const UserContextProvider = ({ children }: any) => {
     const { t } = useTranslation();
     const alerts = useAlerts(); 
-    const [user, dispatch]: [any, Function] = useReducer(
+    const [user, dispatch]: [any, (action:ReducerActionProps) => any] = useReducer(
         usersReducer, null
     );
 
@@ -56,7 +61,7 @@ export const UserContextProvider = ({ children }: any) => {
         }, intervalTime);
     }
 
-    function usersReducer(user: any, action: { user: any, type: UserContextType }) {
+    function usersReducer(user: any, action: ReducerActionProps) {
         switch (action.type) {
             case UserContextType.Logged: {
                 return action.user;

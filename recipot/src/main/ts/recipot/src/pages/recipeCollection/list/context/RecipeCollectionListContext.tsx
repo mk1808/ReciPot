@@ -15,10 +15,10 @@ type contextStateModel = {
 
 type ReducerActionProps = {
     type: RecipeCollectionListContextType,
-    activeCollectionId: any,
-    refreshCollectionsList: any,
-    value: any,
-    recipesPage: any
+    activeCollectionId?: any,
+    refreshCollectionsList?: any,
+    value?: any,
+    recipesPage?: any
 }
 
 export enum RecipeCollectionListContextType {
@@ -36,10 +36,10 @@ const searchRequestManager = ApiRequestSendManager();
 
 export const RecipeCollectionListContext: Context<contextStateModel> = createContext({});
 
-export const RecipeCollectionListDispatchContext = createContext<Function>(() => { });
+export const RecipeCollectionListDispatchContext = createContext<(action:ReducerActionProps) => any>((action:ReducerActionProps) => {});
 
 export const RecipeCollectionListContextProvider = ({ children }: any) => {
-    const [contextState, dispatch]: [contextStateModel, Function] = useReducer(collectionsReducer, {});
+    const [contextState, dispatch]: [contextStateModel, (action:ReducerActionProps) => any] = useReducer(collectionsReducer, {});
 
     function getSavedCollections() {
         recipeCollectionsApi.getUserRecipeCollections((response) => dispatch({ type: RecipeCollectionListContextType.SetSavedCollectionsList, value: response.value }))
