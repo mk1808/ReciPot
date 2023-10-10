@@ -13,7 +13,7 @@ import MyButton from "../../../../components/basicUi/MyButton";
 import { inputAttributesForContextWithoutValidity } from "../../../../utils/FormInputUtils";
 import AddRecipeFilterDialog from "../dialogs/AddRecipeFilterDialog";
 import { RecipeFilterContext, RecipeFilterContextType, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
-import { EnumDictionaryContext } from "../../../../context/EnumDictionaryContext";
+import { EnumDictionaryContext, enumsStateModel } from "../../../../context/EnumDictionaryContext";
 import { UsersContext } from "../../../../context/UserContext";
 
 function RecipeFiltersColumn() {
@@ -117,7 +117,7 @@ function RecipeFiltersColumn() {
     }
 
     function getEnum(enumName: string) {
-        return enumDictionaryContext[enumName] || [];
+        return enumDictionaryContext[enumName as keyof enumsStateModel] || [];
     }
 
     function clearFilter() {

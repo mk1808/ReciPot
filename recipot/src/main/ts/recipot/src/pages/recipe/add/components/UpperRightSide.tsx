@@ -8,7 +8,7 @@ import dictionariesApi from "../../../../api/DictionariesApi";
 import { CategoryDto, Response } from "../../../../data/types";
 import { AddRecipeContext, AddRecipeContextType, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
 import { inputAttributesForContext } from "../../../../utils/FormInputUtils";
-import { EnumDictionaryContext } from "../../../../context/EnumDictionaryContext";
+import { EnumDictionaryContext, enumsStateModel } from "../../../../context/EnumDictionaryContext";
 
 function UpperRightSide() {
     const { t } = useTranslation();
@@ -36,7 +36,7 @@ function UpperRightSide() {
     }
 
     function getEnum(enumName: string) {
-        return enumDictionaryContext[enumName] || [];
+        return enumDictionaryContext[enumName as keyof enumsStateModel] || [];
     }
 
     function onChange(fieldValue: any, fieldName: string) {

@@ -1,4 +1,4 @@
-import { createContext, useEffect, Context, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 import { Recipe, RecipeCollection, RecipeCollectionItem, Response } from "../../../../data/types";
 import recipeCollectionsApi from "../../../../api/RecipeCollectionsApi";
 import { ResponsePage } from "../../../../data/utilTypes";
@@ -34,7 +34,7 @@ const RECIPES_PAGE_SIZE = 4;
 
 const searchRequestManager = ApiRequestSendManager();
 
-export const RecipeCollectionListContext: Context<contextStateModel> = createContext({});
+export const RecipeCollectionListContext = createContext<contextStateModel>({});
 
 export const RecipeCollectionListDispatchContext = createContext<(action:ReducerActionProps) => any>((action:ReducerActionProps) => {});
 
