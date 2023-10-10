@@ -5,7 +5,7 @@ import AddIngredients from "./AddIngredients";
 import UpperRightSide from "./UpperRightSide";
 import AddSteps from "./AddSteps";
 import ConfirmCancelButtons from "../../../../components/basicUi/ConfirmCancelButtons";
-import { AddRecipeContextType, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
+import { AddRecipeContextType, AddRecipeDispatchContext } from "../context/AddRecipeContext";
 import useMyNav from "../../../../hooks/useMyNav";
 
 function RecipeAddForm() {

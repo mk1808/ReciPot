@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import MyHeader from "../../../components/basicUi/MyHeader";
 import './styles.scss';
 import RecipeAddForm from "./components/RecipeAddForm";
-import AddRecipeContextProvider from "../../../context/AddRecipeContext";
+import AddRecipeContextProvider from "./context/AddRecipeContext";
 import { Recipe } from "../../../data/types";
 
 type Props = {

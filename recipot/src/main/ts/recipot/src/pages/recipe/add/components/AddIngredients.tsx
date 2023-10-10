@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import MyInput from "../../../../components/basicUi/MyInput";
 import { FaTrashCan } from "react-icons/fa6";
 import { useContext, useEffect, useState } from "react";
-import { AddRecipeContext, AddRecipeContextType, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
+import { AddRecipeContext, AddRecipeContextType, AddRecipeDispatchContext } from "../context/AddRecipeContext";
 import { dynamicInputAttributesForContext } from "../../../../utils/FormInputUtils";
 import FilteredSelect from "../../../../components/complex/FilteredSelect";
 import { onFilteredIngredientSearch } from "../../../../utils/DictionariesUtils";
