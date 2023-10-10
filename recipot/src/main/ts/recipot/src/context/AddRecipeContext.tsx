@@ -37,7 +37,7 @@ export enum AddRecipeContextType {
 
 export const AddRecipeContext = createContext<any>([]);
 
-export const AddRecipeDispatchContext = createContext<(actiom:ReducerActionProps) => any>((actiom:ReducerActionProps) => {});
+export const AddRecipeDispatchContext = createContext<(action:ReducerActionProps) => any>((action:ReducerActionProps) => {});
 
 const saveRecipeRequestManager = ApiRequestSendManager();
 

@@ -6,8 +6,8 @@ import { getConverters } from "../utils/DictionariesUtils";
 
 type ReducerActionProps = {
     type: EnumContextType,
-    enumType: any,
-    singleEnum: any
+    enumType?: any,
+    singleEnum?: any
 }
 
 export enum EnumContextType {
@@ -17,11 +17,11 @@ export enum EnumContextType {
 
 export const EnumDictionaryContext: Context<any> = createContext({});
 
-export const EnumDictionaryDispatchContext = createContext<Function>(() => { });
+export const EnumDictionaryDispatchContext = createContext<(action:ReducerActionProps) => any>((action:ReducerActionProps) => {});
 
 export const EnumDictionaryContextProvider = ({ children }: any) => {
     const { t } = useTranslation();
-    const [enums, dispatch]: [any, Function] = useReducer(
+    const [enums, dispatch]: [any, (action:ReducerActionProps) => any] = useReducer(
         enumsReducer, {}
     );
 

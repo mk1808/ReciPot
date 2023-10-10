@@ -3,9 +3,9 @@ import MyAlert from '../components/basicUi/MyAlert';
 
 type ReducerActionProps = {
     type: AlertsContextType,
-    message: any,
-    alertType: any,
-    id: any
+    message?: any,
+    alertType?: any,
+    id?: any
 }
 
 export enum AlertsContextType {
@@ -15,7 +15,7 @@ export enum AlertsContextType {
 
 export const AlertsContext = createContext<any[]>([]);
 
-export const AlertsDispatchContext = createContext<Function>(() => { });
+export const AlertsDispatchContext = createContext<(action:ReducerActionProps) => any>((action:ReducerActionProps) => {});
 
 function alertsReducer(alerts: any[], action: ReducerActionProps) {
     switch (action.type) {
@@ -40,7 +40,7 @@ function alertsReducer(alerts: any[], action: ReducerActionProps) {
 }
 
 function AlertContextProvider({ children }: any) {
-    const [alerts, dispatch]: [any, Function] = useReducer(
+    const [alerts, dispatch]: [any, (action:ReducerActionProps) => any] = useReducer(
         alertsReducer,
         []
     );
