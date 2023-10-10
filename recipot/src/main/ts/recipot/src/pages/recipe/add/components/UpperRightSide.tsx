@@ -6,7 +6,7 @@ import FilteredSelect from "../../../../components/complex/FilteredSelect";
 import { useContext, useEffect, useState } from "react";
 import dictionariesApi from "../../../../api/DictionariesApi";
 import { CategoryDto, Response } from "../../../../data/types";
-import { AddRecipeContext, AddRecipeContextType, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
+import { AddRecipeContext, AddRecipeContextType, AddRecipeDispatchContext } from "../context/AddRecipeContext";
 import { inputAttributesForContext } from "../../../../utils/FormInputUtils";
 import { EnumDictionaryContext, enumsStateModel } from "../../../../context/EnumDictionaryContext";
 

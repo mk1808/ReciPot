@@ -5,7 +5,7 @@ import MyTextarea from "../../../../components/basicUi/MyTextarea";
 import { Col, Row } from "react-bootstrap";
 import { FaTrashCan } from "react-icons/fa6";
 import { useContext } from "react";
-import { AddRecipeContext, AddRecipeContextType, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
+import { AddRecipeContext, AddRecipeContextType, AddRecipeDispatchContext } from "../context/AddRecipeContext";
 import { checkInputValidity, dynamicInputAttributesForContext } from "../../../../utils/FormInputUtils";
 import { getDefaultValue } from "../../../../utils/AddRecipeContextUtil";
 

@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import MyInput from "../../../../components/basicUi/MyInput";
 import MyTextarea from "../../../../components/basicUi/MyTextarea";
-import { AddRecipeContext, AddRecipeContextType, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
+import { AddRecipeContext, AddRecipeContextType, AddRecipeDispatchContext } from "../context/AddRecipeContext";
 import { useContext, useState } from "react";
 import { inputAttributesForContext } from "../../../../utils/FormInputUtils";
 import MyButton from "../../../../components/basicUi/MyButton";
