@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import VerticalPagination from "../../../../components/complex/VerticalPagination";
-import { RecipeFilterContext, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
+import { RecipeFilterContext, RecipeFilterContextType, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 import { scrollIntoRecipesPage } from "../../../../utils/RecipeSearchUtils";
 
 function FilteredRecipesPagination() {
@@ -13,7 +13,7 @@ function FilteredRecipesPagination() {
 
     function onPageSelect(page: number) {
         recipeFilterDispatchContext({
-            type: 'loadRecipesPage',
+            type: RecipeFilterContextType.LoadRecipesPage,
             value: page
         })
     }

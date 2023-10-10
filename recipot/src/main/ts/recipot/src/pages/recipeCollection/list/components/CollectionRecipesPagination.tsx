@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { RecipeCollectionListContext, RecipeCollectionListDispatchContext } from "../context/RecipeCollectionListContext";
+import { RecipeCollectionListContext, RecipeCollectionListContextType, RecipeCollectionListDispatchContext } from "../context/RecipeCollectionListContext";
 import VerticalPagination from "../../../../components/complex/VerticalPagination";
 
 function CollectionRecipesPagination() {
@@ -13,7 +13,7 @@ function CollectionRecipesPagination() {
 
     function onPageSelect(page: number) {
         collectionsDispatchContext({
-            type: 'loadRecipesPage',
+            type: RecipeCollectionListContextType.LoadRecipesPage,
             value: page
         })
     }

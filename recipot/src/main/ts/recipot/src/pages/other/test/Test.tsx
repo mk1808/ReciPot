@@ -23,7 +23,7 @@ import MySelect from "../../../components/basicUi/MySelect";
 import MyFileInput from "../../../components/basicUi/MyFileInput";
 import MySwitch from "../../../components/basicUi/MySwitch";
 import VerticalPagination from "../../../components/complex/VerticalPagination";
-import { AlertsDispatchContext } from "../../../context/AlertContext";
+import { AlertsContextType, AlertsDispatchContext } from "../../../context/AlertContext";
 import RecipeCardCircle from "../../../components/complex/RecipeCardCircle";
 import MyImage from "../../../components/basicUi/MyImage";
 import { initAs } from "../../../utils/ObjectUtils";
@@ -175,7 +175,7 @@ function Test() {
                 <button onClick={() => {
 
                     dispatch({
-                        type: 'added',
+                        type: AlertsContextType.Added,
                         id: nextId++,
                         message: "This is a primary alert—check it out!",
                         alertType: "error"

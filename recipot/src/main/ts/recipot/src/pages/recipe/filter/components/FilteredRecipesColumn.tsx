@@ -2,7 +2,7 @@ import { useContext } from "react";
 import RecipeCard from "../../../../components/complex/RecipeCard";
 import { Recipe } from "../../../../data/types";
 import { Stack } from "react-bootstrap";
-import { RecipeFilterContext, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
+import { RecipeFilterContext, RecipeFilterContextType, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 import { useTranslation } from "react-i18next";
 import NoContent from "../../../../components/complex/NoContent";
 import MySpinner from "../../../../components/basicUi/MySpinner";
@@ -19,7 +19,7 @@ function FilteredRecipesColumn() {
     const onGoToRecipe = (recipe: Recipe, event: any) => nav.openInBackground({ id: recipe.id }, event);
     function onLoadNextPage() {
         recipeFilterDispatchContext({
-            type: 'loadRecipesPage',
+            type: RecipeFilterContextType.LoadRecipesPage,
             value: (recipeFilterContext.currentPage?.number || 0) + 1
         })
     }

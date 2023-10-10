@@ -1,6 +1,6 @@
 import { useEffect, useContext, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { UsersContext, UsersDispatchContext } from '../context/UserContext';
+import { UserContextType, UsersContext, UsersDispatchContext } from '../context/UserContext';
 import MySpinner from '../components/basicUi/MySpinner';
 
 const ProtectedRoute = ({ element }: { element: any }) => {
@@ -11,7 +11,7 @@ const ProtectedRoute = ({ element }: { element: any }) => {
     useEffect(() => {
         if (!user) {
             usersDispatchContext(
-                { type: "refresh" }
+                { type: UserContextType.Refresh }
             )
             setTimeout(() => {
                 setWaitingForUser(false)

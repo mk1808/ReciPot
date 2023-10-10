@@ -5,16 +5,27 @@ import { useTranslation } from "react-i18next";
 import { ApiRequestSendManager } from "../utils/ApiRequestSendManager";
 import useAlerts from "../hooks/useAlerts";
 
+type ReducerActionProps = { 
+    user?: any, 
+    type: UserContextType 
+}
+
+export enum UserContextType {
+    Logged = "logged",
+    Logout = "logout",
+    Refresh = "refresh"
+};
+
 export const UsersContext = createContext<AppUser | undefined>(undefined);
 
-export const UsersDispatchContext = createContext<Function>(() => { });
+export const UsersDispatchContext = createContext<(action:ReducerActionProps) => any>((action:ReducerActionProps) => {});
 
 const searchRequestManager = ApiRequestSendManager();
 
 export const UserContextProvider = ({ children }: any) => {
     const { t } = useTranslation();
     const alerts = useAlerts(); 
-    const [user, dispatch]: [any, Function] = useReducer(
+    const [user, dispatch]: [any, (action:ReducerActionProps) => any] = useReducer(
         usersReducer, null
     );
 
@@ -26,7 +37,7 @@ export const UserContextProvider = ({ children }: any) => {
 
     function onSuccessRefresh(response: Response<AppUser>) {
         searchRequestManager.unlock();
-        let action = { user: response.value, type: 'logged' }
+        let action = { user: response.value, type: UserContextType.Logged }
         dispatch(action);
         refreshUser();
     };
@@ -36,7 +47,7 @@ export const UserContextProvider = ({ children }: any) => {
         if (user) {
             alerts.showErrorAlert(t("p.userTokenTimeout"));
         }
-        dispatch({ user: null, type: 'logged' });
+        dispatch({ user: null, type: UserContextType.Logged });
     };
 
     function onSuccessLogout(response: Response<any>) {
@@ -46,20 +57,20 @@ export const UserContextProvider = ({ children }: any) => {
     function refreshUser() {
         const intervalTime = 1000 * 10; //minute
         setTimeout(() => {
-            dispatch({ type: 'refresh' })
+            dispatch({ type: UserContextType.Refresh })
         }, intervalTime);
     }
 
-    function usersReducer(user: any, action: any) {
+    function usersReducer(user: any, action: ReducerActionProps) {
         switch (action.type) {
-            case 'logged': {
+            case UserContextType.Logged: {
                 return action.user;
             }
-            case 'logout': {
+            case UserContextType.Logout: {
                 authApi.logout(onSuccessLogout, () => { });
                 return null;
             }
-            case 'refresh': {
+            case UserContextType.Refresh: {
                 refreshRequest();
                 return user;
             }
@@ -69,7 +80,7 @@ export const UserContextProvider = ({ children }: any) => {
         }
     }
     useEffect(() => {
-        dispatch({ type: 'refresh' })
+        dispatch({ type: UserContextType.Refresh })
     }, [])
 
     return (
