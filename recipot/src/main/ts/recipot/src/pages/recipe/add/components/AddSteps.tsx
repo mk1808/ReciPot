@@ -5,7 +5,7 @@ import MyTextarea from "../../../../components/basicUi/MyTextarea";
 import { Col, Row } from "react-bootstrap";
 import { FaTrashCan } from "react-icons/fa6";
 import { useContext } from "react";
-import { AddRecipeContext, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
+import { AddRecipeContext, AddRecipeContextType, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
 import { checkInputValidity, dynamicInputAttributesForContext } from "../../../../utils/FormInputUtils";
 import { getDefaultValue } from "../../../../utils/AddRecipeContextUtil";
 
@@ -25,7 +25,7 @@ function AddSteps() {
 
         if (formFields.formValue && formFields.formValue[fieldName] !== fieldValue) {
             addRecipeDispatchContext({
-                type: "onChange",
+                type:AddRecipeContextType.OnChange,
                 fieldName: FIELD_NAME,
                 fieldValue,
                 fieldValidity: checkInputValidity(fieldValue),
@@ -39,7 +39,7 @@ function AddSteps() {
     function onAdd() {
         basicStep.id = Math.random() * 1000;
         addRecipeDispatchContext({
-            type: "onAdd",
+            type: AddRecipeContextType.OnAdd,
             basicObj: basicStep,
             fieldName: FIELD_NAME
         })
@@ -47,7 +47,7 @@ function AddSteps() {
 
     function onDelete(index: number) {
         addRecipeDispatchContext({
-            type: "onDelete",
+            type: AddRecipeContextType.OnDelete,
             fieldName: FIELD_NAME,
             index
         })

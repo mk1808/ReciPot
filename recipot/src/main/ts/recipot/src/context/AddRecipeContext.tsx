@@ -15,9 +15,29 @@ type Props = {
     editedRecipe?: Recipe | any
 };
 
+type ReducerActionProps = {
+    type: AddRecipeContextType, 
+    fieldName?: any, 
+    index?: any, 
+    isIngredientOrStep?: boolean, 
+    subFieldName?: any, 
+    fieldValue?: any, 
+    fieldValidity?: any, 
+    basicObj?: any, 
+    recipe?: any
+}
+
+export enum AddRecipeContextType {
+    OnChange = "onChange",
+    OnSubmit = "onSubmit",
+    OnAdd = "onAdd",
+    OnDelete = "onDelete",
+    OnRecipeLoaded = "onRecipeLoaded"
+};
+
 export const AddRecipeContext = createContext<any>([]);
 
-export const AddRecipeDispatchContext = createContext<Function>(() => { });
+export const AddRecipeDispatchContext = createContext<(actiom:ReducerActionProps) => any>((actiom:ReducerActionProps) => {});
 
 const saveRecipeRequestManager = ApiRequestSendManager();
 
@@ -40,7 +60,7 @@ function AddRecipeContextProvider({
             fields.formValue = correctRecipe;
         }
     }, [editedRecipe])
-    const [fields, dispatch]: [any, Function] = useReducer(
+    const [fields, dispatch]: [any, (actiom:ReducerActionProps) => any] = useReducer(
         addRecipeReducer,
         []
     );
@@ -96,9 +116,9 @@ function AddRecipeContextProvider({
         alerts.showErrorAlert(t(response.message));
     }
 
-    function addRecipeReducer(fields: any, action: any) {
+    function addRecipeReducer(fields: any, action: ReducerActionProps) {
         switch (action.type) {
-            case 'onChange': {
+            case AddRecipeContextType.OnChange: {
                 if (action.isIngredientOrStep) {
                     if (fields.formValue[action.fieldName][action.index]) {
                         fields.formValue[action.fieldName][action.index][action.subFieldName] = action.fieldValue;
@@ -132,11 +152,11 @@ function AddRecipeContextProvider({
                     },
                 };
             }
-            case 'onSubmit': {
+            case AddRecipeContextType.OnSubmit: {
                 formSave.current.onSubmit(fields);
                 return fields;
             }
-            case 'onAdd': {
+            case AddRecipeContextType.OnAdd: {
                 let elements: any;
                 let elementsValidity: any
 
@@ -168,7 +188,7 @@ function AddRecipeContextProvider({
                     },
                 };
             }
-            case 'onDelete': {
+            case AddRecipeContextType.OnDelete: {
                 let el = [...(fields.formValue[action.fieldName]).slice(0, action.index), ...(fields.formValue[action.fieldName]).slice(action.index + 1)]
                 let elValid = [...(fields.formValidity[action.fieldName]).slice(0, action.index), ...(fields.formValidity[action.fieldName]).slice(action.index + 1)]
 
@@ -184,7 +204,7 @@ function AddRecipeContextProvider({
                     },
                 };
             }
-            case 'onRecipeLoaded': {
+            case AddRecipeContextType.OnRecipeLoaded: {
                 console.log(action.recipe);
                 return;
             }

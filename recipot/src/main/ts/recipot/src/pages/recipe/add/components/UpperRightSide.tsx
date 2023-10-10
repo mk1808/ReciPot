@@ -6,7 +6,7 @@ import FilteredSelect from "../../../../components/complex/FilteredSelect";
 import { useContext, useEffect, useState } from "react";
 import dictionariesApi from "../../../../api/DictionariesApi";
 import { CategoryDto, Response } from "../../../../data/types";
-import { AddRecipeContext, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
+import { AddRecipeContext, AddRecipeContextType, AddRecipeDispatchContext } from "../../../../context/AddRecipeContext";
 import { inputAttributesForContext } from "../../../../utils/FormInputUtils";
 import { EnumDictionaryContext } from "../../../../context/EnumDictionaryContext";
 
@@ -42,7 +42,7 @@ function UpperRightSide() {
     function onChange(fieldValue: any, fieldName: string) {
         if (!formFields.formValue || formFields.formValue[fieldName] !== fieldValue) {
             addRecipeDispatchContext({
-                type: "onChange",
+                type: AddRecipeContextType.OnChange,
                 fieldName,
                 fieldValue,
                 fieldValidity: checkInputValidity(fieldValue, fieldName)
