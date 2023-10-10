@@ -10,20 +10,29 @@ import { FormSave } from "../data/utilTypes";
 import { initFormSave } from "../utils/FormInputUtils";
 import useMyNav from "../hooks/useMyNav";
 
+type contextStateModel = {
+    fields: fieldsStateModel,
+    editedRecipe?: any
+};
+type fieldsStateModel = {
+    formValue?: any,
+    formValidity?: any
+}
+
 type Props = {
     children: any,
     editedRecipe?: Recipe | any
 };
 
 type ReducerActionProps = {
-    type: AddRecipeContextType, 
-    fieldName?: any, 
-    index?: any, 
-    isIngredientOrStep?: boolean, 
-    subFieldName?: any, 
-    fieldValue?: any, 
-    fieldValidity?: any, 
-    basicObj?: any, 
+    type: AddRecipeContextType,
+    fieldName?: any,
+    index?: any,
+    isIngredientOrStep?: boolean,
+    subFieldName?: any,
+    fieldValue?: any,
+    fieldValidity?: any,
+    basicObj?: any,
     recipe?: any
 }
 
@@ -35,9 +44,9 @@ export enum AddRecipeContextType {
     OnRecipeLoaded = "onRecipeLoaded"
 };
 
-export const AddRecipeContext = createContext<any>([]);
+export const AddRecipeContext = createContext<contextStateModel>({ fields: {} });
 
-export const AddRecipeDispatchContext = createContext<(action:ReducerActionProps) => any>((action:ReducerActionProps) => {});
+export const AddRecipeDispatchContext = createContext<(action: ReducerActionProps) => any>((action: ReducerActionProps) => { });
 
 const saveRecipeRequestManager = ApiRequestSendManager();
 
@@ -60,10 +69,7 @@ function AddRecipeContextProvider({
             fields.formValue = correctRecipe;
         }
     }, [editedRecipe])
-    const [fields, dispatch]: [any, (actiom:ReducerActionProps) => any] = useReducer(
-        addRecipeReducer,
-        []
-    );
+    const [fields, dispatch]: [fieldsStateModel, (actiom: ReducerActionProps) => any] = useReducer(addRecipeReducer, {});
     formSave.current.onSubmit = function (fields: any) {
         for (const field in fields.formValidity) {
             if (!fields.formValidity[field]) {
@@ -116,7 +122,7 @@ function AddRecipeContextProvider({
         alerts.showErrorAlert(t(response.message));
     }
 
-    function addRecipeReducer(fields: any, action: ReducerActionProps) {
+    function addRecipeReducer(fields: fieldsStateModel, action: ReducerActionProps): fieldsStateModel {
         switch (action.type) {
             case AddRecipeContextType.OnChange: {
                 if (action.isIngredientOrStep) {
@@ -206,7 +212,7 @@ function AddRecipeContextProvider({
             }
             case AddRecipeContextType.OnRecipeLoaded: {
                 console.log(action.recipe);
-                return;
+                return fields;
             }
             default: {
                 throw Error('Unknown action: ' + action.type);

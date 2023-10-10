@@ -1,25 +1,25 @@
 import dictionariesApi from "../api/DictionariesApi";
 import { CategoryDto, RecipeAccessType, RecipeAmountOfDishes, RecipeDifficulty, RecipeRequiredEffort } from "../data/types";
-import { Enums } from "../data/utilTypes";
+import { Enums, SelectOption } from "../data/utilTypes";
 
-export function getAccessTypes(t: any, values: RecipeAccessType[]): { label: string, value: RecipeAccessType }[] {
+export function getAccessTypes(t: any, values: RecipeAccessType[]): SelectOption<RecipeAccessType>[] {
     return dictionaryValueToSelectOption('RecipeAccessType', values, t);
 }
 
-export function getAmountOfDishes(t: any, values: RecipeAmountOfDishes[]): { label: string, value: RecipeAmountOfDishes }[] {
+export function getAmountOfDishes(t: any, values: RecipeAmountOfDishes[]): SelectOption<RecipeAmountOfDishes>[] {
     return dictionaryValueToSelectOption('RecipeAmountOfDishes', values, t);
 }
 
-export function getDifficulties(t: any, values: RecipeDifficulty[]): { label: string, value: RecipeDifficulty }[] {
+export function getDifficulties(t: any, values: RecipeDifficulty[]): SelectOption<RecipeDifficulty>[] {
     return dictionaryValueToSelectOption('RecipeDifficulty', values, t);
 }
 
-export function getRequiredEfforts(t: any, values: RecipeRequiredEffort[]): { label: string, value: RecipeRequiredEffort }[] {
+export function getRequiredEfforts(t: any, values: RecipeRequiredEffort[]):  SelectOption<RecipeRequiredEffort>[] {
     return dictionaryValueToSelectOption('RecipeRequiredEffort', values, t);
 }
 
-function dictionaryValueToSelectOption<T>(enumType: string, values: T[], t: any): { label: string, value: T }[] {
-    return values.map((value) => { return { label: t(`enums.${enumType}.${value}`), value } });
+function dictionaryValueToSelectOption<T>(enumType: string, values: T[], t: any): SelectOption<T>[] {
+    return values.map((value) => { return { label: t(`enums.${enumType}.${value}`), value } as SelectOption<T> });
 }
 
 export function onFilteredHashTagSearch(phrase: string, callback: any) {
