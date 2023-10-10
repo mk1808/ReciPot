@@ -1,4 +1,4 @@
-import { createContext, useEffect, Context, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 import { Recipe, RecipeFilter, Response } from "../../../../data/types";
 import savedRecipeFiltersApi from "../../../../api/SavedRecipeFiltersApi";
 import recipesApi from "../../../../api/RecipesApi";
@@ -39,7 +39,7 @@ export enum RecipeFilterContextType {
 const RECIPES_PAGE_SIZE = 4;
 const searchRequestManager = ApiRequestSendManager();
 
-export const RecipeFilterContext: Context<contextStateModel> = createContext({});
+export const RecipeFilterContext = createContext<contextStateModel>({});
 
 export const RecipeFilterDispatchContext = createContext<(action:ReducerActionProps) => any>((action:ReducerActionProps) => {});
 
