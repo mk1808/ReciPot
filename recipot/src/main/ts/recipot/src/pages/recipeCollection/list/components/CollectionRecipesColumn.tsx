@@ -20,17 +20,22 @@ import useAlerts from "../../../../hooks/useAlerts";
 import useMyNav from "../../../../hooks/useMyNav";
 
 function CollectionRecipesColumn() {
-    const collectionsContext = useContext(RecipeCollectionListContext);
-    const collectionsDispatchContext = useContext(RecipeCollectionListDispatchContext);
-    const alerts = useAlerts();
     const { t } = useTranslation();
-    const nav = useMyNav();
     const [showModalDelete, setShowModalDelete] = useState(false);
     const [nextPageIndex, setNextPageIndex] = useState(0);
     const [recipeToDelete, setRecipeToDelete] = useState<Recipe | any>();
-    const onGoToRecipe = (recipe: Recipe, event: any,) => nav.openInBackground({ id: recipe.id }, event);
-    const activeRecipeCollection: RecipeCollection | undefined = collectionsContext.collections?.filter(collection => collection.id === collectionsContext.activeCollectionId)[0];
+
+    const collectionsContext = useContext(RecipeCollectionListContext);
+    const collectionsDispatchContext = useContext(RecipeCollectionListDispatchContext);
+    const alerts = useAlerts();
+    const nav = useMyNav();
+
     const isLoaded = collectionsContext.isLoaded;
+    const onGoToRecipe = (recipe: Recipe, event: any,) => nav.openInBackground({ id: recipe.id }, event);
+    const activeRecipeCollection: RecipeCollection | undefined = collectionsContext.collections?.filter(
+        collection => collection.id === collectionsContext.activeCollectionId
+    )[0];
+
     function deleteRecipeShowModal(recipe: Recipe, index: number) {
         setShowModalDelete(true);
         setRecipeToDelete(recipe);

@@ -9,10 +9,10 @@ import { getCollectionName } from "../../../../utils/TextUtils";
 import useAlerts from "../../../../hooks/useAlerts";
 
 function CollectionList() {
+    const { t } = useTranslation();
     const collectionsContext = useContext(RecipeCollectionListContext);
     const collectionsDispatchContext = useContext(RecipeCollectionListDispatchContext);
-    const alerts = useAlerts();   
-    const { t } = useTranslation();
+    const alerts = useAlerts();
 
     function onCollectionSelect(index: number) {
         collectionsDispatchContext({
@@ -46,7 +46,8 @@ function CollectionList() {
                 element={collection}
                 isActive={collection.id === collectionsContext.activeCollectionId}
                 getElementName={getCollectionName}
-            />);
+            />
+        );
     }
 
 }

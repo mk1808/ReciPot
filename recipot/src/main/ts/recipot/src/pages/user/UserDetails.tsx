@@ -15,25 +15,27 @@ import { initFormSave } from '../../utils/FormInputUtils';
 
 function UserDetails() {
     const { t } = useTranslation();
+    const [userStatistics, setUserStatistics] = useState<UserStatisticsDto>();
     const user = useContext(UsersContext);
     const usersDispatchContext = useContext(UsersDispatchContext);
     const alerts = useAlerts();
-    const [userStatistics, setUserStatistics] = useState<UserStatisticsDto>();
+    const formSave = initFormSave<AppUser>();
 
     useEffect(() => {
         statisticsApi.getUserStatistics((response: Response<UserStatisticsDto>) => setUserStatistics(response.value));
     }, [user])
 
-    const formSave = initFormSave<AppUser>();
     formSave.onSubmit = function (userFormValue: any) {
         usersApi.updateUser(user?.id || "", userFormValue, formSave.onSuccess, formSave.onError);
     }
+
     formSave.onSuccess = function (response: any) {
         alerts.showSuccessAlert(t("p.userSuccessfullyEdited"));
         usersDispatchContext(
             { type: UserContextType.Refresh }
         )
     }
+
     formSave.onError = function () {
         alerts.showErrorAlert(t("p.defaultError"));
     }
