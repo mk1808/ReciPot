@@ -51,7 +51,8 @@ function SavedRecipeFilters() {
                 onDelete={onRecipeFilterDelete}
                 element={recipeFilter}
                 isActive={recipeFilter.id === recipeFilterContext.activeRecipeFilterId}
-            />);
+            />
+        );
     }
 }
 

@@ -26,7 +26,6 @@ function FilteredRecipesPagination() {
             onPageSelect={onPageSelect}
         />
     );
-
 }
 
 export default FilteredRecipesPagination;
