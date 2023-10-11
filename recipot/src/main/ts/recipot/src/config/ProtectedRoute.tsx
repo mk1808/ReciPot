@@ -6,7 +6,7 @@ import MySpinner from '../components/basicUi/MySpinner';
 const ProtectedRoute = ({ element }: { element: any }) => {
     const user: any = useContext(UsersContext);
     const usersDispatchContext: any = useContext(UsersDispatchContext);
-    const [waitingForUser, setWaitingForUser] = useState(!user)
+    const [waitingForUser, setWaitingForUser] = useState(!user);
 
     useEffect(() => {
         if (!user) {

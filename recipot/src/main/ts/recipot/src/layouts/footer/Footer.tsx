@@ -8,10 +8,7 @@ import './../styles.scss';
 
 function Footer() {
   const { t } = useTranslation();
-
-  function getYear() {
-    return new Date().getFullYear();
-  }
+  const getYear = () => new Date().getFullYear();
 
   return (
     <Card className='footer'>

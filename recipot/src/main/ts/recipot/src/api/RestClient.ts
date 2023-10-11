@@ -4,7 +4,7 @@ function RestClient() {
     const URL = "/api";
     const HEADER = { 'Content-Type': 'application/json; character=utf-8' };
 
-    const defaultOnError = (response: any) => { console.warn(response) }
+    const defaultOnError = (response: any) => { console.warn("error ", response) }
 
     const apiCall = <T>(method: any, path: string | undefined, onSuccess: (response: Response<T>) => any, onError: (response: Response<T>) => any = defaultOnError) => {
         fetch(`${URL}${path}`, {

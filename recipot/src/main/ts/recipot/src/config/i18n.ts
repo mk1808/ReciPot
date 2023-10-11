@@ -17,7 +17,6 @@ i18n
             escapeValue: false
         }
     });
-i18n.changeLanguage("pl");
 
 function setDefaultLanguage() {
     var selectedLang: any = localStorage.getItem("selectedLang");
@@ -28,7 +27,6 @@ function setDefaultLanguage() {
         }
     }
 }
-setDefaultLanguage();
 
 function setLang(lang: string) {
     i18n.changeLanguage(lang);
@@ -42,6 +40,9 @@ export function setLangPL() {
 export function setLangEN() {
     setLang("en");
 }
+
+i18n.changeLanguage("pl");
+setDefaultLanguage();
 
 export default i18n;
 

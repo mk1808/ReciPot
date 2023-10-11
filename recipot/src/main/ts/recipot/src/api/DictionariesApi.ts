@@ -4,13 +4,12 @@ import restClient from "./RestClient";
 
 function DictionariesApi() {
     const PREFIX = '/dictionaries';
-    const defaultOnError = (response: any) => { console.warn("error", response) }
 
     const createCategory = (body: Category, onSuccess: (response: Response<Category>) => any, onError?: (response: Response<Category>) => any) => {
         restClient.post(`${PREFIX}/categories`, body, onSuccess, onError)
     }
 
-    const getAllCategories = (onSuccess: (response: Response<CategoryDto[]>) => any, onError: ((response: Response<CategoryDto[]>) => any) = defaultOnError) => {
+    const getAllCategories = (onSuccess: (response: Response<CategoryDto[]>) => any, onError?: ((response: Response<CategoryDto[]>) => any)) => {
         restClient.get(`${PREFIX}/categories`, onSuccess, onError)
     }
 
