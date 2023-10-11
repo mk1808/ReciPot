@@ -7,8 +7,10 @@ export function stopEventPropagation(event?: any) {
 }
 
 export function createNewValue(searchInputValue: string) {
-    return { value: searchInputValue, label: searchInputValue };
-
+    return {
+        value: searchInputValue,
+        label: searchInputValue
+    };
 }
 
 export function canCreateNewValue(allowNew: boolean, options: any[], searchInputValue: string) {

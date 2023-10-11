@@ -50,7 +50,9 @@ export function onFormChange(value: any, name: string, dispatchForm: any) {
 
 export function checkIfAllValid(event: any, myForm: MyForm) {
     for (const field in myForm.formValidity) {
-        if (!myForm.formValidity[field]) { return false; }
+        if (!myForm.formValidity[field]) {
+            return false;
+        }
     }
     return event.currentTarget.checkValidity() === true;
 };

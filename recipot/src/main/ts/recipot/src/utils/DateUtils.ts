@@ -1,11 +1,12 @@
 export function format(date: any) {
     let newDate = new Date(date),
-        minute = newDate.getMinutes(),
-        hour = newDate.getHours(),
-        day = newDate.getDate(),
-        month = newDate.getMonth() + 1,
+        minute = addZeroIfNeeded(newDate.getMinutes()),
+        hour = addZeroIfNeeded(newDate.getHours()),
+        day = addZeroIfNeeded(newDate.getDate()),
+        month = addZeroIfNeeded(newDate.getMonth() + 1),
         year = newDate.getFullYear();
-    return `${addZeroIfNeeded(day)}-${addZeroIfNeeded(month)}-${year} ${addZeroIfNeeded(hour)}:${addZeroIfNeeded(minute)}`
+
+    return `${day}-${month}-${year} ${hour}:${minute}`;
 }
 
 export function addZeroIfNeeded(datePart: any) {
@@ -14,15 +15,15 @@ export function addZeroIfNeeded(datePart: any) {
 
 export function formatNoTime(date: any) {
     let newDate = new Date(date),
-        day = newDate.getDate(),
-        month = newDate.getMonth() + 1,
+        day = addZeroIfNeeded(newDate.getDate()),
+        month = addZeroIfNeeded(newDate.getMonth() + 1),
         year = newDate.getFullYear();
-    return `${addZeroIfNeeded(day)}-${addZeroIfNeeded(month)}-${year}`
+    return `${day}-${month}-${year}`;
 }
 
 export function convertToTime(time: number) {
     let hour = Math.floor(time / 60);
-    let min = time % 60;
-    return `${hour}:${addZeroIfNeeded(min)}`
+    let min = addZeroIfNeeded(time % 60);
+    return `${hour}:${min}`;
 }
 
