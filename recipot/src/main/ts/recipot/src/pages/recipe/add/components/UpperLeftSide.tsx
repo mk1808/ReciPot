@@ -14,9 +14,9 @@ import { Stack } from "react-bootstrap";
 
 function UpperLeftSide() {
     const { t } = useTranslation();
+    const [showModalDelete, setShowModalDelete] = useState(false);
     const addRecipeDispatchContext = useContext(AddRecipeDispatchContext);
     const formFields = useContext(AddRecipeContext).fields;
-    const [showModalDelete, setShowModalDelete] = useState(false);
     const editedRecipe = useContext(AddRecipeContext).editedRecipe;
 
     function onChange(fieldValue: any, fieldName: string) {
@@ -41,6 +41,7 @@ function UpperLeftSide() {
             }
         }
     }
+    
     function getValidity(fieldName: string) {
         return formFields?.formValidity ? formFields?.formValidity[fieldName] : false;
     }

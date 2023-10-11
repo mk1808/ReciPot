@@ -22,16 +22,16 @@ function RegisterForm({
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, initEmptyForm());
 
+    function formReducer(state: any, action: any) {
+        return getNewState(state, action, action.value, checkInputValidity);
+    }
+
     function onSubmit(event: any) {
         if (checkIfAllValid(event, myForm)) {
             formSave.onSubmit(myForm.formValue);
         }
         preventFurtherAction(event);
     };
-
-    function formReducer(state: any, action: any) {
-        return getNewState(state, action, action.value, checkInputValidity);
-    }
 
     function checkInputValidity(action: any, state?: any) {
         switch (action.type) {
@@ -57,32 +57,7 @@ function RegisterForm({
         <Form noValidate validated onSubmit={onSubmit}>
             <Col className="main-column">
                 <Row className="row">
-                    <MyInput
-                        required
-                        label={t('p.username')}
-                        placeholder={t('p.username')}
-                        defaultValue={defaultValue}
-                        {...inputAttributes("login", myForm, dispatchForm)} />
-                    <MyInput
-                        required
-                        label={t('p.mail')}
-                        placeholder={t('p.mail')}
-                        defaultValue={defaultValue}
-                        {...inputAttributes("email", myForm, dispatchForm)} />
-                    <MyInput
-                        type="password"
-                        required
-                        label={t('p.password')}
-                        placeholder={t('p.password')}
-                        defaultValue={defaultValue}
-                        {...inputAttributes("password", myForm, dispatchForm)} />
-                    <MyInput
-                        type="password"
-                        required
-                        label={t('p.passwordRepeat')}
-                        placeholder={t('p.passwordRepeat')}
-                        defaultValue={defaultValue}
-                        {...inputAttributes("matchingPassword", myForm, dispatchForm)} />
+                    {renderInputs()}
                 </Row>
             </Col>
 
@@ -91,6 +66,39 @@ function RegisterForm({
             </MyButton.Primary>
         </Form>
     )
+
+    function renderInputs() {
+        return (
+            <>
+                <MyInput
+                    required
+                    label={t('p.username')}
+                    placeholder={t('p.username')}
+                    defaultValue={defaultValue}
+                    {...inputAttributes("login", myForm, dispatchForm)} />
+                <MyInput
+                    required
+                    label={t('p.mail')}
+                    placeholder={t('p.mail')}
+                    defaultValue={defaultValue}
+                    {...inputAttributes("email", myForm, dispatchForm)} />
+                <MyInput
+                    type="password"
+                    required
+                    label={t('p.password')}
+                    placeholder={t('p.password')}
+                    defaultValue={defaultValue}
+                    {...inputAttributes("password", myForm, dispatchForm)} />
+                <MyInput
+                    type="password"
+                    required
+                    label={t('p.passwordRepeat')}
+                    placeholder={t('p.passwordRepeat')}
+                    defaultValue={defaultValue}
+                    {...inputAttributes("matchingPassword", myForm, dispatchForm)} />
+            </>
+        )
+    }
 }
 
 export default RegisterForm;

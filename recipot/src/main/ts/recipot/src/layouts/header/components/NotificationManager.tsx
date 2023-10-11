@@ -34,7 +34,6 @@ function NotificationManager() {
         notificationsApi.deleteNotification(notification.id, () => {
             setNotifications(removeValue(notificationsClosure.current, notification))
         });
-
     }
 
     return <Notifications notifications={notifications} onConfirm={onConfirm} />

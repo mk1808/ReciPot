@@ -8,20 +8,12 @@ import MyHeader from "../../../components/basicUi/MyHeader";
 import useMyNav from "../../../hooks/useMyNav";
 
 function CategoryCards() {
+    const NUMBER_IN_ROW = 3;
     const [allCategories, setAllCategories] = useState<any[]>([]);
     const [readyCategories, setReadyCategories] = useState<any[]>([]);
     const nav = useMyNav();
-    const numInRow = 3;
     const onCategoryClick = (category: CategoryDto) => nav.goToCategoryFilters(category);
 
-    function setCategoriesInRows(categories: Category[]) {
-        let newTab = [...readyCategories];
-        let noOfRows = Math.ceil(categories.length / numInRow);
-        for (let i = 0; i < noOfRows; i++) {
-            newTab.push(categories.slice(i * numInRow, i * numInRow + numInRow));
-        }
-        setReadyCategories(newTab);
-    }
     useEffect(() => {
         dictionariesApi.getAllCategories((response: Response<any[]>) => {
             let categories = response.value;
@@ -29,6 +21,16 @@ function CategoryCards() {
             setCategoriesInRows(categories);
         })
     }, [])
+
+    function setCategoriesInRows(categories: Category[]) {
+        let newTab = [...readyCategories];
+        let noOfRows = Math.ceil(categories.length / NUMBER_IN_ROW);
+        for (let i = 0; i < noOfRows; i++) {
+            newTab.push(categories.slice(i * NUMBER_IN_ROW, i * NUMBER_IN_ROW + NUMBER_IN_ROW));
+        }
+        setReadyCategories(newTab);
+    }
+
     return (
         <Stack direction="horizontal" className=" flex-wrap align-items-stretch justify-content-center my-5 categories-row" >
             {allCategories.map((singleRow: CategoryDto) =>

@@ -10,22 +10,23 @@ import { checkInputValidity, dynamicInputAttributesForContext } from "../../../.
 import { getDefaultValue } from "../../../../utils/AddRecipeContextUtil";
 
 function AddSteps() {
-    const { t } = useTranslation();
     const FIELD_NAME = 'recipeSteps';
+    const { t } = useTranslation();
+    const addRecipeDispatchContext = useContext(AddRecipeDispatchContext);
+    const formFields = useContext(AddRecipeContext).fields;
+
     const basicStep: any = {
         id: "",
         order: 0,
         description: "",
         recipe: undefined
     }
-    const addRecipeDispatchContext = useContext(AddRecipeDispatchContext);
-    const formFields = useContext(AddRecipeContext).fields;
-    const other = { formFields, mainFieldName: FIELD_NAME };
-    function onChange(fieldValue: any, fieldName: string, index?: number) {
+    const fieldsAndMainName = { formFields, mainFieldName: FIELD_NAME };
 
+    function onChange(fieldValue: any, fieldName: string, index?: number) {
         if (formFields.formValue && formFields.formValue[fieldName] !== fieldValue) {
             addRecipeDispatchContext({
-                type:AddRecipeContextType.OnChange,
+                type: AddRecipeContextType.OnChange,
                 fieldName: FIELD_NAME,
                 fieldValue,
                 fieldValidity: checkInputValidity(fieldValue),
@@ -54,7 +55,8 @@ function AddSteps() {
     }
 
     function getStepValidity(fieldName: string, index: number) {
-        return formFields?.formValidity?.recipeSteps && formFields?.formValidity?.recipeSteps[index] ? formFields?.formValidity.recipeSteps[index][fieldName] : false;
+        return formFields?.formValidity?.recipeSteps && formFields?.formValidity?.recipeSteps[index] ?
+            formFields?.formValidity.recipeSteps[index][fieldName] : false;
     }
 
     return (
@@ -89,7 +91,7 @@ function AddSteps() {
                 label={t('p.step')}
                 placeholder={t('p.step')}
                 rows={4}
-                {...dynamicInputAttributesForContext("description", onChange, getStepValidity, index, undefined, getDefaultValue("description", index, other))}
+                {...dynamicInputAttributesForContext("description", onChange, getStepValidity, index, undefined, getDefaultValue("description", index, fieldsAndMainName))}
             />
         )
     }

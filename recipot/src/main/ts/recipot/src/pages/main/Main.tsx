@@ -19,16 +19,20 @@ import useMyNav from "../../hooks/useMyNav";
 const getRandomRequestManager = ApiRequestSendManager();
 function Main() {
     const { t } = useTranslation();
+    const [randomRecipe, setRandomRecipe] = useState(initAs<Recipe>());
+    const [recipes, setRecipes] = useState([]);
+    const [statistics, setStatistics] = useState<GeneralStatisticsDto>();
+
     const nav = useMyNav();
-    const recipeCallback = (recipe: Recipe) => { nav.toRecipe(recipe.id) }
+
+    const recipeCallback = (recipe: Recipe) => nav.toRecipe(recipe.id);
     const onGoToRecipe = (recipe: Recipe, event: any) => nav.openInBackground({ id: recipe.id }, event);
     const onMoreNewRecipes = () => {
         nav.goToFilters({ recipesSort: { fieldName: 'created', order: 'DESC' } });
     }
-    const [randomRecipe, setRandomRecipe] = useState(initAs<Recipe>());
-    const [recipes, setRecipes] = useState([]);
-    const [statistics, setStatistics] = useState<GeneralStatisticsDto>();
-    const onGetRandomSuccess = (response: any) => { setRandomRecipe(response.value && response.value[0]); getRandomRequestManager.unlock() }
+    const onGetRandomSuccess = (response: any) => {
+        setRandomRecipe(response.value && response.value[0]); getRandomRequestManager.unlock()
+    }
 
     useEffect(() => {
         getRandomRequestManager.nextAndLock(() => {

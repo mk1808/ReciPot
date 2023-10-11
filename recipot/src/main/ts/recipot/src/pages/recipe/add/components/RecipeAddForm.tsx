@@ -39,7 +39,6 @@ function RecipeAddForm() {
                     {renderRightSide()}
                 </Col>
             </Row>
-
         );
     }
 
