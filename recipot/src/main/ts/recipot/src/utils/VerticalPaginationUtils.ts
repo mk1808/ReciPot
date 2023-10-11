@@ -6,7 +6,7 @@ export function getPageNumbers(totalPages: number, actualPage: number, pageButto
     const endPage = getEndPage(actualPage, halfOfPagesToShow, totalPages);
 
     for (let pageNumber = startPage; pageNumber <= endPage; pageNumber++) {
-        pageNumbers.push(pageNumber)
+        pageNumbers.push(pageNumber);
     }
 
     addPageZero(pageNumbers);

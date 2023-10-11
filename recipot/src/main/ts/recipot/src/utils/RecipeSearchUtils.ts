@@ -14,7 +14,7 @@ export function buildRecipeSearchDto(recipesFilterForm?: any): RecipeSearchDto {
         searchCriteriaList: searchCriteriaList,
         dataOption: "all",
         searchOrder: recipesFilterForm.recipesSort
-    } as RecipeSearchDto
+    } as RecipeSearchDto;
 }
 
 export function updatePageUrl(recipesFilterForm?: any) {
@@ -24,24 +24,30 @@ export function updatePageUrl(recipesFilterForm?: any) {
 export function createUrl(recipesFilterForm?: any) {
     const url = new URL(window.location as any);
     for (const filter in recipesFilterForm) {
-        const value = recipesFilterForm[filter];
-        if (typeof value === 'undefined') {
-            continue;
-        } else if (typeof value === 'object') {
-            if (typeof value.children !== 'undefined') {
-                value.children = null;
-            }
-            if (typeof value.value !== 'undefined') {
-                value.value.name = null;
-                value.value.children = null;
-                value.value.image = null;
-            }
-            url.searchParams.set(filter, JSON.stringify(value));
-        } else {
+        const value = createUrlParam(recipesFilterForm[filter]);
+        if (typeof value != 'undefined') {
             url.searchParams.set(filter, value);
         }
     }
     return url;
+}
+
+function createUrlParam(filter: any) {
+    if (typeof filter === 'undefined') {
+        return;
+    } else if (typeof filter === 'object') {
+        if (typeof filter.children !== 'undefined') {
+            filter.children = null;
+        }
+        if (typeof filter.value !== 'undefined') {
+            filter.value.name = null;
+            filter.value.children = null;
+            filter.value.image = null;
+        }
+        return JSON.stringify(filter);
+    } else {
+        return filter;
+    }
 }
 
 function getFilterSearchCriteria(filterKey: string, filterValue: any): SearchCriteriaDto | null {
