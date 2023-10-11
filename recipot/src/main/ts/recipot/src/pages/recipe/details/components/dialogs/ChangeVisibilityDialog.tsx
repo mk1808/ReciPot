@@ -21,23 +21,25 @@ function ChangeVisibilityDialog({
     accessType
 }: Props) {
 
-    const { t } = useTranslation();
-    const alerts = useAlerts();
     const ACCESS_TYPE_PREFIX = "enums.RecipeAccessType."
+    const { t } = useTranslation();
     const [newType, setNewType] = useState("");
-    function onSubmit() {
-        onClose();
-        recipesApi.changeVisibility(data.id, onSuccess)
-    }
+    const alerts = useAlerts();
 
     useEffect(() => {
         setNewType(accessType === "PRIVATE" ? "PUBLIC" : "PRIVATE")
     }, [accessType])
 
+    function onSubmit() {
+        onClose();
+        recipesApi.changeVisibility(data.id, onSuccess)
+    }
+
     function onSuccess(response: any) {
         alerts.showSuccessAlert(t(response.message))
         handleSuccess(newType);
     }
+
     function getQuestionText() {
         return `${t("p.changeVisibilityQuestion")} ${t(ACCESS_TYPE_PREFIX + newType)}?`
     }
@@ -51,7 +53,6 @@ function ChangeVisibilityDialog({
     function renderContent() {
         return (<>{getQuestionText()}</>)
     }
-
 }
 
 export default ChangeVisibilityDialog;

@@ -28,18 +28,21 @@ import { Stack } from "react-bootstrap";
 import { formatNoTime } from "../../../utils/DateUtils";
 
 function RecipeDetails() {
-    const params = useParams();
+
     const [recipe, setRecipe] = useState<any | Recipe>(initAs());
     const [otherRecipes, setOtherRecipes] = useState<Recipe[]>([]);
     const [opinions, setOpinions] = useState<any | OpinionDto[]>([]);
     const [note, setNote] = useState<any | PrivateNoteT>(initAs());
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
     const [isNoteLoaded, setIsNoteLoaded] = useState<boolean>(false);
-    const [favRecipeCollection, setFavRecipeCollection] = useState<any>();
-    const id: string = params.id ?? "";
+    const [favRecipeCollection, setFavRecipeCollection] = useState<any>();    
     const [isOwner, setIsOwner] = useState<boolean>(false);
-    const user = useContext(UsersContext);
-    const mainRef = useRef<any>(null);
+
+    const user = useContext(UsersContext);    
+    const mainRef = useRef<any>(null);    
+    const params = useParams();
+    const id: string = params.id ?? "";
+
     useEffect(() => {
         setIsLoaded(false);
         setOtherRecipes(otherRecipes.slice(0, 1));
@@ -50,25 +53,30 @@ function RecipeDetails() {
         setOpinions([]);
         setNote({});
     }, [params])
+
     useEffect(() => {
         if (user) {
             recipesApi.getRecipeOwner(id, onGetRecipeOwnerSuccess);
             privateNotesApi.getPrivateNoteByRecipeId(id, (response) => { setNote(response.value); setIsNoteLoaded(true) }, (errorResponse) => { console.warn(errorResponse) });
         }
     }, [user])
+
     function getOpinions(id: string) {
         opinionsApi.getRecipeOpinions(id, (response) => { setOpinions(response.value) })
     }
+
     function onGetRecipeSuccess(response: any) {
         setRecipe(response.value);
         setIsLoaded(true);
         const filter: RecipeSearchDto = buildRecipeSearchDto({ categories: response.value.categories, recipesSort: { fieldName: "created", order: "DESC" } });
         recipesApi.search(filter, { pageNum: 0, pageSize: 10 }, (response) => { setOtherRecipes(response.value.content) });
     }
+
     function onGetRecipeOwnerSuccess(response: any) {
         let owner = response.value;
         setIsOwner(!!user && owner.id === user?.id);
     }
+
     function onGetUserCollectionByNameSuccess(response: any) {
         setFavRecipeCollection(response.value);
     }
@@ -78,6 +86,7 @@ function RecipeDetails() {
             {renderColumns()}
         </div>
     );
+
     function renderColumns() {
         return (
             <div className='d-flex flex-lg-row flex-column align-items-stretch details-container justify-content-center gy-2'>
@@ -126,7 +135,6 @@ function RecipeDetails() {
             </Stack>
         );
     }
-
 }
 
 export default RecipeDetails;

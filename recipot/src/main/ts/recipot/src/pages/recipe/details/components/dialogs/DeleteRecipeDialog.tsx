@@ -20,14 +20,21 @@ function DeleteRecipeDialog({
     const { t } = useTranslation();
     const alerts = useAlerts();
     const nav = useMyNav();
+
     function onSubmit() {
         onClose();
         recipesApi.deleteRecipe(data.id, onSuccess)
     }
+
     function onSuccess(response: any) {
         nav.toUser();
         setTimeout(() => alerts.showSuccessAlert(t(response.message)), 1000)
     }
+    
+    function getQuestionText() {
+        return `${t("p.deleteRecipeQuestion")} ${data.name}?`;
+    }
+
     return (
         <CustomModal shouldShow={showModal} onClose={onClose} onSubmit={onSubmit}>
             {renderContent()}
@@ -35,10 +42,8 @@ function DeleteRecipeDialog({
     );
 
     function renderContent() {
-        const question = `${t("p.deleteRecipeQuestion")} ${data.name}?`
-        return (<>{question}</>)
+        return (<>{getQuestionText()}</>)
     }
-
 }
 
 export default DeleteRecipeDialog;

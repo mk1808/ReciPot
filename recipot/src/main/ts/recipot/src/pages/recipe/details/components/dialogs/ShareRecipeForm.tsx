@@ -27,16 +27,16 @@ function ShareRecipeForm({
         }
     }));
 
+    function formReducer(state: any, action: any) {
+        return getNewState(state, action, action.value, checkInputValidity);
+    };
+
     function handleSubmit() {
         const submitFormEvent = { currentTarget: form.current }
 
         if (checkIfAllValid(submitFormEvent, myForm)) {
             formSave.onSubmit(myForm.formValue);
         }
-    };
-
-    function formReducer(state: any, action: any) {
-        return getNewState(state, action, action.value, checkInputValidity);
     };
 
     return (
@@ -65,7 +65,8 @@ function ShareRecipeForm({
                 placeholder={t('p.addComment')}
                 required
                 rows={5}
-            />)
+            />
+        )
     }
 }
 

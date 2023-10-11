@@ -14,8 +14,8 @@ function BreadCrumbs({
 }: Props) {
 
     const { t } = useTranslation();
-    const nav = useMyNav();
     const [categories, setCategories] = useState<Category[][]>([]);
+    const nav = useMyNav();
 
     useEffect(() => {
         createCategories();

@@ -20,9 +20,11 @@ function BasicInfo({
 
     const { t } = useTranslation();
     const nav = useMyNav();
+
     function onHashTagClick(hashTag: any) {
         nav.goToFilters({ hashTags: [{ label: hashTag.name, value: hashTag }] });
     }
+    
     return (
         <>
             <div className="mt-3 mb-5 px-5 basic-info">

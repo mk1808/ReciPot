@@ -79,7 +79,6 @@ function AddToCollectionForm({
             />
         )
     }
-
 }
 
 export default forwardRef(AddToCollectionForm);
