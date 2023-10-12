@@ -7,50 +7,50 @@ import recipotIcon from '../../assets/images/logo2.png';
 import './../styles.scss';
 
 function Footer() {
-  const { t } = useTranslation();
-  const getYear = () => new Date().getFullYear();
+	const { t } = useTranslation();
+	const getYear = () => new Date().getFullYear();
 
-  return (
-    <Card className='footer'>
-      <Card.Body>
-        <Stack direction='horizontal' className='justify-content-center align-items-center fs-5'>
-          {renderCopyright()}
-          {renderAuthors()}
-        </Stack >
-      </Card.Body>
-    </Card>
-  );
+	return (
+		<Card className='footer'>
+			<Card.Body>
+				<Stack direction='horizontal' className='justify-content-center align-items-center fs-5'>
+					{renderCopyright()}
+					{renderAuthors()}
+				</Stack >
+			</Card.Body>
+		</Card>
+	);
 
-  function renderCopyright() {
-    return (
-      <>
-        <img src={recipotIcon} alt="Recipot logo" height={60} className='recipot-logo' />
-        <FaCopyright className='mx-2' />
-        {getYear()}
-      </>
-    )
-  }
+	function renderCopyright() {
+		return (
+			<>
+				<img src={recipotIcon} alt="Recipot logo" height={60} className='recipot-logo' />
+				<FaCopyright className='mx-2' />
+				{getYear()}
+			</>
+		)
+	}
 
-  function renderAuthors() {
-    return (
-      <Stack direction='horizontal' className='ms-3'>
-        <span className='mx-2'>{t('p.authors')}:</span>
-        {renderWithGithubAndTooltip('Monika Kordoń', 'https://github.com/mk1808')}
-        <span className='mx-2'>&</span>
-        {renderWithGithubAndTooltip('Marek Czopor', 'https://github.com/marqos12')}
-      </Stack>
-    )
-  }
+	function renderAuthors() {
+		return (
+			<Stack direction='horizontal' className='ms-3'>
+				<span className='mx-2'>{t('p.authors')}:</span>
+				{renderWithGithubAndTooltip('Monika Kordoń', 'https://github.com/mk1808')}
+				<span className='mx-2'>&</span>
+				{renderWithGithubAndTooltip('Marek Czopor', 'https://github.com/marqos12')}
+			</Stack>
+		)
+	}
 
-  function renderWithGithubAndTooltip(author: string, gitHubUrl: string) {
-    return (
-      <a href={gitHubUrl} target='_blank' rel='noreferrer'>
-        <Tooltip placement="top" title={t('p.githubProfile')}>
-          {author} <FaGithub />
-        </Tooltip>
-      </a>
-    )
-  }
+	function renderWithGithubAndTooltip(author: string, gitHubUrl: string) {
+		return (
+			<a href={gitHubUrl} target='_blank' rel='noreferrer'>
+				<Tooltip placement="top" title={t('p.githubProfile')}>
+					{author} <FaGithub />
+				</Tooltip>
+			</a>
+		)
+	}
 }
 
 export default Footer;
