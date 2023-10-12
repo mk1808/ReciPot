@@ -71,5 +71,5 @@ export function getConverters(): Enums {
 }
 
 function checkCategoryContainsPhrase(category: CategoryDto, phrase: string) {
-    return category.name.indexOf(phrase) >= 0;
+    return category.name.toLowerCase().indexOf(phrase.toLowerCase()) >= 0;
 }

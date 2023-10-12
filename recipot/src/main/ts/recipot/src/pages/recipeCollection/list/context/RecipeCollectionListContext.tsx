@@ -2,7 +2,7 @@ import { createContext, useEffect, useReducer } from "react";
 import { Recipe, RecipeCollection, RecipeCollectionItem, Response } from "../../../../data/types";
 import recipeCollectionsApi from "../../../../api/RecipeCollectionsApi";
 import { ResponsePage } from "../../../../data/utilTypes";
-import { scrollIntoRecipesPage } from "../../../../utils/RecipeSearchUtils";
+import { scrollIntoRecipesPage } from "../../../recipe/filter/utils/RecipeSearchUtils";
 import { ApiRequestSendManager } from "../../../../utils/ApiRequestSendManager";
 
 type contextStateModel = {

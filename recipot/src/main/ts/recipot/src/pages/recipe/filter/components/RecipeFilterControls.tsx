@@ -12,8 +12,8 @@ import { inputAttributesForContextWithoutValidity } from "../../../../utils/Form
 import { RecipeFilterContext, RecipeFilterContextType, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 import { EnumDictionaryContext, enumsStateModel } from "../../../../context/EnumDictionaryContext";
 import { UsersContext } from "../../../../context/UserContext";
-import { areCategoriesDifferent, getAverageRating, matchCategories } from "../utils/RecipeFilterUtils";
 import { SelectOption } from "../../../../data/utilTypes";
+import { areCategoriesDifferent, getAverageRating, matchCategories } from "../utils/RecipeSearchUtils";
 
 function RecipeFilterControls() {
     const { t } = useTranslation();
@@ -62,7 +62,7 @@ function RecipeFilterControls() {
     }
 
     function onUserIsOwnerChange(fieldName: string, value: boolean) {
-        onChange(fieldName, value);
+        onChange(fieldName, (value && user?.login) || null);
     }
 
     function getEnum(enumName: string) {
@@ -84,6 +84,10 @@ function RecipeFilterControls() {
     function getTimeAmountToDefaultValue() {
         const maxAllowedValue = 99 * 60 + 59;
         return (recipesFilterForm && recipesFilterForm["timeAmountTo"]) || maxAllowedValue;
+    }
+
+    function getUserIsOwnerDefaultValue() {
+        return (recipesFilterForm && recipesFilterForm["userIsOwner"]) || false;
     }
 
     function onFilteredHashTag(phrase: string) {
@@ -119,6 +123,7 @@ function RecipeFilterControls() {
         return isUserLogged && (
             <MyCheckbox
                 {...getInputParams("userIsOwner", t("p.userIsOwnerFilter"), onUserIsOwnerChange)}
+                defaultChecked={getUserIsOwnerDefaultValue()}
             />
         )
     }

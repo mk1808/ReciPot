@@ -5,7 +5,7 @@ import MySelect from "../../../../components/basicUi/MySelect";
 import { inputAttributesForContextWithoutValidity } from "../../../../utils/FormInputUtils";
 import MyButton from "../../../../components/basicUi/MyButton";
 import { Stack } from "react-bootstrap";
-import { getRecipesSortOptions } from "../utils/RecipeFilterUtils";
+import { getRecipesSortOptions } from "../utils/RecipeSearchUtils";
 
 function RecipesSortForm() {
     const { t } = useTranslation();

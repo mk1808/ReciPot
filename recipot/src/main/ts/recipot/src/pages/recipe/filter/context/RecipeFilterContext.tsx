@@ -1,12 +1,12 @@
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import { Recipe, RecipeFilter, Response } from "../../../../data/types";
 import savedRecipeFiltersApi from "../../../../api/SavedRecipeFiltersApi";
 import recipesApi from "../../../../api/RecipesApi";
 import { ResponsePage } from "../../../../data/utilTypes";
-import { buildRecipeSearchDto, updatePageUrl } from "../../../../utils/RecipeSearchUtils";
 import { ApiRequestSendManager } from "../../../../utils/ApiRequestSendManager";
 import { useSearchParams } from "react-router-dom";
-import { focusOnRecipesPage, getRecipePages, getSelectedFilterFormValue, parseParamsToFilterValues } from "../utils/RecipeFilterUtils";
+import { UsersContext } from "../../../../context/UserContext";
+import { buildRecipeSearchDto, focusOnRecipesPage, getRecipePages, getSelectedFilterFormValue, parseParamsToFilterValues, updatePageUrl } from "../utils/RecipeSearchUtils";
 
 export type contextStateModel = {
     savedFilters?: RecipeFilter[],
@@ -48,9 +48,13 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
     const [searchParams,] = useSearchParams();
     const [contextState, dispatch]: [contextStateModel, (action: ReducerActionProps) => any] = useReducer(recipeFilterReducer, {});
 
+    const user = useContext(UsersContext);
+
     useEffect(() => {
-        dispatch({ type: RecipeFilterContextType.RefreshFiltersList });
-    }, [])
+        if (!!user) {
+            dispatch({ type: RecipeFilterContextType.RefreshFiltersList });
+        }
+    }, [user])
 
     useEffect(() => {
         getFilterFromParams();
