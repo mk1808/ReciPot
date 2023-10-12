@@ -1,7 +1,7 @@
 import { Stack } from "react-bootstrap";
 import ComplexListElement from "../../../../components/complex/ComplexListElement";
 import { RecipeFilter } from "../../../../data/types";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { RecipeFilterContext, RecipeFilterContextType, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 import savedRecipeFiltersApi from "../../../../api/SavedRecipeFiltersApi";
 import { useTranslation } from "react-i18next";
@@ -14,27 +14,24 @@ function SavedRecipeFilters() {
     const recipeFilterContext = useContext(RecipeFilterContext);
     const recipeFilterDispatchContext = useContext(RecipeFilterDispatchContext);
 
-    useEffect(() => {
-        recipeFilterDispatchContext({ type: RecipeFilterContextType.RefreshFiltersList })
-    }, []);
-
-    function onRecipeFilterDelete(index: number) {
-        const recipeFilterId = (recipeFilterContext.savedFilters && recipeFilterContext.savedFilters[index].id) || "";
-        savedRecipeFiltersApi.deleteRecipeFilter(recipeFilterId, onRecipeFilterDeleteResponse);
-    }
+    const isActive = (recipeFilter: RecipeFilter) => recipeFilter.id === recipeFilterContext.activeRecipeFilterId;
 
     function onRecipeFilterDeleteResponse(response: any) {
         alerts.showSuccessAlert(t(response.message));
-        recipeFilterDispatchContext({ type: RecipeFilterContextType.RefreshFiltersList })
+        recipeFilterDispatchContext({
+            type: RecipeFilterContextType.RefreshFiltersList
+        });
     }
 
-    function onFilterSelect(index: number) {
-        recipeFilterDispatchContext(
-            {
-                type: RecipeFilterContextType.FilterSelect,
-                activeRecipeFilterId: recipeFilterContext.savedFilters && recipeFilterContext.savedFilters[index].id
-            }
-        )
+    function onFilterSelect(recipeFilter: RecipeFilter) {
+        recipeFilterDispatchContext({
+            type: RecipeFilterContextType.FilterSelect,
+            activeRecipeFilterId: recipeFilter.id
+        });
+    }
+
+    function onRecipeFilterDelete(recipeFilter: RecipeFilter) {
+        savedRecipeFiltersApi.deleteRecipeFilter(recipeFilter.id, onRecipeFilterDeleteResponse);
     }
 
     return (
@@ -42,15 +39,16 @@ function SavedRecipeFilters() {
             {recipeFilterContext.savedFilters?.map(renderRecipeFilter)}
         </Stack>
     )
+
     function renderRecipeFilter(recipeFilter: RecipeFilter, index: number) {
         return (
             <ComplexListElement
                 key={recipeFilter.id}
                 index={index}
-                onSelect={onFilterSelect}
-                onDelete={onRecipeFilterDelete}
+                onSelect={() => onFilterSelect(recipeFilter)}
+                onDelete={() => onRecipeFilterDelete(recipeFilter)}
                 element={recipeFilter}
-                isActive={recipeFilter.id === recipeFilterContext.activeRecipeFilterId}
+                isActive={isActive(recipeFilter)}
             />
         );
     }

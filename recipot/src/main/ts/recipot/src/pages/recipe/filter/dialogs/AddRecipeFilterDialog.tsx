@@ -31,14 +31,12 @@ function AddRecipeFilterDialog({
             name: formValue.newFilterName,
             value: JSON.stringify(recipeFilterContext.recipesFilterForm)
         }
-        savedRecipeFiltersApi.createRecipeFilter(newRecipeFilter, this.onSuccess, this.onError)
+        savedRecipeFiltersApi.createRecipeFilter(newRecipeFilter, formSave.onSuccess, formSave.onError);
     }
 
     formSave.onSuccess = function () {
         alerts.showSuccessAlert(t("p.recipeFilterSaved"));
-        recipeFilterDispatchContext({
-            type: RecipeFilterContextType.RefreshFiltersList
-        })
+        recipeFilterDispatchContext({ type: RecipeFilterContextType.RefreshFiltersList });
         onClose();
     }
 
@@ -51,8 +49,12 @@ function AddRecipeFilterDialog({
     }
 
     return (
-        <CustomModal shouldShow={showModal} onClose={onClose} title='p.recipeFilterSave'
-            onSubmit={onSubmit}>
+        <CustomModal
+            shouldShow={showModal}
+            onClose={onClose}
+            title='p.recipeFilterSave'
+            onSubmit={onSubmit}
+        >
             {renderContent()}
         </CustomModal>
     );
