@@ -18,18 +18,17 @@ import { UsersContext } from "../../../../context/UserContext";
 
 function RecipeFiltersColumn() {
     const { t } = useTranslation();
-
-    const recipesFilterForm = useContext(RecipeFilterContext).recipesFilterForm;
-    const recipeFilterDispatchContext = useContext(RecipeFilterDispatchContext);
-    const user = useContext(UsersContext);
-    const isUserLogged = !!user;
-
     const [filteredHashTags, setFilteredHashTags] = useState<any[]>([]);
     const [filteredIngredients, setFilteredIngredients] = useState<any[]>([]);
     const [filteredCategories, setFilteredCategories] = useState<any[]>([]);
     const [allCategories, setAllCategories] = useState<any[]>([]);
     const [showModal, setShowModal] = useState(false);
+
+    const recipesFilterForm = useContext(RecipeFilterContext).recipesFilterForm;
+    const recipeFilterDispatchContext = useContext(RecipeFilterDispatchContext);
+    const user = useContext(UsersContext);
     const enumDictionaryContext = useContext(EnumDictionaryContext).enums;
+    const isUserLogged = !!user;
 
     useEffect(() => {
         onFilteredHashTagSearch('', setFilteredHashTags);

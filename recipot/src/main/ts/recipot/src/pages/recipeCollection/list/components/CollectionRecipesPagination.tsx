@@ -26,7 +26,6 @@ function CollectionRecipesPagination() {
             onPageSelect={onPageSelect}
         />
     );
-
 }
 
 export default CollectionRecipesPagination;

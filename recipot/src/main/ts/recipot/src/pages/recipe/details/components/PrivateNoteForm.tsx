@@ -24,6 +24,10 @@ function PrivateNoteForm({
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, initEmptyForm());
 
+    function formReducer(state: any, action: any) {
+        return getNewState(state, action, action.value, checkInputValidity);
+    };
+
     function onSubmit(event: any) {
         if (!isEditModeOn) {
             setIsEditModeOn(true);
@@ -33,10 +37,6 @@ function PrivateNoteForm({
             }
         }
         preventFurtherAction(event);
-    };
-
-    function formReducer(state: any, action: any) {
-        return getNewState(state, action, action.value, checkInputValidity);
     };
 
     return (

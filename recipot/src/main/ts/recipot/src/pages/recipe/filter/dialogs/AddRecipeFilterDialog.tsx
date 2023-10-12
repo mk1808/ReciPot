@@ -23,9 +23,8 @@ function AddRecipeFilterDialog({
     const recipeFilterContext = useContext(RecipeFilterContext);
     const recipeFilterDispatchContext = useContext(RecipeFilterDispatchContext);
     const alerts = useAlerts();
-
-    const formSave = initFormSave<RecipeFilter>();
     const form = useRef<any>();
+    const formSave = initFormSave<RecipeFilter>();
 
     formSave.onSubmit = function (formValue: any) {
         const newRecipeFilter: any = {
@@ -34,16 +33,19 @@ function AddRecipeFilterDialog({
         }
         savedRecipeFiltersApi.createRecipeFilter(newRecipeFilter, this.onSuccess, this.onError)
     }
+
     formSave.onSuccess = function () {
         alerts.showSuccessAlert(t("p.recipeFilterSaved"));
         recipeFilterDispatchContext({
-            type:RecipeFilterContextType.RefreshFiltersList 
+            type: RecipeFilterContextType.RefreshFiltersList
         })
         onClose();
     }
+
     formSave.onError = function (response: any) {
         alerts.onShowAlertOnErrorResponse(response);
     }
+
     async function onSubmit() {
         form.current.submitForm();
     }

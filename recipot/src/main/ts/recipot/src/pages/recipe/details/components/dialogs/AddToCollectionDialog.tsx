@@ -21,9 +21,9 @@ function AddToCollectionDialog({
 }: Props) {
 
     const { t } = useTranslation();
-    const alerts = useAlerts();
-    const formSave = initFormSave<RecipeCollection>();
+    const alerts = useAlerts();    
     const form = useRef<any>();
+    const formSave = initFormSave<RecipeCollection>();
 
     formSave.onSubmit = function (formValue: any) {
         if (typeof formValue === 'string') {

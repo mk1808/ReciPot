@@ -30,23 +30,27 @@ function ActionButtons({
 }: Props) {
 
     const { t } = useTranslation();
-    const alerts = useAlerts();
-    const nav = useMyNav();
     const [showModalAddToCollection, setShowModalAddToCollection] = useState(false);
     const [showModalShare, setShowModalShare] = useState(false);
     const [showModalChangeVisibility, setShowModalChangeVisibility] = useState(false);
     const [accessType, setAccessType] = useState("PRIVATE");
     const [isUser, setIsUser] = useState(false);
     const [isInFavCollection, setIsInFavCollection] = useState(false);
-    const getAccessTypeIcon = () => { return (accessType === "PRIVATE" ? <AiFillEyeInvisible /> : <AiFillEye />) }
-    const getAddToFavIcon = () => { return (isInFavCollection ? <BsBalloonHeartFill /> : <BsBalloonHeart />) }
-    const getAddToFavText = () => { return (isInFavCollection ? 'p.removeFromFavouriteButton' : 'p.addToFavouriteButton') }
-    const checkFavourite = () => {
+
+    const alerts = useAlerts();
+    const nav = useMyNav();
+
+    const getAccessTypeIcon = () => (accessType === "PRIVATE" ? <AiFillEyeInvisible /> : <AiFillEye />)
+    const getAddToFavIcon = () => (isInFavCollection ? <BsBalloonHeartFill /> : <BsBalloonHeart />)
+    const getAddToFavText = () => (isInFavCollection ? 'p.removeFromFavouriteButton' : 'p.addToFavouriteButton')
+
+    function checkFavourite() {
         let items = favCollection?.recipeCollectionItems;
         let isInFav = items && items.length > 0 && items.filter((item) => item.recipe.id === recipe.id).length > 0;
         setIsInFavCollection(isInFav);
     }
-    const onToggleFavourites = () => {
+
+    function onToggleFavourites() {
         if (isInFavCollection) {
             recipeCollectionsApi.deleteRecipeFromCollection(favCollection.id, recipe.id,
                 () => { alerts.showSuccessAlert(t('p.recipeRemovedFromCollection')); setIsInFavCollection(false); })
@@ -105,6 +109,7 @@ function ActionButtons({
             {renderDialogs()}
         </>
     )
+    
     function renderDialogs() {
         return (
             <>

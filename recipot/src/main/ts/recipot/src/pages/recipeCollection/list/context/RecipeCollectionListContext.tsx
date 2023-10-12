@@ -36,62 +36,14 @@ const searchRequestManager = ApiRequestSendManager();
 
 export const RecipeCollectionListContext = createContext<contextStateModel>({});
 
-export const RecipeCollectionListDispatchContext = createContext<(action:ReducerActionProps) => any>((action:ReducerActionProps) => {});
+export const RecipeCollectionListDispatchContext = createContext<(action: ReducerActionProps) => any>((action: ReducerActionProps) => { });
 
 export const RecipeCollectionListContextProvider = ({ children }: any) => {
-    const [contextState, dispatch]: [contextStateModel, (action:ReducerActionProps) => any] = useReducer(collectionsReducer, {});
+    const [contextState, dispatch]: [contextStateModel, (action: ReducerActionProps) => any] = useReducer(collectionsReducer, {});
 
-    function getSavedCollections() {
-        recipeCollectionsApi.getUserRecipeCollections((response) => dispatch({ type: RecipeCollectionListContextType.SetSavedCollectionsList, value: response.value }))
-    }
-
-    function getCollectionRecipes(recipeCollectionId: string, pageNum: number, pageSize: number, onResponseCallback = onCollectionRecipesResponse) {
-        searchRequestManager.nextAndLock(() => {
-            recipeCollectionsApi.getRecipeCollectionRecipes(recipeCollectionId, { pageNum, pageSize }, onResponseCallback, searchRequestManager.unlock);
-        })
-    }
-
-    function onCollectionRecipesResponse(response: Response<ResponsePage<RecipeCollectionItem>>): any {
-        searchRequestManager.unlock();
-        const responsePage: ResponsePage<any> = response.value
-        responsePage.content = responsePage.content.map(mapRecipeCollectionItemToRecipe);
-        dispatch({ type: RecipeCollectionListContextType.OnRecipesPageLoad, recipesPage: responsePage });
-    }
-
-    function mapRecipeCollectionItemToRecipe(recipeCollectionItem: RecipeCollectionItem): Recipe {
-        return recipeCollectionItem.recipe;
-    }
-
-    function selectDefaultCollection(contextState: contextStateModel, collections: RecipeCollection[]) {
-        if (!contextState.activeCollectionId) {
-            setTimeout(() => {
-                collections.filter(collection => collection.name === 'Favourite')
-                    .forEach((collection) => dispatch({ type: RecipeCollectionListContextType.CollectionSelect, activeCollectionId: collection.id }));
-            })
-        };
-    }
-
-    function loadBetweenPage(contextState: contextStateModel, nextPages: Recipe[][], nextPage: any) {
-        const page = nextPage.number - 1
-        if (page > 0 && typeof nextPages[page] === 'undefined') {
-            getCollectionRecipes(contextState.activeCollectionId || "", page, RECIPES_PAGE_SIZE, onGetBetweenRecipesByFilterResponse)
-            return;
-        }
-    }
-
-    function onGetBetweenRecipesByFilterResponse(response: Response<ResponsePage<RecipeCollectionItem>>) {
-        searchRequestManager.unlock();
-        dispatch({
-            type: RecipeCollectionListContextType.OnBetweenRecipePageLoad,
-            recipesPage: response.value
-        });
-    }
-
-    function focusOnRecipesPage(page?: number) {
-        setTimeout(() => {
-            scrollIntoRecipesPage(page || 0);
-        }, 400)
-    }
+    useEffect(() => {
+        getSavedCollections();
+    }, [])
 
     function collectionsReducer(contextState: contextStateModel, action: ReducerActionProps): contextStateModel {
         switch (action.type) {
@@ -149,9 +101,58 @@ export const RecipeCollectionListContextProvider = ({ children }: any) => {
             }
         }
     }
-    useEffect(() => {
-        getSavedCollections();
-    }, [])
+
+    function getSavedCollections() {
+        recipeCollectionsApi.getUserRecipeCollections((response) => dispatch({ type: RecipeCollectionListContextType.SetSavedCollectionsList, value: response.value }))
+    }
+
+    function getCollectionRecipes(recipeCollectionId: string, pageNum: number, pageSize: number, onResponseCallback = onCollectionRecipesResponse) {
+        searchRequestManager.nextAndLock(() => {
+            recipeCollectionsApi.getRecipeCollectionRecipes(recipeCollectionId, { pageNum, pageSize }, onResponseCallback, searchRequestManager.unlock);
+        })
+    }
+
+    function onCollectionRecipesResponse(response: Response<ResponsePage<RecipeCollectionItem>>): any {
+        searchRequestManager.unlock();
+        const responsePage: ResponsePage<any> = response.value
+        responsePage.content = responsePage.content.map(mapRecipeCollectionItemToRecipe);
+        dispatch({ type: RecipeCollectionListContextType.OnRecipesPageLoad, recipesPage: responsePage });
+    }
+
+    function mapRecipeCollectionItemToRecipe(recipeCollectionItem: RecipeCollectionItem): Recipe {
+        return recipeCollectionItem.recipe;
+    }
+
+    function selectDefaultCollection(contextState: contextStateModel, collections: RecipeCollection[]) {
+        if (!contextState.activeCollectionId) {
+            setTimeout(() => {
+                collections.filter(collection => collection.name === 'Favourite')
+                    .forEach((collection) => dispatch({ type: RecipeCollectionListContextType.CollectionSelect, activeCollectionId: collection.id }));
+            })
+        };
+    }
+
+    function loadBetweenPage(contextState: contextStateModel, nextPages: Recipe[][], nextPage: any) {
+        const page = nextPage.number - 1
+        if (page > 0 && typeof nextPages[page] === 'undefined') {
+            getCollectionRecipes(contextState.activeCollectionId || "", page, RECIPES_PAGE_SIZE, onGetBetweenRecipesByFilterResponse)
+            return;
+        }
+    }
+
+    function onGetBetweenRecipesByFilterResponse(response: Response<ResponsePage<RecipeCollectionItem>>) {
+        searchRequestManager.unlock();
+        dispatch({
+            type: RecipeCollectionListContextType.OnBetweenRecipePageLoad,
+            recipesPage: response.value
+        });
+    }
+
+    function focusOnRecipesPage(page?: number) {
+        setTimeout(() => {
+            scrollIntoRecipesPage(page || 0);
+        }, 400)
+    }
 
     return (
         <RecipeCollectionListContext.Provider value={contextState}>

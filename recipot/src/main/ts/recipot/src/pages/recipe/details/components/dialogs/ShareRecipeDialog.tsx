@@ -22,8 +22,8 @@ function ShareRecipeDialog({
 
     const { t } = useTranslation();
     const alerts = useAlerts();
-    const formSave = initFormSave<SharedRecipe>();
     const form = useRef<any>();
+    const formSave = initFormSave<SharedRecipe>();
 
     formSave.onSubmit = function (formValue: any) {
         const sharedRecipe: SharedRecipe = initAs<SharedRecipe>({
@@ -35,10 +35,12 @@ function ShareRecipeDialog({
         })
         recipesApi.share(sharedRecipe, formSave.onSuccess, formSave.onError);
     }
+    
     formSave.onSuccess = function (response: Response<SharedRecipe>) {
         alerts.showSuccessAlert(t('p.SHARED_RECIPE'));
         onClose();
     }
+
     formSave.onError = function (response: Response<any>) {
         alerts.onShowAlertOnErrorResponse(response);
     }
@@ -46,6 +48,7 @@ function ShareRecipeDialog({
     async function onSubmit() {
         form.current.submitForm();
     }
+
     return (
         <CustomModal shouldShow={showModal} onClose={onClose} onSubmit={onSubmit} title={t("p.recipeSharing")}>
             {renderContent()}
@@ -60,7 +63,6 @@ function ShareRecipeDialog({
             </>
         )
     }
-
 }
 
 export default ShareRecipeDialog;

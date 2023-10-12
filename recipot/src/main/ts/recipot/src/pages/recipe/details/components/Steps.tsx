@@ -12,9 +12,7 @@ function Steps({
 }: Props) {
 
     const { t } = useTranslation();
-    function shouldRenderSteps() {
-        return recipe?.recipeSteps && recipe.recipeSteps.length > 0;
-    }
+    const shouldRenderSteps = () => (recipe?.recipeSteps && recipe.recipeSteps.length > 0);
 
     if (shouldRenderSteps()) {
         return (

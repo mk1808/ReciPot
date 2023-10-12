@@ -28,6 +28,10 @@ function UserDetailsForm({
     const [isEditMode, setEditMode] = useState(false);
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, initEmptyForm());
 
+    function formReducer(state: any, action: any) {
+        return getNewState(state, action, action.value, checkInputValidity);
+    }
+
     function handleSubmit(event: any) {
         if (checkIfAllValid(event, myForm)) {
             formSave.onSubmit(myForm.formValue)
@@ -35,10 +39,6 @@ function UserDetailsForm({
         }
         preventFurtherAction(event);
     };
-
-    function formReducer(state: any, action: any) {
-        return getNewState(state, action, action.value, checkInputValidity);
-    }
 
     function onEdit() {
         setEditMode(true);

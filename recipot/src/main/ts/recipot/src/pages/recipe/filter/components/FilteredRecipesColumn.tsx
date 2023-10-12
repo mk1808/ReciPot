@@ -10,13 +10,14 @@ import PageDivider from "../../../../components/basicUi/PageDivider";
 import MorePagesButton from "../../../../components/basicUi/MorePagesButton";
 import useMyNav from "../../../../hooks/useMyNav";
 
-function FilteredRecipesColumn() {
+function FilteredRecipesColumn() {    
+    const { t } = useTranslation();
     const recipeFilterContext = useContext(RecipeFilterContext);
     const recipeFilterDispatchContext = useContext(RecipeFilterDispatchContext);
+    const nav = useMyNav();    
     const isLoaded = recipeFilterContext.isLoaded;
-    const { t } = useTranslation();
-    const nav = useMyNav();
     const onGoToRecipe = (recipe: Recipe, event: any) => nav.openInBackground({ id: recipe.id }, event);
+
     function onLoadNextPage() {
         recipeFilterDispatchContext({
             type: RecipeFilterContextType.LoadRecipesPage,
@@ -38,7 +39,7 @@ function FilteredRecipesColumn() {
                 {renderLoadNextPageButton()}
             </div>
         );
-    }
+    };
 
     function renderRecipesPage(recipes: Recipe[], index: number) {
         const pageId = "recipesPage_" + index;
@@ -58,11 +59,11 @@ function FilteredRecipesColumn() {
             return <MorePagesButton text={t("p.loadNextRecipesPage")} onLoadNextPage={onLoadNextPage} />
         }
         return null;
-    }
+    };
 
     function renderNoData() {
         return <NoContent text={t('p.noElementsInSearch')} />
-    }
+    };
 }
 
 export default FilteredRecipesColumn;

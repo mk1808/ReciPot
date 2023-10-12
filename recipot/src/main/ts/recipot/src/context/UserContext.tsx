@@ -31,37 +31,9 @@ export const UserContextProvider = ({ children }: any) => {
         usersReducer, null
     );
 
-    function refreshRequest() {
-        searchRequestManager.nextAndLock(() => {
-            authApi.whoAmI(onSuccessRefresh, onError)
-        })
-    }
-
-    function onSuccessRefresh(response: Response<AppUser>) {
-        searchRequestManager.unlock();
-        let action = { user: response.value, type: UserContextType.Logged }
-        dispatch(action);
-        refreshUser();
-    };
-
-    function onError(response: any) {
-        searchRequestManager.unlock();
-        if (user) {
-            alerts.showErrorAlert(t("p.userTokenTimeout"));
-        }
-        dispatch({ user: null, type: UserContextType.Logged });
-    };
-
-    function onSuccessLogout(response: Response<any>) {
-        alerts.showSuccessAlert(t(response.message));
-    };
-
-    function refreshUser() {
-        const intervalTime = 1000 * 10; //minute
-        setTimeout(() => {
-            dispatch({ type: UserContextType.Refresh })
-        }, intervalTime);
-    }
+    useEffect(() => {
+        dispatch({ type: UserContextType.Refresh })
+    }, [])
 
     function usersReducer(user: contextStateModel, action: ReducerActionProps): contextStateModel {
         switch (action.type) {
@@ -80,10 +52,39 @@ export const UserContextProvider = ({ children }: any) => {
                 throw Error('Unknown action: ' + action.type);
             }
         }
-    }
-    useEffect(() => {
-        dispatch({ type: UserContextType.Refresh })
-    }, [])
+    };
+
+    function refreshRequest() {
+        searchRequestManager.nextAndLock(() => {
+            authApi.whoAmI(onSuccessRefresh, onError)
+        })
+    };
+
+    function onSuccessRefresh(response: Response<AppUser>) {
+        searchRequestManager.unlock();
+        let action = { user: response.value, type: UserContextType.Logged }
+        dispatch(action);
+        refreshUser();
+    };
+
+    function refreshUser() {
+        const intervalTime = 1000 * 10; //minute
+        setTimeout(() => {
+            dispatch({ type: UserContextType.Refresh })
+        }, intervalTime);
+    };
+
+    function onError(response: any) {
+        searchRequestManager.unlock();
+        if (user) {
+            alerts.showErrorAlert(t("p.userTokenTimeout"));
+        }
+        dispatch({ user: null, type: UserContextType.Logged });
+    };
+
+    function onSuccessLogout(response: Response<any>) {
+        alerts.showSuccessAlert(t(response.message));
+    };
 
     return (
         <UsersContext.Provider value={user}>

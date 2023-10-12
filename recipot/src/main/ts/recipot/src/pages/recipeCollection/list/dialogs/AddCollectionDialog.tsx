@@ -20,20 +20,21 @@ function AddCollectionDialog({
 
     const { t } = useTranslation();
     const collectionsDispatchContext = useContext(RecipeCollectionListDispatchContext);
-    const alerts = useAlerts();
-
-    const formSave = initFormSave<RecipeCollection>();
     const form = useRef<any>();
+    const alerts = useAlerts();
+    const formSave = initFormSave<RecipeCollection>();
 
     formSave.onSubmit = function (formValue: any) {
         const newCollection = { name: formValue.newCollectionName } as RecipeCollection
         recipeCollectionsApi.createCollection(newCollection, formSave.onSuccess, formSave.onError)
     }
+
     formSave.onSuccess = function () {
         alerts.showSuccessAlert(t("p.recipesCollectionSaved"));
         collectionsDispatchContext({ type: RecipeCollectionListContextType.RefreshCollectionsList });
         onClose();
     }
+
     formSave.onError = function (response: Response<any>) {
         alerts.onShowAlertOnErrorResponse(response);
     }
@@ -51,7 +52,6 @@ function AddCollectionDialog({
     function renderContent() {
         return <AddCollectionDialogForm formSave={formSave} ref={form} />
     }
-
 }
 
 export default AddCollectionDialog;

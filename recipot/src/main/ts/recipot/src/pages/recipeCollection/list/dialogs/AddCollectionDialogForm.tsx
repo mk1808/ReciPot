@@ -36,12 +36,12 @@ function AddCollectionDialogForm({
     function formReducer(state: any, action: any) {
         return getNewState(state, action, action.value, checkInputValidity);
     };
+
     return (
         <Form noValidate validated className="mt-3 text-start" ref={form}>
             {renderCollectionNameInput()}
         </Form>
     )
-
 
     function renderCollectionNameInput() {
         return (
@@ -53,8 +53,6 @@ function AddCollectionDialogForm({
             />
         )
     }
-
-
 }
 
 export default forwardRef(AddCollectionDialogForm);

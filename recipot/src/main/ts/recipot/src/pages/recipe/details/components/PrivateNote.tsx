@@ -19,13 +19,15 @@ function PrivateNote({
     note
 }: Props) {
 
-    const { t } = useTranslation();
+    const { t } = useTranslation();    
+    const [isEditModeOn, setIsEditModeOn] = useState<any>(false);   
     const alerts = useAlerts();
-    const [isEditModeOn, setIsEditModeOn] = useState<any>(false);
+    const formSave = initFormSave<PrivateNoteT>();
+
     useEffect(() => {
         setIsEditModeOn(note == null);
     }, [])
-    const formSave = initFormSave<PrivateNoteT>();
+
     formSave.onSubmit = function (formValue: any) {
         if (isEditModeOn) {
             if (formValue.content && formValue.content.trim()) {
@@ -34,6 +36,7 @@ function PrivateNote({
             deleteNote();
         }
     }
+
     formSave.onSuccess = function (response: any) {
         setIsEditModeOn(!isEditModeOn);
         if (response.message) {
@@ -43,12 +46,15 @@ function PrivateNote({
             alerts.showSuccessAlert(t("p.noteSaved"));
         }
     }
+
     formSave.onError = function () { }
+
     function saveNote(formValue: any) {
         let note = { ...formValue };
         note.recipe = { id: recipe.id };
         privateNotesApi.createPrivateNote(note, formSave.onSuccess)
     }
+    
     function deleteNote() {
         privateNotesApi.deletePrivateNote(note.id, formSave.onSuccess);
     }

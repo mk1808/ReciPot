@@ -41,63 +41,15 @@ const searchRequestManager = ApiRequestSendManager();
 
 export const RecipeFilterContext = createContext<contextStateModel>({});
 
-export const RecipeFilterDispatchContext = createContext<(action:ReducerActionProps) => any>((action:ReducerActionProps) => {});
+export const RecipeFilterDispatchContext = createContext<(action: ReducerActionProps) => any>((action: ReducerActionProps) => { });
 
 export const RecipeFilterContextContextProvider = ({ children }: any) => {
-    const [contextState, dispatch]: [contextStateModel, (action:ReducerActionProps) => any] = useReducer(recipeFilterReducer, {});
     const [searchParams,] = useSearchParams();
+    const [contextState, dispatch]: [contextStateModel, (action: ReducerActionProps) => any] = useReducer(recipeFilterReducer, {});
 
-    function getSavedFilters() {
-        savedRecipeFiltersApi.getRecipeFilters((response) => dispatch({ type: RecipeFilterContextType.SetSavedFiltersList, value: response.value }));
-    }
-
-    function getRecipesByFilter(recipesFilterForm: any, pageNum: number, pageSize: number, responseCallback: any) {
-        searchRequestManager.nextAndLock(() => {
-            recipesApi.search(buildRecipeSearchDto(recipesFilterForm), { pageNum, pageSize }, responseCallback, searchRequestManager.unlock);
-        })
-    }
-
-    function updateFilterPageUrl(recipesFilterForm: any) {
-        updatePageUrl(recipesFilterForm)
-    }
-
-    function onGetRecipesByFilterResponse(response: Response<ResponsePage<Recipe>>) {
-        searchRequestManager.unlock();
-        dispatch({
-            type: RecipeFilterContextType.OnRecipePageLoad,
-            recipesPage: response.value
-        });
-    }
-
-    function getSelectedFilterFormValue(contextState: contextStateModel, activeRecipeFilterId: string) {
-        const filterId = Number(contextState.savedFilters?.map(filter => filter.id).indexOf(activeRecipeFilterId))
-        if (filterId >= 0) {
-            return JSON.parse(contextState.savedFilters ? contextState.savedFilters[filterId].value : "")
-        }
-        return contextState.recipesFilterForm
-    }
-
-    function loadBetweenPage(contextState: contextStateModel, nextPages: Recipe[][], nextPage: any) {
-        const page = nextPage.number - 1
-        if (page > 0 && typeof nextPages[page] === 'undefined') {
-            getRecipesByFilter(contextState.recipesFilterForm || {}, page, RECIPES_PAGE_SIZE, onGetBetweenRecipesByFilterResponse);
-            return;
-        }
-    }
-
-    function onGetBetweenRecipesByFilterResponse(response: Response<ResponsePage<Recipe>>) {
-        searchRequestManager.unlock();
-        dispatch({
-            type: RecipeFilterContextType.OnBetweenRecipePageLoad,
-            recipesPage: response.value
-        });
-    }
-
-    function focusOnRecipesPage(page?: number) {
-        setTimeout(() => {
-            scrollIntoRecipesPage(page || 0);
-        }, 400)
-    }
+    useEffect(() => {
+        getFilterFromParams();
+    }, [searchParams])
 
     function recipeFilterReducer(contextState: contextStateModel, action: ReducerActionProps): contextStateModel {
         switch (action.type) {
@@ -183,9 +135,57 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
         }
     }
 
-    useEffect(() => {
-        getFilterFromParams();
-    }, [searchParams])
+    function getSavedFilters() {
+        savedRecipeFiltersApi.getRecipeFilters((response) => dispatch({ type: RecipeFilterContextType.SetSavedFiltersList, value: response.value }));
+    }
+
+    function getRecipesByFilter(recipesFilterForm: any, pageNum: number, pageSize: number, responseCallback: any) {
+        searchRequestManager.nextAndLock(() => {
+            recipesApi.search(buildRecipeSearchDto(recipesFilterForm), { pageNum, pageSize }, responseCallback, searchRequestManager.unlock);
+        })
+    }
+
+    function updateFilterPageUrl(recipesFilterForm: any) {
+        updatePageUrl(recipesFilterForm)
+    }
+
+    function onGetRecipesByFilterResponse(response: Response<ResponsePage<Recipe>>) {
+        searchRequestManager.unlock();
+        dispatch({
+            type: RecipeFilterContextType.OnRecipePageLoad,
+            recipesPage: response.value
+        });
+    }
+
+    function getSelectedFilterFormValue(contextState: contextStateModel, activeRecipeFilterId: string) {
+        const filterId = Number(contextState.savedFilters?.map(filter => filter.id).indexOf(activeRecipeFilterId))
+        if (filterId >= 0) {
+            return JSON.parse(contextState.savedFilters ? contextState.savedFilters[filterId].value : "")
+        }
+        return contextState.recipesFilterForm
+    }
+
+    function loadBetweenPage(contextState: contextStateModel, nextPages: Recipe[][], nextPage: any) {
+        const page = nextPage.number - 1
+        if (page > 0 && typeof nextPages[page] === 'undefined') {
+            getRecipesByFilter(contextState.recipesFilterForm || {}, page, RECIPES_PAGE_SIZE, onGetBetweenRecipesByFilterResponse);
+            return;
+        }
+    }
+
+    function onGetBetweenRecipesByFilterResponse(response: Response<ResponsePage<Recipe>>) {
+        searchRequestManager.unlock();
+        dispatch({
+            type: RecipeFilterContextType.OnBetweenRecipePageLoad,
+            recipesPage: response.value
+        });
+    }
+
+    function focusOnRecipesPage(page?: number) {
+        setTimeout(() => {
+            scrollIntoRecipesPage(page || 0);
+        }, 400)
+    }
 
     function getFilterFromParams() {
         setTimeout(() => {

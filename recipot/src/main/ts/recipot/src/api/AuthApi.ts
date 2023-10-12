@@ -24,7 +24,6 @@ function AuthApi() {
         restClient.get(`/logout2`, onSuccess, onError)
     }
 
-
     return { login, register, changePassword, whoAmI, logout }
 }
 

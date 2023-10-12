@@ -20,12 +20,13 @@ function OtherColumn({
     const [loaded, setloaded] = useState<any>(false);
     const [recipeCardHeight, setRecipeCardHeight] = useState<any>();
     const [newRecipes, setNewRecipes] = useState<any[]>(recipes);
+
     const nav = useMyNav();
-    let slicedRecipes = recipes;
     const containerRef = useRef<any>(null);
     const recipeCardRef = useRef<any>(null);
     const categoriesRef = useRef<any>(null);
     const height = containerRef.current?.clientHeight
+    let slicedRecipes = recipes;
 
     const onGoToRecipe = (recipe: Recipe, event: any,) => nav.openInBackground({ id: recipe.id }, event);
     const onCategoryClick = (category: any) => nav.goToCategoryFilters(category);
@@ -65,6 +66,7 @@ function OtherColumn({
             </div>
         </div>
     )
+    
     function renderCategories() {
         return (
             <>
@@ -74,11 +76,13 @@ function OtherColumn({
             </>
         )
     }
+
     function renderCategory(category: CategoryDto) {
         return (
             <CategoryCard category={category} showChildren={false} className="category-no-border" key={category.id} onCategorySelect={() => onCategoryClick(category)} />
         )
     }
+
     function renderRecipes() {
         return (
             <div className="list mt-1">
@@ -90,7 +94,6 @@ function OtherColumn({
             </div>
         )
     }
-
 }
 
 export default OtherColumn;

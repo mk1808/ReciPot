@@ -13,7 +13,6 @@ import MyHeader from '../../../components/basicUi/MyHeader';
 function RecipeCollectionList() {
     const { t } = useTranslation();
 
-
     return (
         <RecipeCollectionListContextProvider>
             <div className='m-2 recipe-collections-list-page'>

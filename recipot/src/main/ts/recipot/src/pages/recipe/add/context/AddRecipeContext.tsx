@@ -55,10 +55,12 @@ function AddRecipeContextProvider({
     editedRecipe
 }: Props) {
 
+    const { t } = useTranslation();
     const nav = useMyNav();
     const alerts = useAlerts();
     const formSave = useRef<FormSave<any>>(initFormSave<any>());
-    const { t } = useTranslation();
+    const [fields, dispatch]: [fieldsStateModel, (actiom: ReducerActionProps) => any] = useReducer(addRecipeReducer, {});
+
     useEffect(() => {
         if (editedRecipe) {
             let correctRecipe = { ...editedRecipe };
@@ -69,7 +71,7 @@ function AddRecipeContextProvider({
             fields.formValue = correctRecipe;
         }
     }, [editedRecipe])
-    const [fields, dispatch]: [fieldsStateModel, (actiom: ReducerActionProps) => any] = useReducer(addRecipeReducer, {});
+    
     formSave.current.onSubmit = function (fields: any) {
         for (const field in fields.formValidity) {
             if (!fields.formValidity[field]) {
@@ -107,9 +109,9 @@ function AddRecipeContextProvider({
             recipesApi.putRecipe(editedRecipe.id, formValue, formSave.current.onSuccess, formSave.current.onError)
             return;
         }
-
         recipesApi.postRecipe(formValue, formSave.current.onSuccess, formSave.current.onError)
     }
+
     formSave.current.onSuccess = function (response: any) {
         saveRecipeRequestManager.unlock();
         let id = response.value.id;
@@ -117,6 +119,7 @@ function AddRecipeContextProvider({
         let alert = editedRecipe ? 'p.recipeEditCorrect' : 'p.recipeAddCorrect';
         alerts.showSuccessAlert(t(alert));
     }
+
     formSave.current.onError = function (response: any) {
         saveRecipeRequestManager.unlock();
         alerts.showErrorAlert(t(response.message));
@@ -181,7 +184,6 @@ function AddRecipeContextProvider({
                 }
                 elementsValidity.push({ ...action.basicObj });
 
-
                 return {
                     ...fields,
                     formValue: {
@@ -211,7 +213,6 @@ function AddRecipeContextProvider({
                 };
             }
             case AddRecipeContextType.OnRecipeLoaded: {
-                console.log(action.recipe);
                 return fields;
             }
             default: {

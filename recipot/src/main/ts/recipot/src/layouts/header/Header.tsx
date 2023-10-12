@@ -17,22 +17,21 @@ function Header() {
   const nav = useMyNav();
   const user = useContext(UsersContext);
   const usersDispatchContext = useContext(UsersDispatchContext);
-  const isLogged = () => { return user != null }
+  const isLogged = () => user != null;
+  const getUserName = () => user ? ` ${user.login}` : "";
 
   useEffect(() => {
     usersDispatchContext(
       { type: UserContextType.Refresh }
     )
   }, [])
+
   function onLogout() {
     usersDispatchContext({ type: UserContextType.Logout })
-    gotToMainPage();
-  }
-  function getUserName() {
-    return user ? ` ${user.login}` : ""
+    goToMainPage();
   }
 
-  function gotToMainPage() {
+  function goToMainPage() {
     nav.toMain();
   }
 
@@ -50,12 +49,12 @@ function Header() {
   function renderRecipotLogo() {
     return (
       <>
-        <Navbar.Brand href="#" onClick={gotToMainPage}></Navbar.Brand>
+        <Navbar.Brand href="#" onClick={goToMainPage}></Navbar.Brand>
         <Nav
           className="me-auto my-2 my-lg-0 cursor-pointer"
           style={{ maxHeight: '100px' }}
           navbarScroll
-          onClick={gotToMainPage}
+          onClick={goToMainPage}
         >
           <img src={recipotIcon} alt="Recipot logo" height={45} />
         </Nav>

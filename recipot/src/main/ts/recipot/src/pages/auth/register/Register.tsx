@@ -12,23 +12,26 @@ import useMyNav from "../../../hooks/useMyNav";
 
 function Register() {
     const { t } = useTranslation();
-    const alerts = useAlerts();
-    const formSave = initFormSave<UserRegisterDto>();
     const [defaultValue, setDefaultValue] = useState<string>("");
     const nav = useMyNav();
+    const alerts = useAlerts();
+    const formSave = initFormSave<UserRegisterDto>();
 
     formSave.onSubmit = function (formValue: any) {
         authApi.register(formValue, formSave.onSuccess, formSave.onError);
     }
+
     formSave.onSuccess = function (response: Response<AppUser>) {
         setDefaultValue(" ");
         setTimeout(() => { setDefaultValue(""); }, 100)
         alerts.showSuccessAlert(t('p.userRegisterCorrect'));
         nav.toLogin();
     }
+
     formSave.onError = function (response: any) {
         alerts.onShowAlertOnErrorResponse(response);
     }
+    
     return (
         <Stack className="justify-content-center py-5 mx-2 full-height-page register-page" direction="horizontal">
             <div className="p-4 mb-2 basic-container-border">

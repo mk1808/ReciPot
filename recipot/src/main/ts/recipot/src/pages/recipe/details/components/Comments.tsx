@@ -31,8 +31,10 @@ function Comments({
     const [isEditModeOn, setIsEditModeOn] = useState<any>(false);
     const [userOpinion, setUserOpinion] = useState<any>(false);
     const alerts = useAlerts();
-    const user = useContext(UsersContext);
     const nav = useMyNav();
+    const user = useContext(UsersContext);
+    const formSave = initFormSave<Comment>();
+    const areCommentsEmpty = () => (!user && (!opinions || opinions.length === 0));
 
     useEffect(() => {
         setIsEditModeOn(true);
@@ -43,7 +45,7 @@ function Comments({
         }
 
     }, [user, opinions])
-    const formSave = initFormSave<Comment>();
+
     formSave.onSubmit = function (formValue: any) {
         let recipeObj = { recipe: { id: recipe.id } };
         if (formValue.content !== "") {
@@ -60,10 +62,6 @@ function Comments({
                 getOpinions(recipe.id);
             });
         }
-    }
-
-    function areCommentsEmpty() {
-        return !user && (!opinions || opinions.length === 0);
     }
 
     return (
@@ -86,6 +84,7 @@ function Comments({
             </>
         )
     }
+    
     function renderComments(comment: any, index: number) {
         return (
             <div className="mt-4 mb-5 single-comment" key={index}>
@@ -110,6 +109,7 @@ function Comments({
             </div>
         )
     }
+
     function renderAvatar(comment: any) {
         return (
             <Stack direction="vertical">
@@ -118,6 +118,7 @@ function Comments({
             </Stack>
         );
     }
+
     function renderCommentsEmpty() {
         return (
             <div>

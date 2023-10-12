@@ -23,6 +23,10 @@ function CommentsForm({
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, initEmptyForm());
 
+    function formReducer(state: any, action: any) {
+        return getNewState(state, action, action.value, checkInputValidity);
+    }
+
     function onSubmit(event: any) {
         if (checkIfAllValid(event, myForm)) {
             formSave.onSubmit(myForm.formValue);
@@ -30,9 +34,6 @@ function CommentsForm({
         preventFurtherAction(event);
     };
 
-    function formReducer(state: any, action: any) {
-        return getNewState(state, action, action.value, checkInputValidity);
-    }
     return (
         <Form noValidate validated onSubmit={onSubmit}>
             {renderTextArea()}
@@ -54,6 +55,7 @@ function CommentsForm({
             </div>
         )
     }
+    
     function renderButton() {
         return (
             <Stack direction="horizontal" className="stars-button">

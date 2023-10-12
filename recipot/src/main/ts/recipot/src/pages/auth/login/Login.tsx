@@ -13,9 +13,9 @@ import useMyNav from '../../../hooks/useMyNav';
 
 function Login() {
     const { t } = useTranslation();
-    const nav = useMyNav();    
     const usersDispatchContext = useContext(UsersDispatchContext);
     const user = useContext(UsersContext);
+    const nav = useMyNav();    
     const alerts = useAlerts();    
     const formSave = initFormSave<UserLoginDto>();
 

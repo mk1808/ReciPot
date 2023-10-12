@@ -10,16 +10,16 @@ function NotificationManager() {
     const notificationsClosure = useRef(notifications);
 
     useEffect(() => {
-        notificationsClosure.current = notifications
-    }, [notifications])
-
-    useEffect(() => {
         const checkNotificationsInterval = setInterval(checkNotifications, 5000);
         checkNotifications();
         return () => {
             clearInterval(checkNotificationsInterval);
         }
     }, [])
+
+    useEffect(() => {
+        notificationsClosure.current = notifications
+    }, [notifications])
 
     function checkNotifications() {
         notificationsApi.getLastNotifications({ timeFrom: (lastRequestTime.current) }, (response) => onCheckNotificationsResponse(response))
@@ -34,7 +34,6 @@ function NotificationManager() {
         notificationsApi.deleteNotification(notification.id, () => {
             setNotifications(removeValue(notificationsClosure.current, notification))
         });
-
     }
 
     return <Notifications notifications={notifications} onConfirm={onConfirm} />
