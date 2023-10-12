@@ -4,7 +4,7 @@ import restClient from "./RestClient";
 function AuthApi() {
     const PREFIX = '/auth';
 
-    const login = (body: UserLoginDto, onSuccess: (response: Response<any>) => any, onError:(response: Response<any>) => any) => {
+    const login = (body: UserLoginDto, onSuccess: (response: Response<any>) => any, onError: (response: Response<any>) => any) => {
         restClient.post('/login3', body, onSuccess, onError)
     }
 
