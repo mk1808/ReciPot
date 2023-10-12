@@ -25,7 +25,7 @@ function Login() {
         }
     }, [user])
 
-    formSave.onSubmit = function (formValue: any) {
+    formSave.onSubmit = function (formValue: UserLoginDto) {
         authApi.login(formValue, formSave.onSuccess, formSave.onError);
     }
 

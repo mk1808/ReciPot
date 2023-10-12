@@ -5,27 +5,23 @@ import './styles.scss';
 import RegisterForm from "./RegisterForm";
 import authApi from "../../../api/AuthApi";
 import { AppUser, Response, UserRegisterDto } from "../../../data/types";
-import { useState } from "react";
 import useAlerts from "../../../hooks/useAlerts";
 import { initFormSave } from "../../../utils/FormInputUtils";
 import useMyNav from "../../../hooks/useMyNav";
 
 function Register() {
     const { t } = useTranslation();
-    const [defaultValue, setDefaultValue] = useState<string>("");
     const nav = useMyNav();
     const alerts = useAlerts();
     const formSave = initFormSave<UserRegisterDto>();
 
-    formSave.onSubmit = function (formValue: any) {
+    formSave.onSubmit = function (formValue: UserRegisterDto) {
         authApi.register(formValue, formSave.onSuccess, formSave.onError);
     }
 
     formSave.onSuccess = function (response: Response<AppUser>) {
-        setDefaultValue(" ");
-        setTimeout(() => { setDefaultValue(""); }, 100)
-        alerts.showSuccessAlert(t('p.userRegisterCorrect'));
         nav.toLogin();
+        alerts.showSuccessAlert(t('p.userRegisterCorrect'));
     }
 
     formSave.onError = function (response: any) {
@@ -45,7 +41,7 @@ function Register() {
         return (
             <div>
                 <h6 className="display-6">{t('p.fillRegisterPageInfo')}</h6>
-                <RegisterForm formSave={formSave} defaultValue={defaultValue}/>
+                <RegisterForm formSave={formSave}/>
             </div>
         )
     }

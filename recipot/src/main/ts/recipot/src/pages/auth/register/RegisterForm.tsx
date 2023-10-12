@@ -10,13 +10,11 @@ import { FormAction, FormSave, MyForm } from '../../../data/utilTypes';
 import { UserRegisterDto } from '../../../data/types';
 
 type Props = {
-    formSave: FormSave<UserRegisterDto>,
-    defaultValue: string
+    formSave: FormSave<UserRegisterDto>
 };
 
 function RegisterForm({
-    formSave,
-    defaultValue
+    formSave
 }: Props) {
 
     const { t } = useTranslation();
@@ -33,7 +31,7 @@ function RegisterForm({
         preventFurtherAction(event);
     };
 
-    function checkInputValidity(action: any, state?: any) {
+    function checkInputValidity(action: FormAction, state?: any) {
         switch (action.type) {
             case 'login': {
                 return action.value && action.value.length > 3;
@@ -74,27 +72,23 @@ function RegisterForm({
                     required
                     label={t('p.username')}
                     placeholder={t('p.username')}
-                    defaultValue={defaultValue}
                     {...inputAttributes("login", myForm, dispatchForm)} />
                 <MyInput
                     required
                     label={t('p.mail')}
                     placeholder={t('p.mail')}
-                    defaultValue={defaultValue}
                     {...inputAttributes("email", myForm, dispatchForm)} />
                 <MyInput
                     type="password"
                     required
                     label={t('p.password')}
                     placeholder={t('p.password')}
-                    defaultValue={defaultValue}
                     {...inputAttributes("password", myForm, dispatchForm)} />
                 <MyInput
                     type="password"
                     required
                     label={t('p.passwordRepeat')}
                     placeholder={t('p.passwordRepeat')}
-                    defaultValue={defaultValue}
                     {...inputAttributes("matchingPassword", myForm, dispatchForm)} />
             </>
         )
