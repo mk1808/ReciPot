@@ -2,8 +2,8 @@ import { Form } from "react-bootstrap";
 import MyInput from "../../../../components/basicUi/MyInput";
 import { useTranslation } from 'react-i18next';
 import { forwardRef, useImperativeHandle, useReducer, useRef } from "react";
-import { FormSave, MyForm } from "../../../../data/utilTypes";
-import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewState, inputAttributes } from "../../../../utils/FormInputUtils";
+import { FormAction, FormSave, MyForm } from "../../../../data/utilTypes";
+import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, inputAttributes } from "../../../../utils/FormInputUtils";
 import { RecipeCollection } from "../../../../data/types";
 
 type Props = {
@@ -33,8 +33,8 @@ function AddCollectionDialogForm({
         }
     };
 
-    function formReducer(state: any, action: any) {
-        return getNewState(state, action, action.value, checkInputValidity);
+    function formReducer(state: any, action: FormAction) {
+        return getNewFormState(state, action, checkInputValidity);
     };
 
     return (

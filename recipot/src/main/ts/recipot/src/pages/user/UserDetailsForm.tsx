@@ -8,8 +8,8 @@ import MyInput from '../../components/basicUi/MyInput';
 import MyTextarea from '../../components/basicUi/MyTextarea';
 import MyButton from '../../components/basicUi/MyButton';
 import { useReducer, useState } from 'react';
-import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewState, inputAttributes, preventFurtherAction } from '../../utils/FormInputUtils';
-import { MyForm, FormSave } from '../../data/utilTypes';
+import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, inputAttributes, preventFurtherAction } from '../../utils/FormInputUtils';
+import { MyForm, FormSave, FormAction } from '../../data/utilTypes';
 import { AppUser } from '../../data/types';
 import defaultUserAvatar from '../../assets/images/default_user_avatar.png';
 
@@ -28,8 +28,8 @@ function UserDetailsForm({
     const [isEditMode, setEditMode] = useState(false);
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, initEmptyForm());
 
-    function formReducer(state: any, action: any) {
-        return getNewState(state, action, action.value, checkInputValidity);
+    function formReducer(state: any, action: FormAction) {
+        return getNewFormState(state, action, checkInputValidity);
     }
 
     function handleSubmit(event: any) {

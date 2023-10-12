@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { FormSave, MyForm } from "../../../../data/utilTypes";
-import { useReducer } from "react";
-import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewState, inputAttributes, preventFurtherAction } from "../../../../utils/FormInputUtils";
+import { FormAction, FormSave, MyForm } from "../../../../data/utilTypes";
+import { useReducer, FormEvent } from "react";
+import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, inputAttributes, preventFurtherAction } from "../../../../utils/FormInputUtils";
 import MyTextarea from "../../../../components/basicUi/MyTextarea";
 import { Form, Stack } from "react-bootstrap";
 import StarSelectInput from "../../../../components/basicUi/StarSelectInput";
@@ -23,11 +23,11 @@ function CommentsForm({
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, initEmptyForm());
 
-    function formReducer(state: any, action: any) {
-        return getNewState(state, action, action.value, checkInputValidity);
+    function formReducer(state: any, action: FormAction) {
+        return getNewFormState(state, action, checkInputValidity);
     }
 
-    function onSubmit(event: any) {
+    function onSubmit(event: FormEvent) {
         if (checkIfAllValid(event, myForm)) {
             formSave.onSubmit(myForm.formValue);
         }

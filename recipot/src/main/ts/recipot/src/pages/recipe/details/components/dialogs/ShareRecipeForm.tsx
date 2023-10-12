@@ -2,9 +2,9 @@ import { useReducer, useRef, useImperativeHandle, forwardRef } from "react";
 
 import { Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { FormSave, MyForm } from "../../../../../data/utilTypes";
+import { FormAction, FormSave, MyForm } from "../../../../../data/utilTypes";
 import MyInput from "../../../../../components/basicUi/MyInput";
-import { checkIfAllValid, checkInputValidity, initEmptyForm, inputAttributes, getNewState } from "../../../../../utils/FormInputUtils";
+import { checkIfAllValid, checkInputValidity, initEmptyForm, inputAttributes, getNewFormState } from "../../../../../utils/FormInputUtils";
 import MyTextarea from "../../../../../components/basicUi/MyTextarea";
 import { SharedRecipe } from "../../../../../data/types";
 
@@ -27,8 +27,8 @@ function ShareRecipeForm({
         }
     }));
 
-    function formReducer(state: any, action: any) {
-        return getNewState(state, action, action.value, checkInputValidity);
+    function formReducer(state: any, action: FormAction) {
+        return getNewFormState(state, action, checkInputValidity);
     };
 
     function handleSubmit() {

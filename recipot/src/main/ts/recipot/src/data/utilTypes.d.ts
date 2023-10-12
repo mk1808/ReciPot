@@ -61,3 +61,8 @@ export interface ComplexListElementType {
     id: string,
     canDelete?: boolean
 }
+
+export interface FormAction {
+    type: string,
+    value: any
+}
