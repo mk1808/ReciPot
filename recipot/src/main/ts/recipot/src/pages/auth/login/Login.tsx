@@ -25,7 +25,7 @@ function Login() {
         }
     }, [user])
 
-    formSave.onSubmit = function (formValue: any) {
+    formSave.onSubmit = function (formValue: UserLoginDto) {
         authApi.login(formValue, formSave.onSuccess, formSave.onError);
     }
 
@@ -48,10 +48,10 @@ function Login() {
 
     function renderForm() {
         return (
-            <div>
+            <>
                 <h6 className="display-6">{t('p.fillLoginPageInfo')}</h6>
-                <LoginForm formSave={formSave}/>
-            </div>
+                <LoginForm formSave={formSave}/> 
+            </>
         )
     }
 }

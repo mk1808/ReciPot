@@ -1,4 +1,4 @@
-import { FormSave, MyForm } from "../data/utilTypes";
+import { FormAction, FormSave, MyForm } from "../data/utilTypes";
 import { initAs } from "./ObjectUtils";
 
 export function checkValidity(input?: any, isValid?: boolean) {
@@ -65,12 +65,12 @@ export function initFormSave<T>() {
     return initAs<FormSave<T>>({ onSubmit: null, onSuccess: null, onError: null })
 }
 
-export function getNewState(state: any, action: any, value: any, checkInputValidity: any) {
+export function getNewFormState(state: any, action: FormAction, checkInputValidity: (...params:any)=>{}) {
     let newState = {
         ...state,
         formValue: {
             ...state.formValue,
-            [action.type]: value
+            [action.type]: action.value
         },
         formValidity: {
             ...state.formValidity,
