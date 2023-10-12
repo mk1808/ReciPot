@@ -3,10 +3,10 @@ import './styles.scss';
 import { useTranslation } from 'react-i18next';
 import MyInput from '../../../components/basicUi/MyInput';
 import MyButton from '../../../components/basicUi/MyButton';
-import { useReducer } from 'react';
-import { checkIfAllValid, initEmptyForm, getNewState, inputAttributes, preventFurtherAction } from '../../../utils/FormInputUtils';
+import { useReducer, FormEvent } from 'react';
+import { checkIfAllValid, initEmptyForm, getNewFormState, inputAttributes, preventFurtherAction } from '../../../utils/FormInputUtils';
 import { validateEmail } from '../../../utils/RegexUtils';
-import { FormSave, MyForm } from '../../../data/utilTypes';
+import { FormAction, FormSave, MyForm } from '../../../data/utilTypes';
 import { UserRegisterDto } from '../../../data/types';
 
 type Props = {
@@ -22,11 +22,11 @@ function RegisterForm({
     const { t } = useTranslation();
     const [myForm, dispatchForm]: [MyForm, Function] = useReducer(formReducer, initEmptyForm());
 
-    function formReducer(state: any, action: any) {
-        return getNewState(state, action, action.value, checkInputValidity);
+    function formReducer(state: any, action: FormAction) {
+        return getNewFormState(state, action, checkInputValidity);
     }
 
-    function onSubmit(event: any) {
+    function onSubmit(event: FormEvent) {
         if (checkIfAllValid(event, myForm)) {
             formSave.onSubmit(myForm.formValue);
         }

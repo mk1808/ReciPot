@@ -48,10 +48,10 @@ function Login() {
 
     function renderForm() {
         return (
-            <div>
+            <>
                 <h6 className="display-6">{t('p.fillLoginPageInfo')}</h6>
-                <LoginForm formSave={formSave}/>
-            </div>
+                <LoginForm formSave={formSave}/> 
+            </>
         )
     }
 }
