@@ -7,12 +7,12 @@ import { useContext, useEffect, useState } from "react";
 import { AddRecipeContext, AddRecipeContextType, AddRecipeDispatchContext } from "../context/AddRecipeContext";
 import { InputAttrsType, inputAttrs } from "../../../../utils/FormInputUtils";
 import { EnumDictionaryContext, enumsStateModel } from "../../../../context/EnumDictionaryContext";
-import useGetCategories from "../../../../hooks/useGetCategories";
+import useCategories from "../../../../hooks/useCategories";
 
 function UpperRightSide() {
     const { t } = useTranslation();
     const [filteredHashTags, setFilteredHashTags] = useState<any[]>([]);
-    const [filteredCategories, filterCategories] = useGetCategories();
+    const [filteredCategories, filterCategories] = useCategories();
     const addRecipeDispatchContext = useContext(AddRecipeDispatchContext);
     const formFields = useContext(AddRecipeContext).fields;
     const enumDictionaryContext = useContext(EnumDictionaryContext).enums;

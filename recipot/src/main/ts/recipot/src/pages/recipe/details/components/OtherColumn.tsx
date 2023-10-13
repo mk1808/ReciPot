@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import dictionariesApi from "../../../../api/DictionariesApi";
-import { CategoryDto, Recipe, Response } from "../../../../data/types";
+import { CategoryDto, Recipe} from "../../../../data/types";
 import RecipeCard from "../../../../components/complex/RecipeCard";
 import CategoryCard from "../../../../components/complex/CategoryCard";
 import MyHeader from "../../../../components/basicUi/MyHeader";
 import useMyNav from "../../../../hooks/useMyNav";
-import useGetCategories from "../../../../hooks/useGetCategories";
+import useCategories from "../../../../hooks/useCategories";
 
 type Props = {
     recipes: Recipe[]
@@ -22,7 +21,7 @@ function OtherColumn({
     const [newRecipes, setNewRecipes] = useState<any[]>(recipes);
 
     const nav = useMyNav();
-    const [, , allCategories] = useGetCategories();
+    const [, , allCategories] = useCategories();
     const containerRef = useRef<any>(null);
     const recipeCardRef = useRef<any>(null);
     const categoriesRef = useRef<any>(null);

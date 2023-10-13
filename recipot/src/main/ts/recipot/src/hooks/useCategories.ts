@@ -4,7 +4,7 @@ import { CategoryDto, Response } from "../data/types";
 import { mapCategoriesToSearchList, searchCategory } from "../utils/DictionariesUtils";
 import { SelectOption } from "../data/utilTypes";
 
-function useGetCategories(): [SelectOption<CategoryDto>[], (phrase: string) => any, CategoryDto[]] {
+function useCategories(): [SelectOption<CategoryDto>[], (phrase: string) => any, CategoryDto[]] {
     const [filteredCategories, setFilteredCategories] = useState<SelectOption<CategoryDto>[]>([]);
     const [allCategories, setAllCategories] = useState<CategoryDto[]>([]);
     
@@ -26,4 +26,4 @@ function useGetCategories(): [SelectOption<CategoryDto>[], (phrase: string) => a
     return [filteredCategories, filterCategories, allCategories];
 }
 
-export default useGetCategories;
+export default useCategories;
