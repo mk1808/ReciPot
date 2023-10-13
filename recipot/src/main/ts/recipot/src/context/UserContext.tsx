@@ -37,7 +37,10 @@ export const UserContextProvider = ({ children }: any) => {
     function usersReducer(user: contextStateModel, action: ReducerActionProps): contextStateModel {
         switch (action.type) {
             case UserContextType.Logged: {
-                return action.user;
+                if (action.user?.id !== user?.id) {
+                    return action.user;
+                }
+                return user;
             }
             case UserContextType.Logout: {
                 authApi.logout(onSuccessLogout, () => { });
