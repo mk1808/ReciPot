@@ -88,7 +88,7 @@ function UpperRightSide() {
             formObject:formFields.formValue,
             type: InputAttrsType.Context
         };
-        return defaultValue ? { ...attrs, defaultValue: defaultValue } : attrs;
+        return inputAttrs(defaultValue ? { ...attrs, defaultValue: defaultValue } : attrs);
  
     }
 
@@ -107,7 +107,7 @@ function UpperRightSide() {
         return (
             <TimeAmountInput
                 label={t('p.timeAmountInputLabel')}
-                {...inputAttrs(getAttributes("timeAmount"))}
+                {...getAttributes("timeAmount")}
             />
         )
     }
@@ -118,7 +118,7 @@ function UpperRightSide() {
             <MySelect
                 label={t("p.accessTypeFilter")}
                 options={accessTypes}
-                {...inputAttrs(getAttributes("accessType", accessTypes[0].value))}
+                {...getAttributes("accessType", accessTypes[0].value)}
             />
         )
     }
@@ -129,7 +129,7 @@ function UpperRightSide() {
                 label={t("p.amountOfDishesFilter")}
                 options={amountOfDishes}
                 emptyOption={t('p.selectValue')}
-                {...inputAttrs(getAttributes("numberOfDishes"))}
+                {...getAttributes("numberOfDishes")}
             />
         )
     }
@@ -140,7 +140,7 @@ function UpperRightSide() {
                 label={t("p.difficultiesFilter")}
                 options={difficulties}
                 emptyOption={t('p.selectValue')}
-                {...inputAttrs(getAttributes("difficulty"))}
+                {...getAttributes("difficulty")}
             />
         )
     }
@@ -152,7 +152,7 @@ function UpperRightSide() {
                 label={t("p.requiredEffortFilter")}
                 options={requiredEffort}
                 emptyOption={t('p.selectValue')}
-                {...inputAttrs(getAttributes("requiredEffort"))}
+                {...getAttributes("requiredEffort")}
             />
         )
     }

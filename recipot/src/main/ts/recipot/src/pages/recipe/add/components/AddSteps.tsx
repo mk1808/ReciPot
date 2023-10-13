@@ -60,14 +60,14 @@ function AddSteps() {
     }
 
     function getAttributes(name: string, index: number, defaultValue: any) {
-        return {
+        return inputAttrs({
             name,
             onChange,
             getValidity: getStepValidity,
             index,
             defaultValue,
             type: InputAttrsType.DynamicContext,
-        };
+        });
     }
 
     return (
@@ -102,7 +102,7 @@ function AddSteps() {
                 label={t('p.step')}
                 placeholder={t('p.step')}
                 rows={4}
-                {...inputAttrs(getAttributes("description", index, getDefaultValue("description", index, fieldsAndMainName)))}
+                {...getAttributes("description", index, getDefaultValue("description", index, fieldsAndMainName))}
             />
         )
     }

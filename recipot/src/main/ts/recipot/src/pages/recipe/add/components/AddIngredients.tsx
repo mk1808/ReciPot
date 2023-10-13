@@ -79,14 +79,14 @@ function AddIngredients() {
     }
 
     function getAttributes(name: string, index: number, defaultValue: any) {
-        return {
+        return inputAttrs({
             name,
             onChange,
             getValidity: getIngredientValidity,
             index,
             defaultValue,
             type: InputAttrsType.DynamicContext,
-        };
+        })
     }
 
     return (
@@ -128,7 +128,7 @@ function AddIngredients() {
                 type="number"
                 className="simple-input"
                 step={0.1}
-                {...inputAttrs(getAttributes("amount", index, getDefaultValue("amount", index, fieldsAndMainName)))}
+                {...getAttributes("amount", index, getDefaultValue("amount", index, fieldsAndMainName))}
             />
         )
     }
@@ -139,7 +139,7 @@ function AddIngredients() {
                 label={t('p.unit')}
                 required
                 className="simple-input"
-                {...inputAttrs(getAttributes("unit", index, getDefaultValue("unit", index, fieldsAndMainName)))}
+                {...getAttributes("unit", index, getDefaultValue("unit", index, fieldsAndMainName))}
             />
         )
     }

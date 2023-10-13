@@ -133,7 +133,7 @@ function RecipeFiltersColumn() {
             formObject: recipesFilterForm,
             type: InputAttrsType.ContextNoValidation
         }
-        return defaultValue ? { ...attrs, defaultValue: defaultValue } : attrs;
+        return inputAttrs(defaultValue ? { ...attrs, defaultValue: defaultValue } : attrs);
     }
 
     return (
@@ -160,7 +160,7 @@ function RecipeFiltersColumn() {
     function renderUserIsOwnerInput() {
         return isUserLogged && (
             <MyCheckbox
-                {...inputAttrs(getAttributes("userIsOwner", t("p.userIsOwnerFilter"), onUserIsOwnerChange))}
+                {...getAttributes("userIsOwner", t("p.userIsOwnerFilter"), onUserIsOwnerChange)}
                 defaultChecked={recipesFilterForm?.userIsOwner || false}
             />
         )
@@ -170,7 +170,7 @@ function RecipeFiltersColumn() {
         const accessTypes = getEnum("accessTypes");
         return isUserLogged && (
             <MySelect
-                {...inputAttrs(getAttributes("accessType", t("p.accessTypeFilter")))}
+                {...getAttributes("accessType", t("p.accessTypeFilter"))}
                 options={accessTypes}
                 emptyOption={t('p.selectValue')}
             />
@@ -180,7 +180,7 @@ function RecipeFiltersColumn() {
     function renderNameContainsInput() {
         return (
             <MyInput
-                {...inputAttrs(getAttributes("recipeName", t("p.recipeNameFilter")))}
+                {...getAttributes("recipeName", t("p.recipeNameFilter"))}
                 placeholder={t("p.recipeNameFilter")}
             />
         )
@@ -189,7 +189,7 @@ function RecipeFiltersColumn() {
     function renderTimeAmountFromInput() {
         return (
             <TimeAmountInput
-                {...inputAttrs(getAttributes("timeAmountFrom", t("p.timeAmountFromFilter")))}
+                {...getAttributes("timeAmountFrom", t("p.timeAmountFromFilter"))}
             />
         )
     }
@@ -197,7 +197,7 @@ function RecipeFiltersColumn() {
     function renderTimeAmountToInput() {
         return (
             <TimeAmountInput
-                {...inputAttrs(getAttributes("timeAmountTo", t("p.timeAmountToFilter"), null, 99 * 60 + 59))}
+                {...getAttributes("timeAmountTo", t("p.timeAmountToFilter"), null, 99 * 60 + 59)}
             />
         )
     }
@@ -206,7 +206,7 @@ function RecipeFiltersColumn() {
         const amountOfDishes = getEnum("amountsOfDishes")
         return (
             <MySelect
-                {...inputAttrs(getAttributes("amountOfDishes", t("p.amountOfDishesFilter")))}
+                {...getAttributes("amountOfDishes", t("p.amountOfDishesFilter"))}
                 options={amountOfDishes}
                 emptyOption={t('p.selectValue')}
             />
@@ -217,7 +217,7 @@ function RecipeFiltersColumn() {
         const difficulties = getEnum("difficulties")
         return (
             <MySelect
-                {...inputAttrs(getAttributes("difficulties", t("p.difficultiesFilter")))}
+                {...getAttributes("difficulties", t("p.difficultiesFilter"))}
                 options={difficulties}
                 emptyOption={t('p.selectValue')}
             />
@@ -228,7 +228,7 @@ function RecipeFiltersColumn() {
         const requiredEffort = getEnum("requiredEfforts");
         return (
             <MySelect
-                {...inputAttrs(getAttributes("requiredEffort", t("p.requiredEffortFilter")))}
+                {...getAttributes("requiredEffort", t("p.requiredEffortFilter"))}
                 options={requiredEffort}
                 emptyOption={t('p.selectValue')}
             />)
@@ -237,7 +237,7 @@ function RecipeFiltersColumn() {
     function renderAverageRatingInput() {
         return (
             <MySelect
-                {...inputAttrs(getAttributes("averageRating", t("p.averageRatingFilter")))}
+                {...getAttributes("averageRating", t("p.averageRatingFilter"))}
                 options={getAverageRating()}
                 emptyOption={t('p.selectValue')}
             />)
@@ -246,7 +246,7 @@ function RecipeFiltersColumn() {
     function renderHashTagInput() {
         return (
             <FilteredSelect
-                {...inputAttrs(getAttributes("hashTags", t("p.hashTagFilter")))}
+                {...getAttributes("hashTags", t("p.hashTagFilter"))}
                 multiple
                 options={filteredHashTags}
                 onSearchCallback={(phrase: string) => onFilteredHashTagSearch(phrase, setFilteredHashTags)}
@@ -260,7 +260,7 @@ function RecipeFiltersColumn() {
         return (
             <FilteredSelect
                 multiple
-                {...inputAttrs(getAttributes("ingredients", t("p.ingredientFilter")))}
+                {...getAttributes("ingredients", t("p.ingredientFilter"))}
                 options={filteredIngredients}
                 onSearchCallback={(phrase: string) => onFilteredIngredientSearch(phrase, setFilteredIngredients)}
                 onSelectCallback={onIngredientsChange}
@@ -272,7 +272,7 @@ function RecipeFiltersColumn() {
     function renderCategoryInput() {
         return (
             <FilteredSelect
-                {...inputAttrs(getAttributes("categories", t("p.categoryFilter")))}
+                {...getAttributes("categories", t("p.categoryFilter"))}
                 multiple
                 options={filteredCategories}
                 onSearchCallback={onCategorySearchCallback}

@@ -45,13 +45,13 @@ function RecipesSortForm() {
     }
 
     function getAttributes(name: string, label: string) {
-        return {
+        return inputAttrs({
             name,
             label,
             onChange,
             formObject: recipeFilterContext.recipesFilterForm,
             type: InputAttrsType.ContextNoValidation
-        };
+        });
     }
 
     return (
@@ -64,7 +64,7 @@ function RecipesSortForm() {
     function renderSortSelect() {
         return (
             <MySelect
-                {...inputAttrs(getAttributes("recipesSort", t("p.recipesSort")))}
+                {...getAttributes("recipesSort", t("p.recipesSort"))}
                 options={getRecipesSortOptions()}
             />
         )

@@ -47,13 +47,13 @@ function UpperLeftSide() {
     }
     
     function getAttributes(name: string) {
-        return {
+        return inputAttrs({
             name,
             onChange,
             getValidity,
             formObject:formFields.formValue,
             type: InputAttrsType.Context
-        };
+        });
     }
 
     return (
@@ -80,7 +80,7 @@ function UpperLeftSide() {
                 label={t('p.name')}
                 placeholder={t('p.name')}
                 required
-                {...inputAttrs(getAttributes("name"))}
+                {...getAttributes("name")}
             />
         )
     }
@@ -91,7 +91,7 @@ function UpperLeftSide() {
                 label={t('p.description')}
                 placeholder={t('p.description')}
                 rows={5}
-                {...inputAttrs(getAttributes("description"))}
+                {...getAttributes("description")}
             />
         )
     }
@@ -104,7 +104,7 @@ function UpperLeftSide() {
                     className="full-width"
                     label={formFields.formValue?.image ? t('p.changeImage') : t('p.image')}
                     required={!editedRecipe}
-                    {...inputAttrs(getAttributes("imageFile"))}
+                    {...getAttributes("imageFile")}
                 />
             </Stack>
         )
@@ -119,7 +119,7 @@ function UpperLeftSide() {
             <MyInput
                 label={t('p.url')}
                 placeholder={t('p.url')}
-                {...inputAttrs(getAttributes("url"))}
+                {...getAttributes("url")}
             />
         )
     }
