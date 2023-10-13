@@ -17,10 +17,12 @@ function DeleteFromCollectionDialog({
 }: Props) {
 
     const { t } = useTranslation();
+
     function onSubmitCallback() {
         onClose();
         onSubmit();
     }
+
     return (
         <CustomModal shouldShow={showModal} onClose={onClose} onSubmit={onSubmitCallback}>
             {renderContent()}
@@ -28,8 +30,7 @@ function DeleteFromCollectionDialog({
     );
 
     function renderContent() {
-        const question = `${t("p.deleteRecipeFromCollectionQuestion")} ${data?.name}?`
-        return (<>{question}</>)
+        return `${t("p.deleteRecipeFromCollectionQuestion")} ${data?.name}?`;
     }
 }
 

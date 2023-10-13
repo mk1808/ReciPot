@@ -58,9 +58,7 @@ export const RecipeCollectionListContextProvider = ({ children }: any) => {
             }
             case RecipeCollectionListContextType.RefreshCollectionsList: {
                 getSavedCollections();
-                return {
-                    ...contextState,
-                };
+                return contextState;
             }
             case RecipeCollectionListContextType.SetSavedCollectionsList: {
                 selectDefaultCollection(contextState, action.value);
@@ -103,7 +101,10 @@ export const RecipeCollectionListContextProvider = ({ children }: any) => {
     }
 
     function getSavedCollections() {
-        recipeCollectionsApi.getUserRecipeCollections((response) => dispatch({ type: RecipeCollectionListContextType.SetSavedCollectionsList, value: response.value }))
+        recipeCollectionsApi.getUserRecipeCollections((response) => dispatch({
+            type: RecipeCollectionListContextType.SetSavedCollectionsList,
+            value: response.value
+        }));
     }
 
     function getCollectionRecipes(recipeCollectionId: string, pageNum: number, pageSize: number, onResponseCallback = onCollectionRecipesResponse) {
@@ -116,7 +117,10 @@ export const RecipeCollectionListContextProvider = ({ children }: any) => {
         searchRequestManager.unlock();
         const responsePage: ResponsePage<any> = response.value
         responsePage.content = responsePage.content.map(mapRecipeCollectionItemToRecipe);
-        dispatch({ type: RecipeCollectionListContextType.OnRecipesPageLoad, recipesPage: responsePage });
+        dispatch({
+            type: RecipeCollectionListContextType.OnRecipesPageLoad,
+            recipesPage: responsePage
+        });
     }
 
     function mapRecipeCollectionItemToRecipe(recipeCollectionItem: RecipeCollectionItem): Recipe {
@@ -125,11 +129,16 @@ export const RecipeCollectionListContextProvider = ({ children }: any) => {
 
     function selectDefaultCollection(contextState: contextStateModel, collections: RecipeCollection[]) {
         if (!contextState.activeCollectionId) {
-            setTimeout(() => {
-                collections.filter(collection => collection.name === 'Favourite')
-                    .forEach((collection) => dispatch({ type: RecipeCollectionListContextType.CollectionSelect, activeCollectionId: collection.id }));
-            })
+            setTimeout(() => onSelectDefaultCollection(collections));
         };
+    }
+
+    function onSelectDefaultCollection(collections: RecipeCollection[]) {
+        collections.filter(collection => collection.name === 'Favourite').forEach(dispatchCollectionSelect);
+    }
+
+    function dispatchCollectionSelect(collection: RecipeCollection) {
+        dispatch({ type: RecipeCollectionListContextType.CollectionSelect, activeCollectionId: collection.id })
     }
 
     function loadBetweenPage(contextState: contextStateModel, nextPages: Recipe[][], nextPage: any) {

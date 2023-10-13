@@ -44,7 +44,12 @@ function AddCollectionDialog({
     }
 
     return (
-        <CustomModal shouldShow={showModal} onClose={onClose} onSubmit={onSubmit} title='p.addingNewCollection'>
+        <CustomModal
+            shouldShow={showModal}
+            onClose={onClose}
+            onSubmit={onSubmit}
+            title='p.addingNewCollection'
+        >
             {renderContent()}
         </CustomModal>
     );

@@ -14,20 +14,26 @@ function CollectionList() {
     const collectionsDispatchContext = useContext(RecipeCollectionListDispatchContext);
     const alerts = useAlerts();
 
-    function onCollectionSelect(index: number) {
+    function onCollectionSelect(collection: RecipeCollection) {
         collectionsDispatchContext({
             type: RecipeCollectionListContextType.CollectionSelect,
-            activeCollectionId: (collectionsContext.collections || [])[index].id
+            activeCollectionId: collection.id
         });
     }
 
-    function onCollectionDelete(index: number) {
-        recipeCollectionsApi.deleteCollection((collectionsContext.collections || [])[index].id, onCollectionDeleteResponse);
+    function onCollectionDelete(collection: RecipeCollection) {
+        recipeCollectionsApi.deleteCollection(collection.id, onCollectionDeleteResponse);
     }
 
     function onCollectionDeleteResponse(response: any) {
         alerts.showSuccessAlert(t(response.message));
-        collectionsDispatchContext({ type: RecipeCollectionListContextType.RefreshCollectionsList })
+        collectionsDispatchContext({
+            type: RecipeCollectionListContextType.RefreshCollectionsList
+        });
+    }
+
+    function getIsActiveCollection(collection: RecipeCollection) {
+        return collection.id === collectionsContext.activeCollectionId
     }
 
     return (
@@ -41,10 +47,10 @@ function CollectionList() {
             <ComplexListElement
                 key={collection.id}
                 index={index}
-                onSelect={onCollectionSelect}
-                onDelete={onCollectionDelete}
+                onSelect={() => onCollectionSelect(collection)}
+                onDelete={() => onCollectionDelete(collection)}
                 element={collection}
-                isActive={collection.id === collectionsContext.activeCollectionId}
+                isActive={getIsActiveCollection(collection)}
                 getElementName={getCollectionName}
             />
         );
