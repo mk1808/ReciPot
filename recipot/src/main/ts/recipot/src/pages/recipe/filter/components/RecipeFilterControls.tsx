@@ -8,7 +8,7 @@ import FilteredSelect from "../../../../components/complex/FilteredSelect";
 import dictionariesApi from "../../../../api/DictionariesApi";
 import { useContext, useEffect, useState, useMemo } from "react";
 import { mapCategoriesToSearchList, onFilteredHashTagSearch, onFilteredIngredientSearch, searchCategory } from "../../../../utils/DictionariesUtils";
-import { inputAttributesForContextWithoutValidity } from "../../../../utils/FormInputUtils";
+import { InputAttrsType, inputAttrs } from "../../../../utils/FormInputUtils";
 import { RecipeFilterContext, RecipeFilterContextType, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 import { EnumDictionaryContext, enumsStateModel } from "../../../../context/EnumDictionaryContext";
 import { UsersContext } from "../../../../context/UserContext";
@@ -77,10 +77,6 @@ function RecipeFilterControls() {
         })
     }
 
-    function getInputParams(name: string, label: string, onChangeCallback = onChange) {
-        return inputAttributesForContextWithoutValidity(name, t(label), onChangeCallback, recipesFilterForm);
-    }
-
     function getTimeAmountToDefaultValue() {
         const maxAllowedValue = 99 * 60 + 59;
         return (recipesFilterForm && recipesFilterForm["timeAmountTo"]) || maxAllowedValue;
@@ -100,6 +96,17 @@ function RecipeFilterControls() {
 
     function onFilteredCategory(phrase: string) {
         setFilteredCategories(mapCategoriesToSearchList(searchCategory(allCategories, phrase)))
+    }
+
+    function getAttributes(name: string, label: string, onOtherChange?: any, defaultValue?: any) {
+        let attrs = {
+            name: name,
+            label: label,
+            onChange: onOtherChange || onChange,
+            formObject: recipesFilterForm,
+            type: InputAttrsType.ContextNoValidation
+        }
+        return inputAttrs(defaultValue ? { ...attrs, defaultValue: defaultValue } : attrs);
     }
 
     return (
@@ -122,7 +129,7 @@ function RecipeFilterControls() {
     function renderUserIsOwnerInput() {
         return isUserLogged && (
             <MyCheckbox
-                {...getInputParams("userIsOwner", t("p.userIsOwnerFilter"), onUserIsOwnerChange)}
+                {...getAttributes("userIsOwner", t("p.userIsOwnerFilter"), onUserIsOwnerChange)}
                 defaultChecked={getUserIsOwnerDefaultValue()}
             />
         )
@@ -132,7 +139,7 @@ function RecipeFilterControls() {
         const accessTypes = getEnum("accessTypes");
         return isUserLogged && (
             <MySelect
-                {...getInputParams("accessType", t("p.accessTypeFilter"))}
+                {...getAttributes("accessType", t("p.accessTypeFilter"))}
                 options={accessTypes}
                 emptyOption={t('p.selectValue')}
             />
@@ -142,7 +149,7 @@ function RecipeFilterControls() {
     function renderNameContainsInput() {
         return (
             <MyInput
-                {...getInputParams("recipeName", t("p.recipeNameFilter"))}
+                {...getAttributes("recipeName", t("p.recipeNameFilter"))}
                 placeholder={t("p.recipeNameFilter")}
             />
         )
@@ -151,7 +158,7 @@ function RecipeFilterControls() {
     function renderTimeAmountFromInput() {
         return (
             <TimeAmountInput
-                {...getInputParams("timeAmountFrom", t("p.timeAmountFromFilter"))}
+                {...getAttributes("timeAmountFrom", t("p.timeAmountFromFilter"))}
             />
         )
     }
@@ -159,7 +166,7 @@ function RecipeFilterControls() {
     function renderTimeAmountToInput() {
         return (
             <TimeAmountInput
-                {...getInputParams("timeAmountTo", t("p.timeAmountToFilter"))}
+                {...getAttributes("timeAmountTo", t("p.timeAmountToFilter"))}
                 defaultValue={getTimeAmountToDefaultValue()}
             />
         )
@@ -169,7 +176,7 @@ function RecipeFilterControls() {
         const amountOfDishes = getEnum("amountsOfDishes")
         return (
             <MySelect
-                {...getInputParams("amountOfDishes", t("p.amountOfDishesFilter"))}
+                {...getAttributes("amountOfDishes", t("p.amountOfDishesFilter"))}
                 options={amountOfDishes}
                 emptyOption={t('p.selectValue')}
             />
@@ -180,7 +187,7 @@ function RecipeFilterControls() {
         const difficulties = getEnum("difficulties")
         return (
             <MySelect
-                {...getInputParams("difficulties", t("p.difficultiesFilter"))}
+                {...getAttributes("difficulties", t("p.difficultiesFilter"))}
                 options={difficulties}
                 emptyOption={t('p.selectValue')}
             />
@@ -191,7 +198,7 @@ function RecipeFilterControls() {
         const requiredEffort = getEnum("requiredEfforts");
         return (
             <MySelect
-                {...getInputParams("requiredEffort", t("p.requiredEffortFilter"))}
+                {...getAttributes("requiredEffort", t("p.requiredEffortFilter"))}
                 options={requiredEffort}
                 emptyOption={t('p.selectValue')}
             />)
@@ -200,7 +207,7 @@ function RecipeFilterControls() {
     function renderAverageRatingInput() {
         return (
             <MySelect
-                {...getInputParams("averageRating", t("p.averageRatingFilter"))}
+                {...getAttributes("averageRating", t("p.averageRatingFilter"))}
                 options={averageRating}
                 emptyOption={t('p.selectValue')}
             />)
@@ -209,7 +216,7 @@ function RecipeFilterControls() {
     function renderHashTagInput() {
         return (
             <FilteredSelect
-                {...getInputParams("hashTags", t("p.hashTagFilter"))}
+                {...getAttributes("hashTags", t("p.hashTagFilter"))}
                 multiple
                 options={filteredHashTags}
                 onSearchCallback={onFilteredHashTag}
@@ -223,7 +230,7 @@ function RecipeFilterControls() {
         return (
             <FilteredSelect
                 multiple
-                {...getInputParams("ingredients", t("p.ingredientFilter"))}
+                {...getAttributes("ingredients", t("p.ingredientFilter"))}
                 options={filteredIngredients}
                 onSearchCallback={onFilteredIngredient}
                 onSelectCallback={onIngredientsChange}
@@ -235,7 +242,7 @@ function RecipeFilterControls() {
     function renderCategoryInput() {
         return (
             <FilteredSelect
-                {...getInputParams("categories", t("p.categoryFilter"))}
+                {...getAttributes("categories", t("p.categoryFilter"))}
                 multiple
                 options={filteredCategories}
                 onSearchCallback={onFilteredCategory}

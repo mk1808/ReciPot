@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { FormAction, FormSave, MyForm } from "../../../../data/utilTypes";
 import { useReducer, FormEvent } from "react";
-import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, inputAttributes, preventFurtherAction } from "../../../../utils/FormInputUtils";
+import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, preventFurtherAction, inputAttrs } from "../../../../utils/FormInputUtils";
 import MyTextarea from "../../../../components/basicUi/MyTextarea";
 import { Form, Stack } from "react-bootstrap";
 import MyButton from "../../../../components/basicUi/MyButton";
@@ -55,7 +55,7 @@ function PrivateNoteForm({
                     rows={5}
                     disabled={!isEditModeOn}
                     defaultValue={note != null ? note.content : ""}
-                    {...inputAttributes("content", myForm, dispatchForm)} />
+                    {...inputAttrs({ name: "content", myForm, dispatchForm })} />
             </div>
         )
     };

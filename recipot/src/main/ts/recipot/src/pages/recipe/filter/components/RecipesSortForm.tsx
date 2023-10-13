@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { useContext, useEffect, useMemo } from "react";
 import { RecipeFilterContext, RecipeFilterContextType, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 import MySelect from "../../../../components/basicUi/MySelect";
-import { inputAttributesForContextWithoutValidity } from "../../../../utils/FormInputUtils";
+import { InputAttrsType, inputAttrs } from "../../../../utils/FormInputUtils";
 import MyButton from "../../../../components/basicUi/MyButton";
 import { Stack } from "react-bootstrap";
 import { getRecipesSortOptions } from "../utils/RecipeSearchUtils";
@@ -33,11 +33,14 @@ function RecipesSortForm() {
         })
     }
 
-    function getRecipeSortInputParams() {
-        return {
-            ...inputAttributesForContextWithoutValidity("recipesSort", t("p.recipesSort"), onChange, recipeFilterContext.recipesFilterForm),
-            options: recipesSortOptions
-        };
+    function getAttributes(name: string, label: string) {
+        return inputAttrs({
+            name,
+            label,
+            onChange,
+            formObject: recipeFilterContext.recipesFilterForm,
+            type: InputAttrsType.ContextNoValidation
+        });
     }
 
     return (
@@ -50,7 +53,8 @@ function RecipesSortForm() {
     function renderSortSelect() {
         return (
             <MySelect
-                {...getRecipeSortInputParams()}
+                {...getAttributes("recipesSort", t("p.recipesSort"))}
+                options={recipesSortOptions}
             />
         )
     }

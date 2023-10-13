@@ -3,7 +3,7 @@ import MyInput from "../../../../components/basicUi/MyInput";
 import { useTranslation } from 'react-i18next';
 import { forwardRef, useImperativeHandle, useReducer, useRef } from "react";
 import { FormAction, FormSave, MyForm } from "../../../../data/utilTypes";
-import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, inputAttributes } from "../../../../utils/FormInputUtils";
+import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, inputAttrs, InputAttrsType } from "../../../../utils/FormInputUtils";
 import { RecipeCollection } from "../../../../data/types";
 
 type Props = {
@@ -46,7 +46,7 @@ function AddCollectionDialogForm({
     function renderCollectionNameInput() {
         return (
             <MyInput
-                {...inputAttributes("newCollectionName", myForm, dispatchForm)}
+                {...inputAttrs({ name: "newCollectionName", myForm, dispatchForm })}
                 placeholder={t('p.newCollectionNameInput')}
                 label={t('p.newCollectionNameInput')}
                 required
