@@ -11,7 +11,7 @@ function MyCollapse({
 }: Props) {
 
     return (
-        <Accordion className='my-collapse'>
+        <Accordion className='my-collapse mb-2'>
             <Accordion.Item eventKey="0">
                 <Accordion.Header> {header} </Accordion.Header>
                 <Accordion.Body> {children} </Accordion.Body>

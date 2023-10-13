@@ -31,10 +31,8 @@ function CollectionRecipesColumn() {
     const nav = useMyNav();
 
     const isLoaded = collectionsContext.isLoaded;
+    const activeRecipeCollection: RecipeCollection | undefined = getActiveRecipeCollection();
     const onGoToRecipe = (recipe: Recipe, event: any,) => nav.openInBackground({ id: recipe.id }, event);
-    const activeRecipeCollection: RecipeCollection | undefined = collectionsContext.collections?.filter(
-        collection => collection.id === collectionsContext.activeCollectionId
-    )[0];
 
     function deleteRecipeShowModal(recipe: Recipe, index: number) {
         setShowModalDelete(true);
@@ -44,6 +42,10 @@ function CollectionRecipesColumn() {
 
     function deleteRecipeFromCollection() {
         recipeCollectionsApi.deleteRecipeFromCollection(activeRecipeCollection?.id || "", recipeToDelete.id, () => onDeleteSuccess(nextPageIndex))
+    }
+
+    function getActiveRecipeCollection() {
+        return collectionsContext.collections?.filter(collection => collection.id === collectionsContext.activeCollectionId)[0];
     }
 
     function onDeleteSuccess(index: number) {
@@ -58,15 +60,28 @@ function CollectionRecipesColumn() {
         })
     }
 
+    function getColumnTitle() {
+        return `${t('p.recipeCollectionListHeader')}: ${t(getCollectionName(activeRecipeCollection, t))}`;
+    }
+
     return (
         <div>
             {renderHeader()}
-            {!isLoaded && <MySpinner />}
-            {isLoaded && ((collectionsContext.currentPage?.totalElements || 0) > 0 ? renderContent() : renderNoData())}
+            {renderContent()}
         </div>
     );
 
     function renderContent() {
+        if (!isLoaded) {
+            return <MySpinner />
+        }
+        if ((collectionsContext.currentPage?.totalElements || 0) > 0) {
+            return renderRecipesPages();
+        }
+        return renderNoData();
+    }
+
+    function renderRecipesPages() {
         return (
             <>
                 {collectionsContext.recipesInCollection?.map(renderRecipesPage)}
@@ -77,7 +92,7 @@ function CollectionRecipesColumn() {
 
     function renderHeader() {
         return (
-            <MyHeader title={`${t('p.recipeCollectionListHeader')}: ${t(getCollectionName(activeRecipeCollection, t))}`} />
+            <MyHeader title={getColumnTitle()} />
         );
     }
 
@@ -87,17 +102,30 @@ function CollectionRecipesColumn() {
             <div key={pageId} id={pageId}>
                 <PageDivider text={`${t('p.page')} ${index + 1}`} />
                 <Stack direction="horizontal" className="flex-wrap justify-content-center" gap={3}>
-                    {recipes?.map(recipe => <RecipeCard key={recipe.id} recipe={recipe} onGoToRecipe={onGoToRecipe} additionalFunctionElement={renderDeleteFromCollection(recipe, index)} />)}
+                    {recipes?.map(recipe => renderRecipeCard(recipe, index))}
                 </Stack>
             </div>
         );
     };
 
+    function renderRecipeCard(recipe: Recipe, index: number) {
+        return (
+            <RecipeCard
+                key={recipe.id}
+                recipe={recipe}
+                onGoToRecipe={onGoToRecipe}
+                additionalFunctionElement={renderDeleteFromCollection(recipe, index)}
+            />
+        );
+    }
+
     function renderDeleteFromCollection(recipe: Recipe, index: number) {
         return activeRecipeCollection?.canDelete && (
             <>
                 <Tooltip title={t('p.removeFromCollection')}>
-                    <MyButton.Primary onClick={() => { deleteRecipeShowModal(recipe, index) }} className="round"><FaFolderMinus /></MyButton.Primary>
+                    <MyButton.Primary onClick={() => { deleteRecipeShowModal(recipe, index) }} className="round">
+                        <FaFolderMinus />
+                    </MyButton.Primary>
                 </Tooltip>
                 {renderModal()}
             </>
@@ -105,8 +133,7 @@ function CollectionRecipesColumn() {
     }
 
     function renderLoadNextPageButton() {
-        const currentPage = collectionsContext.currentPage;
-        if (collectionsContext.recipesInCollection?.length !== currentPage?.totalPages) {
+        if (collectionsContext.recipesInCollection?.length !== collectionsContext.currentPage?.totalPages) {
             return <MorePagesButton text={t("p.loadNextRecipesPage")} onLoadNextPage={() => loadNextPage(collectionsContext.recipesInCollection?.length || 0)} />
         }
         return null;
@@ -122,7 +149,8 @@ function CollectionRecipesColumn() {
                 showModal={showModalDelete}
                 onClose={() => setShowModalDelete(false)}
                 onSubmit={deleteRecipeFromCollection}
-                data={recipeToDelete || initAs()} />
+                data={recipeToDelete || initAs()}
+            />
         )
     }
 }
