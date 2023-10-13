@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import MyInput from '../../../components/basicUi/MyInput';
 import MyButton from '../../../components/basicUi/MyButton';
 import { FormEvent, useReducer } from 'react';
-import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, inputAttributes, preventFurtherAction } from '../../../utils/FormInputUtils';
+import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, preventFurtherAction, inputAttrs } from '../../../utils/FormInputUtils';
 import { FormAction, FormSave, MyForm } from '../../../data/utilTypes';
 import { UserLoginDto } from '../../../data/types';
 
@@ -51,13 +51,13 @@ function LoginForm({
                     label={t('p.username')}
                     placeholder={t('p.username')}
                     required
-                    {...inputAttributes("username", myForm, dispatchForm)} />
+                    {...inputAttrs({ name: "username", myForm, dispatchForm })} />
                 <MyInput
                     type="password"
                     label={t('p.password')}
                     placeholder={t('p.password')}
                     required
-                    {...inputAttributes("password", myForm, dispatchForm)} />
+                    {...inputAttrs({ name: "password", myForm, dispatchForm })} />
             </>
         )
     }

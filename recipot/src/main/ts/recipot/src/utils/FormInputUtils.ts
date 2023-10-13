@@ -9,39 +9,57 @@ export function checkValidity(input?: any, isValid?: boolean) {
     }
 }
 
-export function inputAttributes<T>(name: string, myForm: MyForm, dispatchForm: any) {
-    return {
-        name: name,
-        isValid: myForm.formValidity[name],
-        onChange: (value: T) => onFormChange(value, name, dispatchForm)
-    }
+export enum InputAttrsType {
+    Regular = "regular",
+    Context = "context",
+    ContextNoValidation = "contextNoValidation",
+    DynamicContext = "dynamicContext"
+};
+
+let deleteFields = {
+    regular: (ob: any) => { delete ob.defaultValue; delete ob.label; return ob; },
+    context: (ob: any) => { delete ob.label; return ob; },
+    contextNoValidation: (ob: any) => { delete ob.isValid; return ob; },
+    dynamicContext: (ob: any) => { delete ob.label; return ob; },
 }
 
-export function inputAttributesForContext<T>(name: string, onChange: (value: T, name: string, index?: number) => any, getValidity: Function, index?: number, formObject?: any, defaultValue?: any) {
-    return {
-        name: name,
-        isValid: getValidity(name),
-        onChange: (value: T) => onChange(value, name, index),
-        defaultValue: (formObject && formObject[name]) || defaultValue
+export function inputAttrs<T>(
+    { 
+        name, 
+        myForm, 
+        dispatchForm, 
+        onChange, 
+        getValidity, 
+        index, 
+        formObject, 
+        defaultValue, 
+        label, 
+        type = InputAttrsType.Regular 
     }
-}
-
-export function inputAttributesForContextWithoutValidity<T>(name: string, label: string, onChange: (name: string, value: T) => any, formObject: any, defaultValue?: any) {
-    return {
+        : {
+            name: string,
+            myForm?: MyForm,
+            dispatchForm?: any,
+            onChange?: (value: T, name: string, index?: number) => any,
+            getValidity?: Function,
+            index?: number,
+            formObject?: any,
+            defaultValue?: any,
+            label?: string,
+            type?: InputAttrsType
+        }) {
+    var options = [
+        (value: T) => onFormChange(value, name, dispatchForm),
+        (value: T) => onChange && onChange(value, name, index)
+    ]
+    let allAttrs = {
         name,
         label,
-        onChange: (value: T) => onChange(name, value),
+        isValid: myForm !== undefined ? myForm.formValidity[name] : getValidity && getValidity(name, index),
+        onChange: dispatchForm !== undefined ? options[0] : options[1],
         defaultValue: (formObject && formObject[name]) || defaultValue
     }
-}
-
-export function dynamicInputAttributesForContext<T>(name: string, onChange: (value: T, name: string, index?: number) => any, getValidity: Function, index?: number, formObject?: any, defaultValue?: any) {
-    return {
-        name: name,
-        isValid: getValidity(name, index),
-        onChange: (value: T) => onChange(value, name, index),
-        defaultValue: (formObject && formObject[name]) || defaultValue
-    }
+    return deleteFields[type](allAttrs);
 }
 
 export function onFormChange(value: any, name: string, dispatchForm: any) {
@@ -65,7 +83,7 @@ export function initFormSave<T>() {
     return initAs<FormSave<T>>({ onSubmit: null, onSuccess: null, onError: null })
 }
 
-export function getNewFormState(state: any, action: FormAction, checkInputValidity: (...params:any)=>{}) {
+export function getNewFormState(state: any, action: FormAction, checkInputValidity: (...params: any) => {}) {
     let newState = {
         ...state,
         formValue: {

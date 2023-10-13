@@ -7,7 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import dictionariesApi from "../../../../api/DictionariesApi";
 import { CategoryDto, Response } from "../../../../data/types";
 import { AddRecipeContext, AddRecipeContextType, AddRecipeDispatchContext } from "../context/AddRecipeContext";
-import { inputAttributesForContext } from "../../../../utils/FormInputUtils";
+import { InputAttrsType, inputAttrs } from "../../../../utils/FormInputUtils";
 import { EnumDictionaryContext, enumsStateModel } from "../../../../context/EnumDictionaryContext";
 
 function UpperRightSide() {
@@ -75,8 +75,21 @@ function UpperRightSide() {
             }
         }
     }
+
     function getValidity(fieldName: string) {
         return formFields?.formValidity ? formFields?.formValidity[fieldName] : false;
+    }
+
+    function getAttributes(name: string, defaultValue?:any) {
+        let attrs = {
+            name,
+            onChange,
+            getValidity,
+            formObject:formFields.formValue,
+            type: InputAttrsType.Context
+        };
+        return defaultValue ? { ...attrs, defaultValue: defaultValue } : attrs;
+ 
     }
 
     return (
@@ -94,7 +107,7 @@ function UpperRightSide() {
         return (
             <TimeAmountInput
                 label={t('p.timeAmountInputLabel')}
-                {...inputAttributesForContext("timeAmount", onChange, getValidity, undefined, formFields.formValue)}
+                {...inputAttrs(getAttributes("timeAmount"))}
             />
         )
     }
@@ -105,7 +118,7 @@ function UpperRightSide() {
             <MySelect
                 label={t("p.accessTypeFilter")}
                 options={accessTypes}
-                {...inputAttributesForContext("accessType", onChange, getValidity, undefined, formFields.formValue, accessTypes[0].value)}
+                {...inputAttrs(getAttributes("accessType", accessTypes[0].value))}
             />
         )
     }
@@ -116,7 +129,7 @@ function UpperRightSide() {
                 label={t("p.amountOfDishesFilter")}
                 options={amountOfDishes}
                 emptyOption={t('p.selectValue')}
-                {...inputAttributesForContext("numberOfDishes", onChange, getValidity, undefined, formFields.formValue)}
+                {...inputAttrs(getAttributes("numberOfDishes"))}
             />
         )
     }
@@ -127,7 +140,7 @@ function UpperRightSide() {
                 label={t("p.difficultiesFilter")}
                 options={difficulties}
                 emptyOption={t('p.selectValue')}
-                {...inputAttributesForContext("difficulty", onChange, getValidity, undefined, formFields.formValue)}
+                {...inputAttrs(getAttributes("difficulty"))}
             />
         )
     }
@@ -139,7 +152,7 @@ function UpperRightSide() {
                 label={t("p.requiredEffortFilter")}
                 options={requiredEffort}
                 emptyOption={t('p.selectValue')}
-                {...inputAttributesForContext("requiredEffort", onChange, getValidity, undefined, formFields.formValue)}
+                {...inputAttrs(getAttributes("requiredEffort"))}
             />
         )
     }

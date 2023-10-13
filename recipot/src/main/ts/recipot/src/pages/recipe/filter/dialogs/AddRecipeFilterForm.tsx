@@ -1,6 +1,6 @@
 import { useReducer, useRef, useImperativeHandle, forwardRef } from "react";
 import MyInput from "../../../../components/basicUi/MyInput";
-import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, inputAttributes } from "../../../../utils/FormInputUtils";
+import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, inputAttrs } from "../../../../utils/FormInputUtils";
 import { Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { FormAction, FormSave, MyForm } from "../../../../data/utilTypes";
@@ -46,7 +46,7 @@ function AddRecipeFilterForm({
     function renderFilterNameInput() {
         return (
             <MyInput
-                {...inputAttributes("newFilterName", myForm, dispatchForm)}
+                {...inputAttrs({ name: "newFilterName", myForm, dispatchForm })}
                 placeholder={t('p.newFilterNameInput')}
                 label={t('p.newFilterNameInput')}
                 required

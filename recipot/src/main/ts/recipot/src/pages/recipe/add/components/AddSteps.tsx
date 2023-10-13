@@ -6,7 +6,7 @@ import { Col, Row } from "react-bootstrap";
 import { FaTrashCan } from "react-icons/fa6";
 import { useContext } from "react";
 import { AddRecipeContext, AddRecipeContextType, AddRecipeDispatchContext } from "../context/AddRecipeContext";
-import { checkInputValidity, dynamicInputAttributesForContext } from "../../../../utils/FormInputUtils";
+import { InputAttrsType, checkInputValidity, inputAttrs } from "../../../../utils/FormInputUtils";
 import { getDefaultValue } from "../../../../utils/AddRecipeContextUtil";
 
 function AddSteps() {
@@ -59,6 +59,17 @@ function AddSteps() {
             formFields?.formValidity.recipeSteps[index][fieldName] : false;
     }
 
+    function getAttributes(name: string, index: number, defaultValue: any) {
+        return {
+            name,
+            onChange,
+            getValidity: getStepValidity,
+            index,
+            defaultValue,
+            type: InputAttrsType.DynamicContext,
+        };
+    }
+
     return (
         <div className="mt-5">
             <hr />
@@ -91,7 +102,7 @@ function AddSteps() {
                 label={t('p.step')}
                 placeholder={t('p.step')}
                 rows={4}
-                {...dynamicInputAttributesForContext("description", onChange, getStepValidity, index, undefined, getDefaultValue("description", index, fieldsAndMainName))}
+                {...inputAttrs(getAttributes("description", index, getDefaultValue("description", index, fieldsAndMainName)))}
             />
         )
     }
