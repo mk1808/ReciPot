@@ -1,17 +1,17 @@
-import { useState } from "react";
+import { useRef } from "react";
 
 function useRequestSendManager():[(request: Function) => any, () => any] {
-    const [pending, setPending] = useState<boolean>(false);
+    const pending:any = useRef()
 
     function nextAndLock(request: Function) {
-        if (!pending) {
+        if (!pending.current) {
             request();
-            setPending(true);
+            pending.current= true;
         }
     }
 
     function unlock() {
-        setPending(false);
+        pending.current = false;
     }
 
     return [
