@@ -67,12 +67,6 @@ public class RecipesController implements IRecipesController {
 	@Override
 	public ResponseEntity<Response<Page<Recipe>>> search(int pageNum, int pageSize, RecipeSearchDto recipeSearchDto) {
 		Page<Recipe> page = recipeFilterService.filter(recipeSearchDto.setPage(pageNum).setSize(pageSize));
-		try {
-			Thread.sleep( 2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return new OkResponseFactory().createResponse(page);
 	}
 
