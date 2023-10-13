@@ -95,3 +95,22 @@ export function getDefaultValidityForEdit(formValidity: any) {
         requiredEffort: true
     };
 }
+
+export function getFormValueForEdit(editedRecipe: any) {
+    let recipeCopy = { ...editedRecipe };
+    recipeCopy.hashTags = convertToForm(recipeCopy.hashTags);
+    recipeCopy.categories = convertToForm(recipeCopy.categories)
+    recipeCopy.recipeIngredients = convertRecipeIngredientsToForm(recipeCopy.recipeIngredients)
+    return recipeCopy;
+}
+
+export function prepareToSend(recipe: any) {
+    let formValue = { ...recipe.formValue };
+    formValue.recipeSteps = fillOrderNumbers(formValue.recipeSteps);
+    formValue.recipeSteps = clearIds(formValue.recipeSteps);
+    formValue.recipeIngredients = clearIds(formValue.recipeIngredients);
+    formValue.hashTags = convertToObjects(formValue.hashTags);
+    formValue.categories = convertCategoriesToObjects(formValue.categories);
+    formValue.recipeIngredients = convertIngredientsToObjects(formValue.recipeIngredients);
+    return formValue;
+}

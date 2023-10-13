@@ -1,5 +1,5 @@
 import { createContext, useReducer, useRef, useEffect } from "react";
-import { clearIds, convertToForm, convertCategoriesToObjects, convertIngredientsToObjects, convertToObjects, fillOrderNumbers, convertRecipeIngredientsToForm, getDefaultValidityForEdit } from "../../../../utils/AddRecipeContextUtil";
+import { clearIds, convertToForm, convertCategoriesToObjects, convertIngredientsToObjects, convertToObjects, fillOrderNumbers, convertRecipeIngredientsToForm, getDefaultValidityForEdit, getFormValueForEdit, prepareToSend } from "../../../../utils/AddRecipeContextUtil";
 import recipesApi from "../../../../api/RecipesApi";
 import { useTranslation } from "react-i18next";
 import { Recipe } from "../../../../data/types";
@@ -63,12 +63,8 @@ function AddRecipeContextProvider({
 
     useEffect(() => {
         if (editedRecipe) {
-            let correctRecipe = { ...editedRecipe };
-            correctRecipe.hashTags = convertToForm(correctRecipe.hashTags);
-            correctRecipe.categories = convertToForm(correctRecipe.categories)
-            correctRecipe.recipeIngredients = convertRecipeIngredientsToForm(correctRecipe.recipeIngredients)
             fields.formValidity = getDefaultValidityForEdit(fields.formValidity);
-            fields.formValue = correctRecipe;
+            fields.formValue = getFormValueForEdit(editedRecipe);
         }
     }, [editedRecipe])
     
@@ -79,14 +75,8 @@ function AddRecipeContextProvider({
                 return false;
             }
         }
-        let formValue = { ...fields.formValue };
-        formValue.recipeSteps = fillOrderNumbers(formValue.recipeSteps);
-        formValue.recipeSteps = clearIds(formValue.recipeSteps);
-        formValue.recipeIngredients = clearIds(formValue.recipeIngredients);
-        formValue.hashTags = convertToObjects(formValue.hashTags);
-        formValue.categories = convertCategoriesToObjects(formValue.categories);
-        formValue.recipeIngredients = convertIngredientsToObjects(formValue.recipeIngredients);
-        saveImageFile(formValue);
+        fields.formValue = prepareToSend(fields);
+        saveImageFile({...fields.formValue});
     }
 
     function saveImageFile(formValue: any) {
@@ -114,10 +104,8 @@ function AddRecipeContextProvider({
 
     formSave.current.onSuccess = function (response: any) {
         saveRecipeRequestManager.unlock();
-        let id = response.value.id;
-        nav.toRecipe(id);
-        let alert = editedRecipe ? 'p.recipeEditCorrect' : 'p.recipeAddCorrect';
-        alerts.showSuccessAlert(t(alert));
+        nav.toRecipe(response.value.id);
+        alerts.showSuccessAlert(t(editedRecipe ? 'p.recipeEditCorrect' : 'p.recipeAddCorrect'));
     }
 
     formSave.current.onError = function (response: any) {
