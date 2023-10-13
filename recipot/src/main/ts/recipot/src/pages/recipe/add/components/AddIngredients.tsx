@@ -1,6 +1,4 @@
 import { Card, Col, Row } from "react-bootstrap";
-import MyButton from "../../../../components/basicUi/MyButton";
-import { BsPlusCircleFill } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
 import MyInput from "../../../../components/basicUi/MyInput";
 import { FaTrashCan } from "react-icons/fa6";
@@ -10,6 +8,9 @@ import { InputAttrsType, inputAttrs } from "../../../../utils/FormInputUtils";
 import FilteredSelect from "../../../../components/complex/FilteredSelect";
 import { onFilteredIngredientSearch } from "../../../../utils/DictionariesUtils";
 import { getDefaultValue } from "../../../../utils/AddRecipeContextUtil";
+import { BasicIngredient } from "../../../../data/utilTypes";
+import { getRand } from "../../../../utils/MathUtils";
+import ListContainer from "./ListContainer";
 
 function AddIngredients() {
     const FIELD_NAME = 'recipeIngredients';
@@ -18,9 +19,9 @@ function AddIngredients() {
     const addRecipeDispatchContext = useContext(AddRecipeDispatchContext);
     const formFields = useContext(AddRecipeContext).fields;
 
-    const basicIngredient: any = {
+    const basicIngredient: BasicIngredient = {
         id: "",
-        ingredient: "",
+        ingredient: null,
         amount: 0,
         unit: "",
         recipe: {}
@@ -32,7 +33,8 @@ function AddIngredients() {
     }, [])
 
     function onChange(fieldValue: any, fieldName: string, index?: number) {
-        if (getDefaultValue(fieldValue, index || 0, fieldsAndMainName) !== fieldValue) {
+        const isValueChanged = getDefaultValue(fieldValue, index || 0, fieldsAndMainName) !== fieldValue;
+        if (isValueChanged) {
             addRecipeDispatchContext({
                 type: AddRecipeContextType.OnChange,
                 fieldName: FIELD_NAME,
@@ -40,16 +42,15 @@ function AddIngredients() {
                 fieldValidity: checkInputValidity(fieldValue, fieldName),
                 subFieldName: fieldName,
                 isIngredientOrStep: true,
-                index: index
+                index
             })
         }
     }
 
     function onAdd() {
-        basicIngredient.id = Math.random() * 1000;
         addRecipeDispatchContext({
             type: AddRecipeContextType.OnAdd,
-            basicObj: basicIngredient,
+            basicObj: { ...basicIngredient, id: getRand() },
             fieldName: FIELD_NAME
         })
     }
@@ -74,8 +75,8 @@ function AddIngredients() {
     }
 
     function getIngredientValidity(fieldName: string, index: number) {
-        return formFields?.formValidity?.recipeIngredients && formFields?.formValidity.recipeIngredients[index] ?
-            formFields?.formValidity.recipeIngredients[index][fieldName] : false;
+        const recipeIngr = formFields?.formValidity?.recipeIngredients;
+        return recipeIngr && recipeIngr[index] ? recipeIngr[index][fieldName] : false;
     }
 
     function getAttributes(name: string, index: number, defaultValue: any) {
@@ -90,34 +91,39 @@ function AddIngredients() {
     }
 
     return (
-        <div className="mt-5">
-            <hr />
-            <h4 className="mt-3">{t('p.ingredients')}</h4>
-            <div className="text-start">
-                {formFields?.formValue?.recipeIngredients?.map(renderSingleRow)}
-            </div>
-            <MyButton.Primary onClick={onAdd} className="button-width">{t('p.add')} <BsPlusCircleFill className="mb-1 ms-1" /></MyButton.Primary>
-        </div>
+        <ListContainer title={t('p.ingredients')} onAdd={onAdd}>
+            {formFields?.formValue?.recipeIngredients?.map(renderSingleRow)}
+        </ListContainer>
     );
 
     function renderSingleRow(ingredient: any, index: number) {
         return (
             <Card className="my-4" key={ingredient.id}>
                 <Card.Body className="py-1 px-4">
-                    <Row className="ingredient-section ">
-                        <Col xl={3} xs={6}>
-                            {renderAmountInput(index)}
-                        </Col>
-                        <Col xl={3} xs={6}>
-                            {renderUnitInput(index)}
-                        </Col>
-                        <Col >
-                            {renderIngredientInput(index)}
-                        </Col>
-                        <Col className="bin-icon" lg={1} ><FaTrashCan onClick={() => onDelete(index)} /></Col>
+                    <Row className="ingredient-section">
+                        {renderInputs(index)}
                     </Row>
                 </Card.Body>
             </Card>
+        )
+    }
+
+    function renderInputs(index: number) {
+        return (
+            <>
+                <Col xl={3} xs={6}>
+                    {renderAmountInput(index)}
+                </Col>
+                <Col xl={3} xs={6}>
+                    {renderUnitInput(index)}
+                </Col>
+                <Col>
+                    {renderIngredientInput(index)}
+                </Col>
+                <Col className="bin-icon" lg={1}>
+                    <FaTrashCan onClick={() => onDelete(index)} />
+                </Col>
+            </>
         )
     }
 

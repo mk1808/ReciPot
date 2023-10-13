@@ -1,5 +1,5 @@
 import { createContext, useReducer, useRef, useEffect } from "react";
-import { clearIds, convertToForm, convertCategoriesToObjects, convertIngredientsToObjects, convertToObjects, fillOrderNumbers, convertRecipeIngredientsToForm, getDefaultValidityForEdit } from "../../../../utils/AddRecipeContextUtil";
+import { addComplexElemet, getDefaultValidityForEdit, getFormValueForEdit, getNewContextState, onChangeComplexField, prepareToSend, removeComplexElement } from "../../../../utils/AddRecipeContextUtil";
 import recipesApi from "../../../../api/RecipesApi";
 import { useTranslation } from "react-i18next";
 import { Recipe } from "../../../../data/types";
@@ -14,7 +14,8 @@ type contextStateModel = {
     fields: fieldsStateModel,
     editedRecipe?: any
 };
-type fieldsStateModel = {
+
+export type fieldsStateModel = {
     formValue?: any,
     formValidity?: any
 }
@@ -24,7 +25,7 @@ type Props = {
     editedRecipe?: Recipe | any
 };
 
-type ReducerActionProps = {
+export type ReducerActionProps = {
     type: AddRecipeContextType,
     fieldName?: any,
     index?: any,
@@ -63,15 +64,37 @@ function AddRecipeContextProvider({
 
     useEffect(() => {
         if (editedRecipe) {
-            let correctRecipe = { ...editedRecipe };
-            correctRecipe.hashTags = convertToForm(correctRecipe.hashTags);
-            correctRecipe.categories = convertToForm(correctRecipe.categories)
-            correctRecipe.recipeIngredients = convertRecipeIngredientsToForm(correctRecipe.recipeIngredients)
             fields.formValidity = getDefaultValidityForEdit(fields.formValidity);
-            fields.formValue = correctRecipe;
+            fields.formValue = getFormValueForEdit(editedRecipe);
         }
     }, [editedRecipe])
-    
+
+    function addRecipeReducer(fields: fieldsStateModel, action: ReducerActionProps): fieldsStateModel {
+        switch (action.type) {
+            case AddRecipeContextType.OnChange: {
+                return action.isIngredientOrStep ? onChangeComplexField({fields, action}) : getNewContextState({fields, action});
+            }
+            case AddRecipeContextType.OnSubmit: {
+                formSave.current.onSubmit(fields);
+                return fields;
+            }
+            case AddRecipeContextType.OnAdd: {
+                const {elements, elementsValidity} = addComplexElemet({fields,action});
+                return getNewContextState({fields, action, elements, elementsValidity});
+            }
+            case AddRecipeContextType.OnDelete: {
+                const {elements, elementsValidity} = removeComplexElement({fields,action});
+                return getNewContextState({fields, action, elements, elementsValidity});
+            }
+            case AddRecipeContextType.OnRecipeLoaded: {
+                return fields;
+            }
+            default: {
+                throw Error('Unknown action: ' + action.type);
+            }
+        }
+    }
+
     formSave.current.onSubmit = function (fields: any) {
         for (const field in fields.formValidity) {
             if (!fields.formValidity[field]) {
@@ -79,14 +102,8 @@ function AddRecipeContextProvider({
                 return false;
             }
         }
-        let formValue = { ...fields.formValue };
-        formValue.recipeSteps = fillOrderNumbers(formValue.recipeSteps);
-        formValue.recipeSteps = clearIds(formValue.recipeSteps);
-        formValue.recipeIngredients = clearIds(formValue.recipeIngredients);
-        formValue.hashTags = convertToObjects(formValue.hashTags);
-        formValue.categories = convertCategoriesToObjects(formValue.categories);
-        formValue.recipeIngredients = convertIngredientsToObjects(formValue.recipeIngredients);
-        saveImageFile(formValue);
+        fields.formValue = prepareToSend(fields);
+        saveImageFile({ ...fields.formValue });
     }
 
     function saveImageFile(formValue: any) {
@@ -106,119 +123,21 @@ function AddRecipeContextProvider({
 
     function saveOrEditRecipe(formValue: any) {
         if (editedRecipe) {
-            recipesApi.putRecipe(editedRecipe.id, formValue, formSave.current.onSuccess, formSave.current.onError)
-            return;
+            recipesApi.putRecipe(editedRecipe.id, formValue, formSave.current.onSuccess, formSave.current.onError);
+        } else {
+            recipesApi.postRecipe(formValue, formSave.current.onSuccess, formSave.current.onError);
         }
-        recipesApi.postRecipe(formValue, formSave.current.onSuccess, formSave.current.onError)
     }
 
     formSave.current.onSuccess = function (response: any) {
         saveRecipeRequestManager.unlock();
-        let id = response.value.id;
-        nav.toRecipe(id);
-        let alert = editedRecipe ? 'p.recipeEditCorrect' : 'p.recipeAddCorrect';
-        alerts.showSuccessAlert(t(alert));
+        nav.toRecipe(response.value.id);
+        alerts.showSuccessAlert(t(editedRecipe ? 'p.recipeEditCorrect' : 'p.recipeAddCorrect'));
     }
 
     formSave.current.onError = function (response: any) {
         saveRecipeRequestManager.unlock();
         alerts.showErrorAlert(t(response.message));
-    }
-
-    function addRecipeReducer(fields: fieldsStateModel, action: ReducerActionProps): fieldsStateModel {
-        switch (action.type) {
-            case AddRecipeContextType.OnChange: {
-                if (action.isIngredientOrStep) {
-                    if (fields.formValue[action.fieldName][action.index]) {
-                        fields.formValue[action.fieldName][action.index][action.subFieldName] = action.fieldValue;
-                        if (!fields.formValidity[action.fieldName]) {
-                            fields.formValidity[action.fieldName] = []
-                        }
-                        if (!fields.formValidity[action.fieldName][action.index]) {
-                            fields.formValidity[action.fieldName][action.index] = {}
-                        }
-                        fields.formValidity[action.fieldName][action.index][action.subFieldName] = action.fieldValidity;
-                    }
-                    return {
-                        ...fields,
-                        formValue: {
-                            ...fields.formValue,
-                        },
-                        formValidity: {
-                            ...fields.formValidity,
-                        },
-                    };
-                }
-                return {
-                    ...fields,
-                    formValue: {
-                        ...fields.formValue,
-                        [action.fieldName]: action.fieldValue
-                    },
-                    formValidity: {
-                        ...fields.formValidity,
-                        [action.fieldName]: action.fieldValidity
-                    },
-                };
-            }
-            case AddRecipeContextType.OnSubmit: {
-                formSave.current.onSubmit(fields);
-                return fields;
-            }
-            case AddRecipeContextType.OnAdd: {
-                let elements: any;
-                let elementsValidity: any
-
-
-                if (fields.formValue[action.fieldName] == null) {
-                    elements = [];
-                } else {
-                    elements = [...fields.formValue[action.fieldName]];
-                }
-                elements.push({ ...action.basicObj });
-
-                if (fields.formValidity[action.fieldName] == null) {
-                    elementsValidity = [];
-                } else {
-                    elementsValidity = [...fields.formValidity[action.fieldName]];
-                }
-                elementsValidity.push({ ...action.basicObj });
-
-                return {
-                    ...fields,
-                    formValue: {
-                        ...fields.formValue,
-                        [action.fieldName]: elements
-                    },
-                    formValidity: {
-                        ...fields.formValidity,
-                        [action.fieldName]: elementsValidity
-                    },
-                };
-            }
-            case AddRecipeContextType.OnDelete: {
-                let el = [...(fields.formValue[action.fieldName]).slice(0, action.index), ...(fields.formValue[action.fieldName]).slice(action.index + 1)]
-                let elValid = [...(fields.formValidity[action.fieldName]).slice(0, action.index), ...(fields.formValidity[action.fieldName]).slice(action.index + 1)]
-
-                return {
-                    ...fields,
-                    formValue: {
-                        ...fields.formValue,
-                        [action.fieldName]: el
-                    },
-                    formValidity: {
-                        ...fields.formValidity,
-                        [action.fieldName]: elValid
-                    },
-                };
-            }
-            case AddRecipeContextType.OnRecipeLoaded: {
-                return fields;
-            }
-            default: {
-                throw Error('Unknown action: ' + action.type);
-            }
-        }
     }
 
     return (

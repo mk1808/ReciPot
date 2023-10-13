@@ -20,3 +20,12 @@ export function checkListContains(list: any[], checkedValue: any) {
 export function getValueIndex(list: any[], checkedValue: any) {
     return list.map(value => value.label || value).indexOf(checkedValue.label || checkedValue);
 }
+
+export function addObjectToList({ list, element }: { list: any[], element: any }) {
+    return list !== null ? [...list, {...element}] : [{...element}];
+}
+
+export function removeByIndex({ list, index }: { list: any[], index: any }) {
+    const filteredElements = list.filter((value, elementIndex) => elementIndex !== index);
+    return [...filteredElements];
+}

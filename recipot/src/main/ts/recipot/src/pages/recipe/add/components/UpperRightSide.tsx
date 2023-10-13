@@ -1,43 +1,26 @@
 import { useTranslation } from "react-i18next";
 import MySelect from "../../../../components/basicUi/MySelect";
 import TimeAmountInput from "../../../../components/complex/TimeAmountInput";
-import { mapCategoriesToSearchList, onFilteredHashTagSearch, searchCategory } from "../../../../utils/DictionariesUtils";
+import { onFilteredHashTagSearch } from "../../../../utils/DictionariesUtils";
 import FilteredSelect from "../../../../components/complex/FilteredSelect";
 import { useContext, useEffect, useState } from "react";
-import dictionariesApi from "../../../../api/DictionariesApi";
-import { CategoryDto, Response } from "../../../../data/types";
 import { AddRecipeContext, AddRecipeContextType, AddRecipeDispatchContext } from "../context/AddRecipeContext";
 import { InputAttrsType, inputAttrs } from "../../../../utils/FormInputUtils";
 import { EnumDictionaryContext, enumsStateModel } from "../../../../context/EnumDictionaryContext";
+import useCategories from "../../../../hooks/useCategories";
 
 function UpperRightSide() {
     const { t } = useTranslation();
     const [filteredHashTags, setFilteredHashTags] = useState<any[]>([]);
-    const [filteredCategories, setFilteredCategories] = useState<any[]>([]);
-    const [allCategories, setAllCategories] = useState<any[]>([]);
+    const [filteredCategories, filterCategories] = useCategories();
     const addRecipeDispatchContext = useContext(AddRecipeDispatchContext);
     const formFields = useContext(AddRecipeContext).fields;
     const enumDictionaryContext = useContext(EnumDictionaryContext).enums;
+    const getEnum = (enumName: string) => enumDictionaryContext[enumName as keyof enumsStateModel] || []
 
     useEffect(() => {
         onFilteredHashTagSearch('', setFilteredHashTags);
-        getAllCategories();
     }, [])
-
-    function getAllCategories() {
-        dictionariesApi.getAllCategories((response: Response<CategoryDto[]>) => {
-            setAllCategories(response.value)
-            setFilteredCategories(mapCategoriesToSearchList(response.value))
-        })
-    }
-
-    function onCategorySearchCallback(phrase: string) {
-        setFilteredCategories(mapCategoriesToSearchList(searchCategory(allCategories, phrase)))
-    }
-
-    function getEnum(enumName: string) {
-        return enumDictionaryContext[enumName as keyof enumsStateModel] || [];
-    }
 
     function onChange(fieldValue: any, fieldName: string) {
         if (!formFields.formValue || formFields.formValue[fieldName] !== fieldValue) {
@@ -80,16 +63,15 @@ function UpperRightSide() {
         return formFields?.formValidity ? formFields?.formValidity[fieldName] : false;
     }
 
-    function getAttributes(name: string, defaultValue?:any) {
+    function getAttributes(name: string, defaultValue?: any) {
         let attrs = {
             name,
             onChange,
             getValidity,
-            formObject:formFields.formValue,
+            formObject: formFields.formValue,
             type: InputAttrsType.Context
         };
         return inputAttrs(defaultValue ? { ...attrs, defaultValue: defaultValue } : attrs);
- 
     }
 
     return (
@@ -103,6 +85,7 @@ function UpperRightSide() {
             {renderCategoryInput()}
         </div>
     );
+
     function renderTimeAmountInput() {
         return (
             <TimeAmountInput
@@ -122,6 +105,7 @@ function UpperRightSide() {
             />
         )
     }
+
     function renderAmountOfDishesInput() {
         const amountOfDishes = getEnum("amountsOfDishes");
         return (
@@ -133,6 +117,7 @@ function UpperRightSide() {
             />
         )
     }
+
     function renderDifficultyInput() {
         const difficulties = getEnum("difficulties");
         return (
@@ -181,7 +166,7 @@ function UpperRightSide() {
                 className="mb-3"
                 label={t("p.categoryFilter")}
                 options={filteredCategories}
-                onSearchCallback={onCategorySearchCallback}
+                onSearchCallback={filterCategories}
                 highlightValidity
                 hierarchical
                 isValid={getValidity("categories")}

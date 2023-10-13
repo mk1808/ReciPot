@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import dictionariesApi from "../../../../api/DictionariesApi";
-import { CategoryDto, Recipe, Response } from "../../../../data/types";
+import { CategoryDto, Recipe} from "../../../../data/types";
 import RecipeCard from "../../../../components/complex/RecipeCard";
 import CategoryCard from "../../../../components/complex/CategoryCard";
 import MyHeader from "../../../../components/basicUi/MyHeader";
 import useMyNav from "../../../../hooks/useMyNav";
+import useCategories from "../../../../hooks/useCategories";
 
 type Props = {
     recipes: Recipe[]
@@ -16,12 +16,12 @@ function OtherColumn({
 }: Props) {
 
     const { t } = useTranslation();
-    const [allCategories, setAllCategories] = useState<CategoryDto[]>([]);
     const [loaded, setloaded] = useState<any>(false);
     const [recipeCardHeight, setRecipeCardHeight] = useState<any>();
     const [newRecipes, setNewRecipes] = useState<any[]>(recipes);
 
     const nav = useMyNav();
+    const [, , allCategories] = useCategories();
     const containerRef = useRef<any>(null);
     const recipeCardRef = useRef<any>(null);
     const categoriesRef = useRef<any>(null);
@@ -32,11 +32,8 @@ function OtherColumn({
     const onCategoryClick = (category: any) => nav.goToCategoryFilters(category);
 
     useEffect(() => {
-        dictionariesApi.getAllCategories((response: Response<any[]>) => {
-            setAllCategories(response.value)
-        })
         setTimeout(() => { setloaded(true) }, 1000)
-    }, [])
+    }, [allCategories])
 
     useEffect(() => {
         if ((!recipeCardHeight && recipeCardRef.current) || recipeCardRef.current?.clientHeight > recipeCardHeight) {

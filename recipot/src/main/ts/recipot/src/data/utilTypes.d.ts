@@ -66,3 +66,18 @@ export interface FormAction {
     type: string,
     value: any
 }
+
+export interface BasicIngredient {
+    id: string | number,
+    ingredient: object | null,
+    amount: string | numbre,
+    unit: string,
+    recipe: object
+}
+
+export interface BasicStep {
+    id: string | number,
+    order: number,
+    description: string,
+    recipe: object
+}
