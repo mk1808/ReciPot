@@ -1,4 +1,3 @@
-import { Form, Stack } from "react-bootstrap";
 import MyCheckbox from "../../../../components/basicUi/MyCheckbox";
 import { useTranslation } from 'react-i18next';
 import MySelect from "../../../../components/basicUi/MySelect";
@@ -7,22 +6,22 @@ import MyInput from "../../../../components/basicUi/MyInput";
 import TimeAmountInput from "../../../../components/complex/TimeAmountInput";
 import FilteredSelect from "../../../../components/complex/FilteredSelect";
 import dictionariesApi from "../../../../api/DictionariesApi";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useMemo } from "react";
 import { mapCategoriesToSearchList, onFilteredHashTagSearch, onFilteredIngredientSearch, searchCategory } from "../../../../utils/DictionariesUtils";
-import MyButton from "../../../../components/basicUi/MyButton";
 import { InputAttrsType, inputAttrs } from "../../../../utils/FormInputUtils";
-import AddRecipeFilterDialog from "../dialogs/AddRecipeFilterDialog";
 import { RecipeFilterContext, RecipeFilterContextType, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 import { EnumDictionaryContext, enumsStateModel } from "../../../../context/EnumDictionaryContext";
 import { UsersContext } from "../../../../context/UserContext";
+import { SelectOption } from "../../../../data/utilTypes";
+import { areCategoriesDifferent, getAverageRating, matchCategories } from "../utils/RecipeSearchUtils";
 
-function RecipeFiltersColumn() {
+function RecipeFilterControls() {
     const { t } = useTranslation();
     const [filteredHashTags, setFilteredHashTags] = useState<any[]>([]);
     const [filteredIngredients, setFilteredIngredients] = useState<any[]>([]);
     const [filteredCategories, setFilteredCategories] = useState<any[]>([]);
     const [allCategories, setAllCategories] = useState<any[]>([]);
-    const [showModal, setShowModal] = useState(false);
+    const averageRating = useMemo(() => getAverageRating(t), []);
 
     const recipesFilterForm = useContext(RecipeFilterContext).recipesFilterForm;
     const recipeFilterDispatchContext = useContext(RecipeFilterDispatchContext);
@@ -36,36 +35,10 @@ function RecipeFiltersColumn() {
         getAllCategories();
     }, [])
 
-    function getAverageRating(): { label: string, value: number }[] {
-        const results = [];
-        for (let i = 1; i <= 5; i++) {
-            results.push({ label: String(i) + " " + t("p.andMore"), value: i })
-        }
-        return results;
-    }
-
     function getAllCategories() {
         dictionariesApi.getAllCategories((response: Response<CategoryDto[]>) => {
             setAllCategories(response.value)
             setFilteredCategories(mapCategoriesToSearchList(response.value))
-        })
-    }
-
-    function onCategorySearchCallback(phrase: string) {
-        setFilteredCategories(mapCategoriesToSearchList(searchCategory(allCategories, phrase)))
-    }
-
-    function handleSubmit(event: any) {
-        recipeFilterDispatchContext({
-            type: RecipeFilterContextType.Filter
-        })
-    };
-
-    function onChange(fieldName: string, value: any) {
-        recipeFilterDispatchContext({
-            type: RecipeFilterContextType.FilterFormChange,
-            fieldName,
-            value
         })
     }
 
@@ -81,37 +54,14 @@ function RecipeFiltersColumn() {
         }
     }
 
-    function onCategoriesChange(value: CategoryDto[]) {
-        const matchedCategories = matchCategories(value);
-        if (areCategoriesDifferent(matchedCategories)) {
+    function onCategoriesChange(value: SelectOption<CategoryDto>[]) {
+        const matchedCategories = matchCategories(value, allCategories);
+        if (areCategoriesDifferent(recipesFilterForm, matchedCategories)) {
             onChange("categories", matchedCategories)
         }
     }
 
-    function matchCategories(categories: any[]) {
-        return categories.map(category => {
-            if (!!category.children) {
-                return category;
-            }
-            const optionCategory = allCategories.filter(optionCategory => optionCategory.name === category.label);
-            return optionCategory.length > 0 ? mapCategoriesToSearchList(optionCategory)[0] : category;
-        })
-    }
-
-    function areCategoriesDifferent(matchedCategories: any[]) {
-        if (!recipesFilterForm || matchedCategories.length !== recipesFilterForm.categories?.length) {
-            return false;
-        }
-        for (let category of recipesFilterForm.categories) {
-            const previousCategory = matchedCategories.filter(mCategory => mCategory.label === category.label);
-            if (previousCategory.length !== 0 && previousCategory[0].children?.length !== category.children?.length) {
-                return true
-            }
-        }
-        return false;
-    }
-
-    function onUserIsOwnerChange(value: boolean, fieldName: string) {
+    function onUserIsOwnerChange(fieldName: string, value: boolean) {
         onChange(fieldName, (value && user?.login) || null);
     }
 
@@ -119,10 +69,33 @@ function RecipeFiltersColumn() {
         return enumDictionaryContext[enumName as keyof enumsStateModel] || [];
     }
 
-    function clearFilter() {
+    function onChange(fieldName: string, value: any) {
         recipeFilterDispatchContext({
-            type: RecipeFilterContextType.ClearFilterForm
+            type: RecipeFilterContextType.FilterFormChange,
+            fieldName,
+            value
         })
+    }
+
+    function getTimeAmountToDefaultValue() {
+        const maxAllowedValue = 99 * 60 + 59;
+        return (recipesFilterForm && recipesFilterForm["timeAmountTo"]) || maxAllowedValue;
+    }
+
+    function getUserIsOwnerDefaultValue() {
+        return (recipesFilterForm && recipesFilterForm["userIsOwner"]) || false;
+    }
+
+    function onFilteredHashTag(phrase: string) {
+        onFilteredHashTagSearch(phrase, setFilteredHashTags);
+    }
+
+    function onFilteredIngredient(phrase: string) {
+        onFilteredIngredientSearch(phrase, setFilteredIngredients);
+    }
+
+    function onFilteredCategory(phrase: string) {
+        setFilteredCategories(mapCategoriesToSearchList(searchCategory(allCategories, phrase)))
     }
 
     function getAttributes(name: string, label: string, onOtherChange?: any, defaultValue?: any) {
@@ -137,31 +110,27 @@ function RecipeFiltersColumn() {
     }
 
     return (
-        <Form>
-            <Stack className="p-5 text-start" gap={3}>
-                {renderClearFiltersButton()}
-                {renderUserIsOwnerInput()}
-                {renderAccessTypeInput()}
-                {renderNameContainsInput()}
-                {renderTimeAmountFromInput()}
-                {renderTimeAmountToInput()}
-                {renderAmountOfDishesInput()}
-                {renderDifficultyInput()}
-                {renderRequiredEffortInput()}
-                {renderAverageRatingInput()}
-                {renderHashTagInput()}
-                {renderIngredientInput()}
-                {renderCategoryInput()}
-                {renderButtons()}
-            </Stack>
-        </Form>
+        <>
+            {renderUserIsOwnerInput()}
+            {renderAccessTypeInput()}
+            {renderNameContainsInput()}
+            {renderTimeAmountFromInput()}
+            {renderTimeAmountToInput()}
+            {renderAmountOfDishesInput()}
+            {renderDifficultyInput()}
+            {renderRequiredEffortInput()}
+            {renderAverageRatingInput()}
+            {renderHashTagInput()}
+            {renderIngredientInput()}
+            {renderCategoryInput()}
+        </>
     );
 
     function renderUserIsOwnerInput() {
         return isUserLogged && (
             <MyCheckbox
                 {...getAttributes("userIsOwner", t("p.userIsOwnerFilter"), onUserIsOwnerChange)}
-                defaultChecked={recipesFilterForm?.userIsOwner || false}
+                defaultChecked={getUserIsOwnerDefaultValue()}
             />
         )
     }
@@ -197,7 +166,8 @@ function RecipeFiltersColumn() {
     function renderTimeAmountToInput() {
         return (
             <TimeAmountInput
-                {...getAttributes("timeAmountTo", t("p.timeAmountToFilter"), null, 99 * 60 + 59)}
+                {...getAttributes("timeAmountTo", t("p.timeAmountToFilter"))}
+                defaultValue={getTimeAmountToDefaultValue()}
             />
         )
     }
@@ -238,7 +208,7 @@ function RecipeFiltersColumn() {
         return (
             <MySelect
                 {...getAttributes("averageRating", t("p.averageRatingFilter"))}
-                options={getAverageRating()}
+                options={averageRating}
                 emptyOption={t('p.selectValue')}
             />)
     }
@@ -249,7 +219,7 @@ function RecipeFiltersColumn() {
                 {...getAttributes("hashTags", t("p.hashTagFilter"))}
                 multiple
                 options={filteredHashTags}
-                onSearchCallback={(phrase: string) => onFilteredHashTagSearch(phrase, setFilteredHashTags)}
+                onSearchCallback={onFilteredHashTag}
                 onSelectCallback={onHashTagChange}
                 highlightValidity={false}
                 className="mb-3"
@@ -262,7 +232,7 @@ function RecipeFiltersColumn() {
                 multiple
                 {...getAttributes("ingredients", t("p.ingredientFilter"))}
                 options={filteredIngredients}
-                onSearchCallback={(phrase: string) => onFilteredIngredientSearch(phrase, setFilteredIngredients)}
+                onSearchCallback={onFilteredIngredient}
                 onSelectCallback={onIngredientsChange}
                 highlightValidity={false}
                 className="mb-3"
@@ -275,36 +245,13 @@ function RecipeFiltersColumn() {
                 {...getAttributes("categories", t("p.categoryFilter"))}
                 multiple
                 options={filteredCategories}
-                onSearchCallback={onCategorySearchCallback}
+                onSearchCallback={onFilteredCategory}
                 onSelectCallback={onCategoriesChange}
                 highlightValidity={false}
                 hierarchical
                 className="mb-3"
             />)
     }
-
-    function renderButtons() {
-        return (
-            <>
-                <MyButton.Primary onClick={handleSubmit}>{t('p.search')}</MyButton.Primary >
-                {renderSaveFilterButton()}
-            </>
-        )
-    }
-
-    function renderSaveFilterButton() {
-        return isUserLogged && (
-            <>
-                <MyButton.Secondary onClick={() => setShowModal(true)} >{t('p.saveRecipeFilter')}</MyButton.Secondary>
-                <AddRecipeFilterDialog showModal={showModal} onClose={() => setShowModal(false)}></AddRecipeFilterDialog>
-            </>
-        )
-    }
-
-    function renderClearFiltersButton() {
-        return <MyButton.Secondary onClick={clearFilter} >{t('p.clearFilters')}</MyButton.Secondary>
-
-    }
 }
 
-export default RecipeFiltersColumn;
+export default RecipeFilterControls;

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { createUrl } from "./../utils/RecipeSearchUtils";
+import { createUrl } from "../pages/recipe/filter/utils/RecipeSearchUtils";
 import { Category, CategoryDto } from "../data/types";
 import { NavOpen } from "../data/utilTypes";
 

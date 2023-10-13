@@ -10,12 +10,15 @@ import PageDivider from "../../../../components/basicUi/PageDivider";
 import MorePagesButton from "../../../../components/basicUi/MorePagesButton";
 import useMyNav from "../../../../hooks/useMyNav";
 
-function FilteredRecipesColumn() {    
+function FilteredRecipesColumn() {
     const { t } = useTranslation();
+
     const recipeFilterContext = useContext(RecipeFilterContext);
     const recipeFilterDispatchContext = useContext(RecipeFilterDispatchContext);
-    const nav = useMyNav();    
+
+    const nav = useMyNav();
     const isLoaded = recipeFilterContext.isLoaded;
+
     const onGoToRecipe = (recipe: Recipe, event: any) => nav.openInBackground({ id: recipe.id }, event);
 
     function onLoadNextPage() {
@@ -25,41 +28,55 @@ function FilteredRecipesColumn() {
         })
     }
 
-    return (
-        <>
-            {!isLoaded && <MySpinner />}
-            {isLoaded && ((recipeFilterContext.currentPage?.totalElements || 0) > 0 ? renderContent() : renderNoData())}
-        </>
-    )
+    function shouldDisplayNextPageButton() {
+        return recipeFilterContext.recipesPages?.length !== recipeFilterContext.currentPage?.totalPages;
+    }
+
+    if (!isLoaded) {
+        return <MySpinner />
+    }
+
+    if ((recipeFilterContext.currentPage?.totalElements || 0) > 0) {
+        return renderContent();
+    }
+
+    return renderNoData();
 
     function renderContent() {
         return (
             <div className="px-2">
-                {recipeFilterContext.recipesPages?.map(renderRecipesPage)}
+                {renderRecipesPages()}
                 {renderLoadNextPageButton()}
             </div>
         );
     };
 
+    function renderRecipesPages() {
+        return recipeFilterContext.recipesPages?.map(renderRecipesPage);
+    }
+
+    function renderLoadNextPageButton() {
+        return shouldDisplayNextPageButton() && <MorePagesButton text={t("p.loadNextRecipesPage")} onLoadNextPage={onLoadNextPage} />;
+    };
+
     function renderRecipesPage(recipes: Recipe[], index: number) {
         const pageId = "recipesPage_" + index;
+        const pageDividerText = `${t('p.page')} ${index + 1}`;
         return (
             <div key={pageId} id={pageId}>
-                <PageDivider text={`${t('p.page')} ${index + 1}`} />
+                <PageDivider text={pageDividerText} />
                 <Stack direction="horizontal" className="flex-wrap justify-content-center" gap={3}>
-                    {recipes?.map(recipe => <RecipeCard key={recipe.id} recipe={recipe} onGoToRecipe={onGoToRecipe} />)}
+                    {renderPageRecipes(recipes)}
                 </Stack>
             </div>
         );
     };
 
-    function renderLoadNextPageButton() {
-        const currentPage = recipeFilterContext.currentPage;
-        if (recipeFilterContext.recipesPages?.length !== currentPage?.totalPages) {
-            return <MorePagesButton text={t("p.loadNextRecipesPage")} onLoadNextPage={onLoadNextPage} />
-        }
-        return null;
-    };
+    function renderPageRecipes(recipes: Recipe[]) {
+        return recipes?.map(recipe =>
+            <RecipeCard key={recipe.id} recipe={recipe} onGoToRecipe={onGoToRecipe} />
+        );
+    }
 
     function renderNoData() {
         return <NoContent text={t('p.noElementsInSearch')} />

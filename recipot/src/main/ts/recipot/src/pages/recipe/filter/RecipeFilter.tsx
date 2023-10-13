@@ -1,22 +1,14 @@
 import MyHeader from '../../../components/basicUi/MyHeader';
 import './styles.scss';
 import { useTranslation } from 'react-i18next';
-import SideOffcanvas from '../../../components/basicUi/SideOffcanvas';
-import RecipeFiltersColumn from './components/RecipeFiltersColumn';
 import FilteredRecipesColumn from './components/FilteredRecipesColumn';
-import SavedRecipeFilters from './components/SavedRecipeFilters';
 import FilteredRecipesPagination from './components/FilteredRecipesPagination';
 import { RecipeFilterContextContextProvider } from './context/RecipeFilterContext';
-import RecipesSortForm from './components/RecipesSortForm';
-import { UsersContext } from '../../../context/UserContext';
-import { useContext } from 'react';
-import MyCollapse from '../../../components/basicUi/MyCollapse';
+import SortAndFiltersColumn from './components/SortAndFiltersColumn';
+import SavedRecipeFiltersColumn from './components/SavedRecipeFiltersColumn';
 
 function RecipeFilter() {
-
     const { t } = useTranslation();
-    const user = useContext(UsersContext);
-    const isUserLogged = !!user;
 
     return (
         <RecipeFilterContextContextProvider>
@@ -29,34 +21,27 @@ function RecipeFilter() {
     function renderColumns() {
         return (
             <div className='d-flex flex-lg-row flex-column align-items-stretch'>
-                <div>
-                    {renderFilterColumnsOrCollapse()}
-                    {renderSavedFiltersColumnOrCollapse()}
-                </div>
-                <div className='ms-lg-2 full-width'>
-                    <div className='basic-container-border full-height'>{renderContent()}</div>
-                </div>
+                {renderSideColumns()}
+                {renderMainColumn()}
             </div>
         )
     }
 
-    function renderFilterColumnsOrCollapse() {
+    function renderSideColumns() {
         return (
-            <>
-                <div className="show-lg"><MyCollapse header={t("p.filtersAndSort")}>{renderFiltersColumn()}</MyCollapse></div>
-                <div className="hide-lg full-height filter-column-width">{renderFiltersColumn()}</div>
-            </>
-        )
+            <div>
+                <SortAndFiltersColumn />
+                <SavedRecipeFiltersColumn />
+            </div>
+        );
     }
 
-    function renderFiltersColumn() {
+    function renderMainColumn() {
         return (
-            <div className='basic-container-border full-height'>
-                <MyHeader title={t('p.recipesSort')} level="6" className='mt-6' />
-                <RecipesSortForm />
-                <hr />
-                <MyHeader title={t('p.recipeFilterForm')} level="6" className='mt-6' />
-                <RecipeFiltersColumn />
+            <div className='ms-lg-2 full-width'>
+                <div className='basic-container-border full-height'>
+                    {renderContent()}
+                </div>
             </div>
         );
     }
@@ -73,23 +58,6 @@ function RecipeFilter() {
 
     function renderHeader() {
         return <MyHeader title={t('p.recipeFilterHeader')} />
-    }
-
-    function renderSavedFiltersColumnOrCollapse() {
-        return isUserLogged && (
-            <>
-                <div className="show-lg"><MyCollapse header={t("p.savedRecipeFilterHeader")}><SavedRecipeFilters /></MyCollapse></div>
-                <div className="hide-lg">{renderSavedFiltersColumn()}</div>
-            </>
-        )
-    }
-
-    function renderSavedFiltersColumn() {
-        return (
-            <SideOffcanvas title={t('p.savedRecipeFilterHeader')}>
-                <SavedRecipeFilters />
-            </SideOffcanvas>
-        )
     }
 }
 

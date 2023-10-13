@@ -44,7 +44,9 @@ function MySelect<T>({
         const newValue = getDefaultValue(defaultValue);
         if (inputRef.current && inputRef.current.value !== newValue) {
             inputRef.current.value = newValue;
-            setSelected(options[Number(newValue)]?.value)
+            if (defaultValue) {
+                setSelected(options[Number(newValue)]?.value)
+            }
         }
     }, [defaultValue, options])
 

@@ -18,7 +18,7 @@ import { useParams } from "react-router-dom";
 import opinionsApi from "../../../api/OpinionsApi";
 import privateNotesApi from "../../../api/PrivateNotes";
 import Rating from "./components/Rating";
-import { buildRecipeSearchDto } from "../../../utils/RecipeSearchUtils";
+import { buildRecipeSearchDto } from "../filter/utils/RecipeSearchUtils";
 import { UsersContext } from "../../../context/UserContext";
 import recipeCollectionsApi from "../../../api/RecipeCollectionsApi";
 import MySpinner from "../../../components/basicUi/MySpinner";
@@ -35,11 +35,11 @@ function RecipeDetails() {
     const [note, setNote] = useState<any | PrivateNoteT>(initAs());
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
     const [isNoteLoaded, setIsNoteLoaded] = useState<boolean>(false);
-    const [favRecipeCollection, setFavRecipeCollection] = useState<any>();    
+    const [favRecipeCollection, setFavRecipeCollection] = useState<any>();
     const [isOwner, setIsOwner] = useState<boolean>(false);
 
-    const user = useContext(UsersContext);    
-    const mainRef = useRef<any>(null);    
+    const user = useContext(UsersContext);
+    const mainRef = useRef<any>(null);
     const params = useParams();
     const id: string = params.id ?? "";
 

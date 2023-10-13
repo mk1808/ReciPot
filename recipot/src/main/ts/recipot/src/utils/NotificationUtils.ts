@@ -1,7 +1,7 @@
 import { Notification } from "../data/types";
 
 export function parseNotificationContent(notification: Notification, t: Function) {
-    const [senderUser, recipeName, value] = JSON.parse(notification.value);
+    const { senderUser, recipeName, value } = JSON.parse(notification.value);
 
     switch (notification.type) {
         case "SHARED_RECIPE":
