@@ -3,12 +3,12 @@ import { addComplexElemet, getDefaultValidityForEdit, getFormValueForEdit, getNe
 import recipesApi from "../../../../api/RecipesApi";
 import { useTranslation } from "react-i18next";
 import { Recipe } from "../../../../data/types";
-import { ApiRequestSendManager } from "../../../../utils/ApiRequestSendManager";
 import filesApi from "../../../../api/FilesApi";
 import useAlerts from "../../../../hooks/useAlerts";
 import { FormSave } from "../../../../data/utilTypes";
 import { initFormSave } from "../../../../utils/FormInputUtils";
 import useMyNav from "../../../../hooks/useMyNav";
+import useRequestSendManager from "../../../../hooks/useRequestSendManager";
 
 type contextStateModel = {
     fields: fieldsStateModel,
@@ -49,8 +49,6 @@ export const AddRecipeContext = createContext<contextStateModel>({ fields: {} })
 
 export const AddRecipeDispatchContext = createContext<(action: ReducerActionProps) => any>((action: ReducerActionProps) => { });
 
-const saveRecipeRequestManager = ApiRequestSendManager();
-
 function AddRecipeContextProvider({
     children,
     editedRecipe
@@ -59,6 +57,7 @@ function AddRecipeContextProvider({
     const { t } = useTranslation();
     const nav = useMyNav();
     const alerts = useAlerts();
+    const [nextAndLock, unlock] = useRequestSendManager();
     const formSave = useRef<FormSave<any>>(initFormSave<any>());
     const [fields, dispatch]: [fieldsStateModel, (actiom: ReducerActionProps) => any] = useReducer(addRecipeReducer, {});
 
@@ -107,7 +106,7 @@ function AddRecipeContextProvider({
     }
 
     function saveImageFile(formValue: any) {
-        saveRecipeRequestManager.nextAndLock(() => {
+        nextAndLock(() => {
             if (formValue.imageFile) {
                 filesApi.saveFile(formValue.imageFile, response => onFileSaved(formValue, response), formSave.current.onError)
             } else {
@@ -130,13 +129,13 @@ function AddRecipeContextProvider({
     }
 
     formSave.current.onSuccess = function (response: any) {
-        saveRecipeRequestManager.unlock();
+        unlock();
         nav.toRecipe(response.value.id);
         alerts.showSuccessAlert(t(editedRecipe ? 'p.recipeEditCorrect' : 'p.recipeAddCorrect'));
     }
 
     formSave.current.onError = function (response: any) {
-        saveRecipeRequestManager.unlock();
+        unlock();
         alerts.showErrorAlert(t(response.message));
     }
 

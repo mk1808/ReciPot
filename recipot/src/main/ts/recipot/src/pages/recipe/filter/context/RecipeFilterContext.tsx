@@ -3,10 +3,10 @@ import { Recipe, RecipeFilter, Response } from "../../../../data/types";
 import savedRecipeFiltersApi from "../../../../api/SavedRecipeFiltersApi";
 import recipesApi from "../../../../api/RecipesApi";
 import { ResponsePage } from "../../../../data/utilTypes";
-import { ApiRequestSendManager } from "../../../../utils/ApiRequestSendManager";
 import { useSearchParams } from "react-router-dom";
 import { UsersContext } from "../../../../context/UserContext";
 import { buildRecipeSearchDto, focusOnRecipesPage, getRecipePages, getSelectedFilterFormValue, parseParamsToFilterValues, updatePageUrl } from "../utils/RecipeSearchUtils";
+import useRequestSendManager from "../../../../hooks/useRequestSendManager";
 
 export type contextStateModel = {
     savedFilters?: RecipeFilter[],
@@ -38,7 +38,6 @@ export enum RecipeFilterContextType {
 };
 
 const RECIPES_PAGE_SIZE = 4;
-const searchRequestManager = ApiRequestSendManager();
 
 export const RecipeFilterContext = createContext<contextStateModel>({});
 
@@ -46,6 +45,7 @@ export const RecipeFilterDispatchContext = createContext<(action: ReducerActionP
 
 export const RecipeFilterContextContextProvider = ({ children }: any) => {
     const [searchParams,] = useSearchParams();
+    const [nextAndLock, unlock] = useRequestSendManager();
     const [contextState, dispatch]: [contextStateModel, (action: ReducerActionProps) => any] = useReducer(recipeFilterReducer, {});
 
     const user = useContext(UsersContext);
@@ -156,13 +156,13 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
     }
 
     function getRecipesByFilter(recipesFilterForm: any, pageNum: number, pageSize: number, responseCallback: any) {
-        searchRequestManager.nextAndLock(() => {
-            recipesApi.search(buildRecipeSearchDto(recipesFilterForm), { pageNum, pageSize }, responseCallback, searchRequestManager.unlock);
+        nextAndLock(() => {
+            recipesApi.search(buildRecipeSearchDto(recipesFilterForm), { pageNum, pageSize }, responseCallback, unlock);
         })
     }
 
     function onGetRecipesByFilterResponse(response: Response<ResponsePage<Recipe>>) {
-        searchRequestManager.unlock();
+        unlock();
         dispatch({
             type: RecipeFilterContextType.OnRecipePageLoad,
             recipesPage: response.value
@@ -177,7 +177,7 @@ export const RecipeFilterContextContextProvider = ({ children }: any) => {
     }
 
     function onGetBetweenRecipesByFilterResponse(response: Response<ResponsePage<Recipe>>) {
-        searchRequestManager.unlock();
+        unlock();
         dispatch({
             type: RecipeFilterContextType.OnBetweenRecipePageLoad,
             recipesPage: response.value

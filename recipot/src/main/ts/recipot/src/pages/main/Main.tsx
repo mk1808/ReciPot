@@ -13,10 +13,9 @@ import SlidingCards from "../../components/complex/SlidingCards";
 import { useEffect, useState } from "react";
 import recipesApi from "../../api/RecipesApi";
 import statisticsApi from "../../api/StatisticsApi";
-import { ApiRequestSendManager } from "../../utils/ApiRequestSendManager";
 import useMyNav from "../../hooks/useMyNav";
+import useRequestSendManager from "../../hooks/useRequestSendManager";
 
-const getRandomRequestManager = ApiRequestSendManager();
 function Main() {
     const { t } = useTranslation();
     const [randomRecipe, setRandomRecipe] = useState(initAs<Recipe>());
@@ -24,6 +23,7 @@ function Main() {
     const [statistics, setStatistics] = useState<GeneralStatisticsDto>();
 
     const nav = useMyNav();
+    const [nextAndLock, unlock] = useRequestSendManager();
 
     const recipeCallback = (recipe: Recipe) => nav.toRecipe(recipe.id);
     const onGoToRecipe = (recipe: Recipe, event: any) => nav.openInBackground({ id: recipe.id }, event);
@@ -31,11 +31,11 @@ function Main() {
         nav.goToFilters({ recipesSort: { fieldName: 'created', order: 'DESC' } });
     }
     const onGetRandomSuccess = (response: any) => {
-        setRandomRecipe(response.value && response.value[0]); getRandomRequestManager.unlock()
+        setRandomRecipe(response.value && response.value[0]); unlock()
     }
 
     useEffect(() => {
-        getRandomRequestManager.nextAndLock(() => {
+        nextAndLock(() => {
             recipesApi.getRandom({ number: 1 }, onGetRandomSuccess)
         })
         recipesApi.getPredefinedFilter({ pageNum: 0, pageSize: 20, type: "NEWEST" }, (response: any) => {

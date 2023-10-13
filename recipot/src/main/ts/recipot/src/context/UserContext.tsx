@@ -2,8 +2,8 @@ import { createContext, useEffect, useReducer } from "react";
 import authApi from "../api/AuthApi";
 import { AppUser, Response } from "../data/types";
 import { useTranslation } from "react-i18next";
-import { ApiRequestSendManager } from "../utils/ApiRequestSendManager";
 import useAlerts from "../hooks/useAlerts";
+import useRequestSendManager from "../hooks/useRequestSendManager";
 
 type contextStateModel = AppUser | undefined | null;
 
@@ -22,11 +22,10 @@ export const UsersContext = createContext<contextStateModel>(undefined);
 
 export const UsersDispatchContext = createContext<(action: ReducerActionProps) => any>((action: ReducerActionProps) => { });
 
-const searchRequestManager = ApiRequestSendManager();
-
 export const UserContextProvider = ({ children }: any) => {
     const { t } = useTranslation();
     const alerts = useAlerts();
+    const [nextAndLock, unlock] = useRequestSendManager();
     const [user, dispatch]: [contextStateModel, (action: ReducerActionProps) => any] = useReducer(
         usersReducer, null
     );
@@ -55,13 +54,13 @@ export const UserContextProvider = ({ children }: any) => {
     };
 
     function refreshRequest() {
-        searchRequestManager.nextAndLock(() => {
+        nextAndLock(() => {
             authApi.whoAmI(onSuccessRefresh, onError)
         })
     };
 
     function onSuccessRefresh(response: Response<AppUser>) {
-        searchRequestManager.unlock();
+        unlock();
         let action = { user: response.value, type: UserContextType.Logged }
         dispatch(action);
         refreshUser();
@@ -75,7 +74,7 @@ export const UserContextProvider = ({ children }: any) => {
     };
 
     function onError(response: any) {
-        searchRequestManager.unlock();
+        unlock();
         if (user) {
             alerts.showErrorAlert(t("p.userTokenTimeout"));
         }

@@ -3,7 +3,7 @@ import { Recipe, RecipeCollection, RecipeCollectionItem, Response } from "../../
 import recipeCollectionsApi from "../../../../api/RecipeCollectionsApi";
 import { ResponsePage } from "../../../../data/utilTypes";
 import { scrollIntoRecipesPage } from "../../../recipe/filter/utils/RecipeSearchUtils";
-import { ApiRequestSendManager } from "../../../../utils/ApiRequestSendManager";
+import useRequestSendManager from "../../../../hooks/useRequestSendManager";
 
 type contextStateModel = {
     collections?: RecipeCollection[],
@@ -32,13 +32,12 @@ export enum RecipeCollectionListContextType {
 
 const RECIPES_PAGE_SIZE = 4;
 
-const searchRequestManager = ApiRequestSendManager();
-
 export const RecipeCollectionListContext = createContext<contextStateModel>({});
 
 export const RecipeCollectionListDispatchContext = createContext<(action: ReducerActionProps) => any>((action: ReducerActionProps) => { });
 
 export const RecipeCollectionListContextProvider = ({ children }: any) => {
+    const [nextAndLock, unlock] = useRequestSendManager();
     const [contextState, dispatch]: [contextStateModel, (action: ReducerActionProps) => any] = useReducer(collectionsReducer, {});
 
     useEffect(() => {
@@ -108,13 +107,13 @@ export const RecipeCollectionListContextProvider = ({ children }: any) => {
     }
 
     function getCollectionRecipes(recipeCollectionId: string, pageNum: number, pageSize: number, onResponseCallback = onCollectionRecipesResponse) {
-        searchRequestManager.nextAndLock(() => {
-            recipeCollectionsApi.getRecipeCollectionRecipes(recipeCollectionId, { pageNum, pageSize }, onResponseCallback, searchRequestManager.unlock);
+        nextAndLock(() => {
+            recipeCollectionsApi.getRecipeCollectionRecipes(recipeCollectionId, { pageNum, pageSize }, onResponseCallback, unlock);
         })
     }
 
     function onCollectionRecipesResponse(response: Response<ResponsePage<RecipeCollectionItem>>): any {
-        searchRequestManager.unlock();
+        unlock();
         const responsePage: ResponsePage<any> = response.value
         responsePage.content = responsePage.content.map(mapRecipeCollectionItemToRecipe);
         dispatch({
@@ -150,7 +149,7 @@ export const RecipeCollectionListContextProvider = ({ children }: any) => {
     }
 
     function onGetBetweenRecipesByFilterResponse(response: Response<ResponsePage<RecipeCollectionItem>>) {
-        searchRequestManager.unlock();
+        unlock();
         dispatch({
             type: RecipeCollectionListContextType.OnBetweenRecipePageLoad,
             recipesPage: response.value
