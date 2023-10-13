@@ -10,7 +10,7 @@ import dictionariesApi from "../../../../api/DictionariesApi";
 import { useContext, useEffect, useState } from "react";
 import { mapCategoriesToSearchList, onFilteredHashTagSearch, onFilteredIngredientSearch, searchCategory } from "../../../../utils/DictionariesUtils";
 import MyButton from "../../../../components/basicUi/MyButton";
-import { inputAttributesForContextWithoutValidity } from "../../../../utils/FormInputUtils";
+import { InputAttrsType, inputAttrs } from "../../../../utils/FormInputUtils";
 import AddRecipeFilterDialog from "../dialogs/AddRecipeFilterDialog";
 import { RecipeFilterContext, RecipeFilterContextType, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 import { EnumDictionaryContext, enumsStateModel } from "../../../../context/EnumDictionaryContext";
@@ -111,7 +111,7 @@ function RecipeFiltersColumn() {
         return false;
     }
 
-    function onUserIsOwnerChange(fieldName: string, value: boolean) {
+    function onUserIsOwnerChange(value: boolean, fieldName: string) {
         onChange(fieldName, (value && user?.login) || null);
     }
 
@@ -123,6 +123,17 @@ function RecipeFiltersColumn() {
         recipeFilterDispatchContext({
             type: RecipeFilterContextType.ClearFilterForm
         })
+    }
+
+    function getAttributes(name: string, label: string, onOtherChange?: any, defaultValue?: any) {
+        let attrs = {
+            name: name,
+            label: label,
+            onChange: onOtherChange || onChange,
+            formObject: recipesFilterForm,
+            type: InputAttrsType.ContextNoValidation
+        }
+        return inputAttrs(defaultValue ? { ...attrs, defaultValue: defaultValue } : attrs);
     }
 
     return (
@@ -149,7 +160,7 @@ function RecipeFiltersColumn() {
     function renderUserIsOwnerInput() {
         return isUserLogged && (
             <MyCheckbox
-                {...inputAttributesForContextWithoutValidity("userIsOwner", t("p.userIsOwnerFilter"), onUserIsOwnerChange, recipesFilterForm)}
+                {...getAttributes("userIsOwner", t("p.userIsOwnerFilter"), onUserIsOwnerChange)}
                 defaultChecked={recipesFilterForm?.userIsOwner || false}
             />
         )
@@ -159,7 +170,7 @@ function RecipeFiltersColumn() {
         const accessTypes = getEnum("accessTypes");
         return isUserLogged && (
             <MySelect
-                {...inputAttributesForContextWithoutValidity("accessType", t("p.accessTypeFilter"), onChange, recipesFilterForm)}
+                {...getAttributes("accessType", t("p.accessTypeFilter"))}
                 options={accessTypes}
                 emptyOption={t('p.selectValue')}
             />
@@ -169,7 +180,7 @@ function RecipeFiltersColumn() {
     function renderNameContainsInput() {
         return (
             <MyInput
-                {...inputAttributesForContextWithoutValidity("recipeName", t("p.recipeNameFilter"), onChange, recipesFilterForm)}
+                {...getAttributes("recipeName", t("p.recipeNameFilter"))}
                 placeholder={t("p.recipeNameFilter")}
             />
         )
@@ -178,7 +189,7 @@ function RecipeFiltersColumn() {
     function renderTimeAmountFromInput() {
         return (
             <TimeAmountInput
-                {...inputAttributesForContextWithoutValidity("timeAmountFrom", t("p.timeAmountFromFilter"), onChange, recipesFilterForm)}
+                {...getAttributes("timeAmountFrom", t("p.timeAmountFromFilter"))}
             />
         )
     }
@@ -186,7 +197,7 @@ function RecipeFiltersColumn() {
     function renderTimeAmountToInput() {
         return (
             <TimeAmountInput
-                {...inputAttributesForContextWithoutValidity("timeAmountTo", t("p.timeAmountToFilter"), onChange, recipesFilterForm, 99 * 60 + 59)}
+                {...getAttributes("timeAmountTo", t("p.timeAmountToFilter"), null, 99 * 60 + 59)}
             />
         )
     }
@@ -195,7 +206,7 @@ function RecipeFiltersColumn() {
         const amountOfDishes = getEnum("amountsOfDishes")
         return (
             <MySelect
-                {...inputAttributesForContextWithoutValidity("amountOfDishes", t("p.amountOfDishesFilter"), onChange, recipesFilterForm)}
+                {...getAttributes("amountOfDishes", t("p.amountOfDishesFilter"))}
                 options={amountOfDishes}
                 emptyOption={t('p.selectValue')}
             />
@@ -206,7 +217,7 @@ function RecipeFiltersColumn() {
         const difficulties = getEnum("difficulties")
         return (
             <MySelect
-                {...inputAttributesForContextWithoutValidity("difficulties", t("p.difficultiesFilter"), onChange, recipesFilterForm)}
+                {...getAttributes("difficulties", t("p.difficultiesFilter"))}
                 options={difficulties}
                 emptyOption={t('p.selectValue')}
             />
@@ -217,7 +228,7 @@ function RecipeFiltersColumn() {
         const requiredEffort = getEnum("requiredEfforts");
         return (
             <MySelect
-                {...inputAttributesForContextWithoutValidity("requiredEffort", t("p.requiredEffortFilter"), onChange, recipesFilterForm)}
+                {...getAttributes("requiredEffort", t("p.requiredEffortFilter"))}
                 options={requiredEffort}
                 emptyOption={t('p.selectValue')}
             />)
@@ -226,7 +237,7 @@ function RecipeFiltersColumn() {
     function renderAverageRatingInput() {
         return (
             <MySelect
-                {...inputAttributesForContextWithoutValidity("averageRating", t("p.averageRatingFilter"), onChange, recipesFilterForm)}
+                {...getAttributes("averageRating", t("p.averageRatingFilter"))}
                 options={getAverageRating()}
                 emptyOption={t('p.selectValue')}
             />)
@@ -235,7 +246,7 @@ function RecipeFiltersColumn() {
     function renderHashTagInput() {
         return (
             <FilteredSelect
-                {...inputAttributesForContextWithoutValidity("hashTags", t("p.hashTagFilter"), onChange, recipesFilterForm)}
+                {...getAttributes("hashTags", t("p.hashTagFilter"))}
                 multiple
                 options={filteredHashTags}
                 onSearchCallback={(phrase: string) => onFilteredHashTagSearch(phrase, setFilteredHashTags)}
@@ -249,7 +260,7 @@ function RecipeFiltersColumn() {
         return (
             <FilteredSelect
                 multiple
-                {...inputAttributesForContextWithoutValidity("ingredients", t("p.ingredientFilter"), onChange, recipesFilterForm)}
+                {...getAttributes("ingredients", t("p.ingredientFilter"))}
                 options={filteredIngredients}
                 onSearchCallback={(phrase: string) => onFilteredIngredientSearch(phrase, setFilteredIngredients)}
                 onSelectCallback={onIngredientsChange}
@@ -261,7 +272,7 @@ function RecipeFiltersColumn() {
     function renderCategoryInput() {
         return (
             <FilteredSelect
-                {...inputAttributesForContextWithoutValidity("categories", t("p.categoryFilter"), onChange, recipesFilterForm)}
+                {...getAttributes("categories", t("p.categoryFilter"))}
                 multiple
                 options={filteredCategories}
                 onSearchCallback={onCategorySearchCallback}

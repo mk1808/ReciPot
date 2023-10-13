@@ -4,7 +4,7 @@ import { Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { FormAction, FormSave, MyForm } from "../../../../../data/utilTypes";
 import MyInput from "../../../../../components/basicUi/MyInput";
-import { checkIfAllValid, checkInputValidity, initEmptyForm, inputAttributes, getNewFormState } from "../../../../../utils/FormInputUtils";
+import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, inputAttrs } from "../../../../../utils/FormInputUtils";
 import MyTextarea from "../../../../../components/basicUi/MyTextarea";
 import { SharedRecipe } from "../../../../../data/types";
 
@@ -49,7 +49,7 @@ function ShareRecipeForm({
     function renderFilterNameInput() {
         return (
             <MyInput
-                {...inputAttributes("receiverUser", myForm, dispatchForm)}
+                {...inputAttrs({ name: "receiverUser", myForm, dispatchForm })}
                 placeholder={t('p.chooseUser')}
                 label={t('p.chooseUser')}
                 required
@@ -60,7 +60,7 @@ function ShareRecipeForm({
     function renderCommentInput() {
         return (
             <MyTextarea
-                {...inputAttributes("comment", myForm, dispatchForm)}
+                {...inputAttrs({ name: "comment", myForm, dispatchForm })}
                 label={t('p.addComment')}
                 placeholder={t('p.addComment')}
                 required

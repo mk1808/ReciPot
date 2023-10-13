@@ -31,7 +31,7 @@ import CategoryCard from "../../../components/complex/CategoryCard";
 import TimeAmountInput from "../../../components/complex/TimeAmountInput";
 import { mapCategoriesToSearchList, onFilteredHashTagSearch, searchCategory } from "../../../utils/DictionariesUtils";
 import StarSelectInput from "../../../components/basicUi/StarSelectInput";
-import { inputAttributes } from "../../../utils/FormInputUtils";
+import { inputAttrs } from "../../../utils/FormInputUtils";
 import filesApi from "../../../api/FilesApi";
 import { SelectOption } from "../../../data/utilTypes";
 
@@ -223,7 +223,7 @@ function Test() {
                             defaultValue="default"
 
                             required={true}
-                            {...inputAttributes("name", myForm, dispatchForm)}
+                            {...inputAttrs({ name:"name", myForm, dispatchForm})}
                         />
                         <MyInput
                             name="surname"

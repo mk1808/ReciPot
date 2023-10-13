@@ -6,7 +6,7 @@ import MyInput from "../../../../components/basicUi/MyInput";
 import { FaTrashCan } from "react-icons/fa6";
 import { useContext, useEffect, useState } from "react";
 import { AddRecipeContext, AddRecipeContextType, AddRecipeDispatchContext } from "../context/AddRecipeContext";
-import { dynamicInputAttributesForContext } from "../../../../utils/FormInputUtils";
+import { InputAttrsType, inputAttrs } from "../../../../utils/FormInputUtils";
 import FilteredSelect from "../../../../components/complex/FilteredSelect";
 import { onFilteredIngredientSearch } from "../../../../utils/DictionariesUtils";
 import { getDefaultValue } from "../../../../utils/AddRecipeContextUtil";
@@ -78,6 +78,17 @@ function AddIngredients() {
             formFields?.formValidity.recipeIngredients[index][fieldName] : false;
     }
 
+    function getAttributes(name: string, index: number, defaultValue: any) {
+        return inputAttrs({
+            name,
+            onChange,
+            getValidity: getIngredientValidity,
+            index,
+            defaultValue,
+            type: InputAttrsType.DynamicContext,
+        })
+    }
+
     return (
         <div className="mt-5">
             <hr />
@@ -117,7 +128,7 @@ function AddIngredients() {
                 type="number"
                 className="simple-input"
                 step={0.1}
-                {...dynamicInputAttributesForContext("amount", onChange, getIngredientValidity, index, undefined, getDefaultValue("amount", index, fieldsAndMainName))}
+                {...getAttributes("amount", index, getDefaultValue("amount", index, fieldsAndMainName))}
             />
         )
     }
@@ -128,7 +139,7 @@ function AddIngredients() {
                 label={t('p.unit')}
                 required
                 className="simple-input"
-                {...dynamicInputAttributesForContext("unit", onChange, getIngredientValidity, index, undefined, getDefaultValue("unit", index, fieldsAndMainName))}
+                {...getAttributes("unit", index, getDefaultValue("unit", index, fieldsAndMainName))}
             />
         )
     }

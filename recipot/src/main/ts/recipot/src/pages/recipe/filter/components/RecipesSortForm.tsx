@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { useContext, useEffect } from "react";
 import { RecipeFilterContext, RecipeFilterContextType, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 import MySelect from "../../../../components/basicUi/MySelect";
-import { inputAttributesForContextWithoutValidity } from "../../../../utils/FormInputUtils";
+import { InputAttrsType, inputAttrs } from "../../../../utils/FormInputUtils";
 import MyButton from "../../../../components/basicUi/MyButton";
 import { Stack } from "react-bootstrap";
 
@@ -44,6 +44,16 @@ function RecipesSortForm() {
         })
     }
 
+    function getAttributes(name: string, label: string) {
+        return inputAttrs({
+            name,
+            label,
+            onChange,
+            formObject: recipeFilterContext.recipesFilterForm,
+            type: InputAttrsType.ContextNoValidation
+        });
+    }
+
     return (
         <Stack className="p-5 text-start" gap={3}>
             {renderSortSelect()}
@@ -54,7 +64,7 @@ function RecipesSortForm() {
     function renderSortSelect() {
         return (
             <MySelect
-                {...inputAttributesForContextWithoutValidity("recipesSort", t("p.recipesSort"), onChange, recipeFilterContext.recipesFilterForm)}
+                {...getAttributes("recipesSort", t("p.recipesSort"))}
                 options={getRecipesSortOptions()}
             />
         )
