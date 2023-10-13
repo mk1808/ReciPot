@@ -30,10 +30,6 @@ function DeleteRecipeDialog({
         nav.toUser();
         setTimeout(() => alerts.showSuccessAlert(t(response.message)), 1000)
     }
-    
-    function getQuestionText() {
-        return `${t("p.deleteRecipeQuestion")} ${data.name}?`;
-    }
 
     return (
         <CustomModal shouldShow={showModal} onClose={onClose} onSubmit={onSubmit}>
@@ -42,7 +38,7 @@ function DeleteRecipeDialog({
     );
 
     function renderContent() {
-        return (<>{getQuestionText()}</>)
+        return `${t("p.deleteRecipeQuestion")} ${data.name}?`;
     }
 }
 

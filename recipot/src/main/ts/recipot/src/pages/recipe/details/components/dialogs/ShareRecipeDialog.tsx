@@ -35,7 +35,7 @@ function ShareRecipeDialog({
         })
         recipesApi.share(sharedRecipe, formSave.onSuccess, formSave.onError);
     }
-    
+
     formSave.onSuccess = function (response: Response<SharedRecipe>) {
         alerts.showSuccessAlert(t('p.SHARED_RECIPE'));
         onClose();

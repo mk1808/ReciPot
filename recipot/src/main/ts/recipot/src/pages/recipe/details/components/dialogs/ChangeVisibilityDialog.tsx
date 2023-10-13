@@ -23,7 +23,7 @@ function ChangeVisibilityDialog({
 
     const ACCESS_TYPE_PREFIX = "enums.RecipeAccessType."
     const { t } = useTranslation();
-    const [newType, setNewType] = useState("");
+    const [newType, setNewType] = useState<string>("");
     const alerts = useAlerts();
 
     useEffect(() => {
@@ -40,10 +40,6 @@ function ChangeVisibilityDialog({
         handleSuccess(newType);
     }
 
-    function getQuestionText() {
-        return `${t("p.changeVisibilityQuestion")} ${t(ACCESS_TYPE_PREFIX + newType)}?`
-    }
-
     return (
         <CustomModal shouldShow={showModal} onClose={onClose} onSubmit={onSubmit}>
             {renderContent()}
@@ -51,7 +47,7 @@ function ChangeVisibilityDialog({
     );
 
     function renderContent() {
-        return (<>{getQuestionText()}</>)
+        return `${t("p.changeVisibilityQuestion")} ${t(ACCESS_TYPE_PREFIX + newType)}?`;
     }
 }
 
