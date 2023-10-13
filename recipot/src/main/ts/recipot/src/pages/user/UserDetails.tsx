@@ -31,9 +31,9 @@ function UserDetails() {
 
     formSave.onSuccess = function (response: any) {
         alerts.showSuccessAlert(t("p.userSuccessfullyEdited"));
-        usersDispatchContext(
-            { type: UserContextType.Refresh }
-        )
+        usersDispatchContext({
+            type: UserContextType.Refresh
+        });
     }
 
     formSave.onError = function () {

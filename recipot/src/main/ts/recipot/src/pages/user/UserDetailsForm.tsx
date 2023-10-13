@@ -148,7 +148,9 @@ function UserDetailsForm({
     }
 
     function renderButton(Button: any, onClick: any, label: string, type?: string) {
-        return <Button onClick={onClick} type={type}>{t(label)} </Button>
+        return <Button onClick={onClick} type={type}>
+            {t(label)}
+        </Button>
     }
 }
 
