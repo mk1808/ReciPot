@@ -1,28 +1,25 @@
 import { useEffect, useState } from "react";
 import { Stack } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { Category, CategoryDto, Response } from "../../../data/types";
-import dictionariesApi from "../../../api/DictionariesApi";
+import { CategoryDto } from "../../../data/types";
+
 import CategoryCard from "../../../components/complex/CategoryCard";
 import MyHeader from "../../../components/basicUi/MyHeader";
 import useMyNav from "../../../hooks/useMyNav";
+import useGetCategories from "../../../hooks/useGetCategories";
 
 function CategoryCards() {
     const NUMBER_IN_ROW = 3;
-    const [allCategories, setAllCategories] = useState<any[]>([]);
+    const [, , allCategories] = useGetCategories();
     const [readyCategories, setReadyCategories] = useState<any[]>([]);
     const nav = useMyNav();
     const onCategoryClick = (category: CategoryDto) => nav.goToCategoryFilters(category);
 
     useEffect(() => {
-        dictionariesApi.getAllCategories((response: Response<any[]>) => {
-            let categories = response.value;
-            setAllCategories(categories);
-            setCategoriesInRows(categories);
-        })
-    }, [])
+        setCategoriesInRows(allCategories);
+    }, [allCategories])
 
-    function setCategoriesInRows(categories: Category[]) {
+    function setCategoriesInRows(categories: CategoryDto[]) {
         let newTab = [...readyCategories];
         let noOfRows = Math.ceil(categories.length / NUMBER_IN_ROW);
         for (let i = 0; i < noOfRows; i++) {
