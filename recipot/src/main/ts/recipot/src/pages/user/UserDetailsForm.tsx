@@ -8,7 +8,7 @@ import MyInput from '../../components/basicUi/MyInput';
 import MyTextarea from '../../components/basicUi/MyTextarea';
 import MyButton from '../../components/basicUi/MyButton';
 import { useReducer, useState } from 'react';
-import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, inputAttributes, preventFurtherAction } from '../../utils/FormInputUtils';
+import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, preventFurtherAction, inputAttrs } from '../../utils/FormInputUtils';
 import { MyForm, FormSave, FormAction } from '../../data/utilTypes';
 import { AppUser } from '../../data/types';
 import defaultUserAvatar from '../../assets/images/default_user_avatar.png';
@@ -81,7 +81,7 @@ function UserDetailsForm({
     function renderEmailInput() {
         return (
             <MyInput
-                {...inputAttributes("email", myForm, dispatchForm)}
+                {...inputAttrs({ name: "email", myForm, dispatchForm })}
                 label={t('p.emailInputLabel')}
                 placeholder={t('p.emailInputPlaceholder')}
                 defaultValue={user.email}
@@ -92,7 +92,7 @@ function UserDetailsForm({
     function renderLoginInput() {
         return (
             <MyInput
-                {...inputAttributes("login", myForm, dispatchForm)}
+                {...inputAttrs({ name: "login", myForm, dispatchForm })}
                 label={t('p.loginInputLabel')}
                 placeholder={t('p.loginInputPlaceholder')}
                 defaultValue={user.login}
@@ -104,7 +104,7 @@ function UserDetailsForm({
     function renderAvatarImageInput() {
         return (
             <MyInput
-                {...inputAttributes("avatarImageSrc", myForm, dispatchForm)}
+                {...inputAttrs({ name: "avatarImageSrc", myForm, dispatchForm })}
                 label={t('p.avatarInputLabel')}
                 placeholder={t('p.avatarInputPlaceholder')}
                 disabled={!isEditMode}
@@ -116,7 +116,7 @@ function UserDetailsForm({
     function renderSelfDescriptionInput() {
         return (
             <MyTextarea
-                {...inputAttributes("selfDescription", myForm, dispatchForm)}
+                {...inputAttrs({ name: "selfDescription", myForm, dispatchForm })}
                 label={t('p.selfDescriptionInputLabel')}
                 placeholder={t('p.selfDescriptionInputPlaceholder')}
                 defaultValue={user.selfDescription}

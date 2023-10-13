@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import MyInput from '../../../components/basicUi/MyInput';
 import MyButton from '../../../components/basicUi/MyButton';
 import { useReducer, FormEvent } from 'react';
-import { checkIfAllValid, initEmptyForm, getNewFormState, inputAttributes, preventFurtherAction } from '../../../utils/FormInputUtils';
+import { checkIfAllValid, initEmptyForm, getNewFormState, preventFurtherAction, inputAttrs } from '../../../utils/FormInputUtils';
 import { validateEmail } from '../../../utils/RegexUtils';
 import { FormAction, FormSave, MyForm } from '../../../data/utilTypes';
 import { UserRegisterDto } from '../../../data/types';
@@ -72,24 +72,24 @@ function RegisterForm({
                     required
                     label={t('p.username')}
                     placeholder={t('p.username')}
-                    {...inputAttributes("login", myForm, dispatchForm)} />
+                    {...inputAttrs({ name: "login", myForm, dispatchForm })} />
                 <MyInput
                     required
                     label={t('p.mail')}
                     placeholder={t('p.mail')}
-                    {...inputAttributes("email", myForm, dispatchForm)} />
+                    {...inputAttrs({ name: "email", myForm, dispatchForm })} />
                 <MyInput
                     type="password"
                     required
                     label={t('p.password')}
                     placeholder={t('p.password')}
-                    {...inputAttributes("password", myForm, dispatchForm)} />
+                    {...inputAttrs({ name: "password", myForm, dispatchForm })} />
                 <MyInput
                     type="password"
                     required
                     label={t('p.passwordRepeat')}
                     placeholder={t('p.passwordRepeat')}
-                    {...inputAttributes("matchingPassword", myForm, dispatchForm)} />
+                    {...inputAttrs({ name: "matchingPassword", myForm, dispatchForm })} />
             </>
         )
     }

@@ -3,7 +3,7 @@ import MyInput from "../../../../components/basicUi/MyInput";
 import MyTextarea from "../../../../components/basicUi/MyTextarea";
 import { AddRecipeContext, AddRecipeContextType, AddRecipeDispatchContext } from "../context/AddRecipeContext";
 import { useContext, useState } from "react";
-import { inputAttributesForContext } from "../../../../utils/FormInputUtils";
+import { InputAttrsType, inputAttrs } from "../../../../utils/FormInputUtils";
 import MyButton from "../../../../components/basicUi/MyButton";
 import DeleteRecipeDialog from "../../details/components/dialogs/DeleteRecipeDialog";
 import { initAs } from "../../../../utils/ObjectUtils";
@@ -45,6 +45,16 @@ function UpperLeftSide() {
     function getValidity(fieldName: string) {
         return formFields?.formValidity ? formFields?.formValidity[fieldName] : false;
     }
+    
+    function getAttributes(name: string) {
+        return inputAttrs({
+            name,
+            onChange,
+            getValidity,
+            formObject:formFields.formValue,
+            type: InputAttrsType.Context
+        });
+    }
 
     return (
         <div className="text-start">
@@ -70,7 +80,7 @@ function UpperLeftSide() {
                 label={t('p.name')}
                 placeholder={t('p.name')}
                 required
-                {...inputAttributesForContext("name", onChange, getValidity, undefined, formFields.formValue)}
+                {...getAttributes("name")}
             />
         )
     }
@@ -81,7 +91,7 @@ function UpperLeftSide() {
                 label={t('p.description')}
                 placeholder={t('p.description')}
                 rows={5}
-                {...inputAttributesForContext("description", onChange, getValidity, undefined, formFields.formValue)}
+                {...getAttributes("description")}
             />
         )
     }
@@ -94,7 +104,7 @@ function UpperLeftSide() {
                     className="full-width"
                     label={formFields.formValue?.image ? t('p.changeImage') : t('p.image')}
                     required={!editedRecipe}
-                    {...inputAttributesForContext("imageFile", onChange, getValidity, undefined, formFields.formValue)}
+                    {...getAttributes("imageFile")}
                 />
             </Stack>
         )
@@ -109,7 +119,7 @@ function UpperLeftSide() {
             <MyInput
                 label={t('p.url')}
                 placeholder={t('p.url')}
-                {...inputAttributesForContext("url", onChange, getValidity, undefined, formFields.formValue)}
+                {...getAttributes("url")}
             />
         )
     }
