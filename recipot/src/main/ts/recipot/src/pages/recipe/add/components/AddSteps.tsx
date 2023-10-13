@@ -1,5 +1,3 @@
-import { BsPlusCircleFill } from "react-icons/bs";
-import MyButton from "../../../../components/basicUi/MyButton";
 import { useTranslation } from "react-i18next";
 import MyTextarea from "../../../../components/basicUi/MyTextarea";
 import { Col, Row } from "react-bootstrap";
@@ -8,6 +6,9 @@ import { useContext } from "react";
 import { AddRecipeContext, AddRecipeContextType, AddRecipeDispatchContext } from "../context/AddRecipeContext";
 import { InputAttrsType, checkInputValidity, inputAttrs } from "../../../../utils/FormInputUtils";
 import { getDefaultValue } from "../../../../utils/AddRecipeContextUtil";
+import { BasicStep } from "../../../../data/utilTypes";
+import { getRand } from "../../../../utils/MathUtils";
+import ListContainer from "./ListContainer";
 
 function AddSteps() {
     const FIELD_NAME = 'recipeSteps';
@@ -15,16 +16,17 @@ function AddSteps() {
     const addRecipeDispatchContext = useContext(AddRecipeDispatchContext);
     const formFields = useContext(AddRecipeContext).fields;
 
-    const basicStep: any = {
+    const basicStep: BasicStep = {
         id: "",
         order: 0,
         description: "",
-        recipe: undefined
+        recipe: {}
     }
     const fieldsAndMainName = { formFields, mainFieldName: FIELD_NAME };
 
     function onChange(fieldValue: any, fieldName: string, index?: number) {
-        if (formFields.formValue && formFields.formValue[fieldName] !== fieldValue) {
+        const isValueChanged = formFields.formValue && formFields.formValue[fieldName] !== fieldValue;
+        if (isValueChanged) {
             addRecipeDispatchContext({
                 type: AddRecipeContextType.OnChange,
                 fieldName: FIELD_NAME,
@@ -32,16 +34,15 @@ function AddSteps() {
                 fieldValidity: checkInputValidity(fieldValue),
                 subFieldName: fieldName,
                 isIngredientOrStep: true,
-                index: index
+                index
             })
         }
     }
 
     function onAdd() {
-        basicStep.id = Math.random() * 1000;
         addRecipeDispatchContext({
             type: AddRecipeContextType.OnAdd,
-            basicObj: basicStep,
+            basicObj: { ...basicStep, id: getRand() },
             fieldName: FIELD_NAME
         })
     }
@@ -55,8 +56,8 @@ function AddSteps() {
     }
 
     function getStepValidity(fieldName: string, index: number) {
-        return formFields?.formValidity?.recipeSteps && formFields?.formValidity?.recipeSteps[index] ?
-            formFields?.formValidity.recipeSteps[index][fieldName] : false;
+        const recipeSteps = formFields?.formValidity?.recipeSteps;
+        return recipeSteps && recipeSteps[index] ? recipeSteps[index][fieldName] : false;
     }
 
     function getAttributes(name: string, index: number, defaultValue: any) {
@@ -71,14 +72,9 @@ function AddSteps() {
     }
 
     return (
-        <div className="mt-5">
-            <hr />
-            <h4 className="mt-3">{t('p.recipeSteps')}</h4>
-            <div className="text-start">
-                {formFields?.formValue?.recipeSteps?.map((step: any, index: number) => { return renderSingleRow(step, index) })}
-            </div>
-            <MyButton.Primary onClick={onAdd} className="button-width">{t('p.add')} <BsPlusCircleFill className="mb-1 ms-1" /></MyButton.Primary>
-        </div>
+        <ListContainer title={t('p.recipeSteps')} onAdd={onAdd}>
+            {formFields?.formValue?.recipeSteps?.map(renderSingleRow)}
+        </ListContainer>
     );
 
     function renderSingleRow(step: any, index: number) {
@@ -87,15 +83,17 @@ function AddSteps() {
                 <Col md={1} className="step-number">
                     {index + 1}
                 </Col>
-                <Col >
-                    {renderStepInput(step, index)}
+                <Col>
+                    {renderStepInput(index)}
                 </Col>
-                <Col md={1} className="bin-icon"><FaTrashCan onClick={() => onDelete(index)} /></Col>
+                <Col md={1} className="bin-icon">
+                    <FaTrashCan onClick={() => onDelete(index)} />
+                </Col>
             </Row>
         );
     }
 
-    function renderStepInput(step: any, index: number) {
+    function renderStepInput(index: number) {
         return (
             <MyTextarea
                 required

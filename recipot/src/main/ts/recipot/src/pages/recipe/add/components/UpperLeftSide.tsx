@@ -41,17 +41,17 @@ function UpperLeftSide() {
             }
         }
     }
-    
+
     function getValidity(fieldName: string) {
         return formFields?.formValidity ? formFields?.formValidity[fieldName] : false;
     }
-    
+
     function getAttributes(name: string) {
         return inputAttrs({
             name,
             onChange,
             getValidity,
-            formObject:formFields.formValue,
+            formObject: formFields.formValue,
             type: InputAttrsType.Context
         });
     }
@@ -69,11 +69,15 @@ function UpperLeftSide() {
     function renderDeleteButtonModal() {
         return (
             <div className="text-center delete-button">
-                <MyButton.OutlineDanger onClick={() => setShowModalDelete(true)}> <FaTrashCan /> {t('p.deleteRecipeButton')}</MyButton.OutlineDanger>
+                <MyButton.OutlineDanger onClick={() => setShowModalDelete(true)}>
+                    <FaTrashCan /> 
+                    {t('p.deleteRecipeButton')}
+                </MyButton.OutlineDanger>
                 {renderModal()}
             </div>
         )
     }
+    
     function renderNameInput() {
         return (
             <MyInput
@@ -100,18 +104,24 @@ function UpperLeftSide() {
         return (
             <Stack direction="horizontal">
                 {renderCurrentImage()}
-                <MyFileInput
-                    className="full-width"
-                    label={formFields.formValue?.image ? t('p.changeImage') : t('p.image')}
-                    required={!editedRecipe}
-                    {...getAttributes("imageFile")}
-                />
+                {renderFileInput()}
             </Stack>
         )
     }
 
     function renderCurrentImage() {
         return formFields.formValue?.image && <MyImage src={formFields.formValue.image} height={100} />
+    }
+
+    function renderFileInput() {
+        return (
+            <MyFileInput
+                className="full-width"
+                label={formFields.formValue?.image ? t('p.changeImage') : t('p.image')}
+                required={!editedRecipe}
+                {...getAttributes("imageFile")}
+            />
+        )
     }
 
     function renderUrlInput() {
@@ -125,10 +135,14 @@ function UpperLeftSide() {
     }
 
     function renderModal() {
-        return <DeleteRecipeDialog showModal={showModalDelete} onClose={() => setShowModalDelete(false)} data={editedRecipe || initAs()} />;
+        return (
+            <DeleteRecipeDialog
+                showModal={showModalDelete}
+                onClose={() => setShowModalDelete(false)}
+                data={editedRecipe || initAs()}
+            />
+        );
     }
 }
-
-
 
 export default UpperLeftSide;
