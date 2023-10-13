@@ -1,3 +1,6 @@
+import { ReducerActionProps, fieldsStateModel } from "../pages/recipe/add/context/AddRecipeContext";
+import { addObjectToList, removeByIndex } from "./ListUtils";
+
 export function convertToObjects(list: []) {
     if (list) {
         return list.map(mapToObject)
@@ -113,4 +116,59 @@ export function prepareToSend(recipe: any) {
     formValue.categories = convertCategoriesToObjects(formValue.categories);
     formValue.recipeIngredients = convertIngredientsToObjects(formValue.recipeIngredients);
     return formValue;
+}
+
+export function onChangeComplexField({ fields, action }: { fields: fieldsStateModel, action: ReducerActionProps }) {
+    if (fields.formValue[action.fieldName][action.index]) {
+        fields.formValue[action.fieldName][action.index][action.subFieldName] = action.fieldValue;
+
+        initFieldIfEmpty({ object: fields.formValidity, element: action.fieldName, defaultValue: [] });
+        initFieldIfEmpty({ object: fields.formValidity[action.fieldName], element: action.index, defaultValue: {} });
+
+        fields.formValidity[action.fieldName][action.index][action.subFieldName] = action.fieldValidity;
+    }
+    return deepCopyFields(fields);
+}
+
+function initFieldIfEmpty({ object, element, defaultValue }: { object: any, element: any, defaultValue: any }) {
+    if (!object[element]) {
+        object[element] = defaultValue;
+    }
+}
+
+export function addComplexElemet({ fields, action }: { fields: fieldsStateModel, action: ReducerActionProps }) {
+    const elements = addObjectToList({list: fields.formValue[action.fieldName] || [], element: action.basicObj}); 
+    const elementsValidity = addObjectToList({list: fields.formValidity[action.fieldName] || [], element: action.basicObj}); 
+
+    return { elements, elementsValidity }
+}
+
+
+export function removeComplexElement({ fields, action }: { fields: fieldsStateModel, action: ReducerActionProps }) {
+    const elements = removeByIndex({list: fields.formValue[action.fieldName], index: action.index})
+    const elementsValidity = removeByIndex({list: fields.formValidity[action.fieldName], index: action.index})
+   
+    return { elements, elementsValidity }
+}
+
+
+export function deepCopyFields(fields: fieldsStateModel) {
+    return {
+        ...fields,
+        formValue: {
+            ...fields.formValue,
+        },
+        formValidity: {
+            ...fields.formValidity,
+        },
+    }
+}
+
+export function getNewContextState({ fields, action, elements, elementsValidity }:
+    { fields: fieldsStateModel, action: ReducerActionProps, elements?: any, elementsValidity?: any }) {
+    fields = deepCopyFields(fields);
+    fields.formValue[action.fieldName] = elements ? elements : action.fieldValue;
+    fields.formValidity[action.fieldName] = elementsValidity ? elementsValidity : action.fieldValidity;
+
+    return fields;
 }
