@@ -13,9 +13,11 @@ function CategoryCards() {
     const onCategoryClick = (category: CategoryDto) => nav.goToCategoryFilters(category);
 
     return (
+        <div className="categories-container">
         <Stack direction="horizontal" className="flex-wrap align-items-stretch justify-content-center my-5 categories-row" >
             {allCategories.map(renderCard)}
-        </Stack>
+        </Stack> 
+        </div>
     )
 
     function renderCard(singleRow: CategoryDto) {

@@ -33,6 +33,11 @@
     .categories {
         height: auto;
 
+        .categories-container {
+            background-image: v.$main-page-categories-image-url;
+            background-size: 100% auto;
+        }
+
         .categories-row {
             margin: auto;
             max-width: 1500px;
@@ -50,6 +55,8 @@
     }
 
     .categories-section {
+        padding: 0;
+
         .box {
             &>* {
                 height: 20px;

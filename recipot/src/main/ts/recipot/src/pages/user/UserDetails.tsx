@@ -42,11 +42,13 @@ function UserDetails() {
     }
 
     return (
-        <div className='mx-auto my-5 px-4 pb-4 user-details-page basic-container basic-container-border'>
-            <MyHeader title={t('p.userDetailsHeader')} />
-            {renderUserStatistics()}
-            <hr />
-            <UserDetailsForm formSave={formSave} user={user} />
+        <div className='user-details-page py-5'>
+            <div className='mx-auto px-4 pb-4 basic-container basic-container-border'>
+                <MyHeader title={t('p.userDetailsHeader')} />
+                {renderUserStatistics()}
+                <hr />
+                <UserDetailsForm formSave={formSave} user={user} />
+            </div>
         </div>
     );
 

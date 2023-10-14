@@ -4,9 +4,12 @@
 @import "~bootstrap/scss/mixins";
 
 .register-page {
+    background-image: v.$register-page-image-url;
+    background-size: 100% auto;
 
     >div {
         width: 1000px;
+        background-color: white;
     }
 
     h6 {
