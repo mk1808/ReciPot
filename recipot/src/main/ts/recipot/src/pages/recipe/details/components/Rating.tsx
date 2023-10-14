@@ -17,20 +17,29 @@ function Rating({
     return (
         <Stack direction="horizontal" className={`px-5 rating ${className}`} gap={3}>
             <div className="pe-0 star-col">
-                <StarSelectInput
-                    required
-                    disabled
-                    defaultValue={roundToHalf(recipe.averageRating)}
-                    name=""
-                    isValid
-                />
+                {renderStarSelect()}
             </div>
-
             <div className="ps-0">
-                <span>{recipe.averageRating} / 5 ({recipe.ratingsCount} {t('p.ratingsCount')})</span>
+                {renderRatingText()}
             </div>
         </Stack>
     )
+    
+    function renderStarSelect() {
+        return (
+            <StarSelectInput
+                required
+                disabled
+                defaultValue={roundToHalf(recipe.averageRating)}
+                name=""
+                isValid
+            />
+        )
+    }
+
+    function renderRatingText() {
+        return <span>{`${recipe.averageRating} / 5 (${recipe.ratingsCount} ${t('p.ratingsCount')})`}</span>
+    }
 }
 
 export default Rating;

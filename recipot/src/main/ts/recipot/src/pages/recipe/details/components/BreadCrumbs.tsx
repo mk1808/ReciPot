@@ -4,6 +4,8 @@ import { useTranslation } from "react-i18next";
 import { Category, Recipe } from "../../../../data/types";
 import { FaArrowRight } from "react-icons/fa";
 import useMyNav from "../../../../hooks/useMyNav";
+import { createCategoriesListInOrder } from "../../../../utils/ListUtils";
+import { BreadCrumpAttrs } from "../../../../data/utilTypes";
 
 type Props = {
     recipe: Recipe
@@ -17,23 +19,26 @@ function BreadCrumbs({
     const [categories, setCategories] = useState<Category[][]>([]);
     const nav = useMyNav();
 
-    useEffect(() => {
-        createCategories();
-    }, []);
-
-    function createCategories() {
-        const allCategories: Category[][] = [];
-        recipe.categories.forEach(category => {
-            const categoriesTab: Category[] = [category];
-            while (category.parentCategory != null) {
-                categoriesTab.push(category.parentCategory);
-                category = category.parentCategory;
-            }
-            categoriesTab.reverse();
-            allCategories.push(categoriesTab);
-        })
-        setCategories(allCategories);
+    const firstCategory = {
+        onClick: onGoToMainPage,
+        className: "cursor-pointer",
+        text: t("p.breadCrumbsMain")
     }
+    const lastCategory = {
+        onClick: () => { },
+        className: "cursor-default",
+        text: recipe.name
+    }
+    const getBetweenCategory = (category: Category) => ({
+        onClick: () => onGoToCategoryFilter(category),
+        className: "cursor-pointer",
+        text: category.name,
+        key: category.name
+    })
+
+    useEffect(() => {
+        setCategories(createCategoriesListInOrder(recipe.categories));
+    }, []);
 
     function onGoToMainPage() {
         nav.toMain();
@@ -54,12 +59,36 @@ function BreadCrumbs({
             <Stack direction="horizontal" gap={3} key={index}>
                 <FaArrowRight />
                 <Breadcrumb className="mb-1">
-                    <Breadcrumb.Item active onClick={onGoToMainPage} className="cursor-pointer">{t("p.breadCrumbsMain")}</Breadcrumb.Item>
-                    {categoryRow.map((category) => { return <Breadcrumb.Item active key={category.name} className="cursor-pointer" onClick={() => onGoToCategoryFilter(category)}>{category.name}</Breadcrumb.Item> })}
-                    <Breadcrumb.Item active className="cursor-default">{recipe.name}</Breadcrumb.Item>
+                    {renderBreadcrumbs(categoryRow)}
                 </Breadcrumb>
             </Stack>
         )
+    }
+
+    function renderBreadcrumbs(categoryRow: Category[]) {
+        return (
+            <>
+                {renderBreadcrumbItem(firstCategory)}
+                {categoryRow.map(renderBetween)}
+                {renderBreadcrumbItem(lastCategory)}
+            </>
+        )
+    }
+
+    function renderBetween(category: Category) {
+        return renderBreadcrumbItem(getBetweenCategory(category))
+    }
+
+    function renderBreadcrumbItem({ onClick, className, text, key }: BreadCrumpAttrs) {
+        return (
+            <Breadcrumb.Item
+                active
+                onClick={onClick}
+                className={className}
+                {...(key ? { key: key } : {})}
+            >
+                {text}
+            </Breadcrumb.Item>)
     }
 }
 

@@ -88,3 +88,10 @@ export interface ActionButtonAttrs {
     shouldShow: boolean,
     children: any
 }
+
+export interface BreadCrumpAttrs {
+    onClick: any,
+    className: string,
+    text: string,
+    key?: string
+}

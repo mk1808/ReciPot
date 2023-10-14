@@ -122,7 +122,7 @@ function ActionButtons({
     )
 
     function renderSingleButton(buttonAttrs: ActionButtonAttrs) {
-        return <RoundButton {...buttonAttrs} />
+        return <RoundButton key={buttonAttrs.tooltipText} {...buttonAttrs} />
     }
 
     function renderDialogs() {
