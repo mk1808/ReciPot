@@ -62,7 +62,7 @@ function OtherColumn({
                 showChildren={false}
                 className="category-no-border"
                 key={category.id}
-                onCategorySelect={(category) => onCategoryClick(category)} />
+                onCategorySelect={onCategoryClick} />
         )
     }
 
