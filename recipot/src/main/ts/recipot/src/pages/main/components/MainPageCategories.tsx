@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Stack } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { CategoryDto } from "../../../data/types";
@@ -8,34 +7,28 @@ import useMyNav from "../../../hooks/useMyNav";
 import useCategories from "../../../hooks/useCategories";
 
 function CategoryCards() {
-    const NUMBER_IN_ROW = 3;
-    const [readyCategories, setReadyCategories] = useState<any[]>([]);
     const [, , allCategories] = useCategories();
     const nav = useMyNav();
     const onCategoryClick = (category: CategoryDto) => nav.goToCategoryFilters(category);
 
-    useEffect(() => {
-        setCategoriesInRows(allCategories);
-    }, [allCategories])
-
-    function setCategoriesInRows(categories: CategoryDto[]) {
-        let newTab = [...readyCategories];
-        let noOfRows = Math.ceil(categories.length / NUMBER_IN_ROW);
-        for (let i = 0; i < noOfRows; i++) {
-            newTab.push(categories.slice(i * NUMBER_IN_ROW, i * NUMBER_IN_ROW + NUMBER_IN_ROW));
-        }
-        setReadyCategories(newTab);
-    }
-
     return (
-        <Stack direction="horizontal" className=" flex-wrap align-items-stretch justify-content-center my-5 categories-row" >
-            {allCategories.map((singleRow: CategoryDto) =>
-                <div className="col-lg-4 col-md-6 col-12 p-2" key={singleRow.id}>
-                    <CategoryCard category={singleRow} className="h-100" key={singleRow.id} onCategorySelect={onCategoryClick} />
-                </div>
-            )}
+        <Stack direction="horizontal" className="flex-wrap align-items-stretch justify-content-center my-5 categories-row" >
+            {allCategories.map(renderCard)}
         </Stack>
     )
+
+    function renderCard(singleRow: CategoryDto) {
+        return (
+            <div className="col-lg-4 col-md-6 col-12 p-2" key={singleRow.id}>
+                <CategoryCard
+                    category={singleRow}
+                    className="h-100"
+                    key={singleRow.id}
+                    onCategorySelect={onCategoryClick}
+                />
+            </div>
+        );
+    }
 }
 
 function MainPageCategories() {
