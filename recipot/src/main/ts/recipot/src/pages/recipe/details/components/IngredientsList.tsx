@@ -4,6 +4,7 @@ import { Recipe, RecipeIngredient } from "../../../../data/types";
 import { useEffect, useState } from "react";
 import { addUniqueValue, removeValue } from "../../../../utils/ListUtils";
 import MyHeader from "../../../../components/basicUi/MyHeader";
+import { getIngredientsFromLocalStorage, updateLocalStorage } from "../RecipeDetailsUtils";
 
 type Props = {
     recipe: Recipe
@@ -15,47 +16,25 @@ function IngredientList({
 
     const { t } = useTranslation();
     const [checkedIngredients, setCheckedIngredients] = useState<string[]>([])
+    const shouldRenderIngredients: boolean = recipe?.recipeIngredients?.length > 0;
+    const isRecipeIngredientChecked = (ingredientId: string) => checkedIngredients?.indexOf(ingredientId) >= 0;
 
     useEffect(() => {
-        setCheckedIngredients(getRecipeCheckedIngredients());
+        setCheckedIngredients(getIngredientsFromLocalStorage(recipe));
     }, [recipe])
-
-    function getRecipeCheckedIngredients(): string[] {
-        var recipesIngredients: any = localStorage.getItem("checkedIngredients");
-        if (!recipesIngredients) {
-            recipesIngredients = JSON.stringify({});
-            localStorage.setItem("checkedIngredients", recipesIngredients)
-        }
-        return JSON.parse(recipesIngredients)[recipe.id] || [];
-    }
-
-    function isRecipeIngredientChecked(ingredientId: string) {
-        return checkedIngredients?.indexOf(ingredientId) >= 0;
-    }
 
     function onRecipeIngredientCheck(value: boolean, ingredientId: string) {
         var newValue = value ? addUniqueValue(checkedIngredients, ingredientId) : removeValue(checkedIngredients, ingredientId);
-
         setCheckedIngredients(newValue)
-        updateLocalStorage(newValue)
+        updateLocalStorage(newValue, recipe)
     }
 
-    function updateLocalStorage(newValue: any) {
-        var recipesIngredients: any = JSON.parse(localStorage.getItem("checkedIngredients") || "");
-        recipesIngredients[recipe.id] = newValue
-        localStorage.setItem("checkedIngredients", JSON.stringify(recipesIngredients))
-    }
-
-    function shouldRenderIngredients() {
-        return recipe?.recipeIngredients && recipe.recipeIngredients.length > 0;
-    }
-
-    if (shouldRenderIngredients()) {
+    if (shouldRenderIngredients) {
         return (
             <>
                 <div className="mb-5 px-5 ingredients">
                     <MyHeader title={t('p.ingredients')} level="4" />
-                    <div className="px-3 list ">
+                    <div className="px-3 list">
                         {renderIngredients()}
                     </div>
                 </div>
@@ -68,12 +47,13 @@ function IngredientList({
     function renderIngredients() {
         return (
             <>
-                {recipe.recipeIngredients.map(singleIngredient => renderSingleIngredient(singleIngredient))}
+                {recipe.recipeIngredients.map(renderSingleIngredient)}
             </>
         )
     }
+
     function renderSingleIngredient(singleIngredient: RecipeIngredient) {
-        const ingredientId = singleIngredient.id
+        const ingredientId = singleIngredient.id;
         return (
             <div className="my-3" key={ingredientId}>
                 <MyCheckbox
@@ -85,12 +65,17 @@ function IngredientList({
             </div>
         )
     }
+
     function renderIngredientLabel(singleIngredient: RecipeIngredient): any {
-        let amount = `${singleIngredient.amount} ${singleIngredient.unit}`;
+        const amount = `${singleIngredient.amount} ${singleIngredient.unit}`;
+        const name = `${singleIngredient.ingredient.name}`;
         return (
             <>
-                <span className="ingredient-amount">{amount}</span>&nbsp;
-                {`${singleIngredient.ingredient.name}`}
+                <span className="ingredient-amount">
+                    {amount}
+                </span>
+                &nbsp;
+                {name}
             </>
         );
     }
