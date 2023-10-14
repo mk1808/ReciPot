@@ -68,7 +68,9 @@ function CollectionRecipesColumn() {
     return (
         <div>
             {renderHeader()}
-            {renderContent()}
+            <div className="content">
+                {renderContent()}
+            </div>
         </div>
     );
 
