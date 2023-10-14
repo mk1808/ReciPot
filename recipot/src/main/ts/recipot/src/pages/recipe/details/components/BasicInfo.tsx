@@ -9,6 +9,7 @@ import Info from "../../../../components/basicUi/Info";
 import HashTagList from "../../../../components/basicUi/HashTagList";
 import { convertToTime } from "../../../../utils/DateUtils";
 import useMyNav from "../../../../hooks/useMyNav";
+import { useMemo } from "react";
 
 type Props = {
     recipe: Recipe
@@ -20,70 +21,47 @@ function BasicInfo({
 
     const { t } = useTranslation();
     const nav = useMyNav();
+    const detailsColumns = useMemo(getDetailsColumns, [recipe]);
 
     function onHashTagClick(hashTag: any) {
         nav.goToFilters({ hashTags: [{ label: hashTag.name, value: hashTag }] });
     }
-    
+
+    function getDetailsColumns() {
+        return [
+            {
+                tooltip: "timeInfo",
+                icon: (className: string) => <MdAccessTime className={className} />,
+                label: "time",
+                value: `${convertToTime(recipe.timeAmount)}`
+            }, {
+                tooltip: "amountOfDishesInfo",
+                icon: (className: string) => <GiCookingPot className={className} />,
+                label: "amountOfDishes",
+                value: t(`enums.RecipeAmountOfDishes.${recipe.numberOfDishes}`)
+            }, {
+                tooltip: "effortInfo",
+                icon: (className: string) => <MdWork className={className} />,
+                label: "effort",
+                value: t(`enums.RecipeRequiredEffort.${recipe.requiredEffort}`)
+            }, {
+                tooltip: "difficultyInfo",
+                icon: (className: string) => <VscTools className={className} />,
+                label: "difficulty",
+                value: t(`enums.RecipeDifficulty.${recipe.difficulty}`)
+            }
+        ];
+    }
+
     return (
         <>
             <div className="mt-3 mb-5 px-5 basic-info">
                 {renderOtherInfo()}
-                <Row className="mb-5">
-                    <Col>
-                        <Row className="align-center icon-info ">
-                            <Col className="icon-col" xs={6} md={3}>
-                                {renderSingleInfoIcon({
-                                    tooltip: "timeInfo",
-                                    icon: (className: string) => <MdAccessTime className={className} />,
-                                    label: "time",
-                                    value: `${convertToTime(recipe.timeAmount)}`
-                                })}
-                            </Col>
-                            <Col className="icon-col" xs={6} md={3}>
-                                {renderSingleInfoIcon({
-                                    tooltip: "amountOfDishesInfo",
-                                    icon: (className: string) => <GiCookingPot className={className} />,
-                                    label: "amountOfDishes",
-                                    value: t(`enums.RecipeAmountOfDishes.${recipe.numberOfDishes}`)
-                                })}
-
-                            </Col>
-                            <Col className="icon-col" xs={6} md={3}>
-                                {renderSingleInfoIcon({
-                                    tooltip: "effortInfo",
-                                    icon: (className: string) => <MdWork className={className} />,
-                                    label: "effort",
-                                    value: t(`enums.RecipeRequiredEffort.${recipe.requiredEffort}`)
-                                })}
-
-                            </Col>
-                            <Col className="icon-col" xs={6} md={3}>
-                                {renderSingleInfoIcon({
-                                    tooltip: "difficultyInfo",
-                                    icon: (className: string) => <VscTools className={className} />,
-                                    label: "difficulty",
-                                    value: t(`enums.RecipeDifficulty.${recipe.difficulty}`)
-                                })}
-
-                            </Col>
-                        </Row>
-                    </Col>
-                </Row>
+                {renderDetailsRow()}
             </div>
             <hr />
         </>
     );
-
-    function renderSingleInfoIcon({ tooltip, icon, label, value }: { tooltip: any, icon: any, label: any, value: any }) {
-        return (
-            <>
-                <Info value={t(`p.${tooltip}`)} className="icon" renderIcon={icon} placement="top" /><br />
-                <strong> {t(`p.${label}`)}</strong> <br />
-                {value}
-            </>
-        )
-    }
 
     function renderOtherInfo() {
         return (
@@ -94,15 +72,50 @@ function BasicInfo({
                     {recipe.description}
                 </div>
             </div>
-        )
+        );
+    }
+
+    function renderDetailsRow() {
+        return (
+            <Row className="mb-5 align-center icon-info">
+                {renderDetailsColumn()}
+            </Row>
+        );
+    }
+
+    function renderDetailsColumn() {
+        return detailsColumns.map(detailsColumn => (
+            <Col className="icon-col" xs={6} md={3} key={detailsColumn.label}>
+                {renderSingleInfoIcon(detailsColumn)}
+            </Col>
+        ));
+    }
+
+    function renderSingleInfoIcon({ tooltip, icon, label, value }: { tooltip: any, icon: any, label: any, value: any }) {
+        return (
+            <>
+                <Info
+                    value={t(`p.${tooltip}`)}
+                    className="icon"
+                    renderIcon={icon}
+                    placement="top"
+                />
+                <br />
+                <strong> {t(`p.${label}`)} </strong>
+                <br />
+                {value}
+            </>
+        );
     }
 
     function renderUrlButton() {
         return recipe.url && (
             <div className="text-center my-3">
-                <Button href={recipe.url} target="_blank">{t(`p.recipeUrlButton`)} <FaInternetExplorer /></Button>
+                <Button href={recipe.url} target="_blank">{t(`p.recipeUrlButton`)}
+                    <FaInternetExplorer />
+                </Button>
             </div>
-        )
+        );
     }
 }
 
