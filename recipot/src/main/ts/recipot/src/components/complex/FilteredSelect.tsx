@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useTranslation } from "react-i18next";
+
 import './styles.scss';
 import { renderButonSimpleText, renderButtonComplexContent, renderCheck, renderDropdownComponent, renderWrappedDropdownContent } from './FilteredSelectCommonElements';
-import { addUniqueValue, checkListContains, removeValue } from '../../utils/ListUtils';
-import { canCreateNewValue, createNewValue, stopEventPropagation } from '../../utils/FilteredSelectUtils';
-import { initFcn } from '../../utils/ObjectUtils';
 import { SelectOption } from '../../data/utilTypes';
+import { canCreateNewValue, createNewValue, stopEventPropagation } from '../../utils/FilteredSelectUtils';
+import { addUniqueValue, checkListContains, removeValue } from '../../utils/ListUtils';
+import { initFcn } from '../../utils/ObjectUtils';
 import { renderFormGroup } from '../basicUi/CommonInputElements';
 
 type Props<T> = {

@@ -1,5 +1,5 @@
-import { ReducerActionProps, fieldsStateModel } from "../pages/recipe/add/context/AddRecipeContext";
 import { addObjectToList, removeByIndex } from "./ListUtils";
+import { ReducerActionProps, fieldsStateModel } from "../pages/recipe/add/context/AddRecipeContext";
 
 export function convertToObjects(list: []) {
     if (list) {

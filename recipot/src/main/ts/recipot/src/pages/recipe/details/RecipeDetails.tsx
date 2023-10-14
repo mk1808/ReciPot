@@ -1,27 +1,28 @@
 import { useContext, useRef } from "react";
 import './styles.scss';
-import MyImage from "../../../components/basicUi/MyImage";
-import MyHeader from "../../../components/basicUi/MyHeader";
-import OtherColumn from "./components/OtherColumn";
-import BasicInfo from "./components/BasicInfo";
-import IngredientList from "./components/IngredientsList";
-import Steps from "./components/Steps";
-import PrivateNote from "./components/PrivateNote";
-import Comments from "./components/Comments";
-import { OpinionDto, PrivateNote as PrivateNoteT, Recipe, RecipeSearchDto } from "../../../data/types";
-import { initAs } from "../../../utils/ObjectUtils";
 import { useEffect, useState } from "react";
-import BreadCrumbs from "./components/BreadCrumbs";
-import ActionButtons from "./components/ActionButtons";
-import recipesApi from "../../../api/RecipesApi";
 import { useParams } from "react-router-dom";
+
+import ActionButtons from "./components/ActionButtons";
+import AuthorAndDate from "./components/AuthorAndDate";
+import BasicInfo from "./components/BasicInfo";
+import BreadCrumbs from "./components/BreadCrumbs";
+import Comments from "./components/Comments";
+import IngredientList from "./components/IngredientsList";
+import OtherColumn from "./components/OtherColumn";
+import PrivateNote from "./components/PrivateNote";
+import Steps from "./components/Steps";
 import opinionsApi from "../../../api/OpinionsApi";
 import privateNotesApi from "../../../api/PrivateNotes";
-import { buildRecipeSearchDto } from "../filter/utils/RecipeSearchUtils";
-import { UsersContext } from "../../../context/UserContext";
 import recipeCollectionsApi from "../../../api/RecipeCollectionsApi";
+import recipesApi from "../../../api/RecipesApi";
+import MyHeader from "../../../components/basicUi/MyHeader";
+import MyImage from "../../../components/basicUi/MyImage";
 import MySpinner from "../../../components/basicUi/MySpinner";
-import AuthorAndDate from "./components/AuthorAndDate";
+import { UsersContext } from "../../../context/UserContext";
+import { OpinionDto, PrivateNote as PrivateNoteT, Recipe, RecipeSearchDto } from "../../../data/types";
+import { initAs } from "../../../utils/ObjectUtils";
+import { buildRecipeSearchDto } from "../filter/utils/RecipeSearchUtils";
 
 function RecipeDetails() {
 

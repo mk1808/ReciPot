@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Breadcrumb, Stack } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { Category, Recipe } from "../../../../data/types";
 import { FaArrowRight } from "react-icons/fa";
+
+import { Category, Recipe } from "../../../../data/types";
+import { BreadCrumpAttrs } from "../../../../data/utilTypes";
 import useMyNav from "../../../../hooks/useMyNav";
 import { createCategoriesListInOrder } from "../../../../utils/ListUtils";
-import { BreadCrumpAttrs } from "../../../../data/utilTypes";
 
 type Props = {
     recipe: Recipe

@@ -1,5 +1,5 @@
-import { AppUser, ChangePasswordDto, Response, UserLoginDto, UserRegisterDto } from "../data/types";
 import restClient from "./RestClient";
+import { AppUser, ChangePasswordDto, Response, UserLoginDto, UserRegisterDto } from "../data/types";
 
 function AuthApi() {
     const PREFIX = '/auth';

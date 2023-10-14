@@ -1,17 +1,18 @@
 import './styles.scss';
-import { useTranslation } from 'react-i18next';
+import { useReducer, useState } from 'react';
 import { Form, Stack } from 'react-bootstrap';
-import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import { useTranslation } from 'react-i18next';
+
+import defaultUserAvatar from '../../assets/images/default_user_avatar.png';
+import MyButton from '../../components/basicUi/MyButton';
 import MyImage from '../../components/basicUi/MyImage';
 import MyInput from '../../components/basicUi/MyInput';
 import MyTextarea from '../../components/basicUi/MyTextarea';
-import MyButton from '../../components/basicUi/MyButton';
-import { useReducer, useState } from 'react';
-import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, preventFurtherAction, inputAttrs } from '../../utils/FormInputUtils';
-import { MyForm, FormSave, FormAction } from '../../data/utilTypes';
 import { AppUser } from '../../data/types';
-import defaultUserAvatar from '../../assets/images/default_user_avatar.png';
+import { MyForm, FormSave, FormAction } from '../../data/utilTypes';
+import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, preventFurtherAction, inputAttrs } from '../../utils/FormInputUtils';
 
 type Props = {
     formSave: FormSave<AppUser>,

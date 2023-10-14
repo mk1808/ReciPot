@@ -1,12 +1,13 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
-import { Recipe, RecipeFilter, Response } from "../../../../data/types";
-import savedRecipeFiltersApi from "../../../../api/SavedRecipeFiltersApi";
-import recipesApi from "../../../../api/RecipesApi";
-import { ResponsePage } from "../../../../data/utilTypes";
 import { useSearchParams } from "react-router-dom";
+
+import recipesApi from "../../../../api/RecipesApi";
+import savedRecipeFiltersApi from "../../../../api/SavedRecipeFiltersApi";
 import { UsersContext } from "../../../../context/UserContext";
-import { buildRecipeSearchDto, focusOnRecipesPage, getRecipePages, getSelectedFilterFormValue, parseParamsToFilterValues, updatePageUrl } from "../utils/RecipeSearchUtils";
+import { Recipe, RecipeFilter, Response } from "../../../../data/types";
+import { ResponsePage } from "../../../../data/utilTypes";
 import useRequestSendManager from "../../../../hooks/useRequestSendManager";
+import { buildRecipeSearchDto, focusOnRecipesPage, getRecipePages, getSelectedFilterFormValue, parseParamsToFilterValues, updatePageUrl } from "../utils/RecipeSearchUtils";
 
 export type contextStateModel = {
     savedFilters?: RecipeFilter[],

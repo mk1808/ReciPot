@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
-import { RecipeCollectionListContext, RecipeCollectionListContextType, RecipeCollectionListDispatchContext } from "../context/RecipeCollectionListContext";
+
 import VerticalPagination from "../../../../components/complex/VerticalPagination";
+import { RecipeCollectionListContext, RecipeCollectionListContextType, RecipeCollectionListDispatchContext } from "../context/RecipeCollectionListContext";
 
 function CollectionRecipesPagination() {
     const collectionsContext = useContext(RecipeCollectionListContext);

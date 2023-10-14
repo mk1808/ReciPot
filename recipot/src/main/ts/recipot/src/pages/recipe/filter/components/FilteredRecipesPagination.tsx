@@ -1,4 +1,5 @@
 import { useContext, useEffect } from "react";
+
 import VerticalPagination from "../../../../components/complex/VerticalPagination";
 import { RecipeFilterContext, RecipeFilterContextType, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 import { scrollIntoRecipesPage } from "../utils/RecipeSearchUtils";

@@ -1,7 +1,8 @@
 import { useEffect, useContext, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { UserContextType, UsersContext, UsersDispatchContext } from '../context/UserContext';
+
 import MySpinner from '../components/basicUi/MySpinner';
+import { UserContextType, UsersContext, UsersDispatchContext } from '../context/UserContext';
 
 const ProtectedRoute = ({ element }: { element: any }) => {
     const user: any = useContext(UsersContext);

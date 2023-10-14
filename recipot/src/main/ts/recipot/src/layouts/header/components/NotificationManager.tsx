@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import Notifications from '../../../components/complex/Notifications';
+
 import notificationsApi from '../../../api/NotificationsApi';
+import Notifications from '../../../components/complex/Notifications';
 import { Notification, Response } from '../../../data/types';
 import { removeValue } from '../../../utils/ListUtils';
 

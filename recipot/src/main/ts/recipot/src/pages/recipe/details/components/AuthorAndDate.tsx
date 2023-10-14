@@ -2,9 +2,10 @@ import { Stack } from 'react-bootstrap';
 import './../styles.scss';
 import { FaUser } from "react-icons/fa";
 import { FaRegCalendarDays } from "react-icons/fa6";
-import { formatNoTime } from "../../../../utils/DateUtils";
+
 import Rating from './Rating';
 import { Recipe } from '../../../../data/types';
+import { formatNoTime } from "../../../../utils/DateUtils";
 
 type Props = {
     recipe: Recipe

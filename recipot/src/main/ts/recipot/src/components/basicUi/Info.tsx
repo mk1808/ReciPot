@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
-import Tooltip from "./Tooltip";
 import { FaCircleInfo } from "react-icons/fa6";
+
+import Tooltip from "./Tooltip";
 
 type Props = {
     value: string,

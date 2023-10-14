@@ -1,19 +1,20 @@
-import { Stack } from "react-bootstrap";
-import AddToCollectionDialog from "./dialogs/AddToCollectionDialog";
-import ShareRecipeDialog from "./dialogs/ShareRecipeDialog";
-import ChangeVisibilityDialog from "./dialogs/ChangeVisibilityDialog";
 import { useEffect, useState, useMemo } from "react";
-import { Recipe, RecipeCollection, RecipeCollectionItem } from "../../../../data/types";
+import { Stack } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { BsBalloonHeart, BsBalloonHeartFill, BsCollectionFill, BsShare } from "react-icons/bs";
-import { useTranslation } from "react-i18next";
 import { FiEdit3 } from "react-icons/fi";
+
+import AddToCollectionDialog from "./dialogs/AddToCollectionDialog";
+import ChangeVisibilityDialog from "./dialogs/ChangeVisibilityDialog";
+import ShareRecipeDialog from "./dialogs/ShareRecipeDialog";
+import RoundButton from "./RoundButton";
 import recipeCollectionsApi from "../../../../api/RecipeCollectionsApi";
-import { initAs } from "../../../../utils/ObjectUtils";
+import { Recipe, RecipeCollection, RecipeCollectionItem } from "../../../../data/types";
+import { ActionButtonAttrs } from "../../../../data/utilTypes";
 import useAlerts from "../../../../hooks/useAlerts";
 import useMyNav from "../../../../hooks/useMyNav";
-import RoundButton from "./RoundButton";
-import { ActionButtonAttrs } from "../../../../data/utilTypes";
+import { initAs } from "../../../../utils/ObjectUtils";
 
 type Props = {
     recipe: Recipe,

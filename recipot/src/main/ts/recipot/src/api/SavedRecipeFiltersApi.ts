@@ -1,5 +1,5 @@
-import { RecipeFilter, Response } from "../data/types";
 import restClient from "./RestClient";
+import { RecipeFilter, Response } from "../data/types";
 
 function SavedRecipeFiltersApi() {
     const PREFIX = '/savedRecipeFilters';

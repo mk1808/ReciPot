@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { Stack } from "react-bootstrap";
-import MyButton from "../basicUi/MyButton";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+
 import RecipeCard from "./RecipeCard";
 import { Recipe } from "../../data/types";
 import useWindowSize from "../../hooks/useWindowSize";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import MyButton from "../basicUi/MyButton";
+
 
 type SlidingElementsProps = {
     recipes: Recipe[],

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+
 import dictionariesApi from "../api/DictionariesApi";
 import { CategoryDto, Response } from "../data/types";
-import { mapCategoriesToSearchList, searchCategory } from "../utils/DictionariesUtils";
 import { SelectOption } from "../data/utilTypes";
+import { mapCategoriesToSearchList, searchCategory } from "../utils/DictionariesUtils";
 
 function useCategories(): [SelectOption<CategoryDto>[], (phrase: string) => any, CategoryDto[]] {
     const [filteredCategories, setFilteredCategories] = useState<SelectOption<CategoryDto>[]>([]);

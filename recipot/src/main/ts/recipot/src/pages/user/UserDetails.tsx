@@ -1,15 +1,16 @@
 
+import { useContext, useEffect, useState } from 'react';
+import { Stack } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+
+import UserDetailsForm from './UserDetailsForm';
+import statisticsApi from '../../api/StatisticsApi';
+import usersApi from '../../api/UsersApi';
 import MyHeader from '../../components/basicUi/MyHeader';
 import StatisticCircle from '../../components/complex/StatisticCircle';
 import './styles.scss';
-import { useTranslation } from 'react-i18next';
-import { Stack } from 'react-bootstrap';
-import { AppUser, Response, UserStatisticsDto } from '../../data/types';
-import UserDetailsForm from './UserDetailsForm';
-import { useContext, useEffect, useState } from 'react';
 import { UserContextType, UsersContext, UsersDispatchContext } from '../../context/UserContext';
-import usersApi from '../../api/UsersApi';
-import statisticsApi from '../../api/StatisticsApi';
+import { AppUser, Response, UserStatisticsDto } from '../../data/types';
 import useAlerts from '../../hooks/useAlerts';
 import { initFormSave } from '../../utils/FormInputUtils';
 

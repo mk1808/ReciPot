@@ -1,7 +1,8 @@
+import { Stack } from 'react-bootstrap';
 import { BsStarFill } from 'react-icons/bs';
+
 import { Recipe } from '../../data/types';
 import Tooltip from '../basicUi/Tooltip';
-import { Stack } from 'react-bootstrap';
 
 export function renderRating(recipe: Recipe, text: string) {
     return (

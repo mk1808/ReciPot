@@ -1,14 +1,15 @@
-import { useTranslation } from "react-i18next";
-import MyTextarea from "../../../../components/basicUi/MyTextarea";
-import { Col, Row } from "react-bootstrap";
-import { FaTrashCan } from "react-icons/fa6";
 import { useContext } from "react";
-import { AddRecipeContext, AddRecipeContextType, AddRecipeDispatchContext } from "../context/AddRecipeContext";
-import { InputAttrsType, checkInputValidity, inputAttrs } from "../../../../utils/FormInputUtils";
-import { getDefaultValue } from "../../../../utils/AddRecipeContextUtil";
-import { BasicStep } from "../../../../data/utilTypes";
-import { getRand } from "../../../../utils/MathUtils";
+import { Col, Row } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
+import { FaTrashCan } from "react-icons/fa6";
+
 import ListContainer from "./ListContainer";
+import MyTextarea from "../../../../components/basicUi/MyTextarea";
+import { BasicStep } from "../../../../data/utilTypes";
+import { getDefaultValue } from "../../../../utils/AddRecipeContextUtil";
+import { InputAttrsType, checkInputValidity, inputAttrs } from "../../../../utils/FormInputUtils";
+import { getRand } from "../../../../utils/MathUtils";
+import { AddRecipeContext, AddRecipeContextType, AddRecipeDispatchContext } from "../context/AddRecipeContext";
 
 function AddSteps() {
     const FIELD_NAME = 'recipeSteps';

@@ -1,16 +1,17 @@
+import { useContext, useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import MyInput from "../../../../components/basicUi/MyInput";
 import { FaTrashCan } from "react-icons/fa6";
-import { useContext, useEffect, useState } from "react";
-import { AddRecipeContext, AddRecipeContextType, AddRecipeDispatchContext } from "../context/AddRecipeContext";
-import { InputAttrsType, inputAttrs } from "../../../../utils/FormInputUtils";
-import FilteredSelect from "../../../../components/complex/FilteredSelect";
-import { onFilteredIngredientSearch } from "../../../../utils/DictionariesUtils";
-import { getDefaultValue } from "../../../../utils/AddRecipeContextUtil";
-import { BasicIngredient } from "../../../../data/utilTypes";
-import { getRand } from "../../../../utils/MathUtils";
+
 import ListContainer from "./ListContainer";
+import MyInput from "../../../../components/basicUi/MyInput";
+import FilteredSelect from "../../../../components/complex/FilteredSelect";
+import { BasicIngredient } from "../../../../data/utilTypes";
+import { getDefaultValue } from "../../../../utils/AddRecipeContextUtil";
+import { onFilteredIngredientSearch } from "../../../../utils/DictionariesUtils";
+import { InputAttrsType, inputAttrs } from "../../../../utils/FormInputUtils";
+import { getRand } from "../../../../utils/MathUtils";
+import { AddRecipeContext, AddRecipeContextType, AddRecipeDispatchContext } from "../context/AddRecipeContext";
 
 function AddIngredients() {
     const FIELD_NAME = 'recipeIngredients';

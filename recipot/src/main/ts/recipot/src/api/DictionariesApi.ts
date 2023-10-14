@@ -1,6 +1,6 @@
+import restClient from "./RestClient";
 import { Category, CategoryDto, HashTag, Ingredient, RecipeAccessType, RecipeAmountOfDishes, RecipeDifficulty, RecipeRequiredEffort, Response } from "../data/types";
 import { createPathParams } from "../utils/RestUtils";
-import restClient from "./RestClient";
 
 function DictionariesApi() {
     const PREFIX = '/dictionaries';

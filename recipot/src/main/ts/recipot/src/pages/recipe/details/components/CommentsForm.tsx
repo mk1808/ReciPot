@@ -1,12 +1,13 @@
-import { useTranslation } from "react-i18next";
-import { FormAction, FormSave, MyForm } from "../../../../data/utilTypes";
 import { useReducer, FormEvent } from "react";
-import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, preventFurtherAction, inputAttrs } from "../../../../utils/FormInputUtils";
-import MyTextarea from "../../../../components/basicUi/MyTextarea";
 import { Form, Stack } from "react-bootstrap";
-import StarSelectInput from "../../../../components/basicUi/StarSelectInput";
+import { useTranslation } from "react-i18next";
+
 import MyButton from "../../../../components/basicUi/MyButton";
+import MyTextarea from "../../../../components/basicUi/MyTextarea";
+import StarSelectInput from "../../../../components/basicUi/StarSelectInput";
 import { Comment } from "../../../../data/types";
+import { FormAction, FormSave, MyForm } from "../../../../data/utilTypes";
+import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, preventFurtherAction, inputAttrs } from "../../../../utils/FormInputUtils";
 
 type Props = {
     formSave: FormSave<Comment>,

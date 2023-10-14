@@ -1,9 +1,10 @@
-import { useTranslation } from "react-i18next";
-import MyCheckbox from "../../../../components/basicUi/MyCheckbox";
-import { Recipe, RecipeIngredient } from "../../../../data/types";
 import { useEffect, useState } from "react";
-import { addUniqueValue, removeValue } from "../../../../utils/ListUtils";
+import { useTranslation } from "react-i18next";
+
+import MyCheckbox from "../../../../components/basicUi/MyCheckbox";
 import MyHeader from "../../../../components/basicUi/MyHeader";
+import { Recipe, RecipeIngredient } from "../../../../data/types";
+import { addUniqueValue, removeValue } from "../../../../utils/ListUtils";
 import { getIngredientsFromLocalStorage, updateLocalStorage } from "../RecipeDetailsUtils";
 
 type Props = {

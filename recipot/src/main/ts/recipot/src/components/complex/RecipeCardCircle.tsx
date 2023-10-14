@@ -1,6 +1,7 @@
 import { Card } from 'react-bootstrap';
-import { renderCategories, renderRating } from './RecipeCardCommonElements';
 import { useTranslation } from 'react-i18next';
+
+import { renderCategories, renderRating } from './RecipeCardCommonElements';
 import { Recipe } from '../../data/types';
 import { getShorterText } from '../../utils/TextUtils';
 import MyImage from '../basicUi/MyImage';

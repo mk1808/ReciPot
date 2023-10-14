@@ -1,14 +1,15 @@
-import { FaBell, FaRegBell, FaCheck, FaAnglesRight } from "react-icons/fa6";
-import './styles.scss';
+import { Stack } from "react-bootstrap";
+import Badge from 'react-bootstrap/Badge';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import { useTranslation } from "react-i18next";
-import Badge from 'react-bootstrap/Badge';
+import { FaBell, FaRegBell, FaCheck, FaAnglesRight } from "react-icons/fa6";
+import './styles.scss';
+
 import { Notification } from "../../data/types";
-import { parseNotificationContent } from "../../utils/NotificationUtils";
-import { Stack } from "react-bootstrap";
-import Tooltip from "../basicUi/Tooltip";
 import useMyNav from "../../hooks/useMyNav";
+import { parseNotificationContent } from "../../utils/NotificationUtils";
+import Tooltip from "../basicUi/Tooltip";
 
 type Props = {
     notifications: Notification[],

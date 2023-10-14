@@ -1,11 +1,12 @@
-import { useTranslation } from "react-i18next";
-import { Stack } from "react-bootstrap";
-import Info from "../../../../components/basicUi/Info";
 import { useEffect, useState } from "react";
+import { Stack } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
+
 import PrivateNoteForm from "./PrivateNoteForm";
 import privateNotesApi from "../../../../api/PrivateNotes";
-import { Recipe, PrivateNote as PrivateNoteT, Response } from "../../../../data/types";
+import Info from "../../../../components/basicUi/Info";
 import MyHeader from "../../../../components/basicUi/MyHeader";
+import { Recipe, PrivateNote as PrivateNoteT, Response } from "../../../../data/types";
 import useAlerts from "../../../../hooks/useAlerts";
 import { initFormSave } from "../../../../utils/FormInputUtils";
 

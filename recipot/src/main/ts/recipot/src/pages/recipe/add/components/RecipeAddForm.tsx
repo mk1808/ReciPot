@@ -1,12 +1,13 @@
 import { useContext } from "react";
 import { Col, Row } from "react-bootstrap";
-import UpperLeftSide from "./UpperLeftSide";
+
 import AddIngredients from "./AddIngredients";
-import UpperRightSide from "./UpperRightSide";
 import AddSteps from "./AddSteps";
+import UpperLeftSide from "./UpperLeftSide";
+import UpperRightSide from "./UpperRightSide";
 import ConfirmCancelButtons from "../../../../components/basicUi/ConfirmCancelButtons";
-import { AddRecipeContextType, AddRecipeDispatchContext } from "../context/AddRecipeContext";
 import useMyNav from "../../../../hooks/useMyNav";
+import { AddRecipeContextType, AddRecipeDispatchContext } from "../context/AddRecipeContext";
 
 function RecipeAddForm() {
     const nav = useMyNav();

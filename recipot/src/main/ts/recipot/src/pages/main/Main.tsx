@@ -1,20 +1,21 @@
+import { useEffect, useState } from "react";
 import { Col, Row, Stack } from "react-bootstrap";
 import './styles.scss';
-import MyHeader from "../../components/basicUi/MyHeader";
 import { useTranslation } from "react-i18next";
-import StatisticCircle from "../../components/complex/StatisticCircle";
-import MyButton from "../../components/basicUi/MyButton";
 import { FaMagnifyingGlass } from "react-icons/fa6";
+
 import MainPageCategories from "./components/MainPageCategories";
-import RecipeCardCircle from "../../components/complex/RecipeCardCircle";
-import { GeneralStatisticsDto, Recipe } from "../../data/types";
-import { initAs } from "../../utils/ObjectUtils";
-import SlidingCards from "../../components/complex/SlidingCards";
-import { useEffect, useState } from "react";
 import recipesApi from "../../api/RecipesApi";
 import statisticsApi from "../../api/StatisticsApi";
+import MyButton from "../../components/basicUi/MyButton";
+import MyHeader from "../../components/basicUi/MyHeader";
+import RecipeCardCircle from "../../components/complex/RecipeCardCircle";
+import SlidingCards from "../../components/complex/SlidingCards";
+import StatisticCircle from "../../components/complex/StatisticCircle";
+import { GeneralStatisticsDto, Recipe } from "../../data/types";
 import useMyNav from "../../hooks/useMyNav";
 import useRequestSendManager from "../../hooks/useRequestSendManager";
+import { initAs } from "../../utils/ObjectUtils";
 
 function Main() {
     const { t } = useTranslation();

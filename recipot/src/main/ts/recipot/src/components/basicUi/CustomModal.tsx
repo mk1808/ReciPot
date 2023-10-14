@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+
 import MyModal from "./MyModal";
 
 type Props = {
