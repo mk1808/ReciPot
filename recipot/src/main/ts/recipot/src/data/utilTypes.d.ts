@@ -81,3 +81,10 @@ export interface BasicStep {
     description: string,
     recipe: object
 }
+
+export interface ActionButtonAttrs {
+    tooltipText: string,
+    onClick: Function,
+    shouldShow: boolean,
+    children: any
+}
