@@ -4,6 +4,12 @@
 @import "~bootstrap/scss/mixins";
 
 .user-details-page {
+    background-image: v.$user-details-image-url;
+    background-size: auto 100%;
+
+    >div {
+        background-color: white;
+    }
 
     .edit-form {
         text-align: left;

@@ -28,13 +28,15 @@ function CategoryCards() {
     }
 
     return (
-        <Stack direction="horizontal" className=" flex-wrap align-items-stretch justify-content-center my-5 categories-row" >
-            {allCategories.map((singleRow: CategoryDto) =>
-                <div className="col-lg-4 col-md-6 col-12 p-2" key={singleRow.id}>
-                    <CategoryCard category={singleRow} className="h-100" key={singleRow.id} onCategorySelect={onCategoryClick} />
-                </div>
-            )}
-        </Stack>
+        <div className="categories-container">
+            <Stack direction="horizontal" className=" flex-wrap align-items-stretch justify-content-center my-5 categories-row" >
+                {allCategories.map((singleRow: CategoryDto) =>
+                    <div className="col-lg-4 col-md-6 col-12 p-2" key={singleRow.id}>
+                        <CategoryCard category={singleRow} className="h-100" key={singleRow.id} onCategorySelect={onCategoryClick} />
+                    </div>
+                )}
+            </Stack>
+        </div>
     )
 }
 

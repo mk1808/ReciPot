@@ -5,7 +5,21 @@ $background-beige:#fdf7f1;
 $primary:#8fad88;
 $secondary:#615148;
 
-$circle-card-image-url: url(../assets/images/bck.jpeg);
 
 $element-hover-background-color: #e9ecef;
 $element-active-background-color: #e9ecef;
+
+$backg-img1: url(../assets/images/bck.jpeg);
+$backg-img2: url(../assets/images/backg2.jpg);
+$backg-img3: url(../assets/images/backg3.png);
+$backg-img4: url(../assets/images/backg4.png);
+$backg-img5: url(../assets/images/backg5.png);
+$backg-img6: url(../assets/images/bckg4.jpeg);
+$backg-img7: url(../assets/images/backg5.jpg);
+$backg-img8: url(../assets/images/backg.jpg);
+
+$circle-card-image-url: $backg-img1;
+$login-page-image-url: $backg-img2;
+$register-page-image-url: $backg-img3;
+$main-page-categories-image-url: $backg-img4;
+$user-details-image-url: $backg-img5;

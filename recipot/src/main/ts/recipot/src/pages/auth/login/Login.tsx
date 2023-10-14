@@ -15,8 +15,8 @@ function Login() {
     const { t } = useTranslation();
     const usersDispatchContext = useContext(UsersDispatchContext);
     const user = useContext(UsersContext);
-    const nav = useMyNav();    
-    const alerts = useAlerts();    
+    const nav = useMyNav();
+    const alerts = useAlerts();
     const formSave = initFormSave<UserLoginDto>();
 
     useEffect(() => {
@@ -38,9 +38,9 @@ function Login() {
     }
 
     return (
-        <Stack className="justify-content-center align-items-stretch py-5 mx-2 login-page full-height-page" direction="horizontal">
+        <Stack className="justify-content-center align-items-stretch py-5 login-page full-height-page" direction="horizontal">
             <div className="p-4 mb-2 basic-container-border">
-                <MyHeader title={t('p.loginHeader')}/>
+                <MyHeader title={t('p.loginHeader')} />
                 {renderForm()}
             </div>
         </Stack>
@@ -50,7 +50,7 @@ function Login() {
         return (
             <>
                 <h6 className="display-6">{t('p.fillLoginPageInfo')}</h6>
-                <LoginForm formSave={formSave}/> 
+                <LoginForm formSave={formSave} />
             </>
         )
     }
