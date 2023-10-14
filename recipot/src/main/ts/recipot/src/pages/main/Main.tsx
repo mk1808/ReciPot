@@ -33,20 +33,30 @@ function Main() {
     const onGetRandomSuccess = (response: any) => {
         setRandomRecipe(response.value && response.value[0]); unlock()
     }
-
     useEffect(() => {
+        getRandomRecipe();
+        getNewestRecipes();
+        getStats();
+    }, [])
+
+    function getRandomRecipe() {
         nextAndLock(() => {
             recipesApi.getRandom({ number: 1 }, onGetRandomSuccess)
         })
+    }
+
+    function getNewestRecipes() {
         recipesApi.getPredefinedFilter({ pageNum: 0, pageSize: 20, type: "NEWEST" }, (response: any) => {
             setRecipes(response.value.content)
         })
-        statisticsApi.getGeneralStatistics((response) => { setStatistics(response.value) })
+    }
 
-    }, [])
+    function getStats() {
+        statisticsApi.getGeneralStatistics((response) => { setStatistics(response.value) })
+    }
 
     return (
-        <div className=" main-page">
+        <div className="main-page">
             <Col className="main-column">
                 <Row className="recipe-circle-container">
                     {randomRecipe && renderRecipeCardCircle()}
@@ -72,8 +82,7 @@ function Main() {
         return (
             <div>
                 <Stack direction="horizontal" gap={3} className='flex-wrap justify-content-center py-3 title'>
-                    <MyHeader title={t('p.newestRecipes')} level="2" dispLevel="3" />
-                    <MyButton.Primary onClick={onMoreNewRecipes}>{t('p.more')} <FaMagnifyingGlass className="ms-3" /> </MyButton.Primary>
+                    {renderHeaderWithButton()}
                 </Stack>
                 <SlidingCards recipes={recipes} onGoToRecipe={onGoToRecipe} />
                 <div />
@@ -81,12 +90,37 @@ function Main() {
         )
     }
 
+    function renderHeaderWithButton() {
+        return (<>
+            <MyHeader title={t('p.newestRecipes')} level="2" dispLevel="3" />
+            <MyButton.Primary onClick={onMoreNewRecipes}>
+                {t('p.more')}
+                <FaMagnifyingGlass className="ms-3" />
+            </MyButton.Primary>
+        </>)
+    }
+
     function renderStatistics() {
         return (
             <div className='d-flex flex-md-row flex-column flex-wrap g-5 justify-content-center py-3 main-container my-4 mx-auto'>
-                <StatisticCircle value={statistics?.recipesCount ?? 0} size={150} ringSize={30} label={t('p.recipesCount')} />
-                <StatisticCircle value={statistics?.usersCount ?? 0} size={150} ringSize={30} label={t('p.usersCount')} />
-                <StatisticCircle value={statistics?.allRecipeCollectionsCount ?? 0} size={150} ringSize={30} label={t('p.allRecipeCollectionsCount')} />
+                <StatisticCircle
+                    value={statistics?.recipesCount ?? 0}
+                    size={150}
+                    ringSize={30}
+                    label={t('p.recipesCount')}
+                />
+                <StatisticCircle
+                    value={statistics?.usersCount ?? 0}
+                    size={150}
+                    ringSize={30}
+                    label={t('p.usersCount')}
+                />
+                <StatisticCircle
+                    value={statistics?.allRecipeCollectionsCount ?? 0}
+                    size={150}
+                    ringSize={30}
+                    label={t('p.allRecipeCollectionsCount')}
+                />
             </div>
         )
     }
