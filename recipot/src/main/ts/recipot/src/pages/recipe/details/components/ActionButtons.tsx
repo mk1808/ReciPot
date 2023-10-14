@@ -46,6 +46,12 @@ function ActionButtons({
 
     const actionButtons = useMemo(getActionButtons, [isUser, isOwner, isInFavCollection, accessType])
 
+    useEffect(() => {
+        setAccessType(recipe.accessType);
+        setIsUser(!!user);
+        checkFavourite();
+    }, [user])
+
     function checkFavourite() {
         let items = favCollection?.recipeCollectionItems;
         let isInFav = items && items.length > 0 && items.filter((item) => item.recipe.id === recipe.id).length > 0;
@@ -70,12 +76,6 @@ function ActionButtons({
         alerts.showSuccessAlert(t('p.addedToCollection'));
         setIsInFavCollection(true);
     }
-
-    useEffect(() => {
-        setAccessType(recipe.accessType);
-        setIsUser(!!user);
-        checkFavourite();
-    }, [user])
 
     function getActionButtons(): ActionButtonAttrs[] {
         return [
