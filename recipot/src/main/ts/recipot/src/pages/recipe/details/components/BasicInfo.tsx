@@ -1,15 +1,16 @@
+import { useMemo } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { Recipe } from "../../../../data/types";
-import { MdAccessTime, MdWork } from "react-icons/md";
-import { GiCookingPot } from "react-icons/gi";
-import { VscTools } from "react-icons/vsc";
 import { FaInternetExplorer } from "react-icons/fa6";
-import Info from "../../../../components/basicUi/Info";
+import { GiCookingPot } from "react-icons/gi";
+import { MdAccessTime, MdWork } from "react-icons/md";
+import { VscTools } from "react-icons/vsc";
+
 import HashTagList from "../../../../components/basicUi/HashTagList";
-import { convertToTime } from "../../../../utils/DateUtils";
+import Info from "../../../../components/basicUi/Info";
+import { Recipe } from "../../../../data/types";
 import useMyNav from "../../../../hooks/useMyNav";
-import { useMemo } from "react";
+import { convertToTime } from "../../../../utils/DateUtils";
 
 type Props = {
     recipe: Recipe

@@ -1,8 +1,9 @@
+import { t } from "i18next";
 import { Stack } from "react-bootstrap";
+
 import StarSelectInput from "../../../../components/basicUi/StarSelectInput";
 import { Recipe } from "../../../../data/types";
 import { roundToHalf } from "../../../../utils/MathUtils";
-import { t } from "i18next";
 
 type Props = {
     recipe: Recipe,

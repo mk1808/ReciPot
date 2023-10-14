@@ -1,12 +1,13 @@
 import { useRef } from "react";
-import CustomModal from "../../../../../components/basicUi/CustomModal";
-import AddToCollectionForm from "./AddToCollectionForm";
 import { useTranslation } from "react-i18next";
-import { Recipe, RecipeCollection, RecipeCollectionItem, Response, SharedRecipe } from "../../../../../data/types";
-import { initAs } from "../../../../../utils/ObjectUtils";
+
+import AddToCollectionForm from "./AddToCollectionForm";
 import recipeCollectionsApi from "../../../../../api/RecipeCollectionsApi";
+import CustomModal from "../../../../../components/basicUi/CustomModal";
+import { Recipe, RecipeCollection, RecipeCollectionItem, Response, SharedRecipe } from "../../../../../data/types";
 import useAlerts from "../../../../../hooks/useAlerts";
 import { initFormSave } from "../../../../../utils/FormInputUtils";
+import { initAs } from "../../../../../utils/ObjectUtils";
 
 type Props = {
     showModal: boolean,

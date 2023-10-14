@@ -1,7 +1,8 @@
-import Form from 'react-bootstrap/Form';
 import { useEffect, useRef } from 'react';
-import { checkValidity } from '../../utils/FormInputUtils';
+import Form from 'react-bootstrap/Form';
+
 import { renderFormGroup } from './CommonInputElements';
+import { checkValidity } from '../../utils/FormInputUtils';
 
 type Props = {
     name: string,

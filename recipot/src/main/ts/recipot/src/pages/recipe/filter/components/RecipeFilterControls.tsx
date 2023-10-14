@@ -1,18 +1,19 @@
-import MyCheckbox from "../../../../components/basicUi/MyCheckbox";
-import { useTranslation } from 'react-i18next';
-import MySelect from "../../../../components/basicUi/MySelect";
-import { CategoryDto, HashTag, Ingredient, Response } from "../../../../data/types";
-import MyInput from "../../../../components/basicUi/MyInput";
-import TimeAmountInput from "../../../../components/complex/TimeAmountInput";
-import FilteredSelect from "../../../../components/complex/FilteredSelect";
-import dictionariesApi from "../../../../api/DictionariesApi";
 import { useContext, useEffect, useState, useMemo } from "react";
+import { useTranslation } from 'react-i18next';
+
+import dictionariesApi from "../../../../api/DictionariesApi";
+import MyCheckbox from "../../../../components/basicUi/MyCheckbox";
+import MyInput from "../../../../components/basicUi/MyInput";
+import MySelect from "../../../../components/basicUi/MySelect";
+import FilteredSelect from "../../../../components/complex/FilteredSelect";
+import TimeAmountInput from "../../../../components/complex/TimeAmountInput";
+import { EnumDictionaryContext, enumsStateModel } from "../../../../context/EnumDictionaryContext";
+import { UsersContext } from "../../../../context/UserContext";
+import { CategoryDto, HashTag, Ingredient, Response } from "../../../../data/types";
+import { SelectOption } from "../../../../data/utilTypes";
 import { mapCategoriesToSearchList, onFilteredHashTagSearch, onFilteredIngredientSearch, searchCategory } from "../../../../utils/DictionariesUtils";
 import { InputAttrsType, inputAttrs } from "../../../../utils/FormInputUtils";
 import { RecipeFilterContext, RecipeFilterContextType, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
-import { EnumDictionaryContext, enumsStateModel } from "../../../../context/EnumDictionaryContext";
-import { UsersContext } from "../../../../context/UserContext";
-import { SelectOption } from "../../../../data/utilTypes";
 import { areCategoriesDifferent, getAverageRating, matchCategories } from "../utils/RecipeSearchUtils";
 
 function RecipeFilterControls() {

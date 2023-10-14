@@ -1,15 +1,16 @@
-import { initFcn } from "../../utils/ObjectUtils";
+import { useEffect, useRef, useState } from "react";
+import { Stack } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
-import { FaRegClock, FaAngleUp, FaAngleDown } from "react-icons/fa6";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
-import { Stack } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import MyButton from "../basicUi/MyButton";
-import { useEffect, useRef, useState } from "react";
+import { FaRegClock, FaAngleUp, FaAngleDown } from "react-icons/fa6";
+
 import './styles.scss';
 import { addZeroIfNeeded } from "../../utils/DateUtils";
+import { initFcn } from "../../utils/ObjectUtils";
 import { renderFormGroup } from "../basicUi/CommonInputElements";
+import MyButton from "../basicUi/MyButton";
 
 type Props = {
     name: string,

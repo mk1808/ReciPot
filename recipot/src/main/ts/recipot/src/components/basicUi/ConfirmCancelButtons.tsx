@@ -1,8 +1,9 @@
 import { Stack } from 'react-bootstrap';
 import './styles.scss';
-import MyButton from './MyButton';
-import { useTranslation } from 'react-i18next';
 import { StackDirection } from 'react-bootstrap/esm/Stack';
+import { useTranslation } from 'react-i18next';
+
+import MyButton from './MyButton';
 
 type Props = {
     onCancel: () => any,

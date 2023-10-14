@@ -1,24 +1,25 @@
 import { useEffect, useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
+
 import './App.scss';
-import Header from './layouts/header/Header';
+import ProtectedRoute from './config/ProtectedRoute';
+import AlertContextProvider from './context/AlertContext';
+import { EnumDictionaryContextProvider } from './context/EnumDictionaryContext';
+import { UserContextProvider, UserContextType, UsersDispatchContext } from './context/UserContext';
 import Footer from './layouts/footer/Footer';
-import Main from './pages/main/Main';
+import Header from './layouts/header/Header';
 import Login from './pages/auth/login/Login';
 import Register from './pages/auth/register/Register';
-import NotFound from './pages/other/notFound/NotFound';
-import RecipeDetails from './pages/recipe/details/RecipeDetails';
-import RecipeAdd from './pages/recipe/add/RecipeAdd';
+import Main from './pages/main/Main';
 import NoAccess from './pages/other/noAccess/NoAccess';
-import RecipeCollectionList from './pages/recipeCollection/list/RecipeCollectionList';
-import RecipeFilter from './pages/recipe/filter/RecipeFilter';
-import { UserContextProvider, UserContextType, UsersDispatchContext } from './context/UserContext';
+import NotFound from './pages/other/notFound/NotFound';
 import Test from './pages/other/test/Test';
-import UserDetails from './pages/user/UserDetails';
-import AlertContextProvider from './context/AlertContext';
-import ProtectedRoute from './config/ProtectedRoute';
-import { EnumDictionaryContextProvider } from './context/EnumDictionaryContext';
+import RecipeAdd from './pages/recipe/add/RecipeAdd';
+import RecipeDetails from './pages/recipe/details/RecipeDetails';
 import RecipeEdit from './pages/recipe/edit/RecipeEdit';
+import RecipeFilter from './pages/recipe/filter/RecipeFilter';
+import RecipeCollectionList from './pages/recipeCollection/list/RecipeCollectionList';
+import UserDetails from './pages/user/UserDetails';
 
 function App() {
 	const usersDispatchContext = useContext(UsersDispatchContext);

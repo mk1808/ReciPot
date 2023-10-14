@@ -1,7 +1,9 @@
-import { AlertsContextType, AlertsDispatchContext } from "../context/AlertContext";
 import { useContext } from 'react';
-import { Response } from "../data/types";
 import { useTranslation } from "react-i18next";
+
+import { AlertsContextType, AlertsDispatchContext } from "../context/AlertContext";
+import { Response } from "../data/types";
+
 
 function useAlerts() {
     const { t } = useTranslation();

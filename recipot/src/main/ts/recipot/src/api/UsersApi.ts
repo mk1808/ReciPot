@@ -1,5 +1,5 @@
-import { AppUser, Response } from "../data/types";
 import restClient from "./RestClient";
+import { AppUser, Response } from "../data/types";
 
 function UsersApi() {
     const PREFIX = '/users';

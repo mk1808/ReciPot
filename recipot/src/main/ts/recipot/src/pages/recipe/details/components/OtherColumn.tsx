@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { CategoryDto, Recipe } from "../../../../data/types";
-import RecipeCard from "../../../../components/complex/RecipeCard";
-import CategoryCard from "../../../../components/complex/CategoryCard";
+
 import MyHeader from "../../../../components/basicUi/MyHeader";
-import useMyNav from "../../../../hooks/useMyNav";
+import CategoryCard from "../../../../components/complex/CategoryCard";
+import RecipeCard from "../../../../components/complex/RecipeCard";
+import { CategoryDto, Recipe } from "../../../../data/types";
 import useCategories from "../../../../hooks/useCategories";
+import useMyNav from "../../../../hooks/useMyNav";
 import useOtherRecipes from "../../../../hooks/useOtherRecipes";
 
 type Props = {

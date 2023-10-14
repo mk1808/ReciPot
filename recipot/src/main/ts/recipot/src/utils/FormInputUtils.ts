@@ -1,5 +1,5 @@
-import { FormAction, FormSave, MyForm } from "../data/utilTypes";
 import { initAs } from "./ObjectUtils";
+import { FormAction, FormSave, MyForm } from "../data/utilTypes";
 
 export function checkValidity(input?: any, isValid?: boolean) {
     if (isValid) {

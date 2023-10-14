@@ -1,12 +1,13 @@
+import { FormEvent, useReducer } from 'react';
 import { Col, Form, Row } from 'react-bootstrap';
 import './styles.scss';
 import { useTranslation } from 'react-i18next';
-import MyInput from '../../../components/basicUi/MyInput';
+
 import MyButton from '../../../components/basicUi/MyButton';
-import { FormEvent, useReducer } from 'react';
-import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, preventFurtherAction, inputAttrs } from '../../../utils/FormInputUtils';
-import { FormAction, FormSave, MyForm } from '../../../data/utilTypes';
+import MyInput from '../../../components/basicUi/MyInput';
 import { UserLoginDto } from '../../../data/types';
+import { FormAction, FormSave, MyForm } from '../../../data/utilTypes';
+import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, preventFurtherAction, inputAttrs } from '../../../utils/FormInputUtils';
 
 type Props = {
     formSave: FormSave<UserLoginDto>

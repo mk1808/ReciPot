@@ -1,7 +1,7 @@
+import restClient from "./RestClient";
 import { RecipeCollection, RecipeCollectionItem, Response } from "../data/types";
 import { ResponsePage } from "../data/utilTypes";
 import { createPathParams } from "../utils/RestUtils";
-import restClient from "./RestClient";
 
 function RecipeCollectionsApi() {
     const PREFIX = '/recipeCollections';

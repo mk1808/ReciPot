@@ -1,5 +1,5 @@
-import { GeneralStatisticsDto, Response, UserStatisticsDto } from "../data/types";
 import restClient from "./RestClient";
+import { GeneralStatisticsDto, Response, UserStatisticsDto } from "../data/types";
 
 function StatisticsApi() {
     const PREFIX = '/statistics';

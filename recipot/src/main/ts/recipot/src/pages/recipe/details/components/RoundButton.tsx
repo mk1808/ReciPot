@@ -1,5 +1,5 @@
-import Tooltip from "../../../../components/basicUi/Tooltip";
 import MyButton from "../../../../components/basicUi/MyButton";
+import Tooltip from "../../../../components/basicUi/Tooltip";
 
 type Props = {
     tooltipText: string,

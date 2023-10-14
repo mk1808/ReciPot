@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
+import { FaEllipsisVertical } from "react-icons/fa6";
+
 import { getPageNumbers } from "../../utils/VerticalPaginationUtils";
 import MyButton from "../basicUi/MyButton";
-import { FaEllipsisVertical } from "react-icons/fa6";
 import './styles.scss';
 
 type Props = {

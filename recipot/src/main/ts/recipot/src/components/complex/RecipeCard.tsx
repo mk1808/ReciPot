@@ -1,14 +1,15 @@
 import { forwardRef } from "react";
 import { Card, Col, Row, Stack } from 'react-bootstrap';
 import './styles.scss';
-import MyButton from '../basicUi/MyButton';
 import { useTranslation } from 'react-i18next';
-import { Recipe } from '../../data/types';
+
 import { renderCategories, renderMore, renderRating } from './RecipeCardCommonElements';
+import { Recipe } from '../../data/types';
+import useMyNav from "../../hooks/useMyNav";
+import { onImageLoadError } from "../../utils/RestUtils";
 import { getShorterText } from '../../utils/TextUtils';
 import HashTagList from '../basicUi/HashTagList';
-import { onImageLoadError } from "../../utils/RestUtils";
-import useMyNav from "../../hooks/useMyNav";
+import MyButton from '../basicUi/MyButton';
 
 type Props = {
     recipe: Recipe,

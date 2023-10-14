@@ -1,9 +1,10 @@
-import { useTranslation } from "react-i18next";
 import { Card, Stack } from "react-bootstrap";
-import MyImage from "../../../../components/basicUi/MyImage";
+import { useTranslation } from "react-i18next";
 import { BsStarFill } from "react-icons/bs";
-import { format } from "../../../../utils/DateUtils";
+
 import defaultUserAvatar from '../../../../assets/images/default_user_avatar.png';
+import MyImage from "../../../../components/basicUi/MyImage";
+import { format } from "../../../../utils/DateUtils";
 
 type Props = {
     comment: any

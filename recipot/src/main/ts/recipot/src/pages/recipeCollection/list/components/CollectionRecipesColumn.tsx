@@ -1,23 +1,24 @@
 import { useContext, useState } from "react";
-import RecipeCard from "../../../../components/complex/RecipeCard";
 import { Stack } from "react-bootstrap";
-import { RecipeCollectionListContext, RecipeCollectionListContextType, RecipeCollectionListDispatchContext } from "../context/RecipeCollectionListContext";
 import { useTranslation } from "react-i18next";
-import { Recipe, RecipeCollection } from "../../../../data/types";
-import MyHeader from "../../../../components/basicUi/MyHeader";
-import Tooltip from "../../../../components/basicUi/Tooltip";
-import MyButton from "../../../../components/basicUi/MyButton";
 import { FaFolderMinus } from "react-icons/fa6";
+
 import recipeCollectionsApi from "../../../../api/RecipeCollectionsApi";
-import DeleteFromCollectionDialog from "../dialogs/DeleteFromCollectionDialog";
-import { initAs } from "../../../../utils/ObjectUtils";
-import { getCollectionName } from "../../../../utils/TextUtils";
-import NoContent from "../../../../components/complex/NoContent";
+import MorePagesButton from "../../../../components/basicUi/MorePagesButton";
+import MyButton from "../../../../components/basicUi/MyButton";
+import MyHeader from "../../../../components/basicUi/MyHeader";
 import MySpinner from "../../../../components/basicUi/MySpinner";
 import PageDivider from "../../../../components/basicUi/PageDivider";
-import MorePagesButton from "../../../../components/basicUi/MorePagesButton";
+import Tooltip from "../../../../components/basicUi/Tooltip";
+import NoContent from "../../../../components/complex/NoContent";
+import RecipeCard from "../../../../components/complex/RecipeCard";
+import { Recipe, RecipeCollection } from "../../../../data/types";
 import useAlerts from "../../../../hooks/useAlerts";
 import useMyNav from "../../../../hooks/useMyNav";
+import { initAs } from "../../../../utils/ObjectUtils";
+import { getCollectionName } from "../../../../utils/TextUtils";
+import { RecipeCollectionListContext, RecipeCollectionListContextType, RecipeCollectionListDispatchContext } from "../context/RecipeCollectionListContext";
+import DeleteFromCollectionDialog from "../dialogs/DeleteFromCollectionDialog";
 
 function CollectionRecipesColumn() {
     const { t } = useTranslation();

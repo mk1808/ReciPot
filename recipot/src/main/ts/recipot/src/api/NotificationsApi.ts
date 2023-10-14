@@ -1,6 +1,6 @@
+import restClient from "./RestClient";
 import { Notification, Response } from "../data/types";
 import { createPathParams } from "../utils/RestUtils";
-import restClient from "./RestClient";
 
 function NotificationsApi() {
     const PREFIX = '/notifications';
