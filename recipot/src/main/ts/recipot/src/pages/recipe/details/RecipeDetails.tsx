@@ -42,29 +42,55 @@ function RecipeDetails() {
     useEffect(() => {
         setIsLoaded(false);
         setOtherRecipes(otherRecipes.slice(0, 1));
-        recipesApi.getRecipe(id, onGetRecipeSuccess)
+        getRecipe();
         getOpinions(id);
-        recipesApi.getRecipeOwner(id, onGetRecipeOwnerSuccess);
-        recipeCollectionsApi.getUserCollectionByName('Favourite', onGetUserCollectionByNameSuccess)
+        getRecipeOwner();
+        getUserFavCollection();
         setOpinions([]);
         setNote({});
     }, [params])
 
     useEffect(() => {
         if (user) {
-            recipesApi.getRecipeOwner(id, onGetRecipeOwnerSuccess);
-            privateNotesApi.getPrivateNoteByRecipeId(id, (response) => { setNote(response.value); setIsNoteLoaded(true) }, (errorResponse) => { console.warn(errorResponse) });
+            getRecipeOwner();
+            getPrivateNote();
         }
     }, [user])
+
+    function getRecipe() {
+        recipesApi.getRecipe(id, onGetRecipeSuccess);
+    }
 
     function getOpinions(id: string) {
         opinionsApi.getRecipeOpinions(id, (response) => { setOpinions(response.value) })
     }
 
+    function getRecipeOwner() {
+        recipesApi.getRecipeOwner(id, onGetRecipeOwnerSuccess);
+    }
+
+    function getUserFavCollection() {
+        recipeCollectionsApi.getUserCollectionByName('Favourite', onGetUserCollectionByNameSuccess)
+    }
+
+    function getPrivateNote() {
+        privateNotesApi.getPrivateNoteByRecipeId(id, (response) => {
+            setNote(response.value); 
+            setIsNoteLoaded(true)
+        });
+    }
+
     function onGetRecipeSuccess(response: any) {
         setRecipe(response.value);
         setIsLoaded(true);
-        const filter: RecipeSearchDto = buildRecipeSearchDto({ categories: response.value.categories, recipesSort: { fieldName: "created", order: "DESC" } });
+        getOtherRecipes(response.value.categories);
+    }
+
+    function getOtherRecipes(categories: any) {
+        const filter: RecipeSearchDto = buildRecipeSearchDto({
+            categories: categories,
+            recipesSort: { fieldName: "created", order: "DESC" }
+        });
         recipesApi.search(filter, { pageNum: 0, pageSize: 10 }, (response) => { setOtherRecipes(response.value.content) });
     }
 
@@ -110,7 +136,7 @@ function RecipeDetails() {
                 <ActionButtons recipe={recipe} isOwner={isOwner} user={user} favCollection={favRecipeCollection} />
                 <MyHeader title={recipe.name} />
                 <AuthorAndDate recipe={recipe} />
-                <div>{renderBreadcrumps()}</div>
+                {renderBreadcrumps()}
                 <BasicInfo recipe={recipe} />
                 <IngredientList recipe={recipe} />
                 <Steps recipe={recipe} />
