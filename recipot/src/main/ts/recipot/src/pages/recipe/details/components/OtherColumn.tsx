@@ -62,14 +62,14 @@ function OtherColumn({
                 showChildren={false}
                 className="category-no-border"
                 key={category.id}
-                onCategorySelect={() => onCategoryClick(category)} />
+                onCategorySelect={(category) => onCategoryClick(category)} />
         )
     }
 
     function renderRecipes() {
         return (
             <div className="list mt-1">
-                {(selectedRecipes.length > 0 ? selectedRecipes : recipes.slice(0, 1)).map(renderSingleRecipe)}
+                {selectedRecipes.map(renderSingleRecipe)}
             </div>
         )
     }

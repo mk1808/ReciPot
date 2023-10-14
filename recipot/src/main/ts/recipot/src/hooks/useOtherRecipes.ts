@@ -32,7 +32,7 @@ function useOtherRecipes({
         setSelectedRecipes(recipes.slice(0, numberOfElements))
     }, [isLoaded, containerHeight, recipes, recipeCardHeight])
 
-    return selectedRecipes;
+    return selectedRecipes.length > 0 ? selectedRecipes : recipes.slice(0, 1);
 }
 
 export default useOtherRecipes;

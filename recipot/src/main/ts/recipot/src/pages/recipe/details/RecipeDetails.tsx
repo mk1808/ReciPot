@@ -74,10 +74,7 @@ function RecipeDetails() {
     }
 
     function getPrivateNote() {
-        privateNotesApi.getPrivateNoteByRecipeId(id, (response) => {
-            setNote(response.value); 
-            setIsNoteLoaded(true)
-        });
+        privateNotesApi.getPrivateNoteByRecipeId(id, onGetPrivateNoteSuccess);
     }
 
     function onGetRecipeSuccess(response: any) {
@@ -101,6 +98,11 @@ function RecipeDetails() {
 
     function onGetUserCollectionByNameSuccess(response: any) {
         setFavRecipeCollection(response.value);
+    }
+
+    function onGetPrivateNoteSuccess(response: any) {
+        setNote(response.value);
+        setIsNoteLoaded(true)
     }
 
     return (

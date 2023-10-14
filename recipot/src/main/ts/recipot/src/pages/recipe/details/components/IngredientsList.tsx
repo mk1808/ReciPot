@@ -16,7 +16,7 @@ function IngredientList({
 
     const { t } = useTranslation();
     const [checkedIngredients, setCheckedIngredients] = useState<string[]>([])
-    const shouldRenderIngredients: boolean = recipe?.recipeIngredients?.length > 0;
+    const shouldRenderIngredients = () => recipe?.recipeIngredients?.length > 0;
     const isRecipeIngredientChecked = (ingredientId: string) => checkedIngredients?.indexOf(ingredientId) >= 0;
 
     useEffect(() => {
@@ -29,7 +29,7 @@ function IngredientList({
         updateLocalStorage(newValue, recipe)
     }
 
-    if (shouldRenderIngredients) {
+    if (shouldRenderIngredients()) {
         return (
             <>
                 <div className="mb-5 px-5 ingredients">

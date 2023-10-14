@@ -19,17 +19,19 @@ function BreadCrumbs({
     const [categories, setCategories] = useState<Category[][]>([]);
     const nav = useMyNav();
 
-    const firstCategory = {
+    const firstCategory: BreadCrumpAttrs = {
         onClick: onGoToMainPage,
         className: "cursor-pointer",
-        text: t("p.breadCrumbsMain")
+        text: t("p.breadCrumbsMain"),
+        key: "first"
     }
-    const lastCategory = {
+    const lastCategory: BreadCrumpAttrs = {
         onClick: () => { },
         className: "cursor-default",
-        text: recipe.name
+        text: recipe.name,
+        key: "last"
     }
-    const getBetweenCategory = (category: Category) => ({
+    const getBetweenCategory = (category: Category): BreadCrumpAttrs => ({
         onClick: () => onGoToCategoryFilter(category),
         className: "cursor-pointer",
         text: category.name,
@@ -85,7 +87,7 @@ function BreadCrumbs({
                 active
                 onClick={onClick}
                 className={className}
-                {...(key ? { key: key } : {})}
+                key={key}
             >
                 {text}
             </Breadcrumb.Item>)
