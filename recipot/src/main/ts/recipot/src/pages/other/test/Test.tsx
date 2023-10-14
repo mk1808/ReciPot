@@ -1,39 +1,40 @@
 
-import { Button, Form, Stack } from "react-bootstrap";
 import { useContext, useEffect, useState, useReducer } from "react";
+import { Button, Form, Stack } from "react-bootstrap";
+
 import './styles.scss';
-import FilteredSelect from "../../../components/complex/FilteredSelect";
 import dictionariesApi from "../../../api/DictionariesApi";
-import { CategoryDto, Response, RecipeStep, Recipe, HashTag } from "../../../data/types";
+import filesApi from "../../../api/FilesApi";
+import CustomModal from "../../../components/basicUi/CustomModal";
 import HashTagBadge from "../../../components/basicUi/HashTagBadge";
-import SideOffcanvas from "../../../components/basicUi/SideOffcanvas";
-import StatisticCircle from "../../../components/complex/StatisticCircle";
-import RecipeCard from "../../../components/complex/RecipeCard";
+import Info from "../../../components/basicUi/Info";
 import MyAlert from "../../../components/basicUi/MyAlert";
 import MyButton from "../../../components/basicUi/MyButton";
+import MyCheckbox from "../../../components/basicUi/MyCheckbox";
+import MyFileInput from "../../../components/basicUi/MyFileInput";
+import MyImage from "../../../components/basicUi/MyImage";
+import MyInput from "../../../components/basicUi/MyInput";
+import MySelect from "../../../components/basicUi/MySelect";
+import MySwitch from "../../../components/basicUi/MySwitch";
+import MyTextarea from "../../../components/basicUi/MyTextarea";
+import SideOffcanvas from "../../../components/basicUi/SideOffcanvas";
+import StarSelectInput from "../../../components/basicUi/StarSelectInput";
 import Tooltip from "../../../components/basicUi/Tooltip";
-import Info from "../../../components/basicUi/Info";
-import CustomModal from "../../../components/basicUi/CustomModal";
+import CategoryCard from "../../../components/complex/CategoryCard";
+import FilteredSelect from "../../../components/complex/FilteredSelect";
+import RecipeCard from "../../../components/complex/RecipeCard";
+import RecipeCardCircle from "../../../components/complex/RecipeCardCircle";
 import RecipeStepsNumbers from "../../../components/complex/RecipeStepsNumbers";
 import SlidingCards from "../../../components/complex/SlidingCards";
-import MyInput from "../../../components/basicUi/MyInput";
-import MyTextarea from "../../../components/basicUi/MyTextarea";
-import MyCheckbox from "../../../components/basicUi/MyCheckbox";
-import MySelect from "../../../components/basicUi/MySelect";
-import MyFileInput from "../../../components/basicUi/MyFileInput";
-import MySwitch from "../../../components/basicUi/MySwitch";
+import StatisticCircle from "../../../components/complex/StatisticCircle";
+import TimeAmountInput from "../../../components/complex/TimeAmountInput";
 import VerticalPagination from "../../../components/complex/VerticalPagination";
 import { AlertsContextType, AlertsDispatchContext } from "../../../context/AlertContext";
-import RecipeCardCircle from "../../../components/complex/RecipeCardCircle";
-import MyImage from "../../../components/basicUi/MyImage";
-import { initAs } from "../../../utils/ObjectUtils";
-import CategoryCard from "../../../components/complex/CategoryCard";
-import TimeAmountInput from "../../../components/complex/TimeAmountInput";
-import { mapCategoriesToSearchList, onFilteredHashTagSearch, searchCategory } from "../../../utils/DictionariesUtils";
-import StarSelectInput from "../../../components/basicUi/StarSelectInput";
-import { inputAttrs } from "../../../utils/FormInputUtils";
-import filesApi from "../../../api/FilesApi";
+import { CategoryDto, Response, RecipeStep, Recipe, HashTag } from "../../../data/types";
 import { SelectOption } from "../../../data/utilTypes";
+import { mapCategoriesToSearchList, onFilteredHashTagSearch, searchCategory } from "../../../utils/DictionariesUtils";
+import { inputAttrs } from "../../../utils/FormInputUtils";
+import { initAs } from "../../../utils/ObjectUtils";
 
 function Test() {
     const recipe = initAs<Recipe>(

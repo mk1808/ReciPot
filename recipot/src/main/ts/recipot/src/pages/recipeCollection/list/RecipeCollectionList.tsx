@@ -1,10 +1,11 @@
 import './styles.scss';
-import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+
 import CollectionRecipesColumn from './components/CollectionRecipesColumn';
-import { RecipeCollectionListContextProvider } from './context/RecipeCollectionListContext';
 import CollectionRecipesPagination from './components/CollectionRecipesPagination';
 import SavedCollectionsColumn from './components/SavedCollectionsColumn';
+import { RecipeCollectionListContextProvider } from './context/RecipeCollectionListContext';
 
 function RecipeCollectionList() {
 

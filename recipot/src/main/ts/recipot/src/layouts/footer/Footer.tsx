@@ -1,9 +1,10 @@
+import { Stack } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import { useTranslation } from 'react-i18next';
 import { FaCopyright, FaGithub } from 'react-icons/fa6';
-import Tooltip from '../../components/basicUi/Tooltip';
-import { Stack } from 'react-bootstrap';
+
 import recipotIcon from '../../assets/images/logo2.png';
+import Tooltip from '../../components/basicUi/Tooltip';
 import './../styles.scss';
 
 function Footer() {

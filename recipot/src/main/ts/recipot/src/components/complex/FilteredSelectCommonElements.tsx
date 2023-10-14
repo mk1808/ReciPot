@@ -1,9 +1,10 @@
 
 import { Stack } from "react-bootstrap";
-import HashTagBadge from '../basicUi/HashTagBadge';
-import { BsCheckSquareFill, BsSquare } from 'react-icons/bs';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
+import { BsCheckSquareFill, BsSquare } from 'react-icons/bs';
+
+import HashTagBadge from '../basicUi/HashTagBadge';
 
 export function renderDropdownComponent(parameters: { buttonContent: any, dropdownContent: any, onDropdownToggle: any, disabled: boolean, className: string }) {
     return (

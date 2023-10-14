@@ -1,11 +1,12 @@
+import { useState } from 'react';
 import { Stack } from 'react-bootstrap';
 import './styles.scss';
-import { FaTrashCan, FaCheck, FaBan } from "react-icons/fa6";
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Tooltip from '../basicUi/Tooltip';
+import { FaTrashCan, FaCheck, FaBan } from "react-icons/fa6";
+
 import { ComplexListElementType } from '../../data/utilTypes';
 import { initAs } from '../../utils/ObjectUtils';
+import Tooltip from '../basicUi/Tooltip';
 
 type Props = {
     element: ComplexListElementType,

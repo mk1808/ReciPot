@@ -1,9 +1,10 @@
-import Form from 'react-bootstrap/Form';
-import { asHash } from '../../utils/ObjectUtils';
 import { useEffect, useRef, useState } from 'react';
-import { checkValidity } from '../../utils/FormInputUtils';
-import { SelectOption } from '../../data/utilTypes'
+import Form from 'react-bootstrap/Form';
+
 import { renderFormGroup } from './CommonInputElements';
+import { SelectOption } from '../../data/utilTypes'
+import { checkValidity } from '../../utils/FormInputUtils';
+import { asHash } from '../../utils/ObjectUtils';
 
 type Props<T> = {
     name: string,

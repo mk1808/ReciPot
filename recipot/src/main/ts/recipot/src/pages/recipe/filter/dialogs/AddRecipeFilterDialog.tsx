@@ -1,12 +1,13 @@
 import { useContext, useRef } from "react";
-import CustomModal from "../../../../components/basicUi/CustomModal";
 import { useTranslation } from "react-i18next";
+
 import AddRecipeFilterForm from "./AddRecipeFilterForm";
-import { RecipeFilterContext, RecipeFilterContextType, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 import savedRecipeFiltersApi from "../../../../api/SavedRecipeFiltersApi";
+import CustomModal from "../../../../components/basicUi/CustomModal";
+import { RecipeFilter } from "../../../../data/types";
 import useAlerts from "../../../../hooks/useAlerts";
 import { initFormSave } from "../../../../utils/FormInputUtils";
-import { RecipeFilter } from "../../../../data/types";
+import { RecipeFilterContext, RecipeFilterContextType, RecipeFilterDispatchContext } from "../context/RecipeFilterContext";
 
 type Props = {
     showModal: boolean,

@@ -1,7 +1,8 @@
 import { useTranslation } from "react-i18next";
-import { Recipe } from "../../../../data/types";
-import RecipeStepsNumbers from "../../../../components/complex/RecipeStepsNumbers";
+
 import MyHeader from "../../../../components/basicUi/MyHeader";
+import RecipeStepsNumbers from "../../../../components/complex/RecipeStepsNumbers";
+import { Recipe } from "../../../../data/types";
 
 type Props = {
     recipe: Recipe

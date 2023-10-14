@@ -1,7 +1,8 @@
-import CustomModal from "../../../../../components/basicUi/CustomModal";
 import { useTranslation } from "react-i18next";
-import { Recipe } from "../../../../../data/types";
+
 import recipesApi from "../../../../../api/RecipesApi";
+import CustomModal from "../../../../../components/basicUi/CustomModal";
+import { Recipe } from "../../../../../data/types";
 import useAlerts from "../../../../../hooks/useAlerts";
 import useMyNav from "../../../../../hooks/useMyNav";
 
@@ -30,10 +31,6 @@ function DeleteRecipeDialog({
         nav.toUser();
         setTimeout(() => alerts.showSuccessAlert(t(response.message)), 1000)
     }
-    
-    function getQuestionText() {
-        return `${t("p.deleteRecipeQuestion")} ${data.name}?`;
-    }
 
     return (
         <CustomModal shouldShow={showModal} onClose={onClose} onSubmit={onSubmit}>
@@ -42,7 +39,7 @@ function DeleteRecipeDialog({
     );
 
     function renderContent() {
-        return (<>{getQuestionText()}</>)
+        return `${t("p.deleteRecipeQuestion")} ${data.name}?`;
     }
 }
 

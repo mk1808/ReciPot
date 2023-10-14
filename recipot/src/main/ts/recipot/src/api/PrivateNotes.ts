@@ -1,5 +1,5 @@
-import { PrivateNote, Response } from "../data/types";
 import restClient from "./RestClient";
+import { PrivateNote, Response } from "../data/types";
 
 function PrivateNotesApi() {
     const PREFIX = '/privateNotes';

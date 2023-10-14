@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { createUrl } from "../pages/recipe/filter/utils/RecipeSearchUtils";
+
 import { Category, CategoryDto } from "../data/types";
 import { NavOpen } from "../data/utilTypes";
+import { createUrl } from "../pages/recipe/filter/utils/RecipeSearchUtils";
 
 function useMyNav() {
     const navigate = useNavigate();

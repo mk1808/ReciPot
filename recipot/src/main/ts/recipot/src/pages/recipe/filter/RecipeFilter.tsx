@@ -1,11 +1,12 @@
-import MyHeader from '../../../components/basicUi/MyHeader';
 import './styles.scss';
 import { useTranslation } from 'react-i18next';
+
 import FilteredRecipesColumn from './components/FilteredRecipesColumn';
 import FilteredRecipesPagination from './components/FilteredRecipesPagination';
-import { RecipeFilterContextContextProvider } from './context/RecipeFilterContext';
-import SortAndFiltersColumn from './components/SortAndFiltersColumn';
 import SavedRecipeFiltersColumn from './components/SavedRecipeFiltersColumn';
+import SortAndFiltersColumn from './components/SortAndFiltersColumn';
+import { RecipeFilterContextContextProvider } from './context/RecipeFilterContext';
+import MyHeader from '../../../components/basicUi/MyHeader';
 
 function RecipeFilter() {
     const { t } = useTranslation();

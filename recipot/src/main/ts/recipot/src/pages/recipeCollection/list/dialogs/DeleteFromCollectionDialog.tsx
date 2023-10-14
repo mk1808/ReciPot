@@ -1,6 +1,7 @@
-import { Recipe } from "../../../../data/types";
 import { useTranslation } from "react-i18next";
+
 import CustomModal from "../../../../components/basicUi/CustomModal";
+import { Recipe } from "../../../../data/types";
 
 type Props = {
     showModal: boolean,

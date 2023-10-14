@@ -1,10 +1,11 @@
-import { Form } from "react-bootstrap";
-import MyInput from "../../../../components/basicUi/MyInput";
-import { useTranslation } from 'react-i18next';
 import { forwardRef, useImperativeHandle, useReducer, useRef } from "react";
-import { FormAction, FormSave, MyForm } from "../../../../data/utilTypes";
-import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, inputAttrs, InputAttrsType } from "../../../../utils/FormInputUtils";
+import { Form } from "react-bootstrap";
+import { useTranslation } from 'react-i18next';
+
+import MyInput from "../../../../components/basicUi/MyInput";
 import { RecipeCollection } from "../../../../data/types";
+import { FormAction, FormSave, MyForm } from "../../../../data/utilTypes";
+import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, inputAttrs } from "../../../../utils/FormInputUtils";
 
 type Props = {
     formSave: FormSave<RecipeCollection>

@@ -1,13 +1,14 @@
 import { Stack } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import MyHeader from "../../../components/basicUi/MyHeader";
+
 import './styles.scss';
 import RegisterForm from "./RegisterForm";
 import authApi from "../../../api/AuthApi";
+import MyHeader from "../../../components/basicUi/MyHeader";
 import { AppUser, Response, UserRegisterDto } from "../../../data/types";
 import useAlerts from "../../../hooks/useAlerts";
-import { initFormSave } from "../../../utils/FormInputUtils";
 import useMyNav from "../../../hooks/useMyNav";
+import { initFormSave } from "../../../utils/FormInputUtils";
 
 function Register() {
     const { t } = useTranslation();

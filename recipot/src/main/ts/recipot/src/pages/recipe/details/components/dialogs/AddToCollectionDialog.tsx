@@ -1,12 +1,13 @@
 import { useRef } from "react";
-import CustomModal from "../../../../../components/basicUi/CustomModal";
-import AddToCollectionForm from "./AddToCollectionForm";
 import { useTranslation } from "react-i18next";
-import { Recipe, RecipeCollection, RecipeCollectionItem, Response, SharedRecipe } from "../../../../../data/types";
-import { initAs } from "../../../../../utils/ObjectUtils";
+
+import AddToCollectionForm from "./AddToCollectionForm";
 import recipeCollectionsApi from "../../../../../api/RecipeCollectionsApi";
+import CustomModal from "../../../../../components/basicUi/CustomModal";
+import { Recipe, RecipeCollection, RecipeCollectionItem, Response, SharedRecipe } from "../../../../../data/types";
 import useAlerts from "../../../../../hooks/useAlerts";
 import { initFormSave } from "../../../../../utils/FormInputUtils";
+import { initAs } from "../../../../../utils/ObjectUtils";
 
 type Props = {
     showModal: boolean,
@@ -33,6 +34,15 @@ function AddToCollectionDialog({
         }
     }
 
+    formSave.onSuccess = function (response: Response<SharedRecipe>) {
+        alerts.showSuccessAlert(t('p.addedToCollection'));
+        onClose();
+    }
+    
+    formSave.onError = function (response: Response<any>) {
+        alerts.onShowAlertOnErrorResponse(response);
+    }
+
     function createNewCollection(collectionName: string) {
         const newCollection = { name: collectionName } as RecipeCollection
         recipeCollectionsApi.createCollection(newCollection, onNewCollectionCreated, formSave.onError)
@@ -48,16 +58,10 @@ function AddToCollectionDialog({
         recipeCollectionsApi.addCollectionItem(collection.id, recipeCollectionItem, formSave.onSuccess, formSave.onError);
     }
 
-    formSave.onSuccess = function (response: Response<SharedRecipe>) {
-        alerts.showSuccessAlert(t('p.addedToCollection'));
-        onClose();
-    }
-    formSave.onError = function (response: Response<any>) {
-        alerts.onShowAlertOnErrorResponse(response);
-    }
     async function myHandleSubmit() {
         form.current.submitForm();
     }
+
     return (
         <CustomModal shouldShow={showModal} onClose={onClose} onSubmit={myHandleSubmit} title={t("p.addingToCollection")}>
             {renderContent()}

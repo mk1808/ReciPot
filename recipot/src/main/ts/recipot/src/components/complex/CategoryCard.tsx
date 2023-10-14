@@ -1,7 +1,8 @@
-import { CategoryDto } from "../../data/types";
 import { Stack } from "react-bootstrap";
-import MyImage from "../basicUi/MyImage";
+
+import { CategoryDto } from "../../data/types";
 import { initFcn } from "../../utils/ObjectUtils";
+import MyImage from "../basicUi/MyImage";
 
 type Props = {
     category: CategoryDto,

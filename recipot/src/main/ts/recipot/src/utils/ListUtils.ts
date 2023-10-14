@@ -1,3 +1,5 @@
+import { Category } from "../data/types";
+
 export function addUniqueValue(values: any[], value: any): any {
     if (!checkListContains(values, value)) {
         return [...values, value];
@@ -22,10 +24,28 @@ export function getValueIndex(list: any[], checkedValue: any) {
 }
 
 export function addObjectToList({ list, element }: { list: any[], element: any }) {
-    return list !== null ? [...list, {...element}] : [{...element}];
+    return list !== null ? [...list, { ...element }] : [{ ...element }];
 }
 
 export function removeByIndex({ list, index }: { list: any[], index: any }) {
     const filteredElements = list.filter((value, elementIndex) => elementIndex !== index);
     return [...filteredElements];
+}
+
+export function createCategoriesListInOrder(categories: Category[]) {
+    const allCategories: Category[][] = [];
+    categories.forEach(category => {
+        allCategories.push(createSingleList(category));
+    })
+    return allCategories;
+}
+
+function createSingleList(category: Category): Category[] {
+    const categoriesTab: Category[] = [category];
+    while (category.parentCategory != null) {
+        categoriesTab.push(category.parentCategory);
+        category = category.parentCategory;
+    }
+    categoriesTab.reverse();
+    return categoriesTab;
 }

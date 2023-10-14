@@ -1,11 +1,12 @@
-import { useTranslation } from "react-i18next";
-import { FormAction, FormSave, MyForm } from "../../../../data/utilTypes";
 import { useReducer, FormEvent } from "react";
-import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, preventFurtherAction, inputAttrs } from "../../../../utils/FormInputUtils";
-import MyTextarea from "../../../../components/basicUi/MyTextarea";
 import { Form, Stack } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
+
 import MyButton from "../../../../components/basicUi/MyButton";
+import MyTextarea from "../../../../components/basicUi/MyTextarea";
 import { PrivateNote } from "../../../../data/types";
+import { FormAction, FormSave, MyForm } from "../../../../data/utilTypes";
+import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, preventFurtherAction, inputAttrs } from "../../../../utils/FormInputUtils";
 
 type Props = {
     formSave: FormSave<PrivateNote>,
@@ -31,13 +32,31 @@ function PrivateNoteForm({
     function onSubmit(event: FormEvent) {
         if (!isEditModeOn) {
             setIsEditModeOn(true);
-        } else {
-            if (checkIfAllValid(event, myForm)) {
-                formSave.onSubmit(myForm.formValue);
-            }
+        } else if (checkIfAllValid(event, myForm)) {
+            formSave.onSubmit(myForm.formValue);
         }
         preventFurtherAction(event);
     };
+
+    function getPrivateNoteInputAttributes() {
+        const defaultValue = note != null ? note.content : "";
+        return {
+            ...inputAttrs({
+                label: "",
+                name: "content",
+                myForm,
+                dispatchForm
+            }),
+            placeholder: t('p.addPrivateNote'),
+            rows: 5,
+            disabled: !isEditModeOn,
+            defaultValue
+        }
+    }
+
+    function getButtonText() {
+        return isEditModeOn ? t('p.savePrivateNote') : t('p.editPrivateNote');
+    }
 
     return (
         <Form noValidate validated onSubmit={onSubmit}>
@@ -50,26 +69,21 @@ function PrivateNoteForm({
         return (
             <div className="field">
                 <MyTextarea
-                    label=""
-                    placeholder={t('p.addPrivateNote')}
-                    rows={5}
-                    disabled={!isEditModeOn}
-                    defaultValue={note != null ? note.content : ""}
-                    {...inputAttrs({ name: "content", myForm, dispatchForm })} />
+                    {...getPrivateNoteInputAttributes()}
+                />
             </div>
-        )
-    };
+        );
+    }
 
     function renderButton() {
         return (
             <Stack direction="horizontal" className="justify-content-end">
-                <MyButton.Primary type="submit" className="button-400 edit-save-btn" >
-                    {isEditModeOn && t('p.savePrivateNote')}
-                    {!isEditModeOn && t('p.editPrivateNote')}
+                <MyButton.Primary type="submit" className="button-400 edit-save-btn">
+                    {getButtonText()}
                 </MyButton.Primary>
             </Stack>
-        )
-    };
+        );
+    }
 }
 
 export default PrivateNoteForm;

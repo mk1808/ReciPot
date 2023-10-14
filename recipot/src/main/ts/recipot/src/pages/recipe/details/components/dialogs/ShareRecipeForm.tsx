@@ -1,12 +1,12 @@
 import { useReducer, useRef, useImperativeHandle, forwardRef } from "react";
-
 import { Form } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { FormAction, FormSave, MyForm } from "../../../../../data/utilTypes";
+
 import MyInput from "../../../../../components/basicUi/MyInput";
-import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, inputAttrs } from "../../../../../utils/FormInputUtils";
 import MyTextarea from "../../../../../components/basicUi/MyTextarea";
 import { SharedRecipe } from "../../../../../data/types";
+import { FormAction, FormSave, MyForm } from "../../../../../data/utilTypes";
+import { checkIfAllValid, checkInputValidity, initEmptyForm, getNewFormState, inputAttrs } from "../../../../../utils/FormInputUtils";
 
 type Props = {
     formSave: FormSave<SharedRecipe>

@@ -1,5 +1,5 @@
-import { OpinionDto, Rating, Response } from "../data/types";
 import restClient from "./RestClient";
+import { OpinionDto, Rating, Response } from "../data/types";
 
 function OpinionsApi() {
     const PREFIX = '/opinions';

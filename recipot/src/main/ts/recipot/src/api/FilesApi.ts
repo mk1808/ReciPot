@@ -1,5 +1,5 @@
-import { Response } from "../data/types";
 import restClient from "./RestClient";
+import { Response } from "../data/types";
 
 function FilesApi() {
     const PREFIX = '/files';

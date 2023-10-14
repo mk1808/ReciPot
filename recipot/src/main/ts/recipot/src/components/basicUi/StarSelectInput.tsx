@@ -1,8 +1,9 @@
-import { Stack, Row, Col } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
+import { Stack, Row, Col } from 'react-bootstrap';
 import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
-import { initFcn } from '../../utils/ObjectUtils';
+
 import { renderFormGroup } from './CommonInputElements';
+import { initFcn } from '../../utils/ObjectUtils';
 
 type Props = {
     name: string,

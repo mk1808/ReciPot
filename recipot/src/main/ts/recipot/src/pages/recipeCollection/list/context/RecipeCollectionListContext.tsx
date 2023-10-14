@@ -1,9 +1,10 @@
 import { createContext, useEffect, useReducer } from "react";
-import { Recipe, RecipeCollection, RecipeCollectionItem, Response } from "../../../../data/types";
+
 import recipeCollectionsApi from "../../../../api/RecipeCollectionsApi";
+import { Recipe, RecipeCollection, RecipeCollectionItem, Response } from "../../../../data/types";
 import { ResponsePage } from "../../../../data/utilTypes";
-import { scrollIntoRecipesPage } from "../../../recipe/filter/utils/RecipeSearchUtils";
 import useRequestSendManager from "../../../../hooks/useRequestSendManager";
+import { scrollIntoRecipesPage } from "../../../recipe/filter/utils/RecipeSearchUtils";
 
 type contextStateModel = {
     collections?: RecipeCollection[],

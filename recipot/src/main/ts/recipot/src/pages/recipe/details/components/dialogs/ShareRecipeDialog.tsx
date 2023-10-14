@@ -1,12 +1,13 @@
 import { useRef } from "react";
-import CustomModal from "../../../../../components/basicUi/CustomModal";
-import ShareRecipeForm from "./ShareRecipeForm";
 import { useTranslation } from "react-i18next";
-import { Recipe, Response, SharedRecipe } from "../../../../../data/types";
-import { initAs } from "../../../../../utils/ObjectUtils";
+
+import ShareRecipeForm from "./ShareRecipeForm";
 import recipesApi from "../../../../../api/RecipesApi";
+import CustomModal from "../../../../../components/basicUi/CustomModal";
+import { Recipe, Response, SharedRecipe } from "../../../../../data/types";
 import useAlerts from "../../../../../hooks/useAlerts";
 import { initFormSave } from "../../../../../utils/FormInputUtils";
+import { initAs } from "../../../../../utils/ObjectUtils";
 
 type Props = {
     showModal: boolean,
@@ -35,7 +36,7 @@ function ShareRecipeDialog({
         })
         recipesApi.share(sharedRecipe, formSave.onSuccess, formSave.onError);
     }
-    
+
     formSave.onSuccess = function (response: Response<SharedRecipe>) {
         alerts.showSuccessAlert(t('p.SHARED_RECIPE'));
         onClose();

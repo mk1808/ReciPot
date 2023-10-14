@@ -1,7 +1,8 @@
 import '../styles.scss';
 import { useTranslation } from "react-i18next";
-import MyButton from '../../../../components/basicUi/MyButton';
 import { BsPlusCircleFill } from 'react-icons/bs';
+
+import MyButton from '../../../../components/basicUi/MyButton';
 
 type Props = { title: string, onAdd: Function, children: any };
 
