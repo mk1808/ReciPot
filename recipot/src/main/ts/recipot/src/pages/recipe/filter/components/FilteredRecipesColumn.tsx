@@ -45,7 +45,7 @@ function FilteredRecipesColumn() {
 
     function renderContent() {
         return (
-            <div className="px-2">
+            <div className="px-2 content">
                 {renderRecipesPages()}
                 {renderLoadNextPageButton()}
             </div>

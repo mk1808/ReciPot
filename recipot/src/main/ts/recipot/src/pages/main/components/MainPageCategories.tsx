@@ -14,9 +14,9 @@ function CategoryCards() {
 
     return (
         <div className="categories-container">
-        <Stack direction="horizontal" className="flex-wrap align-items-stretch justify-content-center my-5 categories-row" >
-            {allCategories.map(renderCard)}
-        </Stack> 
+            <Stack direction="horizontal" className="flex-wrap align-items-stretch justify-content-center mt-4 py-4 categories-row" >
+                {allCategories.map(renderCard)}
+            </Stack>
         </div>
     )
 
