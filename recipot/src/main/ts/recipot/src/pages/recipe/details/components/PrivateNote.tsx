@@ -4,7 +4,7 @@ import Info from "../../../../components/basicUi/Info";
 import { useEffect, useState } from "react";
 import PrivateNoteForm from "./PrivateNoteForm";
 import privateNotesApi from "../../../../api/PrivateNotes";
-import { Recipe, PrivateNote as PrivateNoteT } from "../../../../data/types";
+import { Recipe, PrivateNote as PrivateNoteT, Response } from "../../../../data/types";
 import MyHeader from "../../../../components/basicUi/MyHeader";
 import useAlerts from "../../../../hooks/useAlerts";
 import { initFormSave } from "../../../../utils/FormInputUtils";
@@ -19,8 +19,8 @@ function PrivateNote({
     note
 }: Props) {
 
-    const { t } = useTranslation();    
-    const [isEditModeOn, setIsEditModeOn] = useState<any>(false);   
+    const { t } = useTranslation();
+    const [isEditModeOn, setIsEditModeOn] = useState<any>(false);
     const alerts = useAlerts();
     const formSave = initFormSave<PrivateNoteT>();
 
@@ -37,26 +37,22 @@ function PrivateNote({
         }
     }
 
-    formSave.onSuccess = function (response: any) {
+    formSave.onSuccess = function (response: Response<any>) {
         setIsEditModeOn(!isEditModeOn);
-        if (response.message) {
-            alerts.showSuccessAlert(t(response.message));
-        }
-        else {
-            alerts.showSuccessAlert(t("p.noteSaved"));
-        }
+        alerts.showSuccessAlert(response.message ? t(response.message) : t("p.noteSaved"));
     }
 
-    formSave.onError = function () { }
+    formSave.onError = function (response: Response<any>) {
+        alerts.onShowAlertOnErrorResponse(response);
+    }
 
     function saveNote(formValue: any) {
-        let note = { ...formValue };
-        note.recipe = { id: recipe.id };
-        privateNotesApi.createPrivateNote(note, formSave.onSuccess)
+        let note = { ...formValue, recipe: { id: recipe.id } };
+        privateNotesApi.createPrivateNote(note, formSave.onSuccess, formSave.onError)
     }
-    
+
     function deleteNote() {
-        privateNotesApi.deletePrivateNote(note.id, formSave.onSuccess);
+        privateNotesApi.deletePrivateNote(note.id, formSave.onSuccess, formSave.onError);
     }
 
     return (
@@ -82,7 +78,12 @@ function PrivateNote({
 
     function renderForm() {
         return (
-            <PrivateNoteForm formSave={formSave} isEditModeOn={isEditModeOn} note={note} setIsEditModeOn={setIsEditModeOn} />
+            <PrivateNoteForm
+                formSave={formSave}
+                isEditModeOn={isEditModeOn}
+                note={note}
+                setIsEditModeOn={setIsEditModeOn}
+            />
         );
     }
 }

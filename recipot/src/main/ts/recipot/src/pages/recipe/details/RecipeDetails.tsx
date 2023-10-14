@@ -17,15 +17,11 @@ import recipesApi from "../../../api/RecipesApi";
 import { useParams } from "react-router-dom";
 import opinionsApi from "../../../api/OpinionsApi";
 import privateNotesApi from "../../../api/PrivateNotes";
-import Rating from "./components/Rating";
 import { buildRecipeSearchDto } from "../filter/utils/RecipeSearchUtils";
 import { UsersContext } from "../../../context/UserContext";
 import recipeCollectionsApi from "../../../api/RecipeCollectionsApi";
 import MySpinner from "../../../components/basicUi/MySpinner";
-import { FaUser } from "react-icons/fa";
-import { FaRegCalendarDays } from "react-icons/fa6";
-import { Stack } from "react-bootstrap";
-import { formatNoTime } from "../../../utils/DateUtils";
+import AuthorAndDate from "./components/AuthorAndDate";
 
 function RecipeDetails() {
 
@@ -46,29 +42,52 @@ function RecipeDetails() {
     useEffect(() => {
         setIsLoaded(false);
         setOtherRecipes(otherRecipes.slice(0, 1));
-        recipesApi.getRecipe(id, onGetRecipeSuccess)
+        getRecipe();
         getOpinions(id);
-        recipesApi.getRecipeOwner(id, onGetRecipeOwnerSuccess);
-        recipeCollectionsApi.getUserCollectionByName('Favourite', onGetUserCollectionByNameSuccess)
+        getRecipeOwner();
+        getUserFavCollection();
         setOpinions([]);
         setNote({});
     }, [params])
 
     useEffect(() => {
         if (user) {
-            recipesApi.getRecipeOwner(id, onGetRecipeOwnerSuccess);
-            privateNotesApi.getPrivateNoteByRecipeId(id, (response) => { setNote(response.value); setIsNoteLoaded(true) }, (errorResponse) => { console.warn(errorResponse) });
+            getRecipeOwner();
+            getPrivateNote();
         }
     }, [user])
+
+    function getRecipe() {
+        recipesApi.getRecipe(id, onGetRecipeSuccess);
+    }
 
     function getOpinions(id: string) {
         opinionsApi.getRecipeOpinions(id, (response) => { setOpinions(response.value) })
     }
 
+    function getRecipeOwner() {
+        recipesApi.getRecipeOwner(id, onGetRecipeOwnerSuccess);
+    }
+
+    function getUserFavCollection() {
+        recipeCollectionsApi.getUserCollectionByName('Favourite', onGetUserCollectionByNameSuccess)
+    }
+
+    function getPrivateNote() {
+        privateNotesApi.getPrivateNoteByRecipeId(id, onGetPrivateNoteSuccess);
+    }
+
     function onGetRecipeSuccess(response: any) {
         setRecipe(response.value);
         setIsLoaded(true);
-        const filter: RecipeSearchDto = buildRecipeSearchDto({ categories: response.value.categories, recipesSort: { fieldName: "created", order: "DESC" } });
+        getOtherRecipes(response.value.categories);
+    }
+
+    function getOtherRecipes(categories: any) {
+        const filter: RecipeSearchDto = buildRecipeSearchDto({
+            categories: categories,
+            recipesSort: { fieldName: "created", order: "DESC" }
+        });
         recipesApi.search(filter, { pageNum: 0, pageSize: 10 }, (response) => { setOtherRecipes(response.value.content) });
     }
 
@@ -81,6 +100,11 @@ function RecipeDetails() {
         setFavRecipeCollection(response.value);
     }
 
+    function onGetPrivateNoteSuccess(response: any) {
+        setNote(response.value);
+        setIsNoteLoaded(true)
+    }
+
     return (
         <div className='m-2 recipe-details-page'>
             {renderColumns()}
@@ -91,8 +115,7 @@ function RecipeDetails() {
         return (
             <div className='d-flex flex-lg-row flex-column align-items-stretch details-container justify-content-center gy-2'>
                 <div className='basic-container-border p-3 main-container' ref={mainRef} >
-                    {!isLoaded && <MySpinner />}
-                    {isLoaded && renderMainRecipeColumn()}
+                    {renderMainColumnOrSpinner()}
                 </div>
                 <div className='basic-container-border p-3 ms-md-2'>
                     <OtherColumn recipes={otherRecipes} />
@@ -101,14 +124,21 @@ function RecipeDetails() {
         )
     }
 
+    function renderMainColumnOrSpinner() {
+        if (isLoaded) {
+            return renderMainRecipeColumn();
+        }
+        return <MySpinner />
+    }
+
     function renderMainRecipeColumn() {
         return (
             <div className="mt-3 main">
                 <MyImage src={recipe.image} height="auto" className="main-img" rounded />
                 <ActionButtons recipe={recipe} isOwner={isOwner} user={user} favCollection={favRecipeCollection} />
                 <MyHeader title={recipe.name} />
-                {renderAuthorAndCreationDate()}
-                <div>{renderBreadcrumps()}</div>
+                <AuthorAndDate recipe={recipe} />
+                {renderBreadcrumps()}
                 <BasicInfo recipe={recipe} />
                 <IngredientList recipe={recipe} />
                 <Steps recipe={recipe} />
@@ -124,16 +154,6 @@ function RecipeDetails() {
                 <BreadCrumbs recipe={recipe} />
             </div>
         )
-    }
-
-    function renderAuthorAndCreationDate() {
-        return (
-            <Stack direction="horizontal" className="flex-wrap my-3 px-5 author-date">
-                <div className="me-5 owner-login"><strong><FaUser /></strong> {recipe.owner.login}</div>
-                <div className="recipe-creation-time"><strong><FaRegCalendarDays /></strong> {formatNoTime(recipe.created)}</div>
-                <div className="rating-section ms-auto"><Rating recipe={recipe} className="position" /></div>
-            </Stack>
-        );
     }
 }
 

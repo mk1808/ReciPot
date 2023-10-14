@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { CategoryDto, Recipe} from "../../../../data/types";
+import { CategoryDto, Recipe } from "../../../../data/types";
 import RecipeCard from "../../../../components/complex/RecipeCard";
 import CategoryCard from "../../../../components/complex/CategoryCard";
 import MyHeader from "../../../../components/basicUi/MyHeader";
 import useMyNav from "../../../../hooks/useMyNav";
 import useCategories from "../../../../hooks/useCategories";
+import useOtherRecipes from "../../../../hooks/useOtherRecipes";
 
 type Props = {
     recipes: Recipe[]
@@ -16,39 +17,21 @@ function OtherColumn({
 }: Props) {
 
     const { t } = useTranslation();
-    const [loaded, setloaded] = useState<any>(false);
-    const [recipeCardHeight, setRecipeCardHeight] = useState<any>();
-    const [newRecipes, setNewRecipes] = useState<any[]>(recipes);
+    const [isLoaded, setIsLoaded] = useState<any>(false);
 
     const nav = useMyNav();
     const [, , allCategories] = useCategories();
     const containerRef = useRef<any>(null);
     const recipeCardRef = useRef<any>(null);
     const categoriesRef = useRef<any>(null);
-    const height = containerRef.current?.clientHeight
-    let slicedRecipes = recipes;
+    const selectedRecipes = useOtherRecipes({ recipes, recipeCardRef, categoriesRef, containerRef, isLoaded });
 
-    const onGoToRecipe = (recipe: Recipe, event: any,) => nav.openInBackground({ id: recipe.id }, event);
-    const onCategoryClick = (category: any) => nav.goToCategoryFilters(category);
+    const onGoToRecipe = (recipe: Recipe, event: any) => nav.openInBackground({ id: recipe.id }, event);
+    const onCategoryClick = (category: CategoryDto) => nav.goToCategoryFilters(category);
 
     useEffect(() => {
-        setTimeout(() => { setloaded(true) }, 1000)
+        setTimeout(() => { setIsLoaded(true) }, 1000)
     }, [allCategories])
-
-    useEffect(() => {
-        if ((!recipeCardHeight && recipeCardRef.current) || recipeCardRef.current?.clientHeight > recipeCardHeight) {
-            setRecipeCardHeight(recipeCardRef.current?.clientHeight)
-        }
-    }, [recipeCardRef.current])
-
-    useEffect(() => {
-        let recipesContainerHeight = height - categoriesRef.current.clientHeight;
-        let numOfRecipes = Math.floor(recipesContainerHeight / recipeCardHeight);
-
-        slicedRecipes = recipes.slice(0, numOfRecipes);
-        setNewRecipes(slicedRecipes)
-
-    }, [loaded, height, recipes, recipeCardHeight])
 
     return (
         <div className="h-100 other" ref={containerRef}>
@@ -63,32 +46,42 @@ function OtherColumn({
             </div>
         </div>
     )
-    
+
     function renderCategories() {
         return (
             <>
-                {allCategories.map((category: CategoryDto) => {
-                    return renderCategory(category)
-                })}
+                {allCategories.map(renderCategory)}
             </>
         )
     }
 
     function renderCategory(category: CategoryDto) {
         return (
-            <CategoryCard category={category} showChildren={false} className="category-no-border" key={category.id} onCategorySelect={() => onCategoryClick(category)} />
+            <CategoryCard
+                category={category}
+                showChildren={false}
+                className="category-no-border"
+                key={category.id}
+                onCategorySelect={onCategoryClick} />
         )
     }
 
     function renderRecipes() {
         return (
             <div className="list mt-1">
-                {(newRecipes.length > 0 ? newRecipes : recipes.slice(0, 1)).map((recipe) => {
-                    return (
-                        <RecipeCard recipe={recipe} onGoToRecipe={onGoToRecipe} key={recipe.id} className="mx-auto mb-3" ref={recipeCardRef} />
-                    )
-                })}
+                {selectedRecipes.map(renderSingleRecipe)}
             </div>
+        )
+    }
+
+    function renderSingleRecipe(recipe: Recipe) {
+        return (
+            <RecipeCard
+                recipe={recipe}
+                onGoToRecipe={onGoToRecipe}
+                key={recipe.id}
+                className="mx-auto mb-3"
+                ref={recipeCardRef} />
         )
     }
 }
