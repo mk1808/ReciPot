@@ -117,7 +117,8 @@ function AddRecipeContextProvider({
     }
 
     function onFileSaved(formValue: any, response: any) {
-        formValue.image = response.value;
+        const PREFIX = "/api/files/";
+        formValue.image = PREFIX + response.value.id;
         saveOrEditRecipe(formValue);
     }
 

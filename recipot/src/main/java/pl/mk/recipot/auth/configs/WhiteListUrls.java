@@ -19,7 +19,8 @@ public class WhiteListUrls {
 				"/api/recipes/**", 
 				"/api/statistics/general", 
 				"/api/logout2",
-				"/assets/**"
+				"/assets/**",
+				"/api/files/**"
 			};
 	}
 	

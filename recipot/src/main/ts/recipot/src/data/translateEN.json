@@ -26,6 +26,13 @@
 			"ingredientExists": "This ingredient already exists"
 		}
 	},
+	"files": {
+		"success": {},
+		"error": {
+			"fileNotFound": "File not found",
+			"incorrectFile": "Incorrect file format"
+		}
+	},
 	"notificationsM": {
 		"error": {}
 	},
