@@ -45,32 +45,32 @@ function RecipeFilterControls() {
 
     function onHashTagChange(value: HashTag[]) {
         if (!recipesFilterForm || value.length !== recipesFilterForm.hashTags?.length) {
-            onChange("hashTags", value)
+            onChange(value, "hashTags")
         }
     }
 
     function onIngredientsChange(value: Ingredient[]) {
         if (!recipesFilterForm || value.length !== recipesFilterForm.ingredients?.length) {
-            onChange("ingredients", value)
+            onChange(value, "ingredients")
         }
     }
 
     function onCategoriesChange(value: SelectOption<CategoryDto>[]) {
         const matchedCategories = matchCategories(value, allCategories);
         if (areCategoriesDifferent(recipesFilterForm, matchedCategories)) {
-            onChange("categories", matchedCategories)
+            onChange(matchedCategories, "categories")
         }
     }
 
-    function onUserIsOwnerChange(fieldName: string, value: boolean) {
-        onChange(fieldName, (value && user?.login) || null);
+    function onUserIsOwnerChange(value: boolean, fieldName: string) {
+        onChange((value && user?.login) || null, fieldName);
     }
 
     function getEnum(enumName: string) {
         return enumDictionaryContext[enumName as keyof enumsStateModel] || [];
     }
 
-    function onChange(fieldName: string, value: any) {
+    function onChange(value: any, fieldName: string) {
         recipeFilterDispatchContext({
             type: RecipeFilterContextType.FilterFormChange,
             fieldName,

@@ -120,7 +120,7 @@ export function createUrl(recipesFilterForm?: any) {
 }
 
 function createUrlParam(filter: any) {
-    if (typeof filter === 'undefined') {
+    if (typeof filter === 'undefined' || filter === null) {
         return;
     } else if (typeof filter === 'object') {
         if (typeof filter.children !== 'undefined') {

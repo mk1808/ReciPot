@@ -60,7 +60,7 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 
 	@Override
 	public Page<Recipe> filter(RecipeSearchDto recipeSearchDto) {
-		Specification<Recipe> specification = new SearchRecipesByCriteria().execute(recipeSearchDto);
+		Specification<Recipe> specification = new SearchRecipesByCriteria().forUser(authFacade.getCurrentUser()).execute(recipeSearchDto);
 		Pageable page = new GetPageForSearching().execute(recipeSearchDto);
 		return recipesRepository.findAll(specification, page);
 	}
@@ -124,7 +124,7 @@ public class RecipesService implements IRecipesService, ICrudService<Recipe>, IF
 	@Override
 	public Page<Recipe> getByPredefinedFilter(PredefinedRecipeFilter type, int pageNum, int pageSize) {
 		RecipeSearchDto recipeSearchDto = type.getFilter().setPage(pageNum).setSize(pageSize);
-		Specification<Recipe> specification = new SearchRecipesByCriteria().execute(recipeSearchDto);
+		Specification<Recipe> specification = new SearchRecipesByCriteria().forUser(authFacade.getCurrentUser()).execute(recipeSearchDto);
 		Pageable page = new GetPageForSearching().execute(recipeSearchDto);
 		return recipesRepository.findAll(specification, page);
 	}

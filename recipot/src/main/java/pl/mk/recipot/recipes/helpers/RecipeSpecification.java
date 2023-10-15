@@ -22,6 +22,7 @@ import pl.mk.recipot.commons.models.Category;
 import pl.mk.recipot.commons.models.HashTag;
 import pl.mk.recipot.commons.models.Recipe;
 import pl.mk.recipot.commons.models.RecipeIngredient;
+import pl.mk.recipot.commons.models.SharedRecipe;
 
 public class RecipeSpecification implements Specification<Recipe> {
 
@@ -34,6 +35,7 @@ public class RecipeSpecification implements Specification<Recipe> {
 
 	@Override
 	public Predicate toPredicate(Root<Recipe> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+		query.distinct(true);
 		String strToSearch = searchCriteria.getValue().toString().toLowerCase();
 
 		switch (Objects.requireNonNull(SearchOperation.getSimpleOperation(searchCriteria.getOperation()))) {
@@ -63,7 +65,6 @@ public class RecipeSpecification implements Specification<Recipe> {
 
 		case EQUAL:
 			if (searchCriteria.getFilterKey().equals("user")) {
-				System.out.println(searchCriteria.getValue());
 				return criteriaBuilder.equal(userJoin(root).<String>get("login"), searchCriteria.getValue());
 			}
 
@@ -138,7 +139,13 @@ public class RecipeSpecification implements Specification<Recipe> {
 				Root<RecipeIngredient> riRoot = query.from(RecipeIngredient.class);
 				return criteriaBuilder.and(criteriaBuilder.equal(root.get("id"), riRoot.get("recipe").get("id")),
 						riRoot.get("ingredient").get("id").in(getUuidsList()));
-
+			}
+			if (searchCriteria.getFilterKey().equals("shared")) {
+				Root<SharedRecipe> srRoot = query.from(SharedRecipe.class);
+				return criteriaBuilder.and(
+					criteriaBuilder.equal(srRoot.get("recipe"), root),
+					criteriaBuilder.equal(srRoot.join("receiverUser").get("login"), searchCriteria.getValue())
+				);
 			}
 
 			return null;
