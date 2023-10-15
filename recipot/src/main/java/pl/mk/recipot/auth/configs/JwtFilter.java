@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import pl.mk.recipot.auth.domains.GetTokenFromCookie;
 import pl.mk.recipot.auth.dtos.JwtUserDetailsDto;
+import pl.mk.recipot.auth.services.ITokenManagerService;
 import pl.mk.recipot.auth.services.JwtUserDetailsService;
 
 @Component
@@ -24,12 +25,12 @@ public class JwtFilter extends OncePerRequestFilter {
 	public static final String BEARER_PREFIX = "Bearer ";
 
 	private JwtUserDetailsService userDetailsService;
-	private TokenManager tokenManager;
+	private ITokenManagerService tokenManagerService;
 
-	public JwtFilter(JwtUserDetailsService userDetailsService, TokenManager tokenManager) {
+	public JwtFilter(JwtUserDetailsService userDetailsService, ITokenManagerService tokenManagerService) {
 		super();
 		this.userDetailsService = userDetailsService;
-		this.tokenManager = tokenManager;
+		this.tokenManagerService = tokenManagerService;
 	}
 
 	@Override
@@ -60,7 +61,7 @@ public class JwtFilter extends OncePerRequestFilter {
 	private String getUsernameFromToken(String token) {
 		if (token != null) {
 			try {
-				return tokenManager.getUsernameFromToken(token);
+				return tokenManagerService.getUsernameFromToken(token);
 			} catch (IllegalArgumentException e) {
 				System.out.println("Unable to get JWT Token");
 			} catch (ExpiredJwtException e) {
@@ -73,14 +74,18 @@ public class JwtFilter extends OncePerRequestFilter {
 	private void authenticate(String username, HttpServletRequest request, String token) {
 		if (null != username && SecurityContextHolder.getContext().getAuthentication() == null) {
 			JwtUserDetailsDto userDetails = userDetailsService.loadUserByUsername(username);
-			if (tokenManager.validateJwtToken(token, userDetails)) {
-				UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-						userDetails, null, userDetails.getAuthorities());
-				authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-				SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+			if (tokenManagerService.validateJwtToken(token, userDetails)) {
+				authenticateForValidToken(userDetails, request);
 			}
 		}
+	}
 
+	private void authenticateForValidToken(JwtUserDetailsDto userDetails, HttpServletRequest request) {
+		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null,
+				userDetails.getAuthorities());
+		authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+		SecurityContextHolder.getContext().setAuthentication(authToken);
 	}
 
 }

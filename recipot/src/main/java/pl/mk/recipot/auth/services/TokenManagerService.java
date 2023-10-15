@@ -1,20 +1,19 @@
-package pl.mk.recipot.auth.configs;
+package pl.mk.recipot.auth.services;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import pl.mk.recipot.auth.dtos.JwtUserDetailsDto;
 
-@Component
-public class TokenManager {
-
+@Service
+public class TokenManagerService implements ITokenManagerService{
 	public static final long TOKEN_VALIDITY = 10 * 60 * 60;
 
 	@Value("${secret}")
@@ -34,13 +33,20 @@ public class TokenManager {
 
 	public Boolean validateJwtToken(String token, JwtUserDetailsDto userDetails) {
 		String username = getUsernameFromToken(token);
-		Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
-		Boolean isTokenExpired = claims.getExpiration().before(new Date());
-		return (username.equals(userDetails.getUsername()) && !isTokenExpired);
+		Claims claims = getClaims(token);
+		return username.equals(userDetails.getUsername()) && !isTokenExpired(claims);
 	}
 
 	public String getUsernameFromToken(String token) {
-		final Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
+		final Claims claims = getClaims(token);
 		return claims.getSubject();
+	}
+	
+	private Claims getClaims(String token) {
+		return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
+	}
+	
+	private boolean isTokenExpired(Claims claims) {
+		return claims.getExpiration().before(new Date());
 	}
 }
