@@ -8,7 +8,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import pl.mk.recipot.auth.services.IAuthService;
 import pl.mk.recipot.commons.dtos.ChangePasswordDto;
+import pl.mk.recipot.commons.dtos.JWTDto;
 import pl.mk.recipot.commons.dtos.Response;
+import pl.mk.recipot.commons.dtos.UserLoginDto;
 import pl.mk.recipot.commons.dtos.UserRegisterDto;
 import pl.mk.recipot.commons.factories.OkMessageResponseFactory;
 import pl.mk.recipot.commons.factories.OkResponseFactory;
@@ -17,7 +19,7 @@ import pl.mk.recipot.commons.models.AppUser;
 @RestController
 public class AuthController implements IAuthController {
 
-	private IAuthService authService;
+	private final IAuthService authService;
 
 	public AuthController(IAuthService authService) {
 		super();
@@ -44,6 +46,16 @@ public class AuthController implements IAuthController {
 	public ResponseEntity<Response<Void>> logout(HttpServletResponse response) {
 		response.addCookie(new Cookie("token", null));
 		return new OkMessageResponseFactory().createResponse("auth.success.loggedOut");
+	}
+
+	@Override
+	public ResponseEntity<Response<JWTDto>> login(UserLoginDto userLogin, HttpServletResponse response) {
+
+		JWTDto jwt = authService.login(userLogin, response);
+		Cookie jwtCookie = new Cookie("token", jwt.token);
+		jwtCookie.setMaxAge(600000);
+		response.addCookie(jwtCookie);
+		return new OkResponseFactory().createResponse(jwt);
 	}
 
 }

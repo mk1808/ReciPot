@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import pl.mk.recipot.auth.dtos.JwtUserDetailsDto;
 
 @Component
 public class TokenManager {
@@ -19,16 +20,19 @@ public class TokenManager {
 	@Value("${secret}")
 	private String jwtSecret;
 
-	public String generateJwtToken(JwtUserDetails userDetails) {
+	public String generateJwtToken(JwtUserDetailsDto userDetails) {
 		Map<String, Object> claims = new HashMap<>();
 
-		return Jwts.builder().setClaims(claims).setSubject(userDetails.getUsername())
+		return Jwts.builder()
+				.setClaims(claims)
+				.setSubject(userDetails.getUsername())
 				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + TOKEN_VALIDITY * 1000))
-				.signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
+				.signWith(SignatureAlgorithm.HS512, jwtSecret)
+				.compact();
 	}
 
-	public Boolean validateJwtToken(String token, JwtUserDetails userDetails) {
+	public Boolean validateJwtToken(String token, JwtUserDetailsDto userDetails) {
 		String username = getUsernameFromToken(token);
 		Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
 		Boolean isTokenExpired = claims.getExpiration().before(new Date());
