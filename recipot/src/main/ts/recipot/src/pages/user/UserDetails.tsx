@@ -4,6 +4,7 @@ import { Stack } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import UserDetailsForm from './UserDetailsForm';
+import filesApi from '../../api/FilesApi';
 import statisticsApi from '../../api/StatisticsApi';
 import usersApi from '../../api/UsersApi';
 import MyHeader from '../../components/basicUi/MyHeader';
@@ -27,7 +28,11 @@ function UserDetails() {
     }, [user])
 
     formSave.onSubmit = function (userFormValue: any) {
-        usersApi.updateUser(user?.id || "", userFormValue, formSave.onSuccess, formSave.onError);
+        if (userFormValue.avatarImage) {
+            saveUserAvatar(userFormValue);
+        } else {
+            editUser(userFormValue);
+        }
     }
 
     formSave.onSuccess = function (response: any) {
@@ -39,6 +44,20 @@ function UserDetails() {
 
     formSave.onError = function () {
         alerts.showErrorAlert(t("p.defaultError"));
+    }
+
+    function saveUserAvatar(userFormValue: any) {
+        filesApi.saveFile(userFormValue.avatarImage, saveFileResponse => onUserAvatarSaved(userFormValue, saveFileResponse), formSave.onError)
+    }
+
+    function onUserAvatarSaved(userFormValue: any, saveFileResponse: any) {
+        const PREFIX = "/api/files/";
+        userFormValue.avatarImageSrc = PREFIX + saveFileResponse.value.id;
+        editUser(userFormValue);
+    }
+
+    function editUser(userFormValue: any) {
+        usersApi.updateUser(user?.id || "", userFormValue, formSave.onSuccess, formSave.onError);
     }
 
     return (

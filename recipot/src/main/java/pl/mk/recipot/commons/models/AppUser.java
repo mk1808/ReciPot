@@ -34,7 +34,6 @@ public class AppUser {
 	@UuidGenerator
 	private UUID id;
 	
-	@JsonIgnore
 	@Email(message = "models.AppUser.errors.emailInvalid")
 	private String email;
 	@NotBlank(message = "models.AppUser.errors.loginBlank")

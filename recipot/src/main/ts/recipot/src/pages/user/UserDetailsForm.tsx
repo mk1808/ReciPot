@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import defaultUserAvatar from '../../assets/images/default_user_avatar.png';
 import MyButton from '../../components/basicUi/MyButton';
+import MyFileInput from '../../components/basicUi/MyFileInput';
 import MyImage from '../../components/basicUi/MyImage';
 import MyInput from '../../components/basicUi/MyInput';
 import MyTextarea from '../../components/basicUi/MyTextarea';
@@ -49,6 +50,11 @@ function UserDetailsForm({
         setEditMode(false);
     };
 
+    function onFileSelect(file: any) {
+        dispatchForm({ type: "avatarImage", value: file });
+        dispatchForm({ type: "avatarImageSrc", value: URL.createObjectURL(file) });
+    }
+
     return (
         <Form noValidate validated onSubmit={handleSubmit} className='px-lg-5 edit-form'>
             <Row>
@@ -64,7 +70,7 @@ function UserDetailsForm({
     );
 
     function renderAvatar() {
-        return <MyImage src={user.avatarImageSrc || defaultUserAvatar} />
+        return <MyImage src={myForm.formValue.avatarImageSrc || user.avatarImageSrc || defaultUserAvatar} />
     }
 
     function renderUserForm() {
@@ -104,12 +110,13 @@ function UserDetailsForm({
 
     function renderAvatarImageInput() {
         return (
-            <MyInput
-                {...inputAttrs({ name: "avatarImageSrc", myForm, dispatchForm })}
+            <MyFileInput
+                {...inputAttrs({ name: "avatarImage", myForm, dispatchForm })}
                 label={t('p.avatarInputLabel')}
                 placeholder={t('p.avatarInputPlaceholder')}
                 disabled={!isEditMode}
-                defaultValue={user.avatarImageSrc}
+                onChange={onFileSelect}
+                isValid={true}
             />
         );
     }
