@@ -37,7 +37,7 @@ function renderPlaceholder(placeholder: string) {
 function renderBadges(selectedValues: any[], onBadgeClick: Function) {
     return (
         <div className='filtered-select-button-text'>
-            <Stack direction="horizontal" className='flex-wrap'>
+            <Stack direction="horizontal" gap={1} className='flex-wrap'>
                 {selectedValues.map(value => renderBadge(value, onBadgeClick))}
             </Stack>
         </div>
