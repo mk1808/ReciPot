@@ -13,6 +13,9 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import pl.mk.recipot.auth.domains.GetTokenFromCookie;
+import pl.mk.recipot.auth.dtos.JwtUserDetailsDto;
+import pl.mk.recipot.auth.services.JwtUserDetailsService;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
@@ -32,10 +35,9 @@ public class JwtFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		String header = request.getHeader(AUTH_HEADER);
 		String token = getToken(request.getHeader(AUTH_HEADER));
 		if (token == null) {
-			token = new JwtSecurityUtils().getToken(request);
+			token = new GetTokenFromCookie().execute(request);
 		}
 		String username = getUsernameFromToken(token);
 
@@ -48,7 +50,6 @@ public class JwtFilter extends OncePerRequestFilter {
 			return true;
 		}
 		System.out.println("Bearer String not found in token");
-		// throw new RuntimeException();
 		return false;
 	}
 
@@ -71,7 +72,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
 	private void authenticate(String username, HttpServletRequest request, String token) {
 		if (null != username && SecurityContextHolder.getContext().getAuthentication() == null) {
-			JwtUserDetails userDetails = userDetailsService.loadUserByUsername(username);
+			JwtUserDetailsDto userDetails = userDetailsService.loadUserByUsername(username);
 			if (tokenManager.validateJwtToken(token, userDetails)) {
 				UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
 						userDetails, null, userDetails.getAuthorities());
