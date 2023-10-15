@@ -38,7 +38,7 @@ export enum RecipeFilterContextType {
     ClearFilterForm = "clearFilterForm"
 };
 
-const RECIPES_PAGE_SIZE = 4;
+const RECIPES_PAGE_SIZE = 12;
 
 export const RecipeFilterContext = createContext<contextStateModel>({});
 

@@ -31,7 +31,7 @@ export enum RecipeCollectionListContextType {
     LoadRecipesPage = "loadRecipesPage"
 };
 
-const RECIPES_PAGE_SIZE = 4;
+const RECIPES_PAGE_SIZE = 12;
 
 export const RecipeCollectionListContext = createContext<contextStateModel>({});
 
