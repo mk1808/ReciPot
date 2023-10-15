@@ -21,5 +21,4 @@ public interface IFilesController {
 
 	@GetMapping("/{id}")
 	ResponseEntity<byte[]> getFile(@PathVariable UUID id);
-
 }

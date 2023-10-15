@@ -19,15 +19,15 @@ public class WhiteListUrls {
 				"/api/recipes/**", 
 				"/api/statistics/general", 
 				"/api/logout2",
-				"/assets/**"
+				"/assets/**",
+				"/api/files/**"
 			};
 	}
 	
 	public String[] returnPostUrls() {
 		return new String[] { 
 				"/api/recipes/search", 
-				"/api/auth/register",
-				"/api/files/**"
+				"/api/auth/register"
 			};
 	}
 
