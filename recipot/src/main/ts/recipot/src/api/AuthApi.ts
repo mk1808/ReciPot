@@ -21,7 +21,7 @@ function AuthApi() {
     }
 
     const logout = (onSuccess: (response: Response<any>) => any, onError: (response: Response<any>) => any) => {
-        restClient.get(`/logout2`, onSuccess, onError)
+        restClient.get(`${PREFIX}/logout`, onSuccess, onError)
     }
 
     return { login, register, changePassword, whoAmI, logout }
