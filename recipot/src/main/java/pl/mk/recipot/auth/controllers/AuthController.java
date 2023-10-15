@@ -3,7 +3,9 @@ package pl.mk.recipot.auth.controllers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import pl.mk.recipot.auth.services.IAuthService;
 import pl.mk.recipot.commons.dtos.ChangePasswordDto;
 import pl.mk.recipot.commons.dtos.Response;
@@ -36,6 +38,12 @@ public class AuthController implements IAuthController {
 	@Override
 	public ResponseEntity<Response<AppUser>> whoAmI() {
 		return new OkResponseFactory().createResponse(authService.getCurrentUser());
+	}
+
+	@Override
+	public ResponseEntity<Response<Void>> logout(HttpServletResponse response) {
+		response.addCookie(new Cookie("token", null));
+		return new OkMessageResponseFactory().createResponse("auth.success.loggedOut");
 	}
 
 }

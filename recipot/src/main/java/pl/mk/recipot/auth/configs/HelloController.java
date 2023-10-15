@@ -42,10 +42,4 @@ public class HelloController {
 	public ResponseEntity<Response<Void>> hello3() {
 		return new UnauthorizedResponseFactory().createResponse("unauth", "u dont have access");
 	}
-
-	@GetMapping("/api/logout2")
-	public ResponseEntity<Response<Void>> logout(HttpServletResponse response) {
-		response.addCookie(new Cookie("token", null));
-		return new OkMessageResponseFactory().createResponse("auth.success.loggedOut");
-	}
 }

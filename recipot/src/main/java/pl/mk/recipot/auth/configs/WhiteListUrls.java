@@ -18,7 +18,7 @@ public class WhiteListUrls {
 				"/api/privateNotes/**", 
 				"/api/recipes/**", 
 				"/api/statistics/general", 
-				"/api/logout2",
+				"/api/auth/logout",
 				"/assets/**",
 				"/api/files/**"
 			};
