@@ -26,6 +26,13 @@
             "ingredientExists": "Składnik istnieje"
         }
     },
+    "files": {
+        "success": {},
+        "error": {
+            "fileNotFound": "Nie znaleziono pliku",
+            "incorrectFile": "Nieprawidłowy format pliku"
+        }
+    },
     "notificationsM": {
         "error": {}
     },

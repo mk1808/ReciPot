@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import pl.mk.recipot.commons.models.File;
 
 @Repository
-public interface FileRepository extends JpaRepository<File, UUID> {
+public interface IFilesRepository extends JpaRepository<File, UUID> {
 
 }

@@ -26,7 +26,8 @@ public class WhiteListUrls {
 	public String[] returnPostUrls() {
 		return new String[] { 
 				"/api/recipes/search", 
-				"/api/auth/register"
+				"/api/auth/register",
+				"/api/files/**"
 			};
 	}
 
