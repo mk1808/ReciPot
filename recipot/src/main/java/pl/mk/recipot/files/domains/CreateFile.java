@@ -11,9 +11,8 @@ import pl.mk.recipot.commons.models.File;
 public class CreateFile {
 	public File execute(MultipartFile file) {
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-		File newFile;
 		try {
-			newFile = File.builder()
+			return File.builder()
 					.name(fileName)
 					.type(file.getContentType())
 					.data(file.getBytes())
@@ -21,6 +20,5 @@ public class CreateFile {
 		} catch (IOException e) {
 			throw new BadRequestException("files.error.incorrectFile");
 		}
-		return newFile;
 	}
 }

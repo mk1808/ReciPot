@@ -27,12 +27,12 @@
 		}
 	},
 	"files": {
-        "success": {},
-        "error": {
-            "fileNotFound": "File not found",
-            "incorrectFile": "Incorrect file format"
-        }
-    },
+		"success": {},
+		"error": {
+			"fileNotFound": "File not found",
+			"incorrectFile": "Incorrect file format"
+		}
+	},
 	"notificationsM": {
 		"error": {}
 	},

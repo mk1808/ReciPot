@@ -4,6 +4,8 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -30,6 +32,7 @@ public class File {
 	private String type;
 
 	@Lob
+	@JsonIgnore
 	private byte[] data;
 
 }
