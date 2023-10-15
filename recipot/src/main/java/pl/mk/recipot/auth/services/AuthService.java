@@ -3,13 +3,11 @@ package pl.mk.recipot.auth.services;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpServletResponse;
-import pl.mk.recipot.auth.configs.TokenManager;
 import pl.mk.recipot.auth.domains.CheckIfPasswordsDoNotMatch;
 import pl.mk.recipot.auth.domains.CheckIfUserExists;
 import pl.mk.recipot.auth.domains.CreateToken;
@@ -35,16 +33,16 @@ public class AuthService implements IAuthService {
 	private final PasswordEncoder passwordEncoder;
 	private final AuthenticationManager authenticationManager;
 	private final JwtUserDetailsService userDetailsService;
-	private final TokenManager tokenManager;
+	private final ITokenManagerService tokenManagerService;
 
 	public AuthService(IUsersFacade usersFacade, PasswordEncoder passwordEncoder,
-			AuthenticationManager authenticationManager, JwtUserDetailsService userDetailsService, TokenManager tokenManager) {
+			AuthenticationManager authenticationManager, JwtUserDetailsService userDetailsService, ITokenManagerService tokenManagerService) {
 		super();
 		this.usersFacade = usersFacade;
 		this.passwordEncoder = passwordEncoder;
 		this.authenticationManager = authenticationManager;
 		this.userDetailsService = userDetailsService;
-		this.tokenManager = tokenManager;
+		this.tokenManagerService = tokenManagerService;
 	}
 
 	@Override
@@ -79,7 +77,7 @@ public class AuthService implements IAuthService {
 	public JWTDto login(UserLoginDto userLogin, HttpServletResponse response) {
 		authenticate(userLogin);
 		JwtUserDetailsDto userDetails = userDetailsService.loadUserByUsername(userLogin.getUsername());
-		String jwtToken = tokenManager.generateJwtToken(userDetails); 
+		String jwtToken = tokenManagerService.generateJwtToken(userDetails); 
 		return new JWTDto(jwtToken);
 	}
 	
