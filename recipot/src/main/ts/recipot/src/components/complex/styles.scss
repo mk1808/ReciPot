@@ -47,6 +47,9 @@
         border: 4px solid v.$primary;
         box-shadow: 8px 0px 18px 0px v.$secondary;
         padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         .value {
             font-size: xx-large;
