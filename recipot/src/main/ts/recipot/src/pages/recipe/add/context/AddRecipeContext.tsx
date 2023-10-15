@@ -72,19 +72,19 @@ function AddRecipeContextProvider({
     function addRecipeReducer(fields: fieldsStateModel, action: ReducerActionProps): fieldsStateModel {
         switch (action.type) {
             case AddRecipeContextType.OnChange: {
-                return action.isIngredientOrStep ? onChangeComplexField({fields, action}) : getNewContextState({fields, action});
+                return action.isIngredientOrStep ? onChangeComplexField({ fields, action }) : getNewContextState({ fields, action });
             }
             case AddRecipeContextType.OnSubmit: {
                 formSave.current.onSubmit(fields);
                 return fields;
             }
             case AddRecipeContextType.OnAdd: {
-                const {elements, elementsValidity} = addComplexElemet({fields,action});
-                return getNewContextState({fields, action, elements, elementsValidity});
+                const { elements, elementsValidity } = addComplexElemet({ fields, action });
+                return getNewContextState({ fields, action, elements, elementsValidity });
             }
             case AddRecipeContextType.OnDelete: {
-                const {elements, elementsValidity} = removeComplexElement({fields,action});
-                return getNewContextState({fields, action, elements, elementsValidity});
+                const { elements, elementsValidity } = removeComplexElement({ fields, action });
+                return getNewContextState({ fields, action, elements, elementsValidity });
             }
             case AddRecipeContextType.OnRecipeLoaded: {
                 return fields;
@@ -109,16 +109,16 @@ function AddRecipeContextProvider({
     function saveImageFile(formValue: any) {
         nextAndLock(() => {
             if (formValue.imageFile) {
-                filesApi.saveFile(formValue.imageFile, response => onFileSaved(formValue, response), formSave.current.onError)
+                filesApi.saveFile(formValue.imageFile, saveFileResponse => onFileSaved(formValue, saveFileResponse), formSave.current.onError)
             } else {
                 saveOrEditRecipe(formValue);
             }
         })
     }
 
-    function onFileSaved(formValue: any, response: any) {
+    function onFileSaved(formValue: any, saveFileResponse: any) {
         const PREFIX = "/api/files/";
-        formValue.image = PREFIX + response.value.id;
+        formValue.image = PREFIX + saveFileResponse.value.id;
         saveOrEditRecipe(formValue);
     }
 
