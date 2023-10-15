@@ -127,7 +127,6 @@ function UpperLeftSide() {
             <MyFileInput
                 className="full-width"
                 label={formFields.formValue?.image ? t('p.changeImage') : t('p.image')}
-                required={!editedRecipe}
                 {...getAttributes("imageFile")}
                 onChange={onFileSelect}
             />
