@@ -11,13 +11,20 @@ import pl.mk.recipot.commons.models.Recipe;
 
 public class RecipeSpecificationBuilder {
 	private final List<SearchCriteriaDto> params;
+	private final List<SearchCriteriaDto> restrictionParams;
 
 	public RecipeSpecificationBuilder() {
 		this.params = new ArrayList<>();
+		this.restrictionParams = new ArrayList<>();
 	}
 
 	public final RecipeSpecificationBuilder with(String key, String operation, Object value) {
 		params.add(new SearchCriteriaDto(key, operation, value));
+		return this;
+	}
+
+	public final RecipeSpecificationBuilder withRestriction(String key, String operation, Object value) {
+		restrictionParams.add(new SearchCriteriaDto(key, operation, value));
 		return this;
 	}
 
@@ -27,6 +34,10 @@ public class RecipeSpecificationBuilder {
 	}
 
 	public Specification<Recipe> build() {
+		return buildRestrictionParameters().and(buildBasicParameters());
+	}
+
+	private Specification<Recipe> buildBasicParameters() {
 		if (params.size() == 0) {
 			return null;
 		}
@@ -35,9 +46,19 @@ public class RecipeSpecificationBuilder {
 		for (int idx = 1; idx < params.size(); idx++) {
 			SearchCriteriaDto criteria = params.get(idx);
 			result = SearchOperation.getDataOption(criteria.getDataOption()) == SearchOperation.ANY
-					? Specification.where(result).or(new RecipeSpecification(criteria))
-					: Specification.where(result).and(new RecipeSpecification(criteria));
+					? result.or(new RecipeSpecification(criteria))
+					: result.and(new RecipeSpecification(criteria));
 		}
 		return result;
 	}
+
+	private Specification<Recipe> buildRestrictionParameters() {
+		Specification<Recipe> result = new RecipeSpecification(restrictionParams.get(0));
+		for (int idx = 1; idx < restrictionParams.size(); idx++) {
+			SearchCriteriaDto criteria = restrictionParams.get(idx);
+			result = result.or(new RecipeSpecification(criteria));
+		}
+		return result;
+	}
+
 }
