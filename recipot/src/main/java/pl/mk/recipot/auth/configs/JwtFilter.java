@@ -21,7 +21,6 @@ import pl.mk.recipot.auth.services.ITokenManagerService;
 import pl.mk.recipot.auth.services.JwtUserDetailsService;
 
 @Component
-@Slf4j
 public class JwtFilter extends OncePerRequestFilter {
 
 

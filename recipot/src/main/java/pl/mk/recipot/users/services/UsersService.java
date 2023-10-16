@@ -2,11 +2,9 @@ package pl.mk.recipot.users.services;
 
 import java.util.UUID;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import pl.mk.recipot.auth.domains.CheckIfPasswordsDoNotMatch;
-import pl.mk.recipot.auth.domains.UpdateUserPassword;
 import pl.mk.recipot.auth.facades.IAuthFacade;
 import pl.mk.recipot.commons.dtos.ChangePasswordDto;
 import pl.mk.recipot.commons.enums.RoleType;
@@ -19,6 +17,7 @@ import pl.mk.recipot.users.domains.CheckIfUsersNotTheSame;
 import pl.mk.recipot.users.domains.CleanSensitiveDataInUser;
 import pl.mk.recipot.users.domains.GetIsNewUser;
 import pl.mk.recipot.users.domains.UpdateUser;
+import pl.mk.recipot.users.domains.UpdateUserPassword;
 import pl.mk.recipot.users.repositories.IRolesRepository;
 import pl.mk.recipot.users.repositories.IUsersRepository;
 
@@ -29,16 +28,14 @@ public class UsersService implements IUsersService, ICrudService<AppUser> {
 	private IRolesRepository rolesRepository;
 	private IRecipeCollectionsFacade recipeCollectionsFacade;
 	private IAuthFacade authFacade;
-	private final PasswordEncoder passwordEncoder;
 
 	public UsersService(IUsersRepository usersRepository, IRolesRepository rolesRepository, IAuthFacade authFacade,
-			IRecipeCollectionsFacade recipeCollectionsFacade, PasswordEncoder passwordEncoder) {
+			IRecipeCollectionsFacade recipeCollectionsFacade) {
 		super();
 		this.usersRepository = usersRepository;
 		this.rolesRepository = rolesRepository;
 		this.authFacade = authFacade;
 		this.recipeCollectionsFacade = recipeCollectionsFacade;
-		this.passwordEncoder = passwordEncoder;
 	}
 
 	@Override
@@ -70,7 +67,7 @@ public class UsersService implements IUsersService, ICrudService<AppUser> {
 		AppUser existingUser = get(changePasswordDto.userId);
 		new CheckIfUserDoesNotExists().execute(existingUser);
 		new CheckIfUsersNotTheSame().execute(authFacade.getCurrentUser(), existingUser);
-		AppUser updatedUser = new UpdateUserPassword().execute(existingUser, changePasswordDto, passwordEncoder);
+		AppUser updatedUser = new UpdateUserPassword().execute(existingUser, changePasswordDto, authFacade.getEncoder());
 		save(updatedUser);
 	}
 
