@@ -2,10 +2,13 @@ package pl.mk.recipot.users.services;
 
 import java.util.UUID;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import lombok.extern.slf4j.Slf4j;
+import pl.mk.recipot.auth.domains.CheckIfPasswordsDoNotMatch;
+import pl.mk.recipot.auth.domains.UpdateUserPassword;
 import pl.mk.recipot.auth.facades.IAuthFacade;
+import pl.mk.recipot.commons.dtos.ChangePasswordDto;
 import pl.mk.recipot.commons.enums.RoleType;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Role;
@@ -20,21 +23,22 @@ import pl.mk.recipot.users.repositories.IRolesRepository;
 import pl.mk.recipot.users.repositories.IUsersRepository;
 
 @Service
-@Slf4j
 public class UsersService implements IUsersService, ICrudService<AppUser> {
 
 	private IUsersRepository usersRepository;
 	private IRolesRepository rolesRepository;
 	private IRecipeCollectionsFacade recipeCollectionsFacade;
 	private IAuthFacade authFacade;
+	private final PasswordEncoder passwordEncoder;
 
 	public UsersService(IUsersRepository usersRepository, IRolesRepository rolesRepository, IAuthFacade authFacade,
-			IRecipeCollectionsFacade recipeCollectionsFacade) {
+			IRecipeCollectionsFacade recipeCollectionsFacade, PasswordEncoder passwordEncoder) {
 		super();
 		this.usersRepository = usersRepository;
 		this.rolesRepository = rolesRepository;
 		this.authFacade = authFacade;
 		this.recipeCollectionsFacade = recipeCollectionsFacade;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	@Override
@@ -58,6 +62,18 @@ public class UsersService implements IUsersService, ICrudService<AppUser> {
 		new CheckIfUserDoesNotExists().execute(oldUser);
 		return updateAndSaveUser(oldUser, appUser);
 	}
+	
+	@Override
+	public void changePassword(ChangePasswordDto changePasswordDto) {
+		new CheckIfPasswordsDoNotMatch().execute(changePasswordDto);
+
+		AppUser existingUser = get(changePasswordDto.userId);
+		new CheckIfUserDoesNotExists().execute(existingUser);
+		new CheckIfUsersNotTheSame().execute(authFacade.getCurrentUser(), existingUser);
+		AppUser updatedUser = new UpdateUserPassword().execute(existingUser, changePasswordDto, passwordEncoder);
+		save(updatedUser);
+	}
+
 
 	@Override
 	public AppUser get(UUID id) {
