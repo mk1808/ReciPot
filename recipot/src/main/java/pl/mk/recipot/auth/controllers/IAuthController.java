@@ -25,9 +25,6 @@ public interface IAuthController {
 	@PostMapping("/register")
 	AppUser register(@RequestBody @Valid UserRegisterDto userRegisterDto, HttpServletRequest request);
 
-	@PatchMapping("/changePassword")
-	ResponseEntity<Response<Void>> changePassword(@RequestBody @Valid ChangePasswordDto changePasswordDto);
-
 	@GetMapping("/whoAmI")
 	ResponseEntity<Response<AppUser>> whoAmI();
 	
