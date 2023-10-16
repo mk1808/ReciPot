@@ -17,6 +17,11 @@
             height: 3em;
         }
 
+        .card-title {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-wrap: nowrap;
+        }
     }
 
     .full-width {
