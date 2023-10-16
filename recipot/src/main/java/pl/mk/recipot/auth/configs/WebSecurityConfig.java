@@ -23,16 +23,13 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 public class WebSecurityConfig {
 
 	private JwtAuthenticationEntryPoint authenticationEntryPoint;
-	private UserDetailsService userDetailsService;
 	private HttpSecurityConfig httpSecurityConfig;
 	private WhiteListUrls whiteListUrls;
 
 	public WebSecurityConfig(JwtAuthenticationEntryPoint authenticationEntryPoint,
-			UserDetailsService userDetailsService, HttpSecurityConfig httpSecurityConfig, 
-			WhiteListUrls whiteListUrls) {
+			HttpSecurityConfig httpSecurityConfig, WhiteListUrls whiteListUrls) {
 		super();
 		this.authenticationEntryPoint = authenticationEntryPoint;
-		this.userDetailsService = userDetailsService;
 		this.httpSecurityConfig = httpSecurityConfig;
 		this.whiteListUrls = whiteListUrls;
 	}
