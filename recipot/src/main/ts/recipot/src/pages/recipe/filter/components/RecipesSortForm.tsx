@@ -17,7 +17,7 @@ function RecipesSortForm() {
     const recipesSortOptions = useMemo(() => getRecipesSortOptions(t), []);
 
     useEffect(() => {
-        onChange("recipesSort", recipesSortOptions[0].value)
+        onChange(recipesSortOptions[0].value, "recipesSort")
     }, []);
 
     function onSearch() {
@@ -26,7 +26,7 @@ function RecipesSortForm() {
         })
     };
 
-    function onChange(fieldName: string, value: any) {
+    function onChange(value: any, fieldName: string) {
         recipeFilterDispatchContext({
             type: RecipeFilterContextType.FilterFormChange,
             fieldName,
