@@ -90,7 +90,7 @@ public class RecipeCollectionsService implements IRecipeCollectionsService, ICru
 	}
 
 	@Override
-	public RecipeCollectionItem addItem(UUID collectionId, RecipeCollectionItem recipeCollectionItem) {
+	public synchronized RecipeCollectionItem addItem(UUID collectionId, RecipeCollectionItem recipeCollectionItem) {
 		AppUser user = authFacade.getCurrentUser();
 		RecipeCollection existingRecipeCollection = recipeCollectionsRepository.getById(collectionId);
 		new CheckIfCollectionNotFound().execute(existingRecipeCollection);
