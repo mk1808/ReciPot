@@ -13,7 +13,5 @@ public interface IAuthService {
 
 	AppUser getCurrentUser();
 
-	void changePassword(ChangePasswordDto changePasswordDto);
-
 	JWTDto login(UserLoginDto userLogin, HttpServletResponse response);
 }

@@ -62,16 +62,6 @@ public class AuthService implements IAuthService {
 		return ((JwtUserDetailsDto) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
 	}
 
-	@Override
-	public void changePassword(ChangePasswordDto changePasswordDto) {
-		new CheckIfPasswordsDoNotMatch().execute(changePasswordDto);
-
-		AppUser existingUser = usersFacade.getUserById(changePasswordDto.userId);
-		new CheckIfUserDoesNotExists().execute(existingUser);
-		new CheckIfUsersNotTheSame().execute(getCurrentUser(), existingUser);
-		AppUser updatedUser = new UpdateUserPassword().execute(existingUser, changePasswordDto, passwordEncoder);
-		usersFacade.save(updatedUser);
-	}
 
 	@Override
 	public JWTDto login(UserLoginDto userLogin, HttpServletResponse response) {
