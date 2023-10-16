@@ -1,6 +1,7 @@
 package pl.mk.recipot.auth.facades;
 
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,5 +27,10 @@ public class AuthFacade implements IAuthFacade {
 			log.warn("Exception during get current user: " + e.getMessage());
 			return null;
 		}
+	}
+
+	@Override
+	public PasswordEncoder getEncoder() {
+		return authService.getEncoder();
 	}
 }

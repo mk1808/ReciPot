@@ -1,5 +1,7 @@
 package pl.mk.recipot.auth.services;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import jakarta.servlet.http.HttpServletResponse;
 import pl.mk.recipot.commons.dtos.ChangePasswordDto;
 import pl.mk.recipot.commons.dtos.JWTDto;
@@ -14,4 +16,6 @@ public interface IAuthService {
 	AppUser getCurrentUser();
 
 	JWTDto login(UserLoginDto userLogin, HttpServletResponse response);
+
+	PasswordEncoder getEncoder();
 }

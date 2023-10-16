@@ -7,7 +7,6 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import pl.mk.recipot.auth.services.IAuthService;
-import pl.mk.recipot.commons.dtos.ChangePasswordDto;
 import pl.mk.recipot.commons.dtos.JWTDto;
 import pl.mk.recipot.commons.dtos.Response;
 import pl.mk.recipot.commons.dtos.UserLoginDto;
