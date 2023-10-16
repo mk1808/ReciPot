@@ -32,6 +32,11 @@ function UpperLeftSide() {
         })
     }
 
+    function onFileSelect(file: any) {
+        onChange(file, "imageFile");
+        onChange(URL.createObjectURL(file), "image");
+    }
+
     function checkInputValidity(fieldValue: any, fieldName: string) {
         switch (fieldName) {
             case 'name': {
@@ -74,14 +79,14 @@ function UpperLeftSide() {
         return (
             <div className="text-center delete-button">
                 <MyButton.OutlineDanger onClick={() => setShowModalDelete(true)}>
-                    <FaTrashCan /> 
+                    <FaTrashCan />
                     {t('p.deleteRecipeButton')}
                 </MyButton.OutlineDanger>
                 {renderModal()}
             </div>
         )
     }
-    
+
     function renderNameInput() {
         return (
             <MyInput
@@ -122,8 +127,8 @@ function UpperLeftSide() {
             <MyFileInput
                 className="full-width"
                 label={formFields.formValue?.image ? t('p.changeImage') : t('p.image')}
-                required={!editedRecipe}
                 {...getAttributes("imageFile")}
+                onChange={onFileSelect}
             />
         )
     }

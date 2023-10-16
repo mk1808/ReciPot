@@ -5,6 +5,17 @@ $background-beige:#fdf7f1;
 $primary:#8fad88;
 $secondary:#615148;
 
+.btn-primary {
+    --bs-btn-color: #fff;
+}
+
+.btn-primary,
+.btn-outline-primary {
+    --bs-btn-hover-color: #fff;
+    --bs-btn-active-color: #fff;    
+    --bs-btn-disabled-color: #fff;
+}
+
 
 $element-hover-background-color: #e9ecef;
 $element-active-background-color: #e9ecef;
