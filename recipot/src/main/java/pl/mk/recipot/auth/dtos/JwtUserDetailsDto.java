@@ -1,4 +1,4 @@
-package pl.mk.recipot.auth.configs;
+package pl.mk.recipot.auth.dtos;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,11 +12,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Role;
 
-public class JwtUserDetails implements UserDetails {
+public class JwtUserDetailsDto implements UserDetails {
 
 	private AppUser user;
 
-	public JwtUserDetails(AppUser user) {
+	public JwtUserDetailsDto(AppUser user) {
 		super();
 		this.user = user;
 	}
