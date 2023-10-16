@@ -34,6 +34,15 @@ function MyFileInput({
         checkValidity(inputRef.current, isValid);
     }, [isValid])
 
+    useEffect(() => {
+        inputRef.current?.addEventListener('paste', async (e) => {
+            e.preventDefault();
+            if (e?.clipboardData?.files.length) {
+                onChange(e.clipboardData?.files[0]);
+            }
+        });
+    }, [])
+
     function onChangeCallback(event: any) {
         const file = event.target.files?.length > 0 ? event.target.files[0] : null;
         onChange(file);
