@@ -58,9 +58,9 @@ public class TokenManagerService implements ITokenManagerService {
 
 	@Override
 	public String get(HttpServletRequest request) {
-		String token = new GetTokenFromHeader().execute(request.getHeader(AUTH_HEADER), log);
+		String token = new GetTokenFromHeader().execute(request.getHeader(AUTH_HEADER));
 		if (token == null) {
-			log.warn("Bearer String not found in token");
+			log.debug("Bearer String not found in token");
 			return new GetTokenFromCookie().execute(request);
 		}
 

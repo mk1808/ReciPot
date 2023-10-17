@@ -1,4 +1,4 @@
-package pl.mk.recipot.auth.domains;
+package pl.mk.recipot.users.domains;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 

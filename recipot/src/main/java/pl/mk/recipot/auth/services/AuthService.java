@@ -11,10 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import pl.mk.recipot.auth.domains.CheckIfPasswordsDoNotMatch;
 import pl.mk.recipot.auth.domains.CheckIfUserExists;
 import pl.mk.recipot.auth.domains.CreateUser;
-import pl.mk.recipot.auth.domains.UpdateUserPassword;
 import pl.mk.recipot.auth.dtos.JwtUserDetailsDto;
-import pl.mk.recipot.commons.domains.CheckIfUserDoesNotExists;
-import pl.mk.recipot.commons.dtos.ChangePasswordDto;
 import pl.mk.recipot.commons.dtos.JWTDto;
 import pl.mk.recipot.commons.dtos.UserLoginDto;
 import pl.mk.recipot.commons.dtos.UserRegisterDto;
@@ -22,7 +19,6 @@ import pl.mk.recipot.commons.enums.RoleType;
 import pl.mk.recipot.commons.exceptions.UnauthorizedException;
 import pl.mk.recipot.commons.models.AppUser;
 import pl.mk.recipot.commons.models.Role;
-import pl.mk.recipot.users.domains.CheckIfUsersNotTheSame;
 import pl.mk.recipot.users.facades.IUsersFacade;
 
 @Service
@@ -79,5 +75,10 @@ public class AuthService implements IAuthService {
 		} catch (BadCredentialsException e) {
 			throw new UnauthorizedException("auth.error.loginNotCorrect");
 		}
+	}
+
+	@Override
+	public PasswordEncoder getEncoder() {
+		return passwordEncoder;
 	}
 }
