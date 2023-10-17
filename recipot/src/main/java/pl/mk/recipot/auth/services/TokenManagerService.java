@@ -71,7 +71,7 @@ public class TokenManagerService implements ITokenManagerService {
 	public String getUsername(String token) {
 		if (token != null) {
 			try {
-				new GetUsernameFromToken().execute(token, jwtSecret);
+				return new GetUsernameFromToken().execute(token, jwtSecret);
 			} catch (IllegalArgumentException e) {
 				log.error("Unable to get JWT Token");
 			} catch (ExpiredJwtException e) {
