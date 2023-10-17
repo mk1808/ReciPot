@@ -11,6 +11,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Subquery;
 import pl.mk.recipot.commons.dtos.SearchCriteriaDto;
 import pl.mk.recipot.commons.enums.RecipeAccessType;
 import pl.mk.recipot.commons.enums.RecipeAmountOfDishes;
@@ -35,7 +36,6 @@ public class RecipeSpecification implements Specification<Recipe> {
 
 	@Override
 	public Predicate toPredicate(Root<Recipe> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-		query.distinct(true);
 		String strToSearch = searchCriteria.getValue().toString().toLowerCase();
 
 		switch (Objects.requireNonNull(SearchOperation.getSimpleOperation(searchCriteria.getOperation()))) {
@@ -140,12 +140,17 @@ public class RecipeSpecification implements Specification<Recipe> {
 				return criteriaBuilder.and(criteriaBuilder.equal(root.get("id"), riRoot.get("recipe").get("id")),
 						riRoot.get("ingredient").get("id").in(getUuidsList()));
 			}
-			if (searchCriteria.getFilterKey().equals("shared")) {
-				Root<SharedRecipe> srRoot = query.from(SharedRecipe.class);
-				return criteriaBuilder.and(
-					criteriaBuilder.equal(srRoot.get("recipe"), root),
-					criteriaBuilder.equal(srRoot.join("receiverUser").get("login"), searchCriteria.getValue())
+			if (searchCriteria.getFilterKey().equals("shared")) {				
+				Subquery<SharedRecipe> sharedRecipeSubquery = query.subquery(SharedRecipe.class);
+				Root<SharedRecipe> srRoot = sharedRecipeSubquery.from(SharedRecipe.class);
+				sharedRecipeSubquery.where(
+					criteriaBuilder.and(
+						criteriaBuilder.equal(srRoot.join("recipe"), root),
+						criteriaBuilder.equal(srRoot.join("receiverUser").get("login"), searchCriteria.getValue())
+					)						
 				);
+				sharedRecipeSubquery.select(srRoot);
+				return criteriaBuilder.exists(sharedRecipeSubquery);
 			}
 
 			return null;
