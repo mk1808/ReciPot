@@ -39,7 +39,7 @@ function Login() {
     }
 
     return (
-        <Stack className="justify-content-center align-items-stretch py-5 login-page full-height-page" direction="horizontal">
+        <Stack className="justify-content-center align-items-stretch py-5 login-page main" direction="horizontal">
             <div className="p-4 mb-2 basic-container-border">
                 <MyHeader title={t('p.loginHeader')} />
                 {renderForm()}

@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 
 @EnableWebSecurity
@@ -63,14 +64,17 @@ public class WebSecurityConfig {
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(
 				authz -> authz
+				.requestMatchers(HttpMethod.GET, "/**").permitAll()
+				.requestMatchers(HttpMethod.GET, "/api/**").authenticated()
 				.requestMatchers(HttpMethod.GET, whiteListUrls.returnGetUrls()).permitAll()
 				.requestMatchers(HttpMethod.POST, whiteListUrls.returnPostUrls()).permitAll()
-				.anyRequest().authenticated())
-				.csrf(csrf -> csrf.disable()).cors(cors -> cors.disable())
-				.exceptionHandling(
-						exceptionHandling -> exceptionHandling.authenticationEntryPoint(authenticationEntryPoint))
-				.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.apply(httpSecurityConfig);
+				.anyRequest().authenticated()
+			)
+			.csrf(csrf -> csrf.disable()).cors(cors -> cors.disable())
+			.exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(authenticationEntryPoint))
+			.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+			.addFilterAfter(new StaticResourcesFilter(), BasicAuthenticationFilter.class)
+			.apply(httpSecurityConfig);
 
 		return http.build();
 	}

@@ -37,7 +37,9 @@ public class AuthController implements IAuthController {
 
 	@Override
 	public ResponseEntity<Response<Void>> logout(HttpServletResponse response) {
-		response.addCookie(new Cookie("token", null));
+		Cookie jwtCookie = new Cookie("token", null);
+		jwtCookie.setPath("/");
+		response.addCookie(jwtCookie);
 		return new OkMessageResponseFactory().createResponse("auth.success.loggedOut");
 	}
 
@@ -47,6 +49,7 @@ public class AuthController implements IAuthController {
 		JWTDto jwt = authService.login(userLogin, response);
 		Cookie jwtCookie = new Cookie("token", jwt.token);
 		jwtCookie.setMaxAge(600000);
+		jwtCookie.setPath("/");
 		response.addCookie(jwtCookie);
 		return new OkResponseFactory().createResponse(jwt);
 	}
